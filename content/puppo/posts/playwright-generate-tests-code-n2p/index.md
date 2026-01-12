@@ -8,8 +8,8 @@ description: "Hi there, today you will learn how to generate the code for your t
 originalLink: "https://blog.delpuppo.net/playwright-generate-tests-code",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 4
 }
 ---
 

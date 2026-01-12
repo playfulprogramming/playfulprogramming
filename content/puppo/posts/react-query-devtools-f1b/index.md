@@ -7,8 +7,8 @@ description: "Hey Folks,  In this post, you'll learn how to debug and check what
 originalLink: "https://blog.delpuppo.net/react-query-devtools",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 4
 }
 ---
 

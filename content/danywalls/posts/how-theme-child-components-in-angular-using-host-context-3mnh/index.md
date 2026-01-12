@@ -8,8 +8,8 @@ description: "When we create a component, you can reuse it in some places, and h
 originalLink: "https://www.danywalls.com/post?slug=How_theme_child_components_in_Angular_using_host_context&token=2StXtWTte2C0AjxFAfSc9H",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13955",
-order: 1
+collection: "styling angular apps",
+order: 2
 }
 ---
 

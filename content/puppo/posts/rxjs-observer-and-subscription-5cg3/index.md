@@ -8,8 +8,8 @@ description: "Welcome back guys, today the topics of the article are Observers a
 originalLink: "https://dev.to/this-is-learning/rxjs-observer-and-subscription-5cg3",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 2
 }
 ---
 

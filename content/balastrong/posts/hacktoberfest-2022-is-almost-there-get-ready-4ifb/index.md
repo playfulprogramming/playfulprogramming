@@ -8,7 +8,7 @@ description: "September is almost over and Hacktoberfest is to begin soon!  But 
 originalLink: "https://leonardomontini.dev/hacktoberfest-starter-guide/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24591",
+collection: "Hacktoberfest",
 order: 1
 }
 ---

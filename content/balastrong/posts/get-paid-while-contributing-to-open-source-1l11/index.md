@@ -8,8 +8,8 @@ description: "What if I tell you that you get paid in real money - with Open Sou
 originalLink: "https://leonardomontini.dev/make-money-from-open-source/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 4
 }
 ---
 

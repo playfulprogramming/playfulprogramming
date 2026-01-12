@@ -8,8 +8,8 @@ description: "Why do you need to move commits between branches? Let's imagine th
 originalLink: "https://leonardomontini.dev/git-move-commits-between-branches/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21372",
-order: 1
+collection: "git better - Improve your git skills",
+order: 4
 }
 ---
 

@@ -8,8 +8,8 @@ description: "Surprising to some, calling TestBed.compileComponents is unnecessa
 originalLink: "https://dev.to/this-is-angular/simplifying-angular-testbed-setup-by-converting-to-synchronous-test-hooks-19cl",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15016",
-order: 1
+collection: "Configuring the Angular testbed",
+order: 2
 }
 ---
 

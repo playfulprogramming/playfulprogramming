@@ -7,8 +7,8 @@ description: "Introduction   JavaScript's memory management can be tricky, espec
 originalLink: "https://blog.delpuppo.net/javascript-finalizationregistry-unraveled-memory-management-magic-explained",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24709",
-order: 1
+collection: "The JavaScript you don't know",
+order: 6
 }
 ---
 

@@ -8,8 +8,8 @@ description: "Hacktoberfest is starting tomorrow!! Are you ready??  In case you'
 originalLink: "https://leonardomontini.dev/basic-git-commands-for-open-source/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24591",
-order: 1
+collection: "Hacktoberfest",
+order: 3
 }
 ---
 

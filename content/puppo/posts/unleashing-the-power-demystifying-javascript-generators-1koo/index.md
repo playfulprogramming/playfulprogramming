@@ -8,8 +8,8 @@ description: "Welcome to this blog post, where we're diving into the fascinating
 originalLink: "https://blog.delpuppo.net/unleashing-the-power-demystifying-javascript-generators",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24349",
-order: 1
+collection: "Javascript Iterators & Generators",
+order: 2
 }
 ---
 

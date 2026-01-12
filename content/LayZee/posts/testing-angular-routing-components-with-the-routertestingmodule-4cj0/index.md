@@ -8,7 +8,7 @@ description: "Learn how to implement shallow and integrated routing component te
 originalLink: "https://dev.to/this-is-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21775",
+collection: "Angular router testing",
 order: 1
 }
 ---

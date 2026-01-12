@@ -8,7 +8,7 @@ description: "Hi Guys, Today I want to start a little series about Reactive Prog
 originalLink: "https://dev.to/this-is-learning/rxjs-observable-597e",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
+collection: "RxJS - Getting Started",
 order: 1
 }
 ---

@@ -8,8 +8,8 @@ description: "Contributing to Open Source projects that are hosted on GitHub has
 originalLink: "https://leonardomontini.dev/open-pull-request-github-desktop/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 6
 }
 ---
 

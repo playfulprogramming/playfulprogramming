@@ -7,8 +7,8 @@ description: "Typescript 4.5 was just released and one of the features that stoo
 originalLink: "https://mainawycliffe.dev/blog/template-string-types-as-discriminants/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14315",
-order: 1
+collection: "a-byte-of-typescript",
+order: 5
 }
 ---
 

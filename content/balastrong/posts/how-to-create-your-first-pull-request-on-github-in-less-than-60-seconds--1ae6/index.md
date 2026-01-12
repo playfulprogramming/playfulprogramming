@@ -8,8 +8,8 @@ description: "Intro   Let's see the steps you need from zero to creating your fi
 originalLink: "https://leonardomontini.dev/first-pull-request/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19914",
-order: 1
+collection: "Shorts",
+order: 4
 }
 ---
 

@@ -7,8 +7,8 @@ description: "Hi Guys 👋 welcome back. Finally, today it's time to create our 
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-create-db-3e8n",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 4
 }
 ---
 

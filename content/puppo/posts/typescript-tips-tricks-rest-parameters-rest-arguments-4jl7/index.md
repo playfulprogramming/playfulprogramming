@@ -8,8 +8,8 @@ description: "Hi guy and welcome back :) Today I'll talk about the Rest Paramete
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-rest-parameters-rest-arguments-4jl7",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 21
 }
 ---
 

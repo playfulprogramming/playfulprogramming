@@ -57,7 +57,7 @@ And since you might be familiar with this story, I'll share with you my **learni
 5. ⬜ [Testing permissions with OpenFGA CLI](#testing-permissions-with-openfga-cli)
 6. ⬜ [Adoption Challenges and Strategies](#adoption-challenges-and-strategies)
 
-## Why OpenFGA \[▓░░░░░░░] {#why-openfga}
+## <a id="why-openfga"></a> Why OpenFGA \[▓░░░░░░░]
 
 Before I grab your attention and your brain 🧠 with the ReBAC concepts and how OpenFGA implements them, let me explain why I chose OpenFGA over other solutions.
 
@@ -205,7 +205,7 @@ async function checkCatSittingUpdatePermission(
 
 Does it need a lot of explanation? The OpenFGA version is objectively cleaner, more maintainable, and scales better as your authorization logic grows.
 
-## ReBAC and OpenFGA concepts \[▓▓▓░░░░] {#rebac-and-openfga-concepts}
+## <a id="rebac-and-openfga-concepts"></a> ReBAC and OpenFGA concepts \[▓▓▓░░░░]
 
 I'll walk you through ReBAC using PurrfectSitter ©, a cat sitting app where owners find sitters. Real problems, real solutions.
 As trivial as it sounds, this example shows:
@@ -399,7 +399,7 @@ Before moving on, make sure you can answer:
 
 {% endcollapsible %}
 
-## OpenFGA in Action \[▓▓▓░░░░] {#openfga-in-action}
+## <a id="openfga-in-action"></a> OpenFGA in Action \[▓▓▓░░░░]
 
 Let's test our model with real scenarios. I use the OpenFGA CLI to initialize the authorization model, create relation tuples, check the permissions and run some querie but you can use any [other client SDK](https://openfga.dev/docs/getting-started/install-sdk).
 
@@ -415,7 +415,7 @@ It will provide you a ready-to-use environment with all dependencies installed a
 
 ### Setup OpenFGA
 
-#### 1. Creating a Store and a Model {#creating-a-store-and-a-model}
+#### <a id="creating-a-store-and-a-model"></a> 1. Creating a Store and a Model
 
 First, create a store:
 
@@ -441,7 +441,7 @@ fga model write --model-file purrfect-sitter-model.fga --store-id ${FGA_STORE_ID
 export FGA_MODEL_ID=purrfect-sitter-model.fga
 ``` -->
 
-#### 2. Creating Basic Relationships {#create-basic-relationships}
+#### <a id="create-basic-relationships"></a> 2. Creating Basic Relationships
 
 Bob owns Romeo, Anne sits for him. Simple.
 
@@ -464,7 +464,7 @@ fga query check user:anne can_manage cat:romeo
 # No (false)
 ``` -->
 
-#### 3. Admin Powers {#create-admins}
+#### <a id="create-admins"></a> 3. Admin Powers
 
 Jenny becomes a system admin who can manage any cat — traditional RBAC within ReBAC.
 
@@ -482,7 +482,7 @@ fga query check user:jenny can_manage cat:romeo
 # Yes (true)
 ``` -->
 
-#### 4. Time Magic {#time-based-conditions}
+#### <a id="time-based-conditions"></a> 4. Time Magic
 
 Anne's permissions activate and deactivate automatically based on time. No cron jobs, no cleanup code — the authorization system handles it.
 
@@ -518,7 +518,7 @@ fga query list-objects user:bob owner cat_sitting
 # ["cat_sitting:1"]
 ``` -->
 
-#### 5. Status-Driven Access {#state-based-conditions}
+#### <a id="state-based-conditions"></a> 5. Status-Driven Access
 
 Reviews only make sense after sitting ends. OpenFGA enforces this business rule automatically, ABAC style.
 
@@ -538,7 +538,7 @@ fga query check user:bob can_review cat_sitting:1 --context='{"cat_sitting_attri
 # Yes (true)
 ``` -->
 
-#### 6. Creating and Checking Review Permissions {#check-permissions-and-query-relations}
+#### <a id="check-permissions-and-query-relations"></a> 6. Creating and Checking Review Permissions
 
 Create a review and check who can edit or delete it. OpenFGA's query language shines here, allowing you to check permissions and also list objects a user can interact with.
 
@@ -568,7 +568,7 @@ fga query list-objects user:bob author review
 # ["review:1"]
 ``` -->
 
-#### 7. Making the Review Public {#making-an-object-public}
+#### <a id="making-an-object-public"></a> 7. Making the Review Public
 
 Control visibility using wildcards.
 
@@ -592,7 +592,7 @@ I find it a great way to discover and understand relationships in your model and
 
 > 💡 *If you are using Codespaces, just open `http://localhost:8082/playground` in your browser.*
 
-## Testing permissions with OpenFGA CLI \[▓▓▓▓░░░] {#testing-permissions-with-openfga-cli}
+## <a id="testing-permissions-with-openfga-cli"></a> Testing permissions with OpenFGA CLI \[▓▓▓▓░░░]
 
 Another one of OpenFGA's strengths, is its built-in testing capabilities. The CLI provides a declarative way to test authorization models without writing application code.
 
@@ -831,7 +831,7 @@ Have you read carefully the previous sections? If so, you should be able to answ
 
 {% endcollapsible %}
 
-## Adoption Challenges and Strategies \[▓▓▓▓▓▓░] {#adoption-challenges-and-strategies}
+## <a id="adoption-challenges-and-strategies"></a> Adoption Challenges and Strategies \[▓▓▓▓▓▓░]
 
 As good as this tool is, adopting OpenFGA in existing systems presents challenges.
 
@@ -895,7 +895,7 @@ For large organizations:
 - Use modular models for independent team control
 - Leverage access control for team-specific credentials
 
-## Your Next Move \[▓▓▓▓▓▓▓] {#your-next-move}
+## <a id="your-next-move"></a> Your Next Move \[▓▓▓▓▓▓▓]
 
 Complex policies doesn't have to mean complex code. OpenFGA's ReBAC model simplifies permissions into relationships, making your authorization logic more maintainable and scalable.
 

@@ -7,8 +7,8 @@ description: "How we define our types in Typescript impacts how effective typesc
 originalLink: "https://mainawycliffe.dev/blog/better-types-using-discriminated-types-in-typescript",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14315",
-order: 1
+collection: "a-byte-of-typescript",
+order: 4
 }
 ---
 

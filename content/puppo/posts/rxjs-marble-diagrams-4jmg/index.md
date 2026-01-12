@@ -7,8 +7,8 @@ description: "Hi guy, before continuing with the operators, today I want to expl
 originalLink: "https://dev.to/this-is-learning/rxjs-marble-diagrams-4jmg",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 4
 }
 ---
 

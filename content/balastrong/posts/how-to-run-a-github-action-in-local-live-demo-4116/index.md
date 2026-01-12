@@ -8,7 +8,7 @@ description: "GitHub Actions are so cool, you can automate your workflow for fre
 originalLink: "https://leonardomontini.dev/run-github-action-in-local/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21246",
+collection: "GitHub Actions",
 order: 1
 }
 ---

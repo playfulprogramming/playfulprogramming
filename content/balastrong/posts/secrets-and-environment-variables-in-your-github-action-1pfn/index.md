@@ -7,8 +7,8 @@ description: "If you need to use some secret values in your pipeline, for exampl
 originalLink: "https://leonardomontini.dev/github-actions-secrets-variables/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21246",
-order: 1
+collection: "GitHub Actions",
+order: 5
 }
 ---
 

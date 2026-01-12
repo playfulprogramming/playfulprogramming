@@ -7,8 +7,8 @@ description: "Most of you probably have heard of Animate.css. It is an open-sour
 originalLink: "https://williamjuan.dev/blog/animate-your-angular-app-using-animate-css",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14719",
-order: 1
+collection: "Animations in Angular",
+order: 2
 }
 ---
 

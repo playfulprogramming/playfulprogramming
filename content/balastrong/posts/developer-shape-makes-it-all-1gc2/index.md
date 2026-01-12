@@ -7,8 +7,8 @@ description: "Since a couple of days I’m seeing this screenshot everywhere on 
 originalLink: "https://leonardomontini.dev/developer-shape-i-t-pi",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 12
 }
 ---
 

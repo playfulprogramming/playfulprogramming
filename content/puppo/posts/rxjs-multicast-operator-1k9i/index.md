@@ -7,8 +7,8 @@ description: "Hi Folk 👋, in the previous articles we've seen that when we sub
 originalLink: "https://dev.to/this-is-learning/rxjs-multicast-operator-1k9i",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 12
 }
 ---
 

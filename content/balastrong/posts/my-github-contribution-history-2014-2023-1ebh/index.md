@@ -8,7 +8,7 @@ description: "Green squares on GitHub aren't just a mere activity indicator. Mov
 originalLink: "https://leonardomontini.dev/github-contribution-history/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22616",
+collection: "My Dev Journey",
 order: 1
 }
 ---

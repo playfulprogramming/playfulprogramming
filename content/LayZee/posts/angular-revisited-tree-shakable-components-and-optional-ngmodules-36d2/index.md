@@ -8,7 +8,7 @@ description: "NgModule is arguably one of the most confusing Angular concepts.",
 originalLink: "https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19509",
+collection: "Standalone Angular applications",
 order: 1
 }
 ---

@@ -8,8 +8,8 @@ description: "Hey Folks,  Today it's time to learn how you can abort an ongoing 
 originalLink: "https://blog.delpuppo.net/react-query-abort-request",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 10
 }
 ---
 

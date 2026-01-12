@@ -7,8 +7,8 @@ description: "There's nothing wrong in writing plain text in your HTML/JSX code,
 originalLink: "https://leonardomontini.dev/localization",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 15
 }
 ---
 

@@ -8,7 +8,7 @@ description: "In the spirit of my last few articles, where we have looked into T
 originalLink: "https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14315",
+collection: "a-byte-of-typescript",
 order: 1
 }
 ---

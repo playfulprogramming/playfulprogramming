@@ -8,8 +8,8 @@ description: "Learn how to stub the ActivatedRoute for shallow routed component 
 originalLink: "https://dev.to/this-is-angular/testing-routed-angular-components-with-the-routertestingmodule-1791",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21775",
-order: 1
+collection: "Angular router testing",
+order: 2
 }
 ---
 

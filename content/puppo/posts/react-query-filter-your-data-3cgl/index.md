@@ -7,8 +7,8 @@ description: "Hey folks, Did you know that you can filter your data in react que
 originalLink: "https://blog.delpuppo.net/react-query-filter-your-data",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 6
 }
 ---
 

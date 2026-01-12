@@ -8,8 +8,8 @@ description: "The future is now, old man. Standalone Angular applications are no
 originalLink: "https://dev.to/this-is-angular/angular-revisited-standalone-angular-applications-the-replacement-for-ngmodules-238m",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19509",
-order: 1
+collection: "Standalone Angular applications",
+order: 3
 }
 ---
 

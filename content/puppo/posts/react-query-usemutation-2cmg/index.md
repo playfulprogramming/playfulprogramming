@@ -8,8 +8,8 @@ description: "Hey Folks, It's time to talk about the second core concept in Reac
 originalLink: "https://blog.delpuppo.net/react-query-usemutation",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 2
 }
 ---
 

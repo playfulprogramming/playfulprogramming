@@ -7,8 +7,8 @@ description: "Hello Folks 👋  and welcome back to this series, today it's time
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-create-table-3911",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 3
 }
 ---
 

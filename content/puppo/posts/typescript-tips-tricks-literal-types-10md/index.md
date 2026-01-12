@@ -8,8 +8,8 @@ description: "Welcome back! Today I show you the Literal Types.  This feature pe
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-literal-types-10md",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 2
 }
 ---
 

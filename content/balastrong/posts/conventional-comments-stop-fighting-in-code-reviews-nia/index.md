@@ -8,8 +8,8 @@ description: "I’m sure you’ve heard about conventional commits, but what abo
 originalLink: "https://leonardomontini.dev/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22139",
-order: 1
+collection: "Mastering GitHub",
+order: 7
 }
 ---
 

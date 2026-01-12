@@ -8,8 +8,8 @@ description: "What are you going to learn in this post?   In this post, you will
 originalLink: "https://blog.delpuppo.net/playwright-how-to-write-tests",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 2
 }
 ---
 

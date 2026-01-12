@@ -8,8 +8,8 @@ description: "Classes and methods might get really long, making you lose context
 originalLink: "https://leonardomontini.dev/sticky-scroll-vscode/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19914",
-order: 1
+collection: "Shorts",
+order: 5
 }
 ---
 

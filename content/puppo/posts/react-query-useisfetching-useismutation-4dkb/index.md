@@ -7,8 +7,8 @@ description: "Hey folks,  Today it is time to talk about two hooks exposed by re
 originalLink: "https://blog.delpuppo.net/react-query-useisfetching-useismutation",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 3
 }
 ---
 

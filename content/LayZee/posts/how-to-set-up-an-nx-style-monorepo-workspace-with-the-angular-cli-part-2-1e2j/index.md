@@ -8,8 +8,8 @@ description: "In Part 2 of this tutorial, we'll set up our custom generate proje
 originalLink: "https://dev.to/this-is-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-2-1e2j",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14674",
-order: 1
+collection: "How to set up an Nx-style monorepo workspace with the Angular CLI",
+order: 2
 }
 ---
 

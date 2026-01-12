@@ -7,8 +7,8 @@ description: "GitHub just announced Copilot Workspace a new integrated AI featur
 originalLink: "https://leonardomontini.dev/copilot-workspace/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "27226",
-order: 1
+collection: "GitHub Copilot",
+order: 6
 }
 ---
 

@@ -7,8 +7,8 @@ description: "Welcome back Guys,  Today we'll start with the Filtering Operators
 originalLink: "https://dev.to/this-is-learning/rxjs-filtering-operators-pe1",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 6
 }
 ---
 

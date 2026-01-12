@@ -8,8 +8,8 @@ description: "Hey Folks,  Today I'll speak about parallelism and sharding with P
 originalLink: "https://blog.delpuppo.net/playwright-parallelism-and-sharding",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 10
 }
 ---
 

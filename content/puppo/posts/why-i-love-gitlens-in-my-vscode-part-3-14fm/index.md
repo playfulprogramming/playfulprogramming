@@ -8,8 +8,8 @@ description: "One of the processes I typically do in my daily work is interactiv
 originalLink: "https://blog.delpuppo.net/why-i-love-gitlens-in-my-vscode-interactive-rebase",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21836",
-order: 1
+collection: "GitLens",
+order: 3
 }
 ---
 

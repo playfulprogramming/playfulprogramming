@@ -7,8 +7,8 @@ description: "Having multiple themes is a common request on (web) applications n
 originalLink: "https://leonardomontini.dev/tanstack-start-theme/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 23
 }
 ---
 

@@ -7,8 +7,8 @@ description: "Hello Folks 👋 Today it's time to see how we can execute our own
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-execute-your-own-queries-4olp",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 14
 }
 ---
 

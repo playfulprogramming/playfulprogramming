@@ -8,7 +8,7 @@ description: "In the last period, in the frontend ecosystem, a new e2e tool has 
 originalLink: "https://blog.delpuppo.net/playwright-lets-start",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
+collection: "Playwright",
 order: 1
 }
 ---

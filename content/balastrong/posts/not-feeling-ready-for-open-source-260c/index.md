@@ -8,8 +8,8 @@ description: "One of the major blockers for newcomers to Open Source is that unp
 originalLink: "https://leonardomontini.dev/feeling-ready-for-open-source/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 5
 }
 ---
 

@@ -8,8 +8,8 @@ description: "In Part 4 of this tutorial, we create the check-in data access and
 originalLink: "https://dev.to/this-is-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-4-2coa",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14674",
-order: 1
+collection: "How to set up an Nx-style monorepo workspace with the Angular CLI",
+order: 4
 }
 ---
 

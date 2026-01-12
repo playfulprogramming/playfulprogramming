@@ -8,8 +8,8 @@ description: "With recent updates to the Angular framework, it is now recommende
 originalLink: "https://williamjuan.dev/blog/bring-your-angular-app-to-life-with-animejs",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14719",
-order: 1
+collection: "Animations in Angular",
+order: 6
 }
 ---
 

@@ -7,8 +7,8 @@ description: "Setting up an Angular 12 workspace with Nx. Also setting up a GitH
 originalLink: "https://dev.to/this-is-learning/setting-up-an-angular-12-workspace-with-nx-and-github-actions-32l5",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "12595",
-order: 1
+collection: "Nx After Dark",
+order: 2
 }
 ---
 

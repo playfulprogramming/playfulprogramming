@@ -8,8 +8,8 @@ description: "CSS animations emit events that we can listen to using Javascript.
 originalLink: "https://williamjuan.dev/blog/css-animation-events-in-angular",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14719",
-order: 1
+collection: "Animations in Angular",
+order: 4
 }
 ---
 

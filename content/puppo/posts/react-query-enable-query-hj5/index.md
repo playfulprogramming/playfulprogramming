@@ -7,8 +7,8 @@ description: "Hey folks, Do you know that you can enable or disable a query in r
 originalLink: "https://blog.delpuppo.net/react-query-enable-query",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 7
 }
 ---
 

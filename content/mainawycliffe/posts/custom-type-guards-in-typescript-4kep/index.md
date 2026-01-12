@@ -8,8 +8,8 @@ description: "Previously, we covered various approaches that you can take to nar
 originalLink: "https://mainawycliffe.dev/blog/custom-type-guards-in-typescript",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14315",
-order: 1
+collection: "a-byte-of-typescript",
+order: 3
 }
 ---
 

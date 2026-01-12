@@ -8,7 +8,7 @@ description: "Animations add life to your application and can greatly increase y
 originalLink: "https://williamjuan.dev/blog/3-easy-ways-to-add-animation-to-your-angular-applications",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14719",
+collection: "Animations in Angular",
 order: 1
 }
 ---

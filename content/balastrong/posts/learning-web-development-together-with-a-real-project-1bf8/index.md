@@ -7,8 +7,8 @@ description: "Learning through tutorials alone is not enough, some hands-on prac
 originalLink: "https://leonardomontini.dev/web-development-community-project",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 13
 }
 ---
 

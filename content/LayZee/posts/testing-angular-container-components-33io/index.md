@@ -8,8 +8,8 @@ description: "Learn tactics for testing RxJS observables and application state c
 originalLink: "https://dev.to/this-is-angular/testing-angular-container-components-33io",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "9847",
-order: 1
+collection: "Model-View-Presenter with Angular",
+order: 3
 }
 ---
 

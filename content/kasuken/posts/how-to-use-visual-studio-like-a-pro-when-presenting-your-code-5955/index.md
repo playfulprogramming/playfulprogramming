@@ -7,7 +7,7 @@ description: "Visual Studio is great to write code and create something amazing,
 originalLink: "https://dev.to/this-is-learning/how-to-use-visual-studio-like-a-pro-when-presenting-your-code-5955",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "16758",
+collection: "Hidden gems in Visual Studio 2022",
 order: 1
 }
 ---

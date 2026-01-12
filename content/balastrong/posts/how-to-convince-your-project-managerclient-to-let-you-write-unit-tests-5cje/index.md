@@ -7,8 +7,8 @@ description: "I recently shared a video where I showed how Copilot Chat can writ
 originalLink: "https://leonardomontini.dev/save-time-with-automated-tests/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 7
 }
 ---
 

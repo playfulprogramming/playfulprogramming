@@ -8,8 +8,8 @@ description: "How often when you run your build command you see a bunch of warni
 originalLink: "https://leonardomontini.dev/broken-windows-warnings",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 17
 }
 ---
 

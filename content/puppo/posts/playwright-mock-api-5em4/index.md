@@ -8,8 +8,8 @@ description: "Hi there, Today I want to talk about how to mock API with Playwrig
 originalLink: "https://blog.delpuppo.net/playwright-mock-api",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 8
 }
 ---
 

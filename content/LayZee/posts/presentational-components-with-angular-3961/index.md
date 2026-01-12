@@ -8,8 +8,8 @@ description: "Presentational components encapsulate presentation and UI behaviou
 originalLink: "https://dev.to/this-is-angular/presentational-components-with-angular-3961",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "9847",
-order: 1
+collection: "Model-View-Presenter with Angular",
+order: 4
 }
 ---
 

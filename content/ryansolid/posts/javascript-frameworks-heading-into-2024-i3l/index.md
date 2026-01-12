@@ -8,8 +8,8 @@ description: "I won't be the first to say it, but I will say it nonetheless, 202
 originalLink: "https://dev.to/this-is-learning/javascript-frameworks-heading-into-2024-i3l",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "34445",
-order: 1
+collection: "JavaScript Frameworks - Heading Into XXXX (4 Part ",
+order: 2
 }
 ---
 

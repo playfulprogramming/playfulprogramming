@@ -7,8 +7,8 @@ description: "In the ever-evolving landscape of JavaScript, staying up-to-date w
 originalLink: "https://blog.delpuppo.net/mastering-javascript-async-iterators-unlocking-asynchronous-magic",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24349",
-order: 1
+collection: "Javascript Iterators & Generators",
+order: 3
 }
 ---
 

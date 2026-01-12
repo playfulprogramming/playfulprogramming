@@ -7,8 +7,8 @@ description: "Stop! 🛑 You no longer need to open GitHub and search 🔎 for t
 originalLink: "https://leonardomontini.dev/manage-issues-vscode-github/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22399",
-order: 1
+collection: "GitHub + Visual Studio Code",
+order: 3
 }
 ---
 

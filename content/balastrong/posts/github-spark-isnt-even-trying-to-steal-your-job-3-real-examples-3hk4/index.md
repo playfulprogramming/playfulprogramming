@@ -7,8 +7,8 @@ description: "Spark is the latest creation from the GitHub Next team, which was 
 originalLink: "https://leonardomontini.dev/github-spark-reviews/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22139",
-order: 1
+collection: "Mastering GitHub",
+order: 9
 }
 ---
 

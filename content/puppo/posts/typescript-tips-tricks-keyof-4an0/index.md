@@ -8,8 +8,8 @@ description: "Welcome back! Today I'll talk about the keyof operator.  This oper
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-keyof-4an0",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 3
 }
 ---
 

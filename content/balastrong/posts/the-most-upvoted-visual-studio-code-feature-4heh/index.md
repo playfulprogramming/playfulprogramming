@@ -7,8 +7,8 @@ description: "Up until yesterday (technically, a few days ago), tabs were bound 
 originalLink: "https://leonardomontini.dev/multi-window-vscode",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20133",
-order: 1
+collection: "Visual Studio Code",
+order: 5
 }
 ---
 

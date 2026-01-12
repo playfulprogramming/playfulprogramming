@@ -8,8 +8,8 @@ description: "Learn the ins an outs of Angular dependency injection in automated
 originalLink: "https://dev.to/this-is-angular/testing-and-faking-angular-dependencies-p9i",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11940",
-order: 1
+collection: "Angular dependencies",
+order: 2
 }
 ---
 

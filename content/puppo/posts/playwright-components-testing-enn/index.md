@@ -8,8 +8,8 @@ description: "Hi there, Today I'll speak about a beta feature in Playwright: Com
 originalLink: "https://blog.delpuppo.net/playwright-components-testing",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 6
 }
 ---
 

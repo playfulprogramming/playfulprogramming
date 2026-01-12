@@ -7,8 +7,8 @@ description: "After using Warp for over a couple of months (and collecting feedb
 originalLink: "https://leonardomontini.dev/warp-terminal-vs-fig/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 8
 }
 ---
 

@@ -7,8 +7,8 @@ description: "Everyone is going crazy for ChatGPT so I wanted to give it a try m
 originalLink: "https://leonardomontini.dev/chat-gpt-about-open-source/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 8
 }
 ---
 

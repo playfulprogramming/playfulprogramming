@@ -8,8 +8,8 @@ description: "GitHub Copilot CLI comes with three aliases:    ??: Ask for a gene
 originalLink: "https://leonardomontini.dev/copilot-x-git-cli/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "27226",
-order: 1
+collection: "GitHub Copilot",
+order: 3
 }
 ---
 

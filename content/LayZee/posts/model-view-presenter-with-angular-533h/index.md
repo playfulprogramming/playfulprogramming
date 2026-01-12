@@ -8,7 +8,7 @@ description: "The MVP pattern increases separation of concerns, maintainability,
 originalLink: "https://dev.to/this-is-angular/model-view-presenter-with-angular-533h",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "9847",
+collection: "Model-View-Presenter with Angular",
 order: 1
 }
 ---

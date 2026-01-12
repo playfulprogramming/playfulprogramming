@@ -7,8 +7,8 @@ description: "Remember that file you deleted last week? Too bad, now you need it
 originalLink: "https://leonardomontini.dev/git-restore-deleted-file",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21372",
-order: 1
+collection: "git better - Improve your git skills",
+order: 6
 }
 ---
 

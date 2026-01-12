@@ -8,8 +8,8 @@ description: "Tuple types allow you to express an array with a fixed number of e
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-tuple-3ep7",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 12
 }
 ---
 

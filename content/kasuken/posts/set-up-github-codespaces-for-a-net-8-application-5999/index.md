@@ -7,8 +7,8 @@ description: "A few days ago Microsoft released the new version of .NET: .NET 8.
 originalLink: "https://dev.to/this-is-learning/set-up-github-codespaces-for-a-net-8-application-5999",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "25456",
-order: 1
+collection: "GitHub Codespaces: A Faster Way to Develop in the Cloud",
+order: 2
 }
 ---
 

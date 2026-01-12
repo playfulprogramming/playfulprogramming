@@ -8,7 +8,7 @@ description: "Did anyone say the word Productivity? We're all used to the GitHub
 originalLink: "https://leonardomontini.dev/pull-request-vscode-github/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22399",
+collection: "GitHub + Visual Studio Code",
 order: 1
 }
 ---

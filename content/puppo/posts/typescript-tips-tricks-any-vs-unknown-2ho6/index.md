@@ -8,8 +8,8 @@ description: "Hi guys, today I'll talk about the difference between any and unkn
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-any-vs-unknown-2ho6",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 7
 }
 ---
 

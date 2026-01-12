@@ -7,8 +7,8 @@ description: "I'm launching a GitHub organization to host community projects. Th
 originalLink: "https://leonardomontini.dev/webdev-open-source-community",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 19
 }
 ---
 

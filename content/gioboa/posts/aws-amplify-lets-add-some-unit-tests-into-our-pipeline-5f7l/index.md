@@ -7,8 +7,8 @@ description: "In the previous article, we saw how to set up a pipeline with AWS 
 originalLink: "https://dev.to/this-is-learning/aws-amplify-lets-add-some-unit-tests-into-our-pipeline-5f7l",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21268",
-order: 1
+collection: "CI/CD pipelines with AWS Amplify",
+order: 2
 }
 ---
 

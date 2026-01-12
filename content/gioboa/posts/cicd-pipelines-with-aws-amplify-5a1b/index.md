@@ -8,7 +8,7 @@ description: "The company I work for is an AWS partner and it is natural that ma
 originalLink: "https://dev.to/this-is-learning/cicd-pipelines-with-aws-amplify-5a1b",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21268",
+collection: "CI/CD pipelines with AWS Amplify",
 order: 1
 }
 ---

@@ -7,8 +7,8 @@ description: "Welcome back to the TanStack Router series, today going double dig
 originalLink: "https://leonardomontini.dev/tanstack-router-login-redirect/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26578",
-order: 1
+collection: "TanStack Router",
+order: 6
 }
 ---
 

@@ -6,9 +6,7 @@ tags: ["github", "githubcopilot", "mcp", "agents"],
 description: "Before we dive into the details, here is the video version of this article if you prefer to watch it...",
 originalLink: "https://leonardomontini.dev/mcp-tools-explained/",
 coverImage: "cover-image.png",
-socialImage: "social-image.png",
-collection: "34094",
-order: 1
+socialImage: "social-image.png"
 }
 ---
 

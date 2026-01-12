@@ -8,8 +8,8 @@ description: "After I finished the first article I wasn't sure how long it would
 originalLink: "https://dev.to/this-is-learning/javascript-vs-javascript-round-2-fight-2m44",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14561",
-order: 1
+collection: "JavaScript vs JavaScript",
+order: 2
 }
 ---
 

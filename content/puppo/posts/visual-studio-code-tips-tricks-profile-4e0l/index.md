@@ -7,8 +7,8 @@ description: "Intro   During my daily work, sometimes I have to switch between d
 originalLink: "https://blog.delpuppo.net/visual-studio-code-tips-tricks-profile",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "16773",
-order: 1
+collection: "VsCode - Tips & Tricks",
+order: 5
 }
 ---
 

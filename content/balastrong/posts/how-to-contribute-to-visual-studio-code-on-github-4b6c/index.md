@@ -8,7 +8,7 @@ description: "Do you want to add a new feature on Visual Studio Code, or fix an 
 originalLink: "https://leonardomontini.dev/contribute-to-visual-studio-code/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20133",
+collection: "Visual Studio Code",
 order: 1
 }
 ---

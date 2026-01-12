@@ -8,8 +8,8 @@ description: "Welcome to the fifth article of a series where we will explore Tan
 originalLink: "https://leonardomontini.dev/tanstack-nesting-404/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26578",
-order: 1
+collection: "TanStack Router",
+order: 5
 }
 ---
 

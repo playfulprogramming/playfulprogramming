@@ -8,8 +8,8 @@ description: "Let’s see why we should and how we can use in-memory-db, you can
 originalLink: "https://medium.com/better-programming/using-in-memory-db-with-nestjs-803a91a8eb11",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "4010",
-order: 1
+collection: "20daysofNestJS",
+order: 6
 }
 ---
 

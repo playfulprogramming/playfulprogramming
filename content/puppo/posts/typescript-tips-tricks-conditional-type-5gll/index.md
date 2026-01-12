@@ -8,8 +8,8 @@ description: "In some cases, we need to detect if an object/type has specific pr
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-conditional-type-5gll",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 17
 }
 ---
 

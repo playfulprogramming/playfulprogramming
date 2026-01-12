@@ -8,8 +8,8 @@ description: "Learn how to extract presenters from presentational components. We
 originalLink: "https://dev.to/this-is-angular/presenters-with-angular-2l7l",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "9847",
-order: 1
+collection: "Model-View-Presenter with Angular",
+order: 5
 }
 ---
 

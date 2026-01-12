@@ -8,8 +8,8 @@ description: "You can find a video version of this article on my YouTube Channel
 originalLink: "https://leonardomontini.dev/how-to-find-an-open-source-project/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 2
 }
 ---
 

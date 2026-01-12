@@ -8,8 +8,8 @@ description: "Today I want to talk about the never type. As you can understand, 
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-never-type-5f0p",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 14
 }
 ---
 

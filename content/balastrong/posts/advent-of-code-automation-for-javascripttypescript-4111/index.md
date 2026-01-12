@@ -7,8 +7,8 @@ description: "December means Advent of Code for many of us 🎄 (or at least, th
 originalLink: "https://leonardomontini.dev/advent-of-code-javascript-typescript",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 14
 }
 ---
 

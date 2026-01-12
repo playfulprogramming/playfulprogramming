@@ -8,8 +8,8 @@ description: "I have wanted to write about tech conferences for a while, and las
 originalLink: "https://leonardomontini.dev/codemotion-milan-25",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "32141",
-order: 1
+collection: "Developer Relations",
+order: 3
 }
 ---
 

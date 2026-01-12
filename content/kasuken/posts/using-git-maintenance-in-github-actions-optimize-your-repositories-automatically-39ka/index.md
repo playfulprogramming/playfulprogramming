@@ -7,8 +7,8 @@ description: "Integrating the git maintenance command into your GitHub Actions w
 originalLink: "https://dev.to/this-is-learning/using-git-maintenance-in-github-actions-optimize-your-repositories-automatically-39ka",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "29808",
-order: 1
+collection: "Streamline Your Workflow with the Git Maintenance Command",
+order: 2
 }
 ---
 

@@ -7,8 +7,8 @@ description: "Hey Folks,  Sometimes to improve the user experience you can decid
 originalLink: "https://blog.delpuppo.net/improve-user-experience-with-optimistic-update",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 9
 }
 ---
 

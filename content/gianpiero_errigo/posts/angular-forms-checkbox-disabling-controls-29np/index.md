@@ -7,7 +7,7 @@ description: "How to write a directive to add it.            And why you shouldn
 originalLink: "https://dev.to/this-is-angular/angular-forms-checkbox-disabling-controls-29np",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21325",
+collection: "Generic directive disabling form controls",
 order: 1
 }
 ---

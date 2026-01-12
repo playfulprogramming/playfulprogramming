@@ -8,7 +8,7 @@ description: "Setting up an Alias   Repeating the same git commands over and ove
 originalLink: "https://leonardomontini.dev/git-alias-tutorial/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21372",
+collection: "git better - Improve your git skills",
 order: 1
 }
 ---

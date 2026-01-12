@@ -8,8 +8,8 @@ description: "Hi guys and welcome back, Today I'll talk about the optional modif
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-optional-modifier-48pg",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 8
 }
 ---
 

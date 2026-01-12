@@ -8,8 +8,8 @@ description: "Learn how to implement integrated routing component tests with Rou
 originalLink: "https://dev.to/this-is-angular/testing-angular-routing-components-with-routertestingharness-providelocationmocks-and-providerouter-oi8",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21775",
-order: 1
+collection: "Angular router testing",
+order: 4
 }
 ---
 

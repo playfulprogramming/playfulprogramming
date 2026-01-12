@@ -8,8 +8,8 @@ description: "function sortAndReverse(list: number[]): number[] {   return list.
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-readonly-array-jg2",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 11
 }
 ---
 

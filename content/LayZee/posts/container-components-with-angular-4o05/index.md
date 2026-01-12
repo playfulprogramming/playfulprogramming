@@ -8,8 +8,8 @@ description: "Container components are extracted from mixed Angular components t
 originalLink: "https://dev.to/this-is-angular/container-components-with-angular-4o05",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "9847",
-order: 1
+collection: "Model-View-Presenter with Angular",
+order: 2
 }
 ---
 

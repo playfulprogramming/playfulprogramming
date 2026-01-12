@@ -8,8 +8,8 @@ description: "A while back, I had a look at why you should avoid using the any t
 originalLink: "https://mainawycliffe.dev/blog/type-assertions-in-typescript/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14315",
-order: 1
+collection: "a-byte-of-typescript",
+order: 6
 }
 ---
 

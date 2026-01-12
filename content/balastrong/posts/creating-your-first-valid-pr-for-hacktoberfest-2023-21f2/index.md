@@ -7,8 +7,8 @@ description: "Starting from September 26th you can register for the event. There
 originalLink: "https://leonardomontini.dev/hacktoberfest-first-valid-pr",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24591",
-order: 1
+collection: "Hacktoberfest",
+order: 5
 }
 ---
 

@@ -8,8 +8,8 @@ description: "In previous article we analyzed a generic workflow for the creatio
 originalLink: "https://dev.to/this-is-angular/material-forms-mat-checkbox-disabling-controls-2jc6",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21325",
-order: 1
+collection: "Generic directive disabling form controls",
+order: 2
 }
 ---
 

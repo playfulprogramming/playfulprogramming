@@ -7,8 +7,8 @@ description: "Hi folks, In release 1.32, Playwright released a new cool feature 
 originalLink: "https://blog.delpuppo.net/playwright-ui-mode",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 13
 }
 ---
 

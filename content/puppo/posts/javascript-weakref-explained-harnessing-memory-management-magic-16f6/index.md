@@ -8,8 +8,8 @@ description: "Introduction to WeakRef   WeakRef is a powerful feature in JavaScr
 originalLink: "https://blog.delpuppo.net/javascript-weakref-explained-harnessing-memory-management-magic",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24709",
-order: 1
+collection: "The JavaScript you don't know",
+order: 4
 }
 ---
 

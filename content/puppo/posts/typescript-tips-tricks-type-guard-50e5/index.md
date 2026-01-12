@@ -8,8 +8,8 @@ description: "There are some cases, where we need to detect the type of the obje
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-type-guard-50e5",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 16
 }
 ---
 

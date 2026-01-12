@@ -8,7 +8,7 @@ description: "Setting up an Nx workspace for .NET development with nx-dotnet. Al
 originalLink: "https://dev.to/this-is-learning/setting-up-an-nx-workspace-with-nx-dotnet-893",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "12595",
+collection: "Nx After Dark",
 order: 1
 }
 ---

@@ -8,8 +8,8 @@ description: "Hacktoberfest will start in a few days, are you ready??  Let me ch
 originalLink: "https://leonardomontini.dev/hacktoberfest-find-a-repository/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24591",
-order: 1
+collection: "Hacktoberfest",
+order: 2
 }
 ---
 

@@ -8,8 +8,8 @@ description: "Ok, it's not a super secret feature, but I noticed some of my coll
 originalLink: "https://leonardomontini.dev/open-vscode-from-terminal/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20133",
-order: 1
+collection: "Visual Studio Code",
+order: 2
 }
 ---
 

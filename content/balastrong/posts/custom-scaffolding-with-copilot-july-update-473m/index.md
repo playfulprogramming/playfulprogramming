@@ -8,8 +8,8 @@ description: "You got the idea for a new and fun side project which you will aba
 originalLink: "https://leonardomontini.dev/copilot-create-workspace/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "27226",
-order: 1
+collection: "GitHub Copilot",
+order: 5
 }
 ---
 

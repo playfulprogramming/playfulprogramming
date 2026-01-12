@@ -8,8 +8,8 @@ description: "Do you know Javascript? After the success of the previous video, I
 originalLink: "https://leonardomontini.dev/javascript-10-challenges/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 6
 }
 ---
 

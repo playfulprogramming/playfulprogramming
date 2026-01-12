@@ -7,9 +7,7 @@ tags: ["weeklyretro", "devjournal"],
 description: "Monday   Dedicated time to meticulously outline the comprehensive roadmap for Cloud Glow, my...",
 originalLink: "https://dev.to/this-is-learning/weekly-0076-2ibl",
 coverImage: "cover-image.png",
-socialImage: "social-image.png",
-collection: "17109",
-order: 1
+socialImage: "social-image.png"
 }
 ---
 

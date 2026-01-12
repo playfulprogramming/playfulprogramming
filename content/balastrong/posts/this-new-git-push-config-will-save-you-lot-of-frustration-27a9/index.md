@@ -8,8 +8,8 @@ description: "If you have 59 seconds and in particular you're also on mobile, yo
 originalLink: "https://leonardomontini.dev/git-push-auto-setup-remote/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19914",
-order: 1
+collection: "Shorts",
+order: 2
 }
 ---
 

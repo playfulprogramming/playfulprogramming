@@ -8,8 +8,8 @@ description: "You can find a video version of this article on my YouTube channel
 originalLink: "https://leonardomontini.dev/open-source-without-code/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 3
 }
 ---
 

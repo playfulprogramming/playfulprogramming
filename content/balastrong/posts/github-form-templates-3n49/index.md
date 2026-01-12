@@ -7,8 +7,8 @@ description: "When you, as a contributor, want to create a new issue on GitHub, 
 originalLink: "https://leonardomontini.dev/github-issue-form-template",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22139",
-order: 1
+collection: "Mastering GitHub",
+order: 6
 }
 ---
 

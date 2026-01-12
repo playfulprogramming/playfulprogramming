@@ -7,9 +7,7 @@ tags: ["architecture", "angular", "react", "nx"],
 description: "Photo by Barn Images on Unsplash         This article is part of the Angular Architectural Patterns s...",
 originalLink: "https://dev.to/this-is-learning/semantic-grouping-folders-with-nx-3467",
 coverImage: "cover-image.png",
-socialImage: "social-image.png",
-collection: "12096",
-order: 1
+socialImage: "social-image.png"
 }
 ---
 

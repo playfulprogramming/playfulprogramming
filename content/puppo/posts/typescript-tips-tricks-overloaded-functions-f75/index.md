@@ -8,8 +8,8 @@ description: "Welcome back, guys! The topic of today is Overloaded Functions.  A
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-overloaded-functions-f75",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 5
 }
 ---
 

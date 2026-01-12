@@ -8,8 +8,8 @@ description: "In the final part of this tutorial, we create the seatmap data acc
 originalLink: "https://dev.to/this-is-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-5-2hk7",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14674",
-order: 1
+collection: "How to set up an Nx-style monorepo workspace with the Angular CLI",
+order: 5
 }
 ---
 

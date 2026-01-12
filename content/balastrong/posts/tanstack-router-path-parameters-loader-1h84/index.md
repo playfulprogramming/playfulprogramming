@@ -7,8 +7,8 @@ description: "Welcome to the second article of a series where we will explore Ta
 originalLink: "https://leonardomontini.dev/tanstack-router-path-parameters-loader",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26578",
-order: 1
+collection: "TanStack Router",
+order: 2
 }
 ---
 

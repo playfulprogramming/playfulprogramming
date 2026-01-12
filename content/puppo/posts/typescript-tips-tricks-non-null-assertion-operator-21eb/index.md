@@ -8,8 +8,8 @@ description: "In some cases, you have a field that you initialize in a method, a
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-non-null-assertion-operator-21eb",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 13
 }
 ---
 

@@ -7,8 +7,8 @@ description: "I worked as a Full Stack Web Developer on what I realized it was t
 originalLink: "https://leonardomontini.dev/quit-toxic-development-workplace/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22616",
-order: 1
+collection: "My Dev Journey",
+order: 2
 }
 ---
 

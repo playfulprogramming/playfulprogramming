@@ -7,8 +7,8 @@ description: "Hello! If you read my articles often here on devto you probably no
 originalLink: "https://leonardomontini.dev/astro-coding-session/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 9
 }
 ---
 

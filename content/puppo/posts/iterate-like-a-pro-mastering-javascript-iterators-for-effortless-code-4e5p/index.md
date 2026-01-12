@@ -7,7 +7,7 @@ description: "Welcome to this blog post, where we're about to unravel the power 
 originalLink: "https://blog.delpuppo.net/iterate-like-a-pro-mastering-javascript-iterators-for-effortless-code",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24349",
+collection: "Javascript Iterators & Generators",
 order: 1
 }
 ---

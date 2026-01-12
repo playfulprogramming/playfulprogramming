@@ -8,8 +8,8 @@ description: "How many times we expect an object property to have a value but it
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-readonly-modifier-52pp",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 10
 }
 ---
 

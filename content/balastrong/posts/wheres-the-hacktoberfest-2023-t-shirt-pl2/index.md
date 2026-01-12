@@ -7,8 +7,8 @@ description: "Hacktoberfest 2023 will NOT have the usual tshirt and stickers as 
 originalLink: "https://leonardomontini.dev/hacktoberfest-swag-2023",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24591",
-order: 1
+collection: "Hacktoberfest",
+order: 4
 }
 ---
 

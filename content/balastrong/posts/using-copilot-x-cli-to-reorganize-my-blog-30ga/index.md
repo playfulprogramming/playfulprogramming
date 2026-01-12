@@ -8,8 +8,8 @@ description: "A few days ago I was working on my blog leonardomontini.dev as I'd
 originalLink: "https://leonardomontini.dev/copilot-x-cli-usage/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "27226",
-order: 1
+collection: "GitHub Copilot",
+order: 2
 }
 ---
 

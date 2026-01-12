@@ -7,8 +7,8 @@ description: "I spent 15 minutes every single day reading documentation and here
 originalLink: "https://leonardomontini.dev/15-days-of-documentation",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 20
 }
 ---
 

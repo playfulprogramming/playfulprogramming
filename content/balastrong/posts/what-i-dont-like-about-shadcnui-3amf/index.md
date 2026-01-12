@@ -7,8 +7,8 @@ description: "Shadcn/ui is great, components are good-looking, easy to setup and
 originalLink: "https://leonardomontini.dev/shadcn-ui-use-with-caution/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 21
 }
 ---
 

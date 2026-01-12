@@ -8,8 +8,8 @@ description: "In this blog post, we will explore the controller which is the mos
 originalLink: "https://medium.com/better-programming/nestjs-controllers-deep-dive-5c49e19d0941",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "4010",
-order: 1
+collection: "20daysofNestJS",
+order: 3
 }
 ---
 

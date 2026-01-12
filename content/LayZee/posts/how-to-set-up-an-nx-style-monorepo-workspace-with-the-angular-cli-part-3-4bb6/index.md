@@ -8,8 +8,8 @@ description: "In Part 3 of this tutorial, we create the passenger info and fligh
 originalLink: "https://dev.to/this-is-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-3-4bb6",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14674",
-order: 1
+collection: "How to set up an Nx-style monorepo workspace with the Angular CLI",
+order: 3
 }
 ---
 

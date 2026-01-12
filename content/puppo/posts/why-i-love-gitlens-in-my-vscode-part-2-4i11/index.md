@@ -8,8 +8,8 @@ description: "When you work with git, you want to get info about commits and who
 originalLink: "https://blog.delpuppo.net/why-i-love-gitlens-in-my-vscode-blame-compare",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21836",
-order: 1
+collection: "GitLens",
+order: 2
 }
 ---
 

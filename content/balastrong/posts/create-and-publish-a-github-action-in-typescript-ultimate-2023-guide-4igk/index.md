@@ -8,8 +8,8 @@ description: "GitHub Actions are a powerful tool to automate your workflow. They
 originalLink: "https://leonardomontini.dev/typescript-github-action",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21246",
-order: 1
+collection: "GitHub Actions",
+order: 4
 }
 ---
 

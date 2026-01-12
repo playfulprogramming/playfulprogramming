@@ -8,7 +8,7 @@ description: "Is the title a clickbait? Nope, let me explain.  Learning new stuf
 originalLink: "https://leonardomontini.dev/tutorials-are-wrong/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
+collection: "Web Development",
 order: 1
 }
 ---

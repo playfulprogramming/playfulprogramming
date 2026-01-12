@@ -8,8 +8,8 @@ description: "Let's say you want to contribute to a large Open Source project li
 originalLink: "https://leonardomontini.dev/large-open-source-projects",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 11
 }
 ---
 

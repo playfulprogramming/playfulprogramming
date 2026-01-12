@@ -8,8 +8,8 @@ description: "Hi there,  Today I want to speak about Visual comparisons with Pla
 originalLink: "https://blog.delpuppo.net/playwright-visual-comparisons",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 9
 }
 ---
 

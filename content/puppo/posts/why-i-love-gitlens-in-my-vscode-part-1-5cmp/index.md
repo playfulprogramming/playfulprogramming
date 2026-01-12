@@ -8,7 +8,7 @@ description: "In my daily routine, I work with git, and I suppose it's the same 
 originalLink: "https://blog.delpuppo.net/why-i-love-gitlens-in-my-vscode-first-steps",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21836",
+collection: "GitLens",
 order: 1
 }
 ---

@@ -7,8 +7,8 @@ description: "In the dynamic realm of JavaScript, the ability to efficiently han
 originalLink: "https://blog.delpuppo.net/javascript-async-generators-unleashed-harnessing-asynchronous-power",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24349",
-order: 1
+collection: "Javascript Iterators & Generators",
+order: 4
 }
 ---
 

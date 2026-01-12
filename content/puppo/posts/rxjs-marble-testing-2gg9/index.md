@@ -8,8 +8,8 @@ description: "Hello Folks 👋! Today it's time to speak about testing and how t
 originalLink: "https://dev.to/this-is-learning/rxjs-marble-testing-2gg9",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 15
 }
 ---
 

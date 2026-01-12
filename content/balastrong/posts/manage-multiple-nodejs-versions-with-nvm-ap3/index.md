@@ -7,8 +7,8 @@ description: "When you work on multiple projects, and this happens quite often i
 originalLink: "https://leonardomontini.dev/multiple-node-version-nvm/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 3
 }
 ---
 

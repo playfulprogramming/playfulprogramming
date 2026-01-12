@@ -8,8 +8,8 @@ description: "JavaScript's Proxy object is a powerful feature that enables you t
 originalLink: "https://blog.delpuppo.net/unlocking-the-power-of-proxies-javascripts-secret-superheroes",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24709",
-order: 1
+collection: "The JavaScript you don't know",
+order: 5
 }
 ---
 

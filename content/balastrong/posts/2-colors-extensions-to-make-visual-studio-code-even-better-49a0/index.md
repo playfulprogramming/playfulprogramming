@@ -7,8 +7,8 @@ description: "Colors 🌈 help us identify things in our surroundings, includin
 originalLink: "https://leonardomontini.dev/vscode-folder-path-color-peacock/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20133",
-order: 1
+collection: "Visual Studio Code",
+order: 6
 }
 ---
 

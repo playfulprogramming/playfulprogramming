@@ -7,8 +7,8 @@ description: "When I'm writing this I'm still on the train back from ReactJSDay,
 originalLink: "https://leonardomontini.dev/react-js-day-2025/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22616",
-order: 1
+collection: "My Dev Journey",
+order: 10
 }
 ---
 

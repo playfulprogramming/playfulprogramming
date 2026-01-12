@@ -7,8 +7,8 @@ description: "Hey Folks, Today I want to share two important things if you are u
 originalLink: "https://blog.delpuppo.net/react-query-keys-prefetching",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 8
 }
 ---
 

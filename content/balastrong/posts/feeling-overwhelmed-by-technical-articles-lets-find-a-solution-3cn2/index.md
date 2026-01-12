@@ -7,8 +7,8 @@ description: "Sometimes I feel that I'm reading a lot of technical articles and 
 originalLink: "https://leonardomontini.dev/technical-content-vs-doom-scrolling/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22616",
-order: 1
+collection: "My Dev Journey",
+order: 9
 }
 ---
 

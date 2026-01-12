@@ -7,8 +7,8 @@ description: "Hi Folks 👋 Today it's time to learn something about the update 
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-update-1mmi",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 8
 }
 ---
 

@@ -7,8 +7,8 @@ description: "If you used to adopt Visual Studio in the past probably you alread
 originalLink: "https://dev.to/this-is-learning/visual-studio-code-tips-tricks-snippets-5041",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "16773",
-order: 1
+collection: "VsCode - Tips & Tricks",
+order: 2
 }
 ---
 

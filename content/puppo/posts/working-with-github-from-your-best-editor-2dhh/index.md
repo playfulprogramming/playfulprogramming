@@ -8,8 +8,8 @@ description: "Hi folks, today I'm going to speak about another cool VsCode Exten
 originalLink: "https://blog.delpuppo.net/working-with-github-actions-from-your-best-editor",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "16773",
-order: 1
+collection: "VsCode - Tips & Tricks",
+order: 4
 }
 ---
 

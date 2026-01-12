@@ -7,8 +7,8 @@ description: "In the vast landscape of JavaScript, many powerful features often 
 originalLink: "https://blog.delpuppo.net/unlock-the-power-of-javascript-weakset-mastering-a-hidden-gem",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24709",
-order: 1
+collection: "The JavaScript you don't know",
+order: 3
 }
 ---
 

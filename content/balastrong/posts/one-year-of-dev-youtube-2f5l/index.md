@@ -7,8 +7,8 @@ description: "Exactly one year ago I started consistently posting on YouTube, at
 originalLink: "https://leonardomontini.dev/dev-youtube-anniversary/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22616",
-order: 1
+collection: "My Dev Journey",
+order: 4
 }
 ---
 

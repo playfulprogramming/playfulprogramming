@@ -8,7 +8,7 @@ description: "The wonderful thing about glimpsing into the future is that the pa
 originalLink: "https://dev.to/this-is-learning/javascript-frameworks-heading-into-2023-nln",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "34445",
+collection: "JavaScript Frameworks - Heading Into XXXX",
 order: 1
 }
 ---

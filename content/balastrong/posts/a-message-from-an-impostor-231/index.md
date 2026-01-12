@@ -7,8 +7,8 @@ description: "Impostor syndrome is quite popular in the tech industry.  People a
 originalLink: "https://leonardomontini.dev/professional-impostor/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22616",
-order: 1
+collection: "My Dev Journey",
+order: 3
 }
 ---
 

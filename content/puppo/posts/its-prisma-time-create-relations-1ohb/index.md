@@ -7,8 +7,8 @@ description: "Hi Folks 👋 today I'll show you how to create relations among yo
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-create-relations-1ohb",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 5
 }
 ---
 

@@ -8,7 +8,7 @@ description: "I heard about \"Hey, GitHub\" (now called Copilot Voice) for the f
 originalLink: "https://leonardomontini.dev/hey-github-voice-copilot/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "27226",
+collection: "GitHub Copilot",
 order: 1
 }
 ---

@@ -8,7 +8,7 @@ description: "When we build components it needs to be flexible, because they can
 originalLink: "https://www.danywalls.com/post?slug=Theme_angular_components_&token=1yWfsoh2FpKpZ9lgBSNcxr",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13955",
+collection: "styling angular apps",
 order: 1
 }
 ---

@@ -8,8 +8,8 @@ description: "Congratulations on making it through the series thus far. But this
 originalLink: "https://dev.to/this-is-learning/async-derivations-in-reactivity-ec5",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26115",
-order: 1
+collection: "Derivations in Reactivity",
+order: 3
 }
 ---
 

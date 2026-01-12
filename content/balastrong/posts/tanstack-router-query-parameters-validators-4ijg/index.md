@@ -7,8 +7,8 @@ description: "Welcome to the third article of a series where we will explore Tan
 originalLink: "https://leonardomontini.dev/tanstack-router-query-params",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26578",
-order: 1
+collection: "TanStack Router",
+order: 3
 }
 ---
 

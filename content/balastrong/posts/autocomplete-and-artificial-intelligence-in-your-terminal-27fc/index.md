@@ -8,8 +8,8 @@ description: "I get asked on every single video what is this autocomplete I’ve
 originalLink: "https://leonardomontini.dev/autocomplete-ai-terminal/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21372",
-order: 1
+collection: "git better - Improve your git skills",
+order: 3
 }
 ---
 

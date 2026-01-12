@@ -7,8 +7,8 @@ description: "Hey Folks,  Today it's time to learn how you can paginate a list w
 originalLink: "https://blog.delpuppo.net/react-query-paginated-list",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 11
 }
 ---
 

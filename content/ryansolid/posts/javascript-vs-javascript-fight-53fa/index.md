@@ -8,7 +8,7 @@ description: "With software development, we are often presented with alternative
 originalLink: "https://dev.to/this-is-learning/javascript-vs-javascript-fight-53fa",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14561",
+collection: "JavaScript vs JavaScript",
 order: 1
 }
 ---

@@ -7,8 +7,8 @@ description: "Introduction   JavaScript is a powerful and versatile programming 
 originalLink: "https://blog.delpuppo.net/unlocking-javascripts-secret-weapon-the-power-of-weakmaps",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24709",
-order: 1
+collection: "The JavaScript you don't know",
+order: 2
 }
 ---
 

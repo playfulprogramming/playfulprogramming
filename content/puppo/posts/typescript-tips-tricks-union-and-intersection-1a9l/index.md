@@ -8,8 +8,8 @@ description: "Hi and welcome back! Today I talk about Union and Intersection.  I
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-union-and-intersection-1a9l",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 4
 }
 ---
 

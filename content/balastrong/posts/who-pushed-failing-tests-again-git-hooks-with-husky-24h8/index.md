@@ -7,8 +7,8 @@ description: "Three things you do NOT want in your repository:   Unformatted cod
 originalLink: "https://leonardomontini.dev/husky-git-hooks/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21372",
-order: 1
+collection: "git better - Improve your git skills",
+order: 5
 }
 ---
 

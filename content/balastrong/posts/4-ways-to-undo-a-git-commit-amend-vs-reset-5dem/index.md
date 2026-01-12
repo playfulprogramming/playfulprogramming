@@ -8,8 +8,8 @@ description: "I'm quite sure all of these happened to you at least once:   You c
 originalLink: "https://leonardomontini.dev/git-undo-amend-reset/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21372",
-order: 1
+collection: "git better - Improve your git skills",
+order: 2
 }
 ---
 

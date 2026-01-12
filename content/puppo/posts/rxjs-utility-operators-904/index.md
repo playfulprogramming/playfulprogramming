@@ -7,8 +7,8 @@ description: "Welcome back Guys, Today I'll show you some utility operators. Let
 originalLink: "https://dev.to/this-is-learning/rxjs-utility-operators-904",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 9
 }
 ---
 

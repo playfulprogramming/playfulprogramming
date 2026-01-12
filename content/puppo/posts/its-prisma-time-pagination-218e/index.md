@@ -7,8 +7,8 @@ description: "Hi Guys 👋 Today we are going to see how to paginate our results
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-pagination-218e",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 10
 }
 ---
 

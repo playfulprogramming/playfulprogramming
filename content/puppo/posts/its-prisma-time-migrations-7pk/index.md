@@ -7,8 +7,8 @@ description: "Hello Guys 👋, Today it's time to speak about migrations.  Migra
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-migrations-7pk",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 15
 }
 ---
 

@@ -7,8 +7,8 @@ description: "Ever wished for a magical toolkit that gives you superhero-like co
 originalLink: "https://blog.delpuppo.net/the-reflect-api-the-swiss-army-knife-every-javascript-developer-needs",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24709",
-order: 1
+collection: "The JavaScript you don't know",
+order: 8
 }
 ---
 

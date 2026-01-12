@@ -8,8 +8,8 @@ description: "Most developers think about Reactivity as an event system. You hav
 originalLink: "https://dev.to/this-is-learning/scheduling-derivations-in-reactivity-4687",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26115",
-order: 1
+collection: "Derivations in Reactivity",
+order: 2
 }
 ---
 

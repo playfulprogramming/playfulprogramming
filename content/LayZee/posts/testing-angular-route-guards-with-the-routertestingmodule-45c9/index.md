@@ -8,8 +8,8 @@ description: "Learn how to test route guards in isolated unit tests. Also learn 
 originalLink: "https://dev.to/this-is-angular/testing-angular-route-guards-with-the-routertestingmodule-45c9",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21775",
-order: 1
+collection: "Angular router testing",
+order: 3
 }
 ---
 

@@ -7,8 +7,8 @@ description: "You can play online multiplayer games on Github profiles! 🎮  Se
 originalLink: "https://leonardomontini.dev/4-github-games-readme-profiles/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22139",
-order: 1
+collection: "Mastering GitHub",
+order: 8
 }
 ---
 

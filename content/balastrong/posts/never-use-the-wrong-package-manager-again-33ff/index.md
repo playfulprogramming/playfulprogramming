@@ -7,8 +7,8 @@ description: "npm or yarn, what does this project use? Or maybe it's pnpm? Or Bu
 originalLink: "https://leonardomontini.dev/npm-yarn-ni-package-manager/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 5
 }
 ---
 

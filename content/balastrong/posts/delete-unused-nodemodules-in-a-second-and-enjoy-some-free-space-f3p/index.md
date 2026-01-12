@@ -8,8 +8,8 @@ description: "Intro   In this article I'll tell you about a cool tool I just fou
 originalLink: "https://leonardomontini.dev/free-disk-space-npkill/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19914",
-order: 1
+collection: "Shorts",
+order: 3
 }
 ---
 

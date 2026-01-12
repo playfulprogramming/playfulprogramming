@@ -8,8 +8,8 @@ description: "There are times that we need to create some assertions to be sure 
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-assert-function-29kj",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 15
 }
 ---
 

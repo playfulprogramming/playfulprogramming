@@ -7,8 +7,8 @@ description: "Do you know Javascript? The language we all love has some weird an
 originalLink: "https://leonardomontini.dev/javascript-minigames/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 4
 }
 ---
 

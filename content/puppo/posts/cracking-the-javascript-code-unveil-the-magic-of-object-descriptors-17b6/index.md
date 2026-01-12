@@ -8,8 +8,8 @@ description: "👋 Hey, JavaScript developers!  Ever wondered what makes your ob
 originalLink: "https://blog.delpuppo.net/cracking-the-javascript-code-unveil-the-magic-of-object-descriptors",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24709",
-order: 1
+collection: "The JavaScript you don't know",
+order: 7
 }
 ---
 

@@ -8,7 +8,7 @@ description: "There is a reason why the first time you learn about a reactive sy
 originalLink: "https://dev.to/this-is-learning/derivations-in-reactivity-4fo1",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26115",
+collection: "Derivations in Reactivity",
 order: 1
 }
 ---

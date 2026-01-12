@@ -7,8 +7,8 @@ description: "A tuple type is an array with a predefined length and predefined t
 originalLink: "https://mainawycliffe.dev/blog/tuple-type-in-typescript/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14315",
-order: 1
+collection: "a-byte-of-typescript",
+order: 7
 }
 ---
 

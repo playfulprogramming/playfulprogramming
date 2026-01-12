@@ -8,8 +8,8 @@ description: "We don't write tests because we don't have time.   How many times 
 originalLink: "https://leonardomontini.dev/copilot-x-chat-unit-test/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "27226",
-order: 1
+collection: "GitHub Copilot",
+order: 4
 }
 ---
 

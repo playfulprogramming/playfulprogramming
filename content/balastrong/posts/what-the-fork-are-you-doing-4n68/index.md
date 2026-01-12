@@ -7,8 +7,8 @@ description: "How to Fork a repository on GitHub is as easy as pressing a button
 originalLink: "https://leonardomontini.dev/github-fork/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22139",
-order: 1
+collection: "Mastering GitHub",
+order: 3
 }
 ---
 

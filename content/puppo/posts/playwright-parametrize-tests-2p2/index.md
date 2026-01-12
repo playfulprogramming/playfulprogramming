@@ -8,8 +8,8 @@ description: "Hey folks,  Today it's time to speak about how to parametrize test
 originalLink: "https://blog.delpuppo.net/playwright-parametrize-tests",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 12
 }
 ---
 

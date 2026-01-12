@@ -6,9 +6,7 @@ tags: ["github", "productivity"],
 description: "If you’ve been coding for a while, chances are you’ve stumbled across a GitHub Gist. Maybe you copied...",
 originalLink: "https://dev.to/this-is-learning/advanced-tips-and-tricks-for-github-gists-part-1-unlocking-the-power-of-gists-22h5",
 coverImage: "cover-image.png",
-socialImage: "social-image.png",
-collection: "33288",
-order: 1
+socialImage: "social-image.png"
 }
 ---
 

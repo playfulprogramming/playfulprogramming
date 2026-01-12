@@ -7,8 +7,8 @@ description: "These are 4 really easy ways of making horrible decisions, but don
 originalLink: "https://leonardomontini.dev/decision-making-antipatterns",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22616",
-order: 1
+collection: "My Dev Journey",
+order: 6
 }
 ---
 

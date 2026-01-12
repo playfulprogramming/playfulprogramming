@@ -8,7 +8,7 @@ description: "This article is intended to be the beginning of a short series abo
 originalLink: "https://dev.to/this-is-angular/animationfactory-how-angular-creates-animation-renderers-1m6b",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21120",
+collection: "Deep dive into Angular animations framework",
 order: 1
 }
 ---

@@ -8,8 +8,8 @@ description: "Today I launched my Discord server to talk about Open Source and W
 originalLink: "https://leonardomontini.dev/merge-conflict-vscode/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20133",
-order: 1
+collection: "Visual Studio Code",
+order: 3
 }
 ---
 

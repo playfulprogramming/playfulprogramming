@@ -7,8 +7,8 @@ description: "On a project I finally hit 100% Code Coverage 🎯 what could go w
 originalLink: "https://leonardomontini.dev/code-coverage-is-a-lie/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 2
 }
 ---
 

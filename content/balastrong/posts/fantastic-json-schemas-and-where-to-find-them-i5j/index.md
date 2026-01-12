@@ -7,8 +7,8 @@ description: "Everytime you write a config for a common tool, for example you're
 originalLink: "https://leonardomontini.dev/json-schema",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 18
 }
 ---
 

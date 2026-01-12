@@ -7,8 +7,8 @@ description: "Hi Guys and welcome back, today I'll illustrate you two simple typ
 originalLink: "https://dev.to/this-is-learning/rxjs-conditional-mathematical-operators-1hh7",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 10
 }
 ---
 

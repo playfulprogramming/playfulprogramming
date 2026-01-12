@@ -7,8 +7,8 @@ description: "From time to time, we come across situations where the type isn't 
 originalLink: "https://mainawycliffe.dev/blog/typescript-use-unknown-instead-of-any",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14315",
-order: 1
+collection: "a-byte-of-typescript",
+order: 2
 }
 ---
 

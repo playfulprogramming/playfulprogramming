@@ -7,7 +7,7 @@ description: "In the last few weeks one of my repository started to be very slow
 originalLink: "https://dev.to/this-is-learning/optimizing-your-repository-for-speed-and-efficiency-5co2",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "29808",
+collection: "Streamline Your Workflow with the Git Maintenance Command",
 order: 1
 }
 ---

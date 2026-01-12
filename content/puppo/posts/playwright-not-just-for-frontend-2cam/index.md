@@ -8,8 +8,8 @@ description: "In this path with Playwright we spent a lot of time speaking about
 originalLink: "https://blog.delpuppo.net/playwright-not-just-for-frontend",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 11
 }
 ---
 

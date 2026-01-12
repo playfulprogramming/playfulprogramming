@@ -7,8 +7,8 @@ description: "In the first two articles of this series we learned how AnimationR
 originalLink: "https://dev.to/this-is-angular/animationrenderer-listening-and-playing-4i3a",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21120",
-order: 1
+collection: "Deep dive into Angular animations framework",
+order: 3
 }
 ---
 

@@ -7,8 +7,8 @@ description: "What's a Subject Luca? And why today do you want to speak about su
 originalLink: "https://dev.to/this-is-learning/rxjs-subjects-4m12",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 14
 }
 ---
 

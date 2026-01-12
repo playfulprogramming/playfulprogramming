@@ -7,8 +7,8 @@ description: "Wait, what? Slash commands are available on GitHub?  I recorded a 
 originalLink: "https://leonardomontini.dev/github-slash-commands/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22139",
-order: 1
+collection: "Mastering GitHub",
+order: 4
 }
 ---
 

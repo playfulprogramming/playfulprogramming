@@ -8,7 +8,7 @@ description: "Introducing the ModuleTeardownOptions#destroyAfterEach option for 
 originalLink: "https://dev.to/this-is-angular/improving-angular-tests-by-enabling-angular-testing-module-teardown-38kh",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15016",
+collection: "Configuring the Angular testbed",
 order: 1
 }
 ---

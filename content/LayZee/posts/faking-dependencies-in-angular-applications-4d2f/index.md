@@ -8,8 +8,8 @@ description: "Create components and directives for manual tests.",
 originalLink: "https://dev.to/this-is-angular/faking-dependencies-in-angular-applications-4d2f",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11940",
-order: 1
+collection: "Angular dependencies",
+order: 3
 }
 ---
 

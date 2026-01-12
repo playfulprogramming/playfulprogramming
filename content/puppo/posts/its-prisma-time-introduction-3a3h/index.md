@@ -7,7 +7,7 @@ description: "Hi Folks 👋 and welcome back, Today I want to start a new series
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-introduction-3a3h",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
+collection: "It's Prisma Time",
 order: 1
 }
 ---

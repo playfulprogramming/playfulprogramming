@@ -7,8 +7,8 @@ description: "One of the best practice in our work is handle the errors, so toda
 originalLink: "https://dev.to/this-is-learning/rxjs-error-handling-operators-57op",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 11
 }
 ---
 

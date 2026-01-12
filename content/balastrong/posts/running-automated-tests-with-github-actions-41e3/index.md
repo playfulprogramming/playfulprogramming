@@ -7,8 +7,8 @@ description: "GitHub Actions can bring your project to life, for real!  If you n
 originalLink: "https://leonardomontini.dev/automated-tests-github-action/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21246",
-order: 1
+collection: "GitHub Actions",
+order: 2
 }
 ---
 

@@ -8,8 +8,8 @@ description: "In some cases, we need to manipulate some types to create new type
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-mapped-types-5bkn",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 19
 }
 ---
 

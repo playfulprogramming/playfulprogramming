@@ -8,7 +8,7 @@ description: "Hello everyone, Leonardo here!  Today we talk about GitHub and som
 originalLink: "https://leonardomontini.dev/github-tips-and-tricks/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22139",
+collection: "Mastering GitHub",
 order: 1
 }
 ---

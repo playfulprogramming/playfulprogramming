@@ -8,8 +8,8 @@ description: "Debug your tests   One of the most popular things done by develope
 originalLink: "https://blog.delpuppo.net/playwright-debug-your-tests",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 3
 }
 ---
 

@@ -8,8 +8,8 @@ description: "Debugging a React app is far from being an easy task... if you don
 originalLink: "https://leonardomontini.dev/vscode-react-debugger",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20133",
-order: 1
+collection: "Visual Studio Code",
+order: 4
 }
 ---
 

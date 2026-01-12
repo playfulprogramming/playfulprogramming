@@ -8,7 +8,7 @@ description: "Today I want to start a series of tips and tricks about Typescript
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-typeof-nfi",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
+collection: "Typescript - Tips & Tricks",
 order: 1
 }
 ---

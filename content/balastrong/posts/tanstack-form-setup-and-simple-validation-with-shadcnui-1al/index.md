@@ -8,7 +8,7 @@ description: "Forms are not an easy business 🤯  Luckily there are many librar
 originalLink: "https://leonardomontini.dev/tanstack-form-setup-validation/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "27295",
+collection: "TanStack Form",
 order: 1
 }
 ---

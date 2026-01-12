@@ -8,8 +8,8 @@ description: "Hello Guys 👋  Today it's time to speak about transactions.  Tra
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-transactions-ji5",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 12
 }
 ---
 

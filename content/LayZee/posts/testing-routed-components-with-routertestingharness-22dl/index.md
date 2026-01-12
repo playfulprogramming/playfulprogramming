@@ -8,8 +8,8 @@ description: "RouterTestingHarness uses the actual Angular Router API in our rou
 originalLink: "https://dev.to/this-is-angular/testing-routed-components-with-routertestingharness-22dl",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21775",
-order: 1
+collection: "Angular router testing",
+order: 5
 }
 ---
 

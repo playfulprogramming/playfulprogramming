@@ -7,8 +7,8 @@ description: "▶️ This article is extracted from a video transcript, slightly
 originalLink: "https://leonardomontini.dev/devrel-02/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "32141",
-order: 1
+collection: "Developer Relations",
+order: 2
 }
 ---
 

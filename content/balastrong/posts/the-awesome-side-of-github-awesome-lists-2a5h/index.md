@@ -8,8 +8,8 @@ description: "Free resources for developers, board games and chess... what do th
 originalLink: "https://leonardomontini.dev/github-awesome-lists/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22139",
-order: 1
+collection: "Mastering GitHub",
+order: 2
 }
 ---
 

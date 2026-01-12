@@ -8,7 +8,7 @@ description: "Since Angular version 6, we can create tree-shakable dependencies 
 originalLink: "https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11940",
+collection: "Angular dependencies",
 order: 1
 }
 ---

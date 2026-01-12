@@ -7,8 +7,8 @@ description: "Having a unique ID on each card is so important to efficiently com
 originalLink: "https://leonardomontini.dev/trello-numbers-fixed",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22616",
-order: 1
+collection: "My Dev Journey",
+order: 7
 }
 ---
 

@@ -7,8 +7,8 @@ description: "Motion One is a new animation library built on the Web Animations 
 originalLink: "https://williamjuan.dev/blog/animate-your-angular-app-using-motion-one",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "14719",
-order: 1
+collection: "Animations in Angular",
+order: 3
 }
 ---
 

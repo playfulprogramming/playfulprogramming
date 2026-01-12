@@ -8,8 +8,8 @@ description: "Hi there, Today I want to speak about integrating Playwright in yo
 originalLink: "https://blog.delpuppo.net/playwright-ci",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 7
 }
 ---
 

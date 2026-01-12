@@ -7,8 +7,8 @@ description: "Welcome back, Today I'll speak about the Transformation Operators.
 originalLink: "https://dev.to/this-is-learning/rxjs-transformation-operators-173o",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 7
 }
 ---
 

@@ -8,8 +8,8 @@ description: "In my previous piece, we discussed NestJS services. In this piece,
 originalLink: "https://medium.com/better-programming/a-deep-dive-into-nestjs-injection-scope-d45e87fd918d",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "4010",
-order: 1
+collection: "20daysofNestJS",
+order: 5
 }
 ---
 

@@ -7,7 +7,7 @@ description: "Hey Folks, It's time to take a journey on react query. Don't you k
 originalLink: "https://blog.delpuppo.net/react-query-usequery",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
+collection: "React Query",
 order: 1
 }
 ---

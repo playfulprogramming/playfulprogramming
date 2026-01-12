@@ -8,8 +8,8 @@ description: "If you're familiar with my content, you know I often talk about ho
 originalLink: "https://leonardomontini.dev/beginner-friendly-open-source-projects/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 7
 }
 ---
 

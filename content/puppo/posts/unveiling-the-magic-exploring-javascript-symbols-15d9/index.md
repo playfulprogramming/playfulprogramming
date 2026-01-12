@@ -8,7 +8,7 @@ description: "Introduction to JavaScript Symbols   JavaScript Symbols are a new 
 originalLink: "https://blog.delpuppo.net/unveiling-the-magic-exploring-javascript-symbols",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "24709",
+collection: "The JavaScript you don't know",
 order: 1
 }
 ---

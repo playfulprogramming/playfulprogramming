@@ -7,8 +7,8 @@ description: "Welcome to the fourth article of a series where we will explore Ta
 originalLink: "https://leonardomontini.dev/tanstack-router-authenticated-guards",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26578",
-order: 1
+collection: "TanStack Router",
+order: 4
 }
 ---
 

@@ -8,8 +8,8 @@ description: "Please, don’t tell me you’re still using console.log to debug 
 originalLink: "https://leonardomontini.dev/chrome-debugger/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 11
 }
 ---
 

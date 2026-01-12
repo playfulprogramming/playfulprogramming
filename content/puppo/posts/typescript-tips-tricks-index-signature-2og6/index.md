@@ -8,8 +8,8 @@ description: "Welcome back guys, today I'll speak about the \"Index Signature\".
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-index-signature-2og6",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 9
 }
 ---
 

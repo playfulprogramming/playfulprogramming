@@ -7,7 +7,7 @@ description: "Visual Studio Code is one of the best code editors in this moment.
 originalLink: "https://dev.to/this-is-learning/visual-studio-code-tips-tricks-command-palette-and-its-friends-2bhi",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "16773",
+collection: "VsCode - Tips & Tricks",
 order: 1
 }
 ---

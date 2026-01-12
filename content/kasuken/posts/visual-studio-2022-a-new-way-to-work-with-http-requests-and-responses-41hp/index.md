@@ -8,8 +8,8 @@ description: "One of the new features in Visual Studio 2022 is the support for H
 originalLink: "https://dev.to/this-is-learning/visual-studio-2022-a-new-way-to-work-with-http-requests-and-responses-41hp",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "16758",
-order: 1
+collection: "Hidden gems in Visual Studio 2022",
+order: 2
 }
 ---
 

@@ -8,8 +8,8 @@ description: "SCAMs are a safe, View Engine-compatible migration path towards st
 originalLink: "https://dev.to/this-is-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19509",
-order: 1
+collection: "Standalone Angular applications",
+order: 2
 }
 ---
 

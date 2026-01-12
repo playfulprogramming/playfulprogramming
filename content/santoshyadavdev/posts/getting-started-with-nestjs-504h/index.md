@@ -8,7 +8,7 @@ description: "This is the first part of the series of articles on the Node.js fr
 originalLink: "https://medium.com/@santosh.yadav198613/getting-started-with-nestjs-a4e8b0b09db4",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "4010",
+collection: "20daysofNestJS",
 order: 1
 }
 ---

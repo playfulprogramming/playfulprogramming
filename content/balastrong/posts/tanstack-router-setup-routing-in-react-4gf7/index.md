@@ -7,7 +7,7 @@ description: "Welcome to the first article of a series where we will explore Tan
 originalLink: "https://leonardomontini.dev/tanstack-router-setup",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26578",
+collection: "TanStack Router",
 order: 1
 }
 ---

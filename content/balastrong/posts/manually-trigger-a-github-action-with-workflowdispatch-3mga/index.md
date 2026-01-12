@@ -7,8 +7,8 @@ description: "There's a plethora of triggers you can use to run a GitHub Action.
 originalLink: "https://leonardomontini.dev/github-action-manual-trigger/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21246",
-order: 1
+collection: "GitHub Actions",
+order: 3
 }
 ---
 

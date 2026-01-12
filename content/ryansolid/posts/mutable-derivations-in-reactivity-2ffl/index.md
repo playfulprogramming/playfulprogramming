@@ -7,8 +7,8 @@ description: "All this exploration into scheduling and async made me realize how
 originalLink: "https://dev.to/this-is-learning/mutable-derivations-in-reactivity-2ffl",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "26115",
-order: 1
+collection: "Derivations in Reactivity",
+order: 4
 }
 ---
 

@@ -8,8 +8,8 @@ description: "Service   In enterprise applications, we follow the SOLID principl
 originalLink: "https://medium.com/better-programming/introduction-to-nestjs-services-2a7c9a629da9",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "4010",
-order: 1
+collection: "20daysofNestJS",
+order: 4
 }
 ---
 

@@ -8,8 +8,8 @@ description: "The local component scope of a standalone Angular component is man
 originalLink: "https://dev.to/this-is-angular/the-local-component-scope-of-standalone-angular-components-3g60",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19509",
-order: 1
+collection: "Standalone Angular applications",
+order: 4
 }
 ---
 

@@ -7,8 +7,8 @@ description: "The beauty of shadcn/ui is that it's not a component library, but 
 originalLink: "https://leonardomontini.dev/shadcn-autocomplete/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 22
 }
 ---
 

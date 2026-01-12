@@ -8,8 +8,8 @@ description: "Hi Guys, Today I'll show you some advanced utilities exposed by th
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-advanced-types-3pp8",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 20
 }
 ---
 

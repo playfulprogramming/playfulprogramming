@@ -7,8 +7,8 @@ description: "Tables like this one are in a lot of repositories, giving well des
 originalLink: "https://leonardomontini.dev/credit-all-contributors",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 10
 }
 ---
 

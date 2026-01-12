@@ -8,8 +8,8 @@ description: "Hello everybody and welcome back, today I'll talk about this param
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-this-parameter-7n6",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 6
 }
 ---
 

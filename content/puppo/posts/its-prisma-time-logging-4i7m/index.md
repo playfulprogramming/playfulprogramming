@@ -7,8 +7,8 @@ description: "Hi Guys 👋  Today we are going to see how to enable logging in P
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-logging-4i7m",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 13
 }
 ---
 

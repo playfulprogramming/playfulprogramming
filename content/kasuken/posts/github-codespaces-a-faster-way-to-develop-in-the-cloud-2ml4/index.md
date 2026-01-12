@@ -7,7 +7,7 @@ description: "It's been a long time in my mind to write a series of posts regard
 originalLink: "https://dev.to/this-is-learning/github-codespaces-a-faster-way-to-develop-in-the-cloud-2ml4",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "25456",
+collection: "GitHub Codespaces: A Faster Way to Develop in the Cloud",
 order: 1
 }
 ---

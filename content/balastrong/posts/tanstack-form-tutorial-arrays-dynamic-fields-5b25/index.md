@@ -7,8 +7,8 @@ description: "Your form might not have a fixed number of fields, that's where ar
 originalLink: "https://leonardomontini.dev/tanstack-form-arrays-dynamic-fields/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "27295",
-order: 1
+collection: "TanStack Form",
+order: 3
 }
 ---
 

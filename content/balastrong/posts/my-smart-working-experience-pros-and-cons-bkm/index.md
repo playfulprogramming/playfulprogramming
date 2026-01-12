@@ -7,8 +7,8 @@ description: "I’m doing smart working in a full remote company for a couple of
 originalLink: "https://leonardomontini.dev/smartworking-full-remote-company/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22616",
-order: 1
+collection: "My Dev Journey",
+order: 5
 }
 ---
 

@@ -8,8 +8,8 @@ description: "Hey there, Today I want to speak about Fixtures, a vital friend if
 originalLink: "https://blog.delpuppo.net/playwright-fixtures",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "20832",
-order: 1
+collection: "Playwright",
+order: 5
 }
 ---
 

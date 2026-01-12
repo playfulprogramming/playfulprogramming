@@ -8,7 +8,7 @@ description: "▶️ Video version on YouTube: https://youtu.be/ERWzk5iOAiU  Hey
 originalLink: "https://leonardomontini.dev/devrel-01/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "32141",
+collection: "Developer Relations",
 order: 1
 }
 ---

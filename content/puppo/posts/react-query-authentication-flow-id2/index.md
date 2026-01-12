@@ -8,8 +8,8 @@ description: "Every application should handle an authentication flow; in this ar
 originalLink: "https://blog.delpuppo.net/react-query-authentication-flow",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22248",
-order: 1
+collection: "React Query",
+order: 5
 }
 ---
 

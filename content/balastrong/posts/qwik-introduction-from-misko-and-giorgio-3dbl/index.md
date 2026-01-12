@@ -7,8 +7,8 @@ description: "On June 14th I've been in Florence to attend an amazing workshop a
 originalLink: "https://leonardomontini.dev/qwik-framework/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21771",
-order: 1
+collection: "Web Development",
+order: 10
 }
 ---
 

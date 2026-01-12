@@ -8,8 +8,8 @@ description: "Today I talk about the infer keyword. Sometimes, we need to get th
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-infer-keyword-23pf",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "11213",
-order: 1
+collection: "Typescript - Tips & Tricks",
+order: 18
 }
 ---
 

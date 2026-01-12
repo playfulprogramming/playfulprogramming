@@ -8,8 +8,8 @@ description: "When Merging a Pull Request on GitHub, you mainly have three optio
 originalLink: "https://leonardomontini.dev/close-pr-strategy-merge-commit-squash-rebase/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "19097",
-order: 1
+collection: "Open Source",
+order: 9
 }
 ---
 

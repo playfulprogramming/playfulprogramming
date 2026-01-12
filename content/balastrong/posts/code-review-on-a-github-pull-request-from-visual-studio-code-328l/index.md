@@ -8,8 +8,8 @@ description: "Doing Code Review 📖 on a GitHub Pull Request without leaving Vi
 originalLink: "https://leonardomontini.dev/code-review-vscode-github/",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "22399",
-order: 1
+collection: "GitHub + Visual Studio Code",
+order: 2
 }
 ---
 

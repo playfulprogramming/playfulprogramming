@@ -7,8 +7,8 @@ description: "Hello Folks 👋 Today we'll see how to handle seed with Prisma.  
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-seeding-43h4",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "15827",
-order: 1
+collection: "It's Prisma Time",
+order: 16
 }
 ---
 

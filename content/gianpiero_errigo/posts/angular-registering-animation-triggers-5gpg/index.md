@@ -8,8 +8,8 @@ description: "This post keeps digging into AnimationRendererFactory creation rou
 originalLink: "https://dev.to/this-is-angular/angular-registering-animation-triggers-5gpg",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "21120",
-order: 1
+collection: "Deep dive into Angular animations framework",
+order: 2
 }
 ---
 

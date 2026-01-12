@@ -7,8 +7,8 @@ description: "Hi Guys and Welcome Back, Today I'll speak about the Join Operator
 originalLink: "https://dev.to/this-is-learning/rxjs-join-operators-2lam",
 coverImage: "cover-image.png",
 socialImage: "social-image.png",
-collection: "13743",
-order: 1
+collection: "RxJS - Getting Started",
+order: 8
 }
 ---
 
