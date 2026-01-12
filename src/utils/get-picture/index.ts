@@ -51,11 +51,10 @@ function getSource(src: string, width: number, getFormat: string) {
 			w: String(width),
 			q: "100",
 		})}`;
-	} else {
-		// If in production use cloudinary's fetch
-		const domainUrl = new URL(src, siteUrl);
-		return `https://res.cloudinary.com/${env.PUBLIC_CLOUDINARY_CLOUD_NAME}/image/fetch/w_${width},f_${getFormat},q_auto/${encodeURIComponent(domainUrl.toString())}`;
 	}
+	// If in production use cloudinary's fetch
+	const domainUrl = new URL(src, siteUrl);
+	return `https://res.cloudinary.com/${env.PUBLIC_CLOUDINARY_CLOUD_NAME}/image/fetch/w_${width},f_${getFormat},q_auto/${encodeURIComponent(domainUrl.toString())}`;
 }
 
 export function getPictureUrls(options: GetPictureOptions): GetPictureUrls {
@@ -99,12 +98,12 @@ export function getPictureAttrs(
 	const maxWidth = Math.max(options.width, ...widths);
 
 	const sizes = widths.length
-		? widths
+		? `${widths
 				.map(
 					(w) =>
 						`(max-width: ${sizeMap[w].maxWidth}) ${getSupportedWidth(w)}px`,
 				)
-				.join(", ") + `, ${getSupportedWidth(maxWidth)}px`
+				.join(", ")}, ${getSupportedWidth(maxWidth)}px`
 		: undefined;
 
 	const sources = Object.entries(urls).map(([format, sizeUrls]) => ({

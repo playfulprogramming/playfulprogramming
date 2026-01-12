@@ -45,10 +45,9 @@ const userResult: Record<string, { id: string }> = (await octokit
 		if (e.data && typeof e.data === "object") {
 			console.warn("Partial error from GitHub GraphQL:", e.errors);
 			return e.data;
-		} else {
-			console.error("Error fetching GitHub user ids:", e);
-			return {};
 		}
+		console.error("Error fetching GitHub user ids:", e);
+		return {};
 	})) as Record<string, { id: string }>;
 
 const userIds: Record<string, string> = {};

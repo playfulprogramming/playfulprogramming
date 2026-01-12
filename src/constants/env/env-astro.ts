@@ -15,5 +15,4 @@ export default {
 	HOOF_URL: import.meta.env.HOOF_URL ?? "https://hoof.playfulprogramming.com",
 	HOOF_AUTH_TOKEN: import.meta.env.HOOF_AUTH_TOKEN,
 	PUBLIC_CLOUDINARY_CLOUD_NAME: import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME,
-	ENABLE_DISCOVERABILITY: Boolean(import.meta.env.ENABLE_DISCOVERABILITY),
 } satisfies Environment;

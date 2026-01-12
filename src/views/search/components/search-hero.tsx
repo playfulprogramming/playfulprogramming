@@ -45,6 +45,7 @@ export const SearchHero = ({
 		<div class={styles.container}>
 			{stickerTransforms.map((sticker) => (
 				<img
+					key={sticker.image}
 					aria-hidden="true"
 					src={sticker.image}
 					class={sticker.className}

@@ -26,3 +26,10 @@ pnpm-debug.log*
 .vercel
 .astro
 .vscode
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

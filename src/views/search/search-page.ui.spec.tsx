@@ -1,14 +1,4 @@
-/* eslint-disable no-var */
-import {
-	beforeAll,
-	beforeEach,
-	afterEach,
-	afterAll,
-	test,
-	describe,
-	expect,
-	vi,
-} from "vitest";
+import { test, beforeEach, describe, expect, vi, worker } from "ui-test-utils";
 import {
 	findByText as findByTextFrom,
 	render,
@@ -17,7 +7,6 @@ import {
 } from "@testing-library/preact";
 import { SearchPageBase } from "./search-page";
 import { http, HttpResponse } from "msw";
-import { setupServer } from "msw/node";
 import { MockCanonicalPost, MockPost } from "../../../__mocks__/data/mock-post";
 import userEvent from "@testing-library/user-event";
 import { MockCollection } from "../../../__mocks__/data/mock-collection";
@@ -33,19 +22,10 @@ import { MAX_COLLECTIONS_PER_PAGE, MAX_POSTS_PER_PAGE } from "./constants";
 
 const user = userEvent.setup();
 
-const server = setupServer();
-
-beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
-
-afterEach(() => server.resetHandlers());
-
 beforeEach(() => {
-	cleanup();
 	// Reset URL after each test
 	window.history.replaceState({}, "", window.location.pathname);
 });
-
-afterAll(() => server.close());
 
 interface FnReply {
 	posts: PostInfo[];
@@ -135,7 +115,7 @@ function mockClients(fn: (searchStr: string) => FnReply): SearchContext {
 }
 
 function mockPeopleIndex(people: PersonInfo[]) {
-	server.use(
+	worker.use(
 		http.get(`*/searchFilters.json`, async () => {
 			return HttpResponse.json({
 				people,
@@ -201,6 +181,7 @@ describe("Search page", () => {
 	});
 
 	test("Should show search results for collections", async () => {
+		window.innerWidth = 2000;
 		mockPeopleIndex([]);
 		const clients = mockClients(() => ({
 			posts: [],
@@ -312,6 +293,7 @@ describe("Search page", () => {
 	});
 
 	test("Filter by tag works on desktop sidebar", async () => {
+		window.innerWidth = 2000;
 		mockPeopleIndex([]);
 		const clients = mockClients(() => ({
 			posts: [
@@ -339,13 +321,13 @@ describe("Search page", () => {
 		const container = getByTestId("tag-filter-section-sidebar");
 
 		const tag = await findByTextFrom(container, "Angular");
-
 		await user.click(tag);
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 		expect(queryByTestId("Two blog post")).not.toBeInTheDocument();
 	});
 
 	test("Filter by author works on desktop sidebar", async () => {
+		window.innerWidth = 2000;
 		mockPeopleIndex([MockPerson, MockPersonTwo]);
 		const clients = mockClients(() => ({
 			posts: [
@@ -427,7 +409,7 @@ describe("Search page", () => {
 	});
 
 	test("Sort by date works on desktop radio group buttons", async () => {
-		(global as { innerWidth: number }).innerWidth = 2000;
+		window.innerWidth = 2000;
 
 		mockPeopleIndex([]);
 		const clients = mockClients(() => ({
@@ -517,7 +499,7 @@ describe("Search page", () => {
 	});
 
 	test("Sort by date works on mobile radio group buttons", async () => {
-		(global as { innerWidth: number }).innerWidth = 500;
+		window.innerWidth = 500;
 
 		mockPeopleIndex([]);
 		const clients = mockClients(() => ({
@@ -694,7 +676,7 @@ describe("Search page", () => {
 	});
 
 	test("Pagination - Filters impact pagination", async () => {
-		(global as { innerWidth: number }).innerWidth = 2000;
+		window.innerWidth = 2000;
 		// 6 posts per page
 		mockPeopleIndex([MockPerson, MockPersonTwo]);
 		const clients = mockClients(() => ({
@@ -970,7 +952,7 @@ describe("Search page", () => {
 			sort: "oldest",
 		});
 
-		window.location.assign(`?${searchQuery}`);
+		window.history.replaceState({}, "", `?${searchQuery}`);
 
 		const { getByTestId } = render(<SearchPage mockClients={clients} />);
 
@@ -1022,7 +1004,7 @@ describe("Search page", () => {
 	});
 
 	test("Make sure that complete re-renders preserve tags, authors, etc", async () => {
-		(global as { innerWidth: number }).innerWidth = 2000;
+		window.innerWidth = 2000;
 
 		mockPeopleIndex([MockPerson, MockPersonTwo]);
 		const clients = mockClients(() => ({
@@ -1048,49 +1030,59 @@ describe("Search page", () => {
 			authors: { [MockPerson.id]: 1 },
 		}));
 
-		var { getByTestId, getByText } = render(
-			<SearchPage mockClients={clients} />,
-		);
+		{
+			const { getByTestId, getByText } = render(
+				<SearchPage mockClients={clients} />,
+			);
 
-		var searchInput = getByTestId("search-input");
-		await user.type(searchInput, "*");
-		await user.type(searchInput, "{enter}");
+			const searchInput = getByTestId("search-input");
+			await user.type(searchInput, "*");
+			await user.type(searchInput, "{enter}");
 
-		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
-		await waitFor(() => expect(getByText("Two blog post")).toBeInTheDocument());
+			await waitFor(() =>
+				expect(getByText("One blog post")).toBeInTheDocument(),
+			);
+			await waitFor(() =>
+				expect(getByText("Two blog post")).toBeInTheDocument(),
+			);
 
-		var tagContainer = getByTestId("tag-filter-section-sidebar");
+			const tagContainer = getByTestId("tag-filter-section-sidebar");
 
-		const tag = await findByTextFrom(tagContainer, "Angular");
+			const tag = await findByTextFrom(tagContainer, "Angular");
 
-		await user.click(tag);
+			await user.click(tag);
 
-		var authorContainer = getByTestId("author-filter-section-sidebar");
+			const authorContainer = getByTestId("author-filter-section-sidebar");
 
-		const author = await findByTextFrom(authorContainer, MockPerson.name);
+			const author = await findByTextFrom(authorContainer, MockPerson.name);
 
-		await user.click(author);
+			await user.click(author);
 
-		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+			await waitFor(() =>
+				expect(getByText("One blog post")).toBeInTheDocument(),
+			);
 
-		cleanup();
+			cleanup();
+		}
 
 		// Re-render
-		var { getByTestId, getByText } = render(
-			<SearchPage mockClients={clients} />,
-		);
+		{
+			const { getByTestId, getByText } = render(
+				<SearchPage mockClients={clients} />,
+			);
 
-		var searchInput = getByTestId("search-input");
-		await user.type(searchInput, "*");
-		await user.type(searchInput, "{enter}");
+			const searchInput = getByTestId("search-input");
+			await user.type(searchInput, "*");
+			await user.type(searchInput, "{enter}");
 
-		var tagContainer = getByTestId("tag-filter-section-sidebar");
-		var authorContainer = getByTestId("author-filter-section-sidebar");
+			const tagContainer = getByTestId("tag-filter-section-sidebar");
+			const authorContainer = getByTestId("author-filter-section-sidebar");
 
-		expect(await findByTextFrom(tagContainer, "Angular")).toBeInTheDocument();
-		expect(
-			await findByTextFrom(authorContainer, MockPerson.name),
-		).toBeInTheDocument();
+			expect(await findByTextFrom(tagContainer, "Angular")).toBeInTheDocument();
+			expect(
+				await findByTextFrom(authorContainer, MockPerson.name),
+			).toBeInTheDocument();
+		}
 	});
 
 	test("Make sure that re-searches reset page to 1 and preserve tags, authors, etc", async () => {
@@ -1225,7 +1217,7 @@ describe("Search page", () => {
 			sort: "oldest",
 		});
 
-		window.location.assign(`?${searchQuery}`);
+		window.history.replaceState({}, "", `?${searchQuery}`);
 
 		const { getByTestId, getByText } = render(
 			<SearchPage mockClients={clients} />,
@@ -1408,7 +1400,7 @@ describe("Search page", () => {
 			sort: "oldest",
 		});
 
-		window.location.assign(`?${searchQuery}`);
+		window.history.replaceState({}, "", `?${searchQuery}`);
 
 		const { getByTestId, getByText } = render(
 			<SearchPage mockClients={clients} />,
@@ -1464,7 +1456,7 @@ describe("Search page", () => {
 		});
 
 		history.back();
-		expect(window.location.search).toBe("?q=blog");
+		await waitFor(() => expect(window.location.search).toBe("?q=blog"));
 	});
 	test("Collection Pagination - Changing pages shows correct collection results", async () => {
 		// Mock 10 collections to ensure we have multiple pages (4 per page)

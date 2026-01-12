@@ -37,7 +37,7 @@ export function Dialog({
 
 			if (!open && dialogRef.current.open) dialogRef.current.close();
 		}
-	}, [dialogRef.current, open]);
+	}, [open]);
 
 	// When the dialog backdrop is clicked (target == <dialog>),
 	// call `props.onClose(undefined)`
@@ -45,14 +45,14 @@ export function Dialog({
 		(e: Event) => {
 			if (e.target === dialogRef.current) onClose();
 		},
-		[dialogRef.current, onClose],
+		[onClose],
 	);
 
 	// When the dialog close event fires, call `props.onClose(v)`
 	// with the dialog's return value.
 	const handleClose = useCallback(() => {
 		onClose(dialogRef.current?.returnValue);
-	}, [dialogRef.current, onClose]);
+	}, [onClose]);
 
 	return (
 		<dialog

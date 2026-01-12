@@ -10,5 +10,4 @@ export interface Environment {
 	readonly HOOF_URL: string;
 	readonly HOOF_AUTH_TOKEN: string | undefined;
 	readonly PUBLIC_CLOUDINARY_CLOUD_NAME: string | undefined;
-	readonly ENABLE_DISCOVERABILITY: boolean;
 }
