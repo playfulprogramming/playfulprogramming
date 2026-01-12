@@ -206,17 +206,15 @@ type Z = PartialDeep<Y>;
 const x: Z = {};
 ```
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-partial_deep.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-partial_deep.png)
 
 ### ReadonlyDeep
 
 This utility type constructs a new type with all keys on all levels marked as required. This is also similar to the built-in `Readonly` utility type, but unlike the built-in utility type, this one goes down to all keys in all levels, making them immutable.
 
-<figure class="kg-card kg-embed-card">
-    <iframe width="1000" height="500" src="https://codesandbox.io/embed/keen-grass-75wy9?fontsize=14&theme=dark&view=editor" style="width:1000px; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-</figure>
+{% codesandbox keen-grass-75wy9 view=editor %}
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-readonlydeep.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-readonlydeep.png)
 
 ### Mutable
 
