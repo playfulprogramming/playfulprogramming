@@ -102,6 +102,110 @@ export const bookClubBlocks = [
 		presenters: [],
 		timezone: "America/Los_Angeles",
 	},
+	{
+		slug: "book-club-01-14-2026",
+		starts_at: dayjs("01-14-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("01-14-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "MSW: Docs",
+		location_url: "https://mswjs.io/docs/",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-01-21-2026",
+		starts_at: dayjs("01-21-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("01-21-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "How to Steal Any React Component",
+		location_url: "https://fant.io/react/",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-01-28-2026",
+		starts_at: dayjs("01-28-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("01-28-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "The \"You\" in CPU: The Basics",
+		location_url: "https://cpu.land/the-basics",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-02-04-2026",
+		starts_at: dayjs("02-04-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("02-04-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "The \"You\" in CPU: Multitasking",
+		location_url: "https://cpu.land/slice-dat-time",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-02-11-2026",
+		starts_at: dayjs("02-11-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("02-11-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "The \"You\" in CPU: Exec",
+		location_url: "https://cpu.land/how-to-run-a-program",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-02-18-2026",
+		starts_at: dayjs("02-18-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("02-18-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "The \"You\" in CPU: Elf",
+		location_url: "https://cpu.land/becoming-an-elf-lord",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-02-25-2026",
+		starts_at: dayjs("02-25-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("02-25-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "The \"You\" in CPU: Paging",
+		location_url: "https://cpu.land/the-translator-in-your-computer",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
+	{
+		slug: "book-club-03-03-2026",
+		starts_at: dayjs("03-03-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		ends_at: dayjs("03-03-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
+			.tz("America/Los_Angeles", true)
+			.toDate(),
+		location_description: "The \"You\" in CPU: Fork-Exec",
+		location_url: "https://cpu.land/lets-talk-about-forks-and-cows",
+		presenters: [],
+		timezone: "America/Los_Angeles",
+	},
 ] satisfies EventBlock[];
 
 export const SacramentoBootcampBlocks = [
@@ -124,7 +228,7 @@ export const events = [
 		slug: "book-club",
 		title: "Book Club",
 		description:
-			"In our book club, every Thursday we hang out and chat about a topic or a specific article!",
+			"In our book club, every Wednesday we hang out and chat about a topic or a specific article!",
 		location_description: "Join our Discord",
 		location_url: "https://discord.gg/FMcvc6T",
 		blocks: bookClubBlocks,
