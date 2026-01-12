@@ -1,0 +1,44 @@
+---
+import { IFramePlaceholderProps } from "components/iframe-placeholder/iframe-placeholder";
+import { VideoPlaceholder } from "components/video/video-placeholder";
+
+export type Props = IFramePlaceholderProps;
+
+const props = Astro.props;
+
+let title = props.pageTitle;
+let thumbnail = "/illustrations/illustration-webpage.svg";
+
+interface NoEmbedResponse {
+	width: number;
+	author_name: string;
+	author_url: string;
+	version: string;
+	provider_url: string;
+	provider_name: string;
+	thumbnail_width: number;
+	thumbnail_url: string;
+	height: number;
+	thumbnail_height: number;
+	html: string;
+	url: string;
+	type: string;
+	title: string;
+}
+const json = await fetch(
+	`https://noembed.com/embed?dataType=json&url=${encodeURIComponent(props.src)}`,
+)
+	.then((r) => r.status === 200 && (r.json() as unknown as NoEmbedResponse))
+	.catch(() => null);
+if (json) {
+	title = `${json.title}`;
+	thumbnail = json.thumbnail_url;
+}
+---
+
+<VideoPlaceholder
+	{...props}
+	pageTitle={title}
+	thumbnailUrl={thumbnail}
+	client:visible
+/>
