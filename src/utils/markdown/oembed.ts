@@ -3,6 +3,7 @@ import rehypeParse from "rehype-parse";
 import { Node, Element } from "hast";
 import { visit } from "unist-util-visit";
 import rehypeStringify from "rehype-stringify";
+import { json } from "zod/v4";
 
 function createHTMLVisitor(visitor: (tree: Node) => void) {
 	return unified()
@@ -13,9 +14,30 @@ function createHTMLVisitor(visitor: (tree: Node) => void) {
 		.use(rehypeStringify);
 }
 
-export const oembedVideoHosts = ["vimeo.com", "youtube.com", "www.youtube.com"];
+const vimeoHosts = ["vimeo.com"];
 
-export async function getOEmbedDataFromUrl<T>(url: string): Promise<T | null> {
+const youtubeHosts = ["youtube.com", "www.youtube.com"];
+
+export const oembedVideoHosts = [...vimeoHosts, ...youtubeHosts];
+
+// Can't access Vimeo oEmbed directly due to JS Turnstile protection blocking any info about the video
+export async function getVimeoOEmbedDataFromUrl<T>(
+	url: string,
+): Promise<T | null> {
+	return await fetch(
+		`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(url)}`,
+	)
+		.then((res) => (res.ok ? res : Promise.reject(res)))
+		.then((res) => res.json())
+		.then((res) => ({
+			...res,
+			thumbnail_url: decodeURIComponent(res.thumbnail_url),
+		}));
+}
+
+export async function getGenericOEmbedDataFromUrl<T>(
+	url: string,
+): Promise<T | null> {
 	// HTML
 	const pageData = await fetch(url)
 		.then((res) => (res.ok ? res : Promise.reject(res)))
@@ -47,4 +69,13 @@ export async function getOEmbedDataFromUrl<T>(url: string): Promise<T | null> {
 	return await fetch(linkToJSON)
 		.then((res) => (res.ok ? res : Promise.reject(res)))
 		.then((res) => res.json());
+}
+
+export async function getOEmbedDataFromUrl<T>(url: string): Promise<T | null> {
+	const _url = new URL(url);
+	if (vimeoHosts.includes(_url.hostname)) {
+		return getVimeoOEmbedDataFromUrl(url);
+	}
+
+	return getGenericOEmbedDataFromUrl(url);
 }
