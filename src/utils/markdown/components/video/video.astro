@@ -14,13 +14,11 @@ let title = props.pageTitle;
 let thumbnail = "/illustrations/illustration-webpage.svg";
 let iframeProps = {};
 
-const json = await getVideoDataFromUrl(props.src).catch(
-	() => null,
-);
+const json = await getVideoDataFromUrl(props.src).catch(() => null);
 
 if (json) {
-	title = `${json.title}`;
-	thumbnail = json.thumbnail_url;
+	title = `${json?.title ?? title}`;
+	thumbnail = json?.thumbnail_url ?? thumbnail;
 	const {
 		height: _height,
 		width: _width,

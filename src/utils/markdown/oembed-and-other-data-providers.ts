@@ -4,6 +4,7 @@ import { Node, Element } from "hast";
 import { visit } from "unist-util-visit";
 import rehypeStringify from "rehype-stringify";
 import { json } from "zod/v4";
+import { siteUrl } from "constants/site-config";
 
 function createHTMLVisitor(visitor: (tree: Node) => void) {
 	return unified()
@@ -20,9 +21,44 @@ const youtubeHosts = ["youtube.com", "www.youtube.com"];
 
 const oembedVideoHosts = [...vimeoHosts, ...youtubeHosts];
 
-const twitchHosts = ["twitch.tv"];
+const twitchHosts = ["clips.twitch.tv", "twitch.tv"];
 
 export const videoHosts = [...oembedVideoHosts, ...twitchHosts];
+
+const parent = new URL(siteUrl).hostname;
+
+// Twitch doesn't give us much without auth, so for now we're just getting the page metadata
+async function getTwitchVideoDataFromUrl(url: string) {
+	// Fix issues with Twitch's iframe embed
+	const srcUrl = new URL(url);
+	let embedUrl: URL | undefined;
+
+	if (srcUrl.host === "clips.twitch.tv") {
+		const clipId =
+			srcUrl.searchParams.get("clip") || srcUrl.pathname.substring(1);
+		embedUrl = new URL(`https://clips.twitch.tv/embed`);
+		embedUrl.searchParams.set("clip", clipId);
+	}
+
+	// TODO: add support for twitch "video" and "collection" URLs
+	// https://dev.twitch.tv/docs/embed/everything/#usage
+	// https://github.com/MichaelDeBoey/gatsby-remark-embedder/blob/e80bce7d3adfc19f4ab5fc9cead9da9f60cedb55/src/transformers/Twitch.js
+
+	if (!embedUrl) {
+		embedUrl = srcUrl;
+	}
+
+	// Set the "parent" property for embedding - https://dev.twitch.tv/docs/embed/everything/#usage
+	embedUrl.searchParams.set("parent", parent);
+
+	// Needs data-frame-title as it will otherwise show "Twitch Error" on Vercel
+	return {
+		html: `<iframe src="${embedUrl.toString()}" data-frame-title="Twitch Embed" height="300" scrolling="no" allowfullscreen></iframe>`,
+		// For consistency
+		title: null,
+		thumbnail_url: null,
+	};
+}
 
 interface VimeoOEmbedResponse {
 	type: "video";
@@ -115,10 +151,21 @@ interface YouTubeOEmbedResponse {
 	html: string;
 }
 
-export async function getVideoDataFromUrl(url: string) {
+export async function getVideoDataFromUrl(
+	url: string,
+): Promise<
+	| YouTubeOEmbedResponse
+	| VimeoOEmbedResponse
+	| ReturnType<typeof getTwitchVideoDataFromUrl>
+	| null
+> {
 	const _url = new URL(url);
 	if (vimeoHosts.includes(_url.hostname)) {
 		return getVimeoOEmbedDataFromUrl(url);
+	}
+
+	if (twitchHosts.includes(_url.hostname)) {
+		return getTwitchVideoDataFromUrl(url);
 	}
 
 	return getGenericOEmbedDataFromUrl<YouTubeOEmbedResponse>(url);
