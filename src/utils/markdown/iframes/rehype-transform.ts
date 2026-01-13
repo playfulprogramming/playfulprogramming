@@ -96,7 +96,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				);
 
 				if (isVideo) {
-					const json = await getVideoDataFromUrl(src!).catch(() => null);
+					const json = await getVideoDataFromUrl(String(src!)).catch(
+						() => null,
+					);
 
 					if (json) {
 						pageTitle = `${json?.title ?? pageTitle}`;
