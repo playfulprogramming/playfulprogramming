@@ -40,7 +40,7 @@ You can also quickly run some custom tests and other nice to have features.
 
 I recorded a demo where I show it in action, you can find it here or on YouTube:
 
-{% youtube Stf66XnTzbw %}
+<iframe src="https://www.youtube.com/watch?v=Stf66XnTzbw"></iframe>
 
 Here below you can find all the main steps anyway, in case you don't want to watch the video :)
 

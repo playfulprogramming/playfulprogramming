@@ -96,7 +96,7 @@ In the video I'll show you how to configure the action to fail if the tests are 
 
 During the video I'll slowly explain each step and show you the outcome on the GitHub Actions tab. You can watch it here:
 
-{% youtube WW6ZUw9IExA %}
+<iframe src="https://www.youtube.com/watch?v=WW6ZUw9IExA"></iframe>
 
 ### Resources
 

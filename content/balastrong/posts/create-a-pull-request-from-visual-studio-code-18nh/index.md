@@ -23,7 +23,7 @@ This article will also be the first of a trilogy about the Github+VScode workflo
 
 If you're new to my articles, you know I usually match them with a YouTube video. Fun fact: while recording it I noticed the Visual Studio Code extension had a little bug, the perfect opportunity to contribute to the project and to use the extension to create a Pull Request fixing a bug of the extension itself. I'll tell you more in the video:
 
-{% youtube Ma67EbIHi64 %}
+<iframe src="https://www.youtube.com/watch?v=Ma67EbIHi64"></iframe>
 
 In any case, if you don't really like watching videos, I'll do my best to explain everything down here with some screenshots to make it easier to follow.
 

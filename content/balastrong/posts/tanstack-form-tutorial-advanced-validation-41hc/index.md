@@ -28,7 +28,7 @@ In [the last article](https://dev.to/this-is-learning/tanstack-form-setup-and-si
 
 As usual I also recorded a demo where I set up everything which I recommend you to watch and follow along, you can find it here:
 
-{% youtube Pys2ExswZT0 %}
+<iframe src="https://www.youtube.com/watch?v=Pys2ExswZT0"></iframe>
 
 Interested in the source code? Here on GitHub: https://github.com/Balastrong/tanstack-form-demo/tree/02-advanced-validation
 (you can leave a star ⭐️ if you want)

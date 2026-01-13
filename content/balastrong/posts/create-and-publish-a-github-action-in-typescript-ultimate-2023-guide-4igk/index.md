@@ -38,7 +38,7 @@ The full code of this tutorial is available on GitHub on [this repo](https://git
 
 Last, but not least, I also recorded a video version of this tutorial, so if you prefer to watch it instead of reading, you can do so here.
 
-{% youtube N26xgQ7kLKo %}
+<iframe src="https://www.youtube.com/watch?v=N26xgQ7kLKo"></iframe>
 
 - [How to use this tutorial](#how-to-use-this-tutorial)
 - [Building an MVP](#building-an-mvp)
@@ -862,7 +862,7 @@ If you want to see the final result, you can check out the [GitHub Action I crea
 
 Want to see me following along the steps in this article? Check out the video here:
 
-{% youtube N26xgQ7kLKo %}
+<iframe src="https://www.youtube.com/watch?v=N26xgQ7kLKo"></iframe>
 
 What else to say? I hope you enjoyed this article and that you learned something new. If you have any questions, feel free to add a comment below or reach out to me on [Twitter](https://twitter.com/balastrong).
 

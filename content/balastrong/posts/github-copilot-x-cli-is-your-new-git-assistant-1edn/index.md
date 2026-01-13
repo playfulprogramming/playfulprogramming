@@ -93,7 +93,7 @@ Aaaah it was Copilot Voice!
 
 Anyway, here's the full video where I play with Copilot X CLI, asking for `git` commands and giving you my personal thoughts on the AI generated suggestions.
 
-{% youtube 3OE2734U-fs %}
+<iframe src="https://www.youtube.com/watch?v=3OE2734U-fs"></iframe>
 
 ---
 

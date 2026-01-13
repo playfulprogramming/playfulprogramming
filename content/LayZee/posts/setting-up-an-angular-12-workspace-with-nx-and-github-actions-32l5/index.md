@@ -14,7 +14,7 @@ order: 2
 
 In this episode of Nx After Dark, we're creating an Nx workspace for an Angular 12 app called Energy Insights. We're also setting up a GitHub Actions workflow and connecting it to Nx Cloud.
 
-{% youtube g5AoLY3jqD4 %}
+<iframe src="https://www.youtube.com/watch?v=g5AoLY3jqD4"></iframe>
 
 Follow the instructions below to set up a similar workspace or browse the end result at [github/LayZeeDK/energy-insights](https://github.com/LayZeeDK/energy-insights).
 

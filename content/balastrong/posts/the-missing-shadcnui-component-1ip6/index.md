@@ -83,7 +83,7 @@ I also had fun integrating some tests, which you can find in the [autocomplete.t
 
 If you're curious about some choices, I walked through the implementation in a [YouTube video](https://youtu.be/1hfd9CKbv7E) on my channel:
 
-{% youtube 1hfd9CKbv7E %}
+<iframe src="https://www.youtube.com/watch?v=1hfd9CKbv7E"></iframe>
 
 ## Always improving
 

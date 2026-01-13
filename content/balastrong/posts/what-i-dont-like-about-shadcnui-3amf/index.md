@@ -20,7 +20,7 @@ So, after using it for a few months, I recorded a video sharing my thoughts.
 
 **What you're reading here is the script of the video, however some examples are better shown in the video than explained. I'll try to add some screenshots!**
 
-{% youtube RPQBTG8-qB8 %}
+<iframe src="https://www.youtube.com/watch?v=RPQBTG8-qB8"></iframe>
 
 First of all, this is NOT a component library, it’s clearly written in the homepage but I’m afraid not everyone is going to read it.
 
@@ -85,7 +85,7 @@ Instead of chasing the hype, you should try to make an informed decision before 
 
 Thanks for watching, bye!
 
-{% youtube KwlJnW9Femo %}
+<iframe src="https://www.youtube.com/watch?v=KwlJnW9Femo"></iframe>
 
 ---
 

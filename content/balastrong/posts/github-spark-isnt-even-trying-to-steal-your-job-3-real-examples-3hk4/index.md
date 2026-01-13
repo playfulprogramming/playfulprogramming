@@ -22,7 +22,7 @@ The advantage of Spark is that by focusing on one problem only (or just the few 
 
 I had a look at three different sparks and recorded a video, you can watch it here:
 
-{% youtube efpDAJXLn-k %}
+<iframe src="https://www.youtube.com/watch?v=efpDAJXLn-k"></iframe>
 
 ### Mermaid Diagram Designer
 

@@ -26,7 +26,7 @@ Definitely not rocket science, but I think it can be interesting to see how othe
 
 What you will see in this session is GitHub Copilot doing 60% of the work and myself struggling with tailwind classes.
 
-{% youtube P99L9DLh6gg %}
+<iframe src="https://www.youtube.com/watch?v=P99L9DLh6gg"></iframe>
 
 ---
 

@@ -450,7 +450,7 @@ In this talk, I introduce additional techniques for getting rid of some of our A
 
 Here’s the recording of my talk presented at ngVikings 2019 in Copenhagen:
 
-{% youtube DA3efofhpq4 %}
+<iframe src="https://www.youtube.com/watch?v=DA3efofhpq4"></iframe>
 
 # Related articles
 

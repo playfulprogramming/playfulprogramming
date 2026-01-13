@@ -12,7 +12,7 @@ socialImage: "social-image.png"
 
 I just realized that I should probably open source my mind. I wrote this script and recorded a video, you choose if you want to read or listen :D
 
-{% youtube c0FuF3NJWBc %}
+<iframe src="https://www.youtube.com/watch?v=c0FuF3NJWBc"></iframe>
 
 ### How 2025 has begun
 

@@ -18,7 +18,7 @@ Have you ever wondered where does that come from? Ok, most likely you didn't, I 
 
 Here's what I found out:
 
-{% youtube P0yKSeE5M0U %}
+<iframe src="https://www.youtube.com/watch?v=P0yKSeE5M0U"></iframe>
 
 ## The problem
 

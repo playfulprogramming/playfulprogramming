@@ -15,7 +15,7 @@ I've been sitting on writing this article for 2 years. In my heart this was the 
 
 Some wondered why I would take on working on a second framework but I never saw a conflict. In many ways, they couldn't be more different. Every design decision made with different set of tradeoffs, where the "right" answer for each is allowed to be different. But the reason this excited me so much was that [Solid](https://www.solidjs.com) and [Marko](https://www.markojs.com) represented the most powerful approaches on the axes that matter. A pincer movement of sorts for the JavaScript framework world.
 
-{% youtube ANtSWq-zI0s %}
+<iframe src="https://www.youtube.com/watch?v=ANtSWq-zI0s"></iframe>
 
 Evan You, creator of Vue gave a great talk on tradeoffs of frameworks where he positioned Vue as that middle ground between React and Angular. It's easiest to explain this as a bunch of independent ranges but the reality is we live in a multi-dimensional world and one solution isn't always fully on one side for all decisions. But we as developers keep on changing our perspective to pull out these 2D comparisons.
 
@@ -31,7 +31,7 @@ Well, this has been the dichotomy of the web for a long time. It even predates S
 
 ### Marko for Sites
 
-{% youtube IHHJiiLLH9E %}
+<iframe src="https://www.youtube.com/watch?v=IHHJiiLLH9E"></iframe>
 
 [Marko](https://markojs.com) was created at eBay sometime in the early 2010s and was open sourced in 2014. It was built for eCommerce and the demanding nature of support global customers where not every device and network is made equal. A huge emphasis placed on page load, being the first JavaScript framework to introduce both [Out of Order Streaming and Partial Hydration](https://tech.ebayinc.com/engineering/async-fragments-rediscovering-progressive-html-rendering-with-marko/) right from its inception.
 
@@ -45,7 +45,7 @@ And it sends the least JavaScript without thinking. Its "Islands" are automatic,
 
 ### Solid for Apps
 
-{% youtube J70HXl1KhWE %}
+<iframe src="https://www.youtube.com/watch?v=J70HXl1KhWE"></iframe>
 
 [Solid](https://www.solidjs.com) came from a very different home. First created as a side project in 2016 when I was at a startup creating private Social Media. It was a long lived project that needed to keep on changing and pivoting to find its customer. While we could never rewrite what we had we would quickly rip out and replace parts. Solid was modular from the start, built to work with Web Components as a component-agnostic solution. It evolved to shedding that weight as it came into its own.
 

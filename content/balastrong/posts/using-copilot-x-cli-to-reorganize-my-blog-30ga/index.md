@@ -29,7 +29,7 @@ I actually didn't plan to make a video out of it but I thought the process could
 
 This is how it went:
 
-{% youtube AKxaoupEBv4 %}
+<iframe src="https://www.youtube.com/watch?v=AKxaoupEBv4"></iframe>
 
 *Spoiler: it didn't work on the first attempt, but it was definitely my fault for not noticing the error in the suggested script*
 

@@ -23,7 +23,7 @@ I recorded a video where we can see together two main aspects:
 - How to create your first pull request on GitHub
 - What are the rules to make sure your PR is valid for the Hacktoberfest challenge
 
-{% youtube Le6VJ8gzvp8 %}
+<iframe src="https://www.youtube.com/watch?v=Le6VJ8gzvp8"></iframe>
 
 You can find here a quick guide, in case you don't have time to watch the full content on the video.
 
@@ -77,7 +77,7 @@ Just as a reminder, this year there will not be any physical rewards (like tshir
 
 I talk about that in this video here:
 
-{% youtube 4HSk0ny\_7Sc %}
+<iframe src="https://www.youtube.com/watch?v=4HSk0ny\_7Sc"></iframe>
 
 ---
 

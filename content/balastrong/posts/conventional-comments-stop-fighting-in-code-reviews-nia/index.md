@@ -75,7 +75,7 @@ This was a brief introduction to the concept, but there is a full specification 
 
 You can find all the details on that page and I also recorded myself while scrolling through it and commenting it live, you can watch it in the video below:
 
-{% youtube jT\_L9udCGp0 %}
+<iframe src="https://www.youtube.com/watch?v=jT\_L9udCGp0"></iframe>
 
 ---
 

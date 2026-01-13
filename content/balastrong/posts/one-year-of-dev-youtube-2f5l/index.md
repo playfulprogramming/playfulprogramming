@@ -16,7 +16,7 @@ Exactly one year ago I started consistently posting on YouTube, at least a video
 
 I recorded a short video, you can watch it here, or keep reading for the transcript below.
 
-{% youtube sIB31lxkDsI %}
+<iframe src="https://www.youtube.com/watch?v=sIB31lxkDsI"></iframe>
 
 ---
 

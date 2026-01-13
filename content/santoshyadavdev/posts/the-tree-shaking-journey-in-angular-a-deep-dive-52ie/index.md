@@ -38,7 +38,7 @@ This blogs is not about Nx, but as we are going to use it, we should know about 
 
 One more term used in this blog is secondary-entrypoints, I recommend watching this stream I did you YouTube
 
-{% youtube FH3i0yKOi8U %}
+<iframe src="https://www.youtube.com/watch?v=FH3i0yKOi8U"></iframe>
 
 ## Tree Shaking with Angular libraries
 

@@ -19,7 +19,7 @@ When Merging a Pull Request on GitHub, you mainly have three options, with a mer
 
 Is there anything wrong in always doing a merge commit? Well, there isn’t right or wrong here, but considering the other strategies might will likely bring you some benefits. Let me tell you why.
 
-{% youtube rFRtsiQEJZw %}
+<iframe src="https://www.youtube.com/watch?v=rFRtsiQEJZw"></iframe>
 
 *In the video I will go in detail about the three strategies, and I will also do a "live demo" with GitHub stickers and JS pins, if you're curious I'd recommend you to watch the video, otherwise you can find the full text content here below.*
 

@@ -41,7 +41,7 @@ In the above image I can see some milestones such as:
 
 If you're curious, the outcome is as uploaded on my YouTube channel where I usually talk about Open Source, so here's the video:
 
-{% youtube goYLeZeS1e0 %}
+<iframe src="https://www.youtube.com/watch?v=goYLeZeS1e0"></iframe>
 
 Let me also invite you to try out the tool and take a moment to look at your own chart. I’m sure it will tell a lot about you, so many great memories lie among those green squares. Feel free to write in a comment what a particular square or cluster means to you.
 

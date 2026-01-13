@@ -55,7 +55,7 @@ However, abusing this power ended up being a foot gun. But not knowing better we
 
 By the time [React](https://reactjs.org) showed up with a solution, and for me personally, it was the talk by Jing Chen that cemented it, we were more than ready to jump ship.
 
-{% youtube nYkdrAPrdcw %}
+<iframe src="https://www.youtube.com/watch?v=nYkdrAPrdcw"></iframe>
 
 ---
 

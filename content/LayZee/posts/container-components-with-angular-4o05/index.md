@@ -587,7 +587,7 @@ Container components have been discussed in the React community for years.
 
 The very first mention of container components is in the talk “[Making Your App Fast with High-Performance Components](https://youtu.be/KYzlpRvWZ6c?t=1351)” by [Jason Bonta](https://www.linkedin.com/in/jason-bonta-9355444/) at React Conf 2015:
 
-{% youtube KYzlpRvWZ6c %}
+<iframe src="https://www.youtube.com/watch?v=KYzlpRvWZ6c"></iframe>
 
 *Making Your App Fast with High-Performance Components, React Conf 2015. [Open in new tab](https://youtu.be/KYzlpRvWZ6c?t=1351).*
 

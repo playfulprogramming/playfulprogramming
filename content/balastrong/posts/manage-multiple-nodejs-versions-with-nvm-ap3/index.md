@@ -20,7 +20,7 @@ You can't just install the latest version of Node.js and use it for all your pro
 
 Is there an easy way to handle that? Sure there is, and it is called `nvm`. In the video here, I will show you how it works and how you can install this tool in your terminal. Works on all OS but make sure you install the right one. More details on the video, and later in the article.
 
-{% youtube A-pbv5eKCDc %}
+<iframe src="https://www.youtube.com/watch?v=A-pbv5eKCDc"></iframe>
 
 ## Installation
 
@@ -145,7 +145,7 @@ If you have any questions, feel free to ask them in the comments below and if yo
 
 Thanks for reading and see you next time!
 
-{% youtube A-pbv5eKCDc %}
+<iframe src="https://www.youtube.com/watch?v=A-pbv5eKCDc"></iframe>
 
 ---
 

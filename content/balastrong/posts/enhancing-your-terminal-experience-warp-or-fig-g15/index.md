@@ -18,7 +18,7 @@ What you will find here is a quite long article where I try to compare the two t
 
 Some of the features are better shown than told, that's why you can find here a video where I go through all the topics I cover in this article. I'd recommend you give it a watch, but if you prefer reading, keep scrolling.
 
-{% youtube GHKy8cTg1kA %}
+<iframe src="https://www.youtube.com/watch?v=GHKy8cTg1kA"></iframe>
 
 ---
 

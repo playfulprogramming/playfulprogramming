@@ -19,7 +19,7 @@ Ok, everyone does that, sometimes I use console logs too… BUT Chrome has a per
 
 Let me show you:
 
-{% youtube t1aEXEvYzvM %}
+<iframe src="https://www.youtube.com/watch?v=t1aEXEvYzvM"></iframe>
 
 Or if you prefer reading, here's a summary of what the video is about (but let me recommend you watch the demo in the video).
 

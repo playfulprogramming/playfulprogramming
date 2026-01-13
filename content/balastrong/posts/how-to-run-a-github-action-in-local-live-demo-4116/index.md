@@ -53,7 +53,7 @@ The first two minutes of the video are pretty much the article you just read unt
 
 In any case, if you're only interested in the live demo, feel free to skip to the minute 2:03. Enjoy!
 
-{% youtube Ugonll0e2Os %}
+<iframe src="https://www.youtube.com/watch?v=Ugonll0e2Os"></iframe>
 
 ---
 

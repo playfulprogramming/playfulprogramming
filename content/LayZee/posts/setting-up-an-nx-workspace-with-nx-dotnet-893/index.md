@@ -15,7 +15,7 @@ order: 1
 
 In this episode of Nx After Dark, we're creating an Nx workspace for .NET project by using [nx-dotnet](https://github.com/nx-dotnet/nx-dotnet). We're also setting up a GitHub Actions workflow.
 
-{% youtube uS9RSoqTwVw %}
+<iframe src="https://www.youtube.com/watch?v=uS9RSoqTwVw"></iframe>
 
 Follow the instructions below to set up a similar workspace or browse the end result at [github/LayZeeDK/nx-dotnet-workspace](https://github.com/LayZeeDK/nx-dotnet-workspace).
 

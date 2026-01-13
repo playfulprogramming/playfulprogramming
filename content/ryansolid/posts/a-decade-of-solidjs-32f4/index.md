@@ -31,7 +31,7 @@ Still, I wasn't jumping to create PRs. I didn't feel any ownership until I was t
 
 So skip forward a couple of years and it is Fall 2015. And I'd recently seen Ryan Florence's React Hype talk:
 
-{% youtube https://www.youtube.com/watch?v=z5e7kWSHWTg %}
+<iframe src="https://www.youtube.com/watch?v=https://www.youtube.com/watch?v=z5e7kWSHWTg"></iframe>
 
 I saw the stock ticker demo and I kept thinking, "Who sends the whole page of data over and over again from the server? React is super fast here, but you've already lost."
 
@@ -55,7 +55,7 @@ And sure enough, SolidJS's initial version jumped straight to the front of the J
 
 Now I probably would have just dropped it then and gone back to grumbling from my chair about the good old days of Knockout. But something happened between open-sourcing the project and reaching my goal. Dan Abramov came on stage October 26th, 2018 and unveiled Hooks to the world:
 
-{% youtube https://www.youtube.com/watch?v=dpw9EHDh2bM %}
+<iframe src="https://www.youtube.com/watch?v=https://www.youtube.com/watch?v=dpw9EHDh2bM"></iframe>
 
 I never thought React would promote composable primitives. It looked just like SolidJS. I had chosen JSX ultimately as our templating language for portability as it fit well with our function components. Solid Components are just functions that run once and have no internal state so unlike React, Classes never made any sense for us.
 
@@ -91,7 +91,7 @@ I started SolidJS very much on my own. I added Spectrum and Gitter chats and fou
 
 We used our OpenCollective to sponsor two hackathons(SolidHack) to bring in missing parts of the ecosystem like component libraries. We funneled our donations into the Solid Fellowship program to support important initiatives like Dev Tools and Documentation. We found friends in content creators who were open to newer ideas. People like Jason Lengstorf, Theo Browne, Jack Herrington. I started speaking at conferences and meeting people from around the world who would advocate for Solid like Daniel and Atila.
 
-{% youtube https://www.youtube.com/watch?v=O6xtMrDEhcE\&list=PL16vUvov3c5D1\_KlYevpriA9QMkVkY32l %}
+<iframe src="https://www.youtube.com/watch?v=https://www.youtube.com/watch?v=O6xtMrDEhcE\&list=PL16vUvov3c5D1\_KlYevpriA9QMkVkY32l"></iframe>
 
 But most of all we just kept doing what we were doing. We released 1.0 in the Summer of 2021. This would kick off a revolution that I never could have predicted when I first started.
 

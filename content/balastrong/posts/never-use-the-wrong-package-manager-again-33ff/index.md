@@ -32,7 +32,7 @@ In case you were wondering if that weird `package-lock.json` file that appears t
 
 I recorded a short demo to show how cool this tool is, you can watch it here:
 
-{% youtube NiTmtiBgJKI %}
+<iframe src="https://www.youtube.com/watch?v=NiTmtiBgJKI"></iframe>
 
 ## Installation
 

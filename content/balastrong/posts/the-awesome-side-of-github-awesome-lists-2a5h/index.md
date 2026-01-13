@@ -27,7 +27,7 @@ Awesome Lists are GitHub repositories that contain a list of awesome resources. 
 
 If you want to hear me talking about it for a couple of minutes, as usual I recorded a video:
 
-{% youtube dqp-JFb1Upg %}
+<iframe src="https://www.youtube.com/watch?v=dqp-JFb1Upg"></iframe>
 
 ## How to find Awesome Lists
 

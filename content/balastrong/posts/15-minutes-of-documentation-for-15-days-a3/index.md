@@ -16,7 +16,7 @@ I spent 15 minutes every single day reading documentation and here’s what I le
 
 In the last two weeks, I read the official Qwik docs but that’s not the point, the focus here is more broadly on the benefits you can have in reading the documentation of whatever technology you want to get better at.
 
-{% youtube AlmIqcB3OEo %}
+<iframe src="https://www.youtube.com/watch?v=AlmIqcB3OEo"></iframe>
 
 ## Why documentation?
 

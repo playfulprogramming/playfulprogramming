@@ -20,7 +20,7 @@ In the [first article](https://dev.to/this-is-learning/tanstack-router-setup-rou
 
 Here's a demo of what you're going to learn in this article. For written instructions, keep reading below.
 
-{% youtube xUrbLlcrIXY %}
+<iframe src="https://www.youtube.com/watch?v=xUrbLlcrIXY"></iframe>
 
 On your favourite social network, your account url will be somewhere around `https://www.example.com/user/yourusername`. The `yourusername` part is a path parameter, and it's a way to tell the application that you'd like to see the page for that specific user.
 

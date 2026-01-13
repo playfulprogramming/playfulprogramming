@@ -39,7 +39,7 @@ The last couple of years have seen SPA-influenced isomorphic (same code runs dif
 
 When you assemble all these features, things are not so simple anymore. And it is arguable whether we are even solving the problems we set out to:
 
-{% youtube nzbV0YgSBuo %}
+<iframe src="https://www.youtube.com/watch?v=nzbV0YgSBuo"></iframe>
 
 It has been incredibly difficult to measure success. We've seen benchmark fails:
 

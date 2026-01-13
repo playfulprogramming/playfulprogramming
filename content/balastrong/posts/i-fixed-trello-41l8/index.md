@@ -20,7 +20,7 @@ I published a video where I tell a story about how I found myself creating an ex
 
 You can find the video here:
 
-{% youtube srva7IEDR9M %}
+<iframe src="https://www.youtube.com/watch?v=srva7IEDR9M"></iframe>
 
 If you prefer reading, I share down here the script of the video:
 

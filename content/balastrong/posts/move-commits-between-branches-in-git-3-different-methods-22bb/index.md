@@ -30,7 +30,7 @@ Fear not, there are many ways to move commits between branches and I'll show you
 
 If you want to see some live action and a step by step procedure, you can watch the video! Otherwise feel free to keep reading :)
 
-{% youtube 0pzFGXvemvA %}
+<iframe src="https://www.youtube.com/watch?v=0pzFGXvemvA"></iframe>
 
 ## 1. Move to a new branch
 
@@ -144,7 +144,7 @@ What about you, do you have any other way to move commits between branches? I me
 
 See it in action!
 
-{% youtube 0pzFGXvemvA %}
+<iframe src="https://www.youtube.com/watch?v=0pzFGXvemvA"></iframe>
 
 ---
 

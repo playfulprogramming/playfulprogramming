@@ -131,7 +131,7 @@ A cool one I can mention is [qwik-ui](https://github.com/qwikifiers/qwik-ui), th
 
 If some of the mentioned topics sound interesting to you, that's great, I will expand them and show some coding in the video I recorded:
 
-{% youtube m5PX9XF1in8 %}
+<iframe src="https://www.youtube.com/watch?v=m5PX9XF1in8"></iframe>
 
 ---
 

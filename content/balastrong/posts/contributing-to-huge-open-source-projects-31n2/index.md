@@ -19,7 +19,7 @@ Good news, no you don't.
 
 But then, how do you even get started? If you feel overwhelmed and don’t know where to start, you're not the only one. I'm Leonardo, and this video I'll show you how to approach to a large Open Source project.
 
-{% youtube mt92NrUEJiU %}
+<iframe src="https://www.youtube.com/watch?v=mt92NrUEJiU"></iframe>
 
 *here below you can find the script of the video*
 
@@ -80,7 +80,7 @@ At this point, you have the project running locally, you have an issue to work o
 
 You will need to fork the repo, clone it locally, do your changes in a separate branch and then create your Pull Request. If you're not familiar with this process, here's a video explaining step by step how you can do that with GitHub Desktop, the official GitHub client to work with git.
 
-{% youtube 8x6V5IOuXog %}
+<iframe src="https://www.youtube.com/watch?v=8x6V5IOuXog"></iframe>
 
 And with that said, thanks for reading this article and see you next time!
 

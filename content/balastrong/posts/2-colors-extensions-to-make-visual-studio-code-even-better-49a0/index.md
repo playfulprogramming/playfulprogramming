@@ -16,7 +16,7 @@ Colors 🌈 help us identify things in our surroundings, including Visual Studi
 
 Today I show how I solved two problems I had, thanks to colors and 2 vscode extensions. Here's a video where I showcase them and how you can push the extension even further to get even better customization 👇
 
-{% youtube bvaSo3tip2g %}
+<iframe src="https://www.youtube.com/watch?v=bvaSo3tip2g"></iframe>
 
 ## 1. Identify different vscode instances
 

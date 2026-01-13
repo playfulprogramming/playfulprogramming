@@ -49,7 +49,7 @@ I'll further explore the following topics in the video:
 
 If you're curious and you want to see it in action, check out the video below:
 
-{% youtube Psm86eIvmdc %}
+<iframe src="https://www.youtube.com/watch?v=Psm86eIvmdc"></iframe>
 
 ---
 

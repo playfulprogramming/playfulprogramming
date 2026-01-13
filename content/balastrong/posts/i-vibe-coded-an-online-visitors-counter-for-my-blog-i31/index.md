@@ -67,7 +67,7 @@ Ah by the way, this wasn't a sponsored post (I wish it was!) but I think finding
 
 If you want to see the live result just head over <https://leonardomontini.dev/> or have a look at the video where I walk through the whole process and code:
 
-{% youtube HAOMTH4uCkE %}
+<iframe src="https://www.youtube.com/watch?v=HAOMTH4uCkE"></iframe>
 
 ---
 

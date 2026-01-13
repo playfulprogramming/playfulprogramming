@@ -18,7 +18,7 @@ My first attempt obviously went to Ollama to run models locally, then I had a go
 
 You can hear me talking about those and showing some steps and demos in this [YouTube video](https://youtu.be/87HrBpOZeUE) or you can keep reading below.
 
-{% youtube 87HrBpOZeUE %}
+<iframe src="https://www.youtube.com/watch?v=87HrBpOZeUE"></iframe>
 
 ## Code setup
 

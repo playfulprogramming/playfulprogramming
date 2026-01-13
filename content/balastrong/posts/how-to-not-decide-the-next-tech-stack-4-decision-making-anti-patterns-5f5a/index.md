@@ -24,7 +24,7 @@ Well, I'm Leonardo, let's get started!
 
 This time the video is slightly different than usual. I moved around a little bit, changing room and "tools" (you'll see what I mean) for each chapter, I hope you like it!
 
-{% youtube DJYIjdEas8s %}
+<iframe src="https://www.youtube.com/watch?v=DJYIjdEas8s"></iframe>
 
 If you prefer reading, you can find the script below.
 

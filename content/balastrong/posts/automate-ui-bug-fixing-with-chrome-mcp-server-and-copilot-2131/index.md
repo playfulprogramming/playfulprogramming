@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 I recently had a look at the Chrome MCP server and it looks really cool. So, let me show you a quick example of what it can do.
 
-{% youtube 7M7O-tuAkN8 %}
+<iframe src="https://www.youtube.com/watch?v=7M7O-tuAkN8"></iframe>
 
 ## Getting Started
 

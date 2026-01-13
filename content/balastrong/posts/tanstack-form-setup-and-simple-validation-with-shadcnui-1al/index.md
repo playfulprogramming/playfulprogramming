@@ -31,7 +31,7 @@ My idea is to cover this library in 3 steps. The first one (this article) is abo
 
 You can already find the video version for chapter 1 here:
 
-{% youtube Pf1qn35bgjs %}
+<iframe src="https://www.youtube.com/watch?v=Pf1qn35bgjs"></iframe>
 
 ## Setup
 

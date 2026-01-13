@@ -35,7 +35,7 @@ That's it! Now you can manually trigger your GitHub Action by going to the Actio
 
 If you want to see it in action (pun intended!) you can watch the video below. Otherwise, if you prefer to read, you can jump to the next section.
 
-{% youtube KGfncu595pc %}
+<iframe src="https://www.youtube.com/watch?v=KGfncu595pc"></iframe>
 
 ## Passing inputs
 

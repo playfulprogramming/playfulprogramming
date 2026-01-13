@@ -23,7 +23,7 @@ So when people are talking about 0kb JavaScript what are they talking about?
 
 In the past week, I've seen not one but two demo's showing how HTML Forms do POST requests without JavaScript on the page. [Remix Run](https://remix.run/) and [SvelteKit](https://kit.svelte.dev/) both have the ability to server render a page and then have forms function perfectly fine without loading the JavaScript bundles.
 
-{% youtube 4dOAFJUOi-s %}
+<iframe src="https://www.youtube.com/watch?v=4dOAFJUOi-s"></iframe>
 
 Unsurprisingly links (`<a>` anchor tags) work as well in this condition. This isn't groundbreaking and every server-rendered library can benefit from this if they design their APIs to handle form posts. But it definitely makes for the jaw-drop demo.
 
@@ -39,7 +39,7 @@ The best part of progressive enhancement is it is available to every framework. 
 
 This announcement definitely was groundbreaking. Components that only render on the Server in React. These are being advertised as zero bundle-size components.
 
-{% youtube TQQPAU21ZUw %}
+<iframe src="https://www.youtube.com/watch?v=TQQPAU21ZUw"></iframe>
 
 What does zero bundle-size actually mean? Well, it means that you aren't shipping these components with your bundle. Keep in mind, the rendered templates are making it to the browser eventually through a serialized format. You do save sending the React code to render it though.
 
@@ -61,7 +61,7 @@ Hardly a new idea, but finally it had a name. This as you can imagine drasticall
 
 Astro is a multi-framework meta-framework built on top of this idea.
 
-{% youtube mgkwZqVkrwo %}
+<iframe src="https://www.youtube.com/watch?v=mgkwZqVkrwo"></iframe>
 
 What's really cool about this is we are actively reducing the JavaScript sent on a page while keeping interactivity if desired. The tradeoff is these are multi-page (server-routed) apps. Yes, you could build a Single Page App but that would be negating the benefits.
 

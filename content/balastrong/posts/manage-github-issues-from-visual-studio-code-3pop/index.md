@@ -18,7 +18,7 @@ Two weeks ago we learned how to create a Pull Request on GitHub from Visual Stud
 
 This will mark the end of the series of three videos, showing you how to maximize your productivity when working with GitHub from Visual Studio Code, with the official extension: GitHub Pull Requests and Issues.
 
-{% youtube -nfUgBLBTIo %}
+<iframe src="https://www.youtube.com/watch?v=-nfUgBLBTIo"></iframe>
 
 ---
 

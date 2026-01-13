@@ -374,7 +374,7 @@ Let's give component features a test run and give our feedback to the Angular te
 
 In November 2019, I presented a talk called "Ivy's hidden features" at the ngPoland conference and later at the Angular Online Event #3 2020.
 
-{% youtube 8NQCgmAQEdE %}
+<iframe src="https://www.youtube.com/watch?v=8NQCgmAQEdE"></iframe>
 
 *Slides from my talk "Ivy's hidden features/Ivy's best kept secret" at ngPoland 2019/Angular Online Event #3 2020. [Open in new tab](https://speakerdeck.com/layzee/ivys-hidden-features).*
 

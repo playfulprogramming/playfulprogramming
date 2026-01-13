@@ -69,7 +69,7 @@ I got the access yesterday and I already took some time to give it a try myself 
 
 In the video, you'll see me ~~writing~~ describing a simple javascript program and doing some interactions with Visual Studio Code with my voice, thanks to Hey GitHub.
 
-{% youtube s\_WMdytCvdI %}
+<iframe src="https://www.youtube.com/watch?v=s\_WMdytCvdI"></iframe>
 
 ## Conclusion
 

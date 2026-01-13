@@ -16,7 +16,7 @@ Wait, what? Slash commands are available on GitHub?
 
 I recorded a two minutes video to showcase how it works:
 
-{% youtube r3z4sotrQXQ %}
+<iframe src="https://www.youtube.com/watch?v=r3z4sotrQXQ"></iframe>
 
 ---
 

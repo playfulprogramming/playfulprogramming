@@ -24,7 +24,7 @@ I'm not going to talk about Flutter specifically but I'd like to use this as a h
 
 You can watch the full content as a video, or keep reading the transcript
 
-{% youtube Dje\_jaiMnYg %}
+<iframe src="https://www.youtube.com/watch?v=Dje\_jaiMnYg"></iframe>
 
 ## The Shape of a Developer
 

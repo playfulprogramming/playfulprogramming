@@ -24,7 +24,7 @@ I sent ChatGPT a simple prompt:
 
 The result? It answered with the script of this video:
 
-{% youtube MAj7d8C5p3o %}
+<iframe src="https://www.youtube.com/watch?v=MAj7d8C5p3o"></iframe>
 
 ## And the title?
 

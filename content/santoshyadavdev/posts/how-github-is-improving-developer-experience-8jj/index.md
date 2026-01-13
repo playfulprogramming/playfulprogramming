@@ -139,7 +139,7 @@ Example: https://github.com/ngx-builders/source-map-analyzer/releases/tag/3.0.1
 
 You can watch my latest video as I created a new release for my Open Source Package
 
-{% youtube 0TsWsW0MjMc %}
+<iframe src="https://www.youtube.com/watch?v=0TsWsW0MjMc"></iframe>
 
 ## Code Navigation
 

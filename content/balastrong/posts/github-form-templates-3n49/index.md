@@ -26,7 +26,7 @@ In this 2 chapters series, we'll see how to use GitHub Issue Templates to help c
 
 You can find the full content in this video, or you can keep reading for Chapter 2.
 
-{% youtube hNs5Gg\_fEEs %}
+<iframe src="https://www.youtube.com/watch?v=hNs5Gg\_fEEs"></iframe>
 
 ## Form Schema
 

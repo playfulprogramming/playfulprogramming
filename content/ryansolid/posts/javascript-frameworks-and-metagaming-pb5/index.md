@@ -28,7 +28,7 @@ What makes Magic interesting is that each match is a best out of 3 games and the
 But what makes it really interesting is after game 1 either player can swap up to a quarter of the cards in their deck. And depending on each strategy one can change their approach to combat other strategies. This is incredibly deep when you consider the [Princess Bride leveling game](https://www.youtube.com/watch?v=EZSx3zNZOaU) involved.
 
 Through Magic I learned lessons on game theory. It's immensely deep. I've applied these sort of patterned thinking to a lot of problems I've faced since. Mark Rosewater, the Head Designer, gives one of my favorite talks on lessons learned when designing.
-{% youtube QHHg99hwQGY %}
+<iframe src="https://www.youtube.com/watch?v=QHHg99hwQGY"></iframe>
 
 ## Framework Design
 
@@ -54,7 +54,7 @@ All I had were articles that I wrote and the output of my work. And you can prob
 
 Now framework authors live and breathe these problems. They've thought about the tradeoffs. They've chose their place and continue to work to understand these tradeoffs and implications of their decisions. Great video by Evan You on the topic:
 
-{% youtube ANtSWq-zI0s %}
+<iframe src="https://www.youtube.com/watch?v=ANtSWq-zI0s"></iframe>
 
 This video establishes axis to compare our projects on and clearly states how moving the dial from left to right has different repercussions. It doesn't get super deep here, but decisions on one slide directly impact which options are open to you on the next.
 

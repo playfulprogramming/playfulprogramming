@@ -20,7 +20,7 @@ It works in 4 steps:
 
 I recorded a short demo to see it in action, enjoy:
 
-{% youtube FARf9emEPjI %}
+<iframe src="https://www.youtube.com/watch?v=FARf9emEPjI"></iframe>
 
 ## 1. Issue/Task
 

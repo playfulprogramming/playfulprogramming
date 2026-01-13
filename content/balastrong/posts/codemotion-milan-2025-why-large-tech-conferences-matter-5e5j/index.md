@@ -23,7 +23,7 @@ While I am still wearing the conference badge, here is why I think you should go
 
 This article is actually an edited version of me rambling for ten minutes, you can watch it here:
 
-{% youtube Xmqzx2qX6Eg %}
+<iframe src="https://www.youtube.com/watch?v=Xmqzx2qX6Eg"></iframe>
 
 ## Meet people
 

@@ -35,7 +35,7 @@ If you're interested in some of them, in this video I uploaded on YouTube you wi
 
 Happy Open Source Contributing!
 
-{% youtube \_uetV0wZyXM %}
+<iframe src="https://www.youtube.com/watch?v=\_uetV0wZyXM"></iframe>
 
 ---
 

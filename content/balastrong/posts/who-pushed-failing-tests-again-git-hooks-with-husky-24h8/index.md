@@ -56,7 +56,7 @@ I recorded a video where I go step by step through the process of setting up Hus
 - `pre-commit`: runs `prettier` and `eslint` on the staged files
 - `pre-push`: runs the test suite
 
-{% youtube TT1TpPwbMVQ %}
+<iframe src="https://www.youtube.com/watch?v=TT1TpPwbMVQ"></iframe>
 
 No time to watch the video? You can add it on "Watch Later" on YouTube, there's some value to get from there.
 

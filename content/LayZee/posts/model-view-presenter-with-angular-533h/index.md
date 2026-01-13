@@ -246,7 +246,7 @@ We will build isolated unit tests in which we stub service dependencies using Ja
 
 [Watch my talk “Model-View-Presenter with Angular” from Angular Online Meetup #8](https://youtu.be/C0yyvnrc0N0):
 
-{% youtube C0yyvnrc0N0 %}
+<iframe src="https://www.youtube.com/watch?v=C0yyvnrc0N0"></iframe>
 
 [View the slides from my talk “Model-View-Presenter with Angular”](https://bit.do/mvp-slides):
 

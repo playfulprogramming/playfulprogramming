@@ -22,7 +22,7 @@ In my case, it was not about the money but rather the company culture which made
 
 You can watch the full video where I go into details here:
 
-{% youtube R0hPCgPvFuc %}
+<iframe src="https://www.youtube.com/watch?v=R0hPCgPvFuc"></iframe>
 
 *I know not everyone likes to watch videos, so let me write down some of the main concepts I talk about.*
 
@@ -92,7 +92,7 @@ Maybe I've been lucky, but I'm sure there are other companies out there that are
 
 If you're interested in all the details, you can watch the full video here:
 
-{% youtube R0hPCgPvFuc %}
+<iframe src="https://www.youtube.com/watch?v=R0hPCgPvFuc"></iframe>
 
 ---
 

@@ -22,7 +22,7 @@ The other three games, with a little bit of magic, are multiplayer games!
 
 I recorded a video where I play all 4 of them and I try to explain how they work, you can watch it here:
 
-{% youtube yXO9vhPuV1Y %}
+<iframe src="https://www.youtube.com/watch?v=yXO9vhPuV1Y"></iframe>
 
 ## Game 1: Single-player Tic-Tac-Toe
 

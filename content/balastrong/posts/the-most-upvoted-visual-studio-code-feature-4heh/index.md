@@ -44,7 +44,7 @@ I also noticed that global shortcuts (such as opening the terminal) even if laun
 
 But features like this are better seen than explained, so as usual I recorded a short demo for my YouTube channel, enjoy:
 
-{% youtube vUFqWWQIC4s %}
+<iframe src="https://www.youtube.com/watch?v=vUFqWWQIC4s"></iframe>
 
 ## Keeping up to date
 

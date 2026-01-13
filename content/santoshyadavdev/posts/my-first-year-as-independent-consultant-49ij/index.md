@@ -97,7 +97,7 @@ Thats where my fav Developer Advocates work
 
 Don't worry if you have this question. Wassim and I did a live stream.
 
-{% youtube 9aHPHK3G59o %}
+<iframe src="https://www.youtube.com/watch?v=9aHPHK3G59o"></iframe>
 
 I had to put my dream job search on hold as there are not enough opportunities in India. But I will be there after two years until I have these contracts to learn and grow.
 

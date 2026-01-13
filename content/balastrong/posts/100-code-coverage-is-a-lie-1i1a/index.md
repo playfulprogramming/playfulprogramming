@@ -30,7 +30,7 @@ Beware: **Code Coverage is a tool, not a goal**.
 
 If you're curious to hear more about my opinion on Code Coverage, I recorded a video and you can find it on YouTube!
 
-{% youtube WxoSoxVgyUw %}
+<iframe src="https://www.youtube.com/watch?v=WxoSoxVgyUw"></iframe>
 
 ---
 

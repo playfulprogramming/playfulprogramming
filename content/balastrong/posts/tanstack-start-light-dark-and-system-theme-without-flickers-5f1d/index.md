@@ -27,7 +27,7 @@ If your application has also some sort of server-side rendering, this seemingly 
 
 I recently took some time to implement a robust approach for a TanStack Start application ([code here](https://github.com/Balastrong/start-theme-demo)) and I recorded a video where I explain step by step all the moving parts, you can watch it here and keep this written article as reference for later.
 
-{% youtube NoxvbjkyLAg %}
+<iframe src="https://www.youtube.com/watch?v=NoxvbjkyLAg"></iframe>
 
 ### The two theme types
 

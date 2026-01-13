@@ -30,7 +30,7 @@ If you want to keep your history clean and make your mistake disappear, let me s
 
 As usual, there's a live demo waiting for you on my YouTube channel where I show you all the content of this article plus some extra words and scenarios. If you're just here for the commands, you can skip the video and go straight to the article.
 
-{% youtube ukx24CtWhms %}
+<iframe src="https://www.youtube.com/watch?v=ukx24CtWhms"></iframe>
 
 ## Table of Contents
 
@@ -123,7 +123,7 @@ I know there are at least a dozen different ways of moving around in git. I sele
 
 Let me recommend once more to also watch the live demo and leave a like in this article (and to the video) to support my work. Thanks!
 
-{% youtube ukx24CtWhms %}
+<iframe src="https://www.youtube.com/watch?v=ukx24CtWhms"></iframe>
 
 ---
 

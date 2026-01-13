@@ -22,7 +22,7 @@ You can find it here (don't forget to leave a ⭐️):
 
 Here's a quick overview of the project:
 
-{% youtube ZM92XPdrOTk %}
+<iframe src="https://www.youtube.com/watch?v=ZM92XPdrOTk"></iframe>
 
 ## Why this project?
 

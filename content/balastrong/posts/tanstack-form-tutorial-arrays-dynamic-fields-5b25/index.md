@@ -20,7 +20,7 @@ We'll learn how to setup an array field and how to add, remove, and even move el
 
 The video version for this chapter is available here:
 
-{% youtube 0IPPHdjvrzk %}
+<iframe src="https://www.youtube.com/watch?v=0IPPHdjvrzk"></iframe>
 
 Code is as usual on GitHub at the [03-dynamic-arrays](https://github.com/Balastrong/tanstack-form-demo/tree/03-dynamic-arrays) branch (leave a star if you like it! ⭐️).
 

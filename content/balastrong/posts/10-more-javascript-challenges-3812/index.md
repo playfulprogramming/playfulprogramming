@@ -17,7 +17,7 @@ Do you know Javascript? After the success of the [previous video](https://youtu.
 
 These are 4 out of the 10 challenges you'll find in the video:
 
-{% youtube wE-6CswAE64 %}
+<iframe src="https://www.youtube.com/watch?v=wE-6CswAE64"></iframe>
 
 ---
 
@@ -69,11 +69,11 @@ console.log(luca);
 
 If you're curious about the answers, you can find them in the video below. I hope you enjoy it!
 
-{% youtube 79R\_ys7a8Aw %}
+<iframe src="https://www.youtube.com/watch?v=79R\_ys7a8Aw"></iframe>
 
 In the video above, I go through all challenges and show the answer, but I also recorded a slower version where I actually explain them in more detail. If you're curious and want to learn more, you can find it here:
 
-{% youtube wE-6CswAE64 %}
+<iframe src="https://www.youtube.com/watch?v=wE-6CswAE64"></iframe>
 
 Let me know how many did you got right! :D
 

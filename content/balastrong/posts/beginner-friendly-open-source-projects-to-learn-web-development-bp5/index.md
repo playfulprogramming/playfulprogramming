@@ -24,7 +24,7 @@ You can find everything here: https://github.com/DevLeonardoCommunity
 
 Anyway, if you're curious I recorded a two-minutes video to explain what it's all about:
 
-{% youtube B63qtyWwrME %}
+<iframe src="https://www.youtube.com/watch?v=B63qtyWwrME"></iframe>
 
 See you there!
 

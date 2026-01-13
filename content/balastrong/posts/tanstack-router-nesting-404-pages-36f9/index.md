@@ -130,7 +130,7 @@ Going to `/non-existent-page` will render the `defaultNotFoundComponent` you def
 
 You can see all these features in action in the video I published on my YouTube channel:
 
-{% youtube 48JS96u6GDc %}
+<iframe src="https://www.youtube.com/watch?v=48JS96u6GDc"></iframe>
 
 I hope you found this article helpful! We've seen how to nest routes and how to handle 404 pages in TanStack Router by controlling the nesting of files and folder... but... what if you wanted to achieve all of that without having to rely on the filesystem?
 

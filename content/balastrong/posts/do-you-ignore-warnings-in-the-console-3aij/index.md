@@ -17,7 +17,7 @@ How often when you run your build command you see a bunch of warnings in the con
 
 I talk about that in today's video, you can watch it here or read the transcript below.
 
-{% youtube -ydEWqNjPSw %}
+<iframe src="https://www.youtube.com/watch?v=-ydEWqNjPSw"></iframe>
 
 ## The Broken Window Theory
 

@@ -16,7 +16,7 @@ How to Fork a repository on GitHub is as easy as pressing a button, we take this
 
 Here’s a brief video about the most essential GitHub feature to enable collaboration between developers in the open-source world.
 
-{% youtube VbfvQzCoiQc %}
+<iframe src="https://www.youtube.com/watch?v=VbfvQzCoiQc"></iframe>
 
 ---
 

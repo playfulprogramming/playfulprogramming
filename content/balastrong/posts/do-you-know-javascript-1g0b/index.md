@@ -48,7 +48,7 @@ In this case, the `*` operator tried to convert the two strings in numbers, that
 
 I've collected 12 situations like these and I will walk you through them in this video. I will also use the node REPL to further expand on some of them when the output is particularly weird.
 
-{% youtube 8gGuu9c9miY %}
+<iframe src="https://www.youtube.com/watch?v=8gGuu9c9miY"></iframe>
 
 ---
 

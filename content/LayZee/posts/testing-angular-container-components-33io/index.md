@@ -255,7 +255,7 @@ This is enough to verify the integration to the persistence layer. It is the her
 
 I use *The Unit Testing Minimalist* testing strategy by [Sandi Metz](https://twitter.com/sandimetz) to decide which behaviours to test. To learn more, watch “[Magic Tricks of Testing](http://youtu.be/qPfQM4w4I04)” from Ancient City Ruby 2013.
 
-{% youtube qPfQM4w4I04 %}
+<iframe src="https://www.youtube.com/watch?v=qPfQM4w4I04"></iframe>
 
 ---
 

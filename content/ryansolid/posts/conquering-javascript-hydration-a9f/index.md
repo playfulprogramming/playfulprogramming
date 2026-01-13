@@ -89,7 +89,7 @@ This is just the starting line. With hydration potentially a thing of the past, 
 ---
 
 If you want to see what it's about today check out [Qwik](https://github.com/BuilderIO/qwik). It uses JSX and reactive primitives to make developing performant apps easy. Here is my recent interview with Misko:
-{% youtube lY6e7Hw4uVo %}
+<iframe src="https://www.youtube.com/watch?v=lY6e7Hw4uVo"></iframe>
 
 If you want to see what I've been working on, you will need to wait a bit longer. We are looking forward to releasing our first version this summer when [Marko](https://www.markojs.com) 6 goes into beta.
-{% youtube Y22xf8EjioE %}
+<iframe src="https://www.youtube.com/watch?v=Y22xf8EjioE"></iframe>

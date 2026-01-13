@@ -107,7 +107,7 @@ And the benefits don't stop with the browser. With a Signals-based system the co
 Consider a server-rendered page with few interactions. Maybe an eCommerce site. The static parts are server-rendered HTML. You don't even need the code for that to make it interactive. Just delete the static parts from the bundle.
 
 Steve from Builder.io (at 1:16) explains how this works in [Qwik](https://qwik.builder.io/):
-{% youtube lXDDNM5rZQI %}
+<iframe src="https://www.youtube.com/watch?v=lXDDNM5rZQI"></iframe>
 
 Admittedly this is mostly a performance concern. It comes from the same motivation for [Islands architecture](https://jasonformat.com/islands-architecture/) and [React Server Components](https://nextjs.org/docs/advanced-features/react-18/server-components). It addresses a very [real pain point we are facing today](https://infrequently.org/2022/12/performance-baseline-2023/) with the trend towards ever-bigger JavaScript bundles and slow initial page loads.
 

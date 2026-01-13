@@ -87,7 +87,7 @@ If you want to learn more and watch a live demo with that action being setup and
 
 I will also go through each step, compare the code with the ouput and explain what's happening. Enjoy :)
 
-{% youtube dPLPSaFqJmY %}
+<iframe src="https://www.youtube.com/watch?v=dPLPSaFqJmY"></iframe>
 
 ---
 

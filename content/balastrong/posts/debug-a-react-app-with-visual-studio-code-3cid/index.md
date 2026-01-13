@@ -19,7 +19,7 @@ Today we'll see one of the many, that is the Visual Studio Code debugger.
 
 I recorded a short demo here:
 
-{% youtube FOXNlZFkbPk %}
+<iframe src="https://www.youtube.com/watch?v=FOXNlZFkbPk"></iframe>
 
 ## Setup
 

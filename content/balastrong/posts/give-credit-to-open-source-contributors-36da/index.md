@@ -26,7 +26,7 @@ That’s why there’s an emoji key table which includes many other actions givi
 
 Here's a video where I talk about the two main ways to use this tool which are the Bot and the CLI.
 
-{% youtube 9okPS0yjsK0 %}
+<iframe src="https://www.youtube.com/watch?v=9okPS0yjsK0"></iframe>
 
 ## Bot
 

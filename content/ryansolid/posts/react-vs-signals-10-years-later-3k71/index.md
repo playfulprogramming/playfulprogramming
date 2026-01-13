@@ -194,7 +194,7 @@ In 2021, I took a stab at it.
 
 React team also announced they were looking at this too.
 
-{% youtube lGEMwh32soc %}
+<iframe src="https://www.youtube.com/watch?v=lGEMwh32soc"></iframe>
 
 There are rules being imposed on both systems. React wants you to remember not to do impure things in your function bodies. That is because if you do you can observe abstraction leaks if they were ever to optimize what is under the hood. Including potentially not re-running parts of your component.
 
@@ -228,4 +228,4 @@ Times have changed. It is almost fitting that the paradigm that was "fixed" away
 
 *For more on React's early history watch:*
 
-{% youtube 8pDqJVdNa44 %}
+<iframe src="https://www.youtube.com/watch?v=8pDqJVdNa44"></iframe>

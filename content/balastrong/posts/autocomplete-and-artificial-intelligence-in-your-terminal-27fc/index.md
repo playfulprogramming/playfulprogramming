@@ -19,7 +19,7 @@ Actually, it's much more than a simple autocomplete, even if to be honest it's w
 
 If you want to see a showcase of some of the major features, as usual, I recorded a video and you can find it on YouTube!
 
-{% youtube HNVB9Dro2S4 %}
+<iframe src="https://www.youtube.com/watch?v=HNVB9Dro2S4"></iframe>
 
 Still here? If you're not a video guy, feel free to read the article instead!
 

@@ -26,7 +26,7 @@ As I usually do for my content, you can watch a video showing in detail the enti
 
 Enjoy!
 
-{% youtube 4sslBg8LprE %}
+<iframe src="https://www.youtube.com/watch?v=4sslBg8LprE"></iframe>
 
 ## Setup & Navigation
 

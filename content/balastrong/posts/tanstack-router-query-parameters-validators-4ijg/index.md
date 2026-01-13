@@ -24,7 +24,7 @@ In this article, we'll see how you can properly parse and handle query parameter
 
 Here's a demo of what you're going to learn in this article. For written instructions, keep reading below.
 
-{% youtube fE0CeXZF7CY %}
+<iframe src="https://www.youtube.com/watch?v=fE0CeXZF7CY"></iframe>
 
 Imagine having a search page or a table with a lot of inputs for filtering the data, or maybe a dashboard with many configurable widgets. You can build your own customized view by setting those filters but as soon as you refresh the page, they're gone.
 

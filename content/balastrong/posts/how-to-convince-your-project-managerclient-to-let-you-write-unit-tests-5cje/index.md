@@ -49,7 +49,7 @@ On this topic I recorded a video where I go through some pros and cons, in parti
 
 This was just a highlight of what the video will be about, if you're interested in hearing about my take, you can watch it here:
 
-{% youtube hrhblEwtAoU %}
+<iframe src="https://www.youtube.com/watch?v=hrhblEwtAoU"></iframe>
 
 ---
 
