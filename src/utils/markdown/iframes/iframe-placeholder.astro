@@ -4,19 +4,16 @@ import {
 	IFramePlaceholderProps,
 } from "components/iframe-placeholder/iframe-placeholder";
 import Video from "utils/markdown/components/video/video.astro";
-import { videoHosts } from "utils/markdown/oembed-and-other-data-providers";
 
-export type Props = IFramePlaceholderProps;
+export type Props = IFramePlaceholderProps & {
+	isVideo?: boolean;
+};
 
 const props = Astro.props;
-
-const url = new URL(props.src);
-
-const showVideoPlaceholder = videoHosts.includes(url.hostname);
 ---
 
 {
-	showVideoPlaceholder ? (
+	props.isVideo ? (
 		<Video {...props} />
 	) : (
 		<PreactIFramePlaceholder {...props} client:visible />

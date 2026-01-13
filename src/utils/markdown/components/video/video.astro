@@ -1,37 +1,10 @@
 ---
-import { IFramePlaceholderProps } from "components/iframe-placeholder/iframe-placeholder";
 import { VideoPlaceholder } from "components/video/video-placeholder";
-import {
-	getIFrameAttributes,
-	getVideoDataFromUrl,
-} from "utils/markdown/oembed-and-other-data-providers";
+import { IFramePlaceholderProps } from "components/iframe-placeholder/iframe-placeholder";
 
 export type Props = IFramePlaceholderProps;
 
 const props = Astro.props;
-
-let title = props.pageTitle;
-let thumbnail = "/illustrations/illustration-webpage.svg";
-let iframeProps = {};
-
-const json = await getVideoDataFromUrl(props.src).catch(() => null);
-
-if (json) {
-	title = `${json?.title ?? title}`;
-	thumbnail = json?.thumbnail_url ?? thumbnail;
-	const {
-		height: _height,
-		width: _width,
-		...otherIframeProps
-	} = await getIFrameAttributes(json.html);
-	iframeProps = otherIframeProps;
-}
 ---
 
-<VideoPlaceholder
-	{...props}
-	pageTitle={title}
-	thumbnailUrl={thumbnail}
-	iframeAttrs={{ ...iframeProps, ...props.iframeAttrs }}
-	client:visible
-/>
+<VideoPlaceholder {...props} client:visible />

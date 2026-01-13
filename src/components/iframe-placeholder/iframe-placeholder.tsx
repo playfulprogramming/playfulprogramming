@@ -14,6 +14,7 @@ export interface IFramePlaceholderProps {
 	iframeAttrs: HTMLAttributes<HTMLIFrameElement>;
 	pageTitle: string;
 	pageIcon?: string;
+	pageThumbnail: string;
 }
 
 export function IFramePlaceholder({

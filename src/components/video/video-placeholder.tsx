@@ -1,29 +1,25 @@
 import { IconOnlyButton } from "components/button/button";
 import { RawSvg } from "components/image/raw-svg";
-import { HTMLAttributes } from "preact/compat";
 import { useState } from "preact/hooks";
 import PlayIcon from "src/icons/play.svg?raw";
 import FallbackPageIcon from "src/icons/website.svg?raw";
 import style from "./video-placeholder.module.scss";
-
-export interface VideoPlaceholderProps {
-	width: string;
-	height: string;
-	src: string;
-	iframeAttrs: HTMLAttributes<HTMLIFrameElement>;
-	pageTitle: string;
-	pageIcon?: string;
-	thumbnailUrl: string;
-}
+import { IFramePlaceholderProps } from "components/iframe-placeholder/iframe-placeholder";
 
 export function VideoPlaceholder({
 	height,
 	width,
 	iframeAttrs,
 	...props
-}: VideoPlaceholderProps) {
+}: IFramePlaceholderProps) {
 	const [pageIconError, setPageIconError] = useState(false);
 	const [frameVisible, setFrameVisible] = useState(false);
+
+	const iframeProps = {
+		...iframeAttrs,
+		// Seems to be missing from Preact type defs
+		credentialless: "true",
+	} as object;
 
 	return (
 		<div class={`${style.embed} markdownCollapsePadding`}>
@@ -59,7 +55,7 @@ export function VideoPlaceholder({
 					style={`height: ${Number(height) ? `${height}px` : height};`}
 				>
 					<img
-						src={props.thumbnailUrl}
+						src={props.pageThumbnail}
 						alt=""
 						class={style.thumbnail}
 						crossorigin={"anonymous"}
@@ -77,8 +73,7 @@ export function VideoPlaceholder({
 			) : (
 				<iframe
 					src={props.src}
-					{...iframeAttrs}
-					credentialless="true"
+					{...iframeProps}
 					style={`height: ${Number(height) ? `${height}px` : height};`}
 					loading="lazy"
 				/>

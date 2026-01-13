@@ -10,6 +10,11 @@ import {
 } from "../components";
 import { logError } from "../logger";
 import { getUrlMetadata } from "utils/hoof";
+import {
+	getIFrameAttributes,
+	getVideoDataFromUrl,
+	videoHosts,
+} from "utils/markdown/oembed-and-other-data-providers";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
@@ -73,23 +78,50 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 				const index = parent.children.indexOf(node);
 				if (index == -1) return;
+
+				const srcUrl = new URL(src!.toString());
+
+				const isVideo = videoHosts.includes(srcUrl.hostname);
+
+				let pageTitle = String(dataFrameTitle ?? "") || metadata?.title || "";
+				let pageThumbnail = "/illustrations/illustration-webpage.svg";
+
+				let iframeAttrs = Object.fromEntries(
+					Object.entries(propsToPreserve).map(([key, value]) => [
+						key,
+						// Handle array props per hast spec:
+						// @see https://github.com/syntax-tree/hast#propertyvalue
+						Array.isArray(value) ? value.join(" ") : String(value),
+					]),
+				);
+
+				if (isVideo) {
+					const json = await getVideoDataFromUrl(src!).catch(() => null);
+
+					if (json) {
+						pageTitle = `${json?.title ?? pageTitle}`;
+						pageThumbnail = json?.thumbnail_url ?? pageThumbnail;
+						const {
+							height: _height,
+							width: _width,
+							...otherIframeProps
+						} = await getIFrameAttributes(json.html);
+						iframeAttrs = { ...iframeAttrs, ...otherIframeProps } as never;
+					}
+				}
+
 				parent.children.splice(
 					index,
 					1,
 					createComponent("IframePlaceholder", {
+						isVideo,
 						width: width.toString(),
 						height: height.toString(),
 						src: String(src),
-						pageTitle: String(dataFrameTitle ?? "") || metadata?.title || "",
+						pageTitle,
 						pageIcon: metadata?.icon?.src || defaultPageIcon,
-						iframeAttrs: Object.fromEntries(
-							Object.entries(propsToPreserve).map(([key, value]) => [
-								key,
-								// Handle array props per hast spec:
-								// @see https://github.com/syntax-tree/hast#propertyvalue
-								Array.isArray(value) ? value.join(" ") : String(value),
-							]),
-						),
+						pageThumbnail,
+						iframeAttrs,
 					}),
 				);
 			}),
