@@ -99,7 +99,7 @@ jobs:
 
   deploy_for_prod:
     name: Deploy for prod
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.head_ref == 'refs/heads/main' }}
     needs: [build]
     runs-on: ubuntu-latest
     concurrency:
