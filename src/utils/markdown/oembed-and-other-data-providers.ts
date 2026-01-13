@@ -18,12 +18,40 @@ const vimeoHosts = ["vimeo.com"];
 
 const youtubeHosts = ["youtube.com", "www.youtube.com"];
 
-export const oembedVideoHosts = [...vimeoHosts, ...youtubeHosts];
+const oembedVideoHosts = [...vimeoHosts, ...youtubeHosts];
+
+const twitchHosts = ["twitch.tv"];
+
+export const videoHosts = [...oembedVideoHosts, ...twitchHosts];
+
+interface VimeoOEmbedResponse {
+	type: "video";
+	version: "1.0";
+	provider_name: "Vimeo";
+	provider_url: "https:\/\/vimeo.com\/";
+	title: string;
+	author_name: string;
+	author_url: string;
+	is_plus: string;
+	account_type: string;
+	html: string;
+	width: number;
+	height: number;
+	duration: number;
+	description: string;
+	thumbnail_url: string;
+	thumbnail_width: number;
+	thumbnail_height: number;
+	thumbnail_url_with_play_button: string;
+	upload_date: string;
+	video_id: number;
+	uri: string;
+}
 
 // Can't access Vimeo oEmbed directly due to JS Turnstile protection blocking any info about the video
-export async function getVimeoOEmbedDataFromUrl<T>(
+export async function getVimeoOEmbedDataFromUrl(
 	url: string,
-): Promise<T | null> {
+): Promise<VimeoOEmbedResponse | null> {
 	return await fetch(
 		`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(url)}`,
 	)
@@ -71,13 +99,29 @@ export async function getGenericOEmbedDataFromUrl<T>(
 		.then((res) => res.json());
 }
 
-export async function getOEmbedDataFromUrl<T>(url: string): Promise<T | null> {
+interface YouTubeOEmbedResponse {
+	title: string;
+	author_name: string;
+	author_url: string;
+	type: "video";
+	height: number;
+	width: number;
+	version: "1.0";
+	provider_name: "YouTube";
+	provider_url: "https://www.youtube.com/";
+	thumbnail_height: number;
+	thumbnail_width: number;
+	thumbnail_url: string;
+	html: string;
+}
+
+export async function getVideoDataFromUrl(url: string) {
 	const _url = new URL(url);
 	if (vimeoHosts.includes(_url.hostname)) {
 		return getVimeoOEmbedDataFromUrl(url);
 	}
 
-	return getGenericOEmbedDataFromUrl(url);
+	return getGenericOEmbedDataFromUrl<YouTubeOEmbedResponse>(url);
 }
 
 export async function getIFrameAttributes(html: string) {
