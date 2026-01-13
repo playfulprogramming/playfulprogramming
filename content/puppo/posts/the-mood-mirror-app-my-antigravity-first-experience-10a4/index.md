@@ -122,7 +122,7 @@ This iteration has been a bit convoluted. The first version used the old npm pac
 
 After that, I got a working application that met my first requirements, and you can see a demo in the video below. *\[and* [*here*](https://github.com/Puppo/the-mood-mirror/commit/9dc0d5f74ee505ecf3f04f7baa53248eeea0e331#diff-053150b640a7ce75eff69d1a22cae7f0f94ad64ce9a855db544dda0929316519) *you can check the commit]*
 
-{% embed https://www.youtube.com/watch?v=098qvXvpVZQ %}
+<iframe src="https://www.youtube.com/watch?v=098qvXvpVZQ"></iframe>
 
 ## Conclusion
 

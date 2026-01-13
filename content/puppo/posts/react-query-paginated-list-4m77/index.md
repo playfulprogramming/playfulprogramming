@@ -105,7 +105,7 @@ The fetch request has to contain the page and the limit (you can handle a pagina
 
 As you can see, building a paginated list with ReactQuery is really a piece of cake, but if want to dive into it don't miss my youtube video about it
 
-{% embed https://www.youtube.com/watch?v=Ma7-hdNMdWs %}
+<iframe src="https://www.youtube.com/watch?v=Ma7-hdNMdWs"></iframe>
 
 I think thats all from this article; I hope you enjoyed this content!
 

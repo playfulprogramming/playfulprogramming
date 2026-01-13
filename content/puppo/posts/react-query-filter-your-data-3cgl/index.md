@@ -91,7 +91,7 @@ And that's all; in these two simple steps, you have a `select` function to filte
 
 If you want to find out more, check my youtube video about this topic
 
-{% embed https://www.youtube.com/watch?v=H4l1QAA4Dxw %}
+<iframe src="https://www.youtube.com/watch?v=H4l1QAA4Dxw"></iframe>
 
 Ok, that's all from the select option!
 

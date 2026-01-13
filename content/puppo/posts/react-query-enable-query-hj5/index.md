@@ -77,7 +77,7 @@ This feature is pretty simple but very powerful, as you can imagine!
 
 To find out more about the `enabled` option take a look at my youtube video about it
 
-{% embed https://www.youtube.com/watch?v=5JSD\_b2slJs %}
+<iframe src="https://www.youtube.com/watch?v=5JSD\_b2slJs"></iframe>
 
 Ok, that's all from the enabled option.
 

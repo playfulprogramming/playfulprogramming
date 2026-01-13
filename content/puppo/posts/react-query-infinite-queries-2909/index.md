@@ -109,7 +109,7 @@ Another important thing to keep in mind is that the result of the `useInfiniteQu
 
 Ok, I suppose you have an idea of how Infinite Queries work in React Query, but if you want to deep into it don't miss my youtube about it.
 
-{% embed https://www.youtube.com/watch?v=F1KD4GY1iws %}
+<iframe src="https://www.youtube.com/watch?v=F1KD4GY1iws"></iframe>
 
 I think thats all from this article.
 

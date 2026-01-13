@@ -81,7 +81,7 @@ While the FinalizationRegistry is a powerful tool for managing memory, there are
 
 To find out more don't waste my YouTube video on my [YouTube channel](https://www.youtube.com/@Puppo_92)
 
-{% embed https://www.youtube.com/watch?v=3sgIFrjA61U %}
+<iframe src="https://www.youtube.com/watch?v=3sgIFrjA61U"></iframe>
 
 ## Conclusion
 

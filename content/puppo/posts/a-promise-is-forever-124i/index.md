@@ -298,7 +298,7 @@ In this example, `promisifyLegacyApi` wraps the old callback-style function in a
 
 If you want to dive deep into Promise, don't leave my YouTube video about it.
 
-{% embed https://www.youtube.com/watch?v=ROwJX3i\_m2Q %}
+<iframe src="https://www.youtube.com/watch?v=ROwJX3i\_m2Q"></iframe>
 
 ## **Conclusion**
 

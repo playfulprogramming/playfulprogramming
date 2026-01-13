@@ -107,7 +107,7 @@ Last but not least, you can also handle the `onSuccess` event if you want to inv
 
 Ok, I think now you have an idea of how the optimistic update works in react query, but if you want to dive into it check out my youtube video too.
 
-{% embed https://www.youtube.com/watch?v=IwkhNxIyyzA %}
+<iframe src="https://www.youtube.com/watch?v=IwkhNxIyyzA"></iframe>
 
 I think thats all from this article; I hope you enjoyed this content!
 

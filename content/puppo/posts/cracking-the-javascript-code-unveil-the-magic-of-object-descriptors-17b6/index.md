@@ -126,7 +126,7 @@ Ok, I think the idea now it's clear and you can use your imagination to combine 
 
 To find out more don't waste my YouTube video on my [YouTube Channel](https://www.youtube.com/@Puppo_92)
 
-{% embed https://www.youtube.com/watch?v=AHLdUs8LtIA %}
+<iframe src="https://www.youtube.com/watch?v=AHLdUs8LtIA"></iframe>
 
 ## Conclusion
 

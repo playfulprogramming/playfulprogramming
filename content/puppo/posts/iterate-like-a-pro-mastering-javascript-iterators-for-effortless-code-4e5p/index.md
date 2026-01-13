@@ -156,7 +156,7 @@ for (const num of mapRange) {
 Ok folks, that's all!\
 If you want to dive deep with Iterators, don't waste my video on my [Youtube Channel](https://www.youtube.com/@Puppo_92/).
 
-{% embed https://www.youtube.com/watch?v=BSctSkMGtiM %}
+<iframe src="https://www.youtube.com/watch?v=BSctSkMGtiM"></iframe>
 
 In conclusion, understanding and utilizing JavaScript iterators can greatly enhance your ability to work with collections of data in a more elegant and efficient manner. With iterators, you can streamline your code, improve its readability, and reduce memory consumption by processing data one element at a time. This powerful concept empowers developers to implement custom iteration behaviour, making their code more adaptable to different scenarios.
 

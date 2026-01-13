@@ -117,7 +117,7 @@ If you want to learn more, check out the official video from the Google team.
 
 > [Angular DevTool Chrome Extension](https://chrome.google.com/webstore/detail/angular-devtools/ienfalfjdbdpebioblfackkekamfmbnh)
 
-{% youtube bavWOHZM6zE%}
+<iframe src="https://www.youtube.com/watch?v=bavWOHZM6zE"></iframe>
 
 ## **Debugging with VS Code**
 

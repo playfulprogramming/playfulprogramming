@@ -107,7 +107,7 @@ proxy.message = "Goodbye, World!"; // Logs: "Setting property "message" to "Good
 
 To learn more don't miss my YouTube video about JavaScript Proxy on my [YouTube channel](https://www.youtube.com/@Puppo_92)
 
-{% embed https://www.youtube.com/watch?v=e7\_lxSrP\_Ok %}
+<iframe src="https://www.youtube.com/watch?v=e7\_lxSrP\_Ok"></iframe>
 
 ## Conclusion
 

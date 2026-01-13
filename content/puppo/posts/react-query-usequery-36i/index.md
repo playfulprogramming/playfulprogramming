@@ -76,7 +76,7 @@ The result of this hook has three important objects instead
 
 Ok, you have an idea of how useQuery works and what its potentialities are, but if you are more interested in it, you can watch my video to learn more about it.
 
-{% embed https://www.youtube.com/watch?v=q2r2yoq5zaQ %}
+<iframe src="https://www.youtube.com/watch?v=q2r2yoq5zaQ"></iframe>
 
 ok, that's all! I'll get back to you with another react query feature soon.
 

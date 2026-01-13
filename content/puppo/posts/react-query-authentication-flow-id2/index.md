@@ -321,7 +321,7 @@ As you can notice, the hook returns a simple function that clears the value in t
 
 Ok, perfect. Now you have all the notions of building an authentication flow with React Query, but If you want to find out more, watch my youtube video about authentication with React Query
 
-{% embed https://www.youtube.com/watch?v=JNoiAumC94g %}
+<iframe src="https://www.youtube.com/watch?v=JNoiAumC94g"></iframe>
 
 Ok, that's all from authentication.
 
