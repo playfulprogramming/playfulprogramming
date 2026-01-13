@@ -228,9 +228,17 @@ Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\tim
 
 # YouTube and Videos Embeds
 
+A normal YouTube video
+
 <iframe src="https://www.youtube.com/watch?v=_licnRxAVk0"></iframe>
 
+A YouTube short
+
 <iframe src="https://www.youtube.com/shorts/Fdbha07mFzo"></iframe>
+
+A Vimeo video
+
+<iframe src="https://vimeo.com/750377602"></iframe>
 
 # Thanks for taking the trip down here
 

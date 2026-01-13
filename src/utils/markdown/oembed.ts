@@ -13,6 +13,8 @@ function createHTMLVisitor(visitor: (tree: Node) => void) {
 		.use(rehypeStringify);
 }
 
+export const oembedVideoHosts = ["vimeo.com", "youtube.com", "www.youtube.com"];
+
 export async function getOEmbedDataFromUrl<T>(url: string): Promise<T | null> {
 	// HTML
 	const pageData = await fetch(url)
@@ -24,7 +26,7 @@ export async function getOEmbedDataFromUrl<T>(url: string): Promise<T | null> {
 	let linkToJSON: string | null = null;
 
 	const visitor = createHTMLVisitor((tree) => {
-		visit(tree, {tagName: "link"}, (_node) => {
+		visit(tree, { tagName: "link" }, (_node) => {
 			const node: Element = _node;
 			if (
 				node.properties &&

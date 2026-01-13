@@ -31,8 +31,13 @@ const json = await getOEmbedDataFromUrl<YouTubeOEmbedResponse>(props.src).catch(
 );
 
 if (json) {
+	const url = new URL(props.src);
 	title = `${json.title}`;
-	thumbnail = json.thumbnail_url;
+	if (url.hostname === "vimeo.com") {
+		thumbnail = decodeURIComponent(json.thumbnail_url);
+	} else {
+		thumbnail = json.thumbnail_url;
+	}
 }
 ---
 

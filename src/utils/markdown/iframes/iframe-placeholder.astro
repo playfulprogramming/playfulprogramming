@@ -4,6 +4,7 @@ import {
 	IFramePlaceholderProps,
 } from "components/iframe-placeholder/iframe-placeholder";
 import Video from "utils/markdown/components/video/video.astro";
+import { oembedVideoHosts } from "utils/markdown/oembed";
 
 export type Props = IFramePlaceholderProps;
 
@@ -11,8 +12,7 @@ const props = Astro.props;
 
 const url = new URL(props.src);
 
-const showVideoPlaceholder =
-	url.hostname === "www.youtube.com" || url.hostname === "youtube.com";
+const showVideoPlaceholder = oembedVideoHosts.includes(url.hostname);
 ---
 
 {
