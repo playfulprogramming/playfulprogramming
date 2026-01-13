@@ -43,6 +43,7 @@ export default defineConfig({
 					import.meta.dirname,
 					"./node_modules/@react-aria/calendar/dist/utils.mjs",
 				),
+				src: path.resolve(import.meta.dirname, "./src"),
 			},
 		},
 		ssr: {
@@ -54,13 +55,6 @@ export default defineConfig({
 				/@react-stately/,
 				/@react-types/,
 			],
-		},
-		css: {
-			preprocessorOptions: {
-				scss: {
-					api: "modern",
-				},
-			},
 		},
 	},
 	markdown: {} as AstroUserConfig["markdown"] as never,
