@@ -1,6 +1,7 @@
 ---
 import { IFramePlaceholderProps } from "components/iframe-placeholder/iframe-placeholder";
 import { VideoPlaceholder } from "components/video/video-placeholder";
+import { getOEmbedDataFromUrl } from "utils/markdown/oembed";
 
 export type Props = IFramePlaceholderProps;
 
@@ -9,27 +10,26 @@ const props = Astro.props;
 let title = props.pageTitle;
 let thumbnail = "/illustrations/illustration-webpage.svg";
 
-interface NoEmbedResponse {
-	width: number;
+interface YouTubeOEmbedResponse {
+	title: string;
 	author_name: string;
 	author_url: string;
-	version: string;
-	provider_url: string;
+	type: "video";
+	height: number;
+	width: number;
+	version: "1.0";
 	provider_name: string;
+	provider_url: string;
+	thumbnail_height: number;
 	thumbnail_width: number;
 	thumbnail_url: string;
-	height: number;
-	thumbnail_height: number;
 	html: string;
-	url: string;
-	type: string;
-	title: string;
 }
-const json = await fetch(
-	`https://noembed.com/embed?dataType=json&url=${encodeURIComponent(props.src)}`,
-)
-	.then((r) => r.status === 200 && (r.json() as unknown as NoEmbedResponse))
-	.catch(() => null);
+
+const json = await getOEmbedDataFromUrl<YouTubeOEmbedResponse>(props.src).catch(
+	() => null,
+);
+
 if (json) {
 	title = `${json.title}`;
 	thumbnail = json.thumbnail_url;
