@@ -79,3 +79,17 @@ export async function getOEmbedDataFromUrl<T>(url: string): Promise<T | null> {
 
 	return getGenericOEmbedDataFromUrl(url);
 }
+
+export async function getIFrameAttributes(html: string) {
+	let properties = {} as Record<string, unknown>;
+	const visitor = createHTMLVisitor((tree) => {
+		visit(tree, { tagName: "iframe" }, (_node) => {
+			if (!_node) return;
+			const node: Element = _node;
+			properties = node.properties;
+		});
+	});
+
+	visitor.processSync(html);
+	return properties;
+}

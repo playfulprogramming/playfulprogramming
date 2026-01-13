@@ -70,9 +70,9 @@ export function VideoPlaceholder({
 				</div>
 			) : (
 				<iframe
+					src={props.src}
 					{...iframeAttrs}
 					style={`height: ${Number(height) ? `${height}px` : height};`}
-					src={props.src}
 					loading="lazy"
 				/>
 			)}

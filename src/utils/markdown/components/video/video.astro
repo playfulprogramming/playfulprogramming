@@ -1,7 +1,10 @@
 ---
 import { IFramePlaceholderProps } from "components/iframe-placeholder/iframe-placeholder";
 import { VideoPlaceholder } from "components/video/video-placeholder";
-import { getOEmbedDataFromUrl } from "utils/markdown/oembed";
+import {
+	getIFrameAttributes,
+	getOEmbedDataFromUrl,
+} from "utils/markdown/oembed";
 
 export type Props = IFramePlaceholderProps;
 
@@ -9,6 +12,7 @@ const props = Astro.props;
 
 let title = props.pageTitle;
 let thumbnail = "/illustrations/illustration-webpage.svg";
+let iframeProps = {};
 
 interface YouTubeOEmbedResponse {
 	title: string;
@@ -33,6 +37,12 @@ const json = await getOEmbedDataFromUrl<YouTubeOEmbedResponse>(props.src).catch(
 if (json) {
 	title = `${json.title}`;
 	thumbnail = json.thumbnail_url;
+	const {
+		height: _height,
+		width: _width,
+		...otherIframeProps
+	} = await getIFrameAttributes(json.html);
+	iframeProps = otherIframeProps;
 }
 ---
 
@@ -40,5 +50,6 @@ if (json) {
 	{...props}
 	pageTitle={title}
 	thumbnailUrl={thumbnail}
+	iframeAttrs={{ ...iframeProps, ...props.iframeAttrs }}
 	client:visible
 />
