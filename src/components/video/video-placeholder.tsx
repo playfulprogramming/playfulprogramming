@@ -56,8 +56,14 @@ export function VideoPlaceholder({
 			{!frameVisible ? (
 				<div
 					class={style.placeholder}
-					style={`height: ${Number(height) ? `${height}px` : height}; background-image: url(${props.thumbnailUrl});`}
+					style={`height: ${Number(height) ? `${height}px` : height};`}
 				>
+					<img
+						src={props.thumbnailUrl}
+						alt=""
+						class={style.thumbnail}
+						crossorigin={"anonymous"}
+					/>
 					<IconOnlyButton
 						class={style.placeholderButton}
 						tag="button"

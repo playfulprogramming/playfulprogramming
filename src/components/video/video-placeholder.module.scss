@@ -146,3 +146,13 @@
 		margin-top: 0;
 	}
 }
+
+.thumbnail {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover;
+	object-position: center;
+}
