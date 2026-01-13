@@ -26,6 +26,12 @@ export function IFramePlaceholder({
 	const [pageIconError, setPageIconError] = useState(false);
 	const [frameVisible, setFrameVisible] = useState(false);
 
+	const iframeProps = {
+		...iframeAttrs,
+		// Seems to be missing from Preact type defs
+		credentialless: "true",
+	} as object;
+
 	return (
 		<div class={`${style.embed} markdownCollapsePadding`}>
 			<div class={style.header}>
@@ -87,7 +93,7 @@ export function IFramePlaceholder({
 				</div>
 			) : (
 				<iframe
-					{...iframeAttrs}
+					{...iframeProps}
 					style={`height: ${Number(height) ? `${height}px` : height};`}
 					src={props.src}
 					loading="lazy"
