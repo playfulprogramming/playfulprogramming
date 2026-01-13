@@ -72,6 +72,7 @@ export function VideoPlaceholder({
 				<iframe
 					src={props.src}
 					{...iframeAttrs}
+					credentialless="true"
 					style={`height: ${Number(height) ? `${height}px` : height};`}
 					loading="lazy"
 				/>
