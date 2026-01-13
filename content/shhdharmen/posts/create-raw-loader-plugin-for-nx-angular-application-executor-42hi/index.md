@@ -219,4 +219,4 @@ You can read more about it on [angular.dev](https://angular.dev/tools/cli/build-
 
 I am running a limited time 20% discount on Personal & Teams licenses for lifetime access on [Angular Material Blocks](https://ui.angular-material.dev/home)! Do not forget to check it out and grab this deal!
 
-[![](./GrqA5u4WgAALuc1?format=jpg\&name=medium)](https://ui.angular-material.dev/home#pricing)
+[![](./GrqA5u4WgAALuc1.jpg)](https://ui.angular-material.dev/home#pricing)

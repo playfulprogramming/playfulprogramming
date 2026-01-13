@@ -27,7 +27,7 @@ To install the C# Dev Kit extension for Visual Studio Code, you can follow these
 - Click on the Install button to install the extension. You may need to reload VS Code to activate the extension.
 - Once the extension is installed, you can start using it for C# development. You can also check out the \[C# documentation] for more information and tips on how to use the extension.
 
-![](./07-add.existing.project.gif?raw=true)
+![](./07-add.existing.project.gif)
 
 ## Creating a simple C# application
 
