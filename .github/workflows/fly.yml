@@ -52,7 +52,7 @@ jobs:
 
   deploy_for_review:
     name: Deploy for review
-    if: ${{ always() && github.event_name == 'pull_request_target' }}
+    if: ${{ !cancelled() && github.event_name == 'pull_request_target' }}
     needs: [build]
     runs-on: ubuntu-latest
     outputs:
