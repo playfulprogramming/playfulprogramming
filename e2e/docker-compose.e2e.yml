@@ -1,0 +1,21 @@
+services:
+  e2e:
+    build:
+      context: ..
+      dockerfile: e2e/Dockerfile
+    working_dir: /work/e2e
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - .:/work/e2e
+      - /work/e2e/node_modules
+    ipc: host
+    environment:
+      PLAYWRIGHT_SKIP_WEBSERVER: "true"
+      PLAYWRIGHT_BASE_URL: "http://host.docker.internal:4321"
+      PLAYWRIGHT_ARGS: ""
+      CI: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: >-
+      bash -lc
+      "pnpm exec playwright test $PLAYWRIGHT_ARGS"

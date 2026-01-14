@@ -37,6 +37,9 @@ export default defineConfig({
 		},
 	},
 	vite: {
+		server: {
+			allowedHosts: ["host.docker.internal", "localhost"],
+		},
 		optimizeDeps: {
 			exclude: ["msw", "msw/node", "sharp"],
 		},

@@ -353,6 +353,12 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(preact@10.28.2)(vitest@4.0.16(@edge-runtime/vm@5.0.0)(@types/node@25.0.5)(@vitest/browser-playwright@4.0.16)(jsdom@27.4.0)(msw@2.12.7(@types/node@25.0.5)(typescript@5.9.3))(sass@1.97.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
 
+  e2e:
+    devDependencies:
+      '@playwright/test':
+        specifier: ^1.57.0
+        version: 1.57.0
+
 packages:
 
   '@acemir/cssom@0.9.30':
