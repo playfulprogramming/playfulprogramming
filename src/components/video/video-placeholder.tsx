@@ -6,6 +6,9 @@ import FallbackPageIcon from "src/icons/website.svg?raw";
 import style from "./video-placeholder.module.scss";
 import { IFramePlaceholderProps } from "components/iframe-placeholder/iframe-placeholder";
 
+const isCredentiallessSupported =
+	import.meta.env.SSR || "credentialless" in HTMLIFrameElement.prototype;
+
 export function VideoPlaceholder({
 	height,
 	width,
@@ -59,13 +62,22 @@ export function VideoPlaceholder({
 						alt=""
 						class={style.thumbnail}
 						crossorigin={"anonymous"}
+						data-nozoom="true"
 					/>
 					<IconOnlyButton
 						class={style.placeholderButton}
-						tag="button"
+						tag={isCredentiallessSupported ? "button" : "a"}
 						variant="primary"
-						onClick={() => setFrameVisible(true)}
 						aria-label="Play video"
+						{...(isCredentiallessSupported
+							? {
+									onClick: () => setFrameVisible(true),
+								}
+							: {
+									href: props.src,
+									rel: "nofollow noopener noreferrer",
+									target: "_blank",
+								})}
 					>
 						<RawSvg icon={PlayIcon} />
 					</IconOnlyButton>
