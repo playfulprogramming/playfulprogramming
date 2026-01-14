@@ -72,7 +72,8 @@ export default defineConfig({
 
 	/* Run your local dev server before starting the tests */
 	webServer: {
-		command: "pnpm dev --port 8889",
+		/* CI=1 tells astro.config.ts to turn off the dev toolbar */
+		command: "CI=1 pnpm dev --port 8889",
 		url: "http://localhost:8889",
 		timeout: 120_000,
 		reuseExistingServer: false,
