@@ -6,16 +6,17 @@ services:
     working_dir: /work/e2e
     user: "${UID:-1000}:${GID:-1000}"
     volumes:
-      - .:/work/e2e
-      - /work/e2e/node_modules
+      - .:/work/e2e:rw
     ipc: host
     environment:
       PLAYWRIGHT_SKIP_WEBSERVER: "true"
       PLAYWRIGHT_BASE_URL: "http://host.docker.internal:4321"
+      PLAYWRIGHT_RESULTS_DIR: ".playwright/test-results"
+      PLAYWRIGHT_REPORT_DIR: ".playwright/report"
       PLAYWRIGHT_ARGS: ""
       CI: true
     extra_hosts:
       - "host.docker.internal:host-gateway"
     command: >-
       bash -lc
-      "pnpm exec playwright test $PLAYWRIGHT_ARGS"
+      "pnpm exec playwright test --config ./playwright.config.ts ${PLAYWRIGHT_ARGS:-}"

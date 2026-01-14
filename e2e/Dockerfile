@@ -13,4 +13,7 @@ COPY e2e/ ./e2e/
 
 WORKDIR /work/e2e
 
+RUN mkdir -p .playwright/test-results .playwright/report \
+  && chmod -R a+rwX .playwright
+
 CMD ["pnpm", "test"]
