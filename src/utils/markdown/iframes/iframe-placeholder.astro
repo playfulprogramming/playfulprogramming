@@ -16,6 +16,6 @@ const props = Astro.props;
 	props.isVideo ? (
 		<Video {...props} />
 	) : (
-		<PreactIFramePlaceholder {...props} client:visible />
+		<PreactIFramePlaceholder {...props} client:load />
 	)
 }

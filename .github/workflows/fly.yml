@@ -10,6 +10,10 @@ on:
 env:
   DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.event_name == 'pull_request_target' && format('pr-{0}', github.event.pull_request.number) || 'latest' }}
 
+concurrency:
+  group: ${{ github.event_name == 'pull_request_target' && format('pr-{0}', github.event.pull_request.number) || 'main' }}-deploy
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build image
@@ -48,13 +52,11 @@ jobs:
 
   deploy_for_review:
     name: Deploy for review
-    if: ${{ always() && github.event_name == 'pull_request_target' }}
+    if: ${{ !cancelled() && github.event_name == 'pull_request_target' }}
     needs: [build]
     runs-on: ubuntu-latest
     outputs:
       url: ${{ steps.deploy.outputs.url }}
-    concurrency:
-      group: pr-${{ github.event.number }}-deploy
     environment:
       name: review
       url: ${{ steps.deploy.outputs.url }}
@@ -99,11 +101,9 @@ jobs:
 
   deploy_for_prod:
     name: Deploy for prod
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: [build]
     runs-on: ubuntu-latest
-    concurrency:
-      group: deploy
     environment:
       name: production
       url: https://playfulprogramming.com
