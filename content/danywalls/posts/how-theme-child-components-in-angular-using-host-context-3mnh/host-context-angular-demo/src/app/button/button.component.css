@@ -1,0 +1,23 @@
+.btn {
+  outline: auto;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 5px;
+  border: 0;
+}
+
+
+:host-context(app-product.day) .btn {
+  background-color: rgb(230, 103, 103);
+}
+
+:host-context(app-product.dark) .btn {
+  background-color: rgb(22, 31, 124);
+  color: whitesmoke;
+}
+
+:host-context(my-app.dark) .btn {
+  background-color: rgb(26, 25, 25);
+  color: white;
+}
+

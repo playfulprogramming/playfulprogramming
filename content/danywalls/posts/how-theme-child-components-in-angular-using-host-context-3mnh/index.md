@@ -77,7 +77,7 @@ Perfect! The button component has a relation with the parent and the main app co
 
 Feel free to play with the demo if you want to see a small real demo and see how child components react to the relations between components.
 
-{% stackblitz host-context-angular-demo view=preview %}
+<iframe src="pfp-code:./host-context-angular-demo?embed=1&file=src/app/button/button.component.css" data-frame-title="Host Context Angular Demo - StackBlitz" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Done
 
