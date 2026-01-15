@@ -3,24 +3,17 @@ name: Fly Deploy
 on:
   push:
     branches: [main]
-  pull_request_target:
-    types: [opened, reopened, synchronize, closed]
 
 env:
-  DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.event_name == 'pull_request_target' && format('pr-{0}', github.event.pull_request.number) || 'latest' }}
-  SCRIPT_PREFIX: |
-    function retry_loop() {
-      retries=$1; while ! bash -c "$2"; do ((--retries)) || return; sleep 10; done
-    }
+  DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
 
 concurrency:
-  group: ${{ github.event_name == 'pull_request_target' && format('pr-{0}', github.event.pull_request.number) || 'main' }}-deploy
+  group: main-deploy
   cancel-in-progress: true
 
 jobs:
   build:
     name: Build image
-    if: ${{ github.event.action != 'closed' }}
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -52,60 +45,6 @@ jobs:
           secrets: |
             "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
             "HOOF_AUTH_TOKEN=${{ secrets.HOOF_AUTH_TOKEN }}"
-
-  deploy_for_review:
-    name: Deploy for review
-    if: ${{ !cancelled() && github.event_name == 'pull_request_target' }}
-    needs: [build]
-    runs-on: ubuntu-latest
-    outputs:
-      url: ${{ steps.deploy.outputs.url }}
-    environment:
-      name: review
-      url: ${{ steps.deploy.outputs.url }}
-    env:
-      APP_NAME: pr-${{ github.event.pull_request.number }}-${{ github.repository_owner }}-${{ github.event.repository.name }}
-      FLY_API_TOKEN: ${{ secrets.FLY_WEB_PR_REVIEW_TOKEN }}
-
-    steps:
-      - uses: actions/checkout@v6
-      - uses: superfly/flyctl-actions/setup-flyctl@1.5
-
-      - id: status
-        name: Retrieve app status
-        run: flyctl status --app "$APP_NAME"
-        continue-on-error: true
-
-      - name: Destroy app
-        if: ${{ github.event.action == 'closed' }}
-        run: |
-          ${{ env.SCRIPT_PREFIX }}
-          retry_loop 3 flyctl apps destroy "$APP_NAME" -y || true
-
-      - name: Configure app
-        if: ${{ github.event.action != 'closed' && steps.status.outcome == 'failure' }}
-        run: |
-          ${{ env.SCRIPT_PREFIX }}
-
-          # Backup the original config file since 'flyctl launch' messes up the [build.args] section
-          cp fly.toml fly.toml.bak
-
-          retry_loop 3 flyctl launch --no-deploy --copy-config --name "$APP_NAME"
-
-          # Restore the original config file
-          cp fly.toml.bak fly.toml
-
-      - id: deploy
-        name: Deploy app
-        if: ${{ github.event.action != 'closed' }}
-        run: |
-          ${{ env.SCRIPT_PREFIX }}
-          retry_loop 3 flyctl deploy --config "fly.review.toml" --app "$APP_NAME" --image "$DOCKER_TAG" --ha=false
-
-          # Make the deployment URL available to the GitHub workflow.
-          flyctl status --app "$APP_NAME" --json >status.json
-          hostname=$(jq -r .Hostname status.json)
-          echo "url=https://$hostname" >> $GITHUB_OUTPUT
 
   deploy_for_prod:
     name: Deploy for prod
