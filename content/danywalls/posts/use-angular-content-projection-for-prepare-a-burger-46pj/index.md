@@ -134,7 +134,7 @@ The tomato and the onion don't have attribute so, go to the default ng-content.
 
 We have a reusable component with content projection reusable to build new burgers, also force to elements to be located in a specific area and default location.
 
-{% stackblitz burger-angular-content-projection-demo view=preview %}
+<iframe src="pfp-code:./burger-angular-content-projection-demo?embed=1&file=src/app/app.component.html" data-frame-title="Burger Angular Content Projection Demo - StackBlitz" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 That's it! Hopefully, give you a bit of help with ng-content and make your components flexible.
 
