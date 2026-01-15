@@ -19,6 +19,7 @@ import { Button } from "components/button/button";
 import styles from "./select.module.scss";
 import checkmark from "src/icons/checkmark.svg?raw";
 import { useRef } from "preact/hooks";
+import type { RefObject } from "preact";
 import { Node } from "@react-types/shared";
 import { useReactAriaScrollGutterHack } from "src/hooks/useReactAriaScrollGutterHack";
 
@@ -127,7 +128,7 @@ export function SelectWithLabel<T extends object>({
 						}}
 						className={styles.downSpan}
 						dangerouslySetInnerHTML={{ __html: down }}
-					></span>
+					/>
 				}
 			>
 				<span {...valueProps}>
@@ -194,7 +195,7 @@ export function Select<T extends object>({
 						}}
 						className={styles.downSpan}
 						dangerouslySetInnerHTML={{ __html: down }}
-					></span>
+					/>
 				}
 			>
 				<span {...valueProps}>
@@ -213,7 +214,7 @@ export function Select<T extends object>({
 }
 
 interface ListBoxProps extends AriaListBoxOptions<unknown> {
-	listBoxRef?: React.RefObject<HTMLUListElement>;
+	listBoxRef?: RefObject<HTMLUListElement>;
 	state: ListState<unknown>;
 }
 
@@ -225,8 +226,8 @@ function ListBox(props: ListBoxProps) {
 	// As this is inside a portal (within <Popover>), nothing from Preact's useId can be trusted
 	// ...but nothing should be using these IDs anyway.
 	Object.assign(listBoxProps, {
-		["id"]: undefined,
-		["aria-labelledby"]: undefined,
+		id: undefined,
+		"aria-labelledby": undefined,
 	});
 
 	return (
@@ -256,8 +257,8 @@ export function Option({ item, state }: OptionProps) {
 	// As this is inside a portal (within <Popover>), nothing from Preact's useId can be trusted
 	// ...but nothing should be using these IDs anyway.
 	Object.assign(optionProps, {
-		["aria-labelledby"]: undefined,
-		["aria-describedby"]: undefined,
+		"aria-labelledby": undefined,
+		"aria-describedby": undefined,
 	});
 
 	return (
@@ -274,7 +275,7 @@ export function Option({ item, state }: OptionProps) {
 				<span
 					className={styles.checkmark}
 					dangerouslySetInnerHTML={{ __html: checkmark }}
-				></span>
+				/>
 			)}
 		</li>
 	);

@@ -108,7 +108,7 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypePostShikiTransform)
 			.use(rehypeTransformComponents, {
 				components: {
-					["code-embed"]: transformCodeEmbed,
+					"code-embed": transformCodeEmbed,
 					filetree: transformFileTree,
 					hint: transformDetails,
 					"in-content-ad": transformInContentAd,

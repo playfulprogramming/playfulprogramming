@@ -38,7 +38,7 @@ export function RecurringEventsCard({
 							<span
 								className={style.eventIcon}
 								dangerouslySetInnerHTML={{ __html: date }}
-							></span>
+							/>
 							<span>
 								{dayjs(latestEventBlockWithMetadata.starts_at).format(
 									"MMMM Do • h:mmA ",

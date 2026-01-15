@@ -28,8 +28,8 @@ export default defineConfig({
 	integrations: [icon(), preact({ compat: true })],
 	server: {
 		headers: {
-			["Cross-Origin-Embedder-Policy"]: "require-corp",
-			["Cross-Origin-Opener-Policy"]: "same-origin",
+			"Cross-Origin-Embedder-Policy": "require-corp",
+			"Cross-Origin-Opener-Policy": "same-origin",
 		},
 	},
 	vite: {
@@ -64,4 +64,8 @@ export default defineConfig({
 		},
 	},
 	markdown: {} as AstroUserConfig["markdown"] as never,
+	devToolbar: {
+		// prevent the devToolbar from affecting e2e tests
+		enabled: typeof process.env.CI === "undefined",
+	},
 });

@@ -96,7 +96,9 @@ export function FileListList({ items }: FileListProps) {
 	return (
 		<ul class={style.fileTreeList}>
 			{items.map((item) => (
-				<li>{isDirectory(item) ? Directory(item) : File(item)}</li>
+				<li key={item.name}>
+					{isDirectory(item) ? Directory(item) : File(item)}
+				</li>
 			))}
 		</ul>
 	);

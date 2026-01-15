@@ -42,12 +42,12 @@ export function getExcerpt(
 
 		if (typeof maxLength === "undefined" || excerptLength < maxLength)
 			return SKIP;
-		else return EXIT;
+		return EXIT;
 	});
 
 	const excerpt = excerptParts.map((s) => s.trim()).join(" ");
 
 	return typeof maxLength !== "undefined" && excerpt.length > maxLength
-		? excerpt.slice(0, maxLength - 3) + "..."
+		? `${excerpt.slice(0, maxLength - 3)}...`
 		: excerpt;
 }
