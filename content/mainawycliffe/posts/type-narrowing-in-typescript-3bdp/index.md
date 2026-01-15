@@ -178,7 +178,7 @@ function calculateArea(shape: Rectangle | Circle) {
 
 When the `shape` field is a rectangle, you only have access to properties available in the `Rectangle` type, that is `width`, `height` and `shape`. The same applies to when `shape` field is a circle, typescript will only allow you to access `radius` and `circle` and will throw an error otherwise.
 
-{% codesandbox type-narrowing-jswcw view=editor %}
+<iframe src="pfp-code:./type-narrowing-jswcw?embed=1&file=index.ts" data-frame-title="Calculate Area - StackBlitz" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Using the in Operator for Narrowing
 
@@ -231,7 +231,7 @@ console.log(typeof x) // "string"
 
 Here is a detailed example at Code Sandbox:
 
-{% codesandbox type-narrowing-jswcw module=assignmentNarrowing.ts view=editor %}
+<iframe src="pfp-code:./type-narrowing-jswcw?embed=1&file=assignmentNarrowing.ts" data-frame-title="Calculate Area - StackBlitz" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Using instanceof for Narrowing
 
