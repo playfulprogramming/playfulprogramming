@@ -15,7 +15,7 @@ Transitional JavaScript Apps? What? Well honestly I'm not sure I know completely
 
 As usual this isn't a new idea, but sometimes it just takes someone to put a name on it, and who better than @richharris in his recent talk at JamStack conf:
 
-{%youtube 860d8usGC0o %}
+<iframe src="https://www.youtube.com/watch?v=860d8usGC0o"></iframe>
 
 Now as some of you know this has been an area of focus for me the last couple years both with [Marko](https://markojs.com/) and even to some degree with [Solid](https://solidjs.com/). In fact it's kind of been on everyone's mind:
 
