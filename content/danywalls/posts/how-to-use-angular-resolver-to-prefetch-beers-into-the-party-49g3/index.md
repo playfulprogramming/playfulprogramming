@@ -265,7 +265,8 @@ But If my component has multiple requests, I like to resolve the data into the c
 
 What you think is better for our user, play with it and get your feeling!
 
-{% stackblitz prefetch-data-with-resolver-angular %}
+<iframe src="pfp-code:./prefetch-data-with-resolver-angular?embed=1&file=src/app/app-routing.module.ts" data-frame-title="Prefetch Data with Resolver Angular - StackBlitz" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 
 Hopefully, that will give you a bit of help with how and when to use resolver. If you enjoyed this post, share it!
 
