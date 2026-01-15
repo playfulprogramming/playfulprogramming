@@ -212,7 +212,7 @@ const x: Z = {};
 
 This utility type constructs a new type with all keys on all levels marked as required. This is also similar to the built-in `Readonly` utility type, but unlike the built-in utility type, this one goes down to all keys in all levels, making them immutable.
 
-{% codesandbox keen-grass-75wy9 view=editor %}
+<iframe src="pfp-code:./keen-grass-75wy9?embed=1&file=src/index.ts" data-frame-title="ReadOnlyDeep - StackBlitz" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-readonlydeep.png)
 
