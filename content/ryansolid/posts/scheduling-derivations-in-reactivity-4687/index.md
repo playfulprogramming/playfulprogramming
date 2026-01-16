@@ -26,7 +26,9 @@ effect(() => console.log(upperName));
 
 But this is an oversimplification. As we learned in the previous article though there are multiple ways this change can propagate through the system, "Push", "Pull", or even "Push-Pull":
 
-{% link https://dev.to/this-is-learning/derivations-in-reactivity-4fo1 %}
+<!-- ::start:link-preview -->
+[Derivations in Reactivity](https://playfulprogramming.com/posts/derivations-in-reactivity-4fo1)
+<!-- ::end:link-preview -->
 
 While we tend to keep a simpler "Push" model in our heads as we talk about Reactivity, almost no modern framework uses a purely "Push" system. It is incapable of providing the guarantees we've come to expect.
 
@@ -86,7 +88,9 @@ Should code run at a predictable time? With reactivity, we have the means to mod
 
 You can't take back side effects. Once you are committed to displaying something you have to show it all or it is inconsistent. If something errors you need to block out everything related. It's why there are concepts like Error Boundaries and Suspense. And it is why we tend to schedule when things run with purpose.
 
-{% link https://dev.to/this-is-learning/why-all-the-suspense-understanding-async-consistency-in-javascript-frameworks-3kdp %}
+<!-- ::start:link-preview -->
+[Why All the Suspense? Understanding Async Consistency in JavaScript Frameworks](https://playfulprogramming.com/posts/why-all-the-suspense-understanding-async-consistency-in-javascript-frameworks-3kdp)
+<!-- ::end:link-preview -->
 
 ---
 

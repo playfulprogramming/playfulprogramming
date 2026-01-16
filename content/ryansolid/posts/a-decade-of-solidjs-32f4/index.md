@@ -77,7 +77,9 @@ The average developer had gone through a few years of JavaScript fatigue which w
 
 So yeah, I ran into some friction and I wasn't so versed in social media to understand what HTMX came to know. Memes win the day regardless of whether you have anything of substance to say.
 
-{% link https://dev.to/this-is-learning/of-chickens-and-pigs-the-dilemma-of-creator-self-promotion-51ea %}
+<!-- ::start:link-preview -->
+[Of Chickens and Pigs: The Dilemma of Creator Self-Promotion](https://playfulprogramming.com/posts/of-chickens-and-pigs-the-dilemma-of-creator-self-promotion-51ea)
+<!-- ::end:link-preview -->
 
 To be fair, I didn't see what I was doing as self-promotion. I was building and learning in public. I'd write articles and do long un-markettable live streams. I didn't feel that I created something, as much as I discovered something obvious if you just laid out everything in front of you.
 
@@ -111,7 +113,9 @@ I convinced Misko Hevery that Signals were what he was missing to achieve true R
 
 The only audience that wasn't convinced was React, but to be fair this solution was never for them. It was born out of not accepting all the conclusions they had made. I've learned an immeasurable amount from React over the years, but you don't evolve if you don't challenge baseline assumptions.
 
-{% link https://dev.to/this-is-learning/react-vs-signals-10-years-later-3k71 %}
+<!-- ::start:link-preview -->
+[React vs Signals: 10 Years Later](https://playfulprogramming.com/posts/react-vs-signals-10-years-later-3k71)
+<!-- ::end:link-preview -->
 
 ---
 

@@ -19,7 +19,9 @@ For all the effort we've put into Server Rendering on the web, we still haven't 
 
 Regardless of how we optimize for server rendering, hydration hangs over us. That JavaScript that needs to be run on page initialization, that makes our First Contentful Paints deceptive, that adds first input delay no matter how much we progressively enhance, and only gets worse the larger or more complex our web applications become.
 
-{% link https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3 %}
+<!-- ::start:link-preview -->
+[Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://playfulprogramming.com/posts/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3)
+<!-- ::end:link-preview -->
 
 Many have worked on the problem, contributing to various projects, all hitting different tradeoffs. Through them, we've seen the pieces of the puzzle come together. To that end, we are nearing a point where we can consider Hydration a solved problem.
 

@@ -17,7 +17,9 @@ At the heart of the discussion is the topic of Hydration. The process in which a
 
 And Hydration is more significant than the amount of JavaScript we ship or execute. It impacts what data we need to serialize and send to the browser. This is an area that is not simple to build solutions for, and it is little surprise explaining them is equally challenging.
 
-{% link https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3 %}
+<!-- ::start:link-preview -->
+[Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://playfulprogramming.com/posts/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3)
+<!-- ::end:link-preview -->
 
 Now that more solutions have shipped I think it is time to revisit the 3 most promising approaches to this space.
 
@@ -112,7 +114,9 @@ Partially Hydrated solutions above in some cases can reduce code footprints up t
 To do that we'd need to serialize not just the application state, but the internal state of the framework so that when any part is executed it could continue where it left off. When an event handler updates some state we just propagate that change without ever running the components the first time in the browser to initialize it. Afterall we already initialized it when we rendered on the server.
 
 This is not easy to accomplish given the way we close over state when we write components, but it is solvable:
-{% link https://dev.to/this-is-learning/resumability-wtf-2gcm %}
+<!-- ::start:link-preview -->
+[Resumability WTF](https://playfulprogramming.com/posts/resumability-wtf-2gcm)
+<!-- ::end:link-preview -->
 
 It also opens up more interesting patterns for lazy code loading since it doesn't need to be immediately present for hydration. However, if interactivity is as defined above, you don't want to be lazy loading anything critical because we still have to wait for it. Maybe just expensive things or things offscreen. In the basic case, a pretty similar heuristic to how you would choose to lazy load for any client-side architecture.
 

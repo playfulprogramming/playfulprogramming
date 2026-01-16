@@ -54,8 +54,13 @@ Getting involved in the community helps you learn new technologies, take differe
 The last learning from my Career so far, start contributing to Open Source. I have learned a lot by contributing to Open Source, and it made me a better developer at work. As going through the code base of projects, Angular made me learn the internals of the framework. Also, I got recognition like GDE and GitHub Star, which made my work more visible in the community.
 
 You can also read my journey below
-{% link https://dev.to/this-is-learning/my-journey-into-tech-1l6d %}
+
+<!-- ::start:link-preview -->
+[My Journey into Tech](https://playfulprogramming.com/posts/my-journey-into-tech-1l6d)
+<!-- ::end:link-preview -->
 
 Also I shared How I went from $1000 to better salary
 
-{% link https://dev.to/this-is-learning/my-developer-journey-how-i-went-from-making-1-000-to-better-salary-11om %}
+<!-- ::start:link-preview -->
+[My Developer Journey – How I Went from Making $1,000 to Better Salary](https://playfulprogramming.com/posts/my-developer-journey-how-i-went-from-making-1-000-to-better-salary-11om)
+<!-- ::end:link-preview -->

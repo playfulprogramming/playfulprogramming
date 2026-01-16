@@ -27,7 +27,9 @@ The wonderful thing about glimpsing into the future is that the path is never co
 
 Server Side rendering allowed us to render pages sooner by fetching data sooner (and usually closer to our data source), but it wasn't without compromise. It slowed down our response times and didn't help with the ever-growing size of JavaScript bundle sizes. It often actually increased our bundle sizes as now we need the code not only to client render but to hydrate the page.
 
-{% link https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3 %}
+<!-- ::start:link-preview -->
+[Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://playfulprogramming.com/posts/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3)
+<!-- ::end:link-preview -->
 
 There are some partial solutions: We can cache more aggressively, stream our HTML responses, and we can invest in smaller/faster frameworks. There are some red herrings: We can think progressive enhancement is a substitute for hydration or that moving away from client-side caches meaningfully changes the math. Spoiler: It doesn't.
 
@@ -47,7 +49,9 @@ This is a natural evolution. Create a solution that pairs great UX with great DX
 
 If I could sum up the greatest alignment between framework thought leaders in 2022, it is that routing belongs on the server.
 
-{% link https://dev.to/this-is-learning/the-return-of-server-side-routing-b05 %}
+<!-- ::start:link-preview -->
+[The Return of Server Side Routing](https://playfulprogramming.com/posts/the-return-of-server-side-routing-b05)
+<!-- ::end:link-preview -->
 
 We're not suggesting we do away with client-side routing (although that is an option). Just that client-routed and rendered architectures are pressed again the limits of where they can be effectively used.
 
@@ -63,7 +67,9 @@ Whether you are looking at Marko, Astro, or Fresh and their Islands of interacti
 
 With server rendering being the focus, it is no surprise that hydration has been a topic of importance. This is a cost that we pay for every server-rendered application that is authored with a declarative JavaScript framework. Or so we thought.
 
-{% link https://dev.to/this-is-learning/conquering-javascript-hydration-a9f %}
+<!-- ::start:link-preview -->
+[Conquering JavaScript Hydration](https://playfulprogramming.com/posts/conquering-javascript-hydration-a9f)
+<!-- ::end:link-preview -->
 
 Both Qwik and early Marko 6 resumable demos showed that hydration is something that one day soon may be something in the past.
 
@@ -73,7 +79,9 @@ Before the end of 2022, we saw 2 experimental technologies that seem to offer th
 
 I wrote about Solid's approach which blew bundle size expectations out of the water.
 
-{% link https://dev.to/this-is-learning/client-side-routing-without-the-javascript-3k1i %}
+<!-- ::start:link-preview -->
+[Client Side Routing Without the JavaScript](https://playfulprogramming.com/posts/client-side-routing-without-the-javascript-3k1i)
+<!-- ::end:link-preview -->
 
 While not everyone is sold on Server Components it's hard to argue with delivering significantly less JavaScript than even the smallest SPA frameworks are capable of while maintaining that SPA UX. It's a testament that another way drastically reduce Hydration is simply not to send the code.
 
@@ -156,4 +164,7 @@ Banner credits: ©️ Original concept artwork (https://www.artstation.com/artwo
 **Appendix**
 
 If you are unclear on any of the terminology and technology I refer to in this article I recommend:
-{% link https://dev.to/this-is-learning/patterns-for-building-javascript-websites-in-2022-5a93 %}
+
+<!-- ::start:link-preview -->
+[Patterns for Building JavaScript Websites in 2022](https://playfulprogramming.com/posts/patterns-for-building-javascript-websites-in-2022-5a93)
+<!-- ::end:link-preview -->

@@ -42,7 +42,9 @@ It is not uncommon for a language or framework to aid developers in achieving th
 
 JavaScript is probably more concerned with producing less JavaScript than anyone else. You see this when frameworks like [Svelte](https://svelte.dev) or [Solid](https://solidjs.com) are considerably smaller than [Stimulus](https://stimulus.hotwired.dev/) or even [Alpine](https://alpinejs.dev/). You see this with all the focus from [Marko](https://markojs.com), [Astro](https://astro.build), and [Qwik](https://qwik.builder.io/) on Partial Hydration. Even things like [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) reflect this concern.
 
-{% link https://dev.to/this-is-learning/is-0kb-of-javascript-in-your-future-48og %}
+<!-- ::start:link-preview -->
+[Is 0kb of JavaScript in Your Future](https://playfulprogramming.com/posts/is-0kb-of-javascript-in-your-future-48og)
+<!-- ::end:link-preview -->
 
 We lean heavily into bundlers and compilers to strip out every bit of code we don't need. The goal is to optimize every last bit of execution in our templates. Create specific languages to better capture intent to make that all possible. We analyze our apps to break apart code that can only be run on the server from code that runs in both places. And we use that information to reduce data serialization costs.
 

@@ -37,7 +37,9 @@ So what happened to our Single Page App darling in such a short time? Is it stil
 
 Last year I wrote a very similar article looking at the trends in JavaScript frameworks coming into the new year and I think that is a good place to start.
 
-{% link https://dev.to/this-is-learning/javascript-frameworks-heading-into-2023-nln %}
+<!-- ::start:link-preview -->
+[JavaScript Frameworks - Heading into 2023](https://playfulprogramming.com/posts/javascript-frameworks-heading-into-2023-nln)
+<!-- ::end:link-preview -->
 
 The three major technology trends identified in that article became a significant part of the discussion this past year.
 
@@ -51,7 +53,9 @@ In February, the Angular team announced their adoption. This announcement shook 
 
 There is a lot longer answer to that question that I wrote about in the following article (and a discussion with Dan Abramov in the comments).
 
-{% link https://dev.to/this-is-learning/react-vs-signals-10-years-later-3k71 %}
+<!-- ::start:link-preview -->
+[React vs Signals - 10 Years Later](https://playfulprogramming.com/posts/react-vs-signals-10-years-later-3k71)
+<!-- ::end:link-preview -->
 
 But the short answer is Signals, at least as an API, is not something they are interested in, and their much anticipated "Forget" compiler would be serving a similar role.
 
