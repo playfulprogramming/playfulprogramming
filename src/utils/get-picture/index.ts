@@ -39,7 +39,7 @@ function getSupportedWidth(width: number) {
 	);
 }
 
-if (env.PROD && !env.PUBLIC_CLOUDINARY_CLOUD_NAME) {
+if (env.MODE === "production" && !env.PUBLIC_CLOUDINARY_CLOUD_NAME) {
 	throw new Error("missing env variable PUBLIC_CLOUDINARY_CLOUD_NAME");
 }
 
