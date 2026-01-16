@@ -246,6 +246,10 @@ A Twitch clip
 
 > We can't get a ton of data from Twitch without using their API (and therefore a token), so this is just a simple embed
 
+# X Embeds
+
+<iframe src="https://x.com/playful_program/status/1917675872854614490"></iframe>
+
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>
