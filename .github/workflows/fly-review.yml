@@ -68,7 +68,7 @@ jobs:
         with:
           # This checks out the PR merge contents, which COULD CONTAIN UNSAFE CODE!
           # It is very important that no secrets are provided to the docker build!
-          ref: "${{ github.event.pull_request.merge_commit_sha }}"
+          ref: "${{ github.event.pull_request.head.sha }}"
           persist-credentials: false
 
       - name: Build Docker image
@@ -95,7 +95,7 @@ jobs:
       name: review
       url: ${{ steps.deploy.outputs.url }}
     env:
-      APP_NAME: pr-${{ github.event.pull_request.number }}-${{ github.repository_owner }}-${{ github.event.repository.name }}
+      APP_NAME: pr-${{ github.event.pull_request.number }}-playful-programming-preview-playfulprogramming
       FLY_API_TOKEN: ${{ secrets.FLY_WEB_PR_REVIEW_TOKEN }}
 
     steps:
