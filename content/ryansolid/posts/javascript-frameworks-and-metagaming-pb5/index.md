@@ -82,7 +82,7 @@ One could even argue, if anything Solid re-enforces why you should be using Reac
 
 Well not to disappoint anyone but React isn't going to take this path. Some critics have said, "React is an idea and the VDOM is just an implementation detail." Well, I have it on good authority it's an implementation detail they neither want to nor can escape at this point. This isn't a Vue/AlpineJS scenario where the larger player only has to flex.
 
-{% twitter 1410763549228609537 %}
+{% embed https://x.com/youyuxi/status/1410763549228609537 %}
 
 We've had a lot of new exposure from places where we've struggled to get even a nod. They might not all have positive things to say but the acknowledgement is a step in the right direction. That's the important part.
 

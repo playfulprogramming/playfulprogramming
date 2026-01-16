@@ -87,7 +87,7 @@ Now I don't think it was meant to be anything other than constructive but I'm no
 
 If the biggest value you give is bringing new information, technology, and methods is it better not to bring this into conversations? This is a tricky balance to maintain. I am very conscious of this and go out of my way not to directly plug my libraries or articles on Twitter replies until asked to elaborate on what I mean.
 
-{% twitter 1380812939440095232 %}
+{% embed https://x.com/anyuser/status/1380812939440095232 %}
 
 To be clear I don't hate self-promotion. But I've always struggled with doing it in good conscience. My bandmates made fun of me for weeks when I made a poster for a show we knew was going to be full capacity and sold out, and I wrote "Come early, this show *may* sell out." They could not understand why I said *may* instead of *will* and made sure to tell me all the things they *may* do for the next couple of weeks. They weren't wrong. We had a lineup down the street and we hit capacity before the openers even started playing.
 

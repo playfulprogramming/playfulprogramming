@@ -17,11 +17,11 @@ I want to start by apologizing to my subscribers for not posting an issue until 
 
 This issue was inspired by a response to a tweet I posted this week:
 
-{% twitter 1549753973627822080 %}
+{% embed https://x.com/anyuser/status/1549753973627822080 %}
 
 And the response I got from [Dominic Frei](https://twitter.com/dominicfrei), which I completely agree with, is what inspired this post.
 
-{% twitter 1549754583253139456 %}
+{% embed https://x.com/dominicfrei/status/1549754583253139456 %}
 
 #### So, why TDD?
 

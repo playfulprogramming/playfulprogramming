@@ -12,7 +12,7 @@ socialImage: "social-image.png"
 
 In some circles, two-way binding is seen as the scourge of modern frontends, while in others it is seen as the ultimate ergonomic convenience. One group can barely utter the phrase without a visible look of disgust while the other considers its lack of inclusion a major strike against a solution.
 
-{% twitter 1640483922914996224 %}
+{% embed https://x.com/AdamRackis/status/1640483922914996224 %}
 
 Today, I want to look at this topic so we can better understand the implications of it, and why some (including myself) feel so strongly about it.
 
@@ -183,5 +183,5 @@ There are a few things to look out for from a design standpoint as potential red
 
 But then again when was anyone ever able to stop a developer from doing what they want?
 
-{% twitter 1529283545746665472 %}
-{% twitter 1440756417372176394 %}
+{% embed https://x.com/lxsmnsyc/status/1529283545746665472 %}
+{% embed https://x.com/RyanCarniato/status/1440756417372176394 %}

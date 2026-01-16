@@ -86,7 +86,7 @@ Another key advantage Marko has over Astro is that Marko decides what is inside 
 
 Qwik, on the other hand, takes this to a component level, breaking down how hydration is done so that it is done only when needed. This is achieved by aggressively breaking apart your website's JavaScript into multiple chunks, setting up global event listeners, and serializing points of interest directly into the HTML. For each distinct user interaction, Qwik has all it needs to load only the code required to perform the action and nothing more.
 
-{% embed https://twitter.com/Steve8708/status/1516137857038966786?s=20\&t=RGsgp0Iq1oE\_OumJNuW5Ow %}
+{% embed https://x.com/Steve8708/status/1516137857038966786 %}
 
 In return, this leads to smaller chunks, which are faster to load, parse and load only what the user needs. This is known as [progressive hydration](https://www.builder.io/blog/why-progressive-hydration-is-harder-than-you-think?utm_source=twitter), which is out of scope for this article, and hopefully, I will write about it soon.
 

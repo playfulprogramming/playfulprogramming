@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 Last week I tweeted on Twitter how I am moving from a Slum where I lived for 29 years to a multi-story apartment on rent. The tech community on Twitter responded with nothing but love. Dan Wahlin posted that he would love to hear more about my story. It's not going to be easy to write about my struggle over the years, but I will try my best.
 
-{% twitter 1296831811717181440%}
+{% embed https://x.com/SantoshYadavDev/status/1296831811717181440 %}
 
 # Initial Days
 

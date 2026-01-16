@@ -74,7 +74,7 @@ Being able to identify which components didn't need to be in the client bundle w
 
 Adam Rackis was lamenting React's handling of communication around Concurrent Mode and it spawned a discussion around seeing React's vision.
 
-{% twitter 1375558675675418630 %}
+{% embed https://x.com/AdamRackis/status/1375558675675418630 %}
 
 Eventually, Dan Abramov, the gentleman he is, decided to respond (on the weekend no less) in a less volatile forum in a [Github issue](https://github.com/facebook/react/issues/13206#issuecomment-808902135) addressing where things are at.
 

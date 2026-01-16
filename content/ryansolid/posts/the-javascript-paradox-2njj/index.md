@@ -50,7 +50,7 @@ We lean heavily into bundlers and compilers to strip out every bit of code we do
 
 We even leverage server-side rendering to inform how to reduce the cost of booting up the application in the browser, through [newer concepts like resumability](https://dev.to/this-is-learning/conquering-javascript-hydration-a9f). Running the application on the server fills in the gaps compilation can't handle ahead of time.
 
-{% twitter 1555033936463466496 %}
+{% embed https://x.com/Madisonkanna/status/1555033936463466496 %}
 
 A new JavaScript Framework every week as the saying goes. A constant struggle to innovate and push boundaries. Background knowledge of never being satisfied with the status quo haunts this space. There is even a term for it. [JavaScript Fatigue](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f). Buried in the complexity of learning and of choice. And yet they continue to rise like an unending stream of the undead. Each building upon the remains of the past.
 
@@ -80,7 +80,7 @@ But admittedly it might affect your bottom line. JavaScript's sole purpose for e
 
 Well, where I'm sitting, at least for now. This is a direct extension of JavaScript being the only language of the browser. WASM shows promise in some areas but isn't making a dent on the user interface side of things yet. There are inherent costs that it needs to overcome.
 
-{% twitter 1552331502590889984 %}
+{% embed https://x.com/zack_overflow/status/1552331502590889984 %}
 
 If the end user's device and network are on the critical path, optimizing for it may be the most impactful thing we can do. And if the best way to combat JavaScript is using more JavaScript, that's where we are.
 
@@ -98,7 +98,7 @@ Don't get me wrong. You can always just build an HTML site and put some JavaScri
 
 But I did find it interesting that in my search I found that there is more than one way the problem is being approached for low-end devices and networks. I think for those used to fast networks with only the intermittent interruption of something like the subway, it's easy to think about how to optimize for some base case without changing the equation.
 
-{% twitter 1222059231483846657 %}
+{% embed https://x.com/addyosmani/status/1222059231483846657 %}
 
 Looking at how big international eCommerce like Amazon or eBay operates or services like Google Search handles things, are confirmations of that. Build small, build light, and smartly leverage the server to get the quickest initial loads and interactions. There are enough studies to show how that impacts revenue.
 

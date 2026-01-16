@@ -87,7 +87,7 @@ While not everyone is sold on Server Components it's hard to argue with deliveri
 
 ### Signals Everywhere
 
-{% twitter 1573774557995044864 %}
+{% embed https://x.com/pkozlowski_os/status/1573774557995044864 %}
 
 Fine-grained reactivity has made a comeback in 2022. The Vue community would (correctly) tell you that for them it never went out of style. But only in the past year have we seen it make its way in a much wider scope and under the new banner of Signal. From Solid's unique fine-grained renderer to Preact and Qwik using it to augment their Virtual DOM solutions. Marko 6's compiler shows how fine-grained reactivity can be compiled in a Svelte-esque way and even the Angular team is strongly looking into adding these primitives.
 
@@ -133,7 +133,7 @@ About as likely as it will be the year of the Linux desktop. Take that how you w
 
 Probably not yet. But quietly WASM has been finding itself applicable in more spaces than ever. That includes DOM rendering. The overhead we thought we understood was not what we thought and the fastest WASM Rust libraries have closed the gap with JavaScript on client-side rendering.
 
-{% twitter 1580347110611816448 %}
+{% embed https://x.com/RyanCarniato/status/1580347110611816448 %}
 
 Page load is still a prohibitive metric for many things, but you can still do progressive enhancement with WASM. So if it's good enough for Remix it might be good enough for you.
 

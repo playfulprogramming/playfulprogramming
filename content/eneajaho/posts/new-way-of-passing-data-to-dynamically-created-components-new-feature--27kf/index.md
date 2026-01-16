@@ -394,6 +394,6 @@ Thanks for reading!
 
 ---
 
-{% embed https://twitter.com/Enea\_Jahollari/status/1648702729634586624 %}
+{% embed https://x.com/Enea_Jahollari/status/1648702729634586624 %}
 
 I tweet a lot about Angular (latest news, videos, podcasts, updates, RFCs, pull requests and so much more). If you’re interested about it, give me a follow at [@Enea\_Jahollari](https://twitter.com/Enea_Jahollari). Give me a follow on [dev.to](https://dev.to/eneajaho) if you liked this article and want to see more like this!

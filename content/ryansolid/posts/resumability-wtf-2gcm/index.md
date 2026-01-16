@@ -19,7 +19,7 @@ This article is for you.
 
 ## Why are JavaScript developers so thirsty?
 
-{% twitter 1538001201811271680 %}
+{% embed https://x.com/markdalgleish/status/1538001201811271680 %}
 
 There are many definitions for Hydration (which is part of the problem). But my favorite is:
 

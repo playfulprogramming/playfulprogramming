@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 That is an ambitious title for an article. An ambitious goal in general. Hydration, the process of spreading JavaScript interactivity back into our applications after server rendering, has been regarded as the most challenging problem for JavaScript frameworks for the past several years.
 
-{% twitter 1495473032831324161 %}
+{% embed https://x.com/DanShappir/status/1495473032831324161 %}
 
 For all the effort we've put into Server Rendering on the web, we still haven't found a universally good solve for balancing the developer costs with end user costs.
 

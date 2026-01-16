@@ -15,7 +15,7 @@ This article isn't going to teach you about the latest trends in frontend develo
 
 If you want someone to blame. Blame Jay Phelps (I kid). After a demo I made showing off the power of fine-grained reactivity he got it in my head that we should look at this more as a generalized language. I was content in my DSL bubble, thinking of ways we can make building frameworks easier, but he challenged me to think about it more generally.
 
-{% twitter 1353193651887857665 %}
+{% embed https://x.com/jayphelps/status/1353193651887857665 %}
 
 I've been meaning to take him up on his offer, but in the meantime what I can do is write about it. Because the last year I've done a lot of searching and thinking into how I'd approach this. And thanks to more recent conversations around Svelte, Vue Ref Sugar, and my work on Marko etc.. this seems as good time as ever to share what I've learned.
 

@@ -114,7 +114,7 @@ In 2019, [Svelte 3](https://svelte.dev/blog/svelte-3-rethinking-reactivity) show
 
 The language of reactivity: state, derived state, and effect; not only gives us everything we need to describe synchronized systems like user interfaces but is analyzable. We can know exactly what changes and where. The potential for traceability is profound:
 
-{% twitter 1625428781199421440 %}
+{% embed https://x.com/marvinhagemeist/status/1625428781199421440 %}
 
 If we know that at compile time we can ship less JavaScript. We can be more liberal with our code loading. This is the foundation of resumability in [Qwik](https://www.builder.io/blog/hydration-is-pure-overhead) and [Marko](https://dev.to/ryansolid/what-has-the-marko-team-been-doing-all-these-years-1cf6).
 
@@ -122,13 +122,13 @@ If we know that at compile time we can ship less JavaScript. We can be more libe
 
 ## Signals into the Future
 
-{% twitter 1573774557995044864 %}
+{% embed https://x.com/pkozlowski_os/status/1573774557995044864 %}
 
 Given how old this technology is, it is probably surprising to say there is much more to explore. But that is because it is a way of modeling solutions rather than a specific one. What it offers is a language to describe state synchronization independent of any side effect you'd have it perform.
 
 It would seem unsurprising perhaps then that it would be adopted by Vue, Solid, Preact, Qwik, and Angular. We've seen it make its way into Rust with Leptos and Sycamore showing WASM on the DOM [doesn't have to be slow](https://twitter.com/RyanCarniato/status/1580347110611816448). It is even being considered by React to be used under the hood:
 
-{% twitter 1626590880126889984 %}
+{% embed https://x.com/acdlite/status/1626590880126889984 %}
 
 And maybe that's fitting as the Virtual DOM for React was always just an implementation detail.
 

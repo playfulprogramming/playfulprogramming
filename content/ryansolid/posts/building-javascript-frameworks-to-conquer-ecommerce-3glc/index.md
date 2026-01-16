@@ -53,7 +53,7 @@ Now we've seen these frameworks let you turn off JavaScript for certain pages bu
 
 It really does beg the question. Are we ok with this?
 
-{% twitter 1415067187446960129 %}
+{% embed https://x.com/n_moore/status/1415067187446960129 %}
 
 ---
 

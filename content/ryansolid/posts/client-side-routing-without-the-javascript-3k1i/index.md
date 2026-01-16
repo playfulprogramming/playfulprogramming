@@ -112,7 +112,7 @@ We also took this opportunity to create a mechanism to pass reactive context thr
 
 With those in place, we were ready for the recursive Hackernews comments demo:
 
-{% twitter 1578108737968971776 %}
+{% embed https://x.com/RyanCarniato/status/1578108737968971776 %}
 
 But there was one thing we were missing. Swapping HTML was all good for new navigations but what about when you need to refresh part of the page? You wouldn't want to lose client state, input focus etc... Nikhil managed a version that did that. But ultimately we ended up using [micromorph](https://github.com/natemoo-re/micromorph) a light DOM diff written by Nate Moore (of [Astro](https://astro.build/)).
 
