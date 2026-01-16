@@ -71,7 +71,9 @@ export function VideoPlaceholder({
 						src={props.pageThumbnail}
 						alt=""
 						class={style.thumbnail}
-						crossorigin={"anonymous"}
+						loading="lazy"
+						decoding="async"
+						crossorigin="anonymous"
 						data-nozoom="true"
 					/>
 					<IconOnlyButton
