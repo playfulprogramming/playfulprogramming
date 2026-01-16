@@ -125,7 +125,9 @@ The most common usecase is if you're setting a debugger inside a loop, but you w
 
 Anyway, in case you’re using Chrome, you actually have two debuggers ready to use. The one on vscode works great, but in case you’d like to have everything integrated in your browser, I also wrote an article on the Chrome debugger. You can read it here:
 
-{% embed https://dev.to/this-is-learning/chrome-debugger-is-easier-to-use-than-you-might-think-c8 %}
+<!-- ::start:link-preview -->
+[Chrome Debugger is Easier to Use Than You Might Think](https://playfulprogramming.com/posts/chrome-debugger-is-easier-to-use-than-you-might-think-c8)
+<!-- ::end:link-preview -->
 
 Thanks for reading, happy debugging!
 

@@ -13,7 +13,9 @@ socialImage: "social-image.png"
 
 In my previous article I described how to use Async and Await in Vanilla JavaScript.
 
-{% embed https://dev.to/this-is-learning/async-and-await-in-vanilla-javascript-2mep %}
+<!-- ::start:link-preview -->
+[Async and Await in Vanilla JavaScript](https://playfulprogramming.com/posts/async-and-await-in-vanilla-javascript-2mep)
+<!-- ::end:link-preview -->
 
 In this article, I would like to work with parallel tasks in vanilla JavaScript.
 Let's start!

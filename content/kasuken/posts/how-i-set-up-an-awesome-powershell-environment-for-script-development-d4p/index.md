@@ -98,7 +98,9 @@ Installation Steps:
 
 For the terminal set up, you can follow one of my previous post about it.
 
-{% embed https://dev.to/this-is-learning/transforming-windows-terminal-into-a-productivity-powerhouse-53d5 %}
+<!-- ::start:link-preview -->
+[Transforming Windows Terminal into a Productivity Powerhouse](https://playfulprogramming.com/posts/transforming-windows-terminal-into-a-productivity-powerhouse-53d5)
+<!-- ::end:link-preview -->
 
 ## Final result
 

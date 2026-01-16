@@ -12,7 +12,9 @@ socialImage: "social-image.png"
 
 In a previous post I wrote why it's important to join events and especially, in this case, Experts Live Europe.
 
-{% embed https://dev.to/this-is-learning/why-you-should-attend-experts-live-europe-2024-in-budapest-unlocking-opportunities-in-the-heart-of-innovation-3pbg %}
+<!-- ::start:link-preview -->
+[Why you should attend Experts Live Europe 2024 in Budapest: Unlocking Opportunities in the Heart of Innovation](https://playfulprogramming.com/posts/why-you-should-attend-experts-live-europe-2024-in-budapest-unlocking-opportunities-in-the-heart-of-innovation-3pbg)
+<!-- ::end:link-preview -->
 
 In this post I try to tell you why and how was my experience at the event.
 

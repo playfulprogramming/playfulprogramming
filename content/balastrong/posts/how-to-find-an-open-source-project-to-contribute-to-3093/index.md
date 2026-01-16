@@ -80,7 +80,9 @@ Once you found a project that feels right for you, there are still a few steps t
 
 If you're still unsure on how the PR mechanism works and you want to see a quick guide on that, you can read my other article:
 
-{% embed https://dev.to/this-is-learning/how-to-create-your-first-pull-request-on-github-in-less-than-60-seconds--1ae6 %}
+<!-- ::start:link-preview -->
+[How to Create Your First Pull Request on GitHub in Less Than 60 Seconds](https://playfulprogramming.com/posts/how-to-create-your-first-pull-request-on-github-in-less-than-60-seconds--1ae6)
+<!-- ::end:link-preview -->
 
 Do you have some advices for other developers at the beginning of their Open Source journey? Write a comment here and let’s share some knowledge, thank you very much!
 
