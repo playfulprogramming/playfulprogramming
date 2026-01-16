@@ -3,19 +3,8 @@ import {
 	IFramePlaceholder as PreactIFramePlaceholder,
 	IFramePlaceholderProps,
 } from "components/iframe-placeholder/iframe-placeholder";
-import { VideoPlaceholder } from "components/video/video-placeholder";
 
-export type Props = IFramePlaceholderProps & {
-	isVideo?: boolean;
-};
-
-const props = Astro.props;
+export type Props = IFramePlaceholderProps;
 ---
 
-{
-	props.isVideo ? (
-		<VideoPlaceholder {...props} client:load />
-	) : (
-		<PreactIFramePlaceholder {...props} client:load />
-	)
-}
+<PreactIFramePlaceholder {...Astro.props} client:load />

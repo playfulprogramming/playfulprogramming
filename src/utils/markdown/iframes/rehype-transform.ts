@@ -81,10 +81,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 				const srcUrl = new URL(src!.toString());
 
-				const isVideo = videoHosts.includes(srcUrl.hostname);
-
 				let pageTitle = String(dataFrameTitle ?? "") || metadata?.title || "";
-				let pageThumbnail = "/illustrations/illustration-webpage.svg";
 
 				let iframeAttrs = Object.fromEntries(
 					Object.entries(propsToPreserve).map(([key, value]) => [
@@ -95,10 +92,14 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					]),
 				);
 
+				const isVideo = videoHosts.includes(srcUrl.hostname);
+
 				if (isVideo) {
 					const json = await getVideoDataFromUrl(String(src!)).catch(
 						() => null,
 					);
+
+					let pageThumbnail = "/illustrations/illustration-webpage.svg";
 
 					if (json) {
 						pageTitle = `${json?.title ?? pageTitle}`;
@@ -110,19 +111,33 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 						} = await getIFrameAttributes(json.html);
 						iframeAttrs = { ...iframeAttrs, ...otherIframeProps } as never;
 					}
+
+					parent.children.splice(
+						index,
+						1,
+						createComponent("VideoPlaceholder", {
+							width: width.toString(),
+							height: height.toString(),
+							src: String(src),
+							pageTitle,
+							pageIcon: metadata?.icon?.src || defaultPageIcon,
+							pageThumbnail,
+							iframeAttrs,
+						}),
+					);
+
+					return;
 				}
 
 				parent.children.splice(
 					index,
 					1,
 					createComponent("IframePlaceholder", {
-						isVideo,
 						width: width.toString(),
 						height: height.toString(),
 						src: String(src),
 						pageTitle,
 						pageIcon: metadata?.icon?.src || defaultPageIcon,
-						pageThumbnail,
 						iframeAttrs,
 					}),
 				);

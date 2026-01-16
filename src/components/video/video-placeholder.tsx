@@ -4,17 +4,27 @@ import { useState } from "preact/hooks";
 import PlayIcon from "src/icons/play.svg?raw";
 import FallbackPageIcon from "src/icons/website.svg?raw";
 import style from "./video-placeholder.module.scss";
-import { IFramePlaceholderProps } from "components/iframe-placeholder/iframe-placeholder";
+import { HTMLAttributes } from "preact/compat";
 
 const isCredentiallessSupported =
 	import.meta.env.SSR || "credentialless" in HTMLIFrameElement.prototype;
+
+export interface VideoPlaceholderProps {
+	width: string;
+	height: string;
+	src: string;
+	iframeAttrs: HTMLAttributes<HTMLIFrameElement>;
+	pageTitle: string;
+	pageIcon?: string;
+	pageThumbnail: string;
+}
 
 export function VideoPlaceholder({
 	height,
 	width,
 	iframeAttrs,
 	...props
-}: IFramePlaceholderProps) {
+}: VideoPlaceholderProps) {
 	const [pageIconError, setPageIconError] = useState(false);
 	const [frameVisible, setFrameVisible] = useState(false);
 
