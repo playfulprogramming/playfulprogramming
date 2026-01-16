@@ -113,7 +113,7 @@ jobs:
         if: ${{ github.event.action == 'closed' }}
         run: |
           ${{ env.SCRIPT_PREFIX }}
-          retry_loop 3 flyctl apps destroy "$APP_NAME" -y || true
+          retry_loop 3 'flyctl apps destroy "$APP_NAME" -y' || true
 
       - name: Configure app
         if: ${{ github.event.action != 'closed' && steps.status.outcome == 'failure' }}
@@ -123,7 +123,7 @@ jobs:
           # Backup the original config file since 'flyctl launch' messes up the [build.args] section
           cp fly.toml fly.toml.bak
 
-          retry_loop 3 flyctl launch --no-deploy --copy-config --name "$APP_NAME"
+          retry_loop 3 'flyctl launch --no-deploy --copy-config --name "$APP_NAME"'
 
           # Restore the original config file
           cp fly.toml.bak fly.toml
@@ -133,7 +133,7 @@ jobs:
         if: ${{ github.event.action != 'closed' }}
         run: |
           ${{ env.SCRIPT_PREFIX }}
-          retry_loop 3 flyctl deploy --config "fly.review.toml" --app "$APP_NAME" --image "$DOCKER_TAG" --ha=false
+          retry_loop 3 'flyctl deploy --config "fly.review.toml" --app "$APP_NAME" --image "$DOCKER_TAG" --ha=false'
 
           # Make the deployment URL available to the GitHub workflow.
           flyctl status --app "$APP_NAME" --json >status.json
