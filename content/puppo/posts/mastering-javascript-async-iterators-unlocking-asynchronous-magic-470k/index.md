@@ -125,7 +125,7 @@ And there you have it a deep dive into the world of asynchronous iterators in Ja
 
 I also created a video on my [Youtube channel](https://www.youtube.com/@Puppo_92/), that you can find below.
 
-{% embed https://youtube.com/watch?v=0\_mzZ9QOebg %}
+<iframe src="https://youtube.com/watch?v=0_mzZ9QOebg"></iframe>
 
 If you found this content helpful, like and share it. And if you have any questions, feedback, or doubts, let me know in the comments 😀
 
