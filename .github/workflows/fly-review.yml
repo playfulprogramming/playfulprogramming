@@ -68,7 +68,7 @@ jobs:
         with:
           # This checks out the PR merge contents, which COULD CONTAIN UNSAFE CODE!
           # It is very important that no secrets are provided to the docker build!
-          ref: "${{ github.event.pull_request.merge_commit_sha }}"
+          ref: "${{ github.event.pull_request.head.sha }}"
           persist-credentials: false
 
       - name: Build Docker image
