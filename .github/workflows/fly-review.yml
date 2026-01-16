@@ -95,7 +95,7 @@ jobs:
       name: review
       url: ${{ steps.deploy.outputs.url }}
     env:
-      APP_NAME: pr-${{ github.event.pull_request.number }}-${{ github.repository_owner }}-${{ github.event.repository.name }}
+      APP_NAME: pr-${{ github.event.pull_request.number }}-playful-programming-preview-playfulprogramming
       FLY_API_TOKEN: ${{ secrets.FLY_WEB_PR_REVIEW_TOKEN }}
 
     steps:
