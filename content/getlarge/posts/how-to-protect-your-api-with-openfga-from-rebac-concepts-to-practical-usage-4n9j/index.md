@@ -857,7 +857,9 @@ This is probably the most challenging aspect of adopting OpenFGA, especially if 
 
 Read this excellent article 👇 about dual writes in distributed systems. It will surely help you understand strategies for synchronizing data between your applications' DB and OpenFGA.
 
-{% embed https://auth0.com/blog/handling-the-dual-write-problem-in-distributed-systems/ %}
+<!-- ::start:link-preview -->
+[Handling the Dual-Write Problem in Distributed Systems](https://auth0.com/blog/handling-the-dual-write-problem-in-distributed-systems/)
+<!-- ::end:link-preview -->
 
 ### Progressive Adoption
 
