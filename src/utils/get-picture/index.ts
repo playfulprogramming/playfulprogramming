@@ -39,18 +39,22 @@ function getSupportedWidth(width: number) {
 	);
 }
 
-if (!env.DEV && !env.PUBLIC_CLOUDINARY_CLOUD_NAME) {
+if (env.PROD && !env.PUBLIC_CLOUDINARY_CLOUD_NAME) {
 	throw new Error("missing env variable PUBLIC_CLOUDINARY_CLOUD_NAME");
 }
 
 function getSource(src: string, width: number, getFormat: string) {
-	if (env.DEV || !env.PUBLIC_CLOUDINARY_CLOUD_NAME) {
-		// If the dev server is running or cloudinary isn't configured, use the /_image endpoint
+	if (env.DEV) {
+		// If the dev server is running, use the /_image endpoint
 		return `/_image?${new URLSearchParams({
 			href: src,
 			w: String(width),
 			q: "100",
 		})}`;
+	}
+	if (!env.PUBLIC_CLOUDINARY_CLOUD_NAME) {
+		// If cloudinary isn't configured (e.g. running from a PR build), use the direct image
+		return src;
 	}
 	// If in production use cloudinary's fetch
 	const domainUrl = new URL(src, siteUrl);
