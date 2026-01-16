@@ -14,7 +14,7 @@ import {
 	getIFrameAttributes,
 	getVideoDataFromUrl,
 	videoHosts,
-} from "utils/markdown/oembed-and-other-data-providers";
+} from "utils/markdown/data-providers";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
