@@ -69,7 +69,7 @@ Spotting code smells requires a little bit of experience and practice, so that y
 
 If you want to train this skill, feel free to [subscribe to my YouTube channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1). Once a week I share a code smell minigame just like this one:
 
-{% embed https://youtube.com/shorts/Fdbha07mFzo %}
+<iframe src="https://youtube.com/shorts/Fdbha07mFzo"></iframe>
 
 ---
 
