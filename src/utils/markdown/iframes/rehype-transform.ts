@@ -20,9 +20,6 @@ interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
 }
 
-// default icon, used if a frame's favicon cannot be resolved
-const defaultPageIcon = "/icons/website.svg";
-
 export const rehypeUnicornIFrameClickToRun: Plugin<
 	[RehypeUnicornIFrameClickToRunProps | never],
 	Root
@@ -120,7 +117,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 							height: height.toString(),
 							src: String(src),
 							pageTitle,
-							pageIcon: metadata?.icon?.src || defaultPageIcon,
+							pageIcon: metadata?.icon?.src,
 							pageThumbnail,
 							iframeAttrs,
 						}),
@@ -137,7 +134,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 						height: height.toString(),
 						src: String(src),
 						pageTitle,
-						pageIcon: metadata?.icon?.src || defaultPageIcon,
+						pageIcon: metadata?.icon?.src,
 						iframeAttrs,
 					}),
 				);
