@@ -19,7 +19,7 @@ As usual this isn't a new idea, but sometimes it just takes someone to put a nam
 
 Now as some of you know this has been an area of focus for me the last couple years both with [Marko](https://markojs.com/) and even to some degree with [Solid](https://solidjs.com/). In fact it's kind of been on everyone's mind:
 
-{%twitter 1259614150386425858 %}
+{% twitter 1259614150386425858 %}
 
 I've written countless articles about the technologies around these topics but maybe it's time to step back and really appreciate what this means for the average web developer.
 

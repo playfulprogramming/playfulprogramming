@@ -253,5 +253,5 @@ For the very same reason, the one I presented as a "solution" could be sub-optim
 I didn't test it extensively, that's why as usual you're highly encouraged to leave a comment if anything doesn't sound right.
 
 Anyway, I opened a ticket for this specific bug, and issued a PR with my suggested solution:
-{%embed https://github.com/nrwl/nx/issues/14551 %}
+{% embed https://github.com/nrwl/nx/issues/14551 %}
 Cheers.
