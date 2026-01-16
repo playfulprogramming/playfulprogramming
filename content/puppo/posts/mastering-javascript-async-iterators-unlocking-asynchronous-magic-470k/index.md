@@ -133,4 +133,4 @@ Thanks for reading! And Happy coding! 👩💻 👨💻
 
 N.B. you can find the code of this post [here](https://github.com/Puppo/javascript-iterators-and-generators/tree/03-async-iterators).
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

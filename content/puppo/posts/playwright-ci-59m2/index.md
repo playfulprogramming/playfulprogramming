@@ -123,4 +123,4 @@ Bye Bye 👋
 
 *The code of this post is available* [*here*](https://github.com/Puppo/playwright-series/tree/07-ci)*.*
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

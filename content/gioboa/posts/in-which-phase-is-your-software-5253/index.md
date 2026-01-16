@@ -61,6 +61,6 @@ You can [follow me on Twitter](https://twitter.com/giorgio_boa), where I'm post
 I hope you enjoyed this article, don't forget to give ❤️.
 Bye 👋
 
-{% embed https://dev.to/gioboa %}
+<!-- ::user id="gioboa" -->
 
 *Special thanks to [Strazz](https://twitter.com/thestrazz86), he inspired me with his book: [Decision-making for Software Development Teams](https://leanpub.com/decision-making-for-software-development-teams/)*

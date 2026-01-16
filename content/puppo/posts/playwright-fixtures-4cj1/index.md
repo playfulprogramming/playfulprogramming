@@ -127,4 +127,4 @@ Bye Bye 👋
 
 *p.s. you can check out the code of this article* [here](https://github.com/Puppo/playwright-series/tree/05-fixture)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

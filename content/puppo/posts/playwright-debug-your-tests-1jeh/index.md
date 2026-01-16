@@ -68,4 +68,4 @@ See you soon, folk
 
 Bye bye
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

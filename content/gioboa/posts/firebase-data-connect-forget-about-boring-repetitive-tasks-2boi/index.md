@@ -55,4 +55,4 @@ It opens the door for a new class of sophisticated applications—from complex S
 In future articles we will have fun together to see how to use this very powerful service.
 Until next time 👋
 
-{% embed https://dev.to/gioboa %}
+<!-- ::user id="gioboa" -->

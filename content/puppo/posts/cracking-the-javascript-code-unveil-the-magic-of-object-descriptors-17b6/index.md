@@ -138,4 +138,4 @@ So go ahead, tinker with your code, challenge the norms, and keep pushing the bo
 
 You can find the code of this article [here](https://github.com/Puppo/javascript-you-dont-know/tree/07-object-descriptor).
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

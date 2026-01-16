@@ -71,4 +71,4 @@ I hope you enjoyed this content, and now your testing phase is more comfortable 
 See you later!\
 Bye Bye 👋
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

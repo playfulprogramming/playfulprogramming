@@ -102,7 +102,7 @@ With this last one, we covered all categories. As you can see, there are so many
 
 Thanks for reading this post, I hope you find it interesting!
 
-{% embed https://dev.to/balastrong %}
+<!-- ::user id="balastrong" -->
 
 You can also follow me on your favourite platform!
 

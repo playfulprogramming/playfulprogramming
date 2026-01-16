@@ -88,7 +88,7 @@ Do you have some advices for other developers at the beginning of their Open Sou
 
 Thanks for reading this post, I hope you find it interesting!
 
-{% embed https://dev.to/balastrong %}
+<!-- ::user id="balastrong" -->
 
 You can also follow me on your favourite platform!
 

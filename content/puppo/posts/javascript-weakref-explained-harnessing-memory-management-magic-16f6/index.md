@@ -85,4 +85,4 @@ WeakRef is a powerful feature in JavaScript that allows you to create weak refer
 
 [*Here is*](https://github.com/Puppo/javascript-you-dont-know/tree/04-weakrefs) *the source code of this post.*
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

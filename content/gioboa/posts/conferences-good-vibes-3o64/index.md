@@ -40,4 +40,4 @@ You can [follow me on Twitter](https://twitter.com/giorgio_boa), where I'm post
 I enjoyed organizing my ideas by writing this article and I hope you enjoyed it too.
 Bye 👋
 
-{% embed https://dev.to/gioboa %}
+<!-- ::user id="gioboa" -->

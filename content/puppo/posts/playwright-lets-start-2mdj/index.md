@@ -153,4 +153,4 @@ Bye Bye
 
 *p.s. You can find the result of this post at this* [*link*](https://github.com/Puppo/playwright-series/tree/01-install-and-run)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

@@ -916,7 +916,7 @@ Ready to get started? Here's your roadmap:
 
 Your future self will thank you for choosing relationships over nested IF statements.
 
-{% user getlarge %}
+<!-- ::user id="getlarge" -->
 
 ---
 

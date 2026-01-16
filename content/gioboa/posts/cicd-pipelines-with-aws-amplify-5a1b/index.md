@@ -88,5 +88,5 @@ This is the first article on AWS Amplify, if you find the topic interesting give
 
 You can [follow me on Twitter](https://twitter.com/giorgio_boa), where I'm posting or retweeting interesting articles.
 
-{% embed https://dev.to/gioboa %}
+<!-- ::user id="gioboa" -->
 ````

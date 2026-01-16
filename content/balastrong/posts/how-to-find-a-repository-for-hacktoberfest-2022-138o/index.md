@@ -38,7 +38,8 @@ I go more in detail on these tips on the [video](https://youtu.be/YcOVmk-PSAI), 
 Thanks for reading this post, I hope you found it interesting!
 
 Feel free to follow me to get notified when new articles are out ;)
-{% embed https://dev.to/balastrong %}
+
+<!-- ::user id="balastrong" -->
 
 Do you like my content? You might consider subscribing to my YouTube channel!
 You can find it here:

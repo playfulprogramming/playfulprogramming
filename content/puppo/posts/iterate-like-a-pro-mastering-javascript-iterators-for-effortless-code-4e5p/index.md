@@ -170,4 +170,4 @@ Thanks for reading and Happy coding! 😃 👩💻 👨💻
 
 N.B. you can find the code of this article [here](https://github.com/Puppo/javascript-iterators-and-generators/tree/01-iterators)!
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

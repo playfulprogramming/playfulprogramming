@@ -356,4 +356,4 @@ And don't forget to follow [Orama](https://twitter.com/OramaSearch) on Twitter a
 N.b. The project is in beta version at this moment, so breaking changes or some bugs are opportunities to contribute to the project if you want 😎 [Here](https://github.com/oramasearch/orama) you can find the GitHub Repo\
 🚧
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

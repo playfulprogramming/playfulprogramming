@@ -287,4 +287,4 @@ Bye bye 👋
 
 *N.B. you can find the code of this article* [*here*](https://github.com/Puppo/playwright-series/tree/10-api-testing)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

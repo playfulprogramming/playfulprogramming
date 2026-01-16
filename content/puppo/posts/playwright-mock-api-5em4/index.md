@@ -166,4 +166,4 @@ Bye bye 👋
 
 *You can find the code of this article* [*here*](https://github.com/Puppo/playwright-series/tree/08-mockapi)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

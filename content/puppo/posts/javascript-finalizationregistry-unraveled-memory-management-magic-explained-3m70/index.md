@@ -89,4 +89,4 @@ The JavaScript FinalizationRegistry is a valuable addition to the language that 
 
 *You can find the code of this article* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/06-finalizationregistry)*.*
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

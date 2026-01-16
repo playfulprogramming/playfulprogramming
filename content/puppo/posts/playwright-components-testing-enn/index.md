@@ -100,4 +100,4 @@ Bye Bye 👋
 
 *You can find the code of this post* [*here*](https://github.com/Puppo/playwright-series/tree/06-components)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

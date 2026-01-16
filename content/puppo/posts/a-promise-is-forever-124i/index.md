@@ -314,4 +314,4 @@ Happy coding!
 
 *You can find the code of this article* [*here*](https://github.com/Puppo/JavaScript-Examples/tree/01-promises)*.*
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

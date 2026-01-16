@@ -85,4 +85,4 @@ In conclusion, WeakMap offers powerful features and applications for efficient m
 
 *The code of this article is available* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/02-weakmaps)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

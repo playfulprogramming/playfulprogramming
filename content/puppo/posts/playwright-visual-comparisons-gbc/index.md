@@ -154,4 +154,4 @@ Bye bye
 
 *You can find the source code of this article* [*here*](https://github.com/Puppo/playwright-series/tree/09-visual-comparisons)*.*
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

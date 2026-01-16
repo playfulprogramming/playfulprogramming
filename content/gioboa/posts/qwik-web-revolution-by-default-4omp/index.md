@@ -109,6 +109,6 @@ You can [follow me on Twitter](https://twitter.com/giorgio_boa), where I'm post
 
 If you enjoyed this article don't forget to give ❤️ and if you have any questions or feedback then don't hesitate to drop them in the comments below. Bye 👋
 
-{% embed https://dev.to/gioboa %}
+<!-- ::user id="gioboa" -->
 
 *Special thanks to [@mhevery](https://dev.to/mhevery) for the use cases image and for reviewing this article.*

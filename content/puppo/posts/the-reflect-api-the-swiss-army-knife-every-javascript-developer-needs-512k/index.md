@@ -197,4 +197,4 @@ Remember, the magic isn't just in the code; it's in you, the coding sorcerer who
 
 *You can find the code of this article* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/08-reflect-api)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

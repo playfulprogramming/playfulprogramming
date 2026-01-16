@@ -143,4 +143,4 @@ Bye bye 👋
 
 *N.b. you can find the code of this article* [*here*](https://github.com/Puppo/playwright-series/tree/11-parameterize-test)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

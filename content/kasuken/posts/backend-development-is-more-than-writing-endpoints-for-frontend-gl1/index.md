@@ -213,4 +213,4 @@ Thanks for reading this post, I hope you found it interesting!
 
 Feel free to follow me to get notified when new articles are out 🙂
 
-{% embed https://dev.to/kasuken %}
+<!-- ::user id="kasuken" -->

@@ -120,7 +120,8 @@ There’s still a problem though, getting paid is cool but you also need a proje
 
 Thanks for reading this post, I hope you find it interesting!
 Feel free to follow me to get notified when new articles are out ;)
-{% embed https://dev.to/balastrong %}
+
+<!-- ::user id="balastrong" -->
 You can also follow me on your favourite platform!
 
 |                                                                    Tweets                                                                    |                                                                                           Videos                                                                                          |

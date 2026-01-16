@@ -115,4 +115,4 @@ JavaScript's Proxy object is a powerful and versatile feature that allows develo
 
 *You can find the code of this article* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/05-proxies)*.*
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

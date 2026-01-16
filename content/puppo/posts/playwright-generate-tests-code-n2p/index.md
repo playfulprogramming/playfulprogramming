@@ -76,4 +76,4 @@ See you soon 👋
 
 p.s. you can find the result of this article [here](https://github.com/Puppo/playwright-series/tree/04-code-generator)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

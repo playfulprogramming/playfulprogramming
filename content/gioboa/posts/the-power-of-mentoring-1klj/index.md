@@ -48,4 +48,4 @@ You can [follow me on Twitter](https://twitter.com/giorgio_boa), where I'm post
 
 I hope this article inspires you, don't forget to give ❤️ if you like it. Bye 👋
 
-{% embed https://dev.to/gioboa %}
+<!-- ::user id="gioboa" -->

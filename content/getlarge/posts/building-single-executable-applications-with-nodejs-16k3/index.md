@@ -821,4 +821,4 @@ Want to try it yourself? Here are some next steps:
 
 If you have questions or want to share your SEA experiences, drop a comment below or reach out to me on [Linkedin](https://www.linkedin.com/in/edouard-maleix/) or [GitHub](https://github.com/getlarge).
 
-{% user getlarge %}
+<!-- ::user id="getlarge" -->

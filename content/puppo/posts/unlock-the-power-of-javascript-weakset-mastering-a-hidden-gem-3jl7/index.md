@@ -97,4 +97,4 @@ WeakSet may not be the most well-known feature of JavaScript, but it offers uniq
 
 You can find the source code [here](https://github.com/Puppo/javascript-you-dont-know/tree/03-weaksets)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

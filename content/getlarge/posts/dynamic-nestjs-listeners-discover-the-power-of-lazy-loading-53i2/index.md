@@ -430,4 +430,4 @@ I hope you enjoyed this demonstration and learned something new about NestJS int
 
 If you want to show your appreciation, you can find the code in this [repository](https://github.com/getlarge/nestjs-dynamic-routes-and-listeners) and give it a star ⭐️.
 
-{% user getlarge %}
+<!-- ::user id="getlarge" -->

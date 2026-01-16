@@ -119,4 +119,4 @@ JavaScript Symbols provide a powerful, unique identifier for object properties, 
 
 *You can find the source code* [*here*](https://github.com/Puppo/javascript-you-dont-know/tree/01-symbols)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

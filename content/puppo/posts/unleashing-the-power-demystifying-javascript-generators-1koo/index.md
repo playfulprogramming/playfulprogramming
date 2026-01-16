@@ -103,4 +103,4 @@ Thank you for reading and happy generating! 👩💻 👨💻 😜
 
 N.B. you can find the code of this post [here](https://github.com/Puppo/javascript-iterators-and-generators/tree/02-generators).
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

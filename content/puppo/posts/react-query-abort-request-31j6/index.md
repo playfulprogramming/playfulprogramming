@@ -132,4 +132,4 @@ p.s. you can find the code of the video [**here**](https://github.com/Puppo/lear
 
 *Photo by [Rahul Mishra](https://unsplash.com/@rahuulmiishra?utm_source=Devto\&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=devto\&utm_medium=referral)*
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

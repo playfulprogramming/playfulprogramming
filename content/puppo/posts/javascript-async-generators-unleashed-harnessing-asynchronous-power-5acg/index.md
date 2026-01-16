@@ -99,4 +99,4 @@ Until next time, happy coding and thanks for reading 👩💻👨💻
 
 N.B. you can find the code of this post [here](https://github.com/Puppo/javascript-iterators-and-generators/tree/04-async-generators).
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

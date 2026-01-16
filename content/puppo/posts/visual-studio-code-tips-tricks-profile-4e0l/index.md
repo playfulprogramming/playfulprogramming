@@ -49,4 +49,4 @@ Creating different Profiles allows me to create my best experience during my dai
 
 I hope this content could be helpful for you too. Let me know in the comment if you already know it or if you will be surprised like me when I discovered it.
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

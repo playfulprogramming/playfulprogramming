@@ -114,4 +114,4 @@ See you soon folks
 
 *If you are interested in it, use my referral* [***link***](https://www.gitkraken.com/invite/whbhwrJL) *to try GitLens or other GitKraken products for Free!* [***gitkraken.com/invite/whbhwrJL***](http://gitkraken.com/invite/whbhwrJL)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->

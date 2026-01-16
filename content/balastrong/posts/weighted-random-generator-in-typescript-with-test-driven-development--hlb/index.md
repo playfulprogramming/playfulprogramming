@@ -133,7 +133,8 @@ Feel free to jump on GitHub and extend it, even more, I'm waiting for your Pull 
 
 Thanks for reading this post, I hope you find it interesting!
 Feel free to follow me to get notified when new articles are out ;)
-{% embed https://dev.to/balastrong %}
+
+<!-- ::user id="balastrong" -->
 You can also follow me on your favourite platform!
 
 [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge\&logo=twitter\&logoColor=white)](https://twitter.com/Balastrong) [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA) [![TikTok](https://img.shields.io/badge/TikTok-000000?style=for-the-badge\&logo=tiktok\&logoColor=white)](https://www.tiktok.com/@balastrong) [![Instagram](https://img.shields.io/badge/Instagram-FFF?style=for-the-badge\&logo=instagram\&logoColor=black)](https://www.instagram.com/devbalastrong/)

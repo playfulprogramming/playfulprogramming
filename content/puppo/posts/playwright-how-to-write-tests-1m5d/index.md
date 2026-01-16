@@ -194,4 +194,4 @@ Bye Bye 👋
 
 *P.s. you can find the result of this post at this* [*link*](https://github.com/Puppo/playwright-series/tree/02-how-to-write-tests)
 
-{% embed https://dev.to/puppo %}
+<!-- ::user id="puppo" -->
