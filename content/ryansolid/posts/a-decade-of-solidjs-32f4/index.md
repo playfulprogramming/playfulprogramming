@@ -97,7 +97,9 @@ We used our OpenCollective to sponsor two hackathons(SolidHack) to bring in miss
 
 But most of all we just kept doing what we were doing. We released 1.0 in the Summer of 2021. This would kick off a revolution that I never could have predicted when I first started.
 
-{% link https://dev.to/ryansolid/solidjs-official-release-the-long-road-to-1-0-4ldd %}
+<!-- ::start:link-preview -->
+[SolidJS Official Release: The Long Road to 1.0](https://dev.to/ryansolid/solidjs-official-release-the-long-road-to-1-0-4ldd)
+<!-- ::end:link-preview -->
 
 ---
 

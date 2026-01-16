@@ -40,7 +40,9 @@ What if there is a better way? A way that lets you express complex relationships
 
 My exploration for a better paradigm started with [**Ory Keto**](https://www.ory.sh/keto):
 
-{% link https://dev.to/getlarge/integrate-ory-in-a-nestjs-application-4llo %}
+<!-- ::start:link-preview -->
+[Integrate Ory in a NestJS Application](https://dev.to/getlarge/integrate-ory-in-a-nestjs-application-4llo)
+<!-- ::end:link-preview -->
 
 It introduced me to [Google's Zanzibar paper](https://storage.googleapis.com/gweb-research2023-media/pubtools/5068.pdf) and the concept of **Relation-Based Access Control (ReBAC)**.
 

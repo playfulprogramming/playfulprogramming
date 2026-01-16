@@ -15,7 +15,9 @@ socialImage: "social-image.png"
 
 A few months ago I started to talk about my journey as a Technical Instructor for LinkedIn Learning.
 
-{% embed https://dev.to/kasuken/my-journey-as-linkedin-technical-instructor-14bn %}
+<!-- ::start:link-preview -->
+[My Journey as LinkedIn Technical Instructor](https://dev.to/kasuken/my-journey-as-linkedin-technical-instructor-14bn)
+<!-- ::end:link-preview -->
 
 By the end of January my course "Learning GitHub" has been released and people start to watch it.
 

@@ -107,4 +107,6 @@ In the meanwhile [Qwik](https://github.com/BuilderIO/qwik) provides one of the m
 
 Interest more in how Qwik works? Misko Hevery has written a great article series on the topic:
 
-{% link https://dev.to/builderio/a-first-look-at-qwik-the-html-first-framework-af %}
+<!-- ::start:link-preview -->
+[A First Look at Qwik - The HTML First Framework](https://dev.to/builderio/a-first-look-at-qwik-the-html-first-framework-af)
+<!-- ::end:link-preview -->

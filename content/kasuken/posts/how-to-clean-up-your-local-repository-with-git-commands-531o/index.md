@@ -79,7 +79,9 @@ git fetch --prune origin
 A few months ago I wrote a blog post about one of my morning routine I have: clean up the repository.
 You can find a complete PowerShell script that you can use from your machine.
 
-{% embed https://dev.to/kasuken/update-sync-github-repositories-in-the-morning-1fab %}
+<!-- ::start:link-preview -->
+[Update Sync GitHub Repositories in the Morning](https://dev.to/kasuken/update-sync-github-repositories-in-the-morning-1fab)
+<!-- ::end:link-preview -->
 
 ---
 

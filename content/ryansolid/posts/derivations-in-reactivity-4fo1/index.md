@@ -163,7 +163,10 @@ In our example on updating `a`, `b` and `c` are notified they could change, whic
 It knows what changed and the impact of those changes, ensuring we only do the required work.
 
 If you are interested in more details on how push-pull algorithms work in various Signals libraries check out:
-{% link https://dev.to/milomg/super-charging-fine-grained-reactive-performance-47ph %}
+
+<!-- ::start:link-preview -->
+[Super Charging Fine-Grained Reactive Performance](https://dev.to/milomg/super-charging-fine-grained-reactive-performance-47ph)
+<!-- ::end:link-preview -->
 
 ---
 

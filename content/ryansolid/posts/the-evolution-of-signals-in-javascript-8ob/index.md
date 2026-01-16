@@ -20,7 +20,10 @@ Even in JavaScript, we've had them since the dawn of declarative JavaScript Fram
 > **Disclaimer**: I am the author of [SolidJS](https://solidjs.com). This article reflects the evolution from the perspective of my influences. [Elm Signals](https://csmith111.gitbooks.io/functional-reactive-programming-with-elm/content/section5/Signals.html), [Ember's computed properties](https://emberjs.com/), and [Meteor](https://www.meteor.com/) all deserve shoutouts although not covered in the article.
 
 > Unsure what Signals are or how they work? Check out this Introduction to Fine-Grained Reactivity:
-> {% link https://dev.to/ryansolid/a-hands-on-introduction-to-fine-grained-reactivity-3ndf %}
+>
+> <!-- ::start:link-preview -->
+> [A Hands on Introduction to Fine Grained Reactivity](https://dev.to/ryansolid/a-hands-on-introduction-to-fine-grained-reactivity-3ndf)
+> <!-- ::end:link-preview -->
 
 ---
 
