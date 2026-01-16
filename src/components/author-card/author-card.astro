@@ -1,0 +1,59 @@
+---
+import { getHrefContainerProps } from "utils/href-container-script";
+import { translate } from "utils/translations";
+import { PersonInfo } from "types/PersonInfo";
+import { Button } from "components/button/button";
+import { Picture } from "components/image/picture";
+import styles from "./author-card.module.scss";
+
+export interface Props {
+	author: PersonInfo;
+}
+
+const { author } = Astro.props as Props;
+
+const href = `/people/${author.id}`;
+---
+
+<div class={styles.authorContainer} {...getHrefContainerProps(href)}>
+	<div class={styles.authorImage} style={{ borderColor: author.color }}>
+		<Picture
+			src={author.profileImgMeta.relativeServerPath}
+			width={48}
+			height={48}
+			alt=""
+		/>
+	</div>
+	<div class={styles.authorMetaData}>
+		<p class={`text-style-body-large-bold ${styles.authorName}`}>
+			{author.name}
+		</p>
+		<p class={`text-style-body-large ${styles.authorTextContainer}`}>
+			<span class={`text-style-body-medium-bold ${styles.authorArticles}`}>
+				{
+					translate(
+						Astro,
+						"title.n_articles",
+						author.totalPostCount.toLocaleString("en"),
+					)
+				}
+			</span>
+			<span class={styles.authorMetaSeperatorDot}>•</span>
+			<span class={`text-style-body-medium-bold ${styles.authorWordCount}`}>
+				{
+					translate(
+						Astro,
+						"title.n_words",
+						author.totalWordCount.toLocaleString("en"),
+					)
+				}
+			</span>
+		</p>
+	</div>
+	<Button tag="a" href={href} class={styles.viewProfileBtn}>
+		{translate(Astro, "action.view_profile")}
+	</Button>
+	<div class={`text-style-body-medium ${styles.authorDescription}`}>
+		{author.description}
+	</div>
+</div>

@@ -7,6 +7,7 @@ import Tabs from "./tabs/tabs.astro";
 import IframePlaceholder from "../iframes/iframe-placeholder.astro";
 import Hint from "./hint/hint.astro";
 import Tooltip from "./tooltip/tooltip.astro";
+import User from "./user/user.astro";
 
 export interface PlayfulRoot {
 	type: "root";
@@ -74,6 +75,7 @@ export const components = {
 	Tooltip,
 	IframePlaceholder,
 	Hint,
+	User,
 } as const;
 
 export function createComponent<Key extends keyof typeof components>(

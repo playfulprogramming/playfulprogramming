@@ -1,0 +1,117 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--author-card_padding: var(--spc-6x);
+	--author-card_corner-radius: var(--corner-radius_l);
+	--author-card_avatar_size: 48px;
+	--author-card_avatar_border-width: var(--border-width_m);
+	--author-card_details_gap: var(--spc-4x);
+	--author-card_details_dot_padding-horizontal: var(--spc-1x);
+	--author-card_description_padding-top: var(--spc-4x);
+
+	--author-card_name_color: var(--foreground_emphasis-high);
+	--author-card_count-articles_color: var(
+		--foreground_emphasis-high
+	);
+	--author-card_count-words_color: var(--foreground_emphasis-medium);
+	--author-card_dot_color: var(--foreground_emphasis-medium);
+	--author-card_description_color: var(--foreground_emphasis-high);
+}
+
+.authorContainer {
+	padding: var(--author-card_padding);
+	background-color: var(--surface_primary_emphasis-none);
+	border-radius: var(--author-card_corner-radius);
+	display: grid;
+
+	grid-template-columns: min-content 1fr;
+	grid-template-rows: repeat(3, min-content);
+
+	@include from($tabletSmall) {
+		grid-template-columns: min-content 1fr min-content;
+	}
+}
+
+.authorImage {
+	height: var(--author-card_avatar_size);
+	width: var(--author-card_avatar_size);
+	align-self: center;
+	border-radius: 50%;
+	overflow: hidden;
+	border-style: solid;
+	border-width: var(--author-card_avatar_border-width);
+	margin-right: var(--author-card_details_gap);
+
+	grid-row: 1;
+	grid-column: 1;
+
+	@include from($tabletSmall) {
+		grid-row: 1;
+		grid-column: 1;
+	}
+}
+
+.authorImage img {
+	height: 100%;
+	width: 100%;
+}
+
+.authorMetaData {
+	height: max-content;
+	align-self: center;
+
+	grid-row: 1;
+	grid-column: 2;
+
+	@include from($desktopSmall) {
+		grid-row: 1;
+		grid-column: 2;
+	}
+}
+
+.authorName {
+	margin: 0;
+	color: var(--author-card_name_color);
+}
+
+.authorArticles {
+	margin: 0;
+	color: var(--author-card_count-articles_color);
+}
+
+.authorWordCount,
+.authorMetaSeperatorDot {
+	margin: 0;
+	color: var(--author-card_count-words_color);
+}
+
+.viewProfileBtn {
+	height: fit-content;
+	align-self: center;
+
+	grid-row: 3;
+	grid-column: 1 / 3;
+
+	@include from($tabletSmall) {
+		grid-row: 1;
+		grid-column: 3;
+	}
+}
+
+.authorDescription {
+	padding-top: var(--author-card_description_padding-top);
+	padding-bottom: var(--spc-2x);
+
+	grid-row: 2;
+	grid-column: 1 / 3;
+
+	@include from($tabletSmall) {
+		padding-bottom: unset;
+		grid-row: 2;
+		grid-column: 1 / span 3;
+	}
+}
+
+.authorTextContainer {
+	margin: 0 !important;
+}
