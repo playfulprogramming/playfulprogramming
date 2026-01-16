@@ -31,7 +31,7 @@ Visual Studio Code is one of those large repositories that at first might seem i
 
 This time I don't have a full written version for the article as most of the time I will screen share and directly show what I'm talking about, so here it is:
 
-{% embed https://youtu.be/W\_xau3w4GJo %}
+<iframe src="https://www.youtube.com/watch?v=W_xau3w4GJo"></iframe>
 
 ---
 

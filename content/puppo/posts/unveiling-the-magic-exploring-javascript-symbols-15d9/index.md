@@ -17,7 +17,7 @@ order: 1
 
 JavaScript Symbols are a new primitive data type introduced in ECMAScript 6 (ES6). They are used as unique, non-string identifiers for object properties, useful in avoiding naming collisions and enabling more advanced programming techniques.
 
-{% embed https://youtu.be/o8YDHAS-fo0 %}
+<iframe src="https://www.youtube.com/watch?v=o8YDHAS-fo0"></iframe>
 
 ## Creating and Understanding Symbols
 

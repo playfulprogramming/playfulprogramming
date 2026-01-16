@@ -18,7 +18,7 @@ This has been announced in the official website along with the reasons behind th
 
 I talk about that in this video, but if you prefer reading, you can find the transcript below.
 
-<iframe src="https://www.youtube.com/watch?v=4HSk0ny\_7Sc"></iframe>
+<iframe src="https://www.youtube.com/watch?v=4HSk0ny_7Sc"></iframe>
 
 ## What is Hacktoberfest?
 

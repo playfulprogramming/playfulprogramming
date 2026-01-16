@@ -89,7 +89,7 @@ class MyClass {
 
 To see WeakSets in action, don't waste the opportunity to look at my YouTube video about them.
 
-{% embed https://youtu.be/m3BKqgeVAa4 %}
+<iframe src="https://www.youtube.com/watch?v=m3BKqgeVAa4"></iframe>
 
 ## In Conclusion
 

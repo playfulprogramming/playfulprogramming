@@ -89,7 +89,7 @@ Asynchronous programming in JavaScript continues to evolve, and Async Generators
 
 I also created a video about Async Generators on my [Youtube channel](https://www.youtube.com/@Puppo_92/) and you can find it below.
 
-{% embed https://youtu.be/0uQvNZ8th08 %}
+<iframe src="https://www.youtube.com/watch?v=0uQvNZ8th08"></iframe>
 
 That's a wrap for today's discussion on JavaScript Async Generators. I hope you found this exploration insightful and inspiring. Remember, staying curious and open to new concepts is the key to mastering your craft in the ever-evolving programming landscape.
 

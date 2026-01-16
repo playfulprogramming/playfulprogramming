@@ -21,7 +21,7 @@ Ah right, I'd like to take the chance of getting to know new amazing projects wi
 
 Well, here's a video on this topic!
 
-{% embed https://youtu.be/YcOVmk-PSAI %}
+<iframe src="https://www.youtube.com/watch?v=YcOVmk-PSAI"></iframe>
 
 ---
 

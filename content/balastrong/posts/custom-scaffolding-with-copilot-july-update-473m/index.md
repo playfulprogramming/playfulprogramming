@@ -64,7 +64,7 @@ However... we're still in an early phase. The folder structure is perfectly fine
 
 I gave it a try and recorded the session, you can watch it here:
 
-<iframe src="https://www.youtube.com/watch?v=b\_VLQL00b8Y"></iframe>
+<iframe src="https://www.youtube.com/watch?v=b_VLQL00b8Y"></iframe>
 
 ---
 

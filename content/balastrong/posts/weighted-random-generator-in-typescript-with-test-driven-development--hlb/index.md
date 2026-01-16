@@ -30,7 +30,7 @@ As a side quest, we're going to keep code coverage at 100% ✅
   - [Standalone](#standalone)
   - [Going further](#going-further)
 
-{% embed https://youtu.be/jNBw9\_qNgmo %}
+<iframe src="https://www.youtube.com/watch?v=jNBw9_qNgmo"></iframe>
 
 ### Output
 

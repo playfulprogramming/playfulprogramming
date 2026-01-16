@@ -47,7 +47,7 @@ Since I use VSCode as my primary IDE (actually, it's a text editor), I recorded 
 
 I also showcase both inline (old) and three-way (new) editors, so you can decide which one you like the most!
 
-{% embed https://youtu.be/lz5OuKzvadQ %}
+<iframe src="https://www.youtube.com/watch?v=lz5OuKzvadQ"></iframe>
 
 ---
 

@@ -27,7 +27,7 @@ If I were to pick a theme for the past couple of years this would be it. This ha
 
 Instead, we are subject to the sharp wit of HTMX explaining why JavaScript is just a mistake. And Astro unapologetically taking over content site development. Even the React Core team embraced the simplicity of server with React Server Components, expressed convincingly by Dan Abramov's talk that looked into what if React had always been Server first.
 
-<iframe src="https://www.youtube.com/watch?v=https://www.youtube.com/watch?v=zMf\_xeGPn6s"></iframe>
+<iframe src="https://www.youtube.com/watch?v=zMf_xeGPn6s"></iframe>
 
 So what happened to our Single Page App darling in such a short time? Is it still alive or do we live in the age of Multi-Page Apps and server-rendered HTML only?
 

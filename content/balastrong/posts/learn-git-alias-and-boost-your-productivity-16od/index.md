@@ -68,7 +68,7 @@ If with these two examples you agree with me that aliases are cool, let me give 
 
 You can watch the video on [YouTube](https://youtu.be/Uk4GnYoQx_I), or directly here from the embedded player:
 
-{% embed https://youtu.be/Uk4GnYoQx\_I %}
+<iframe src="https://www.youtube.com/watch?v=Uk4GnYoQx_I"></iframe>
 
 ---
 

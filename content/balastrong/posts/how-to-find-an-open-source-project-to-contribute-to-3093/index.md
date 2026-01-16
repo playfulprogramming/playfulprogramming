@@ -21,7 +21,7 @@ order: 1
 - [Good First Issue & Help Wanted](#good-first-issue---help-wanted)
 - [How to contribute](#how-to-contribute)
 
-{% embed https://youtu.be/yfopPq4354o %}
+<iframe src="https://www.youtube.com/watch?v=yfopPq4354o"></iframe>
 
 ## Introduction
 

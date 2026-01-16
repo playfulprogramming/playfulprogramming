@@ -12,7 +12,7 @@ socialImage: "social-image.png"
 
 Before we dive into the details, here is the video version of this article if you prefer to watch it first and then come back here for a slower, written walkthrough. If you prefer to read, you can safely skip it and continue with the examples below.
 
-<iframe src="https://www.youtube.com/watch?v=U\_ahtUrubuQ"></iframe>
+<iframe src="https://www.youtube.com/watch?v=U_ahtUrubuQ"></iframe>
 
 Let's begin with an easy example to make things concrete.
 

@@ -39,7 +39,7 @@ First of all, using the command in the top right of the Test Explorer panel, you
 In this example, you can see how the runner works, but now it's time to see how it's possible to debug tests.\
 Let's start adding a break-point in the code base. If you are not familiar with this in VsCode, it's elementary, click with the mouse on the left of the line where you want the debugger stops its execution.
 
-{% embed https://youtu.be/QIryVOtMXvM %}
+<iframe src="https://www.youtube.com/watch?v=QIryVOtMXvM"></iframe>
 
 Now, it's time to debug the test. We will see two methods to debug the tests; the first runs all the tests, and the second runs only the necessary test.
 
@@ -47,7 +47,7 @@ Now, it's time to debug the test. We will see two methods to debug the tests; th
 
 Using the icon in the top-right of the test explorer, you can run all your tests in debug mode, and for each test with a break-point, VsCode can stop the execution and permits you to check the test's status. Here is a video example of that.
 
-{% embed https://youtu.be/F5L-qpg3UBA %}
+<iframe src="https://www.youtube.com/watch?v=F5L-qpg3UBA"></iframe>
 
 That is a good example, but typically, you want to debug one test per time.
 
@@ -55,7 +55,7 @@ That is a good example, but typically, you want to debug one test per time.
 
 To do that, the flow is very similar, you have to choose which test you want to debug and insert a break-point where you want the execution will stop. Then in Test Explorer, you have to search for your test; you can type the name of your test in the search bar, or you can scroll through the three and find it using the mouse. To run your test now, you must press the icon relative to the debug execution on the right of the test name. Doing that, VsCode will run your test and will stop the execution when the code arrives at the break-point. Here, you can check your application's status and the problems in your test. Using the command in the top-right of the VsCode's window, you can move on in the execution.
 
-{% embed https://youtu.be/68mH0VsjV4M %}
+<iframe src="https://www.youtube.com/watch?v=68mH0VsjV4M"></iframe>
 
 As you can see, if you are playing with the Test Explorer, you can run or debug all the tests or a specific one. The same approach exists for groups of tests too, so you can run or debug a bunch of tests in the same `describe`.
 

@@ -18,7 +18,7 @@ There are a few ways to restore deleted files in git, depending on how far away 
 
 As usual, I recorded a video with a demo of how the command works, but if you're just in for the commands you can find everything below.
 
-<iframe src="https://www.youtube.com/watch?v=TL\_t3aOXumo"></iframe>
+<iframe src="https://www.youtube.com/watch?v=TL_t3aOXumo"></iframe>
 
 ### You just deleted it
 

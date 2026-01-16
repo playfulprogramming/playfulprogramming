@@ -65,7 +65,7 @@ Well, maybe nothing because maybe they can maintain still being Chicken's so to 
 
 I was watching this video from Maksim Ivanov with @swyx on this idea of content creation. It spoke about combating the urge to do low-brow content to get a few more likes.
 
-<iframe src="https://www.youtube.com/watch?v=sL\_uefhT51g"></iframe>
+<iframe src="https://www.youtube.com/watch?v=sL_uefhT51g"></iframe>
 
 A super interesting topic because Meta Creation is something I've never understood that well. If you aren't familiar with the term, it is the idea of creating content to help others succeed rather than being responsible for creating the original thing that is being promoted. "10 ways to save time each week", "Be successful with these 3 steps", etc.. although it isn't limited to this sort of content.
 

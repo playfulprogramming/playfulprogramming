@@ -54,7 +54,7 @@ As you can notice, the syntax is the same as the previous one, the only differen
 
 If you want to find more about these two hooks see my Youtube video about them.
 
-{% embed https://youtu.be/dWuUjDNB6Yc %}
+<iframe src="https://www.youtube.com/watch?v=dWuUjDNB6Yc"></iframe>
 
 Ok, I think you have an idea of how these two hooks work. I hope you enjoyed this content.
 

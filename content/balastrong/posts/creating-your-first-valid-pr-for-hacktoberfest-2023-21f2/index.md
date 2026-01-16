@@ -77,7 +77,7 @@ Just as a reminder, this year there will not be any physical rewards (like tshir
 
 I talk about that in this video here:
 
-<iframe src="https://www.youtube.com/watch?v=4HSk0ny\_7Sc"></iframe>
+<iframe src="https://www.youtube.com/watch?v=4HSk0ny_7Sc"></iframe>
 
 ---
 

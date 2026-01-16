@@ -21,7 +21,7 @@ I will showcase in the video all the advantages of reviewing a Pull Request from
 
 Aaaand there's even more, as anticipated, this is part of a series of three videos so... there's one more coming out in the next few days!
 
-<iframe src="https://www.youtube.com/watch?v=DSl-L6B\_Qb4"></iframe>
+<iframe src="https://www.youtube.com/watch?v=DSl-L6B_Qb4"></iframe>
 
 Not a fan of video content? No problem, as usual I write down the concepts explained in the video in written form as well!
 

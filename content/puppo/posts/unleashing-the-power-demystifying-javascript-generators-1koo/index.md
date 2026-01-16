@@ -87,7 +87,7 @@ for (const num of mapRange) {
 
 That's all folks. You can find a video about them on my [Youtube channel](https://www.youtube.com/@Puppo_92/).
 
-{% embed https://youtu.be/mi2JlrXBRIs %}
+<iframe src="https://www.youtube.com/watch?v=mi2JlrXBRIs"></iframe>
 
 In conclusion, JavaScript generators stand as a remarkable tool in the arsenal of every developer striving for more efficient and flexible programming. Through their unique ability to pause and resume execution, generators provide an innovative solution to managing complex flows of data and operations.
 

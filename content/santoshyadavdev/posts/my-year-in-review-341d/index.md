@@ -212,7 +212,7 @@ I planned to release my Angular Course but kept delaying it due to burnout. Fina
 
 In September, my course was published on FreeCodeCamp, and I got great feedback from the community. This was my gift to the community for helping me during my burnout.
 
-{% embed https://youtu.be/3qBXWUpoPHo %}
+<iframe src="https://www.youtube.com/watch?v=3qBXWUpoPHo"></iframe>
 
 ## Reunion
 

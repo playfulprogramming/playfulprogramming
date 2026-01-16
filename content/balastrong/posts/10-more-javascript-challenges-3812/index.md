@@ -69,7 +69,7 @@ console.log(luca);
 
 If you're curious about the answers, you can find them in the video below. I hope you enjoy it!
 
-<iframe src="https://www.youtube.com/watch?v=79R\_ys7a8Aw"></iframe>
+<iframe src="https://www.youtube.com/watch?v=79R_ys7a8Aw"></iframe>
 
 In the video above, I go through all challenges and show the answer, but I also recorded a slower version where I actually explain them in more detail. If you're curious and want to learn more, you can find it here:
 

@@ -52,7 +52,7 @@ I highly recommend you to listen carefully to the talk, it's really inspiring an
 
 However, if you don't have 46 minutes available now (you better find them at some point) you can listen to me talking about the manifesto for 8 minutes in the video below.
 
-<iframe src="https://www.youtube.com/watch?v=xo3DZ\_lkW20"></iframe>
+<iframe src="https://www.youtube.com/watch?v=xo3DZ_lkW20"></iframe>
 
 ---
 

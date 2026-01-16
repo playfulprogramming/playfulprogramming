@@ -77,7 +77,7 @@ When using WeakRef, keep in mind the following best practices and limitations:
 
 If you want to learn more about WeakRef, don't miss out on my YouTube video on [my YouTube channel](https://www.youtube.com/@Puppo_92) 🚀
 
-{% embed https://youtu.be/-rN03KAHGC4 %}
+<iframe src="https://www.youtube.com/watch?v=-rN03KAHGC4"></iframe>
 
 ## Conclusion
 

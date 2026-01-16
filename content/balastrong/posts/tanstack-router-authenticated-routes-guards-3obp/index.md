@@ -20,7 +20,7 @@ In this article, we'll learn how to protect some routes (pages) of your applicat
 
 If you're following the series you already know there's always a video version showing the full walkthrough. You can find here Chapter 4 or you can keep reading for a collection of the highlights.
 
-<iframe src="https://www.youtube.com/watch?v=O6dS0\_IvvK0"></iframe>
+<iframe src="https://www.youtube.com/watch?v=O6dS0_IvvK0"></iframe>
 
 ### Create a login page
 

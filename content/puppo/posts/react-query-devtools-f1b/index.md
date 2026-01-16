@@ -58,7 +58,7 @@ Yeap, it exposes many good features to debug and check your React Query applicat
 
 If you want to find out more, watch my Youtube video about React Query Devtool to see it in action.
 
-{% embed https://youtu.be/qXycRUetOX4 %}
+<iframe src="https://www.youtube.com/watch?v=qXycRUetOX4"></iframe>
 
 Ok, that's all! I think you have an idea of what React Query Devtools is and how you can integrate it into your application!\
 I hope you enjoyed this content!

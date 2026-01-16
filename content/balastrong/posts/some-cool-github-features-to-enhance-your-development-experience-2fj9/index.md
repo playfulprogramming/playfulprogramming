@@ -19,7 +19,7 @@ Today we talk about GitHub and some cool features it offers to improve the conte
 
 As usual, before diving into the article, let me share the video version you can find on my [YouTube channel](https://www.youtube.com/c/DevLeonardo):
 
-{% embed https://youtu.be/G6x-gUD409U %}
+<iframe src="https://www.youtube.com/watch?v=G6x-gUD409U"></iframe>
 
 These are some of the features shown in the video:
 
@@ -71,7 +71,7 @@ If you want to see all of these in action plus some additional ones, you can wat
 
 If you want to support me, go watch it and leave a like ❤️
 
-{% embed https://youtu.be/G6x-gUD409U %}
+<iframe src="https://www.youtube.com/watch?v=G6x-gUD409U"></iframe>
 
 ---
 

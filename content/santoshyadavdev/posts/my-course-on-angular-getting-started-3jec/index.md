@@ -39,7 +39,7 @@ This is my small way to say think you for everything you all have done for me.
 
 You can access it on YouTube
 
-{% embed https://youtu.be/3qBXWUpoPHo %}
+<iframe src="https://www.youtube.com/watch?v=3qBXWUpoPHo"></iframe>
 
 ## What if you want to pay
 

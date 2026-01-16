@@ -121,7 +121,7 @@ Ok, I think now you have all the notions to abort an HTTP request in javascript 
 
 If you want to go dive into the Abort Request with React query don't miss my Youtube channel 🚀
 
-<iframe src="https://www.youtube.com/watch?v=BL\_E7SrymWI"></iframe>
+<iframe src="https://www.youtube.com/watch?v=BL_E7SrymWI"></iframe>
 
 I think thats all from this article; I hope you enjoyed this content!
 

@@ -77,7 +77,7 @@ WeakMap can be utilized in various real-world scenarios:
 
 *To find out more about WeakMap don't miss out on my Youtube video on my* [*Youtube channel*](https://www.youtube.com/@puppo_92)*.*
 
-{% embed https://youtu.be/8Z4ZYDSxN3A %}
+<iframe src="https://www.youtube.com/watch?v=8Z4ZYDSxN3A"></iframe>
 
 ## Conclusion
 

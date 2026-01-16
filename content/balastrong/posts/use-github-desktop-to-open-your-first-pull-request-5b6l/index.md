@@ -25,7 +25,7 @@ Instead, today I want to repeat the same steps between forking a repository and 
 
 If you want to contribute to Open Source without running git commands from the terminal, sit down, relax, download [GitHub Desktop](https://desktop.github.com/) and enjoy this tutorial:
 
-{% embed https://youtu.be/8x6V5IOuXog %}
+<iframe src="https://www.youtube.com/watch?v=8x6V5IOuXog"></iframe>
 
 ---
 

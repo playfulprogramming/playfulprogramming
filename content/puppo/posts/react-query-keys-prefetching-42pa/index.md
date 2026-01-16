@@ -103,7 +103,7 @@ As you can imagine, with this simple feature, you can improve the quality of you
 Ok, I think you have a great idea of how key and prefetching work in React Query.\
 To learn more about them, check out also my Youtube video available here 👇
 
-<iframe src="https://www.youtube.com/watch?v=svvx-pl\_hTE"></iframe>
+<iframe src="https://www.youtube.com/watch?v=svvx-pl_hTE"></iframe>
 
 I think thats all from this article; I hope you enjoyed this content!
 
