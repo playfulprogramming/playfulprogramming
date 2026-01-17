@@ -37,7 +37,7 @@ But there is more to it than a 10 year old debate. So I want to talk about how t
 
 ## "Fixing" Front-end
 
-{% embed https://x.com/anyuser/status/1629931788175908866 %}
+{% embed https://x.com/dan_abramov/status/1629931788175908866 %}
 
 At the core of this conversation is understanding what React is. React is not its Virtual DOM. React is not JSX. To this date one of my explanations on the subject came from one of Dan Abramov's earliest articles [You're Missing the Point of React](https://medium.com/@dan_abramov/youre-missing-the-point-of-react-a20e34a51e1a), where he state React's true strengths are:
 
@@ -91,7 +91,7 @@ Signals are not the same Signals as yesteryear. Their execution is glitch-free. 
 
 So far so good? Well maybe not:
 
-{% embed https://x.com/anyuser/status/1629927876693835777 %}
+{% embed https://x.com/dan_abramov/status/1629927876693835777 %}
 
 Apparently, this is something React solves. What did they solve exactly?
 
@@ -147,7 +147,7 @@ The positive is that for `Greeting` regardless of how you are consumed you acces
 
 ## Opt-In vs Opt-Out
 
-{% embed https://x.com/anyuser/status/1629659406890676231 %}
+{% embed https://x.com/dan_abramov/status/1629659406890676231 %}
 
 This might be the crux of the discussion. There are a lot of ways to approach this. Most libraries have chosen reactivity for Developer Experience reasons because automatic dependency tracking means not needing to worry about missing updates.
 

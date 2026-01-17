@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 Sometimes there are problems that have no universally good solutions. There is some tradeoff to be made. Some perspectives that can't be protected. Sometimes it isn't even clear if any of the options are preferable to the others.
 
-{% embed https://x.com/anyuser/status/1353801009844240389 %}
+{% embed https://x.com/RyanCarniato/status/1353801009844240389 %}
 
 What we ended up with in the log was:
 
@@ -30,7 +30,7 @@ So how can all these JavaScript frameworks all have different behavior? Well, th
 
 ## Batched Consistency
 
-{% embed https://x.com/anyuser/status/1540441999324610560 %}
+{% embed https://x.com/dan_abramov/status/1540441999324610560 %}
 
 Let's start with [React](https://reactjs.org/). When you update state, it holds off committing those changes until the next render cycle. The benefit here is that React is always consistent. `count` and `doubleCount` and the DOM are always observed to be in sync.
 
@@ -179,7 +179,7 @@ Solid's updates work like Vue's default while propagating any internal change fr
 
 ## So... ?
 
-{% embed https://x.com/anyuser/status/1545968130186412033 %}
+{% embed https://x.com/DevinRhode2/status/1545968130186412033 %}
 
 So honestly, this all sucks. Enough that I feel the need to be aware of batching behavior. And with that awareness then I'm compelled to offer a consistent default as it feels like the sanest thing to do.
 

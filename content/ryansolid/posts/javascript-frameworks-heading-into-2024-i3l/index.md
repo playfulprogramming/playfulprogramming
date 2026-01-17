@@ -91,7 +91,7 @@ But this did forward the goal I put forward last year, of monolithic authoring w
 
 By the end of the year [Next 14 released the new experimental Partial Pre-rendering](https://nextjs.org/blog/next-14) which allowed a single request to serve static content from the edge while proxying through to Server-less Functions closer to the database all being streamed to offer an Edge-like experience without deploying your whole app there. It is awesome to see some ingenuity offer a best-of-both-worlds solution.
 
-{% embed https://x.com/anyuser/status/1722704383064842280 %}
+{% embed https://x.com/rickyfm/status/1722704383064842280 %}
 
 ---
 

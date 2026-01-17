@@ -90,7 +90,7 @@ You can put your whole app in one component or many components and get the same 
 
 ## Separating Dynamic from Static
 
-{% embed https://x.com/anyuser/status/1629928626278858752 %}
+{% embed https://x.com/dan_abramov/status/1629928626278858752 %}
 
 There have been some conversations to suggest this is a bad thing. If you want more perspective see @dan\_abramov's [response to my previous article](https://dev.to/dan_abramov/comment/256g9).
 
@@ -181,7 +181,7 @@ And thing is to use Signals to great benefit you do not need a compiler. Not eve
 
 Compilers and language exploration become that much easier when you have efficient building blocks you can target. And that isn't just true of us but for AIs. We've seen this suggested to improve upon everything from using analytics to drive code splitting to optimize initial load to optimizing compilers ability to understand code intent.
 
-{% embed https://x.com/anyuser/status/1631045681900077057 %}
+{% embed https://x.com/trueadm/status/1631045681900077057 %}
 
 Whether Signals are best suited to be held by developers or to be low-level primitives for machines, they appear to be an important step in the ever-evolving world of web front-end.
 

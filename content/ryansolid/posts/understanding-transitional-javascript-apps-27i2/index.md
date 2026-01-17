@@ -19,7 +19,7 @@ As usual this isn't a new idea, but sometimes it just takes someone to put a nam
 
 Now as some of you know this has been an area of focus for me the last couple years both with [Marko](https://markojs.com/) and even to some degree with [Solid](https://solidjs.com/). In fact it's kind of been on everyone's mind:
 
-{% embed https://x.com/anyuser/status/1259614150386425858 %}
+{% embed https://x.com/dan_abramov/status/1259614150386425858 %}
 
 I've written countless articles about the technologies around these topics but maybe it's time to step back and really appreciate what this means for the average web developer.
 
@@ -43,7 +43,7 @@ We are more conscious now than in the past about accessibility and the importanc
 
 I've publically been a bit critical of the term Transitional Apps, mostly because while SPA frameworks are finding ways they can play nicer, there has been research and development going into actually solving the problem of sending too much JavaScript. And I don't mean resurrecting Rails. I mean full JavaScript frameworks designed for this use case. No need to juggle multiple apps or not be able to leverage the latest tooling.
 
-{% embed https://x.com/anyuser/status/1259618524751958016 %}
+{% embed https://x.com/dan_abramov/status/1259618524751958016 %}
 
 Dan is right on the money again. Right now on this front there are only a couple games in town. [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) might be a consideration once you are in the larger side of things. But React and related infrastructure is too large for what I'm driving at. Let's talk frameworks that can start from nearly 0kb of JavaScript and disappear your app:
 
