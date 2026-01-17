@@ -2,7 +2,7 @@ import createClient from "openapi-fetch";
 import type { paths } from "./schema";
 import env from "constants/env";
 
-if (env.PROD && !env.HOOF_AUTH_TOKEN) {
+if (env.MODE === "production" && !env.HOOF_AUTH_TOKEN) {
 	throw new Error("Environment variable HOOF_AUTH_TOKEN is missing!");
 }
 

@@ -86,7 +86,7 @@ jobs:
 
   deploy_for_review:
     name: Deploy for review
-    if: ${{ !cancelled() && github.event_name == 'pull_request_target' }}
+    if: ${{ !cancelled() && github.event_name == 'pull_request_target' && needs.build.result != 'failure' }}
     needs: [build]
     runs-on: ubuntu-latest
     outputs:
@@ -123,7 +123,7 @@ jobs:
           # Backup the original config file since 'flyctl launch' messes up the [build.args] section
           cp fly.toml fly.toml.bak
 
-          retry_loop 3 'flyctl launch --no-deploy --copy-config --name "$APP_NAME"'
+          retry_loop 3 'cp fly.toml.bak fly.toml; flyctl launch --no-deploy --copy-config --name "$APP_NAME"'
 
           # Restore the original config file
           cp fly.toml.bak fly.toml
