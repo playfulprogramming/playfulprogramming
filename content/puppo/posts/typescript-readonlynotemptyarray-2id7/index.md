@@ -48,7 +48,7 @@ Therefore you can check if an array has at least an element and if it respects t
 
 *I created a [GitHub Gist](https://gist.github.com/Puppo/bc5287d32dbfeeba9f14862654cece9d) with this code if you need it.*
 
-{% gist https://gist.github.com/Puppo/bc5287d32dbfeeba9f14862654cece9d %}
+<iframe src="https://gist.github.com/Puppo/bc5287d32dbfeeba9f14862654cece9d"></iframe>
 
 That's all, I hope it can be helpful in your daily work.
 

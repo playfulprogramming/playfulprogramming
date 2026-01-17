@@ -52,7 +52,7 @@ We can think of *separation of concerns* (SoC) as compartmentalisation of our ap
 
 We can slice our applications vertically, horizontally or both. When slicing vertically, we group software artifacts by *feature*. When slicing horizontally, we group by software *layer*. In our applications, we can categorise the software artifacts into these horizontal layers, or system concerns:
 
-{% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c %}
+<iframe src="https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c"></iframe>
 
 <figcaption>Horizontal layers of a web application.</figcaption>
 

@@ -26,7 +26,7 @@ However, this is not yet recommended by the Angular team at Google. There are tw
 1. The Ivy Instruction Set which is the compilation output in directive and component rendering functions will not be finalised before Angular version 10.
 2. Angular versions 9 and 10 applications will have an option to opt-out of Ivy and instead fall back to View Engine compilation and rendering.
 
-{% gist https://gist.github.com/LayZeeDK/61caba93df1ec1a0788c94a973c8dfac %}
+<iframe src="https://gist.github.com/LayZeeDK/61caba93df1ec1a0788c94a973c8dfac"></iframe>
 
 *Table 1. The View Engine-to-Ivy transition plan. [Open in new tab](https://gist.github.com/LayZeeDK/61caba93df1ec1a0788c94a973c8dfac).*
 
@@ -97,7 +97,7 @@ As of Angular CLI version 9, `ng add` and `ng update` migration schematics now a
 
 Angular version 9 is compatible with TypeScript versions 3.6 and 3.7. We should make sure to make our Angular libraries compatible with those two versions. TypeScript version 3.5 is no longer supported as of Angular version 9 as seen in Table 2.
 
-{% gist https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3 %}
+<iframe src="https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3"></iframe>
 
 \_Table 2. Angular CLI, Angular, Node.js and TypeScript compatibility table. [Open in new tab](https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3).\*
 

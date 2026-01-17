@@ -56,7 +56,7 @@ After the wizard, GitHub Codespaces, open the new devcointainer.json file for yo
 This is fine but it's not for .NET 8 application.
 Select all the file content and replace with the following devcontainer.json file.
 
-{% embed https://gist.github.com/kasuken/01c07c497a7841875e393e4530c078db %}
+<iframe src="https://gist.github.com/kasuken/01c07c497a7841875e393e4530c078db"></iframe>
 
 ## Let's understand what's inside
 

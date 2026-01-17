@@ -36,7 +36,7 @@ Go to [the Node.js website](https://nodejs.org/). It offers you 2 installation p
 
 This is where it gets tricky. LTS is the right choice, but we might need an older LTS version. We need a version of Node.js LTS that the Angular CLI (Command-Line Interface) supports. Angular CLI is a development tool for Angular projects.
 
-{% gist https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3 %}
+<iframe src="https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3"></iframe>
 *Figure 1. Node.js support in Angular CLI. [Open in new tab](https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3).*
 
 For a new application, we can pick the newest version of Angular CLI. On jsDelivr, we can [read the package details for the latest version of Angular CLI](https://cdn.jsdelivr.net/npm/@angular/cli/package.json). At the time of writing, this is Angular CLI version 11.0. In the package details, we can also see the supported version of Node.js.

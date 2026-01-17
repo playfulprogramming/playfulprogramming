@@ -112,7 +112,7 @@ In Angular version 10, the recommendation is to publish AOT-compiled Ivy librari
 
 In Angular version 11, the View Engine will be removed from applications, but the Angular compatibility compiler will make sure that Ivy applications can still work with View Engine libraries.
 
-{% gist https://gist.github.com/LayZeeDK/61caba93df1ec1a0788c94a973c8dfac %}
+<iframe src="https://gist.github.com/LayZeeDK/61caba93df1ec1a0788c94a973c8dfac"></iframe>
 *Table 1. The View Engine-to-Ivy transition plan. [Open in new tab](https://gist.github.com/LayZeeDK/61caba93df1ec1a0788c94a973c8dfac).*
 
 Table 1 lists the Angular team's recommendations for the different stages of the transition plan.

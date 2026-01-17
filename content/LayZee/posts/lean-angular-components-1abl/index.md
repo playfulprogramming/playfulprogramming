@@ -43,7 +43,7 @@ This barely tells us anything. I would even argue that an application isn't a co
 
 Components are part of the presentational layers of our applications: User interaction and presentation. Components sit on the outermost layer of our overall application architecture. They are the method of presenting information to our users and allow them to interact with the application.
 
-{% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c %}
+<iframe src="https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c"></iframe>
 
 *Figure 1. Horizontal layers of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c#file-web-application-horizontal-layers-csv).*
 

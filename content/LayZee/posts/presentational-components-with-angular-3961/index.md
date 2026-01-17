@@ -70,7 +70,7 @@ The component model of a Model-View-Presenter-style presentational component con
 
 We call them presentational components because they represent the presentational layers of our application such as *presentation* and *user interaction* as seen in Table 1.
 
-{% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c %}
+<iframe src="https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c"></iframe>
 *Table 1. Horizontal layers of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c).*
 
 Preferably, we extract user interaction to component level services such as presenters as described in the "[Lean presentational components](#lean-presentational-components)" section.

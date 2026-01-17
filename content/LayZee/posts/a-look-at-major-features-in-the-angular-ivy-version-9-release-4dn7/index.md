@@ -240,7 +240,7 @@ Selectorless base classes are now supported for directives and components. Some 
 
 TypeScript versions 3.6 and 3.7 are supported in Angular version 9. Previous TypeScript versions are no longer supported. Refer to Table 1 to compare TypeScript compatibility between all Angular versions.
 
-{% gist https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3 %}
+<iframe src="https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3"></iframe>
 
 *Table 1. Angular CLI, Angular, Node.js and TypeScript compatibility table. [Open in new tab](https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3).*
 

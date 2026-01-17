@@ -31,11 +31,11 @@ In the new Angular compiler (Ivy), templates are compiled into instructions. Let
 
 Here’s a component with a simple pipe.
 
-{% gist https://gist.github.com/eneajaho/5e59754214db07383c4d2301bbdaf34d %}
+<iframe src="https://gist.github.com/eneajaho/5e59754214db07383c4d2301bbdaf34d"></iframe>
 
 And here’s the cleaned up generated code:
 
-{% gist https://gist.github.com/eneajaho/54e84d3e96ec407194ac1d97d2fd0fb0 %}
+<iframe src="https://gist.github.com/eneajaho/54e84d3e96ec407194ac1d97d2fd0fb0"></iframe>
 
 As we can see, in **line 29**, that’s where we see what Angular generates for the template code.
 
@@ -69,7 +69,7 @@ It means that we can create a helper function that does the magic Angular does f
 
 Here’s the helper function, we’ll explain how it works below.
 
-{% gist https://gist.github.com/eneajaho/ff866662ec2c847d6449446f8265c800 %}
+<iframe src="https://gist.github.com/eneajaho/ff866662ec2c847d6449446f8265c800"></iframe>
 
 So, **memo** is a function that accepts a function as parameter and returns a result.
 
@@ -81,7 +81,7 @@ If the parameters have changed we call the function again with the new parameter
 
 Here’s the example above converted to use the memo function.
 
-{% gist https://gist.github.com/eneajaho/d4a57e3b8c0a868a38a6715f04dc45a4 %}
+<iframe src="https://gist.github.com/eneajaho/d4a57e3b8c0a868a38a6715f04dc45a4"></iframe>
 
 Just like that! And yes, we are using a function in the template! And yes, it’s not a problem doing so! 😄
 
@@ -91,7 +91,7 @@ Yes, there is! The memo function will help you in cases when you call it in the 
 
 What do I mean by this? Here’s an example.
 
-{% gist https://gist.github.com/eneajaho/036cbce9c5f78b688bd3aa8c848ce6f3 %}
+<iframe src="https://gist.github.com/eneajaho/036cbce9c5f78b688bd3aa8c848ce6f3"></iframe>
 
 Because we are passing different values in different places in the template, the memo function will cache stuff per instance, and not per usage.
 
@@ -101,7 +101,7 @@ In this case, the “**isOdd called**” will show up 6 times every time we clic
 
 So, if we pass the same value in the all the places in the template, it will fire only once.
 
-{% gist https://gist.github.com/eneajaho/530f8409fe7bee6c92ff32646395b44e %}
+<iframe src="https://gist.github.com/eneajaho/530f8409fe7bee6c92ff32646395b44e"></iframe>
 
 And here’s the console.
 

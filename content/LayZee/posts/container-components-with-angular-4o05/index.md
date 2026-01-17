@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
 
 We see that this component has mixed concerns that span multiple horizontal layers in our app as described in the introductory article.
 
-{% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768 %}
+<iframe src="https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768"></iframe>
 
 *Horizontal layers of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c#file-web-application-horizontal-layers-csv).*
 
@@ -299,7 +299,7 @@ export class HeroesComponent implements OnInit {
 
 At first glance, this component might look small, simple and innocent. At closer inspection, it looks like this component has a lot of concerns (pun intended). Like the previous example, the `ngOnInit` lifefycle hook and the `getHeroes` method are concerned with querying for a piece of the application state.
 
-{% gist https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c %}
+<iframe src="https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c"></iframe>
 
 *Horizontal layers—or system concerns—of a web application. [Open in new tab](https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c#file-web-application-horizontal-layers-csv).*
 

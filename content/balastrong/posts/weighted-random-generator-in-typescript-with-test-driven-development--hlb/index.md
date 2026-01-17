@@ -55,7 +55,7 @@ As seen in the preview, we're going to build a generator (with a class) that tak
 
 As we're in Typescript, let's start by giving a type definition to our input.
 
-{% embed https://gist.github.com/Balastrong/6784d2d12cf887c026a03bbaeec9011b %}
+<iframe src="https://gist.github.com/Balastrong/6784d2d12cf887c026a03bbaeec9011b"></iframe>
 
 Our type will have two fields, one to keep the original items we passed in, and the other to store its weight (or chance, probability).
 A heavier weight means more likely to be picked up.
@@ -66,7 +66,7 @@ To add some more informative content, we'll build this up with a little bit of T
 
 We can create a new file, randomGenerator.ts with the skeleton of the final product.
 
-{% embed https://gist.github.com/Balastrong/4eeb096cd9726efe81c38c0895494d40 %}
+<iframe src="https://gist.github.com/Balastrong/4eeb096cd9726efe81c38c0895494d40"></iframe>
 
 Before writing the implementation, we have to write the tests! This approach helps write code that is more reliable and with fewer bugs as you focus on the business logic first, and only after that on the implementation.
 
@@ -79,13 +79,13 @@ In my tests, I want to make sure that:
 3. N random items are picked, exactly the amount I requested and all of them are in the list.
 4. Works not only with strings but also with objects.
 
-{% embed https://gist.github.com/Balastrong/f8cf757a5b8e39d9cca16a6cdc75a695 %}
+<iframe src="https://gist.github.com/Balastrong/f8cf757a5b8e39d9cca16a6cdc75a695"></iframe>
 
 *Note: To improve the tests even more, there's an [open issue](https://github.com/Balastrong/wrand/issues/5) about passing a custom random generator. This could allow to set a generator with a specific seed (Math.random can't do that) and make the tests predictable, rather than entirely random.*
 
 Now that the tests are written, we can proceed with the implementation.
 
-{% embed https://gist.github.com/Balastrong/95998c34d114aee61ca597af98a24398 %}
+<iframe src="https://gist.github.com/Balastrong/95998c34d114aee61ca597af98a24398"></iframe>
 
 If we run the test now, they're all green and 100% code coverage ✅
 
@@ -99,11 +99,11 @@ This time we want to check that:
 2. There are no duplicates
 3. There are no negative weights
 
-{% embed https://gist.github.com/Balastrong/336a7aed5a951c30ad8832b001215769  %}
+<iframe src="https://gist.github.com/Balastrong/336a7aed5a951c30ad8832b001215769 "></iframe>
 
 Tests are looking good, we can implement the validation method.
 
-{% embed https://gist.github.com/Balastrong/e0aef8b0889616c6bdcc3fe749e219ce %}
+<iframe src="https://gist.github.com/Balastrong/e0aef8b0889616c6bdcc3fe749e219ce"></iframe>
 
 `npm run test` and it's all green and 100% again! ✅
 
@@ -115,7 +115,7 @@ With the current implementation, to pick one item only you need to explicitly cr
 
 As we're building a library, it might be useful to also provide some standalone methods that do everything under the hood so that one can directly call `pick` or `pickMany` without seeing the logic behind it.
 
-{% embed https://gist.github.com/Balastrong/14d684e75a560200cc5922ce66e82bcf %}
+<iframe src="https://gist.github.com/Balastrong/14d684e75a560200cc5922ce66e82bcf"></iframe>
 
 ### Going further
 

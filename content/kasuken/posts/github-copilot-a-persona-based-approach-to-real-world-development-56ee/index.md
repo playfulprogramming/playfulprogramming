@@ -335,7 +335,7 @@ For me, this approach turned Copilot from “a tool I sometimes fight with” in
 
 You can find all my personas in these Gists I created to share them with customers and the community.
 
-{% embed https://gist.github.com/kasuken/d68d3cabfb22ff75a44b8bd538d5a7ec %}
+<iframe src="https://gist.github.com/kasuken/d68d3cabfb22ff75a44b8bd538d5a7ec"></iframe>
 
 ---
 
