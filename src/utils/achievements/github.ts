@@ -3,12 +3,11 @@ import { GraphqlResponseError } from "@octokit/graphql";
 import { getPeopleByLang } from "utils/api";
 import env from "constants/env";
 
-const octokit =
-	typeof env.GITHUB_TOKEN !== "undefined"
-		? new Octokit({
-				auth: env.GITHUB_TOKEN,
-			})
-		: undefined;
+const octokit = env.GITHUB_TOKEN
+	? new Octokit({
+			auth: env.GITHUB_TOKEN,
+		})
+	: undefined;
 
 if (!octokit)
 	console.warn("No GITHUB_TOKEN provided - skipping person achievements!");
