@@ -76,7 +76,7 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 	});
 	const result = pictureNode
 		? undefined
-		: (await getUrlMetadata(url.toString()))?.banner;
+		: (await getUrlMetadata(url.toString()).catch(() => undefined))?.banner;
 	if (!pictureNode && !result) {
 		logError(vfile, anchorNode, "Link preview could not find a banner image.");
 		return;
