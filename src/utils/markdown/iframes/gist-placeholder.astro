@@ -1,0 +1,11 @@
+---
+export interface Props {
+	data: unknown;
+}
+
+const { data } = Astro.props;
+---
+
+<pre>
+	<code>{JSON.stringify(data, null, 2)}</code>
+</pre>
