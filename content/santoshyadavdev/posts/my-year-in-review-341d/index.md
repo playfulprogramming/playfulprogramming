@@ -57,7 +57,7 @@ I worked hard over the years to reach a point where my family and I could have a
 
 I wrote about my life journey
 
-{% embed https://x.com/SantoshYadavDev/status/1479562904835747841 %}
+<iframe src="https://x.com/SantoshYadavDev/status/1479562904835747841"></iframe>
 
 My family’s Visa was delayed every month, and the relocation agency had no idea about it. Even things not going well at work made me scared.
 

@@ -105,7 +105,7 @@ But most of all we just kept doing what we were doing. We released 1.0 in the Su
 
 ## Signals Everywhere
 
-{% embed https://x.com/theo/status/1730711700805140908 %}
+<iframe src="https://x.com/theo/status/1730711700805140908"></iframe>
 
 In 2015, no one would be caught dead saying "Knockout always had it right." Hell, few people would have said that in 2018 or even 2020. It is because this has so little to do with Knockout other than inspiring the creation of SolidJS. In 2025 you would be hard-pressed to find a popular frontend library that doesn't work or is in the process of migrating to work the way SolidJS does. In 2018 there were zero, and now almost every notable framework other than React has jumped on board. So what happened?
 

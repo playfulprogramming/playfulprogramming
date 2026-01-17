@@ -15,11 +15,11 @@ order: 5
 
 The introduction of dynamic islands in iPhone 14 piqued the interest of many designers and developers - coming up with creative ways to utilize the shape-shifting bubble. Below are a few examples of the creative ways others have used this new feature.
 
-{% embed https://x.com/drawsgood/status/1573736787855478784 %}
+<iframe src="https://x.com/drawsgood/status/1573736787855478784"></iframe>
 
-{% embed https://x.com/chan_k/status/1570795751764295682 %}
+<iframe src="https://x.com/chan_k/status/1570795751764295682"></iframe>
 
-{% embed https://x.com/drawsgood/status/1572429905220050944 %}
+<iframe src="https://x.com/drawsgood/status/1572429905220050944"></iframe>
 
 Most of the iOS implementations you see online use a morphing technique called [**metaballs**](https://ikyle.me/blog/2022/creating-cool-ui-shape-morphing). With metaballs, an element will start to stretch towards each other as the objects get closer to each other. The image below shows the difference between the default behavior and when using the metaballs morphing technique when two elements are close to each other.
 

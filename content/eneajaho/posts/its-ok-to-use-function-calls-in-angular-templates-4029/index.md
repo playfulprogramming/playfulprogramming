@@ -113,7 +113,7 @@ And here’s the console.
 
 All thanks to a tweet from [Pawel Kozlowski](https://twitter.com/pkozlowski_os), an Angular team member. I just thought to dig more on the source code and explain it further.
 
-{% embed https://x.com/pkozlowski_os/status/1531327027327840256 %}
+<iframe src="https://x.com/pkozlowski_os/status/1531327027327840256"></iframe>
 
 You’re interested in **reactivity**, **signals**, **performance**, **change detection** an other cool stuff like that? Go give [Pawel](https://twitter.com/pkozlowski_os) a follow on Twitter, he is exploring the space and tweeting cool stuff about it!
 

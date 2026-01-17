@@ -17,11 +17,11 @@ I want to start by apologizing to my subscribers for not posting an issue until 
 
 This issue was inspired by a response to a tweet I posted this week:
 
-{% embed https://x.com/mwycliffe_dev/status/1549753973627822080 %}
+<iframe src="https://x.com/mwycliffe_dev/status/1549753973627822080"></iframe>
 
 And the response I got from [Dominic Frei](https://twitter.com/dominicfrei), which I completely agree with, is what inspired this post.
 
-{% embed https://x.com/dominicfrei/status/1549754583253139456 %}
+<iframe src="https://x.com/dominicfrei/status/1549754583253139456"></iframe>
 
 #### So, why TDD?
 

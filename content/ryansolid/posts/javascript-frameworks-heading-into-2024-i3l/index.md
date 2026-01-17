@@ -23,7 +23,7 @@ I anticipate that 2024 will continue to see even larger changes across the board
 
 If I were to pick a theme for the past couple of years this would be it. This has been a source of contention, but it is undeniable. A few short years ago everyone was talking about Progressive Web Applications and offline first. But that dialog has all but disappeared.
 
-{% embed https://x.com/htmx_org/status/1725241732260847914 %}
+<iframe src="https://x.com/htmx_org/status/1725241732260847914"></iframe>
 
 Instead, we are subject to the sharp wit of HTMX explaining why JavaScript is just a mistake. And Astro unapologetically taking over content site development. Even the React Core team embraced the simplicity of server with React Server Components, expressed convincingly by Dan Abramov's talk that looked into what if React had always been Server first.
 
@@ -47,7 +47,7 @@ The three major technology trends identified in that article became a significan
 
 What started at the end of 2022 with the adoption of these Reactive primitives by Preact, and Qwik, following in the footsteps of SolidJS and Vue, only continued stronger into 2023.
 
-{% embed https://x.com/angular/status/1625939902046117890 %}
+<iframe src="https://x.com/angular/status/1625939902046117890"></iframe>
 
 In February, the Angular team announced their adoption. This announcement shook social media. Not only that. It was one of a few factors that played into a very notable change in Angular's presence. One some even call it an Angular Rennaissance. And it was the first time in the past few years that we saw the React team join the fray as the very real question being asked was, "Signal's in React, When?".
 
@@ -81,7 +81,7 @@ Edge functions seem like one of those obvious wins. Move your server closer to y
 
 Well if anything 2023 was a year of growing pains with the edge. We started incredibly enthusiastic. After all, Cloudflare was releasing Edge Databases, all our favorite providers started offering Edge functions, and our favorite frameworks were adding out-of-the-box support. The providers had formed a committee WinterCG to talk about standardizing the platform. The future was here.
 
-{% embed https://x.com/lcasdev/status/1616380400892248068 %}
+<iframe src="https://x.com/lcasdev/status/1616380400892248068"></iframe>
 
 Where we ended up was the realization that certain Node APIs were essential even in these edge functions. You can thank or hate Next and Vercel for pushing `AsyncLocalStorage` into every runtime, but we needed it.
 
@@ -91,7 +91,7 @@ But this did forward the goal I put forward last year, of monolithic authoring w
 
 By the end of the year [Next 14 released the new experimental Partial Pre-rendering](https://nextjs.org/blog/next-14) which allowed a single request to serve static content from the edge while proxying through to Server-less Functions closer to the database all being streamed to offer an Edge-like experience without deploying your whole app there. It is awesome to see some ingenuity offer a best-of-both-worlds solution.
 
-{% embed https://x.com/rickyfm/status/1722704383064842280 %}
+<iframe src="https://x.com/rickyfm/status/1722704383064842280"></iframe>
 
 ---
 
@@ -101,13 +101,13 @@ By the end of the year [Next 14 released the new experimental Partial Pre-render
 
 I know I've talked about Signals enough for one article already, but the real payoff hasn't happened yet. We've had fine-grained Signal-like primitives in JavaScript for 15 years, so why now?
 
-{% embed https://x.com/theo/status/1730711700805140908 %}
+<iframe src="https://x.com/theo/status/1730711700805140908"></iframe>
 
 It isn't about just having them, it's about what you do with them. Vue has had these primitives under the hood for years, as has React with MobX but that barely touches on where things are heading. And that thing is fine-grained rendering. What was popularized by SolidJS, now is finding its way into Vue in the form of Vue Vapor, and Svelte in Svelte 5. And these are just the ones that have been announced.
 
 I expect the others that have adopted Signals to work them more natively into the framework to better benefit from them.
 
-{% embed https://x.com/synalx/status/1737147113241485712 %}
+<iframe src="https://x.com/synalx/status/1737147113241485712"></iframe>
 
 There is so much excitement in this area on the potential, the group working on the TC-39 proposal for bringing Signals into the browser includes representatives from every major JavaScript framework, a group not always associated with working closely with standards.
 
@@ -127,13 +127,13 @@ Last year was too early to talk about AI from a framework standpoint. And next y
 
 Talking with other framework authors the past year we've seen it catch the fascination of those around us, but hadn't gotten to a point where it was clear our role in this. But that is changing.
 
-{% embed https://x.com/aidenybai/status/1737616282210738650 %}
+<iframe src="https://x.com/aidenybai/status/1737616282210738650"></iframe>
 
 Yes, that AI is answering the eternal question of why your application is slow.
 
 The impact on developer tooling is one thing. But we are also seeing increased potential of real-time being built into our frameworks. I don't just mean Websockets for persistent backends either. APIs in meta-frameworks have evolved beyond simple JSON to fully streaming cross-network JavaScript execution with "Server Functions" in SolidStart, Qwik, and Next. It isn't hard to picture generative technologies creating your UI in real time.
 
-{% embed https://x.com/mhevery/status/1722928972789408240 %}
+<iframe src="https://x.com/mhevery/status/1722928972789408240"></iframe>
 
 ---
 

@@ -17,7 +17,7 @@ Having worked with NodeJS based frameworks and frontend frameworks such as Angul
 
 Having switched to using Golang recently, I realized I needed to solve this problem. Lucky for me, there are a few great options out there to enable this behavior. One of them is the [Air (github.com/cosmtrek/air)](https://github.com/cosmtrek/air) - a live reloading tool for Golang apps.
 
-{% embed https://x.com/mwycliffe_dev/status/1510881501344419840 %}
+<iframe src="https://x.com/mwycliffe_dev/status/1510881501344419840"></iframe>
 
 ## Installing Air
 

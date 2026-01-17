@@ -43,11 +43,11 @@ When you assemble all these features, things are not so simple anymore. And it i
 
 It has been incredibly difficult to measure success. We've seen benchmark fails:
 
-{% embed https://x.com/Rich_Harris/status/1828514851741933689 %}
+<iframe src="https://x.com/Rich_Harris/status/1828514851741933689"></iframe>
 
 We've seen performance attributed to new technologies when the root cause was elsewhere:
 
-{% embed https://x.com/RyanCarniato/status/1818402060238565722 %}
+<iframe src="https://x.com/RyanCarniato/status/1818402060238565722"></iframe>
 
 Not wanting to wade through this mess, has led the conversation back to more traditional server approaches. Ones that exist outside of "SSR". Ones where you aren't trying to run a client JavaScript framework on a server. This has always been a great choice for projects where it makes sense. But it is also uninteresting.
 
@@ -73,7 +73,7 @@ On one side we have the React Compiler, an auto-optimizing compiler, that transf
 
 These are two major compiler projects that couldn't be more different that called into question the fundamental nature of both projects. React acknowledging that re-renders do matter enough to optimize around. Svelte traded away its minimal syntax for a more expressive language with increased capability and a better fundamental basis for performance. Ironically, these stances are both exactly opposite of their initial selling point.
 
-{% embed https://x.com/onlyspaceghost/status/1704497139131314638 %}
+<iframe src="https://x.com/onlyspaceghost/status/1704497139131314638"></iframe>
 
 And interestingly both choices come at the expense of increased complexity in tooling compared to their existing approaches.
 
@@ -87,12 +87,12 @@ If compilation and bundling are fundamental, it is clear at this point these are
 
 Early in the year, we saw Devin make headlines by creating simple apps. Although it did call into question what our expectations are from this technology. Is it simply enough to make something functional or does it need to be good?
 
-{% embed https://x.com/RyanCarniato/status/1767652623640072658 %}
+<iframe src="https://x.com/RyanCarniato/status/1767652623640072658"></iframe>
 
 In that sense technology like Vercel's v0 has been largely a success at creating prototypes. Maybe that is where the biggest benefit is for now.
 
 MillionJS developer Aiden Bai got our attention again with React Scan which scans your application for performance issues.
-{% embed https://x.com/aidenybai/status/1858543720788042121 %}
+<iframe src="https://x.com/aidenybai/status/1858543720788042121"></iframe>
 While one might argue that re-renders aren't necessarily a sign of a problem or that this exercise of finding re-renders in React is like shooting fish in a barrel, it definitely opened my eyes to the potential of development tooling just around the corner.
 
 If tasks are complicated and core tooling more complex it makes sense that supporting tools rise up to meet that. It is more than the [shift left in development](https://www.swyx.io/language-servers). The need is fully integrated across the whole spectrum. While Biome (and previously Rome) set out this goal newer players in the space like VoidZero (from Vue/Vite creator Evan You) show that this foundation is essential for where things go next.
@@ -105,7 +105,7 @@ If tasks are complicated and core tooling more complex it makes sense that suppo
 
 We already have started seeing some of the swing back of the pendulum towards the middle of 2024 with SPA modes in Sveltekit, SolidStart, and Remix. Remix ported back their non-server functionality to React Router. SolidStart's additive approach to Server Functions and Single Flight Mutations laid down the eventual foundations for Tanstack Start a React framework built on the same principles.
 
-{% embed https://x.com/tannerlinsley/status/1861124006621184041 %}
+<iframe src="https://x.com/tannerlinsley/status/1861124006621184041"></iframe>
 
 We've also seen an increase in local-first/sync engine technology. How that is to manifest itself is still left to be seen, but I expect it to be a continuing trend into 2025.
 
@@ -139,7 +139,7 @@ We have a lot of complexity to catch up with. A lot of hard decisions to make on
 
 A single solution hasn't shown itself. HTMX is not going to take over the world, but it is a great option to have. React isn't necessarily any more complex at doing things than other solutions. Async and Client/Server interaction by extension is a complex thing. Compilers can't solve all issues. But they can do a lot:
 
-{% embed https://x.com/RyanCarniato/status/1795501182024323316 %}
+<iframe src="https://x.com/RyanCarniato/status/1795501182024323316"></iframe>
 
 We live in a world full of complexity and that doesn't appear to be changing any time soon. So 2025 feels like a good time to hunker down and get stuff done.
 

@@ -21,7 +21,7 @@ I started looking for a new job in the middle of a pandemic. I was lucky to have
 
 I decided to know my network on Twitter that I am looking for a full-time remote job.
 
-{% embed https://x.com/SantoshYadavDev/status/1284009382267637761 %}
+<iframe src="https://x.com/SantoshYadavDev/status/1284009382267637761"></iframe>
 
 I got some initial leads, but many never went after the first call due to salary constraints. That gave me an idea of starting to work as a consultant to ask for hourly pay, work on my own time, and provide enough time for my community work.
 

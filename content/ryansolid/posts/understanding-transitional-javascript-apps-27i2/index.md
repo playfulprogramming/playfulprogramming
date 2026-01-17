@@ -19,7 +19,7 @@ As usual this isn't a new idea, but sometimes it just takes someone to put a nam
 
 Now as some of you know this has been an area of focus for me the last couple years both with [Marko](https://markojs.com/) and even to some degree with [Solid](https://solidjs.com/). In fact it's kind of been on everyone's mind:
 
-{% embed https://x.com/dan_abramov/status/1259614150386425858 %}
+<iframe src="https://x.com/dan_abramov/status/1259614150386425858"></iframe>
 
 I've written countless articles about the technologies around these topics but maybe it's time to step back and really appreciate what this means for the average web developer.
 
@@ -43,7 +43,7 @@ We are more conscious now than in the past about accessibility and the importanc
 
 I've publically been a bit critical of the term Transitional Apps, mostly because while SPA frameworks are finding ways they can play nicer, there has been research and development going into actually solving the problem of sending too much JavaScript. And I don't mean resurrecting Rails. I mean full JavaScript frameworks designed for this use case. No need to juggle multiple apps or not be able to leverage the latest tooling.
 
-{% embed https://x.com/dan_abramov/status/1259618524751958016 %}
+<iframe src="https://x.com/dan_abramov/status/1259618524751958016"></iframe>
 
 Dan is right on the money again. Right now on this front there are only a couple games in town. [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) might be a consideration once you are in the larger side of things. But React and related infrastructure is too large for what I'm driving at. Let's talk frameworks that can start from nearly 0kb of JavaScript and disappear your app:
 
@@ -69,9 +69,9 @@ The problem is this conversation is still being had between SPA enthusiasts and,
 
 And here's the thing. This is a distinction so technical in nature that authors of these MPA JavaScript frameworks are struggling to tell the story in a way their value can be understood by an ecosystem flooded with SPAs. The last thing they want to be associated with is SPAs. I've received criticism for misinterpreting Rich Harris' intent and for being divisive rather than inclusive. But is something inclusive when some of the many of defining parties don't want to be included?
 
-{% embed https://x.com/mhevery/status/1458882912779046912 %}
-{% embed https://x.com/matthewcp/status/1458899129292234756 %}
-{% embed https://x.com/dylan_piercey/status/1449031353220009992 %}
+<iframe src="https://x.com/mhevery/status/1458882912779046912"></iframe>
+<iframe src="https://x.com/matthewcp/status/1458899129292234756"></iframe>
+<iframe src="https://x.com/dylan_piercey/status/1449031353220009992"></iframe>
 
 Now there is no ill intent here. We're all fighting different battles. Rich is rallying the troops to fend off the would-be time travelers. I'm just standing up for the little guy. Maybe this is a technical distinction that doesn't mean anything. But it does to some of us.
 
@@ -83,7 +83,7 @@ Now there is no ill intent here. We're all fighting different battles. Rich is r
 
 Didn't I just say SPAs are dead, and MPAs are the future. Not quite. Dan Abramov had it right when he said the future is hybrid. Hell, Rich had it right when he suggested in an ideal future there is no need for MPAs.
 
-{% embed https://x.com/Rich_Harris/status/1433438931555688448 %}
+<iframe src="https://x.com/Rich_Harris/status/1433438931555688448"></iframe>
 
 It's just that future is not something that is here yet. There are currently unreconciled downsides alongside the numerous benefits. Which is why I dislike the term Transitional Apps now because it jumps the gun a bit. When we have truly Transitional Apps it'd be cool to market them as such. But I didn't coin the term so that isn't my call.
 

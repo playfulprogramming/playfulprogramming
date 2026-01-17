@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 Sometimes there are problems that have no universally good solutions. There is some tradeoff to be made. Some perspectives that can't be protected. Sometimes it isn't even clear if any of the options are preferable to the others.
 
-{% embed https://x.com/RyanCarniato/status/1353801009844240389 %}
+<iframe src="https://x.com/RyanCarniato/status/1353801009844240389"></iframe>
 
 What we ended up with in the log was:
 
@@ -30,7 +30,7 @@ So how can all these JavaScript frameworks all have different behavior? Well, th
 
 ## Batched Consistency
 
-{% embed https://x.com/dan_abramov/status/1540441999324610560 %}
+<iframe src="https://x.com/dan_abramov/status/1540441999324610560"></iframe>
 
 Let's start with [React](https://reactjs.org/). When you update state, it holds off committing those changes until the next render cycle. The benefit here is that React is always consistent. `count` and `doubleCount` and the DOM are always observed to be in sync.
 
@@ -78,7 +78,7 @@ If you make multiple changes you will trigger multiple re-renders and do a bunch
 
 ## Reactive Batching
 
-{% embed https://x.com/_jin_nin_/status/1543537797612576768 %}
+<iframe src="https://x.com/_jin_nin_/status/1543537797612576768"></iframe>
 
 The author of the [$mol](https://mol.hyoo.ru/) framework makes a pretty good argument to defend his framework and [Vue](https://vuejs.org/)'s position. In Vue, things update reactively but are scheduled like React. However, they apply the direct state changes immediately.
 
@@ -179,7 +179,7 @@ Solid's updates work like Vue's default while propagating any internal change fr
 
 ## So... ?
 
-{% embed https://x.com/DevinRhode2/status/1545968130186412033 %}
+<iframe src="https://x.com/DevinRhode2/status/1545968130186412033"></iframe>
 
 So honestly, this all sucks. Enough that I feel the need to be aware of batching behavior. And with that awareness then I'm compelled to offer a consistent default as it feels like the sanest thing to do.
 

@@ -168,7 +168,7 @@ In 7 months, I implemented SSR and optimized bundle size. I converted the app to
 
 I decided to quit my full-time Job by Oct 2019 and decided I will move into consulting. I had a good connection on Twitter, and everything started with a tweet.
 
-{% embed https://x.com/SantoshYadavDev/status/1284009382267637761 %}
+<iframe src="https://x.com/SantoshYadavDev/status/1284009382267637761"></iframe>
 
 Many developers responded with some solid leads. Finally, I got my first client and started working in October 2020. I got my next client in November 2020, all thanks to my community contributions.
 

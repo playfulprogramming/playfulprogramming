@@ -29,7 +29,7 @@ In the past few weeks, we've seen the culmination of a build of excitement aroun
 
 The truth is Signals never went away. They lived several years in obscurity as third-party libraries or hidden behind frameworks' plain object APIs. Even though the common rhetoric that came in with React and the Virtual DOM condemned the patterns as unpredictable and dangerous. And they weren't wrong.
 
-{% embed https://x.com/devongovett/status/1629540226589663233 %}
+<iframe src="https://x.com/devongovett/status/1629540226589663233"></iframe>
 
 But there is more to it than a 10 year old debate. So I want to talk about how things have changed over the years and offer [SolidJS](https://solidjs.com) as a foil.
 
@@ -37,7 +37,7 @@ But there is more to it than a 10 year old debate. So I want to talk about how t
 
 ## "Fixing" Front-end
 
-{% embed https://x.com/dan_abramov/status/1629931788175908866 %}
+<iframe src="https://x.com/dan_abramov/status/1629931788175908866"></iframe>
 
 At the core of this conversation is understanding what React is. React is not its Virtual DOM. React is not JSX. To this date one of my explanations on the subject came from one of Dan Abramov's earliest articles [You're Missing the Point of React](https://medium.com/@dan_abramov/youre-missing-the-point-of-react-a20e34a51e1a), where he state React's true strengths are:
 
@@ -91,7 +91,7 @@ Signals are not the same Signals as yesteryear. Their execution is glitch-free. 
 
 So far so good? Well maybe not:
 
-{% embed https://x.com/dan_abramov/status/1629927876693835777 %}
+<iframe src="https://x.com/dan_abramov/status/1629927876693835777"></iframe>
 
 Apparently, this is something React solves. What did they solve exactly?
 
@@ -121,7 +121,7 @@ I am not a fan of 2-way binding. Unidirectional Flow is a really good thing. I l
 
 If you create a reactive primitive you get a read-only interface and a write interface. The opinion on this is so ingrained into Solid's design that members of the community like to troll me, abusing getters and setters to fake mutability.
 
-{% embed https://x.com/lxsmnsyc/status/1529283545746665472 %}
+<iframe src="https://x.com/lxsmnsyc/status/1529283545746665472"></iframe>
 
 One of the important things I wanted to do with Solid's design was to keep the locality of thinking. All the work in Solid is done where the effects are which is where we insert into the DOM. It doesn't matter if the parent uses a Signal or not. You author to your need. Treat every `prop` as reactive if you need it to be and access it where you need it. There is no global thinking necessary. No concerns with refactorability.
 
@@ -147,20 +147,20 @@ The positive is that for `Greeting` regardless of how you are consumed you acces
 
 ## Opt-In vs Opt-Out
 
-{% embed https://x.com/dan_abramov/status/1629659406890676231 %}
+<iframe src="https://x.com/dan_abramov/status/1629659406890676231"></iframe>
 
 This might be the crux of the discussion. There are a lot of ways to approach this. Most libraries have chosen reactivity for Developer Experience reasons because automatic dependency tracking means not needing to worry about missing updates.
 
 It isn't hard to imagine for a React developer. Picture Hooks without the dependency arrays. The existence of the dependency arrays in Hooks suggests React can miss updates. Similarly, you opt into client components (`use client`) when using React Server Components. There are other solutions that have been automating this via compilation for years, but at times there is something to be said about being explicit.
 
 It isn't generally a singular decision. You have things you opt into and things you opt out of in any framework. In reality, all frameworks are probably more like this:
-{% embed https://x.com/mlrawlings/status/1630311614548262912 %}
+<iframe src="https://x.com/mlrawlings/status/1630311614548262912"></iframe>
 
 A frameworks ideals can be beyond reproach but the reality is not so clear cut.
 
 This brings me to this example:
 
-{% embed https://x.com/devongovett/status/1629545561635389440 %}
+<iframe src="https://x.com/devongovett/status/1629545561635389440"></iframe>
 
 These are 2 very different functions from Solid's perspective, because of Solid's JSX handling and the fact they only run once. This is not ambiguous and easily avoided once you are aware. And there is even a lint rule for that.
 
@@ -181,7 +181,7 @@ Moving the expression doesn't change what `Date.now()` does but hoisting changes
 
 Maybe it is less than ideal, but it isn't like this mental model isn't without its own benefits:
 
-{% embed https://x.com/ThePrimeagen/status/1629221580344532992 %}
+<iframe src="https://x.com/ThePrimeagen/status/1629221580344532992"></iframe>
 
 ---
 
@@ -217,13 +217,13 @@ The oddest part of all of this is that the React team when looking at Reactivity
 
 Now it should be understood these were [developed independently](https://reactjs.org/docs/hooks-faq.html#what-is-the-prior-art-for-hooks). Or atleast no acknowledgement was ever given which is not surprising given the sentiment of the old guard:
 
-{% embed https://x.com/floydophone/status/1629009165422104576 %}
+<iframe src="https://x.com/floydophone/status/1629009165422104576"></iframe>
 
 Fortunately React today is not the React of 10 years ago either.
 
 React changed the front-end world by teaching us the important principles that should guide how to build UIs. They did so by strength of conviction being a unique voice of reason in a sea of chaos. We are where we are today due to their great work and countless have learned from their lessons.
 
-{% embed https://x.com/acdlite/status/1628930249718202369 %}
+<iframe src="https://x.com/acdlite/status/1628930249718202369"></iframe>
 
 Times have changed. It is almost fitting that the paradigm that was "fixed" away would resurface. It closes the loop. Completes the story. And when all the noise and tribalism fade what remains is a tale of healthy competition driving the web forward.
 

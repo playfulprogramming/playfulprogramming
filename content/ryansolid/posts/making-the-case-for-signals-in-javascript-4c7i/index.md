@@ -90,7 +90,7 @@ You can put your whole app in one component or many components and get the same 
 
 ## Separating Dynamic from Static
 
-{% embed https://x.com/dan_abramov/status/1629928626278858752 %}
+<iframe src="https://x.com/dan_abramov/status/1629928626278858752"></iframe>
 
 There have been some conversations to suggest this is a bad thing. If you want more perspective see @dan\_abramov's [response to my previous article](https://dev.to/dan_abramov/comment/256g9).
 
@@ -126,7 +126,7 @@ Signals are independent of any component or rendering system. And only represent
 > Both of Dan's articles listed at the bottom of the article are a really good exploration into how to effectively use these primitives in React.
 
 Additionally, Signals lend to traceability. They give you a way of understanding what updates and why.
-{% embed https://x.com/thetarnav/status/1625177986197778434 %}
+<iframe src="https://x.com/thetarnav/status/1625177986197778434"></iframe>
 
 They encourage patterns that lead to more declarative code. By making organizing code around data instead of component flow we can see what data is driving change. (Thanks Dan for the example).
 
@@ -171,7 +171,7 @@ Finally, historically there were concerns about large uncontrollable graphs. Cyc
 
 ## Conclusion
 
-{% embed https://x.com/youyuxi/status/1631089471377801216 %}
+<iframe src="https://x.com/youyuxi/status/1631089471377801216"></iframe>
 
 There are many ways to approach the challenge of creating great user interfaces. I've aimed at keeping this discussion grounded but I think there is a lot to get excited about here.
 
@@ -181,7 +181,7 @@ And thing is to use Signals to great benefit you do not need a compiler. Not eve
 
 Compilers and language exploration become that much easier when you have efficient building blocks you can target. And that isn't just true of us but for AIs. We've seen this suggested to improve upon everything from using analytics to drive code splitting to optimize initial load to optimizing compilers ability to understand code intent.
 
-{% embed https://x.com/trueadm/status/1631045681900077057 %}
+<iframe src="https://x.com/trueadm/status/1631045681900077057"></iframe>
 
 Whether Signals are best suited to be held by developers or to be low-level primitives for machines, they appear to be an important step in the ever-evolving world of web front-end.
 

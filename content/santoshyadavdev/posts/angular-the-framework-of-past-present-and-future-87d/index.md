@@ -298,7 +298,7 @@ But Signals will bring more than just optional zone.js. you can read more on the
 
 SSR in Angular has many issues today. SSR in Angular is less famous than other React or Vue-based SSR frameworks. The Angular team has started improving the SSR experience and released the first feature.
 
-{% embed https://x.com/mgechev/status/1643324830761259008 %}
+<iframe src="https://x.com/mgechev/status/1643324830761259008"></iframe>
 
 ## Typed Forms
 

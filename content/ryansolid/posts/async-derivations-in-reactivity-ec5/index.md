@@ -237,7 +237,7 @@ So problem solved? The perfect Async system is out there for us to implement? We
 
 When it comes to templating we are used to treating everything as reactive as the default. For components, it varies. In SolidJS we did half the job. We `untrack` all the components so your app doesn't blow up when you access reactivity top-level. But we let you leverage this fact for brevity.
 
-{% embed https://x.com/devongovett/status/1629545561635389440 %}
+<iframe src="https://x.com/devongovett/status/1629545561635389440"></iframe>
 
 While I disagree that this has anything to do with [locality of thinking](https://dev.to/this-is-learning/thinking-locally-with-signals-3b7h), it can lead to confusion at first when things don't work. We have ESLint rules for that but Solid isn't so strict here as to error. Maybe it should be?
 

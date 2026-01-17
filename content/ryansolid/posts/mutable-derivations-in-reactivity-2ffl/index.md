@@ -175,7 +175,7 @@ First, they serve as a memoization point. We can save work on expensive or async
 
 Secondly, they act as convergence nodes. They are the "joins" in our graph. They tie multiple different sources together defining their relationship. This is the key to things updating together, but it also goes to reason that with a finite number of sources and an ever-increasing amount of dependencies between them, everything would eventually become entangled.
 
-{% embed https://x.com/anyuser/status/1252839841630314497 %}
+<iframe src="https://x.com/anyuser/status/1252839841630314497"></iframe>
 
 It makes a lot of sense. With derived immutable data structures you only have "joins" not "forks". As complexity scales you are destined to merge. Interestingly reactive "Stores" don't have this property. Individual parts update independently. So how do we apply this thinking to derivation?
 
