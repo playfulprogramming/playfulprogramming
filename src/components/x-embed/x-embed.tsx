@@ -1,6 +1,12 @@
 import dayjs from "dayjs";
-import style from "./x-embed.module.scss";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 import { Button } from "components/button/button";
+import discussion from "src/icons/discussion.svg?raw";
+import repost from "src/icons/repost.svg?raw";
+import heart from "src/icons/heart.svg?raw";
+import style from "./x-embed.module.scss";
+
+dayjs.extend(advancedFormat);
 
 interface XEmbedPicture {
 	url: string;
@@ -33,6 +39,7 @@ export function XEmbedPlaceholder({
 	link,
 	picture,
 }: XEmbedPlaceholderProps) {
+	const dayjsDate = dayjs(date);
 	return (
 		<div className={style.container}>
 			<div className={style.topContainer}>
@@ -62,6 +69,51 @@ export function XEmbedPlaceholder({
 					/>
 				</div>
 			) : null}
+			<div className={style.footer}>
+				<div className={style.footerStats}>
+					<div className={`text-style-body-small-bold ${style.statContainer}`}>
+						<span
+							className={style.statIcon}
+							dangerouslySetInnerHTML={{ __html: discussion }}
+						/>
+						{replies ?? 0}
+					</div>
+					<div className={`text-style-body-small-bold ${style.statContainer}`}>
+						<span
+							className={style.statIcon}
+							dangerouslySetInnerHTML={{ __html: repost }}
+						/>
+						{reposts ?? 0}
+					</div>
+					<div className={`text-style-body-small-bold ${style.statContainer}`}>
+						<span
+							className={style.statIcon}
+							dangerouslySetInnerHTML={{ __html: heart }}
+						/>
+						{likes ?? 0}
+					</div>
+				</div>
+				<p className={style.timeContainer}>
+					<span className={`text-style-body-small-bold`}>
+						{dayjsDate.format("MMM Do, YYYY")}
+					</span>
+					<span className={`text-style-body-small ${style.timeSaparator}`}>
+						•
+					</span>
+					<span className={`text-style-body-small ${style.time}`}>
+						{dayjsDate.format("h:mm A")}
+					</span>
+				</p>
+			</div>
 		</div>
 	);
+}
+
+function shortenNumber(number: number) {
+	if (number > 1000000) {
+		return `${(number / 1000000).toFixed(1)}M`;
+	} else if (number > 1000) {
+		return `${(number / 1000).toFixed(1)}K`;
+	}
+	return number.toString();
 }
