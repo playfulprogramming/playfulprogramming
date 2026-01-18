@@ -1,1 +1,53 @@
 @use "src/tokens/index" as *;
+
+.container {
+	background: var(--surface_primary_emphasis-none);
+	border-radius: var(--corner-radius_xl);
+	padding: var(--spc-4x);
+}
+
+.topContainer {
+	padding: var(--spc-2x) var(--spc-2x) var(--spc-4x) var(--spc-2x);
+	display: flex;
+	gap: var(--spc-5x);
+	align-items: center;
+}
+
+.profilePic {
+	height: 48px;
+	width: 48px;
+	position: relative;
+}
+
+.profilePic > img {
+	border-radius: 50%;
+	height: 100%;
+	width: 100%;
+}
+
+.name {
+	margin: 0;
+}
+
+.handle {
+	margin: 0;
+	color: var(--primary_default);
+}
+
+.topWide {
+	width: 1px;
+	flex-grow: 1;
+}
+
+.textContainer {
+	margin: 0 !important;
+	padding: var(--spc-2x) var(--spc-2x) var(--spc-4x) var(--spc-2x);
+}
+
+.mediaContainer {
+	padding: var(--spc-2x) 0 var(--spc-4x) 0;
+}
+
+.mediaContainer > img {
+  width: 100%;
+}

@@ -30,15 +30,29 @@ export const xPlatformDetector: PlatformDetector = {
 			return;
 		}
 
+		const photo = post?.media?.photos?.[0];
+		const picture = photo
+			? {
+					url: photo.url,
+					alt: photo.altText,
+					aspectRatio: photo.height / photo.width,
+				}
+			: undefined;
+
 		parent.children.splice(
 			index,
 			1,
 			createComponent("XPlaceholder", {
 				text: post.text,
+				handle: post.author.screen_name,
+				name: post.author.name,
+				link: post.url,
+				date: post.created_at,
 				profilePic: post.author.avatar_url,
 				likes: post.likes,
 				reposts: post.reposts,
 				replies: post.replies,
+				picture,
 				// TODO: Handle video, images, et al
 			}),
 		);
