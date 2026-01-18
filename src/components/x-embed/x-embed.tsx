@@ -76,21 +76,21 @@ export function XEmbedPlaceholder({
 							className={style.statIcon}
 							dangerouslySetInnerHTML={{ __html: discussion }}
 						/>
-						{replies ?? 0}
+						<span>{replies ?? 0}</span>
 					</div>
 					<div className={`text-style-body-small-bold ${style.statContainer}`}>
 						<span
 							className={style.statIcon}
 							dangerouslySetInnerHTML={{ __html: repost }}
 						/>
-						{reposts ?? 0}
+						<span>{reposts ?? 0}</span>
 					</div>
 					<div className={`text-style-body-small-bold ${style.statContainer}`}>
 						<span
 							className={style.statIcon}
 							dangerouslySetInnerHTML={{ __html: heart }}
 						/>
-						{likes ?? 0}
+						<span>{likes ?? 0}</span>
 					</div>
 				</div>
 				<p className={style.timeContainer}>
