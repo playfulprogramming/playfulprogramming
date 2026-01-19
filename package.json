@@ -58,8 +58,6 @@
 		"@playwright/test": "^1.57.0",
 		"@preact/preset-vite": "^2.10.2",
 		"@react-types/shared": "^3.32.1",
-		"@remark-embedder/core": "^3.0.2",
-		"@remark-embedder/transformer-oembed": "^5.0.1",
 		"@shikijs/rehype": "^3.21.0",
 		"@shikijs/themes": "^3.21.0",
 		"@shikijs/transformers": "^3.21.0",
