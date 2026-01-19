@@ -1,29 +1,13 @@
-# E2E tests
+# E2E tests Quick start
 
-## Quick start
+These tests run against the web service started by Docker Compose.
 
-Make sure to run the dev server with CI=true
+- Run tests: `pnpm test`
+- Update snapshots: `pnpm test:update-snapshots`
 
-- Docker (preferred):
-  - Run tests: `pnpm docker:test`
-- Local (non-Docker):
-  - Run all tests: `pnpm test`
-  - CI-style reporter: `pnpm test:ci`
-
-
-## Additional options
-
-### Non standard URL
-
-If you'd like to run your web server on another URL than `localhost:4321`, set `PLAYWRIGHT_BASE_URL`
+If you'd like to pass extra args to playwright, set the `PLAYWRIGHT_ARGS` environment variable
 
 ```
-PLAYWRIGHT_BASE_URL="https://playfulprogramming.com/" pnpm --filter e2e docker:test
-```
-
-### Docker Playwright args
-
-```
-PLAYWRIGHT_ARGS="--update-snapshots" pnpm docker:test
+PLAYWRIGHT_ARGS="--update-snapshots" pnpm test
 ```
 

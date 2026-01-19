@@ -5,10 +5,8 @@
   "description": "E2E tests for playfulprogramming",
   "type": "module",
   "scripts": {
-    "test": "playwright test",
-    "test:ci": "CI=true playwright test --reporter=github",
-    "docker:build": "docker compose -f ./docker-compose.e2e.yml build e2e",
-    "docker:test": "docker compose -f ./docker-compose.e2e.yml run --rm e2e"
+    "test": "docker compose -f ./docker-compose.e2e.yml up --abort-on-container-exit --exit-code-from e2e",
+    "test:update-snapshots": "PLAYWRIGHT_ARGS=--update-snapshots pnpm test"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0"

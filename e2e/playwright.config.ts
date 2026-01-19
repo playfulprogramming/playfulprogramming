@@ -1,8 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const defaultBaseURL = "http://localhost:4321";
+const defaultBaseURL = "http://web:4321";
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? defaultBaseURL;
-const skipWebServer = process.env.PLAYWRIGHT_SKIP_WEBSERVER === "true";
 const resultsDir =
 	process.env.PLAYWRIGHT_RESULTS_DIR ?? ".playwright/test-results";
 const reportDir = process.env.PLAYWRIGHT_REPORT_DIR ?? ".playwright/report";
@@ -31,6 +30,7 @@ export default defineConfig({
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
 	reporter: [["html", { outputFolder: reportDir, open: "never" }]],
 	outputDir: resultsDir,
+	timeout: 60000,
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
 		/* Base URL to use in actions like `await page.goto('')`. */
@@ -38,6 +38,8 @@ export default defineConfig({
 
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: "on-first-retry",
+
+		navigationTimeout: 30000,
 	},
 
 	/* Configure projects for major browsers */
@@ -77,14 +79,4 @@ export default defineConfig({
 		//   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
 		// },
 	],
-
-	/* Run your local dev server before starting the tests */
-	webServer: {
-		/* CI=1 tells astro.config.ts to turn off the dev toolbar */
-		/* USE_E2E_MOCKS=1 imports e2e/setup.ts, which mocks external services using MSW */
-		command: "CI=1 USE_E2E_MOCKS=1 pnpm dev --port 8889",
-		url: "http://localhost:8889",
-		timeout: 120_000,
-		reuseExistingServer: false,
-	},
 });

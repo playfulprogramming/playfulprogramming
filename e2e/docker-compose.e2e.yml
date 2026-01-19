@@ -1,22 +1,62 @@
 services:
+  web:
+    working_dir: /work
+    volumes:
+      - ..:/work:rw
+      - web_node_modules:/work/node_modules
+    build:
+      target: server
+      context: ..
+      dockerfile: e2e/Dockerfile
+    environment:
+      - CI=true
+      - USE_E2E_MOCKS=true
+    command:
+      - pnpm
+      - dev
+      - --host
+      - 0.0.0.0
+      - --port
+      - "4321"
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "require('http').get('http://127.0.0.1:4321/healthz.json', res => process.exit(res.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
   e2e:
+    depends_on:
+      web:
+        condition: service_healthy
     build:
       context: ..
       dockerfile: e2e/Dockerfile
+      target: e2e
     working_dir: /work/e2e
     user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - .:/work/e2e:rw
+      - e2e_node_modules:/work/e2e/node_modules
     ipc: host
     environment:
-      PLAYWRIGHT_SKIP_WEBSERVER: "true"
-      PLAYWRIGHT_BASE_URL: "http://host.docker.internal:4321"
+      PLAYWRIGHT_BASE_URL: "http://web:4321"
       PLAYWRIGHT_RESULTS_DIR: ".playwright/test-results"
       PLAYWRIGHT_REPORT_DIR: ".playwright/report"
+      XDG_CACHE_HOME: "/work/e2e/.cache"
       PLAYWRIGHT_ARGS: ""
       CI: true
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      HOME: "/tmp"
+      COREPACK_HOME: "/usr/local/share/corepack"
+      COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
     command: >-
-      bash -lc
-      "pnpm exec playwright test --config ./playwright.config.ts ${PLAYWRIGHT_ARGS:-}"
+      bash -c
+      "/usr/bin/pnpm exec playwright test --config ./playwright.config.ts ${PLAYWRIGHT_ARGS:-}"
+
+volumes:
+  web_node_modules:
+  e2e_node_modules:
