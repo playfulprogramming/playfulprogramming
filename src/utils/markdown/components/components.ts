@@ -5,6 +5,7 @@ import InContentAd from "./in-content-ad/in-content-ad.astro";
 import LinkPreview from "./link-preview/link-preview.astro";
 import Tabs from "./tabs/tabs.astro";
 import IframePlaceholder from "../iframes/iframe-placeholder.astro";
+import VideoPlaceholder from "../iframes/video-placeholder.astro";
 import Hint from "./hint/hint.astro";
 import Tooltip from "./tooltip/tooltip.astro";
 
@@ -73,6 +74,7 @@ export const components = {
 	Tabs,
 	Tooltip,
 	IframePlaceholder,
+	VideoPlaceholder,
 	Hint,
 } as const;
 

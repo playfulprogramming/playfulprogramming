@@ -161,8 +161,7 @@ Because Copilot can grok more complex implementation details, it's often able to
 
 This capability is so good at the "transparent tools that get out of your way" test that while [streaming on my Twitch](https://twitch.tv/crutchcorn), I was confident I didn't have Copilot enabled and had to check after a particularly clever suggestion, hours after starting work.
 
-https://clips.twitch.tv/TacitFitIcecreamTriHard-KgJCKYYIEPqxe4dQ
-
+<iframe src="https://clips.twitch.tv/TacitFitIcecreamTriHard-KgJCKYYIEPqxe4dQ"></iframe>
 
 It's this transparency that I feel is Copilot's _true_ strength. It's important to remember that even GitHub isn't poising Copilot as a replacement to developers of any kind - simply a tool that developers can utilize to make their jobs easier.
 
