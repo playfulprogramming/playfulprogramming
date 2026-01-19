@@ -11,6 +11,7 @@ services:
     environment:
       - CI=true
       - USE_E2E_MOCKS=true
+      - ASTRO_TELEMETRY_DISABLED=1
     command:
       - pnpm
       - dev
