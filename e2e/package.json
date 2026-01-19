@@ -5,7 +5,7 @@
   "description": "E2E tests for playfulprogramming",
   "type": "module",
   "scripts": {
-    "test": "docker compose -f ./docker-compose.e2e.yml up --abort-on-container-exit --exit-code-from e2e",
+    "test": "docker compose -f ./docker-compose.e2e.yml up --abort-on-container-exit --exit-code-from e2e --build",
     "test:update-snapshots": "PLAYWRIGHT_ARGS=--update-snapshots pnpm test"
   },
   "devDependencies": {
