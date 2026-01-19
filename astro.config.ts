@@ -71,8 +71,4 @@ export default defineConfig({
 		},
 	},
 	markdown: {} as AstroUserConfig["markdown"] as never,
-	devToolbar: {
-		// prevent the devToolbar from affecting e2e tests
-		enabled: typeof process.env.CI === "undefined",
-	},
 });
