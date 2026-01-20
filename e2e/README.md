@@ -17,6 +17,8 @@ PLAYWRIGHT_ARGS="--update-snapshots" pnpm test
 
 Due to large snapshot images (2MB+), this project uses gitlfs, so make sure to install it if you need to run e2e tests
 
+After installation, all your git commands should work as expected!
+
 https://git-lfs.com/
 
 ### Installation
