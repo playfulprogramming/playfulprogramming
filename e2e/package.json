@@ -6,10 +6,11 @@
   "type": "module",
   "scripts": {
     "test": "docker compose -f ./docker-compose.e2e.yml up --abort-on-container-exit --exit-code-from e2e --build",
-    "test:update-snapshots": "PLAYWRIGHT_ARGS=--update-snapshots pnpm test",
+    "test:update-snapshots": "cross-env PLAYWRIGHT_ARGS=--update-snapshots pnpm test",
     "test:update": "pnpm test:update-snapshots"
   },
   "devDependencies": {
-    "@playwright/test": "^1.57.0"
+    "@playwright/test": "^1.57.0",
+    "cross-env": "^10.1.0"
   }
 }
