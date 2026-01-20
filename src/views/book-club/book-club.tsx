@@ -108,7 +108,7 @@ export default function BookClub({ eventBlocksWithMetadata }: BookClubProps) {
 	useLayoutEffect(() => {
 		const header = document.querySelector("#header-bar") as HTMLElement;
 		setEl(header);
-	}, []);
+	}, [setEl]);
 
 	const headerHeight = size.height;
 

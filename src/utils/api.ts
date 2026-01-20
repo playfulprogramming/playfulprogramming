@@ -4,8 +4,8 @@ import {
 	RolesInfo,
 	PersonInfo,
 	PostVersion,
+	Languages,
 } from "types/index";
-import { Languages } from "types/index";
 import { roles, people, posts, collections } from "./data";
 import { isDefined } from "./is-defined";
 

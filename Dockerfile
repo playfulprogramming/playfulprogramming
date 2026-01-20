@@ -19,8 +19,8 @@ COPY --parents assets content public src astro.config.ts tsconfig.json .env .
 # Define build arguments
 ARG GIT_COMMIT_REF
 ARG PUBLIC_CLOUDINARY_CLOUD_NAME
-ARG ENABLE_DISCOVERABILITY
 ARG SITE_URL
+ARG MODE=production
 
 RUN --mount=type=secret,id=GITHUB_TOKEN \
 	--mount=type=secret,id=HOOF_AUTH_TOKEN \
@@ -28,11 +28,9 @@ RUN --mount=type=secret,id=GITHUB_TOKEN \
 	HOOF_AUTH_TOKEN=$(cat /run/secrets/HOOF_AUTH_TOKEN) \
 	GIT_COMMIT_REF=$GIT_COMMIT_REF \
 	PUBLIC_CLOUDINARY_CLOUD_NAME=$PUBLIC_CLOUDINARY_CLOUD_NAME \
-	ENABLE_DISCOVERABILITY=$ENABLE_DISCOVERABILITY \
 	SITE_URL=$SITE_URL \
-	BUILD_ENV=production \
 	ASTRO_TELEMETRY_DISABLED=1 \
-	pnpm build
+	pnpm build --mode $MODE
 
 FROM nginx:1.29.1-alpine3.22-slim
 

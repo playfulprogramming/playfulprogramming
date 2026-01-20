@@ -16,7 +16,7 @@
 		"skipLibCheck": true,
 		"jsxImportSource": "preact",
 		"allowSyntheticDefaultImports": true,
-		"lib": ["DOM"],
+		"lib": ["DOM", "es2022"],
 		"baseUrl": ".",
 		"paths": {
 			"constants/*": ["./src/constants/*"],
@@ -26,7 +26,8 @@
 			"components/*": ["./src/components/*"],
 			"utils/*": ["./src/utils/*"],
 			"pfp-utils": ["./src/utils"],
-			"assets/*": ["./src/assets/*"]
+			"assets/*": ["./src/assets/*"],
+			"ui-test-utils": ["./src/ui-test-utils"]
 		},
 		"types": ["@testing-library/jest-dom"]
 	},

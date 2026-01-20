@@ -5,7 +5,10 @@ export function enableSmoothScrolling() {
 			e.preventDefault();
 			target.scrollIntoView({
 				behavior: "smooth",
-				block: el.getAttribute("data-smooth-scroll") as ScrollLogicalPosition,
+				block:
+					(el.getAttribute("data-smooth-scroll") as  // eslint-disable-next-line no-undef
+						| ScrollLogicalPosition
+						| undefined) ?? "center",
 			});
 		});
 	});

@@ -10,7 +10,7 @@ import { DEFAULT_TAG_EMOJI } from "./constants";
 import { FilterSidebarControls } from "./filter-sidebar-controls";
 import { FilterState } from "../use-filter-state";
 
-interface FilterSidebar {
+interface FilterSidebarProps {
 	desktopStyle?: CSSProperties;
 	sort: SortType;
 	setSort: (sortBy: SortType) => void;
@@ -38,7 +38,7 @@ export const FilterSidebar = ({
 	isHybridSearch,
 	numberOfPosts,
 	numberOfCollections,
-}: FilterSidebar) => {
+}: FilterSidebarProps) => {
 	const hideSearchbar = !searchString;
 	return (
 		<aside
@@ -77,6 +77,7 @@ export const FilterSidebar = ({
 				{tags.map((tag, i) => {
 					return (
 						<FilterSectionItem
+							key={tag.tag}
 							count={tag.numPosts}
 							icon={
 								tag.image ? (
@@ -108,6 +109,7 @@ export const FilterSidebar = ({
 				{authors.map((author) => {
 					return (
 						<FilterSectionItem
+							key={author.id}
 							count={author.numPosts}
 							icon={
 								<UUPicture

@@ -17,9 +17,9 @@ test("serializes a function with arguments", () => {
 	});
 
 	expect(inline).toMatchInlineSnapshot(`
-			"((title, count, config) => {
-			  console.log("rust is a must 🦀🦀🦀🦀🦀");
-			  return { title, count, config };
-			})("rust",8923988932893893,{"wooperMode":true});"
-		`);
+		"((title, count, config) => {
+		  console.log("rust is a must 🦀🦀🦀🦀🦀");
+		  return { title, count, config };
+		})("rust",8923988932893893,{"wooperMode":true});"
+	`);
 });

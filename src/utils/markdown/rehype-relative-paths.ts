@@ -33,7 +33,7 @@ export const rehypeRelativePaths: Plugin<[], Root> = () => {
 			}
 
 			// If the file is successfully located, transform to an absolute path
-			node.properties!.href = "/" + fileUrl;
+			node.properties!.href = `/${fileUrl}`;
 		}
 
 		const promises: Array<Promise<void>> = [];
