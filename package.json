@@ -41,6 +41,9 @@
 		"test:unit": "vitest",
 		"test:unit:node": "vitest --project node",
 		"test:unit:ui": "vitest --project ui",
+		"test:e2e": "pnpm --filter e2e test",
+		"test:e2e:update-snapshots": "pnpm --filter e2e test:update-snapshots",
+		"test:e2e:update": "pnpm --filter e2e test:update-snapshots",
 		"test:debug": "set DEBUG_PRINT_LIMIT=9999999999 && pnpm vitest",
 		"test:stress": "./scripts/run-tests-concurrently.sh --run",
 		"prepare": "husky"
