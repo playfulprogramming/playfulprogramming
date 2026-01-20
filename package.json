@@ -146,8 +146,8 @@
 		"vitest-browser-preact": "^1.0.0"
 	},
 	"lint-staged": {
-		"*.{js,ts,astro}": "eslint --cache --fix",
-		"*.{js,ts,astro,jsx}": "prettier --write"
+		"*.{js,ts,tsx,astro}": "eslint --cache --fix",
+		"*.{js,ts,tsx,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
 		"@internationalized/date": "^3.10.1",
