@@ -85,9 +85,6 @@ importers:
       '@orama/orama':
         specifier: ^3.1.18
         version: 3.1.18
-      '@playwright/test':
-        specifier: ^1.57.0
-        version: 1.57.0
       '@preact/preset-vite':
         specifier: ^2.10.2
         version: 2.10.2(@babel/core@7.26.7)(preact@10.28.2)(vite@7.1.4(@types/node@25.0.5)(sass@1.97.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
