@@ -1,30 +1,26 @@
 services:
   web:
     working_dir: /work
+    # we mount everything but node modules and .astro. The rest needs to be
+    # readable since temp dirs are created for things like shiki
     volumes:
       - ..:/work:rw
       - web_node_modules:/work/node_modules
+      - /work/.astro
     build:
       target: server
       context: ..
       dockerfile: e2e/Dockerfile
     environment:
-      - CI=true
       - USE_E2E_MOCKS=true
       - ASTRO_TELEMETRY_DISABLED=1
-    command:
-      - pnpm
-      - dev
-      - --host
-      - 0.0.0.0
-      - --port
-      - "4321"
+    command: pnpm dev --host 0.0.0.0 --port 4321
     healthcheck:
       test:
         - CMD
         - node
         - -e
-        - "require('http').get('http://127.0.0.1:4321/healthz.json', res => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"
+        - "fetch('http://127.0.0.1:4321/healthz.json').then(res => process.exit(res.status === 200 ? 0 : 1)).catch(() => process.exit(1))"
       interval: 10s
       timeout: 5s
       retries: 5
@@ -54,9 +50,7 @@ services:
       HOME: "/tmp"
       COREPACK_HOME: "/usr/local/share/corepack"
       COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
-    command: >-
-      bash -c
-      "/usr/bin/pnpm exec playwright test --config ./playwright.config.ts ${PLAYWRIGHT_ARGS:-}"
+    command: pnpm exec playwright test --config ./playwright.config.ts
 
 volumes:
   web_node_modules:
