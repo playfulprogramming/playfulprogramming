@@ -58,8 +58,6 @@
 		"@playwright/test": "^1.57.0",
 		"@preact/preset-vite": "^2.10.2",
 		"@react-types/shared": "^3.32.1",
-		"@remark-embedder/core": "^3.0.2",
-		"@remark-embedder/transformer-oembed": "^5.0.1",
 		"@shikijs/rehype": "^3.21.0",
 		"@shikijs/themes": "^3.21.0",
 		"@shikijs/transformers": "^3.21.0",
@@ -108,7 +106,6 @@
 		"msw": "^2.12.7",
 		"octokit": "^5.0.5",
 		"openapi-typescript": "^7.10.1",
-		"plausible-tracker": "^0.3.9",
 		"postcss": "^8.5.6",
 		"postcss-csso": "^6.0.1",
 		"prettier": "^3.7.4",
@@ -148,13 +145,14 @@
 		"vitest-browser-preact": "^1.0.0"
 	},
 	"lint-staged": {
-		"*.{js,ts,astro}": "eslint --cache --fix",
-		"*.{js,ts,astro,jsx}": "prettier --write"
+		"*.{js,ts,tsx,astro}": "eslint --cache --fix",
+		"*.{js,ts,tsx,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
 		"@internationalized/date": "^3.10.1",
 		"@nanostores/preact": "^1.0.0",
 		"@oramacloud/client": "^2.1.4",
+		"@plausible-analytics/tracker": "^0.4.4",
 		"@preact/signals": "^2.5.1",
 		"@react-aria/calendar": "^3.9.3",
 		"@react-aria/utils": "^3.32.0",

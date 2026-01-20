@@ -1,8 +1,10 @@
 import { Event, EventBlock } from "./types";
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 
+dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -136,7 +138,7 @@ export const bookClubBlocks = [
 		ends_at: dayjs("01-28-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
 			.tz("America/Los_Angeles", true)
 			.toDate(),
-		location_description: "The \"You\" in CPU: The Basics",
+		location_description: 'The "You" in CPU: The Basics',
 		location_url: "https://cpu.land/the-basics",
 		presenters: [],
 		timezone: "America/Los_Angeles",
@@ -149,7 +151,7 @@ export const bookClubBlocks = [
 		ends_at: dayjs("02-04-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
 			.tz("America/Los_Angeles", true)
 			.toDate(),
-		location_description: "The \"You\" in CPU: Multitasking",
+		location_description: 'The "You" in CPU: Multitasking',
 		location_url: "https://cpu.land/slice-dat-time",
 		presenters: [],
 		timezone: "America/Los_Angeles",
@@ -162,7 +164,7 @@ export const bookClubBlocks = [
 		ends_at: dayjs("02-11-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
 			.tz("America/Los_Angeles", true)
 			.toDate(),
-		location_description: "The \"You\" in CPU: Exec",
+		location_description: 'The "You" in CPU: Exec',
 		location_url: "https://cpu.land/how-to-run-a-program",
 		presenters: [],
 		timezone: "America/Los_Angeles",
@@ -175,7 +177,7 @@ export const bookClubBlocks = [
 		ends_at: dayjs("02-18-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
 			.tz("America/Los_Angeles", true)
 			.toDate(),
-		location_description: "The \"You\" in CPU: Elf",
+		location_description: 'The "You" in CPU: Elf',
 		location_url: "https://cpu.land/becoming-an-elf-lord",
 		presenters: [],
 		timezone: "America/Los_Angeles",
@@ -188,7 +190,7 @@ export const bookClubBlocks = [
 		ends_at: dayjs("02-25-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
 			.tz("America/Los_Angeles", true)
 			.toDate(),
-		location_description: "The \"You\" in CPU: Paging",
+		location_description: 'The "You" in CPU: Paging',
 		location_url: "https://cpu.land/the-translator-in-your-computer",
 		presenters: [],
 		timezone: "America/Los_Angeles",
@@ -201,7 +203,7 @@ export const bookClubBlocks = [
 		ends_at: dayjs("03-03-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
 			.tz("America/Los_Angeles", true)
 			.toDate(),
-		location_description: "The \"You\" in CPU: Fork-Exec",
+		location_description: 'The "You" in CPU: Fork-Exec',
 		location_url: "https://cpu.land/lets-talk-about-forks-and-cows",
 		presenters: [],
 		timezone: "America/Los_Angeles",
