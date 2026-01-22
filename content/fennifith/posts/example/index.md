@@ -256,6 +256,10 @@ With picture:
 
 <iframe src="https://x.com/playful_program/status/1917675872854614490"></iframe>
 
+404 embed:
+
+<iframe src="https://x.com/playful_program/status/123"></iframe>
+
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>
