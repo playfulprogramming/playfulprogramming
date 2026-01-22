@@ -230,7 +230,40 @@ Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\tim
 
 <!-- ::user id="crutchcorn" -->
 
+# YouTube and Videos Embeds
+
+A normal YouTube video
+
+<iframe src="https://www.youtube.com/watch?v=_licnRxAVk0"></iframe>
+
+A YouTube short
+
+<iframe src="https://www.youtube.com/shorts/Fdbha07mFzo"></iframe>
+
+A Vimeo video
+
+<iframe src="https://vimeo.com/750377602"></iframe>
+
+A Twitch clip
+
+<iframe src="https://clips.twitch.tv/TacitFitIcecreamTriHard-KgJCKYYIEPqxe4dQ"></iframe>
+
+> We can't get a ton of data from Twitch without using their API (and therefore a token), so this is just a simple embed
+
+# X Embeds
+
+With text:
+
+<iframe src="https://x.com/playful_program/status/1917675879695552789"></iframe>
+
+With picture:
+
+<iframe src="https://x.com/playful_program/status/1917675872854614490"></iframe>
+
+404 embed:
+
+<iframe src="https://x.com/playful_program/status/123"></iframe>
+
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>
-

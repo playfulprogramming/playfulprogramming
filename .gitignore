@@ -11,6 +11,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# pnpm
+.pnpm-store
 
 # environment variables
 .env
@@ -27,9 +29,3 @@ pnpm-debug.log*
 .astro
 .vscode
 
-# Playwright
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/

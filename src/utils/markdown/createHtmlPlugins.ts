@@ -4,11 +4,8 @@ import {
 	TYPE_FRONTMATTER,
 	remarkProcessFrontmatter,
 } from "./remark-process-frontmatter";
-import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import remarkGfm from "remark-gfm";
 import rehypeUnwrapImages from "rehype-unwrap-images";
-import { TwitchTransformer } from "./remark-embedder-twitch";
-import oembedTransformer from "@remark-embedder/transformer-oembed";
 import remarkToRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
@@ -47,14 +44,6 @@ import rehypeKatex from "rehype-katex";
 import { setMathProperty } from "./katex-css";
 import { transformUser } from "utils/markdown/components/user/rehype-transform";
 
-const remarkEmbedderDefault =
-	(remarkEmbedder as never as { default: typeof remarkEmbedder }).default ??
-	remarkEmbedder;
-
-const oembedTransformerDefault =
-	(oembedTransformer as never as { default: typeof oembedTransformer })
-		.default ?? oembedTransformer;
-
 export function createHtmlPlugins(unified: Processor) {
 	return (
 		unified
@@ -66,12 +55,6 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(remarkProcessFrontmatter)
 			.use(remarkGfm)
 			/* start remark plugins here */
-			.use(
-				remarkEmbedderDefault as never,
-				{
-					transformers: [oembedTransformerDefault, TwitchTransformer],
-				} as RemarkEmbedderOptions,
-			)
 			.use(remarkToRehype, { allowDangerousHtml: true })
 			// Remove complaining about "div cannot be in p element"
 			.use(rehypeUnwrapImages)
