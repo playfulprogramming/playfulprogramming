@@ -2,5 +2,9 @@
 .astro
 .vscode
 node_modules
+**/node_modules
+e2e/node_modules
+e2e/.cache
+e2e/.playwright
 dist
 public/content

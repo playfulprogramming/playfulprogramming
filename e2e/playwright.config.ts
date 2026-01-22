@@ -1,5 +1,11 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const defaultBaseURL = "http://web:4321";
+const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? defaultBaseURL;
+const resultsDir =
+	process.env.PLAYWRIGHT_RESULTS_DIR ?? ".playwright/test-results";
+const reportDir = process.env.PLAYWRIGHT_REPORT_DIR ?? ".playwright/report";
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -12,7 +18,7 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-	testDir: "./e2e-tests",
+	testDir: "./tests",
 	/* Run tests in files in parallel */
 	fullyParallel: true,
 	/* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -22,14 +28,18 @@ export default defineConfig({
 	/* Opt out of parallel tests on CI. */
 	workers: process.env.CI ? 1 : undefined,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
-	reporter: "html",
+	reporter: [["html", { outputFolder: reportDir, open: "never" }]],
+	outputDir: resultsDir,
+	timeout: 60000,
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
 		/* Base URL to use in actions like `await page.goto('')`. */
-		baseURL: "http://localhost:8889",
+		baseURL,
 
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: "on-first-retry",
+
+		navigationTimeout: 30000,
 	},
 
 	/* Configure projects for major browsers */
@@ -69,14 +79,4 @@ export default defineConfig({
 		//   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
 		// },
 	],
-
-	/* Run your local dev server before starting the tests */
-	webServer: {
-		/* CI=1 tells astro.config.ts to turn off the dev toolbar */
-		/* USE_E2E_MOCKS=1 imports e2e/setup.ts, which mocks external services using MSW */
-		command: "CI=1 USE_E2E_MOCKS=1 pnpm dev --port 8889",
-		url: "http://localhost:8889",
-		timeout: 120_000,
-		reuseExistingServer: false,
-	},
 });

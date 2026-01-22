@@ -6,3 +6,4 @@ package-lock.json
 pnpm-lock.yaml
 content/*/posts/**
 content/*/collections/**
+mockServiceWorker.js
