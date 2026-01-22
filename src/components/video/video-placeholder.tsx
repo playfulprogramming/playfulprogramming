@@ -6,8 +6,11 @@ import FallbackPageIcon from "src/icons/website.svg?raw";
 import style from "./video-placeholder.module.scss";
 import { HTMLAttributes } from "preact/compat";
 
-const isCredentiallessSupported =
-	import.meta.env.SSR || "credentialless" in HTMLIFrameElement.prototype;
+// This is hardcoded as 'false' because youtube does not support embedding within an iframe
+// in credentialless mode.
+// TODO: Once https://github.com/playfulprogramming/playfulprogramming/issues/1496 is resolved,
+// it should be possible to remove this and always use the embed.
+const isCredentiallessSupported = false;
 
 export interface VideoPlaceholderProps {
 	width: string;

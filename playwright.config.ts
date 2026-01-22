@@ -73,7 +73,8 @@ export default defineConfig({
 	/* Run your local dev server before starting the tests */
 	webServer: {
 		/* CI=1 tells astro.config.ts to turn off the dev toolbar */
-		command: "CI=1 pnpm dev --port 8889",
+		/* USE_E2E_MOCKS=1 imports e2e/setup.ts, which mocks external services using MSW */
+		command: "CI=1 USE_E2E_MOCKS=1 pnpm dev --port 8889",
 		url: "http://localhost:8889",
 		timeout: 120_000,
 		reuseExistingServer: false,
