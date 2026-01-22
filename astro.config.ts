@@ -7,6 +7,10 @@ import { AstroUserConfig } from "astro";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
+if (process.env.USE_E2E_MOCKS) {
+	await import("./e2e/setup");
+}
+
 export default defineConfig({
 	// import.meta.env does not resolve to env variables in the config script!
 	// https://docs.astro.build/en/guides/environment-variables/#in-the-astro-config-file
@@ -33,6 +37,9 @@ export default defineConfig({
 		},
 	},
 	vite: {
+		server: {
+			allowedHosts: ["localhost", "web"],
+		},
 		optimizeDeps: {
 			exclude: ["msw", "msw/node", "sharp"],
 		},
@@ -64,8 +71,4 @@ export default defineConfig({
 		},
 	},
 	markdown: {} as AstroUserConfig["markdown"] as never,
-	devToolbar: {
-		// prevent the devToolbar from affecting e2e tests
-		enabled: typeof process.env.CI === "undefined",
-	},
 });

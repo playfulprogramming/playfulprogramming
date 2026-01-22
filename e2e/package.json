@@ -1,0 +1,15 @@
+{
+  "name": "e2e",
+  "version": "3.0.505.4-alpha-beta-sigma-23893031394892",
+  "private": true,
+  "description": "E2E tests for playfulprogramming",
+  "type": "module",
+  "scripts": {
+    "test": "docker compose -f ./docker-compose.e2e.yml up --abort-on-container-exit --exit-code-from e2e --build",
+    "test:update-snapshots": "cross-env PLAYWRIGHT_ARGS=--update-snapshots pnpm test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "cross-env": "^10.1.0"
+  }
+}

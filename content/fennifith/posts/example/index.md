@@ -226,6 +226,10 @@ I found a trend line of $$\left(x\log_{10} x \cdot 16\right) + 101$$ was reasona
 
 Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\times10^{17}$$ MB, or 315 ZB
 
+# Users
+
+<!-- ::user id="crutchcorn" -->
+
 # YouTube and Videos Embeds
 
 A normal YouTube video
@@ -248,7 +252,17 @@ A Twitch clip
 
 # X Embeds
 
+With text:
+
+<iframe src="https://x.com/playful_program/status/1917675879695552789"></iframe>
+
+With picture:
+
 <iframe src="https://x.com/playful_program/status/1917675872854614490"></iframe>
+
+404 embed:
+
+<iframe src="https://x.com/playful_program/status/123"></iframe>
 
 # GitHub Gist Embeds
 

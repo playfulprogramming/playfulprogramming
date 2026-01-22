@@ -6,8 +6,7 @@ import CollectionPage from "src/views/collections/collection-page.astro";
 import CollectionChapter from "src/views/collections/collection-chapter.astro";
 import { SubHeader } from "src/components/subheader/subheader";
 import { translate } from "utils/translations";
-import { Languages } from "types/index";
-import { LocalPost, ExternalPost } from "src/types/CollectionInfo";
+import { CurrentPost, FuturePost, Languages } from "types/index";
 import { getMarkdownHtml } from "utils/markdown";
 
 export async function getStaticPaths() {
@@ -40,10 +39,10 @@ const authors = collection.authors.map(
 
 const collectionHtml = await getMarkdownHtml(collection);
 
-const isLocalPost = (
-	chapter: LocalPost | ExternalPost,
-): chapter is LocalPost => {
-	return (chapter as LocalPost).post !== undefined;
+const isCurrentPost = (
+	chapter: CurrentPost | FuturePost,
+): chapter is CurrentPost => {
+	return (chapter as CurrentPost).post !== undefined;
 };
 
 let collectionData: Array<Parameters<typeof CollectionChapter>[0]> = [];
@@ -54,7 +53,7 @@ if (collection?.chapterList?.length) {
 		let href: string | undefined;
 		let description: string;
 		let externalLink = false;
-		if (isLocalPost(post)) {
+		if (isCurrentPost(post)) {
 			const postData = api.getPostBySlug(post.post, locale);
 			title = postData?.title || "No title";
 			description = postData?.description || "No description";
@@ -62,7 +61,6 @@ if (collection?.chapterList?.length) {
 		} else {
 			title = post.title;
 			description = post.description || "";
-			href = post.url;
 			externalLink = true;
 		}
 		return {

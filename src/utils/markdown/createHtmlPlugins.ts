@@ -42,6 +42,7 @@ import { rehypeRelativePaths } from "./rehype-relative-paths";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { setMathProperty } from "./katex-css";
+import { transformUser } from "utils/markdown/components/user/rehype-transform";
 
 export function createHtmlPlugins(unified: Processor) {
 	return (
@@ -99,6 +100,7 @@ export function createHtmlPlugins(unified: Processor) {
 					"no-ebook": transformNoop,
 					"only-ebook": transformVoid,
 					tabs: transformTabs,
+					user: transformUser,
 				},
 			})
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
