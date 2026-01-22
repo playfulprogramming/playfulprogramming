@@ -1,0 +1,94 @@
+---
+{
+    title: "Routing",
+    description: "",
+    published: '2025-06-01T22:12:03.284Z',
+    tags: ["react", "angular", "vue", "webdev"],
+    order: 5
+}
+---
+
+<details>
+<summary>What tools are we learning in this chapter?</summary>
+
+- TanStack Router
+- TanStack Start
+- Vue Router
+- Nuxt.js
+- Angular Router
+- Analog.js
+
+</details>
+
+// TODO: Talk about intro
+
+
+
+# Programmatic routing
+
+CSR
+
+## Dynamic paths
+
+`/route/:prop`
+
+### 404 Pages
+
+How to handle not found page
+
+
+
+React: https://tanstack.com/router/v1/docs/framework/react/guide/not-found-errors
+
+Angular: https://angular.dev/guide/routing/router-tutorial#adding-a-404-page
+
+
+
+## Client-side data
+
+// TODO: Show fetching on page request itself
+
+Vue Router: `useRoute` + `watch`
+
+Nuxt: `useAsyncData`
+
+
+
+### Loaders
+
+// TODO: Loaders
+
+- Angular: Route Resolvers
+- Vue Router: https://uvr.esm.is/data-loaders/#installation 
+
+- Nuxt: Plugin from Vue Router
+
+
+
+
+# File-based client routing
+
+Filesystem
+
+
+
+# File-based static routing
+
+`getStaticProps` and `[...props].tsx`
+
+
+
+# Server routing
+
+
+
+## Dynamic paths
+
+No more need for `getStaticProps`
+
+
+
+
+# Server-side data
+
+`loaders` + server fns
