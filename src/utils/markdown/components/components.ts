@@ -10,6 +10,7 @@ import XPlaceholder from "../iframes/x-placeholder.astro";
 import FourOFourPlaceholder from "../iframes/404-placeholder.astro";
 import Hint from "./hint/hint.astro";
 import Tooltip from "./tooltip/tooltip.astro";
+import User from "./user/user.astro";
 
 export interface PlayfulRoot {
 	type: "root";
@@ -80,6 +81,7 @@ export const components = {
 	XPlaceholder,
 	FourOFourPlaceholder,
 	Hint,
+	User,
 } as const;
 
 export function createComponent<Key extends keyof typeof components>(
