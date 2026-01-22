@@ -26,22 +26,22 @@ export function logError(
 		console.log();
 		console.error(
 			"::error",
-			Object.entries(meta)
+			`${Object.entries(meta)
 				.filter(([_, v]) => !!v)
 				.map(([k, v]) => `${k}=${v}`)
-				.join(",") + "::",
+				.join(",")}::`,
 			...message,
 		);
 	} else {
 		// Otherwise, print something readable to the console
 		console.log();
-		console.error(kleur.red("[ERROR] " + message.join(" ")));
+		console.error(kleur.red(`[ERROR] ${message.join(" ")}`));
 
 		const startOffset = node.position?.start?.offset;
 		const endOffset = node.position?.end?.offset;
 		if (startOffset && endOffset) {
 			const str = vfile.value.slice(startOffset, endOffset);
-			console.log("\t" + str);
+			console.log(`\t${str}`);
 			console.log("\t^");
 		}
 

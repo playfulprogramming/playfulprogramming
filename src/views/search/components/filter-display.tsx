@@ -65,7 +65,7 @@ export const FilterDisplay = ({
 					}) satisfies Partial<ExtendedTag>,
 			)
 			.filter((a): a is ExtendedTag => !!a.displayName);
-	}, [tagCounts]);
+	}, [tagCounts, filterState.tags]);
 
 	const authors: ExtendedUnicorn[] = useMemo(() => {
 		const totalEntries = {
@@ -84,7 +84,7 @@ export const FilterDisplay = ({
 			)
 			.filter((a): a is ExtendedUnicorn => !!a.name)
 			.sort((a, b) => a.name.localeCompare(b.name));
-	}, [authorCounts, peopleMap]);
+	}, [authorCounts, peopleMap, filterState.authors]);
 
 	const windowSize = useWindowSize();
 

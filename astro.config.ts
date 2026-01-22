@@ -7,6 +7,10 @@ import { AstroUserConfig } from "astro";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
+if (process.env.USE_E2E_MOCKS) {
+	await import("./e2e/setup");
+}
+
 export default defineConfig({
 	// import.meta.env does not resolve to env variables in the config script!
 	// https://docs.astro.build/en/guides/environment-variables/#in-the-astro-config-file
@@ -28,11 +32,14 @@ export default defineConfig({
 	integrations: [icon(), preact({ compat: true })],
 	server: {
 		headers: {
-			["Cross-Origin-Embedder-Policy"]: "require-corp",
-			["Cross-Origin-Opener-Policy"]: "same-origin",
+			"Cross-Origin-Embedder-Policy": "require-corp",
+			"Cross-Origin-Opener-Policy": "same-origin",
 		},
 	},
 	vite: {
+		server: {
+			allowedHosts: ["localhost", "web"],
+		},
 		optimizeDeps: {
 			exclude: ["msw", "msw/node", "sharp"],
 		},

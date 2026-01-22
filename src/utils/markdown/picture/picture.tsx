@@ -15,7 +15,7 @@ export function Picture(props: PictureProps): Element {
 	return (
 		<picture>
 			{props.result.sources.map((s) => (
-				<source {...s} />
+				<source key={s.srcset} {...s} />
 			))}
 			<img
 				{...props.result.image}

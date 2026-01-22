@@ -19,7 +19,7 @@ import { IMAGE_MAX_HEIGHT, IMAGE_MAX_WIDTH, IMAGE_SIZES } from "../constants";
  * parsed.
  */
 function getPixelValue(attr: unknown): number | undefined {
-	const [, pxValue] = /^([0-9]+)(px)?$/.exec(attr + "") || [];
+	const [, pxValue] = /^([0-9]+)(px)?$/.exec(`${attr}`) || [];
 	return typeof pxValue !== "undefined" ? Number(pxValue) : undefined;
 }
 
@@ -97,7 +97,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				}
 
 				const pictureResult = getPicture({
-					src: src,
+					src,
 					width: dimensions.width,
 					height: dimensions.height,
 					sizes: IMAGE_SIZES,
@@ -109,7 +109,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					width: _width,
 					src: _src,
 					alt: _alt,
-					["data-zoom-src"]: _dataZoomSrc,
+					"data-zoom-src": _dataZoomSrc,
 					...rest
 				} = node.properties;
 

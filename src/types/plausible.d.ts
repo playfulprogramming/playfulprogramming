@@ -1,11 +1,9 @@
-import type { EventOptions, PlausibleOptions } from "plausible-tracker";
+import type { track } from "@plausible-analytics/tracker";
 
 export {};
 
 declare global {
-	const plausible: (
-		eventName: string,
-		options?: EventOptions,
-		eventData?: PlausibleOptions,
-	) => void;
+	interface Window {
+		plausible: track;
+	}
 }

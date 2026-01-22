@@ -46,17 +46,17 @@ const tagExplainerParser = unified()
 	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
 
 for (const [key, tag] of Object.entries(tagsRaw)) {
-	let explainer = undefined;
-	let explainerType: TagInfo["explainerType"] | undefined = undefined;
+	let explainer;
+	let explainerType: TagInfo["explainerType"] | undefined;
 
 	if ("image" in tag && tag.image.endsWith(".svg")) {
 		const license = await fs
-			.readFile("public" + tag.image.replace(".svg", "-LICENSE.md"), "utf-8")
+			.readFile(`public${tag.image.replace(".svg", "-LICENSE.md")}`, "utf-8")
 			.catch((_) => undefined);
 
 		const attribution = await fs
 			.readFile(
-				"public" + tag.image.replace(".svg", "-ATTRIBUTION.md"),
+				`public${tag.image.replace(".svg", "-ATTRIBUTION.md")}`,
 				"utf-8",
 			)
 			.catch((_) => undefined);
@@ -214,12 +214,11 @@ async function readCollection(
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
 				return true;
-			} else {
-				console.warn(
-					`${collectionPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
-				);
-				return false;
 			}
+			console.warn(
+				`${collectionPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
+			);
+			return false;
 		});
 
 		// count the number of posts in the collection
@@ -299,12 +298,11 @@ async function readPost(
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
 				return true;
-			} else {
-				console.warn(
-					`${postPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
-				);
-				return false;
 			}
+			console.warn(
+				`${postPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
+			);
+			return false;
 		});
 
 		postObjects.push({
@@ -317,7 +315,7 @@ async function readPost(
 			locale,
 			locales,
 			tags: frontmatterTags,
-			wordCount: wordCount,
+			wordCount,
 			description: frontmatter.description || excerpt,
 			excerpt,
 			publishedMeta:

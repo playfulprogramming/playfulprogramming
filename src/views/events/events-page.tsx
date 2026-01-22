@@ -58,7 +58,7 @@ export default function EventsPage({
 	useLayoutEffect(() => {
 		const header = document.querySelector("#header-bar") as HTMLElement;
 		setEl(header);
-	}, []);
+	}, [setEl]);
 
 	const headerHeight = size.height;
 
@@ -84,7 +84,7 @@ export default function EventsPage({
 							<span
 								className={style.filterIconContainer}
 								dangerouslySetInnerHTML={{ __html: filter }}
-							></span>
+							/>
 							<span className={`text-style-button-regular`}>Show:</span>
 						</div>
 						<RadioButtonGroup

@@ -81,8 +81,8 @@ lang ??= "en";
 		<script is:inline>
 			window.plausible =
 				window.plausible ||
-				function () {
-					(window.plausible.q = window.plausible.q || []).push(arguments);
+				function (...args) {
+					(window.plausible.q = window.plausible.q || []).push(args);
 				};
 		</script>
 		<slot name="head" />

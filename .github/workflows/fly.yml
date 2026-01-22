@@ -1,25 +1,65 @@
 name: Fly Deploy
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
+
+env:
+  DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
 
 concurrency:
-  group: deploy-group # ensure only one deploy action runs at a time
-  cancel-in-progress: false
+  group: main-deploy
+  cancel-in-progress: true
 
 jobs:
-  deploy:
-    name: Deploy app
+  build:
+    name: Build image
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ env.DOCKER_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            "GIT_COMMIT_REF=${{ github.head_ref || github.ref_name }}"
+            "PUBLIC_CLOUDINARY_CLOUD_NAME=dssjarn7f"
+            "SITE_URL=https://playfulprogramming.com"
+          secrets: |
+            "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+            "HOOF_AUTH_TOKEN=${{ secrets.HOOF_AUTH_TOKEN }}"
+
+  deploy_for_prod:
+    name: Deploy for prod
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://playfulprogramming.com
+    env:
+      FLY_API_TOKEN: ${{ secrets.FLY_WEB_DEPLOY_TOKEN }}
+    steps:
+      - uses: actions/checkout@v6
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
-      - name: Deploy App
-        run: flyctl deploy --remote-only --build-secret "GITHUB_TOKEN=$GITHUB_TOKEN" --build-secret "HOOF_AUTH_TOKEN=$HOOF_AUTH_TOKEN"
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_WEB_DEPLOY_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOOF_AUTH_TOKEN: ${{ secrets.HOOF_AUTH_TOKEN }}
+      - id: deploy
+        name: Deploy app
+        run: |
+          flyctl deploy --image "$DOCKER_TAG"

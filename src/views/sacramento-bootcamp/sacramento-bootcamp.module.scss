@@ -150,18 +150,21 @@
 .applyContainer {
 	display: flex;
 	flex-wrap: wrap;
-
 	@include from($tabletSmall) {
 		flex-wrap: nowrap;
 	}
 }
 
-.applyBtn {
+.eventActionBtn {
 	width: 100%;
 
 	@include from($tabletSmall) {
 		width: fit-content;
 	}
+}
+
+.classIsFullText {
+	color: var(--error_default);
 }
 
 .eighteenWarningContainer {

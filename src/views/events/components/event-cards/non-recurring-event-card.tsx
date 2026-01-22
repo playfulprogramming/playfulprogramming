@@ -48,7 +48,7 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 						<span
 							className={style.eventIcon}
 							dangerouslySetInnerHTML={{ __html: date }}
-						></span>
+						/>
 						<span>
 							{dayjs(startsAt).format("MMMM Do")} —{" "}
 							{dayjs(endsAt).format("MMMM Do")}

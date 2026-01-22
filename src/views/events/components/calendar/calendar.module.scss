@@ -95,7 +95,7 @@
 		color: var(--btn_secondary_foreground-color_emphasized);
 	}
 
-	&[data-focus-visible] .innerCalendarCell  {
+	&[data-focus-visible] .innerCalendarCell {
 		outline: var(--btn_secondary_focus-outline_width) solid
 			var(--btn_secondary_focus-outline_color);
 		outline-offset: var(--btn_secondary_focus-outline_gap);
@@ -126,8 +126,8 @@
 }
 
 .popupContentLineContainer {
-    text-decoration: unset;
-    color: unset;
+	text-decoration: unset;
+	color: unset;
 	justify-content: space-between;
 	display: flex;
 	align-items: center;
