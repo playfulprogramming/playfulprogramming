@@ -770,7 +770,7 @@ For our simple example of binding a `value`, we can use the `bindName` of `ngMod
   selector: 'form-comp',
   template: `
     <form (submit)="onSubmit($event)">
-	  <input type="text" [(ngModel)]="usersName" name="input"/>
+	  	<input type="text" [(ngModel)]="usersName" name="input"/>
       <button type="submit">Submit</button>
     </form>
   `,
@@ -841,6 +841,160 @@ While this works for simple examples like ours, it quickly gets unwieldy and eas
 There's a better way.
 
 # Introducing Form Libraries
+
+Form libraries can be a great way to consolidate your form logic into a single source of truth while adding additional capabilities for little-to-no written code cost.
+
+The library we'll be using today is [TanStack Form](https://tanstack.com/form), which supports React, Angular, and Vue. Let's take a look at what basic usage of TanStack Form looks like for each framework:
+
+<!-- ::start:tabs -->
+
+## React
+
+First, install TanStack Form's React adapter:
+
+```shell
+npm install @tanstack/react-form
+```
+
+Then we can use it in our code:
+
+```jsx
+import { useForm } from '@tanstack/react-form';
+
+function App() {
+	const form = useForm({
+		defaultValues: {
+			usersName: ""
+		},
+		onSubmit: ({ value }) => {
+			console.log("Form submitted with values:", value);
+		}
+	});
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+		form.submit();
+	};
+
+	return (
+		<form onSubmit={onSubmit}>
+			<form.Field
+				name="usersName"
+				children={field => (
+					<input
+						value={field.state.value}
+						onChange={e => field.api.handleChange(e.target.value)}
+					/>
+				)}
+			/>
+			<button type="submit">Submit</button>
+		</form>
+	)
+}
+```
+
+<iframe data-frame-title="React TanStack Form Default Values" src="pfp-code:./ffg-ecosystem-react-tsf-default-values-22?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+## Angular
+
+First, install TanStack Form's Angular adapter:
+
+```shell
+npm install @tanstack/angular-form
+```
+
+Then we can use it in our code:
+
+```angular-ts
+import { injectForm, TanStackField } from "@tanstack/angular-form";
+
+@Component({
+	selector: "app-root",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [TanStackField],
+	template: `
+		<form (submit)="onSubmit($event)">
+			<ng-container
+				[tanstackField]="form"
+				name="usersName"
+				#usersName="field"
+			>
+				<input
+					[value]="usersName.api.state.value"
+					(input)="usersName.api.handleChange($any($event).target.value)"
+				/>
+			</ng-container>
+			<button type="submit">Submit</button>
+		</form>
+	`,
+})
+export class App {
+	form = injectForm({
+		defaultValues: {
+			usersName: ""
+		},
+		onSubmit: ({value}) => {
+			console.log("Form submitted with values:", value);
+		}
+	});
+
+	onSubmit(event: Event) {
+		event.preventDefault();
+		this.form.handleSubmit();
+	}
+}
+```
+
+<iframe data-frame-title="Angular TanStack Form Default Values" src="pfp-code:./ffg-ecosystem-angular-tsf-default-values-22?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+## Vue
+
+First, install TanStack Form's Vue adapter:
+
+```shell
+npm install @tanstack/vue-form
+```
+
+Then we can use it in our code:
+
+```vue
+<!-- App.vue -->
+<script setup>
+import { useForm } from '@tanstack/vue-form'
+
+const form = useForm({
+  defaultValues: {
+    usersName: '',
+  },
+  onSubmit: async ({ value }) => {
+    // Do something with form data
+	console.log("Form submitted with values:", value);
+  },
+})
+</script>
+
+<template>
+	<form @submit.prevent.stop="form.handleSubmit">
+		<form.Field name="usersName">
+			<template v-slot="{ field }">
+			<input
+				:value="field.state.value"
+				@input="(e) => field.handleChange(e.target.value)"
+			/>
+			</template>
+		</form.Field>
+		<button type="submit">Submit</button>
+	</form>
+</template>
+```
+
+<iframe data-frame-title="Vue TanStack Form Default Values" src="pfp-code:./ffg-ecosystem-vue-tsf-default-values-22?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<!-- ::end:tabs -->
+
+
+
+
 
 // TODO: Cover initial values
 
