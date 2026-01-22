@@ -1,0 +1,10 @@
+---
+import {
+	FourOFourEmbed,
+	type FourOFourEmbedProps,
+} from "components/404-embed/404-embed.js";
+
+export type Props = FourOFourEmbedProps;
+---
+
+<FourOFourEmbed {...Astro.props} client:load />

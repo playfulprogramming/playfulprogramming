@@ -26,7 +26,13 @@ export const xPlatformDetector: PlatformDetector = {
 		});
 
 		if (!post) {
-			// TODO: Handle 404 properly
+			parent.children.splice(
+				index,
+				1,
+				createComponent("FourOFourPlaceholder", {
+					url: src,
+				}),
+			);
 			return;
 		}
 
