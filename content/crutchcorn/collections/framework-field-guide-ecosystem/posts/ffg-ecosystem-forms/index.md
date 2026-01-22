@@ -134,7 +134,7 @@ Well, using [the browser's `setCustomValidity` API ](https://developer.mozilla.o
 
 Now, when the user tries to submit the form without accepting, they'll be greeted with the following:
 
-![TODO: Write alt](./agree_to_terms.png)
+![A unstyled browser popup dialog that says "You must agree to the terms"](./agree_to_terms.png)
 
 ## Uncontrolled Frameworks
 
@@ -415,7 +415,7 @@ Using forms in the way we have been is close to how the browser's default behavi
 
 Assume our UI team comes back with a new requirement: An additional `Agree` button if the user forgets to agree to the license agreement previously in the page.
 
-![TODO: Add alt](./second_agree.png)
+![A red "You must agree to the terms" in the webpage above the "Agree" button](./second_agree.png)
 
 This button should:
 
@@ -497,7 +497,7 @@ function App() {
 }
 ```
 
-// TODO: Add embed
+<iframe data-frame-title="React Uncontrolled Problems" src="pfp-code:./ffg-ecosystem-react-uncontrolled-problems-21?template=node&embed=1&file=src%2FApp.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Angular
 
@@ -560,7 +560,7 @@ export class App {
 }
 ```
 
-// TODO: Add embed
+<iframe data-frame-title="Angular Uncontrolled Problems" src="pfp-code:./ffg-ecosystem-angular-uncontrolled-problems-21?template=node&embed=1&file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Vue
 
@@ -619,7 +619,7 @@ const onAgreeClick = () => {
 </template>
 ```
 
-// TODO: Add embed
+<iframe data-frame-title="Vue Uncontrolled Problems" src="pfp-code:./ffg-ecosystem-vue-uncontrolled-problems-21?template=node&embed=1&file=src%2FApp.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- ::end:tabs -->
 
