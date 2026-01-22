@@ -1,0 +1,10 @@
+---
+import {
+	XEmbedPlaceholder as PreactXPlaceholder,
+	XEmbedPlaceholderProps,
+} from "components/x-embed/x-embed";
+
+export type Props = XEmbedPlaceholderProps;
+---
+
+<PreactXPlaceholder {...Astro.props} client:load />

@@ -45,12 +45,12 @@ services:
       PLAYWRIGHT_RESULTS_DIR: ".playwright/test-results"
       PLAYWRIGHT_REPORT_DIR: ".playwright/report"
       XDG_CACHE_HOME: "/work/e2e/.cache"
-      PLAYWRIGHT_ARGS: ""
+      PLAYWRIGHT_ARGS: "${PLAYWRIGHT_ARGS:-}"
       CI: true
       HOME: "/tmp"
       COREPACK_HOME: "/usr/local/share/corepack"
       COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
-    command: pnpm exec playwright test --config ./playwright.config.ts
+    command: sh -c "pnpm exec playwright test --config ./playwright.config.ts $PLAYWRIGHT_ARGS"
 
 volumes:
   web_node_modules:

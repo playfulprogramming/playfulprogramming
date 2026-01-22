@@ -15,6 +15,8 @@ import {
 	getVideoDataFromUrl,
 	videoHosts,
 } from "utils/markdown/data-providers";
+import { getXPostData, xHosts } from "utils/markdown/data-providers/x";
+import { platformDetectors } from "utils/markdown/iframes/platform-detectors";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
@@ -61,6 +63,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 				width = width ?? EMBED_SIZE.w;
 				height = height ?? EMBED_SIZE.h;
+
 				const metadata = await getUrlMetadata(src!.toString()).catch((e) => {
 					logError(file, node, "Could not fetch URL metadata!", e);
 					return undefined;
@@ -76,11 +79,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const index = parent.children.indexOf(node);
 				if (index == -1) return;
 
-				const srcUrl = new URL(src!.toString());
+				const pageTitle = String(dataFrameTitle ?? "") || metadata?.title || "";
 
-				let pageTitle = String(dataFrameTitle ?? "") || metadata?.title || "";
-
-				let iframeAttrs = Object.fromEntries(
+				const iframeAttrs = Object.fromEntries(
 					Object.entries(propsToPreserve).map(([key, value]) => [
 						key,
 						// Handle array props per hast spec:
@@ -89,43 +90,31 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					]),
 				);
 
-				const isVideo = videoHosts.includes(srcUrl.hostname);
-
-				if (isVideo) {
-					const json = await getVideoDataFromUrl(String(src!)).catch(
-						() => null,
-					);
-
-					let pageThumbnail = "/illustrations/illustration-webpage.svg";
-
-					if (json) {
-						pageTitle = `${json?.title ?? pageTitle}`;
-						pageThumbnail = json?.thumbnail_url ?? pageThumbnail;
-						const {
-							height: _height,
-							width: _width,
-							...otherIframeProps
-						} = await getIFrameAttributes(json.html);
-						iframeAttrs = { ...iframeAttrs, ...otherIframeProps } as never;
+				// Find any embeds and use them if they're present
+				for (const platformDetector of platformDetectors) {
+					const strSrc = String(src!);
+					const isPlatform = platformDetector.detect(strSrc);
+					if (!isPlatform) {
+						continue;
 					}
-
-					parent.children.splice(
+					return await platformDetector.rehypeTransform({
+						parent,
+						node,
+						file,
+						tree,
 						index,
-						1,
-						createComponent("VideoPlaceholder", {
-							width: width.toString(),
-							height: height.toString(),
-							src: String(src),
-							pageTitle,
-							pageIcon: metadata?.icon?.src,
-							pageThumbnail,
+						src: strSrc,
+						iframeData: {
 							iframeAttrs,
-						}),
-					);
-
-					return;
+							metadata,
+							height,
+							width,
+							pageTitle,
+						},
+					});
 				}
 
+				// Default
 				parent.children.splice(
 					index,
 					1,
