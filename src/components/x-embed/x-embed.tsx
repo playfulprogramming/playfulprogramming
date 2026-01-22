@@ -1,10 +1,12 @@
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import { Button } from "components/button/button";
+import { Button, IconOnlyButton } from "components/button/button";
 import discussion from "src/icons/discussion.svg?raw";
 import repost from "src/icons/repost.svg?raw";
 import heart from "src/icons/heart.svg?raw";
+import launch from "src/icons/launch.svg?raw";
 import style from "./x-embed.module.scss";
+import { RawSvg } from "components/image/raw-svg";
 
 dayjs.extend(advancedFormat);
 
@@ -57,7 +59,23 @@ export function XEmbedPlaceholder({
 						@{handle}
 					</p>
 				</div>
-				<Button href={link}>View on X</Button>
+				<Button
+					class={style.textButton}
+					href={link}
+					target="_blank"
+					rel="nofollow noopener noreferrer"
+				>
+					View on X
+				</Button>
+				<IconOnlyButton
+					class={style.iconButton}
+					href={link}
+					target="_blank"
+					rel="nofollow noopener noreferrer"
+					aria-label={"View on X"}
+				>
+					<RawSvg icon={launch} />
+				</IconOnlyButton>
 			</div>
 			<p className={`text-style-body-large ${style.textContainer}`}>{text}</p>
 			{picture ? (
