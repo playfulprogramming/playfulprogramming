@@ -1,6 +1,7 @@
 import { PlatformDetector } from "utils/markdown/iframes/platform-detectors/types";
 import { getXPostData, xHosts } from "utils/markdown/data-providers";
 import { createComponent } from "utils/markdown/components";
+import unicornHappy from "assets/unicorn_happy.svg?url";
 
 export const xPlatformDetector: PlatformDetector = {
 	detect: (src) => {
@@ -54,7 +55,7 @@ export const xPlatformDetector: PlatformDetector = {
 				name: post.author.name,
 				link: post.url,
 				date: post.created_at,
-				profilePic: post.author.avatar_url,
+				profilePic: post.author.avatar_url ?? unicornHappy,
 				likes: post.likes,
 				reposts: post.reposts,
 				replies: post.replies,

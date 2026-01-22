@@ -4,6 +4,8 @@
 	background: var(--surface_primary_emphasis-none);
 	border-radius: var(--corner-radius_xl);
 	padding: var(--spc-4x);
+	max-width: 640px;
+	margin: 0 auto;
 }
 
 .topContainer {
@@ -23,6 +25,22 @@
 	border-radius: 50%;
 	height: 100%;
 	width: 100%;
+}
+
+.textButton {
+	display: none;
+
+	@include from($tabletSmall) {
+		display: block;
+	}
+}
+
+.iconButton {
+	display: block;
+
+	@include from($tabletSmall) {
+		display: none;
+	}
 }
 
 .name {
@@ -54,9 +72,14 @@
 
 .footer {
 	display: flex;
-	gap: var(--spc-2x);
+	gap: var(--spc-4x);
 	justify-content: space-between;
 	padding: var(--spc-2x);
+	flex-direction: column;
+
+	@include from($tabletSmall) {
+		flex-direction: row;
+	}
 }
 
 .footerStats {
@@ -80,6 +103,11 @@
 	display: flex;
 	gap: var(--spc-1x);
 	margin: 0;
+	order: -1;
+
+	@include from($tabletSmall) {
+		order: unset;
+	}
 }
 
 .timeSeparator {

@@ -123,7 +123,7 @@ jobs:
           # Backup the original config file since 'flyctl launch' messes up the [build.args] section
           cp fly.toml fly.toml.bak
 
-          retry_loop 3 'cp fly.toml.bak fly.toml; flyctl launch --no-deploy --copy-config --name "$APP_NAME"'
+          retry_loop 3 'flyctl status --app "$APP_NAME" || ( cp fly.toml.bak fly.toml; flyctl launch --no-deploy --copy-config --name "$APP_NAME" )'
 
           # Restore the original config file
           cp fly.toml.bak fly.toml

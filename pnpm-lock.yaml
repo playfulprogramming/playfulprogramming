@@ -21,6 +21,9 @@ importers:
       '@oramacloud/client':
         specifier: ^2.1.4
         version: 2.1.4
+      '@plausible-analytics/tracker':
+        specifier: ^0.4.4
+        version: 0.4.4
       '@preact/signals':
         specifier: ^2.5.1
         version: 2.5.1(preact@10.28.2)
@@ -85,9 +88,6 @@ importers:
       '@orama/orama':
         specifier: ^3.1.18
         version: 3.1.18
-      '@playwright/test':
-        specifier: ^1.57.0
-        version: 1.57.0
       '@preact/preset-vite':
         specifier: ^2.10.2
         version: 2.10.2(@babel/core@7.26.7)(preact@10.28.2)(vite@7.1.4(@types/node@25.0.5)(sass@1.97.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
@@ -238,9 +238,6 @@ importers:
       openapi-typescript:
         specifier: ^7.10.1
         version: 7.10.1(typescript@5.9.3)
-      plausible-tracker:
-        specifier: ^0.3.9
-        version: 0.3.9
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -352,6 +349,15 @@ importers:
       vitest-browser-preact:
         specifier: ^1.0.0
         version: 1.0.0(preact@10.28.2)(vitest@4.0.16(@edge-runtime/vm@5.0.0)(@types/node@25.0.5)(@vitest/browser-playwright@4.0.16)(jsdom@27.4.0)(msw@2.12.7(@types/node@25.0.5)(typescript@5.9.3))(sass@1.97.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+
+  e2e:
+    devDependencies:
+      '@playwright/test':
+        specifier: ^1.57.0
+        version: 1.57.0
+      cross-env:
+        specifier: ^10.1.0
+        version: 10.1.0
 
 packages:
 
@@ -640,6 +646,9 @@ packages:
 
   '@emnapi/runtime@1.8.1':
     resolution: {integrity: sha512-mehfKSMWjjNol8659Z8KxEMrdSJDDot5SXMq00dM8BN4o+CLNXQ0xH2V7EchNHV4RmbZLmmPdEaXZc5H2FXmDg==}
+
+  '@epic-web/invariant@1.0.0':
+    resolution: {integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==}
 
   '@esbuild/aix-ppc64@0.25.12':
     resolution: {integrity: sha512-Hhmwd6CInZ3dwpuGTF8fJG6yoWmsToE+vYgD4nytZVxcu1ulHpUQRAB1UJ8+N1Am3Mz4+xOByoQoSZf4D+CpkA==}
@@ -1529,6 +1538,9 @@ packages:
   '@pkgr/core@0.2.9':
     resolution: {integrity: sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+
+  '@plausible-analytics/tracker@0.4.4':
+    resolution: {integrity: sha512-fz0NOYUEYXtg1TBaPEEvtcBq3FfmLFuTe1VZw4M8sTWX129br5dguu3M15+plOQnc181ShYe67RfwhKgK89VnA==}
 
   '@playwright/test@1.57.0':
     resolution: {integrity: sha512-6TyEnHgd6SArQO8UO2OMTxshln3QMWBtPGrOCgs3wVEmQmwyuNtB10IZMfmYDE0riwNR1cu4q+pPcxMVtaG3TA==}
@@ -3282,6 +3294,11 @@ packages:
 
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
+
+  cross-env@10.1.0:
+    resolution: {integrity: sha512-GsYosgnACZTADcmEyJctkJIoqAhHjttw7RsFrVoJNXbsWWqaq6Ym+7kZjq6mS45O0jij6vtiReppKQEtqWy6Dw==}
+    engines: {node: '>=20'}
+    hasBin: true
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -5321,11 +5338,6 @@ packages:
   pkg-types@1.3.1:
     resolution: {integrity: sha512-/Jm5M4RvtBFVkKWRu2BLUTNP8/M2a+UwuAX+ae4770q1qVGtfjG+WTCupoZixokjmHiry8uI+dlY8KXYV5HVVQ==}
 
-  plausible-tracker@0.3.9:
-    resolution: {integrity: sha512-hMhneYm3GCPyQon88SZrVJx+LlqhM1kZFQbuAgXPoh/Az2YvO1B6bitT9qlhpiTdJlsT5lsr3gPmzoVjb5CDXA==}
-    engines: {node: '>=10'}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-
   playwright-core@1.57.0:
     resolution: {integrity: sha512-agTcKlMw/mjBWOnD6kFZttAAGHgi/Nw0CZ2o6JqWSbMlI219lAFLZZCyqByTsvVAJq5XA5H8cA6PrvBRpBWEuQ==}
     engines: {node: '>=18'}
@@ -7218,6 +7230,8 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
+  '@epic-web/invariant@1.0.0': {}
+
   '@esbuild/aix-ppc64@0.25.12':
     optional: true
 
@@ -7989,6 +8003,8 @@ snapshots:
     optional: true
 
   '@pkgr/core@0.2.9': {}
+
+  '@plausible-analytics/tracker@0.4.4': {}
 
   '@playwright/test@1.57.0':
     dependencies:
@@ -10437,6 +10453,11 @@ snapshots:
       readable-stream: 4.7.0
 
   create-require@1.1.1: {}
+
+  cross-env@10.1.0:
+    dependencies:
+      '@epic-web/invariant': 1.0.0
+      cross-spawn: 7.0.6
 
   cross-spawn@7.0.6:
     dependencies:
@@ -12954,8 +12975,6 @@ snapshots:
       confbox: 0.1.8
       mlly: 1.7.4
       pathe: 2.0.3
-
-  plausible-tracker@0.3.9: {}
 
   playwright-core@1.57.0: {}
 
