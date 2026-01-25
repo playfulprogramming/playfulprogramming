@@ -1,18 +1,13 @@
 services:
   web:
     working_dir: /work
-    # we mount everything but node modules and .astro. The rest needs to be
-    # readable since temp dirs are created for things like shiki
-    volumes:
-      - ..:/work:rw
-      - web_node_modules:/work/node_modules
-      - /work/.astro
     build:
       target: server
       context: ..
       dockerfile: e2e/Dockerfile
     environment:
       - USE_E2E_MOCKS=true
+      - GIT_COMMIT_REF=main
       - ASTRO_TELEMETRY_DISABLED=1
     command: pnpm dev --host 0.0.0.0 --port 4321
     healthcheck:
@@ -35,10 +30,9 @@ services:
       dockerfile: e2e/Dockerfile
       target: e2e
     working_dir: /work/e2e
-    user: "${UID:-1000}:${GID:-1000}"
     volumes:
-      - .:/work/e2e:rw
-      - e2e_node_modules:/work/e2e/node_modules
+      - ./.playwright:/work/e2e/.playwright:rw
+      - ./tests:/work/e2e/tests:rw
     ipc: host
     environment:
       PLAYWRIGHT_BASE_URL: "http://web:4321"
@@ -48,10 +42,5 @@ services:
       PLAYWRIGHT_ARGS: "${PLAYWRIGHT_ARGS:-}"
       CI: true
       HOME: "/tmp"
-      COREPACK_HOME: "/usr/local/share/corepack"
       COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
     command: sh -c "pnpm exec playwright test --config ./playwright.config.ts $PLAYWRIGHT_ARGS"
-
-volumes:
-  web_node_modules:
-  e2e_node_modules:
