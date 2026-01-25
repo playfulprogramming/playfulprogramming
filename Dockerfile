@@ -11,7 +11,7 @@ RUN corepack install
 
 # Install dependencies with pnpm
 COPY pnpm-lock.yaml .
-RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter "!e2e"
 
 # Copy and build the app
 COPY --parents assets content public src astro.config.ts tsconfig.json .env .
