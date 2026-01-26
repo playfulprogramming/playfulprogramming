@@ -137,9 +137,20 @@ export async function searchForTerm(
 		| (CollectionSearchParams["facet_by"] & PostSearchParams["facet_by"])
 		| undefined = "tags,authors";
 
+	const post_query_by = postSchema.fields
+		.filter((field) => ["string", "string[]"].includes(field.type))
+		.map((field) => field.name)
+		.join(",");
+
+	const collection_query_by = collectionSchema.fields
+		.filter((field) => ["string", "string[]"].includes(field.type))
+		.map((field) => field.name)
+		.join(",");
+
 	const postSearchPromise = postCollectionDocuments.search(
 		{
 			q: term,
+			query_by: post_query_by,
 			limit: MAX_POSTS_PER_PAGE,
 			offset: (query.page - 1) * MAX_POSTS_PER_PAGE,
 			sort_by,
@@ -155,6 +166,7 @@ export async function searchForTerm(
 	const collectionSearchPromise = collectionCollectionDocuments.search(
 		{
 			q: term,
+			query_by: collection_query_by,
 			limit: MAX_COLLECTIONS_PER_PAGE,
 			offset: (query.page - 1) * MAX_COLLECTIONS_PER_PAGE,
 			sort_by,
@@ -181,7 +193,13 @@ export async function searchForTerm(
 			(facet) => facet.field_name === name,
 		);
 		if (!facet) return {};
-		return facet.counts.map((count) => ({ [count.value]: count.count }));
+		return facet.counts.reduce(
+			(prev, count) => {
+				prev[count.value] = count.count + (prev[count.value] ?? 0);
+				return prev;
+			},
+			{} as Record<string, number>,
+		);
 	};
 
 	// Combine tags & authors facets between the two searches
