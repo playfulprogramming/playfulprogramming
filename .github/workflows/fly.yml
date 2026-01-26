@@ -59,7 +59,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
-      - id: deploy
-        name: Deploy app
+      - name: Deploy app
         run: |
           flyctl deploy --image "$DOCKER_TAG"
+      - name: Purge Fastly cache
+        env:
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+        run: |
+          # https://www.fastly.com/documentation/guides/full-site-delivery/purging/working-with-surrogate-keys/
+          curl -i -X POST https://api.fastly.com/service/${{ vars.FASTLY_SERVICE_ID }}/purge/purge-on-deploy \
+            -H "Fastly-Key: $FASTLY_API_KEY" \
+            -H 'fastly-soft-purge: 1'
