@@ -39,11 +39,10 @@ import {
 import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
 import { SearchProvider, useSearch } from "./services";
-import { SearchFooter } from "./components/search-footer";
 import {
 	MAX_COLLECTIONS_PER_PAGE,
 	MAX_POSTS_PER_PAGE,
-	HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+	// HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 } from "./constants";
 import { useFilterState } from "./use-filter-state";
 
@@ -194,7 +193,6 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			totalCollections: 0,
 			tags: {},
 			authors: {},
-			duration: 0,
 		},
 		refetchOnWindowFocus: false,
 		retry: false,
@@ -221,13 +219,14 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			: data.authors,
 	);
 
-	// if searchh term has more than a certain number of words, then use hybrid mode Orama search for smart/AI searching capabilities
-	const isHybridSearch = useMemo(
-		() =>
-			query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
-			HYBRID_SEARCH_ACTIVATION_THRESHOLD,
-		[query.searchQuery],
-	);
+	// if search term has more than a certain number of words, then use hybrid mode search for smart/AI searching capabilities
+	// const isHybridSearch = useMemo(
+	// 	() =>
+	// 		query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
+	// 		HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+	// 	[query.searchQuery],
+	// );
+	const isHybridSearch = useMemo(() => false, []);
 
 	const isError = isErrorPeople || isErrorData;
 
@@ -538,9 +537,6 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 								}}
 							/>
 						)}
-					{enabled && !isContentLoading && !noResults && (
-						<SearchFooter duration={data.duration} />
-					)}
 				</section>
 			</div>
 		</div>

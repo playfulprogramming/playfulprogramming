@@ -80,8 +80,7 @@ export async function searchForTerm(
 	query: SearchQuery,
 	signal: AbortSignal,
 ) {
-	const term =
-		query.searchQuery?.trim() === "*" ? "" : query.searchQuery.trim();
+	const term = query.searchQuery.trim();
 
 	// const mode =
 	// 	term.split(" ").filter((t) => t.trim() !== "").length >=
@@ -130,7 +129,7 @@ export async function searchForTerm(
 	const filter_by:
 		| (CollectionSearchParams["filter_by"] & PostSearchParams["filter_by"])
 		| undefined = filter_by_strings.length
-		? filter_by_strings.join(" AND ")
+		? filter_by_strings.join("&&")
 		: undefined;
 
 	// https://typesense.org/docs/29.0/api/search.html#faceting-parameters
