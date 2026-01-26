@@ -152,7 +152,7 @@ export async function searchForTerm(
 		},
 	);
 
-	const collectionSearchPromise = collectionCollection.documents().search(
+	const collectionSearchPromise = collectionCollectionDocuments.search(
 		{
 			q: term,
 			limit: MAX_COLLECTIONS_PER_PAGE,
