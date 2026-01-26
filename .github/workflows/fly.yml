@@ -67,6 +67,6 @@ jobs:
           FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
         run: |
           # https://www.fastly.com/documentation/guides/full-site-delivery/purging/working-with-surrogate-keys/
-          curl -i -X POST https://api.fastly.com/service/${{ vars.FASTLY_SERVICE_ID }}/purge/purge-on-deploy \
+          curl -i -X POST 'https://api.fastly.com/service/${{ vars.FASTLY_SERVICE_ID }}/purge/purge-on-deploy' \
             -H "Fastly-Key: $FASTLY_API_KEY" \
             -H 'fastly-soft-purge: 1'
