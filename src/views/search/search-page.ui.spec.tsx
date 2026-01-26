@@ -59,9 +59,22 @@ type MockSearchFn = (
 	searchOptions: DocumentSearchOptions,
 ) => DocumentSearchReturn;
 
+function getClientCollectionDocumentMock(
+	client: InstanceType<typeof Typesense.Client>,
+	collectionName: string,
+) {
+	return (
+		client.collections(collectionName).documents() as unknown as {
+			__spy: unknown;
+		}
+	).__spy;
+}
+
 function mockTypeSenseClient(searchFn: MockSearchFn): typeof Typesense.Client {
 	class MockDocuments extends Documents {
 		__collectionName: string;
+		__spy: MockSearchFn;
+
 		constructor(
 			collectionName: string,
 			apiCall: ApiCall,
@@ -69,13 +82,14 @@ function mockTypeSenseClient(searchFn: MockSearchFn): typeof Typesense.Client {
 		) {
 			super(collectionName, apiCall, configuration);
 			this.__collectionName = collectionName;
+			this.__spy = vi.fn().mockImplementation(searchFn);
 		}
 
 		async search(
 			searchParameters: DocumentSearchParams,
 			searchOptions: DocumentSearchOptions,
 		): DocumentSearchReturn {
-			return searchFn(this.__collectionName, searchParameters, searchOptions);
+			return this.__spy(this.__collectionName, searchParameters, searchOptions);
 		}
 	}
 
@@ -94,14 +108,14 @@ function mockTypeSenseClient(searchFn: MockSearchFn): typeof Typesense.Client {
 		documents(): never;
 		documents(documentId?: string) {
 			if (!documentId) {
-				return super.documents();
+				return new MockDocuments(
+					this.__name,
+					this.__apiCall,
+					this.__configuration,
+				);
 			}
 
-			return new MockDocuments(
-				this.__name,
-				this.__apiCall,
-				this.__configuration,
-			);
+			return super.documents(documentId);
 		}
 	}
 
@@ -109,14 +123,14 @@ function mockTypeSenseClient(searchFn: MockSearchFn): typeof Typesense.Client {
 		collections(): never;
 		collections(collectionName?: string) {
 			if (collectionName === undefined) {
-				return new MockCollection(
-					collectionName!,
-					this.apiCall,
-					this.configuration,
-				);
+				return super.collections();
 			}
 
-			return super.collections(collectionName);
+			return new MockCollection(
+				collectionName,
+				this.apiCall,
+				this.configuration,
+			);
 		}
 	}
 
@@ -125,7 +139,7 @@ function mockTypeSenseClient(searchFn: MockSearchFn): typeof Typesense.Client {
 
 function mockClient(fn: (searchStr: string) => FnReply): SearchContext {
 	const clientClass = mockTypeSenseClient(
-		vi.fn().mockImplementation((async (collectionName, searchParameters) => {
+		async (collectionName, searchParameters) => {
 			const isPostSearch = collectionName === postSchema.name;
 			const searchString = searchParameters.q!;
 			const res = fn(searchString);
@@ -187,7 +201,7 @@ function mockClient(fn: (searchStr: string) => FnReply): SearchContext {
 					},
 				],
 			} as const;
-		}) satisfies MockSearchFn),
+		},
 	);
 
 	const client = new clientClass({
@@ -377,7 +391,11 @@ describe("Search page", () => {
 		await user.type(searchInput, MockCollection.title);
 		await user.type(searchInput, "{enter}");
 
-		await waitFor(() => expect(clients.client.search).toHaveBeenCalledTimes(1));
+		await waitFor(() =>
+			expect(
+				getClientCollectionDocumentMock(client.client, "posts"),
+			).toHaveBeenCalledTimes(1),
+		);
 
 		expect(queryByTestId("articles-header")).not.toBeInTheDocument();
 	});
