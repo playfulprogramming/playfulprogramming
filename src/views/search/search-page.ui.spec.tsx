@@ -1,4 +1,12 @@
-import { test, beforeEach, describe, expect, vi, worker } from "ui-test-utils";
+import {
+	test,
+	beforeEach,
+	describe,
+	expect,
+	vi,
+	worker,
+	type Mock,
+} from "ui-test-utils";
 import {
 	findByText as findByTextFrom,
 	render,
@@ -29,7 +37,6 @@ import Typesense from "typesense";
 import Collection from "typesense/lib/Typesense/Collection";
 import Documents from "typesense/lib/Typesense/Documents";
 import { collectionSchema, postSchema } from "utils/search";
-import { Mock } from "vitest";
 
 const user = userEvent.setup();
 
