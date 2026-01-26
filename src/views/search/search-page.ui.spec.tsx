@@ -29,6 +29,7 @@ import Typesense from "typesense";
 import Collection from "typesense/lib/Typesense/Collection";
 import Documents from "typesense/lib/Typesense/Documents";
 import { collectionSchema, postSchema } from "utils/search";
+import { Mock } from "vitest";
 
 const user = userEvent.setup();
 
@@ -66,7 +67,7 @@ function getClientCollectionDocumentMock(
 	const documents = client.collections(collectionName).documents();
 	return (
 		documents as unknown as {
-			__spy: unknown;
+			__spy: Mock;
 		}
 	).__spy;
 }
@@ -578,21 +579,14 @@ describe("Search page", () => {
 		expect(
 			getClientCollectionDocumentMock(client.client, postSchema.name),
 		).toHaveBeenLastCalledWith(
-			{
-				term: "",
+			postSchema.name,
+			expect.objectContaining({
+				q: "*",
 				limit: MAX_POSTS_PER_PAGE,
-				mode: "fulltext",
 				offset: 0,
-				sortBy: {
-					property: "publishedTimestamp",
-					order: "desc",
-				},
-				where: {
-					authors: undefined,
-					tags: undefined,
-				},
-				facets: expect.anything(),
-			},
+				sort_by: "publishedTimestamp:desc",
+				filter_by: undefined,
+			}),
 			expect.anything(),
 		);
 
@@ -606,21 +600,14 @@ describe("Search page", () => {
 		expect(
 			getClientCollectionDocumentMock(client.client, postSchema.name),
 		).toHaveBeenLastCalledWith(
-			{
-				term: "",
+			postSchema.name,
+			expect.objectContaining({
+				q: "*",
 				limit: MAX_POSTS_PER_PAGE,
-				mode: "fulltext",
 				offset: 0,
-				sortBy: {
-					property: "publishedTimestamp",
-					order: "asc",
-				},
-				where: {
-					authors: undefined,
-					tags: undefined,
-				},
-				facets: expect.anything(),
-			},
+				sort_by: "publishedTimestamp:asc",
+				filter_by: undefined,
+			}),
 			expect.anything(),
 		);
 	});
@@ -678,21 +665,14 @@ describe("Search page", () => {
 		expect(
 			getClientCollectionDocumentMock(client.client, postSchema.name),
 		).toHaveBeenLastCalledWith(
-			{
-				term: "",
+			postSchema.name,
+			expect.objectContaining({
+				q: "*",
 				limit: MAX_POSTS_PER_PAGE,
-				mode: "fulltext",
 				offset: 0,
-				sortBy: {
-					property: "publishedTimestamp",
-					order: "desc",
-				},
-				where: {
-					authors: undefined,
-					tags: undefined,
-				},
-				facets: expect.anything(),
-			},
+				sort_by: "publishedTimestamp:desc",
+				filter_by: undefined,
+			}),
 			expect.anything(),
 		);
 
@@ -706,21 +686,14 @@ describe("Search page", () => {
 		expect(
 			getClientCollectionDocumentMock(client.client, postSchema.name),
 		).toHaveBeenLastCalledWith(
-			{
-				term: "",
+			postSchema.name,
+			expect.objectContaining({
+				q: "*",
 				limit: MAX_POSTS_PER_PAGE,
-				mode: "fulltext",
 				offset: 0,
-				sortBy: {
-					property: "publishedTimestamp",
-					order: "asc",
-				},
-				where: {
-					authors: undefined,
-					tags: undefined,
-				},
-				facets: expect.anything(),
-			},
+				sort_by: "publishedTimestamp:asc",
+				filter_by: undefined,
+			}),
 			expect.anything(),
 		);
 	});
@@ -764,21 +737,14 @@ describe("Search page", () => {
 		expect(
 			getClientCollectionDocumentMock(client.client, postSchema.name),
 		).toHaveBeenLastCalledWith(
-			{
-				term: "",
+			postSchema.name,
+			expect.objectContaining({
+				q: "*",
 				limit: MAX_POSTS_PER_PAGE,
-				mode: "fulltext",
 				offset: 0,
-				sortBy: {
-					property: "publishedTimestamp",
-					order: "desc",
-				},
-				where: {
-					authors: undefined,
-					tags: undefined,
-				},
-				facets: expect.anything(),
-			},
+				sort_by: "publishedTimestamp:desc",
+				filter_by: undefined,
+			}),
 			expect.anything(),
 		);
 
@@ -799,21 +765,14 @@ describe("Search page", () => {
 		expect(
 			getClientCollectionDocumentMock(client.client, postSchema.name),
 		).toHaveBeenLastCalledWith(
-			{
-				term: "",
+			postSchema.name,
+			expect.objectContaining({
+				q: "*",
 				limit: MAX_POSTS_PER_PAGE,
-				mode: "fulltext",
 				offset: MAX_POSTS_PER_PAGE * (2 - 1),
-				sortBy: {
-					order: "desc",
-					property: "publishedTimestamp",
-				},
-				where: {
-					authors: undefined,
-					tags: undefined,
-				},
-				facets: expect.anything(),
-			},
+				sort_by: "publishedTimestamp:desc",
+				filter_by: undefined,
+			}),
 			expect.anything(),
 		);
 		await findByText("Eleven blog post");
@@ -928,21 +887,13 @@ describe("Search page", () => {
 			expect(
 				getClientCollectionDocumentMock(client.client, postSchema.name),
 			).toHaveBeenLastCalledWith(
-				{
-					term: "",
+				postSchema.name,
+				expect.objectContaining({
+					q: "*",
 					limit: MAX_POSTS_PER_PAGE,
 					offset: 0,
-					mode: "fulltext",
-					sortBy: {
-						property: "publishedTimestamp",
-						order: "desc",
-					},
-					where: {
-						authors: undefined,
-						tags: undefined,
-					},
-					facets: expect.anything(),
-				},
+					filter_by: undefined,
+				}),
 				expect.anything(),
 			);
 		});
@@ -958,14 +909,12 @@ describe("Search page", () => {
 			expect(
 				getClientCollectionDocumentMock(client.client, postSchema.name),
 			).toHaveBeenLastCalledWith(
+				postSchema.name,
 				expect.objectContaining({
-					term: "",
+					q: "*",
 					limit: MAX_POSTS_PER_PAGE,
 					offset: 0, // Should reset to first page
-					where: {
-						authors: [MockPerson.id],
-						tags: undefined,
-					},
+					filter_by: `authors:[${MockPerson.id}]`,
 				}),
 				expect.anything(),
 			);
@@ -1116,21 +1065,14 @@ describe("Search page", () => {
 		expect(
 			getClientCollectionDocumentMock(client.client, postSchema.name),
 		).toHaveBeenCalledWith(
-			{
-				term: "blog",
+			postSchema.name,
+			expect.objectContaining({
+				q: "blog",
 				limit: MAX_POSTS_PER_PAGE,
-				mode: "fulltext",
 				offset: MAX_POSTS_PER_PAGE,
-				sortBy: {
-					property: "publishedTimestamp",
-					order: "asc",
-				},
-				where: {
-					tags: ["angular"],
-					authors: [MockPerson.id],
-				},
-				facets: expect.anything(),
-			},
+				sort_by: "publishedTimestamp:asc",
+				filter_by: `tags:[angular]&&authors:[${MockPerson.id}]`,
+			}),
 			expect.anything(),
 		);
 
@@ -1141,21 +1083,14 @@ describe("Search page", () => {
 		expect(
 			getClientCollectionDocumentMock(client.client, collectionSchema.name),
 		).toHaveBeenCalledWith(
-			{
-				term: "blog",
+			collectionSchema.name,
+			expect.objectContaining({
+				q: "blog",
 				limit: MAX_COLLECTIONS_PER_PAGE,
-				mode: "fulltext",
 				offset: MAX_COLLECTIONS_PER_PAGE,
-				sortBy: {
-					property: "publishedTimestamp",
-					order: "asc",
-				},
-				where: {
-					tags: ["angular"],
-					authors: [MockPerson.id],
-				},
-				facets: expect.anything(),
-			},
+				sort_by: "publishedTimestamp:asc",
+				filter_by: `tags:[angular]&&authors:[${MockPerson.id}]`,
+			}),
 			expect.anything(),
 		);
 	});
@@ -1403,21 +1338,14 @@ describe("Search page", () => {
 		expect(
 			getClientCollectionDocumentMock(client.client, postSchema.name),
 		).toHaveBeenLastCalledWith(
-			{
-				term: "blogother",
+			postSchema.name,
+			expect.objectContaining({
+				q: "blogother",
 				limit: MAX_POSTS_PER_PAGE,
-				mode: "fulltext",
 				offset: 0,
-				sortBy: {
-					property: "publishedTimestamp",
-					order: "asc",
-				},
-				where: {
-					authors: ["joe"],
-					tags: ["angular"],
-				},
-				facets: expect.anything(),
-			},
+				sort_by: "publishedTimestamp:asc",
+				filter_by: `tags:[angular]&&authors:[joe]`,
+			}),
 			expect.anything(),
 		);
 
@@ -1667,21 +1595,14 @@ describe("Search page", () => {
 			expect(
 				getClientCollectionDocumentMock(client.client, collectionSchema.name),
 			).toHaveBeenCalledWith(
-				{
-					term: "",
+				collectionSchema.name,
+				expect.objectContaining({
+					q: "*",
 					limit: MAX_COLLECTIONS_PER_PAGE,
-					mode: "fulltext",
 					offset: 0,
-					sortBy: {
-						property: "publishedTimestamp",
-						order: "desc",
-					},
-					where: {
-						authors: undefined,
-						tags: undefined,
-					},
-					facets: expect.anything(),
-				},
+					sort_by: "publishedTimestamp:desc",
+					filter_by: undefined,
+				}),
 				expect.anything(),
 			),
 		);
@@ -1704,7 +1625,7 @@ describe("Search page", () => {
 				getClientCollectionDocumentMock(client.client, collectionSchema.name),
 			).toHaveBeenCalledWith(
 				{
-					term: "",
+					q: "*",
 					limit: MAX_COLLECTIONS_PER_PAGE,
 					mode: "fulltext",
 					offset: MAX_COLLECTIONS_PER_PAGE,
