@@ -18,7 +18,7 @@
 		"type": "git",
 		"url": "git+https://github.com/playfulprogramming/playfulprogramming.git"
 	},
-	"packageManager": "pnpm@9.4.0",
+	"packageManager": "pnpm@10.28.1",
 	"engines": {
 		"node": "22.x"
 	},
