@@ -55,6 +55,7 @@ export interface CollectionInfo extends RawCollectionInfo {
 }
 
 export interface SearchCollectionInfo extends CollectionInfo {
+	id: string;
 	excerpt: string;
 	searchMeta: string;
 	publishedTimestamp: number;
