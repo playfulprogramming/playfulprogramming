@@ -1632,21 +1632,14 @@ describe("Search page", () => {
 			expect(
 				getClientCollectionDocumentMock(client.client, collectionSchema.name),
 			).toHaveBeenCalledWith(
-				{
+				collectionSchema.name,
+				expect.objectContaining({
 					q: "*",
 					limit: MAX_COLLECTIONS_PER_PAGE,
-					mode: "fulltext",
 					offset: MAX_COLLECTIONS_PER_PAGE,
-					sortBy: {
-						property: "publishedTimestamp",
-						order: "desc",
-					},
-					where: {
-						authors: undefined,
-						tags: undefined,
-					},
-					facets: expect.anything(),
-				},
+					sort_by: "publishedTimestamp:desc",
+					filter_by: undefined,
+				}),
 				expect.anything(),
 			),
 		);
