@@ -33,6 +33,7 @@ export interface PostInfo extends RawPostInfo {
 }
 
 export interface SearchPostInfo extends PostInfo {
+	id: string;
 	banner?: string;
 	searchMeta: string;
 	publishedTimestamp: number;

@@ -49,7 +49,7 @@ async function upsertCollection(
 	const collection = findCollection(schema.name);
 
 	if (!collection) {
-		console.log(`Creating ${name} collection...`);
+		console.log(`Creating ${schema.name} collection...`);
 		await client.collections().create(schema);
 		return;
 	}
@@ -122,6 +122,8 @@ async function processPost(post: PostInfo): Promise<SearchPostInfo> {
 
 	return {
 		...post,
+		// https://typesense.org/docs/29.0/api/documents.html#index-documents
+		id: post.slug,
 		banner: postImages?.banner || undefined,
 		excerpt,
 		searchMeta,
@@ -153,6 +155,7 @@ const collections = api.getCollectionsByLang("en").map((collection) => {
 
 	return {
 		...collection,
+		id: collection.slug,
 		excerpt,
 		searchMeta,
 		publishedTimestamp: new Date(collection.published).getTime(),
