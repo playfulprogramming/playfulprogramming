@@ -2,36 +2,14 @@ import {
 	AddressBar,
 	CodeContainer,
 	Container,
-	LoadingPlaceholder,
 	PreviewContainer,
-	PreviewError,
 	PreviewFrame,
 	PreviewPlaceholder,
 } from "components/code-embed/code-embed";
-import { useCallback, useEffect, useState } from "preact/hooks";
-import { useStore } from "@nanostores/preact";
-import { $container, runEmbed } from "./webcontainer-script";
+import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import { FileEntry } from "components/code-embed/types";
 import { CodeEmbedContent } from "./code-embed-content";
-
-// Given the base webcontainer URL, modify it with any changes made in the address bar
-function modifyProcessUrl(processUrl: string, addressUrl: string) {
-	const newUrl = new URL(addressUrl, "http://localhost");
-	const srcUrl = new URL(processUrl);
-	srcUrl.pathname = newUrl.pathname;
-	srcUrl.search = newUrl.search;
-	srcUrl.hash = newUrl.hash;
-
-	return srcUrl.toString();
-}
-
-// Given the webcontainer URL, shorten the hostname for display purposes
-function shortenProcessUrl(url: string): string {
-	const serverUrl = new URL(url);
-	serverUrl.hostname = "localhost";
-	serverUrl.port = "";
-	return serverUrl.toString();
-}
+import { modifyProcessUrl, shortenProcessUrl } from "./common";
 
 export interface CodeEmbedProps {
 	projectId: string;
@@ -44,22 +22,23 @@ export interface CodeEmbedProps {
 }
 
 export function CodeEmbed(props: CodeEmbedProps) {
+	const [processUrl, setProcessUrl] = useState(null);
 	const [addressUrl, setAddressUrl] = useState("http://localhost/");
 	const [frameUrl, setFrameUrl] = useState(addressUrl);
-	const container = useStore($container);
-	const isCurrent = container.projectId == props.projectId;
+	const [isCurrent, setCurrent] = useState(false);
 
 	const handleRunEmbed = useCallback(() => {
-		runEmbed(props.projectId, props.projectZipUrl);
+		setCurrent(true);
+		// runEmbed(props.projectId, props.projectZipUrl);
 	}, [props.projectId, props.projectZipUrl]);
 
 	useEffect(() => {
-		if (container.processUrl != null) {
-			const newFrameUrl = modifyProcessUrl(container.processUrl, addressUrl);
+		if (processUrl != null) {
+			const newFrameUrl = modifyProcessUrl(processUrl, addressUrl);
 			setAddressUrl(shortenProcessUrl(newFrameUrl));
 			setFrameUrl(newFrameUrl);
 		}
-	}, [container.processUrl, addressUrl]);
+	}, [processUrl, addressUrl]);
 
 	const handleAddressChange = useCallback(
 		(value: string) => setAddressUrl(value),
@@ -67,17 +46,17 @@ export function CodeEmbed(props: CodeEmbedProps) {
 	);
 
 	const handleAddressSubmit = useCallback(() => {
-		if (container.processUrl) {
-			setFrameUrl(modifyProcessUrl(container.processUrl, addressUrl));
+		if (processUrl) {
+			setFrameUrl(modifyProcessUrl(processUrl, addressUrl));
 		}
-	}, [container.processUrl, addressUrl]);
+	}, [processUrl, addressUrl]);
 
 	const handleAddressReset = useCallback(() => {
-		if (container.processUrl) {
-			setAddressUrl(shortenProcessUrl(container.processUrl));
-			setFrameUrl(container.processUrl);
+		if (processUrl) {
+			setAddressUrl(shortenProcessUrl(processUrl));
+			setFrameUrl(processUrl);
 		}
-	}, [container.processUrl]);
+	}, [processUrl]);
 
 	const handleFrameLoad = useCallback((src: string) => {
 		setAddressUrl(shortenProcessUrl(src));
@@ -86,6 +65,14 @@ export function CodeEmbed(props: CodeEmbedProps) {
 	const [selectedFile, setSelectedFile] = useState(props.file);
 	const selectedFileContent = props.files.find(
 		(file) => file.name == selectedFile,
+	);
+
+	const previewFrameSrc = useMemo(
+		() =>
+			"/embeds/webcontainer" +
+			`?projectId=${encodeURIComponent(props.projectId)}` +
+			`&projectZipUrl=${encodeURIComponent(props.projectZipUrl)}`,
+		[props.projectId, props.projectZipUrl],
 	);
 
 	return (
@@ -118,17 +105,7 @@ export function CodeEmbed(props: CodeEmbedProps) {
 						onReload={handleAddressReset}
 					/>
 					{isCurrent ? (
-						container.error ? (
-							<PreviewError />
-						) : container.processUrl && frameUrl != addressUrl ? (
-							<PreviewFrame src={frameUrl} onLoad={handleFrameLoad} />
-						) : (
-							<LoadingPlaceholder
-								loading={container.loading}
-								consoleProcess={container.consoleProcess}
-								consoleOutput={container.consoleOutput}
-							/>
-						)
+						<PreviewFrame src={previewFrameSrc} onLoad={handleFrameLoad} />
 					) : (
 						<PreviewPlaceholder onClick={handleRunEmbed} />
 					)}

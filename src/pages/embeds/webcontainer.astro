@@ -1,0 +1,13 @@
+---
+import Barebones from "src/layouts/barebones.astro";
+import { CodeEmbedWebcontainer } from "utils/markdown/components/code-embed/code-embed-webcontainer";
+
+Astro.response.headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+Astro.response.headers.set("Cross-Origin-Opener-Policy", "same-origin");
+---
+
+<Barebones lang="en">
+	<meta name="robots" content="noindex" slot="head" />
+	<p>Hello from embed!</p>
+	<CodeEmbedWebcontainer client:load />
+</Barebones>
