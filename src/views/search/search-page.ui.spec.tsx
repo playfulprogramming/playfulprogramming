@@ -28,7 +28,7 @@ import {
 import Typesense from "typesense";
 import Collection from "typesense/lib/Typesense/Collection";
 import Documents from "typesense/lib/Typesense/Documents";
-import { postSchema } from "utils/search";
+import { collectionSchema, postSchema } from "utils/search";
 
 const user = userEvent.setup();
 
@@ -393,7 +393,7 @@ describe("Search page", () => {
 
 		await waitFor(() =>
 			expect(
-				getClientCollectionDocumentMock(client.client, "posts"),
+				getClientCollectionDocumentMock(client.client, postSchema.name),
 			).toHaveBeenCalledTimes(1),
 		);
 
@@ -547,7 +547,9 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(1),
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledTimes(1),
 		);
 
 		const container = getByTestId("sort-order-group-sidebar");
@@ -560,9 +562,13 @@ describe("Search page", () => {
 		await user.selectOptions(select, "newest");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(2),
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledTimes(2),
 		);
-		expect(clients.postClient.search).toHaveBeenLastCalledWith(
+		expect(
+			getClientCollectionDocumentMock(client.client, postSchema.name),
+		).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: MAX_POSTS_PER_PAGE,
@@ -584,9 +590,13 @@ describe("Search page", () => {
 		await user.selectOptions(select, "oldest");
 
 		await waitFor(() =>
-			expect(clients.postClient.search).toHaveBeenCalledTimes(3),
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledTimes(3),
 		);
-		expect(clients.postClient.search).toHaveBeenLastCalledWith(
+		expect(
+			getClientCollectionDocumentMock(client.client, postSchema.name),
+		).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: MAX_POSTS_PER_PAGE,
@@ -636,7 +646,11 @@ describe("Search page", () => {
 		await user.type(searchInput, "*");
 		await user.type(searchInput, "{enter}");
 
-		await waitFor(() => expect(client.client.search).toHaveBeenCalledTimes(1));
+		await waitFor(() =>
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledTimes(1),
+		);
 
 		const container = getByTestId("sort-order-group-topbar");
 
@@ -647,8 +661,14 @@ describe("Search page", () => {
 
 		user.selectOptions(select, "newest");
 
-		await waitFor(() => expect(client.client.search).toHaveBeenCalledTimes(2));
-		expect(client.client.search).toHaveBeenLastCalledWith(
+		await waitFor(() =>
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledTimes(2),
+		);
+		expect(
+			getClientCollectionDocumentMock(client.client, postSchema.name),
+		).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: MAX_POSTS_PER_PAGE,
@@ -669,8 +689,14 @@ describe("Search page", () => {
 
 		user.selectOptions(select, "oldest");
 
-		await waitFor(() => expect(client.client.search).toHaveBeenCalledTimes(3));
-		expect(client.client.search).toHaveBeenLastCalledWith(
+		await waitFor(() =>
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledTimes(3),
+		);
+		expect(
+			getClientCollectionDocumentMock(client.client, postSchema.name),
+		).toHaveBeenLastCalledWith(
 			{
 				term: "",
 				limit: MAX_POSTS_PER_PAGE,
@@ -722,24 +748,29 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(client.client.search).toHaveBeenLastCalledWith(
-				{
-					term: "",
-					limit: MAX_POSTS_PER_PAGE,
-					mode: "fulltext",
-					offset: 0,
-					sortBy: {
-						property: "publishedTimestamp",
-						order: "desc",
-					},
-					where: {
-						authors: undefined,
-						tags: undefined,
-					},
-					facets: expect.anything(),
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledOnce(),
+		);
+		expect(
+			getClientCollectionDocumentMock(client.client, postSchema.name),
+		).toHaveBeenLastCalledWith(
+			{
+				term: "",
+				limit: MAX_POSTS_PER_PAGE,
+				mode: "fulltext",
+				offset: 0,
+				sortBy: {
+					property: "publishedTimestamp",
+					order: "desc",
 				},
-				expect.anything(),
-			),
+				where: {
+					authors: undefined,
+					tags: undefined,
+				},
+				facets: expect.anything(),
+			},
+			expect.anything(),
 		);
 
 		await findByText("One blog post");
@@ -752,24 +783,29 @@ describe("Search page", () => {
 		await user.click(page2);
 
 		await waitFor(() =>
-			expect(client.client.search).toHaveBeenLastCalledWith(
-				{
-					term: "",
-					limit: MAX_POSTS_PER_PAGE,
-					mode: "fulltext",
-					offset: MAX_POSTS_PER_PAGE * (2 - 1),
-					sortBy: {
-						order: "desc",
-						property: "publishedTimestamp",
-					},
-					where: {
-						authors: undefined,
-						tags: undefined,
-					},
-					facets: expect.anything(),
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledTimes(2),
+		);
+		expect(
+			getClientCollectionDocumentMock(client.client, postSchema.name),
+		).toHaveBeenLastCalledWith(
+			{
+				term: "",
+				limit: MAX_POSTS_PER_PAGE,
+				mode: "fulltext",
+				offset: MAX_POSTS_PER_PAGE * (2 - 1),
+				sortBy: {
+					order: "desc",
+					property: "publishedTimestamp",
 				},
-				expect.anything(),
-			),
+				where: {
+					authors: undefined,
+					tags: undefined,
+				},
+				facets: expect.anything(),
+			},
+			expect.anything(),
 		);
 		await findByText("Eleven blog post");
 		await findByText("Twelve blog post");
@@ -880,7 +916,9 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() => {
-			expect(client.client.search).toHaveBeenLastCalledWith(
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenLastCalledWith(
 				{
 					term: "",
 					limit: MAX_POSTS_PER_PAGE,
@@ -908,7 +946,9 @@ describe("Search page", () => {
 
 		await waitFor(() => {
 			// Verify search call with filter and reset offset
-			expect(client.client.search).toHaveBeenLastCalledWith(
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					term: "",
 					limit: MAX_POSTS_PER_PAGE,
@@ -1061,7 +1101,12 @@ describe("Search page", () => {
 		expect(searchInput).toHaveValue("blog");
 
 		// Invokes the expected post query
-		expect(client.client.search).toHaveBeenCalledWith(
+		expect(
+			getClientCollectionDocumentMock(client.client, postSchema.name),
+		).toHaveBeenCalledOnce();
+		expect(
+			getClientCollectionDocumentMock(client.client, postSchema.name),
+		).toHaveBeenCalledWith(
 			{
 				term: "blog",
 				limit: MAX_POSTS_PER_PAGE,
@@ -1081,7 +1126,12 @@ describe("Search page", () => {
 		);
 
 		// Invokes the expected collections query
-		expect(client.client.search).toHaveBeenCalledWith(
+		expect(
+			getClientCollectionDocumentMock(client.client, collectionSchema.name),
+		).toHaveBeenCalledOnce();
+		expect(
+			getClientCollectionDocumentMock(client.client, collectionSchema.name),
+		).toHaveBeenCalledWith(
 			{
 				term: "blog",
 				limit: MAX_COLLECTIONS_PER_PAGE,
@@ -1321,7 +1371,11 @@ describe("Search page", () => {
 			<SearchPage mockClient={client} />,
 		);
 
-		await waitFor(() => expect(client.client.search).toHaveBeenCalledOnce());
+		await waitFor(() =>
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledOnce(),
+		);
 
 		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
 
@@ -1331,9 +1385,15 @@ describe("Search page", () => {
 		await user.type(searchInput, "other");
 		await user.type(searchInput, "{enter}");
 
-		await waitFor(() => expect(client.client.search).toHaveBeenCalledTimes(2));
+		await waitFor(() =>
+			expect(
+				getClientCollectionDocumentMock(client.client, postSchema.name),
+			).toHaveBeenCalledTimes(2),
+		);
 
-		expect(client.client.search).toHaveBeenLastCalledWith(
+		expect(
+			getClientCollectionDocumentMock(client.client, postSchema.name),
+		).toHaveBeenLastCalledWith(
 			{
 				term: "blogother",
 				limit: MAX_POSTS_PER_PAGE,
@@ -1595,7 +1655,9 @@ describe("Search page", () => {
 
 		// Verify initial collection client call
 		await waitFor(() =>
-			expect(client.client.search).toHaveBeenCalledWith(
+			expect(
+				getClientCollectionDocumentMock(client.client, collectionSchema.name),
+			).toHaveBeenCalledWith(
 				{
 					term: "",
 					limit: MAX_COLLECTIONS_PER_PAGE,
@@ -1629,7 +1691,9 @@ describe("Search page", () => {
 
 		// Verify collection client called with correct offset for page 2
 		await waitFor(() =>
-			expect(client.client.search).toHaveBeenCalledWith(
+			expect(
+				getClientCollectionDocumentMock(client.client, collectionSchema.name),
+			).toHaveBeenCalledWith(
 				{
 					term: "",
 					limit: MAX_COLLECTIONS_PER_PAGE,
