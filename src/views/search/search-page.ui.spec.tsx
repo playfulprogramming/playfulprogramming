@@ -7,6 +7,7 @@ import {
 	worker,
 	type Mock,
 } from "ui-test-utils";
+import { page } from "vitest/browser";
 import {
 	findByText as findByTextFrom,
 	render,
@@ -304,7 +305,7 @@ describe("Search page", () => {
 	});
 
 	test("Should show search results for collections", async () => {
-		(window as { innerWidth: number }).innerWidth = 2000;
+		page.viewport(2000, 1000);
 		mockPeopleIndex([]);
 		const client = mockClient(() => ({
 			posts: [],
@@ -418,7 +419,7 @@ describe("Search page", () => {
 	});
 
 	test("Filter by tag works on desktop sidebar", async () => {
-		(window as { innerWidth: number }).innerWidth = 2000;
+		page.viewport(2000, 1000);
 		mockPeopleIndex([]);
 		const client = mockClient(() => ({
 			posts: [
@@ -452,7 +453,7 @@ describe("Search page", () => {
 	});
 
 	test("Filter by author works on desktop sidebar", async () => {
-		(window as { innerWidth: number }).innerWidth = 2000;
+		page.viewport(2000, 1000);
 		mockPeopleIndex([MockPerson, MockPersonTwo]);
 		const client = mockClient(() => ({
 			posts: [
@@ -534,7 +535,7 @@ describe("Search page", () => {
 	});
 
 	test("Sort by date works on desktop radio group buttons", async () => {
-		(window as { innerWidth: number }).innerWidth = 2000;
+		page.viewport(2000, 1000);
 
 		mockPeopleIndex([]);
 		const client = mockClient(() => ({
@@ -620,7 +621,7 @@ describe("Search page", () => {
 	});
 
 	test("Sort by date works on mobile radio group buttons", async () => {
-		(window as { innerWidth: number }).innerWidth = 500;
+		page.viewport(500, 1000);
 
 		mockPeopleIndex([]);
 		const client = mockClient(() => ({
@@ -787,7 +788,7 @@ describe("Search page", () => {
 	});
 
 	test("Pagination - Filters impact pagination", async () => {
-		(window as { innerWidth: number }).innerWidth = 2000;
+		page.viewport(2000, 1000);
 		// 6 posts per page
 		mockPeopleIndex([MockPerson, MockPersonTwo]);
 		const client = mockClient(() => ({
@@ -1103,7 +1104,7 @@ describe("Search page", () => {
 	});
 
 	test("Make sure that complete re-renders preserve tags, authors, etc", async () => {
-		(window as { innerWidth: number }).innerWidth = 2000;
+		page.viewport(2000, 1000);
 
 		mockPeopleIndex([MockPerson, MockPersonTwo]);
 		const client = mockClient(() => ({
