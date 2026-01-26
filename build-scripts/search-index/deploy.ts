@@ -39,44 +39,63 @@ function findCollection(name: string) {
 	return existingCollections.find((c) => c.name === name);
 }
 
-async function deployPosts(posts: SearchPostInfo[]) {
-	if (!findCollection(postSchema.name)) {
-		console.log(`Creating posts collection...`);
-		await client.collections().create(postSchema);
-	} else {
-		console.log(`Updating posts collection...`);
-		const { fields } = postSchema;
-		await client.collections(postSchema.name).update({ fields });
+function shallowCompare<T extends object>(a: T, b: T) {
+	return Object.entries(a).every(([key, value]) => value === b[key as never]);
+}
+
+async function upsertCollection(
+	schema: typeof collectionSchema | typeof postSchema,
+) {
+	const collection = findCollection(schema.name);
+
+	if (!collection) {
+		console.log(`Creating ${name} collection...`);
+		await client.collections().create(schema);
+		return;
 	}
 
-	console.log(`Importing posts...`);
-	for (const post of posts) {
-		await client
-			.collections<PostDocument>(postSchema.name)
-			.documents()
-			.upsert(post);
+	const updateSchema: Partial<typeof schema> = {
+		fields: [],
+	};
+
+	for (const field of schema.fields) {
+		const matchingField = collection.fields.find((f) => f.name === field.name);
+		if (!matchingField) {
+			updateSchema.fields!.push(field);
+			continue;
+		}
+		if (!shallowCompare(matchingField, field)) {
+			// https://typesense.org/docs/29.0/api/collections.html#modifying-an-existing-field
+			updateSchema.fields!.push({ name: field.name, drop: true } as never);
+			updateSchema.fields!.push(field);
+		}
 	}
+
+	if (!updateSchema.fields?.length) return;
+
+	await client.collections(collection.name).update(updateSchema);
+}
+
+async function deployPosts(posts: SearchPostInfo[]) {
+	await upsertCollection(postSchema);
+
+	console.log(`Importing posts...`);
+	await client
+		.collections<PostDocument>(postSchema.name)
+		.documents()
+		.import(posts);
 
 	console.log(`Index posts is deployed!`);
 }
 
 async function deployCollections(collections: SearchCollectionInfo[]) {
-	if (!findCollection(collectionSchema.name)) {
-		console.log(`Creating collections collection...`);
-		await client.collections().create(collectionSchema);
-	} else {
-		console.log(`Updating collections collection...`);
-		const { fields } = collectionSchema;
-		await client.collections(collectionSchema.name).update({ fields });
-	}
+	await upsertCollection(collectionSchema);
 
 	console.log(`Importing collections...`);
-	for (const collection of collections) {
-		await client
-			.collections<CollectionDocument>(collectionSchema.name)
-			.documents()
-			.upsert(collection);
-	}
+	await client
+		.collections<PostDocument>(collectionSchema.name)
+		.documents()
+		.import(collections);
 
 	console.log(`Index collections is deployed!`);
 }
