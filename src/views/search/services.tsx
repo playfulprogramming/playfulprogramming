@@ -137,9 +137,6 @@ export async function searchForTerm(
 		| (CollectionSearchParams["facet_by"] & PostSearchParams["facet_by"])
 		| undefined = "tags,authors";
 
-	// Schema should be passed to `search` method when:
-	// https://github.com/askorama/oramacloud-client-javascript/pull/35
-	// is working. Does not seem tp be reflected in the type definitions at present,
 	const postSearchPromise = postCollectionDocuments.search(
 		{
 			q: term,
