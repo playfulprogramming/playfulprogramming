@@ -16,7 +16,7 @@ import { PersonInfo } from "types/PersonInfo";
 import { PostInfo } from "types/PostInfo";
 import { CollectionInfo } from "types/CollectionInfo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SearchClient, SearchContext } from "./orama";
+import { SearchClient, SearchContext } from "./services";
 import { ClientSearchParams, OramaClient } from "@oramacloud/client";
 import { MAX_COLLECTIONS_PER_PAGE, MAX_POSTS_PER_PAGE } from "./constants";
 

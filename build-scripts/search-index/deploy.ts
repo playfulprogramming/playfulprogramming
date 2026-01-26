@@ -1,63 +1,62 @@
-import { CloudManager } from "@oramacloud/client";
 import * as api from "utils/api";
 import type { PostInfo, SearchPostInfo } from "types/PostInfo";
 import type { SearchCollectionInfo } from "types/CollectionInfo";
 import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
 import { getExcerpt } from "utils/markdown/get-excerpt";
 import matter from "gray-matter";
-import {
-	ORAMA_COLLECTIONS_INDEX_ID,
-	ORAMA_POSTS_INDEX_ID,
-} from "src/views/search/constants";
 import { getPostImages } from "utils/hoof";
 import asyncPool from "tiny-async-pool";
 import env from "constants/env";
+import Typesense from "typesense";
+import {
+	PUBLIC_SEARCH_ENDPOINT_HOST,
+	PUBLIC_SEARCH_ENDPOINT_PORT,
+	PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
+} from "../../src/views/search/constants";
+import { collectionSchema, PostDocument, postSchema } from "utils/search";
 
 // The deploy script cannot use import.meta.env, as it runs through tsx
-if (!env.ORAMA_PRIVATE_API_KEY) {
-	console.error("ORAMA_PRIVATE_API_KEY is not defined in the environment!");
+if (!env.TYPESENSE_PRIVATE_API_KEY) {
+	console.error("TYPESENSE_PRIVATE_API_KEY is not defined in the environment!");
 	process.exit(1);
 }
 
-const oramaCloudManager = new CloudManager({
-	api_key: env.ORAMA_PRIVATE_API_KEY,
+const client = new Typesense.Client({
+	nodes: [
+		{
+			host: PUBLIC_SEARCH_ENDPOINT_HOST,
+			port: PUBLIC_SEARCH_ENDPOINT_PORT,
+			protocol: PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
+		},
+	],
+	apiKey: env.TYPESENSE_PRIVATE_API_KEY,
+	connectionTimeoutSeconds: 10,
 });
 
 async function deployPosts(posts: SearchPostInfo[]) {
-	const index = oramaCloudManager.index(ORAMA_POSTS_INDEX_ID);
-	console.log(`Uploading ${posts.length} posts to ${ORAMA_POSTS_INDEX_ID}...`);
-	const isSnapshot = await index.snapshot(posts);
-	if (!isSnapshot) {
-		throw new Error("Unable to upload posts.");
-	}
+	console.log(`Creating posts collection...`);
+	await client.collections().create(postSchema);
 
-	console.log(`Deploying ${ORAMA_POSTS_INDEX_ID}...`);
-	const isDeployed = await index.deploy();
-	if (!isDeployed) {
-		throw new Error("Unable to deploy posts.");
-	}
+	console.log(`Importing posts...`);
+	await client
+		.collections<PostDocument>(postSchema.name)
+		.documents()
+		.import(posts);
 
-	console.log(`Index ${ORAMA_POSTS_INDEX_ID} is deployed!`);
+	console.log(`Index posts is deployed!`);
 }
 
 async function deployCollections(collections: SearchCollectionInfo[]) {
-	const index = oramaCloudManager.index(ORAMA_COLLECTIONS_INDEX_ID);
+	console.log(`Creating collections collection...`);
+	await client.collections().create(collectionSchema);
 
-	console.log(
-		`Uploading ${collections.length} collections to ${ORAMA_COLLECTIONS_INDEX_ID}...`,
-	);
-	const isSnapshot = await index.snapshot(collections);
-	if (!isSnapshot) {
-		throw new Error("Unable to upload collections.");
-	}
+	console.log(`Importing collections...`);
+	await client
+		.collections<PostDocument>(collectionSchema.name)
+		.documents()
+		.import(collections);
 
-	console.log(`Deploying ${ORAMA_COLLECTIONS_INDEX_ID}...`);
-	const isDeployed = await index.deploy();
-	if (!isDeployed) {
-		throw new Error("Unable to deploy collections.");
-	}
-
-	console.log(`Index ${ORAMA_COLLECTIONS_INDEX_ID} is deployed!`);
+	console.log(`Index collections is deployed!`);
 }
 
 async function processPost(post: PostInfo): Promise<SearchPostInfo> {

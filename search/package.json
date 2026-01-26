@@ -1,0 +1,10 @@
+{
+	"name": "search",
+	"version": "0.0.1",
+	"private": true,
+	"description": "Search for playfulprogramming",
+	"type": "module",
+	"scripts": {
+		"docker:up": "docker-compose up"
+	}
+}

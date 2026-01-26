@@ -38,12 +38,12 @@ import {
 } from "./search";
 import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
-import { OramaClientProvider, useOramaSearch } from "./orama";
+import { SearchProvider, useSearch } from "./services";
 import { SearchFooter } from "./components/search-footer";
 import {
 	MAX_COLLECTIONS_PER_PAGE,
 	MAX_POSTS_PER_PAGE,
-	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+	HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 } from "./constants";
 import { useFilterState } from "./use-filter-state";
 
@@ -158,7 +158,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 		enabled,
 	});
 
-	const { searchForTerm } = useOramaSearch();
+	const { searchForTerm } = useSearch();
 	const fetchSearchQuery = useCallback(
 		({
 			signal,
@@ -225,7 +225,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const isHybridSearch = useMemo(
 		() =>
 			query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
-			ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+			HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 		[query.searchQuery],
 	);
 
@@ -554,10 +554,10 @@ interface RootSearchPageProps {
 }
 export default function SearchPage({ siteTitle }: RootSearchPageProps) {
 	return (
-		<OramaClientProvider>
+		<SearchProvider>
 			<QueryClientProvider client={queryClient}>
 				<SearchPageBase siteTitle={siteTitle} />
 			</QueryClientProvider>
-		</OramaClientProvider>
+		</SearchProvider>
 	);
 }

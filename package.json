@@ -55,7 +55,6 @@
 		"@eslint/js": "^9.39.2",
 		"@lesjoursfr/html-to-epub": "^6.0.1",
 		"@octokit/graphql": "^9.0.3",
-		"@orama/orama": "^3.1.18",
 		"@preact/preset-vite": "^2.10.2",
 		"@react-types/shared": "^3.32.1",
 		"@shikijs/rehype": "^3.21.0",
@@ -149,9 +148,9 @@
 		"*.{js,ts,tsx,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
+		"@babel/runtime": "^7.28.6",
 		"@internationalized/date": "^3.10.1",
 		"@nanostores/preact": "^1.0.0",
-		"@oramacloud/client": "^2.1.4",
 		"@plausible-analytics/tracker": "^0.4.4",
 		"@preact/signals": "^2.5.1",
 		"@react-aria/calendar": "^3.9.3",
@@ -166,6 +165,7 @@
 		"react-aria": "^3.45.0",
 		"react-aria-components": "^1.14.0",
 		"react-stately": "^3.43.0",
+		"typesense": "^2.1.0",
 		"uuid": "^13.0.0"
 	},
 	"pnpm": {
