@@ -111,7 +111,7 @@ export async function searchForTerm(
 
 	if (query.sort === "relevance") {
 		// When term is empty (returning all results), there is no "relevance" to sort by - so this defaults to a sort by newest
-		if (term.length === 0) {
+		if (!term || term === "*") {
 			sort_by = "publishedTimestamp:desc";
 		}
 	} else {
