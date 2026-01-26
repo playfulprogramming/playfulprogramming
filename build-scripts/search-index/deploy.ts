@@ -83,7 +83,7 @@ async function deployPosts(posts: SearchPostInfo[]) {
 	await client
 		.collections<PostDocument>(postSchema.name)
 		.documents()
-		.import(posts);
+		.import(posts, { action: "upsert" });
 
 	console.log(`Index posts is deployed!`);
 }
@@ -95,7 +95,7 @@ async function deployCollections(collections: SearchCollectionInfo[]) {
 	await client
 		.collections<PostDocument>(collectionSchema.name)
 		.documents()
-		.import(collections);
+		.import(collections, { action: "upsert" });
 
 	console.log(`Index collections is deployed!`);
 }
