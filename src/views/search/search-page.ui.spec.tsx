@@ -63,14 +63,17 @@ function getClientCollectionDocumentMock(
 	client: InstanceType<typeof Typesense.Client>,
 	collectionName: string,
 ) {
+	const documents = client.collections(collectionName).documents();
 	return (
-		client.collections(collectionName).documents() as unknown as {
+		documents as unknown as {
 			__spy: unknown;
 		}
 	).__spy;
 }
 
 function mockTypeSenseClient(searchFn: MockSearchFn): typeof Typesense.Client {
+	const spyRecord = new Map<string, MockSearchFn>();
+
 	class MockDocuments extends Documents {
 		__collectionName: string;
 		__spy: MockSearchFn;
@@ -82,7 +85,13 @@ function mockTypeSenseClient(searchFn: MockSearchFn): typeof Typesense.Client {
 		) {
 			super(collectionName, apiCall, configuration);
 			this.__collectionName = collectionName;
-			this.__spy = vi.fn().mockImplementation(searchFn);
+			if (spyRecord.has(collectionName)) {
+				this.__spy = spyRecord.get(collectionName)!;
+			} else {
+				const mockSearchFn = vi.fn().mockImplementation(searchFn);
+				spyRecord.set(collectionName, mockSearchFn);
+				this.__spy = mockSearchFn;
+			}
 		}
 
 		async search(
