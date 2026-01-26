@@ -33,28 +33,50 @@ const client = new Typesense.Client({
 	connectionTimeoutSeconds: 10,
 });
 
+const existingCollections = await client.collections().retrieve();
+
+function findCollection(name: string) {
+	return existingCollections.find((c) => c.name === name);
+}
+
 async function deployPosts(posts: SearchPostInfo[]) {
-	console.log(`Creating posts collection...`);
-	await client.collections().create(postSchema);
+	if (!findCollection(postSchema.name)) {
+		console.log(`Creating posts collection...`);
+		await client.collections().create(postSchema);
+	} else {
+		console.log(`Updating posts collection...`);
+		const { fields } = postSchema;
+		await client.collections(postSchema.name).update({ fields });
+	}
 
 	console.log(`Importing posts...`);
-	await client
-		.collections<PostDocument>(postSchema.name)
-		.documents()
-		.import(posts);
+	for (const post of posts) {
+		await client
+			.collections<PostDocument>(postSchema.name)
+			.documents()
+			.upsert(post);
+	}
 
 	console.log(`Index posts is deployed!`);
 }
 
 async function deployCollections(collections: SearchCollectionInfo[]) {
-	console.log(`Creating collections collection...`);
-	await client.collections().create(collectionSchema);
+	if (!findCollection(collectionSchema.name)) {
+		console.log(`Creating collections collection...`);
+		await client.collections().create(collectionSchema);
+	} else {
+		console.log(`Updating collections collection...`);
+		const { fields } = collectionSchema;
+		await client.collections(collectionSchema.name).update({ fields });
+	}
 
 	console.log(`Importing collections...`);
-	await client
-		.collections<PostDocument>(collectionSchema.name)
-		.documents()
-		.import(collections);
+	for (const collection of collections) {
+		await client
+			.collections<CollectionDocument>(collectionSchema.name)
+			.documents()
+			.upsert(collection);
+	}
 
 	console.log(`Index collections is deployed!`);
 }
