@@ -264,6 +264,10 @@ With picture:
 
 <iframe src="https://x.com/playful_program/status/123"></iframe>
 
+# GitHub Gist Embeds
+
+<iframe src="https://gist.github.com/crutchcorn/36fe5553219c05ea38bacf1c7396085b"></iframe>
+
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>

@@ -1,0 +1,14 @@
+---
+import Content from "../components/content.astro";
+import { ComponentNode } from "utils/markdown/components";
+
+export interface Props {
+	username: string;
+	children: ComponentNode["children"];
+}
+
+const { username, children } = Astro.props;
+---
+
+<Content content={children} />
+<p>{username}</p>
