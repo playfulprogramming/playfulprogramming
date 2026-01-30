@@ -422,11 +422,11 @@ It will provide you a ready-to-use environment with all dependencies installed a
 
 First, create a store:
 
-{% asciinema ByKCMvsficSP0sAVb8WJOjssx %}
+[![asciicast](https://asciinema.org/a/ByKCMvsficSP0sAVb8WJOjssx.svg)](https://asciinema.org/a/ByKCMvsficSP0sAVb8WJOjssx)
 
 Then create the authorization model in the new store:
 
-{% asciinema CspKCVlTdNnFd0riBFvrSIwaZ %}
+[![asciicast](https://asciinema.org/a/CspKCVlTdNnFd0riBFvrSIwaZ.svg)](https://asciinema.org/a/CspKCVlTdNnFd0riBFvrSIwaZ)
 
 > ⚠️ *If you are using Codespaces, specify the API path with*
 >
@@ -448,7 +448,7 @@ export FGA_MODEL_ID=purrfect-sitter-model.fga
 
 Bob owns Romeo, Anne sits for him. Simple.
 
-{% asciinema F7trou8DSvBNC45vwVVigUrB7 %}
+[![asciicast](https://asciinema.org/a/F7trou8DSvBNC45vwVVigUrB7.svg)](https://asciinema.org/a/F7trou8DSvBNC45vwVVigUrB7)
 
 <!-- ```bash
 # Bob owns Romeo (the cat)
@@ -471,7 +471,7 @@ fga query check user:anne can_manage cat:romeo
 
 Jenny becomes a system admin who can manage any cat — traditional RBAC within ReBAC.
 
-{% asciinema xVwZc6WBr3jXmpaiBQrIRCiH9 %}
+[![asciicast](https://asciinema.org/a/xVwZc6WBr3jXmpaiBQrIRCiH9.svg)](https://asciinema.org/a/xVwZc6WBr3jXmpaiBQrIRCiH9)
 
 <!-- ```bash
 # Make Jenny a system admin
@@ -489,7 +489,7 @@ fga query check user:jenny can_manage cat:romeo
 
 Anne's permissions activate and deactivate automatically based on time. No cron jobs, no cleanup code — the authorization system handles it.
 
-{% asciinema zxSG2ngKoQxSDvttpvixNvruf %}
+[![asciicast](https://asciinema.org/a/zxSG2ngKoQxSDvttpvixNvruf.svg)](https://asciinema.org/a/zxSG2ngKoQxSDvttpvixNvruf)
 
 <!-- ```bash
 # Make Anne active only during a specific time window
@@ -525,7 +525,7 @@ fga query list-objects user:bob owner cat_sitting
 
 Reviews only make sense after sitting ends. OpenFGA enforces this business rule automatically, ABAC style.
 
-{% asciinema jXehIzoBX8v90ovQEB1Bg9yUJ %}
+[![asciicast](https://asciinema.org/a/jXehIzoBX8v90ovQEB1Bg9yUJ.svg)](https://asciinema.org/a/jXehIzoBX8v90ovQEB1Bg9yUJ)
 
 <!-- ```bash
 # Set up review permission based on status
@@ -545,7 +545,7 @@ fga query check user:bob can_review cat_sitting:1 --context='{"cat_sitting_attri
 
 Create a review and check who can edit or delete it. OpenFGA's query language shines here, allowing you to check permissions and also list objects a user can interact with.
 
-{% asciinema VC0yN2HVatIKN4Ks4SDSUFbBg %}
+[![asciicast](https://asciinema.org/a/VC0yN2HVatIKN4Ks4SDSUFbBg.svg)](https://asciinema.org/a/VC0yN2HVatIKN4Ks4SDSUFbBg)
 
 <!-- ```bash
 # Create review
@@ -575,7 +575,7 @@ fga query list-objects user:bob author review
 
 Control visibility using wildcards.
 
-{% asciinema rZYmSxGtBq3zj1UhmAQtOqy3b %}
+[![asciicast](https://asciinema.org/a/rZYmSxGtBq3zj1UhmAQtOqy3b.svg)](https://asciinema.org/a/rZYmSxGtBq3zj1UhmAQtOqy3b)
 
 <!-- ```bash
 # Make review public
@@ -803,7 +803,7 @@ tests:
 
 > 👋 *You can find `store.fga.yml` in the [demo repository](https://github.com/getlarge/purrfect-sitter/blob/main/store.fga.yml).*
 
-{% asciinema KGCyNgYcrGWnKlW7bpLbVvv7z %}
+[![asciicast](https://asciinema.org/a/KGCyNgYcrGWnKlW7bpLbVvv7z.svg)](https://asciinema.org/a/KGCyNgYcrGWnKlW7bpLbVvv7z)
 
 ### Testing During Adoption
 
