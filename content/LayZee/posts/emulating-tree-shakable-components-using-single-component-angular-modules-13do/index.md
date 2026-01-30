@@ -361,7 +361,7 @@ The zippy application refactored using SCAMs:
 
 Slides for my talk “Angular revisited: Tree-shakable components and optional NgModules”:
 
-{% speakerdeck a37afcc56cc1462793fdc4ae7038bb34 %}
+<iframe src="https://speakerdeck.com/layzee/angular-revisited-tree-shakable-components-and-optional-ngmodules" data-frame-title="Angular Revisited: Tree-shakable components and optional NgModules"></iframe>
 
 In this talk, I introduce additional techniques for getting rid of some of our Angular modules today, using experimental Ivy APIs for change detection and rendering.
 

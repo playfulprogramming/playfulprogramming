@@ -250,7 +250,7 @@ We will build isolated unit tests in which we stub service dependencies using Ja
 
 [View the slides from my talk “Model-View-Presenter with Angular”](https://bit.do/mvp-slides):
 
-{% speakerdeck c37d8cb536e247b3a70acc7762b7670f %}
+<iframe src="https://speakerdeck.com/layzee/model-view-presenter-with-angular" data-frame-title="Model-View-Presenter with Angular"></iframe>
 
 # Related articles
 
