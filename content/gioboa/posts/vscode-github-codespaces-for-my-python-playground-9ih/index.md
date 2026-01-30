@@ -83,7 +83,7 @@ VSCode will create for you this configuration file `.devcontainer/devcontainer.j
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }
-```<br>
+````
 
 ### First Python code
 
@@ -146,4 +146,3 @@ I hope you enjoyed this article, don't forget to give ❤️.
 Bye 👋
 
 <!-- ::user id="gioboa" -->
-````

@@ -40,7 +40,7 @@ const nextConfig = {
   env: { PROJECT_NAME: process.env.PROJECT_NAME, },
 }
 module.exports = nextConfig
-```<br>
+````
 
 We can test the app locally by creating a `.env.local` file to set the environment variable<br>
 
@@ -89,4 +89,3 @@ This is the first article on AWS Amplify, if you find the topic interesting give
 You can [follow me on Twitter](https://twitter.com/giorgio_boa), where I'm posting or retweeting interesting articles.
 
 <!-- ::user id="gioboa" -->
-````
