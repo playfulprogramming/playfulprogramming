@@ -27,14 +27,12 @@ To distinguish between the two, the framework defines a simple "contract":
 
 - **transition animations properties** will be prepended by a single **`@`** character (explictly added by the coder during template writing, `[@yourAnimationName]="yourCompProp"`)
 - **timeline animations properties** will automatically come prepended by two **`@@`** characters by [**RendererAnimationPlayer**](https://github.com/angular/angular/blob/470738c8f775145630a07be783e50dac5d2194e5/packages/platform-browser/animations/src/animation_builder.ts#L46).
-  ```ts
-  ```
 
+````ts
 function issueAnimationCommand(
 renderer: AnimationRenderer, element: any, id: string, command: string, args: any\[]): any {
 return renderer.setProperty(element, `@@${id}:${command}`, args);
 }
-
 ````
 
 Even in this article we will not study timeline animations, but this preamble was due because at some point the classes we're going to examine will execute the checks to route flow in the right path.
@@ -47,7 +45,8 @@ First one is **Renderer2**'s method to add/change DOM nodes' properties, that as
 The latter instead, set an event listener on DOM nodes, and will be used by the framework to issue eventual callbacks we defined (for _transition animations_, think about **start** and **done** phases' output).
 
 Let's see its constructor:
-```ts
+
+````ts
 export class AnimationRenderer extends BaseAnimationRenderer implements Renderer2 {
   constructor(
       public factory: AnimationRendererFactory, namespaceId: string, delegate: Renderer2,
@@ -134,16 +133,16 @@ A rule similar to the one we observed for `setProperties` has to be obliged:
 
 - **transition animations events** have to be prepended by a single **`@`** character
 - **timeline animations events** will automatically come prepended by two **`@@`** characters by [**RendererAnimationPlayer**](https://github.com/angular/angular/blob/470738c8f775145630a07be783e50dac5d2194e5/packages/platform-browser/animations/src/animation_builder.ts#L56).
-  ```ts
-  ```
 
+````ts
 private \_listen(eventName: string, callback: (event: any) => any): () => void {
 return this.\_renderer.listen(this.element, `@@${this.id}:${eventName}`, callback);
 }
-
 ````
+
 These events will be caught by **AnimationRenderer**'s _listen_ method, that we're going to analyze:
-```ts
+
+````ts
 override listen(
     target: 'window'|'document'|'body'|any, eventName: string,
     callback: (event: any) => any): () => void {
