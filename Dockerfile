@@ -11,7 +11,7 @@ RUN corepack install
 
 # Install dependencies with pnpm
 COPY pnpm-lock.yaml .
-RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter "!e2e"
 
 # Copy and build the app
 COPY --parents assets content public src astro.config.ts tsconfig.json .env .
@@ -20,6 +20,7 @@ COPY --parents assets content public src astro.config.ts tsconfig.json .env .
 ARG GIT_COMMIT_REF
 ARG PUBLIC_CLOUDINARY_CLOUD_NAME
 ARG SITE_URL
+ARG MODE=production
 
 RUN --mount=type=secret,id=GITHUB_TOKEN \
 	--mount=type=secret,id=HOOF_AUTH_TOKEN \
@@ -28,9 +29,8 @@ RUN --mount=type=secret,id=GITHUB_TOKEN \
 	GIT_COMMIT_REF=$GIT_COMMIT_REF \
 	PUBLIC_CLOUDINARY_CLOUD_NAME=$PUBLIC_CLOUDINARY_CLOUD_NAME \
 	SITE_URL=$SITE_URL \
-	BUILD_ENV=production \
 	ASTRO_TELEMETRY_DISABLED=1 \
-	pnpm build
+	pnpm build --mode $MODE
 
 FROM nginx:1.29.1-alpine3.22-slim
 

@@ -5,8 +5,12 @@ import InContentAd from "./in-content-ad/in-content-ad.astro";
 import LinkPreview from "./link-preview/link-preview.astro";
 import Tabs from "./tabs/tabs.astro";
 import IframePlaceholder from "../iframes/iframe-placeholder.astro";
+import VideoPlaceholder from "../iframes/video-placeholder.astro";
+import XPlaceholder from "../iframes/x-placeholder.astro";
+import FourOFourPlaceholder from "../iframes/404-placeholder.astro";
 import Hint from "./hint/hint.astro";
 import Tooltip from "./tooltip/tooltip.astro";
+import User from "./user/user.astro";
 
 export interface PlayfulRoot {
 	type: "root";
@@ -73,7 +77,11 @@ export const components = {
 	Tabs,
 	Tooltip,
 	IframePlaceholder,
+	VideoPlaceholder,
+	XPlaceholder,
+	FourOFourPlaceholder,
 	Hint,
+	User,
 } as const;
 
 export function createComponent<Key extends keyof typeof components>(

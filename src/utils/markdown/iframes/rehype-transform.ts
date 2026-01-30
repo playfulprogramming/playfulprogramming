@@ -10,13 +10,17 @@ import {
 } from "../components";
 import { logError } from "../logger";
 import { getUrlMetadata } from "utils/hoof";
+import {
+	getIFrameAttributes,
+	getVideoDataFromUrl,
+	videoHosts,
+} from "utils/markdown/data-providers";
+import { getXPostData, xHosts } from "utils/markdown/data-providers/x";
+import { platformDetectors } from "utils/markdown/iframes/platform-detectors";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
 }
-
-// default icon, used if a frame's favicon cannot be resolved
-const defaultPageIcon = "/icons/website.svg";
 
 export const rehypeUnicornIFrameClickToRun: Plugin<
 	[RehypeUnicornIFrameClickToRunProps | never],
@@ -59,6 +63,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 				width = width ?? EMBED_SIZE.w;
 				height = height ?? EMBED_SIZE.h;
+
 				const metadata = await getUrlMetadata(src!.toString()).catch((e) => {
 					logError(file, node, "Could not fetch URL metadata!", e);
 					return undefined;
@@ -73,6 +78,43 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 				const index = parent.children.indexOf(node);
 				if (index == -1) return;
+
+				const pageTitle = String(dataFrameTitle ?? "") || metadata?.title || "";
+
+				const iframeAttrs = Object.fromEntries(
+					Object.entries(propsToPreserve).map(([key, value]) => [
+						key,
+						// Handle array props per hast spec:
+						// @see https://github.com/syntax-tree/hast#propertyvalue
+						Array.isArray(value) ? value.join(" ") : String(value),
+					]),
+				);
+
+				// Find any embeds and use them if they're present
+				for (const platformDetector of platformDetectors) {
+					const strSrc = String(src!);
+					const isPlatform = platformDetector.detect(strSrc);
+					if (!isPlatform) {
+						continue;
+					}
+					return await platformDetector.rehypeTransform({
+						parent,
+						node,
+						file,
+						tree,
+						index,
+						src: strSrc,
+						iframeData: {
+							iframeAttrs,
+							metadata,
+							height,
+							width,
+							pageTitle,
+						},
+					});
+				}
+
+				// Default
 				parent.children.splice(
 					index,
 					1,
@@ -80,16 +122,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 						width: width.toString(),
 						height: height.toString(),
 						src: String(src),
-						pageTitle: String(dataFrameTitle ?? "") || metadata?.title || "",
-						pageIcon: metadata?.icon?.src || defaultPageIcon,
-						iframeAttrs: Object.fromEntries(
-							Object.entries(propsToPreserve).map(([key, value]) => [
-								key,
-								// Handle array props per hast spec:
-								// @see https://github.com/syntax-tree/hast#propertyvalue
-								Array.isArray(value) ? value.join(" ") : String(value),
-							]),
-						),
+						pageTitle,
+						pageIcon: metadata?.icon?.src,
+						iframeAttrs,
 					}),
 				);
 			}),

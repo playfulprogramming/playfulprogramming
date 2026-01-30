@@ -67,6 +67,7 @@ export function createEpubPlugins(unified: Processor) {
 					"no-ebook": transformVoid,
 					"only-ebook": transformNoop,
 					tabs: transformNoop,
+					user: transformNoop,
 				},
 			})
 			.use(rehypeStringify)

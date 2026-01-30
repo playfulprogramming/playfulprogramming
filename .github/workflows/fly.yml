@@ -1,23 +1,19 @@
 name: Fly Deploy
 
 on:
-  workflow_dispatch:
   push:
     branches: [main]
-  pull_request_target:
-    types: [opened, reopened, synchronize, closed]
 
 env:
-  DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.event_name == 'pull_request_target' && format('pr-{0}', github.event.pull_request.number) || 'latest' }}
+  DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
 
 concurrency:
-  group: ${{ github.event_name == 'pull_request_target' && format('pr-{0}', github.event.pull_request.number) || 'main' }}-deploy
+  group: main-deploy
   cancel-in-progress: true
 
 jobs:
   build:
     name: Build image
-    if: ${{ github.event.action != 'closed' }}
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -50,55 +46,6 @@ jobs:
             "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
             "HOOF_AUTH_TOKEN=${{ secrets.HOOF_AUTH_TOKEN }}"
 
-  deploy_for_review:
-    name: Deploy for review
-    if: ${{ !cancelled() && github.event_name == 'pull_request_target' }}
-    needs: [build]
-    runs-on: ubuntu-latest
-    outputs:
-      url: ${{ steps.deploy.outputs.url }}
-    environment:
-      name: review
-      url: ${{ steps.deploy.outputs.url }}
-    env:
-      APP_NAME: pr-${{ github.event.pull_request.number }}-${{ github.repository_owner }}-${{ github.event.repository.name }}
-      FLY_API_TOKEN: ${{ secrets.FLY_WEB_PR_REVIEW_TOKEN }}
-
-    steps:
-      - uses: actions/checkout@v6
-      - uses: superfly/flyctl-actions/setup-flyctl@1.5
-
-      - id: status
-        name: Retrieve app status
-        run: flyctl status --app "$APP_NAME"
-        continue-on-error: true
-
-      - name: Destroy app
-        if: ${{ github.event.action == 'closed' }}
-        run: flyctl apps destroy "$APP_NAME" -y || true
-
-      - name: Configure app
-        if: ${{ github.event.action != 'closed' && steps.status.outcome == 'failure' }}
-        run: |
-          # Backup the original config file since 'flyctl launch' messes up the [build.args] section
-          cp fly.toml fly.toml.bak
-
-          flyctl launch --no-deploy --copy-config --name "$APP_NAME"
-
-          # Restore the original config file
-          cp fly.toml.bak fly.toml
-
-      - id: deploy
-        name: Deploy app
-        if: ${{ github.event.action != 'closed' }}
-        run: |
-          flyctl deploy --config "fly.review.toml" --app "$APP_NAME" --image "$DOCKER_TAG" --ha=false
-
-          # Make the deployment URL available to the GitHub workflow.
-          flyctl status --app "$APP_NAME" --json >status.json
-          hostname=$(jq -r .Hostname status.json)
-          echo "url=https://$hostname" >> $GITHUB_OUTPUT
-
   deploy_for_prod:
     name: Deploy for prod
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -112,7 +59,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
-      - id: deploy
-        name: Deploy app
+      - name: Deploy app
         run: |
           flyctl deploy --image "$DOCKER_TAG"
+      - name: Purge Fastly cache
+        env:
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+        run: |
+          # https://www.fastly.com/documentation/guides/full-site-delivery/purging/working-with-surrogate-keys/
+          curl -i -X POST 'https://api.fastly.com/service/${{ vars.FASTLY_SERVICE_ID }}/purge/purge-on-deploy' \
+            -H "Fastly-Key: $FASTLY_API_KEY" \
+            -H 'fastly-soft-purge: 1'

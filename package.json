@@ -18,7 +18,7 @@
 		"type": "git",
 		"url": "git+https://github.com/playfulprogramming/playfulprogramming.git"
 	},
-	"packageManager": "pnpm@9.4.0",
+	"packageManager": "pnpm@10.28.1",
 	"engines": {
 		"node": "22.x"
 	},
@@ -26,7 +26,7 @@
 		"debug": "NODE_OPTIONS='--inspect-brk' astro dev --verbose",
 		"dev": "astro dev",
 		"dev:local": "astro dev --mode localhost",
-		"start": "astro dev",
+		"start": "pnpm dev",
 		"build": "astro build",
 		"build:debug": "astro build --mode debug",
 		"build:local": "astro build --mode localhost",
@@ -41,8 +41,9 @@
 		"test:unit": "vitest",
 		"test:unit:node": "vitest --project node",
 		"test:unit:ui": "vitest --project ui",
-		"test:e2e": "playwright test",
-		"test:e2e:ci": "CI=true playwright test --reporter=github",
+		"test:e2e": "pnpm --filter e2e test",
+		"test:e2e:update-snapshots": "pnpm --filter e2e test:update-snapshots",
+		"test:e2e:update": "pnpm --filter e2e test:update-snapshots",
 		"test:debug": "set DEBUG_PRINT_LIMIT=9999999999 && pnpm vitest",
 		"test:stress": "./scripts/run-tests-concurrently.sh --run",
 		"prepare": "husky"
@@ -55,11 +56,8 @@
 		"@lesjoursfr/html-to-epub": "^6.0.1",
 		"@octokit/graphql": "^9.0.3",
 		"@orama/orama": "^3.1.18",
-		"@playwright/test": "^1.57.0",
 		"@preact/preset-vite": "^2.10.2",
 		"@react-types/shared": "^3.32.1",
-		"@remark-embedder/core": "^3.0.2",
-		"@remark-embedder/transformer-oembed": "^5.0.1",
 		"@shikijs/rehype": "^3.21.0",
 		"@shikijs/themes": "^3.21.0",
 		"@shikijs/transformers": "^3.21.0",
@@ -108,7 +106,6 @@
 		"msw": "^2.12.7",
 		"octokit": "^5.0.5",
 		"openapi-typescript": "^7.10.1",
-		"plausible-tracker": "^0.3.9",
 		"postcss": "^8.5.6",
 		"postcss-csso": "^6.0.1",
 		"prettier": "^3.7.4",
@@ -148,13 +145,14 @@
 		"vitest-browser-preact": "^1.0.0"
 	},
 	"lint-staged": {
-		"*.{js,ts,astro}": "eslint --cache --fix",
-		"*.{js,ts,astro,jsx}": "prettier --write"
+		"*.{js,ts,tsx,astro}": "eslint --cache --fix",
+		"*.{js,ts,tsx,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
 		"@internationalized/date": "^3.10.1",
 		"@nanostores/preact": "^1.0.0",
 		"@oramacloud/client": "^2.1.4",
+		"@plausible-analytics/tracker": "^0.4.4",
 		"@preact/signals": "^2.5.1",
 		"@react-aria/calendar": "^3.9.3",
 		"@react-aria/utils": "^3.32.0",
