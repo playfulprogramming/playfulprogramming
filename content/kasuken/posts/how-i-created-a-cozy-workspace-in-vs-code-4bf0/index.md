@@ -166,7 +166,9 @@ In the screenshot below, you can see the final result after all these easy chang
 
 If you want to spend time changing all the settings manually, you can find all my settings in the following repo:
 
-{% embed https://github.com/kasuken/Windows11-Setup/ %}
+<!-- ::start:link-preview -->
+[Windows 11 Setup](https://github.com/kasuken/Windows11-Setup)
+<!-- ::end:link-preview -->
 
 This layout turned VS Code into a cleaner and more intentional workspace for me. If you try it or customize it, share your version. Every developer ends up with their own definition of cozy.
 

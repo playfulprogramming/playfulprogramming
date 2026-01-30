@@ -99,7 +99,9 @@ Anyway, if you click that button, the quick pick menu will open on vscode lettin
 
 And as I [mention in the video](https://youtu.be/Ma67EbIHi64), this is exactly where I found the bug!
 
-{% embed https://github.com/microsoft/vscode-pull-request-github/pull/4637 %}
+<!-- ::start:link-preview -->
+[Allow empty labels array to be pushed to set-labels to remove all of them](https://github.com/microsoft/vscode-pull-request-github/pull/4637)
+<!-- ::end:link-preview -->
 
 ## Creating the Pull Request
 

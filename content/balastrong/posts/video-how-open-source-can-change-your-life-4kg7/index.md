@@ -27,5 +27,9 @@ Thanks for reading my post, I hope you find it interesting!
 Feel free to follow me to get notified when new articles are out ;)
 
 <!-- ::user id="balastrong" -->
+
 You can also follow me on GitHub or Twitter, you can find the links here directly on my GitHub profile!
-{% embed https://github.com/Balastrong/Balastrong %}
+
+<!-- ::start:link-preview -->
+[GitHub Profile](https://github.com/Balastrong/Balastrong)
+<!-- ::end:link-preview -->

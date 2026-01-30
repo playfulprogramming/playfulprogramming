@@ -350,7 +350,9 @@ Stay tuned!
 
 I forgot to write that my website is open source (because why not) and you can use it as your starting point for your personal website:
 
-{% embed https://github.com/kasuken/website %}
+<!-- ::start:link-preview -->
+[Personal website GitHub](https://github.com/kasuken/website)
+<!-- ::end:link-preview -->
 
 ---
 

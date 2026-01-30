@@ -46,7 +46,9 @@ My exploration for a better paradigm started with [**Ory Keto**](https://www.ory
 
 It introduced me to [Google's Zanzibar paper](https://storage.googleapis.com/gweb-research2023-media/pubtools/5068.pdf) and the concept of **Relation-Based Access Control (ReBAC)**.
 
-{% embed  https://zanzibar.academy/ %}
+<!-- ::start:link-preview -->
+[Zanzibar Academy](https://zanzibar.academy/)
+<!-- ::end:link-preview -->
 
 This time, I needed more flexibility to introduce **contextual relationships**. That "simple" feature request led me to [**OpenFGA**](https://openfga.dev) — a richer implementation of Zanzibar's principles that extends ReBAC with powerful features like contextual-based conditions, attribute-based access, and a simple query language.
 
