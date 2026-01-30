@@ -206,4 +206,6 @@ In some cases, no solutions today are particularly good so perhaps you shouldn't
 
 And that's ok as long as you know what you are in for.
 
-{% github ryansolid/solid %}
+<!-- ::start:link-preview -->
+[Solid](https://github.com/ryansolid/solid)
+<!-- ::end:link-preview -->

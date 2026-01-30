@@ -916,9 +916,13 @@ Ready to get started? Here's your roadmap:
 5. Get in touch with me for some deep-dive into performance characteristics, monitoring, and production deployment patterns 😉
 6. If you want to show your appreciation, give those repositories a ⭐️ on GitHub. 👇
 
-{% github getlarge/purrfect-sitter %}
+<!-- ::start:link-preview -->
+[Purrfect Sitter](https://github.com/getlarge/purrfect-sitter)
+<!-- ::end:link-preview -->
 
-{% github openfga/openfga %}
+<!-- ::start:link-preview -->
+[OpenFGA](https://github.com/openfga/openfga)
+<!-- ::end:link-preview -->
 
 Your future self will thank you for choosing relationships over nested IF statements.
 

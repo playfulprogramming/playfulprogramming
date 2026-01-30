@@ -18,7 +18,9 @@ It's a static Astro website hosted on Netlify. I'm using Typescript and the arti
 
 The repository is Open Source, you can have a look on GitHub
 
-{% github Balastrong/blog-astro %}
+<!-- ::start:link-preview -->
+[Astro Blog](https://github.com/Balastrong/blog-astro)
+<!-- ::end:link-preview -->
 
 If you're curious about how I code, I recorded a short coding session where I added an initial version of the Series feature we have here on devto. Basically I add a "series" field in the frontmatter of the mdx files and then I show in the article's page all the other articles of the same series.
 

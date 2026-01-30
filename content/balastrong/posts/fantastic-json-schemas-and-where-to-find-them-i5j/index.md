@@ -30,7 +30,9 @@ I investigated a little bit and discovered that the JSON schemas used to validat
 
 Scroll down a little bit and... there's a public repo on GitHub where you can contribute to the schemas!
 
-{% github https://github.com/schemastore/schemastore/ %}
+<!-- ::start:link-preview -->
+[Schemastore](https://github.com/schemastore/schemastore)
+<!-- ::end:link-preview -->
 
 ## The solution
 

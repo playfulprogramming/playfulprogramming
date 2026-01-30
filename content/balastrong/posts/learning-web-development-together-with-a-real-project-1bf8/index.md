@@ -18,7 +18,9 @@ I created a project to serve as a playground for everyone who wants to learn Web
 
 You can find it here (don't forget to leave a ⭐️):
 
-{% github Balastrong/github-stats %}
+<!-- ::start:link-preview -->
+[GitHub Stats](https://github.com/Balastrong/github-stats)
+<!-- ::end:link-preview -->
 
 Here's a quick overview of the project:
 
@@ -62,7 +64,9 @@ From the Homepage you'll be able to login with your GitHub Account so that your 
 
 As of today there's a page listing the repositories where you opened some pull requests with the state and a total counter, grouped by year. You can nicely display in the browser or export as JSON or text ([implemented a couple of days ago](https://github.com/Balastrong/github-stats/pull/19)).
 
-{% github https://github.com/Balastrong/github-stats/pull/19 %}
+<!-- ::start:link-preview -->
+[feat: export buttons for json and text format](https://github.com/Balastrong/github-stats/pull/19)
+<!-- ::end:link-preview -->
 
 There's also a profile page with some basic data and actually a lot of space to put some more!
 

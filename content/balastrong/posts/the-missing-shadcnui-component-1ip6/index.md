@@ -75,7 +75,9 @@ function App() {
 
 The choice on how to handle the logic to ensure fresh data is up to you, but once you begin using [TanStack Query](https://tanstack.com/query/latest) you really stop looking at other options, so that's what I used here.
 
-{% github https://github.com/Balastrong/shadcn-autocomplete-demo %}
+<!-- ::start:link-preview -->
+[ShadCN Autocomplete Demo](https://github.com/Balastrong/shadcn-autocomplete-demo)
+<!-- ::end:link-preview -->
 
 Look for the [autocomplete.tsx](https://github.com/Balastrong/shadcn-autocomplete-demo/blob/main/src/components/autocomplete.tsx) component.
 

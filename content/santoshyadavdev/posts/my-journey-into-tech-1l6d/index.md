@@ -132,7 +132,9 @@ I had stopped writing for a long time. I remember while working on one PR for Ng
 Around June 2019 I started to work on a personal project. I came to know about Angular Builders, and Minko gave a nice example on how to deploy your app on GitHub pages, inspired by it. I decided to create one for Netlify for myself and decided to publish it on NPM.
 It became popular and now is used by more than 200+ projects on GitHub. And it also became part of Angular Docs.
 
-{% github ngx-builders/netlify-builder %}
+<!-- ::start:link-preview -->
+[Netlify Builder](https://github.com/ngx-builders/netlify-builder)
+<!-- ::end:link-preview -->
 
 # Part of First Angular Conference in Sri-Lanka
 
