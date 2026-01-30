@@ -40,10 +40,10 @@ So why not take that further if we can analyze across templates? As demonstrated
 As long as this scope is globally available, then we can break apart our components into many pieces without them being tied together by closures. Every piece is independently tree-shakeable and executable. All we need to do is serialize this scope from the server as we render, and register any browser-only code to run immediately on hydration.
 
 > I wrote about this journey in more detail in:
-> 
-> <!-- ::start:link-preview -->
-> [What has the Marko Team Been Doing All These Years](https://dev.to/ryansolid/what-has-the-marko-team-been-doing-all-these-years-1cf6)
-> <!-- ::end:link-preview -->
+
+<!-- ::start:link-preview -->
+[What has the Marko Team Been Doing All These Years](https://dev.to/ryansolid/what-has-the-marko-team-been-doing-all-these-years-1cf6)
+<!-- ::end:link-preview -->
 
 As it turns out we weren't the only ones to arrive at a similar conclusion. Within a couple of months, Misko Hevery(@mhevery), creator of Angular, revealed this approach to the world in his framework [Qwik](https://github.com/BuilderIO/qwik). And he'd done something better than us. He'd given the idea a name.
 

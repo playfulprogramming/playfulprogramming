@@ -22,10 +22,10 @@ Although a more ironic addendum might add.
 In the past few weeks, we've seen the culmination of a build of excitement around the revival of fine-grained reactivity, being referred to as Signals, across the front-end world.
 
 > For a history of Signals in JavaScript check out my article:
->
-> <!-- ::start:link-preview -->
-> [The Evolution of Signals in JavaScript](https://playfulprogramming.com/posts/the-evolution-of-signals-in-javascript-8ob)
-> <!-- ::end:link-preview -->
+
+<!-- ::start:link-preview -->
+[The Evolution of Signals in JavaScript](https://playfulprogramming.com/posts/the-evolution-of-signals-in-javascript-8ob)
+<!-- ::end:link-preview -->
 
 The truth is Signals never went away. They lived several years in obscurity as third-party libraries or hidden behind frameworks' plain object APIs. Even though the common rhetoric that came in with React and the Virtual DOM condemned the patterns as unpredictable and dangerous. And they weren't wrong.
 
