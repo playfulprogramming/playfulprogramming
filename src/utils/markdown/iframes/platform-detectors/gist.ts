@@ -41,7 +41,9 @@ export const gistPlatformDetector: PlatformDetector = {
 			createComponent(
 				"GistPlaceholder",
 				{
-					username: githubUsername
+					username: githubUsername,
+					href: src,
+					filename: file.filename ?? "Untitled",
 				},
 				[
 					GistCodeBlock({

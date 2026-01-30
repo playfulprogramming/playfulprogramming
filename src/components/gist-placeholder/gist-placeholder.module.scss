@@ -1,0 +1,42 @@
+@use "src/tokens/index" as *;
+
+.container {
+	background: var(--background_primary);
+	border: 4px solid var(--primary_variant);
+	border-radius: var(--corner-radius_l);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.container > pre:global(.shiki) {
+	all: unset;
+	padding: 8px;
+	border-radius: var(--corner-radius_xl);
+}
+
+.bottomContainer {
+	display: flex;
+	gap: var(--spc-1x);
+	padding: 0 var(--spc-2x) var(--spc-2x) var(--spc-5x);
+	align-items: center;
+}
+
+.textContainer {
+	display: flex;
+	align-items: center;
+	width: 1px;
+	flex-grow: 1;
+	margin: 0;
+}
+
+.username {
+	color: inherit;
+	text-decoration: none;
+}
+.divider {
+	white-space: pre;
+}
+
+.filename {
+}

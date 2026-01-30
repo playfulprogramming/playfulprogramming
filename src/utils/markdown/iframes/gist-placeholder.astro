@@ -1,14 +1,18 @@
 ---
 import Content from "../components/content.astro";
 import { ComponentNode } from "utils/markdown/components";
+import {
+	GistPlaceholder as PreactGistPlaceholder,
+	GistPlaceholderProps,
+} from "components/gist-placeholder/gist-placeholder";
 
-export interface Props {
-	username: string;
+export interface Props extends GistPlaceholderProps {
 	children: ComponentNode["children"];
 }
 
-const { username, children } = Astro.props;
+const { username, children, filename, href } = Astro.props;
 ---
 
-<Content content={children} />
-<p>{username}</p>
+<PreactGistPlaceholder username={username} filename={filename} href={href}>
+	<Content content={children} />
+</PreactGistPlaceholder>
