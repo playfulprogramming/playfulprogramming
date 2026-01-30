@@ -185,11 +185,14 @@ This graph should be explanatory enough:
 As the purple highlighted labels emphasize, the path to rendering of the entry component for independent remote serving encounters **two different** locations asking for it.
 That entry component is actually both **declared** both **routed**.
 
-{% spoiler **Why the issue doesn't occur with old NgModule-based remotes setup instead of standalone components?** %}
+<details>
+<summary><strong>Why the issue doesn't occur with old NgModule-based remotes setup instead of standalone components?</strong></summary>
 
 > Because **Nx** remotes generator for classic ng-modular setup doesn't need to declare the entry component inside `index.html`.
 > It declares a separate root component (`AppComponent`) hosting a `<router-outlet>` and imports `RouterModule` inside root module (`AppModule`).
-> This way the same route referring to entry component will be correctly rendered just once both for *Shell* setup than for independent remote serving.{% endspoiler %}
+> This way the same route referring to entry component will be correctly rendered just once both for *Shell* setup than for independent remote serving.
+
+</details>
 
 ---
 

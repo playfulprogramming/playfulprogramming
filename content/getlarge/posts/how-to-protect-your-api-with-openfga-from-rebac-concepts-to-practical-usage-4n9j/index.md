@@ -410,9 +410,7 @@ Let's test our model with real scenarios. I use the OpenFGA CLI to initialize th
 
 ---
 
-{% cta https://github.com/codespaces/new?template\_repository=getlarge/purrfect-sitter %}
-Save some time, create a GitHub codespace
-{% endcta %}
+<a href="https://github.com/codespaces/new?template\_repository=getlarge/purrfect-sitter" class="button text-style-button-regular regular primary-emphasized"><span class="innerText">Save some time, create a GitHub codespace</span></a>
 
 It will provide you a ready-to-use environment with all dependencies installed and external services running, so you can focus on running the examples in this article.
 
