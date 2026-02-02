@@ -72,11 +72,11 @@ Funny enough, this ask of a lower-tiered EL title (maybe "Frontend Engineering M
 
 If a stranger were to have looked at PDRT's titles, they would likely assume that the org-chart matched the following:
 
-![An org-chart with the CTO at the top, then director of technology plus a senior program manager, then under the director the rest of the dev team](./before_org_chart.png)
+![An org-chart with the CTO at the top, then director of technology plus a senior program manager, then under the director the rest of the dev team](./before_org_chart.svg)
 
 Rather than what was a bit more representative at the time:
 
-![The same org-chart but now with engineering managers between the director of technology and the rest of the frontend and backend teams](./after_org_chart.png)
+![The same org-chart but now with engineering managers between the director of technology and the rest of the frontend and backend teams](./after_org_chart.svg)
 
 This might sound like a silly problem, but it's likely the biggest reason that hiring managers were not receptive to my job hunting for EL titles; they didn't know I was in the field for management.
 
