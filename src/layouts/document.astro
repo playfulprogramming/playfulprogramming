@@ -9,13 +9,16 @@ const lang = getPrefixLanguageFromPath(Astro.url.pathname);
 
 const props = Astro.props as {
 	size: undefined | "l" | "xl";
+	disableDiscord?: boolean;
 };
 ---
 
 <Barebones lang={lang}>
+	<!-- This must load before any CSS or there will be a flicker -->
+	<BlockingThemeChangerScript slot="first" />
 	<slot slot="head" name="head" />
 	<BlockingThemeChangerScript />
-	<Header size={props.size} />
+	<Header size={props.size} disableDiscord={props.disableDiscord} />
 	<slot />
 	<slot name="post-body" />
 

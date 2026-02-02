@@ -9,18 +9,16 @@
 	--btn_large_padding-horizontal: var(--spc-4x);
 	--btn_large_padding-vertical: var(--spc-3x);
 	--btn_large_min-height: var(--min-target-size_l);
-	--btn_large_icon_size_default: var(--icon-size_dense);
-	--btn_large_icon_size_padding: var(--icon-size-dense-padding);
-	--btn_large_icon_size_icon-only: var(--icon-size_regular);
+	--btn_large_icon_size_default: var(--icon-size_default);
+	--btn_large_icon_size_icon-only: var(--icon-size_large);
 	--btn_large_label_padding-horizontal: var(--spc-2x);
 
 	// Regular button for Mobile
 	--btn_regular_padding-horizontal: var(--spc-3x);
 	--btn_regular_padding-vertical: var(--spc-2x);
 	--btn_regular_min-height: var(--min-target-size_s);
-	--btn_regular_icon_size_default: var(--icon-size_dense);
-	--btn_regular_icon_size_icon-only: var(--icon-size_dense);
-	--btn_regular_icon_size_padding: var(--icon-size-dense-padding);
+	--btn_regular_icon_size_default: var(--icon-size_default);
+	--btn_regular_icon_size_icon-only: var(--icon-size_default);
 	--btn_regular_label_padding-horizontal: var(--spc-1x);
 
 	// Colors: Primary buttons
@@ -80,8 +78,8 @@
 		--btn_large_padding-horizontal: var(--spc-6x);
 		--btn_large_padding-vertical: var(--spc-4x);
 		--btn_large_min-height: var(--min-target-size_xl);
-		--btn_large_icon_size_default: var(--icon-size_regular);
-		--btn_large_icon_size_icon-only: var(--icon-size_regular);
+		--btn_large_icon_size_default: var(--icon-size_large);
+		--btn_large_icon_size_icon-only: var(--icon-size_large);
 		--btn_large_icon_size_padding: 0px;
 		--btn_large_label_padding-horizontal: var(--spc-2x);
 
@@ -89,9 +87,8 @@
 		--btn_regular_padding-horizontal: var(--spc-3x);
 		--btn_regular_padding-vertical: var(--spc-2x);
 		--btn_regular_min-height: var(--min-target-size_m);
-		--btn_regular_icon_size_default: var(--icon-size_dense);
-		--btn_regular_icon_size_icon-only: var(--icon-size_dense);
-		--btn_regular_icon_size_padding: var(--icon-size-dense-padding);
+		--btn_regular_icon_size_default: var(--icon-size_default);
+		--btn_regular_icon_size_icon-only: var(--icon-size_default);
 		--btn_regular_label_padding-horizontal: var(--spc-2x);
 	}
 }
@@ -158,7 +155,6 @@
 }
 
 .button.regular .buttonIcon {
-	padding: var(--btn_regular_icon_size_padding);
 	height: var(--btn_regular_icon_size_default);
 	width: var(--btn_regular_icon_size_default);
 }
@@ -170,7 +166,6 @@
 }
 
 .button.regular .iconOnlyButtonIcon {
-	padding: var(--btn_regular_icon_size_padding);
 	height: var(--btn_regular_icon_size_icon-only);
 	width: var(--btn_regular_icon_size_icon-only);
 }

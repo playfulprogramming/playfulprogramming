@@ -71,7 +71,7 @@ export const rehypeReferencePage: Plugin<
 				if (parent?.children && index !== undefined) {
 					parent.children[index] = SuperScriptLink({
 						href: newHref,
-						linkProps: linkProps,
+						linkProps,
 						superScriptNumber: existingLink.countWithinCollection,
 						children: node.children,
 					});
@@ -96,7 +96,7 @@ export const rehypeReferencePage: Plugin<
 			if (parent?.children && index !== undefined) {
 				parent.children[index] = SuperScriptLink({
 					href: newHref,
-					linkProps: linkProps,
+					linkProps,
 					superScriptNumber: countWithinCollection,
 					children: node.children,
 				});

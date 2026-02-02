@@ -12,8 +12,8 @@ interface InContentAdProps {
 
 export function InContentAd(props: InContentAdProps) {
 	const {
-		["button-text"]: buttonText,
-		["button-href"]: buttonHref,
+		"button-text": buttonText,
+		"button-href": buttonHref,
 		title,
 		body,
 	} = props;
@@ -39,7 +39,7 @@ export function InContentAd(props: InContentAdProps) {
 			<div class={style.inContentImageContainer}>
 				<RawSvg class={style.inContentImage} icon={DonateSvg} aria-hidden />
 				<div class={style.inContentImageBg}>
-					<div class={style.inContentImageInnerBg}></div>
+					<div class={style.inContentImageInnerBg} />
 				</div>
 			</div>
 		</aside>

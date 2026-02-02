@@ -25,7 +25,7 @@ export function Links() {
 	return (
 		<ul class="links" role="list" aria-label="Social media links">
 			{Object.entries(data.about.links).map(([name, link]) => (
-				<li>
+				<li key={name}>
 					<Button
 						variant="primary"
 						href={link.url}

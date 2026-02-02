@@ -36,7 +36,7 @@ Today though, it meant something more. I could improve my processes — and good
 
 There was so much I could do to grow our efforts into something magical.
 
----
+# Finding the Risks
 
 But knowing there was so much to do also meant recognizing how much potential there was for failure.
 

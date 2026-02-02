@@ -49,7 +49,7 @@ export const SearchTopbar = ({
 	useEffect(() => {
 		setSearchInput(search);
 		cancelSetSearchDebounced();
-	}, [search]);
+	}, [search, cancelSetSearchDebounced]);
 
 	const handleBlur = useCallback(
 		(e: FocusEvent) => {
@@ -74,7 +74,7 @@ export const SearchTopbar = ({
 			<section
 				className={style.topBar}
 				style={{
-					["--topbar-header-height"]: `${headerHeight}px`,
+					"--topbar-header-height": `${headerHeight}px`,
 				}}
 			>
 				<form
@@ -136,7 +136,7 @@ export const SearchTopbar = ({
 						<span
 							className={style.filterIconContainer}
 							dangerouslySetInnerHTML={{ __html: filter }}
-						></span>
+						/>
 					}
 				>
 					Filter
@@ -164,7 +164,7 @@ export const SearchTopbar = ({
 					<span
 						className={style.filterIconContainer}
 						dangerouslySetInnerHTML={{ __html: filter }}
-					></span>
+					/>
 				</IconOnlyButton>
 			</div>
 		</>

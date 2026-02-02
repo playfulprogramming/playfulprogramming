@@ -205,6 +205,10 @@
 		"displayName": "Security",
 		"emoji": "🔒"
 	},
+	"seo": {
+		"displayName": "Search Engine Optimization (SEO)",
+		"emoji": "🔎"
+	},
 	"slack": {
 		"displayName": "Slack",
 		"image": "/stickers/slack.svg",

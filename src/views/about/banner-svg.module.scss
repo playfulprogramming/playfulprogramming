@@ -3,7 +3,14 @@
 	max-width: 640px;
 	aspect-ratio: 64 / 56;
 	position: relative;
-	mask-image: radial-gradient(circle at center, #fff 30%, #fff9 45%, #fff2 58%, #fff1 63%, #0000 68%);
+	mask-image: radial-gradient(
+		circle at center,
+		#fff 30%,
+		#fff9 45%,
+		#fff2 58%,
+		#fff1 63%,
+		#0000 68%
+	);
 }
 
 .personImage {

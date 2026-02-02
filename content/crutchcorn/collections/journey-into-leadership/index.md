@@ -5,27 +5,7 @@
   tags: ['leadership', 'opinion'],
   coverImg: "./cover.png",
   published: "2025-10-20T13:45:00.284Z",
-  buttons: [{ text: "Read now", url: "/posts/navigating-leadership-risks" }],
-  chapterList: [
-    {
-      post: "navigating-leadership-risks",
-    },
-    {
-      order: 2,
-      title: "The Power of Showing Up",
-      description: "Coming soon..."
-    },
-    {
-      order: 3,
-      title: "Fractional Leadership in Practice",
-      description: "Coming soon..."
-    },
-    {
-      order: 4,
-      title: "Negotiating for a VP Role",
-      description: "Coming soon..."
-    }
-  ],
+  buttons: [{ text: "Read now", url: "/posts/navigating-leadership-risks" }]
 }
 ---
  

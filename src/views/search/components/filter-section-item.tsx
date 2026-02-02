@@ -24,7 +24,7 @@ export const FilterSectionItem = ({
 }: FilterSectionItemProps) => {
 	const props = {
 		isSelected: selected,
-		onChange: onChange,
+		onChange,
 		"aria-label": label,
 	};
 
