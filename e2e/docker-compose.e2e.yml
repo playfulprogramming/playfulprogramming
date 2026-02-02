@@ -1,0 +1,46 @@
+services:
+  web:
+    working_dir: /work
+    build:
+      target: server
+      context: ..
+      dockerfile: e2e/Dockerfile
+    environment:
+      - USE_E2E_MOCKS=true
+      - GIT_COMMIT_REF=main
+      - ASTRO_TELEMETRY_DISABLED=1
+    command: pnpm dev --host 0.0.0.0 --port 4321
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:4321/healthz.json').then(res => process.exit(res.status === 200 ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  e2e:
+    depends_on:
+      web:
+        condition: service_healthy
+    build:
+      context: ..
+      dockerfile: e2e/Dockerfile
+      target: e2e
+    working_dir: /work/e2e
+    volumes:
+      - ./.playwright:/work/e2e/.playwright:rw
+      - ./tests:/work/e2e/tests:rw
+    ipc: host
+    environment:
+      PLAYWRIGHT_BASE_URL: "http://web:4321"
+      PLAYWRIGHT_RESULTS_DIR: ".playwright/test-results"
+      PLAYWRIGHT_REPORT_DIR: ".playwright/report"
+      XDG_CACHE_HOME: "/work/e2e/.cache"
+      PLAYWRIGHT_ARGS: "${PLAYWRIGHT_ARGS:-}"
+      CI: true
+      HOME: "/tmp"
+      COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
+    command: sh -c "pnpm exec playwright test --config ./playwright.config.ts $PLAYWRIGHT_ARGS"

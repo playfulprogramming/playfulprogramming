@@ -16,6 +16,7 @@ lang ??= "en";
 
 <html lang={lang} class="light">
 	<head>
+		<slot name="first" />
 		<meta name="viewport" content="width=device-width" />
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.ico" />
@@ -80,8 +81,8 @@ lang ??= "en";
 		<script is:inline>
 			window.plausible =
 				window.plausible ||
-				function () {
-					(window.plausible.q = window.plausible.q || []).push(arguments);
+				function (...args) {
+					(window.plausible.q = window.plausible.q || []).push(args);
 				};
 		</script>
 		<slot name="head" />

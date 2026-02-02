@@ -18,19 +18,18 @@ export function CodeEmbedContent(props: CodeEmbedContentProps) {
 		if (props.code.length < 10_000) {
 			codeToHtml(props.code, props.lang).then((html) => setCodeHtml(html));
 		}
-	}, [props.code, props.lang]);
+	}, [props.code, props.lang, props.codeHtml]);
 
 	const codeHtmlToDisplay = props.codeHtml ?? codeHtml;
 
 	if (codeHtmlToDisplay) {
-		return <div dangerouslySetInnerHTML={{ __html: codeHtmlToDisplay }}></div>;
-	} else {
-		return (
-			<div>
-				<pre class="shiki">
-					<code>{props.code}</code>
-				</pre>
-			</div>
-		);
+		return <div dangerouslySetInnerHTML={{ __html: codeHtmlToDisplay }} />;
 	}
+	return (
+		<div>
+			<pre class="shiki">
+				<code>{props.code}</code>
+			</pre>
+		</div>
+	);
 }

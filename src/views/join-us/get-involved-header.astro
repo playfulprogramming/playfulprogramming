@@ -108,7 +108,7 @@ const people = getPeopleByLang("en").map((person) => {
 	// Whether the mouse button is currently held down
 	let isMouseDown = false;
 
-	const isMouseEvent = (e: any): e is MouseEvent => {
+	const isMouseEvent = (e: MouseEvent | TouchEvent): e is MouseEvent => {
 		return "clientX" in e;
 	};
 	function onMouseMove(e: MouseEvent | TouchEvent) {

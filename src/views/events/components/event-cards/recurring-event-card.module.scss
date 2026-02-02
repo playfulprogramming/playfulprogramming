@@ -1,0 +1,126 @@
+@use "src/tokens/index" as *;
+
+.recurringEventCard {
+	background: var(--surface_primary_emphasis-none);
+	border-radius: var(--corner-radius_xl);
+	padding: var(--spc-4x);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-6x);
+}
+
+.recurringEventCardTitleLink {
+	text-decoration: none;
+	color: var(--foreground_emphasis-high);
+}
+
+.recurringEventCardTitle {
+	margin: 0;
+}
+
+.topicCardImage {
+	height: 100%;
+	object-fit: cover;
+	border-radius: var(--corner-radius_s);
+}
+
+.topicCardTextContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	width: 1px;
+	flex-grow: 1;
+}
+
+.topicDesc {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	width: 100%;
+}
+
+.topicLink {
+	color: var(--primary_default);
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	width: 100%;
+}
+
+.eventRightContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-4x);
+	padding-top: var(--spc-4x);
+}
+
+.nextEventInnerCard {
+	display: flex;
+	flex-direction: row;
+	gap: var(--spc-3x);
+	border-radius: var(--corner-radius_m);
+	background: var(--surface_primary_emphasis-none);
+	width: 100%;
+	padding: var(--spc-2x) var(--spc-4x) var(--spc-2x) var(--spc-2x);
+}
+
+.buttonContainer {
+	width: fit-content;
+}
+
+.cardInnerContainer {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	gap: var(--spc-4x);
+}
+
+// If cardInnerContainer has two children, make both children flex-basis: 50%
+@include from($tabletLarge) {
+	.cardInnerContainer {
+		flex-direction: row;
+	}
+	.cardInnerContainer:has(> :nth-child(2)) > * {
+		flex-basis: 50%;
+		width: 1px;
+	}
+}
+
+.eventLeftContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-4x);
+	padding: var(--spc-2x) var(--spc-2x) 0 var(--spc-2x);
+}
+
+.eventDescription {
+	color: var(--foreground_emphasis-high);
+}
+
+.eventIcon {
+	height: 20px;
+	width: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.eventDate {
+	color: var(--foreground_emphasis-medium);
+	display: flex;
+	align-items: center;
+	gap: var(--spc-2x);
+}
+
+.nextEventText {
+	color: var(--foreground_emphasis-high);
+}
+
+.chipsContainer {
+	display: flex;
+	gap: var(--spc-2x);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}

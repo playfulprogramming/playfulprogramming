@@ -62,11 +62,12 @@ export function createEpubPlugins(unified: Processor) {
 			.use(rehypeTransformComponents, {
 				components: {
 					filetree: transformNoop,
-					["in-content-ad"]: transformNoop,
-					["link-preview"]: transformNoop,
-					["no-ebook"]: transformVoid,
-					["only-ebook"]: transformNoop,
+					"in-content-ad": transformNoop,
+					"link-preview": transformNoop,
+					"no-ebook": transformVoid,
+					"only-ebook": transformNoop,
 					tabs: transformNoop,
+					user: transformNoop,
 				},
 			})
 			.use(rehypeStringify)

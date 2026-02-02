@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import { debounce } from "utils/debounce";
 
+export type SetSearchParams<T> = (updater: (prev: T) => T) => void;
+
 export function useSearchParams<T>(
 	serialize: (params: T) => URLSearchParams,
 	deserialize: (params: URLSearchParams) => T,
 	getPageTitle?: (params: T) => string,
-): [T, (newState: T) => void] {
+): [T, SetSearchParams<T>] {
 	const [urlParams, setUrlParams] = useState<URLSearchParams>(
 		() => new URL(window.location.href).searchParams,
 	);
@@ -15,7 +17,7 @@ export function useSearchParams<T>(
 			// Set the title from the initial params when the page is first loaded
 			document.title = getPageTitle(deserialize(urlParams));
 		}
-	}, []);
+	});
 
 	const pushHistoryState = useMemo(() => {
 		// Debounce any calls to pushState to avoid spamming the history API
@@ -23,7 +25,7 @@ export function useSearchParams<T>(
 			(urlParams: URLSearchParams) => {
 				const currentUrl = new URL(window.location.href).toString();
 				const newUrl = new URL(
-					"?" + urlParams.toString(),
+					`?${urlParams.toString()}`,
 					window.location.href,
 				).toString();
 
@@ -38,11 +40,11 @@ export function useSearchParams<T>(
 			500,
 			false,
 		);
-	}, []);
+	}, [deserialize, getPageTitle]);
 
 	useEffect(() => {
 		pushHistoryState(urlParams);
-	}, [urlParams]);
+	}, [urlParams, pushHistoryState]);
 
 	useEffect(() => {
 		const onPopState = () => {
@@ -60,13 +62,21 @@ export function useSearchParams<T>(
 		};
 	}, [setUrlParams]);
 
-	const params = useMemo(() => deserialize(urlParams), [urlParams]);
+	const params = useMemo(
+		() => deserialize(urlParams),
+		[urlParams, deserialize],
+	);
 
-	const setParams = useCallback(
-		(params: T) => {
-			setUrlParams(serialize(params));
+	const setParams = useCallback<SetSearchParams<T>>(
+		(updater) => {
+			setUrlParams((prevParams) => {
+				const previous = deserialize(new URLSearchParams(prevParams));
+				const next = updater(previous);
+
+				return serialize(next);
+			});
 		},
-		[setUrlParams],
+		[deserialize, serialize],
 	);
 
 	return [params, setParams];

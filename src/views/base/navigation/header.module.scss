@@ -27,11 +27,11 @@ header {
 	&[data-sticky="pinned"] {
 		border-bottom: 1px solid var(--background_disabled);
 	}
-	background-color: var(--background_primary);
-	top: 0px;
+	top: 0;
 	position: sticky;
 	z-index: 3;
 	transition: border-bottom 0.5s ease;
+	@include transition(background-color);
 
 	@include until($tabletLarge) {
 		&[data-mobile_table_of_contents_present="true"] {

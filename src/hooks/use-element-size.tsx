@@ -20,9 +20,9 @@ export const useElementSize = ({
 
 			if (includeMargin) {
 				calculatedHeight +=
-					parseInt(style.marginTop) + parseInt(style.marginBottom);
+					parseInt(style.marginTop, 10) + parseInt(style.marginBottom, 10);
 				calculatedWidth +=
-					parseInt(style.marginLeft) + parseInt(style.marginRight);
+					parseInt(style.marginLeft, 10) + parseInt(style.marginRight, 10);
 			}
 			setSize({ height: calculatedHeight, width: calculatedWidth });
 		}
@@ -30,7 +30,7 @@ export const useElementSize = ({
 		window.addEventListener("resize", getElementSize);
 		getElementSize();
 		return () => window.removeEventListener("resize", getElementSize);
-	}, [el]);
+	}, [el, includeMargin]);
 
 	return { setEl, size };
 };
