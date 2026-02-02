@@ -7,6 +7,9 @@ import PlayIcon from "src/icons/play.svg?raw";
 import FallbackPageIcon from "src/icons/website.svg?raw";
 import style from "./iframe-placeholder.module.scss";
 
+const isCredentiallessSupported =
+	import.meta.env.SSR || "credentialless" in HTMLIFrameElement.prototype;
+
 export interface IFramePlaceholderProps {
 	width: string;
 	height: string;
@@ -24,6 +27,12 @@ export function IFramePlaceholder({
 }: IFramePlaceholderProps) {
 	const [pageIconError, setPageIconError] = useState(false);
 	const [frameVisible, setFrameVisible] = useState(false);
+
+	const iframeProps = {
+		...iframeAttrs,
+		// Seems to be missing from Preact type defs
+		credentialless: "true",
+	} as object;
 
 	return (
 		<div class={`${style.embed} markdownCollapsePadding`}>
@@ -69,29 +78,30 @@ export function IFramePlaceholder({
 					New tab
 				</Button>
 			</div>
-			{!frameVisible ? (
-				<div
-					class={style.placeholder}
-					style={`height: ${Number(height) ? `${height}px` : height};`}
-				>
-					<Button
-						class={style.placeholderButton}
-						tag="button"
-						variant="primary-emphasized"
-						leftIcon={<RawSvg icon={PlayIcon} />}
-						onClick={() => setFrameVisible(true)}
+			{isCredentiallessSupported &&
+				(!frameVisible ? (
+					<div
+						class={style.placeholder}
+						style={`height: ${Number(height) ? `${height}px` : height};`}
 					>
-						Run
-					</Button>
-				</div>
-			) : (
-				<iframe
-					{...iframeAttrs}
-					style={`height: ${Number(height) ? `${height}px` : height};`}
-					src={props.src}
-					loading="lazy"
-				/>
-			)}
+						<Button
+							class={style.placeholderButton}
+							tag="button"
+							variant="primary-emphasized"
+							leftIcon={<RawSvg icon={PlayIcon} />}
+							onClick={() => setFrameVisible(true)}
+						>
+							Run
+						</Button>
+					</div>
+				) : (
+					<iframe
+						{...iframeProps}
+						style={`height: ${Number(height) ? `${height}px` : height};`}
+						src={props.src}
+						loading="lazy"
+					/>
+				))}
 		</div>
 	);
 }

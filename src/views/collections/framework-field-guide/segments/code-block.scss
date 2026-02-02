@@ -38,7 +38,8 @@
 }
 
 /* Chrome only for now */
-.ffg-code-block-container ul.tabs__tab-list:has(
+.ffg-code-block-container
+	ul.tabs__tab-list:has(
 		> .tabs__tab:first-child:not([aria-selected="true"]),
 		> .tabs__tab:first-child:not([aria-selected=""])
 	)
@@ -46,7 +47,8 @@
 	border-radius: var(--code-block-corner-radius_inner);
 }
 
-.ffg-code-block-container ul.tabs__tab-list:has(
+.ffg-code-block-container
+	ul.tabs__tab-list:has(
 		> .tabs__tab:first-child[aria-selected="true"],
 		> .tabs__tab:first-child[aria-selected=""]
 	)
@@ -56,7 +58,8 @@
 }
 
 @include until($tablet) {
-	.ffg-code-block-container ul.tabs__tab-list:has(
+	.ffg-code-block-container
+		ul.tabs__tab-list:has(
 			> .tabs__tab:last-child[aria-selected="true"],
 			> .tabs__tab:last-child[aria-selected=""]
 		)
@@ -115,7 +118,9 @@
 	}
 }
 
-.ffg-code-block-container :not([aria-selected="true"]):not([aria-selected=""]) + .tabs__tab::before {
+.ffg-code-block-container
+	:not([aria-selected="true"]):not([aria-selected=""])
+	+ .tabs__tab::before {
 	position: absolute;
 	content: " ";
 	display: block;
@@ -127,11 +132,13 @@
 	background: var(--code-block-container_inner);
 }
 
-.ffg-code-block-container .tabs__tab:not([aria-selected="true"]):not([aria-selected=""]):hover {
+.ffg-code-block-container
+	.tabs__tab:not([aria-selected="true"]):not([aria-selected=""]):hover {
 	background: var(--code-block-tab-inative_hovered);
 }
 
-.ffg-code-block-container .tabs__tab:not([aria-selected="true"]):not([aria-selected=""]):active {
+.ffg-code-block-container
+	.tabs__tab:not([aria-selected="true"]):not([aria-selected=""]):active {
 	background: var(--code-block-tab-inactive_pressed);
 }
 

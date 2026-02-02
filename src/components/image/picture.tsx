@@ -28,7 +28,7 @@ export const Picture = ({
 	return (
 		<picture class={className} {...pictureAttrs}>
 			{pictureResult.sources.map((attrs) => (
-				<source {...attrs} />
+				<source key={attrs.srcset} {...attrs} />
 			))}
 			<img
 				crossorigin="anonymous"

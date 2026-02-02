@@ -27,161 +27,163 @@
 	--table_cell_label-color: var(--foreground_emphasis-high);
 }
 
-tbody tr:first-child {
-	td:first-child {
-		border-top-left-radius: var(--table_grid-wrapper_corner-radius);
-	}
-
-	td:last-child {
-		border-top-right-radius: var(--table_grid-wrapper_corner-radius);
-	}
-}
-
-tbody tr:last-child {
-	td:first-child {
-		border-bottom-left-radius: var(--table_grid-wrapper_corner-radius);
-	}
-
-	td:last-child {
-		border-bottom-right-radius: var(--table_grid-wrapper_corner-radius);
-	}
-}
-
-.table-container {
-	max-width: 100%;
-	width: max-content;
-	margin: var(--site-spacing) 0;
-
-	border-radius: var(--table_corner-radius);
-	padding: 0 var(--table_padding-horizontal);
-	padding-bottom: var(--table_padding-bottom);
-
-	background-color: var(--table_background-color);
-
-	// If there is no heading row, apply padding-top
-	@supports selector(:has(tbody)) {
-		&:not(:has(thead)) {
-			padding-top: var(--table_padding-bottom);
-		}
-	}
-}
-
-.table-overflow {
-	@include until(560px) {
-		.table-container {
-			overflow-y: auto;
-			width: 100%;
+.post-body {
+	tbody tr:first-child {
+		td:first-child {
+			border-top-left-radius: var(--table_grid-wrapper_corner-radius);
 		}
 
-		table:has(tr:nth-child(4)) thead {
-			top: 0 !important;
-		}
-	}
-}
-
-table {
-	border-collapse: collapse;
-
-	@include until($tabletLarge) {
-		ul {
-			padding: 0;
-			list-style: none;
+		td:last-child {
+			border-top-right-radius: var(--table_grid-wrapper_corner-radius);
 		}
 	}
 
-	& {
+	tbody tr:last-child {
+		td:first-child {
+			border-bottom-left-radius: var(--table_grid-wrapper_corner-radius);
+		}
+
+		td:last-child {
+			border-bottom-right-radius: var(--table_grid-wrapper_corner-radius);
+		}
+	}
+
+	.table-container {
+		max-width: 100%;
+		width: max-content;
+		margin: var(--site-spacing) 0;
+
+		border-radius: var(--table_corner-radius);
+		padding: 0 var(--table_padding-horizontal);
+		padding-bottom: var(--table_padding-bottom);
+
+		background-color: var(--table_background-color);
+
+		// If there is no heading row, apply padding-top
+		@supports selector(:has(tbody)) {
+			&:not(:has(thead)) {
+				padding-top: var(--table_padding-bottom);
+			}
+		}
+	}
+
+	.table-overflow {
+		@include until(560px) {
+			.table-container {
+				overflow-y: auto;
+				width: 100%;
+			}
+
+			table:has(tr:nth-child(4)) thead {
+				top: 0 !important;
+			}
+		}
+	}
+
+	table {
+		border-collapse: collapse;
+
+		@include until($tabletLarge) {
+			ul {
+				padding: 0;
+				list-style: none;
+			}
+		}
+
+		& {
+			border-radius: var(--table_grid-wrapper_corner-radius);
+			overflow: clip;
+		}
+	}
+
+	// Only use a sticky header on tables with 4+ rows
+	table:has(tr:nth-child(4)) thead {
+		position: sticky;
+		top: var(--page_header-height);
+
+		// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
+		// and renders with the thead element, rather than being held in place by the table layout (which is an issue with `position: sticky`)
+		box-shadow: inset 100vw 100vh 0 var(--table_background-color);
+	}
+
+	th {
+		@extend .text-style-body-medium-bold;
+		color: var(--table_header_label-color);
+
+		padding: var(--table_header_padding);
+		text-align: left;
+
+		position: relative;
+
+		&:not(:last-child)::after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 0;
+			background-color: var(--table_header_divider_color);
+			width: 1px;
+			height: var(--p_medium_line-height);
+			transform: translateY(-50%);
+		}
+	}
+
+	tbody {
+		@extend .text-style-body-medium;
+
+		color: var(--table_cell_label-color);
 		border-radius: var(--table_grid-wrapper_corner-radius);
-		overflow: clip;
-	}
-}
 
-// Only use a sticky header on tables with 4+ rows
-table:has(tr:nth-child(4)) thead {
-	position: sticky;
-	top: var(--page_header-height);
-
-	// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
-	// and renders with the thead element, rather than being held in place by the table layout (which is an issue with `position: sticky`)
-	box-shadow: inset 100vw 100vh 0 var(--table_background-color);
-}
-
-th {
-	@extend .text-style-body-medium-bold;
-	color: var(--table_header_label-color);
-
-	padding: var(--table_header_padding);
-	text-align: left;
-
-	position: relative;
-
-	&:not(:last-child)::after {
-		content: "";
-		display: block;
-		position: absolute;
-		top: 50%;
-		right: 0;
-		background-color: var(--table_header_divider_color);
-		width: 1px;
-		height: var(--p_medium_line-height);
-		transform: translateY(-50%);
-	}
-}
-
-tbody {
-	@extend .text-style-body-medium;
-
-	color: var(--table_cell_label-color);
-	border-radius: var(--table_grid-wrapper_corner-radius);
-
-	td {
-		padding: var(--table_cell_padding-vertical)
-			var(--table_cell_padding-horizontal);
-		background:
-			linear-gradient(
-				var(--table_cell_background-color),
-				var(--table_cell_background-color)
-			),
-			linear-gradient(
-				var(--table_grid-wrapper_background-color),
-				var(--table_grid-wrapper_background-color)
-			);
-
-		border: var(--table_grid-wrapper_cell-gap) solid
-			var(--table_grid-wrapper_background-color);
-	}
-
-	tr:nth-child(even) {
 		td {
+			padding: var(--table_cell_padding-vertical)
+				var(--table_cell_padding-horizontal);
 			background:
 				linear-gradient(
-					var(--table_cell-alternate_background-color),
-					var(--table_cell-alternate_background-color)
+					var(--table_cell_background-color),
+					var(--table_cell_background-color)
 				),
 				linear-gradient(
 					var(--table_grid-wrapper_background-color),
 					var(--table_grid-wrapper_background-color)
 				);
+
+			border: var(--table_grid-wrapper_cell-gap) solid
+				var(--table_grid-wrapper_background-color);
+		}
+
+		tr:nth-child(even) {
+			td {
+				background:
+					linear-gradient(
+						var(--table_cell-alternate_background-color),
+						var(--table_cell-alternate_background-color)
+					),
+					linear-gradient(
+						var(--table_grid-wrapper_background-color),
+						var(--table_grid-wrapper_background-color)
+					);
+			}
+		}
+
+		td:first-child {
+			border-left-width: 0;
+		}
+
+		td:last-child {
+			border-right-width: 0;
+		}
+
+		tr:first-child td {
+			border-top-width: 0;
+		}
+
+		tr:last-child td {
+			border-bottom-width: 0;
 		}
 	}
 
-	td:first-child {
-		border-left-width: 0;
+	th > code,
+	td > code {
+		word-break: break-word;
 	}
-
-	td:last-child {
-		border-right-width: 0;
-	}
-
-	tr:first-child td {
-		border-top-width: 0;
-	}
-
-	tr:last-child td {
-		border-bottom-width: 0;
-	}
-}
-
-th > code,
-td > code {
-	word-break: break-word;
 }

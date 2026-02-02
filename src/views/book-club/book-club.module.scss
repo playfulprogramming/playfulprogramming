@@ -1,0 +1,201 @@
+@use "src/tokens/index" as *;
+
+:global(#header-bar) {
+	position: static !important;
+	border: none !important;
+
+	@include from($tabletLarge) {
+		position: sticky !important;
+	}
+}
+
+.container {
+	margin: 0 auto;
+	max-width: var(--max-width_l);
+}
+
+.titleContainer {
+	z-index: 2;
+}
+
+@include until($tabletLarge) {
+	.titleContainer {
+		top: 0 !important;
+	}
+}
+
+.backgroundTop {
+	padding: var(--site-spacing);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--site-spacing);
+	justify-content: space-between;
+	width: 100%;
+	background: var(--background_primary);
+	@include transition(background);
+}
+
+.eventChipContainer {
+	display: flex;
+	align-items: center;
+}
+
+.topText {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-2x);
+}
+
+.eventsTitle {
+	margin: 0;
+	display: flex;
+	gap: calc(var(--site-spacing) / 2);
+}
+
+.listsContainer {
+	padding: var(--site-spacing);
+	display: flex;
+	flex-direction: column;
+	gap: var(--site-spacing);
+}
+
+.largeCardList,
+.smallCardList {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+
+	display: grid;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+	gap: var(--site-spacing);
+
+	@include from($tabletLarge) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.largeEventBlockDate {
+	margin: 0;
+	padding-left: var(--spc-4x);
+	position: relative;
+}
+
+.largeEventBlockDate::before {
+	content: " ";
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 4px;
+	background: var(--primary_variant);
+}
+
+.largeCardImage {
+	width: 100%;
+	object-fit: cover;
+	border-radius: calc(var(--site-spacing) / 2);
+}
+
+.largeCard {
+	background: var(--surface_primary_emphasis-none);
+	border-radius: var(--site-spacing);
+	padding: calc(var(--site-spacing) / 2);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-4x);
+}
+
+.largeCard:hover {
+	background: var(--surface_primary_emphasis-low);
+}
+
+.largeCard:active {
+	background: var(--surface_primary_emphasis-medium);
+}
+
+.largeCardContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-6x);
+}
+
+.largeEventBlockName {
+	margin: 0;
+}
+
+.largeEventBlockLocation {
+	color: var(--primary_default);
+	text-decoration: none;
+}
+
+.smallCardContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-4x);
+}
+
+.smallEventBlockDate {
+	margin: 0;
+	padding-left: var(--spc-4x);
+	position: relative;
+	color: var(--foreground_emphasis-medium);
+}
+
+.smallEventBlockDate::before {
+	content: " ";
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 4px;
+	background: var(--background_disabled);
+}
+
+.smallCard {
+	border-radius: var(--site-spacing);
+	border: 1px solid var(--background_disabled);
+	padding: calc(var(--site-spacing) / 2);
+	display: flex;
+	flex-direction: row;
+	gap: var(--spc-4x);
+	align-items: center;
+}
+
+.smallCardImage {
+	object-fit: cover;
+	border-radius: calc(var(--site-spacing) / 2);
+}
+
+.largeTextContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-1x);
+}
+
+.smallTextContainer {
+	width: 1px;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-1x);
+}
+
+.smallTextContainer > *,
+.largeTextContainer > * {
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.smallEventBlockName {
+	margin: 0;
+	color: var(--foreground_emphasis-medium);
+}
+
+.smallEventBlockLocation {
+	color: var(--primary_default);
+	text-decoration: none;
+}

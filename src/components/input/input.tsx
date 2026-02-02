@@ -100,7 +100,7 @@ export function SearchInput({
 					aria-hidden
 					class={style.searchIconContainer}
 					dangerouslySetInnerHTML={{ __html: search }}
-				></div>
+				/>
 			)}
 			<input
 				aria-label="Search"
@@ -124,7 +124,7 @@ export function SearchInput({
 					<div
 						class={style.closeButtonContainer}
 						dangerouslySetInnerHTML={{ __html: close }}
-					></div>
+					/>
 				</IconOnlyButtonButOnClick>
 			</div>
 		</div>

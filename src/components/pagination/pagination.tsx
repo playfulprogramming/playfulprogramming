@@ -39,7 +39,7 @@ function PaginationButton({
 				aria-label={`Go to page ${pageNum}`}
 				aria-current={selected || undefined}
 			>
-				{pageNum + ""}
+				{`${pageNum}`}
 			</a>
 		</li>
 	);
@@ -55,7 +55,7 @@ function PaginationMenuWrapper(
 
 	// if this is a static render, this still needs to return an <li> node so that
 	// it hydrates in the correct order
-	if (!shouldRender) return <li hidden></li>;
+	if (!shouldRender) return <li hidden />;
 
 	return <PaginationMenuAndPopover {...props} />;
 }
@@ -70,10 +70,10 @@ export const Pagination = ({
 	softNavigate,
 	testId,
 }: PaginationProps) => {
+	const { isPreviousEnabled, isNextEnabled, pages } = usePagination(page);
+
 	// if there's only one page, don't render anything
 	if (page.currentPage === 1 && page.lastPage < 2) return <></>;
-
-	const { isPreviousEnabled, isNextEnabled, pages } = usePagination(page);
 
 	return (
 		<>

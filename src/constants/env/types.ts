@@ -1,6 +1,6 @@
 export interface Environment {
 	readonly CI: boolean;
-	readonly MODE: "production" | "development" | string;
+	readonly MODE: "production" | "preview" | "development" | string;
 	readonly PROD: boolean;
 	readonly DEV: boolean;
 	readonly SITE_URL: string;
@@ -10,5 +10,4 @@ export interface Environment {
 	readonly HOOF_URL: string;
 	readonly HOOF_AUTH_TOKEN: string | undefined;
 	readonly PUBLIC_CLOUDINARY_CLOUD_NAME: string | undefined;
-	readonly ENABLE_DISCOVERABILITY: boolean;
 }

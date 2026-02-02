@@ -1,0 +1,10 @@
+---
+import {
+	VideoPlaceholder as PreactVideoPlaceholder,
+	VideoPlaceholderProps,
+} from "components/video/video-placeholder";
+
+export type Props = VideoPlaceholderProps;
+---
+
+<PreactVideoPlaceholder {...Astro.props} client:load />
