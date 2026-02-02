@@ -51,7 +51,7 @@ export function CodeEmbed(props: CodeEmbedProps) {
 
 	const handleRunEmbed = useCallback(() => {
 		runEmbed(props.projectId, props.projectZipUrl);
-	}, [props.projectId]);
+	}, [props.projectId, props.projectZipUrl]);
 
 	useEffect(() => {
 		if (container.processUrl != null) {
@@ -59,7 +59,7 @@ export function CodeEmbed(props: CodeEmbedProps) {
 			setAddressUrl(shortenProcessUrl(newFrameUrl));
 			setFrameUrl(newFrameUrl);
 		}
-	}, [container.processUrl]);
+	}, [container.processUrl, addressUrl]);
 
 	const handleAddressChange = useCallback(
 		(value: string) => setAddressUrl(value),

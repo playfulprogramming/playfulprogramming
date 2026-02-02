@@ -47,7 +47,7 @@ export const CollectionCard = ({
 					aria-label="Collection authors"
 				>
 					{authors?.map((author) => (
-						<li>
+						<li key={author.id}>
 							<a
 								href={`/people/${author.id}`}
 								className={`text-style-button-regular ${style.authorListItem}`}

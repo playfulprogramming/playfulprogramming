@@ -28,7 +28,12 @@ export function SearchFooter(props: Props) {
 		: "/sponsors/orama-dark.svg";
 	return (
 		<div class={style.footer}>
-			<a href="https://orama.com/" target="_blank" class={style.orama}>
+			<a
+				href="https://orama.com/"
+				target="_blank"
+				class={style.orama}
+				rel="noreferrer"
+			>
 				Searched by
 				<img
 					src={oramaSrc}

@@ -2,7 +2,7 @@ import { setTimeout } from "timers/promises";
 import { client } from "./client";
 import { isSocketError } from "./isSocketError";
 
-interface UrlMetadataResponse {
+export interface UrlMetadataResponse {
 	title?: string;
 	icon?: {
 		src: string;

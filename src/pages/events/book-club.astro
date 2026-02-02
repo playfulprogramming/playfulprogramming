@@ -1,0 +1,42 @@
+---
+import BookClubPage from "../../views/book-club/book-club";
+import Document from "../../layouts/document.astro";
+import SEO from "../../components/seo/seo.astro";
+import { events } from "../../views/events/constants";
+import { getUrlMetadata, UrlMetadataResponse } from "utils/hoof";
+import { Event, EventBlock } from "../../views/events/types";
+
+const event: Event = events.find((e) => e.slug === "book-club")!;
+
+interface EventBlockWithMetadata extends EventBlock {
+	location_metadata: UrlMetadataResponse;
+}
+
+const eventBlocksWithMetadata: EventBlockWithMetadata[] = [];
+
+// Do not use `Promise.all`, as the getUrlMetadata retry logic may break builds when parallelism is enabled
+for (const block of event.blocks) {
+	if (!block.location_url) continue;
+	const location_metadata = await getUrlMetadata(block.location_url);
+
+	eventBlocksWithMetadata.push({
+		...block,
+		location_metadata,
+	});
+}
+---
+
+<Document lang={"en"} size="l" disableDiscord>
+	<SEO
+		title="Book Club"
+		description="In our weekly book club, we hang out and chat about a topic or a specific article!"
+		slot="head"
+		shareImage={"/custom-content/views/book-club/book_club_social.png"}
+	/>
+	<main>
+		<BookClubPage
+			client:load
+			eventBlocksWithMetadata={eventBlocksWithMetadata}
+		/>
+	</main>
+</Document>

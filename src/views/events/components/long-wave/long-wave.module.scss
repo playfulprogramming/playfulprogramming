@@ -1,0 +1,56 @@
+@use "src/tokens/index" as *;
+
+.loopContainer {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	margin-top: -1px;
+}
+
+.longWaveSpan {
+	display: contents;
+}
+
+.longWaveSpan path {
+	@include transition(fill);
+}
+
+.loopFade,
+.loopFadeRight {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: var(--site-spacing);
+	height: 100%;
+	background: linear-gradient(to right, var(--background_primary), transparent);
+}
+
+.loopFadeRight {
+	left: unset;
+	right: 0;
+	background: linear-gradient(to left, var(--background_primary), transparent);
+}
+
+.loop_line {
+	display: flex;
+	width: fit-content;
+	animation-name: loop;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-duration: 270s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.loop_line {
+		animation-play-state: paused;
+	}
+}
+
+@keyframes loop {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}

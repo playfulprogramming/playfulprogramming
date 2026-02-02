@@ -89,10 +89,7 @@ export function ArticleRevisionDropdown({
 				<span class={style.date}>{date}</span>
 				<span class={style.dot}>{buttonVersion ? "•" : ""}</span>
 				<span class={style.version}>{buttonVersion}</span>
-				<span
-					class={style.down}
-					dangerouslySetInnerHTML={{ __html: down }}
-				></span>
+				<span class={style.down} dangerouslySetInnerHTML={{ __html: down }} />
 			</button>
 			<ul
 				id="article-versions-list"
@@ -104,8 +101,8 @@ export function ArticleRevisionDropdown({
 						: { left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }
 				}
 			>
-				{versions.map(({ href, publishedMeta, version }, i) => (
-					<Option key={i} isSelected={href.endsWith(slug)}>
+				{versions.map(({ href, publishedMeta, version }) => (
+					<Option key={href} isSelected={href.endsWith(slug)}>
 						<a
 							class={style.item}
 							aria-current={href.endsWith(slug) ? "page" : undefined}
@@ -124,7 +121,7 @@ export function ArticleRevisionDropdown({
 				))}
 				<li class={style.changelog}>
 					<hr />
-					<a href={postHistory} target="_blank">
+					<a href={postHistory} target="_blank" rel="noreferrer">
 						<span class="text-style-button-regular">View Changelog</span>
 					</a>
 				</li>

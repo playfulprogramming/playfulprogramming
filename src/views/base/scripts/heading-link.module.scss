@@ -53,7 +53,7 @@
 		var(--heading-link_border-color);
 	border-radius: calc(
 		var(--heading-link_border-width) + var(--heading-link_padding-vertical) +
-			var(--icon-size_dense) / 2
+			var(--icon-size_default) / 2
 	);
 
 	box-shadow: var(--shadow_sticker);
@@ -114,9 +114,8 @@
 	display: flex;
 	align-items: center;
 
-	padding: var(--icon-size-dense-padding);
-	height: var(--icon-size_dense);
-	width: var(--icon-size_dense);
+	height: var(--icon-size_default);
+	width: var(--icon-size_default);
 
 	svg {
 		width: 100%;

@@ -17,7 +17,7 @@
 
 	/* Items in the details layout */
 	--card_detail-row_gap: var(--spc-1x);
-	--card_detail-row_icon_size: var(--icon-size_dense);
+	--card_detail-row_icon_size: var(--icon-size_default);
 
 	--card_tags_gap: var(--chip-gap);
 	--card_tags_padding-top: var(--spc-4x);
@@ -132,7 +132,6 @@
 }
 
 .cardIcon {
-	padding: var(--icon-size-dense-padding);
 	color: var(--card_detail-row_icon_color);
 	height: var(--card_detail-row_icon_size);
 	width: var(--card_detail-row_icon_size);

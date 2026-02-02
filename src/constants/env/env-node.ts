@@ -13,5 +13,4 @@ export default {
 	HOOF_URL: process.env.HOOF_URL ?? "https://hoof.playfulprogramming.com",
 	HOOF_AUTH_TOKEN: process.env.HOOF_AUTH_TOKEN,
 	PUBLIC_CLOUDINARY_CLOUD_NAME: process.env.PUBLIC_CLOUDINARY_CLOUD_NAME,
-	ENABLE_DISCOVERABILITY: Boolean(process.env.ENABLE_DISCOVERABILITY),
 } satisfies Environment;

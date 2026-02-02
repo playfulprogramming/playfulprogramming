@@ -10,7 +10,7 @@
 	--search-hero_image_border_width: var(--spc-2x);
 	--search-hero_image_corner-radius: 25%;
 
-	--search-hero_icon_size: var(--icon-size_regular);
+	--search-hero_icon_size: var(--icon-size_default);
 
 	--search-hero_container_background-color: var(
 		--surface_primary_emphasis-none
@@ -25,12 +25,12 @@
 	@include from($tabletSmall) {
 		--search-hero_image_size: 192px;
 		--search-hero_image_border_width: var(--spc-4x);
-		--search-hero_icon_size: calc(var(--icon-size_regular) * 2);
+		--search-hero_icon_size: calc(var(--icon-size_default) * 2);
 	}
 
 	@include from($desktopSmall) {
 		--search-hero_container_max-width: var(--max-width_m);
-		--search-hero_icon_size: calc(var(--icon-size_regular) * 3);
+		--search-hero_icon_size: calc(var(--icon-size_default) * 3);
 	}
 }
 
