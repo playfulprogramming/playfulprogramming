@@ -2,7 +2,7 @@
 {
     title: "Tradeoffs in Engineering Identity",
     description: "Finding your engineering identity is a journey of balancing tradeoffs. Let's explore the key tradeoffs that shape your path.",
-    published: "2025-12-01T13:45:00.284Z",
+    published: "2026-02-02T13:45:00.284Z",
     tags: ['leadership', 'opinion'],
     license: 'cc-by-4',
     order: 1
