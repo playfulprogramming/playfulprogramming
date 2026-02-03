@@ -7,6 +7,7 @@ import Tabs from "./tabs/tabs.astro";
 import IframePlaceholder from "../iframes/iframe-placeholder.astro";
 import VideoPlaceholder from "../iframes/video-placeholder.astro";
 import XPlaceholder from "../iframes/x-placeholder.astro";
+import GistPlaceholder from "../iframes/gist-placeholder.astro";
 import FourOFourPlaceholder from "../iframes/404-placeholder.astro";
 import Hint from "./hint/hint.astro";
 import Tooltip from "./tooltip/tooltip.astro";
@@ -79,6 +80,7 @@ export const components = {
 	IframePlaceholder,
 	VideoPlaceholder,
 	XPlaceholder,
+	GistPlaceholder,
 	FourOFourPlaceholder,
 	Hint,
 	User,
