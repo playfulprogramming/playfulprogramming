@@ -359,8 +359,6 @@ importers:
         specifier: ^10.1.0
         version: 10.1.0
 
-  search: {}
-
 packages:
 
   '@acemir/cssom@0.9.31':

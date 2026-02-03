@@ -1,9 +1,0 @@
-services:
-  search:
-    image: typesense/typesense:29.0
-    restart: on-failure
-    ports:
-      - "8108:8108"
-    volumes:
-      - ./search-data:/data
-    command: '--data-dir /data --api-key=xyz --enable-cors'
