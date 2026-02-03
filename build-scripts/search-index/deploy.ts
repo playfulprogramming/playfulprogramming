@@ -40,6 +40,7 @@ function findCollection(name: string) {
 }
 
 function shallowCompare<T extends object>(a: T, b: T) {
+	if (Object.keys(a).length !== Object.keys(b).length) return false;
 	return Object.entries(a).every(([key, value]) => value === b[key as never]);
 }
 
