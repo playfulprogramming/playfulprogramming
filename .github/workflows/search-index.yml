@@ -3,6 +3,7 @@ name: Deploy Search Index
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 env:
   CI: true
@@ -28,6 +29,6 @@ jobs:
       - name: Deploy Index
         env:
           MODE: production
-          ORAMA_PRIVATE_API_KEY: ${{ secrets.ORAMA_PRIVATE_API_KEY }}
+          TYPESENSE_WRITE_API_KEY: ${{ secrets.TYPESENSE_WRITE_API_KEY }}
           HOOF_AUTH_TOKEN: ${{ secrets.HOOF_AUTH_TOKEN }}
         run: pnpm run search-index:deploy
