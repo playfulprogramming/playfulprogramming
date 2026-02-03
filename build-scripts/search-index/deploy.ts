@@ -16,8 +16,8 @@ import {
 import { collectionSchema, PostDocument, postSchema } from "utils/search";
 
 // The deploy script cannot use import.meta.env, as it runs through tsx
-if (!env.TYPESENSE_PRIVATE_API_KEY) {
-	console.error("TYPESENSE_PRIVATE_API_KEY is not defined in the environment!");
+if (!env.TYPESENSE_WRITE_API_KEY) {
+	console.error("TYPESENSE_WRITE_API_KEY is not defined in the environment!");
 	process.exit(1);
 }
 
@@ -29,7 +29,7 @@ const client = new Typesense.Client({
 			protocol: PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
 		},
 	],
-	apiKey: env.TYPESENSE_PRIVATE_API_KEY,
+	apiKey: env.TYPESENSE_WRITE_API_KEY,
 	connectionTimeoutSeconds: 10,
 });
 

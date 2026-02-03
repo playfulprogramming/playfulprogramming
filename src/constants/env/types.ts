@@ -5,7 +5,7 @@ export interface Environment {
 	readonly DEV: boolean;
 	readonly SITE_URL: string;
 	readonly GIT_COMMIT_REF: string | undefined;
-	readonly TYPESENSE_PRIVATE_API_KEY: string | undefined;
+	readonly TYPESENSE_WRITE_API_KEY: string | undefined;
 	readonly GITHUB_TOKEN: string | undefined;
 	readonly HOOF_URL: string;
 	readonly HOOF_AUTH_TOKEN: string | undefined;
