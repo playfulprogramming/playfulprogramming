@@ -14,6 +14,7 @@ export function FourOFourEmbed({ url }: FourOFourEmbedProps) {
 				<img
 					src="/illustrations/404.svg"
 					alt="404 illustration"
+					loading="lazy"
 					data-dont-round
 					data-nozoom
 					class={style.fourOFourIllustration}
