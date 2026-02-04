@@ -1,7 +1,7 @@
 ---
 {
     title: "Making Mistakes in Public Isn’t a Failure",
-    summary: 'Working in public means being visible while learning. That isn’t a weakness—it’s how real software gets built.',
+    description: 'Working in public means being visible while learning. That isn’t a weakness—it’s how real software gets built.',
     published: '2026-01-14',
     tags: ['open source', 'opinion'],
     originalLink: 'https://sarahgerrard.me/posts/making-mistakes'
