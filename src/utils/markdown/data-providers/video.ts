@@ -4,6 +4,7 @@ import {
 	VimeoOEmbedResponse,
 } from "utils/markdown/data-providers/vimeo";
 import {
+	getYouTubeOEmbedDataFromUrl,
 	youtubeHosts,
 	YouTubeOEmbedResponse,
 } from "utils/markdown/data-providers/youtube";
@@ -22,6 +23,11 @@ export async function getVideoDataFromUrl(
 	| null
 > {
 	const _url = new URL(url);
+
+	if (youtubeHosts.includes(_url.hostname)) {
+		return getYouTubeOEmbedDataFromUrl(url);
+	}
+
 	if (vimeoHosts.includes(_url.hostname)) {
 		return getVimeoOEmbedDataFromUrl(url);
 	}

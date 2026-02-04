@@ -2,17 +2,8 @@ import { http, HttpResponse, HttpResponseResolver } from "msw";
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 
-const MOCK_OEMBED_URL = "https://mockserviceworker.test/oembed/youtube.json";
-
-const htmlResolver: HttpResponseResolver = () =>
-	HttpResponse.text(`
-		<!DOCTYPE html>
-		<html lang="en">
-			<head>
-				<link rel="alternate" type="application/json+oembed" href="${MOCK_OEMBED_URL}" />
-			</head>
-		</html>
-	`);
+const YOUTUBE_VIDEO_URL = `https://noembed.com/embed?dataType=json&url=${encodeURIComponent("https://www.youtube.com/watch?v=_licnRxAVk0")}`;
+const YOUTUBE_SHORT_URL = `https://noembed.com/embed?dataType=json&url=${encodeURIComponent("https://www.youtube.com/watch?v=Fdbha07mFzo")}`;
 
 const thumbnailPath = createRequire(import.meta.url).resolve(
 	"./youtube_thumbnail.jpg",
@@ -41,7 +32,6 @@ const oembedJsonResolver: HttpResponseResolver = () => {
 };
 
 export const youtubeHandlers = [
-	http.get("https://www.youtube.com/watch", htmlResolver),
-	http.get("https://www.youtube.com/shorts/:id", htmlResolver),
-	http.get(MOCK_OEMBED_URL, oembedJsonResolver),
+	http.get(YOUTUBE_VIDEO_URL, oembedJsonResolver),
+	http.get(YOUTUBE_SHORT_URL, oembedJsonResolver),
 ];
