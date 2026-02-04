@@ -8,6 +8,9 @@ async function forceLoadLazyImages(page: Page): Promise<void> {
 			document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]'),
 		)) {
 			image.setAttribute("loading", "eager"); // Force eager loading
+			image.setAttribute("decoding", "sync"); // Force eager loading
+			image.loading = "eager";
+			image.decoding = "sync";
 			const src = image.src;
 			image.src = ""; // Reset src to reload the image
 			image.src = src; // Set src back to original
