@@ -1,7 +1,7 @@
 ---
 {
   title: 'Ads as a Performance Budget Problem',
-  summary: 'Exploring how ads impact website performance and strategies to manage their effects.',
+  description: 'Exploring how ads impact website performance and strategies to manage their effects.',
   published: '2026-01-07',
   tags: [ 'performance', 'webdev' ],
   license: 'cc-by-nc-sa-4',
