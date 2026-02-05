@@ -16,6 +16,7 @@ export interface RawPostInfo {
 	version?: string;
 	upToDateSlug?: string;
 	socialImg?: string;
+	coverImg?: string;
 }
 
 export interface PostInfo extends RawPostInfo {
@@ -33,6 +34,7 @@ export interface PostInfo extends RawPostInfo {
 	editedMeta?: string;
 	wordCount: number;
 	socialImgMeta?: LocalFile;
+	coverImgMeta?: LocalFile;
 }
 
 export interface SearchPostInfo extends PostInfo {

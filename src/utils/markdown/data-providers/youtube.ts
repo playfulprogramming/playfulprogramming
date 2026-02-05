@@ -14,6 +14,8 @@ export interface YouTubeOEmbedResponse {
 	html: string;
 }
 
+const youtubeShortHost = "youtu.be";
+
 // Can't access YouTube oEmbed directly because YouTube aggressively ratelimits and fails fetching data on their
 // webpages from a hosted domain, like GitHub actions or Fly.io
 export async function getYouTubeOEmbedDataFromUrl(
@@ -23,7 +25,9 @@ export async function getYouTubeOEmbedDataFromUrl(
 
 	const splitPath = url.pathname.split("/").filter(Boolean);
 	let videoId: string;
-	if (splitPath[0] === "watch") {
+	if (url.host === youtubeShortHost) {
+		videoId = splitPath[0];
+	} else if (splitPath[0] === "watch") {
 		const explicitVideoId = url.searchParams.get("v");
 		if (explicitVideoId) {
 			// https://www.youtube.com/watch?v=Fdbha07mFzo
@@ -48,4 +52,8 @@ export async function getYouTubeOEmbedDataFromUrl(
 		.then((res) => res.json());
 }
 
-export const youtubeHosts = ["youtube.com", "www.youtube.com"];
+export const youtubeHosts = [
+	"youtube.com",
+	"www.youtube.com",
+	youtubeShortHost,
+];

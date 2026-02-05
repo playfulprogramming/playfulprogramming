@@ -5,7 +5,8 @@
 	published: '1999-09-18',
 	tags: [],
 	license: 'cc-by-nc-sa-4',
-	noindex: true
+	noindex: true,
+    coverImg: "share-banner.png"
 }
 ---
 
