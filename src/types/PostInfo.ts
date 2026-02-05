@@ -34,7 +34,7 @@ export interface PostInfo extends RawPostInfo {
 	editedMeta?: string;
 	wordCount: number;
 	socialImgMeta?: LocalFile;
-	coverImgMeta: LocalFile;
+	coverImgMeta?: LocalFile;
 }
 
 export interface SearchPostInfo extends PostInfo {
