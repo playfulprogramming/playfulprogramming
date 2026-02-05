@@ -30,12 +30,7 @@ export async function getVimeoOEmbedDataFromUrl(
 		`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(url)}`,
 	)
 		.then((res) => (res.ok ? res : Promise.reject(res)))
-		.then((res) => res.json())
-		.then((res) => ({
-			...res,
-			thumbnail_url: decodeURIComponent(res.thumbnail_url),
-		}));
+		.then((res) => res.json());
 }
 
 export const vimeoHosts = ["vimeo.com"];
-
