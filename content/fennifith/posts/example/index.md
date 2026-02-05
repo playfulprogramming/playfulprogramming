@@ -202,7 +202,7 @@ Pretend this is something very thought provoking[^1][^2]
 ## Link to another post
 
 <!-- ::start:link-preview -->
-[Writing Modern JavaScript without a Bundler](https://playfulprogramming.com/posts/modern-js-bundleless)
+[Writing Modern JavaScript without a Bundler](/posts/modern-js-bundleless)
 <!-- ::end:link-preview -->
 
 ## Link to an external site
