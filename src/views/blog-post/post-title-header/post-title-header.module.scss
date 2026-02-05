@@ -141,3 +141,12 @@
 .container {
 	padding-bottom: var(--article-header_padding-bottom);
 }
+
+.coverImg {
+	max-height: 860px;
+	max-width: 100%;
+	border-radius: 32px;
+	overflow: hidden;
+	margin-top: var(--article-header_details_padding-vertical);
+	object-fit: cover;
+}
