@@ -295,6 +295,20 @@ async function readPost(
 		// get an excerpt of the post markdown no longer than 150 chars
 		const excerpt = getExcerpt(fileMatter.content, 150);
 
+		let socialImgMeta: PostInfo["socialImgMeta"] | undefined;
+		if (frontmatter.socialImg) {
+			const socialImgSize = await getImageSize(frontmatter.socialImg, postPath);
+			if (!socialImgSize || !socialImgSize.width || !socialImgSize.height) {
+				throw new Error(`${postPath}: Unable to parse social image size`);
+			}
+
+			socialImgMeta = {
+				height: socialImgSize.height,
+				width: socialImgSize.width,
+				...resolvePath(frontmatter.socialImg, postPath)!,
+			};
+		}
+
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
 				return true;
@@ -323,6 +337,7 @@ async function readPost(
 				dayjs(frontmatter.published).format("MMMM D, YYYY"),
 			editedMeta:
 				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
+			socialImgMeta,
 		});
 	}
 
