@@ -1,7 +1,4 @@
 import { http, HttpResponse, HttpResponseResolver } from "msw";
-import { TweetAPIResponse } from "utils/markdown/data-providers/fx-embed/types";
-import { createRequire } from "node:module";
-import { readFile } from "node:fs/promises";
 
 const jsonResolver: HttpResponseResolver<{
 	userId: string;
