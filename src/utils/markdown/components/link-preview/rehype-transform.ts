@@ -12,6 +12,7 @@ import {
 import { Plugin } from "unified";
 import { getUrlMetadata } from "utils/hoof";
 import { logError } from "utils/markdown/logger";
+import { siteUrl } from "constants/site-config";
 
 /**
  * Transform image-wrapped links into a link preview component
@@ -64,7 +65,7 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 
 	let url: URL;
 	try {
-		url = new URL(`${anchorNode.properties.href}`);
+		url = new URL(`${anchorNode.properties.href}`, siteUrl);
 	} catch (e) {
 		logError(vfile, anchorNode, "Malformatted URL");
 		return;
@@ -74,9 +75,14 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 		type: "element",
 		tagName: "picture",
 	});
-	const result = pictureNode
-		? undefined
-		: (await getUrlMetadata(url.toString()).catch(() => undefined))?.banner;
+
+	const isPlayfulDomain = new URL(siteUrl).hostname === url.hostname;
+
+	const result = isPlayfulDomain
+		? { src: "/share-banner.png" }
+		: pictureNode
+			? undefined
+			: (await getUrlMetadata(url.toString()).catch(() => undefined))?.banner;
 	if (!pictureNode && !result) {
 		logError(vfile, anchorNode, "Link preview could not find a banner image.");
 		return;
