@@ -5,7 +5,7 @@
     published: '2023-06-08',
     tags: ['webdev', 'javascript'],
     license: 'cc-by-nc-sa-4',
-    originalLink: 'https://blog.sarahgerrard.me/unraveling-the-magic-of-the-virtual-dom'
+    originalLink: 'https://sarahgerrard.me/posts/unraveling-the-magic-of-the-virtual-dom'
 }
 ---
 
