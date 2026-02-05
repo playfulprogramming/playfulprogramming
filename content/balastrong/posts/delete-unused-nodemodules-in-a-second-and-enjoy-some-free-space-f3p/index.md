@@ -30,7 +30,7 @@ Video link: https://youtube.com/shorts/76UXyiPJQwI
 - [Contributing](#contributing)
 - [Conclusions](#conclusions)
 
-## The problem
+## The problem {#the-problem}
 
 This tool is mostly for active developers who have many projects in their computer, but everyone can get benefit from it.
 
@@ -40,7 +40,7 @@ As time goes by, you'll end by having a lot of those folders on old and dusty pr
 
 For many reasons, you might want to keep those projects and not delete them, for example because of some particular implementations you want to keep as examples or template, and that's totally fine, but you don't need the `node_modules` folder!
 
-## The solution
+## The solution {#the-solution}
 
 I found a cool tool that helps exactly for this scenario, it's called [npkill](https://npkill.js.org/) and you can find it on [npm.js](https://www.npmjs.com/package/npkill).
 
@@ -48,7 +48,7 @@ I found a cool tool that helps exactly for this scenario, it's called [npkill](h
 
 This CLI tool will navigate for your disk looking for `node_modules` folders and will list all of them. After the scan, you will have the power to select them one by one and hit `SPACE` to delete the entire folder.
 
-## Installation
+## Installation {#installation}
 
 As it's a regular package on npm, it's as easy as
 
@@ -64,7 +64,7 @@ npx npkill
 
 and the hunt begins!
 
-## Options
+## Options {#options}
 
 The tool comes with some options you can find in the README on GitHub, but I'd like to put the spotlight in some of them that are quite useful
 
@@ -72,7 +72,7 @@ The tool comes with some options you can find in the README on GitHub, but I'd l
 - `--target` or `-t` => Allows to set a different target folder than `node_modules`. You can use this option to clean up `dist` or `build` folders for example.
 - `--directory` or `-d` => Allows to specify the folder to look at. By default is the current path, but you can run it from everywhere and set a different path without repositioning your terminal.
 
-## Contributing
+## Contributing {#contributing}
 
 The repository is public and hosted in GitHub, but does not seem too active.
 
@@ -80,7 +80,7 @@ This doesn't mean the project is dead though, maybe they're still open for exter
 
 You can find the repo here: https://github.com/voidcosmos/npkill/issues
 
-## Conclusions
+## Conclusions {#conclusions}
 
 And that was it! I found this really handy tool by browsing the internet and cleaned up approximately 8GB on my computer, I was so happy that I wanted to share it with you!
 

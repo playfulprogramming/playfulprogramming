@@ -13,7 +13,7 @@ socialImage: "social-image.png"
 
 *You can find a [video version](https://youtu.be/jNBw9_qNgmo) of this article on my [YouTube Channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA).*
 
-## Intro
+## Intro {#intro}
 
 Today we're building together a weighted random generator. You may also know it as a random loot table generator, or gacha system.
 
@@ -32,7 +32,7 @@ As a side quest, we're going to keep code coverage at 100% ✅
 
 <iframe src="https://www.youtube.com/watch?v=jNBw9_qNgmo"></iframe>
 
-### Output
+### Output {#output}
 
 The final result is already available on [GitHub](https://github.com/Balastrong/wrand) (there are [open issues](https://github.com/Balastrong/wrand/issues) to pick up!).
 
@@ -47,11 +47,11 @@ const result = picker.pick();
 const results = picker.pickMany(3);
 ```
 
-## Development
+## Development {#development}
 
 As seen in the preview, we're going to build a generator (with a class) that takes an array of objects in the constructor and will spit out randomly picked items with two methods: `pick` and `pickMany`.
 
-### Typing
+### Typing {#typing}
 
 As we're in Typescript, let's start by giving a type definition to our input.
 
@@ -60,7 +60,7 @@ As we're in Typescript, let's start by giving a type definition to our input.
 Our type will have two fields, one to keep the original items we passed in, and the other to store its weight (or chance, probability).
 A heavier weight means more likely to be picked up.
 
-### Core class
+### Core class {#core-class}
 
 To add some more informative content, we'll build this up with a little bit of Test Driven Development (TDD).
 
@@ -89,7 +89,7 @@ Now that the tests are written, we can proceed with the implementation.
 
 If we run the test now, they're all green and 100% code coverage ✅
 
-### Validation
+### Validation {#validation}
 
 Let's add some validation to our input. As usual, tests first!
 
@@ -109,7 +109,7 @@ Tests are looking good, we can implement the validation method.
 
 ![Coverage](./nnnbsrhd1vamkm91jkl9.png)
 
-### Standalone
+### Standalone {#standalone}
 
 With the current implementation, to pick one item only you need to explicitly create the `RandomGenerator` instance and call `pick` on it.
 
@@ -117,7 +117,7 @@ As we're building a library, it might be useful to also provide some standalone 
 
 <iframe src="https://gist.github.com/Balastrong/14d684e75a560200cc5922ce66e82bcf"></iframe>
 
-### Going further
+### Going further {#going-further}
 
 The core implementation is done and the requested functionalities described at the beginning are already working.
 

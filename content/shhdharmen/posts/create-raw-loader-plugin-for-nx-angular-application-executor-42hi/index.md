@@ -51,7 +51,7 @@ import shaderString from './shader.glsl?raw'
 
 So my goal was create a plugin named 'raw' that enables importing files as raw text content using the `?raw` query parameter syntax.
 
-## Creating and using the plugin
+## Creating and using the plugin {#creating-and-using-the-plugin}
 
 Please note that I am using [`@nx/angular:application`](https://nx.dev/technologies/angular/api/executors/application) executor, and it supports custom [ESBuild plugins](https://esbuild.github.io/plugins/), hence the code will be compatible to only [`@nx/angular:application`](https://nx.dev/technologies/angular/api/executors/application) or [`@nx/angular:browser-esbuild`](https://nx.dev/technologies/angular/api/executors/browser-esbuild) executors.
 

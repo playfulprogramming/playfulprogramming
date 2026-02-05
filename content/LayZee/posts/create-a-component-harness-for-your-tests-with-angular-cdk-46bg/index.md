@@ -430,7 +430,7 @@ It would make more sense not to extend the base harness filters until we impleme
 
 For demonstration purposes, we extend the full base harness filter here which means that our consumers are able to specify `selector` and `ancestor` filters, even though they are not being used. We could implement the base filters using harness locators, but let's skip that to keep this example simple.
 
-We have now implemented our first user interaction through a custom component harness with a custom component harness filter. Nice![](./39cqbxa)
+We have now implemented our first user interaction through a custom component harness with a custom component harness filter. Nice
 
 ## Filtering exposed content
 

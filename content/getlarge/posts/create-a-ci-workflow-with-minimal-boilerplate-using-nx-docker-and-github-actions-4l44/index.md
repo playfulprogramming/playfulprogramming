@@ -271,7 +271,7 @@ Only the tasks requiring no external services are running.
 
 ![Nx Agents Phase](./xbp4229e8jgomoym2knv.png)
 
-### Setup External Services
+### Setup External Services {#setup-external-services}
 
 This phase will build a custom Docker image for the API, pull existing images, and configure them using Docker Compose and DotenvX.
 
@@ -458,7 +458,7 @@ jobs:
       # ...
 ```
 
-#### Run The End-to-End Tests
+#### Run The End-to-End Tests {#run-the-end-to-end-tests}
 
 The final step in the workflow is to run the end-to-end tests for projects that have changed, using the `nx affected -t e2e` command. Tests will run only in the GitHub Actions runner.
 

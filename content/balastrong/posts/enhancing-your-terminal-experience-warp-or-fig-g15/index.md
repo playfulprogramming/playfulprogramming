@@ -51,7 +51,7 @@ What you're going to find in this article:
 
 Seems promising, right? Let's get started!
 
-## Key differences
+## Key differences {#key-differences}
 
 First of all, let's make it clear, they're not the same thing. Let me highlight the main differences:
 
@@ -65,7 +65,7 @@ What are the pros and cons of each approach? To name a few:
 - Fig's flexibility from working on top of a terminal might make it easier to distribute on multiple platforms, however, both Fig and Warp are still only available on MacOS. Fig has a waitlist for Windows and Linux and the same for Warp, but the latter also mentions the plan to support WASM with the goal of running on the browser to enable collaborative features.
 - Fig's settings clearly aren't managed through the terminal, even if we said it's a plugin. You need an app installed on your computer, while Warp's settings are already handled in the Warp window itself.
 
-## Pricing
+## Pricing {#pricing}
 
 Both Warp and Fig are free to use, and already ship a lot of interesting features for individuals. However, when it comes to more team-oriented features, some of them require a paid plan.
 
@@ -83,7 +83,7 @@ Fig ([pricing page](https://fig.io/pricing))
 - Team is $12 per user per month, Enterprise requires contacting them
 - Team has a 14 day free trial
 
-## Artificial Intelligence
+## Artificial Intelligence {#artificial-intelligence}
 
 Let's address the elephant in the room, right after pricing the hottest topic in 2023 can only be AI. Let's see how Warp and Fig compare in this area now, so that we can forget about AI for the rest of the post, I promise!
 
@@ -115,13 +115,13 @@ The generated command is exactly the same, but the UI is more terminal-like (rea
 
 The options give you good control over the answer as you can either edit or regenerate if you're not satisfied, but there's no quick way to get more information about the command and as I usually write in my articles about AI these days, running an AI-generated script without understanding what it does is usually not a good idea. If all you needed was just the syntax, then you're good to go.
 
-## Features
+## Features {#features}
 
 The two tools come with a wide range of smart features, some of them are pretty much overlapping to both, and some are unique to each one. Let's go through them.
 
-### Available on both
+### Available on both {#available-on-both}
 
-#### Autocomplete
+#### Autocomplete {#autocomplete}
 
 Personally, this is the key feature I consider a must-have for any terminal app/tool/whatever. I can't imagine going back to a terminal without autocomplete at this point.
 
@@ -137,13 +137,13 @@ Let me add an example here, you can either select a git command (with a letter `
 
 Speaking of the interaction, both tools allow you to customize it, whether you want to use the arrows, tab, enter or whatever you like the most to navigate and select the suggestions.
 
-#### AI
+#### AI {#ai}
 
 I promised I wouldn't talk about AI anymore, but since this is a list of features available on both tools, let me mention it again.
 
 Ok, end of this chapter :)
 
-#### Themes
+#### Themes {#themes}
 
 If you don't like the default theme, both tools support custom ones!
 
@@ -157,9 +157,9 @@ Pretty much the same happens on Fig, you can find the themes on the settings and
 
 ![Fig Themes](./bnialedrscu6z9d37sjs.png)
 
-### Fig Only
+### Fig Only {#fig-only}
 
-#### Custom scripts
+#### Custom scripts {#custom-scripts}
 
 Through the Fig settings app you can define some custom scripts. You can see them as aliases with some extra features around them, such as adding a description and being able to share them.
 
@@ -169,27 +169,27 @@ There's also a Scripts Store where public scripts can be distributed and install
 
 To run one of those scripts you can start with `fig run` and the autocomplete dropdown will show you the available ones.
 
-#### Full IDEs integration
+#### Full IDEs integration {#full-ides-integration}
 
 One of the advantages of being a plugin instead of a standalone app is that you can more easily integrate with other tools. Fig currently works with VS Code, Android Studio and the JetBrains IDEs.
 
-#### Dotfiles
+#### Dotfiles {#dotfiles}
 
 Aliases, variables, paths... all the annoying settings you have to manually set up in some hidden files can be managed through the Fig settings app in a visual way.
 
 With the free plan, you can manage your personal dotfiles, while with the paid plans you can also manage and share the configs with your team.
 
-### Warp Only
+### Warp Only {#warp-only}
 
 The advantages of being a standalone app are clear when it comes to the UI and UX, Warp has more control over how the user interacts with it and it can leverage that to provide a much better experience.
 
-#### Command Palette
+#### Command Palette {#command-palette}
 
 Command Palettes are a common tool available in many scopes, from MacOS, to GitHub, Visual Studio code... and also Warp.
 
 With `Cmd + P` you can open the command palette and search for any command you want to run. As you might expect, you can start typing to narrow down the results and you can use the arrows to navigate through them.
 
-#### Blocks
+#### Blocks {#blocks}
 
 This is the feature I didn't know I needed until I tried it. Blocks are a way to group commands and outputs into a single entity, making it easy to scroll on long logs with clearly defined input and output.
 
@@ -203,11 +203,11 @@ Here's an example of a shared block, where you can see the command on top and th
 
 You can also run some actions specifically on blocks, such as finding a specific text, copying the input or output and asking AI for assistance based on the block's content.
 
-#### Multi tabs
+#### Multi tabs {#multi-tabs}
 
 To be fair, having multiple tabs is the responsibility of the terminal, clearly, fig cannot do that. If you want more tabs, you need to use fig on top of a terminal that already supports tabs... to name one: Warp.
 
-#### User-friendly Input
+#### User-friendly Input {#user-friendly-input}
 
 One thing that really "grinds my gears" is moving my cursor in the input text and having to select/cut/paste parts of it.
 
@@ -217,17 +217,17 @@ I think I'm not the only one though, as Warp thought about that. The input box w
 
 Bonus points, you can use multi-cursors!
 
-## Technologies
+## Technologies {#technologies}
 
 Warp has a lot of stuff to handle so the team decided to build it in Rust, which rhymes to "blazingly fast". Jokes aside, it's cool to see how Rust is becoming more popular and it's being used to deliver cool and fast tools.
 
 Fig is built in Typescript making it easy to have the dashboard also available as a web app in your browser.
 
-## Open Source
+## Open Source {#open-source}
 
 Both projects have an eye on the open source community, even if the core code isn't available, with almost a dozen of public repos on GitHub each.
 
-### Warp
+### Warp {#warp}
 
 *Organization page - [warpdotdev](https://github.com/warpdotdev)*
 
@@ -237,7 +237,7 @@ Feeling inspired? You can 100% customize your own theme with this tool created b
 
 The [workflows](https://github.com/warpdotdev/workflows) repo is also interesting, using Rust this time, holding a collection of all public workflows you can access from Warp (Command palette, or `^ + Shift + R`) and also from [commands.dev](https://www.commands.dev/).
 
-### Fig
+### Fig {#fig}
 
 *Fig organization page - [withfig](https://github.com/withfig)*
 
@@ -245,7 +245,7 @@ Fig's coolest repo is for sure the [autocomplete](https://github.com/withfig/aut
 
 Similarly to Warp's workflows repo, on the [plugins](https://github.com/withfig/plugins) repository, you can find the content of Fig's plugin store. Do you have a cool plugin to share with the community? Open a PR!
 
-## Documentation
+## Documentation {#documentation}
 
 [Warp docs](https://docs.warp.dev/) - [Fig docs](https://fig.io/user-manual)
 
@@ -258,7 +258,7 @@ Changelogs are also available, which is always a good sign of a healthy project:
 - [Warp changelog](https://docs.warp.dev/getting-started/changelog)
 - [Fig changelog](https://fig.io/changelog)
 
-## Community
+## Community {#community}
 
 One of the keys to success for a project is the community around it. Let's take a look at some numbers:
 
@@ -277,7 +277,7 @@ No metrics here, but both tools have their own blog ([Warp](https://www.warp.dev
 
 Warp also has some swags like t-shirts, hoodies and even a jacket ([tweet with the details](https://twitter.com/warpdotdev/status/1656328242507415552)).
 
-## Conclusion
+## Conclusion {#conclusion}
 
 Now that we're in the closing chapter, let's get back to the initial statement: we're looking at two *different* tools.
 

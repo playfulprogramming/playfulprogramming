@@ -28,7 +28,7 @@ In this tutorial we're going to see in detail how to:
 - Using our action in another repository
 - Some final touches to make our project more robust
 
-## How to use this tutorial
+## How to use this tutorial {#how-to-use-this-tutorial}
 
 This post will be much longer than usual, you can skip through the chapters from the table of contents below, but I'd recommend you to follow each step and not skip anything.
 
@@ -81,13 +81,13 @@ Last, but not least, I also recorded a video version of this tutorial, so if you
   - [Formatting & Linting](#formatting---linting)
 - [Closing](#closing)
 
-## Building an MVP
+## Building an MVP {#building-an-mvp}
 
 Let's begin with an MVP (Minimum Viable Product) of our GitHub Action.
 
 We'll start simple with an action having only the required parts to understand the basics, then we'll add more features to it.
 
-### Action Definition
+### Action Definition {#action-definition}
 
 The definition is stored in the `action.yml` file, put directly in the root of the repository.
 
@@ -123,7 +123,7 @@ branding:
 
 Anyway, for this MVP the first snippet will be enough.
 
-### Project setup
+### Project setup {#project-setup}
 
 Let's create an empty node project with `npm init -y`.
 
@@ -159,7 +159,7 @@ Then we'll create a `tsconfig.json` by running `npx tsc --init` and we'll edit i
 }
 ```
 
-### Project code
+### Project code {#project-code}
 
 We can now create the `src/index.ts` file and start writing our action.
 
@@ -169,7 +169,7 @@ console.log('Hello World!');
 
 We're building an MVP, right? So let's keep it simple for now and focus on all the required steps. We'll have time to expand it later.
 
-### Building the action
+### Building the action {#building-the-action}
 
 We can now build the action by running `npm run build` which will execute the `tsc` command as we defined in the `package.json` file.
 
@@ -182,7 +182,7 @@ dist
 
 In case you see `index.js` generated in the root of the project or inside `src/`, you might want to add make sure the `outDir` option to the `tsconfig.json` file is properly set to `dist`.
 
-### Creating the repository
+### Creating the repository {#creating-the-repository}
 
 In case you haven't done it yet, it's time to create a git repository as we'll need to push our code to GitHub soon.
 
@@ -203,11 +203,11 @@ git remote add origin
 git push -u origin main
 ```
 
-## Running the Action
+## Running the Action {#running-the-action}
 
 We're all set! It's time to run our action.
 
-### Creating a workflow
+### Creating a workflow {#creating-a-workflow}
 
 On GitHub, Actions are executed by workflows. A workflow is defined in a `.yml` file stored in the `.github/workflows` folder of the repository so let's create it.
 
@@ -241,7 +241,7 @@ How does GitHub know what action to run? It's defined in the `action.yml` file w
 
 One more line worth mentioning is `on: workflow_dispatch:` which tells GitHub to run the workflow when we manually trigger it from the Actions tab. I recorded a dedicated video about running [GitHub Actions manually](https://youtu.be/KGfncu595pc), if you want to learn more about it.
 
-### Running the workflow
+### Running the workflow {#running-the-workflow}
 
 We can now push our code to GitHub and see the action in action!
 
@@ -261,7 +261,7 @@ The workflow will start running and we'll see the logs of the action in the cons
 
 Congratulations! You just created and ran your first GitHub Action!
 
-### Running the action locally
+### Running the action locally {#running-the-action-locally}
 
 In case you want to run the action locally, without having to commit/push every time, you can use the [act](https://github.com/nektos/act) tool.
 
@@ -277,11 +277,11 @@ act
 
 You can find more in my video about [running GitHub Actions locally](https://youtu.be/Ugonll0e2Os).
 
-## Reading inputs
+## Reading inputs {#reading-inputs}
 
 Let's make our action a bit more interesting by reading an input from the workflow.
 
-### Add inputs to the action definition
+### Add inputs to the action definition {#add-inputs-to-the-action-definition}
 
 As usual, the first step is to define the input in the `action.yml` file.
 
@@ -293,7 +293,7 @@ inputs:
     default: 'World'
 ```
 
-### Read the input in the action code
+### Read the input in the action code {#read-the-input-in-the-action-code}
 
 Then we can read the input in the action code.
 
@@ -315,7 +315,7 @@ And then add the import on top of the `index.ts` file.
 import { getInput } from '@actions/core';
 ```
 
-### Update the workflow
+### Update the workflow {#update-the-workflow}
 
 Finally, we need to update the workflow to pass the input to the action.
 
@@ -327,7 +327,7 @@ Finally, we need to update the workflow to pass the input to the action.
 
 By adding the `with` section, we're passing the `name` input to the action.
 
-### Run the hello action
+### Run the hello action {#run-the-hello-action}
 
 We can now run the action again and see the input being passed to the action.
 
@@ -335,11 +335,11 @@ We can now run the action again and see the input being passed to the action.
 
 If it doesn't work (`Error: Cannot find module '@actions/core'`) that's ok, we'll fix it in the next section when we inluce `@vercel/ncc` in the workflow.
 
-## Use case: Adding a label to new Pull Requests
+## Use case: Adding a label to new Pull Requests {#use-case--adding-a-label-to-new-pull-requests}
 
 We learned the basics, we have our MVP ready to be expanded so let's do it! We'll create a new action that will automatically run every time a new Pull Request is created and it will add a `needs-review` label to it.
 
-### Update the action code
+### Update the action code {#update-the-action-code}
 
 In order to add a label to a Pull Request, we need to use the [GitHub REST API](https://docs.github.com/en/rest). We can use the Octokit client to make the API calls. Luckily for us there's an official package we can use.
 
@@ -388,7 +388,7 @@ What happened here?
 
 In case something fails, we catch the error and we set the workflow as failed with the `setFailed` function, also coming from the `@actions/core` package.
 
-### Update the action definition
+### Update the action definition {#update-the-action-definition}
 
 We also need to update the action definition to add the new inputs.
 
@@ -402,7 +402,7 @@ inputs:
     required: true
 ```
 
-### Update the workflow
+### Update the workflow {#update-the-workflow-1}
 
 Finally, we need to update the workflow to run when PRs are opened or reopened:
 
@@ -429,7 +429,7 @@ Setting it to "Read and write permissions" will be enough.
 
 ![Workflow permissions](./of9yx3ldkmw9ds804y2g.png)
 
-### Run the action
+### Run the action {#run-the-action}
 
 We can now run the action again and see the label is added to the Pull Request.
 
@@ -472,7 +472,7 @@ We also need to change `outDir` in `tsconfig.json` to `lib`.
 
 You might also want to double-check that `lib` is in your `.gitignore` file but `dist` is not. This is our desired behavior as `lib` will only have our code in javascript, but `dist` will have the whole action.
 
-### Run the action (2.0)
+### Run the action (2.0) {#run-the-action--20-}
 
 We can now run `npm run build` again, then commit and push the changes.
 
@@ -480,11 +480,11 @@ Create a new branch, change a file and open a Pull Request. This time, you'll se
 
 ![Label added to the Pull Request](./au4cvf3m88rfjeyrnnif.png)
 
-## Testing the action
+## Testing the action {#testing-the-action}
 
 You wouldn't push code into production without testing it, right? So let's write some tests for our action.
 
-### Setup
+### Setup {#setup}
 
 We'll use [Jest](https://jestjs.io/) to write our tests. It works out of the box with Javascript but needs a little bit of configuration to work with TypeScript.
 
@@ -508,7 +508,7 @@ We also need to create a new config file for jest, in the root of our project, c
 
 We're telling jest to use the `ts-jest` preset, to run the tests in node, to collect coverage and to ignore some files.
 
-### Additional changes
+### Additional changes {#additional-changes}
 
 Without any extra configuration, the build will also include test files, which we don't want. On tsconfig.json, we can add a new `exclude` property.
 
@@ -530,7 +530,7 @@ if (!process.env.JEST_WORKER_ID) {
 }
 ```
 
-### Writing the tests
+### Writing the tests {#writing-the-tests}
 
 We can now create a new file called `index.test.ts` in the `src/__tests__` folder. This is where we'll write our tests.
 
@@ -606,7 +606,7 @@ describe('run', () => {
 });
 ```
 
-### Running the tests
+### Running the tests {#running-the-tests}
 
 Now it's finally time to get rid of that `"test": "echo \"Error: no test specified\" && exit 1"` script in `package.json`. Just replace it with:
 
@@ -622,11 +622,11 @@ We can now run `npm test` to run the tests. You should see something like this:
 
 Our action works as intended and we have some tests to prove it!
 
-## Debugging the action
+## Debugging the action {#debugging-the-action}
 
 Our favourite tool is flooding the code with console.log, but we all know there's a better way to debug code. Let's see how we can debug our action with Visual Studio Code.
 
-### Setup
+### Setup {#setup-1}
 
 To get started, we need one more package in our dev dependencies: `ts-node`. This will allow us to run our action directly from the source code, without having to build it first.
 
@@ -653,13 +653,13 @@ With vscode, the launch configuration is stored in a file called `launch.json`. 
 }
 ```
 
-### Debugging
+### Debugging {#debugging}
 
 You can now put a breakpoint in your code and click on the play button in the debug sidebar. This will start the debugger and run your action. You can also use the `F5` key to start the debugger.
 
 In this specific example, there isn't too much to debug, but if you're working on a more complex action, this can be a lifesaver.
 
-### Inputs
+### Inputs {#inputs}
 
 Ah, I almost forgot, what if your action has some inputs? How can you debug it?
 
@@ -695,11 +695,11 @@ If you now hit `F5` to start the debugger, you'll see that the environment varia
 
 ![Debugging the Action](./sr4bwcg57n8jz8ze91sm.png)
 
-## Publishing the action
+## Publishing the action {#publishing-the-action}
 
 The paragraph you've all been waiting for. I'm sure you also skipped the previous one about debugging to jump straight to this one.
 
-### Branding
+### Branding {#branding}
 
 Hold on for a second, if you remember we mentioned the `branding` section in the `action.yml` file. Let's see what it's all about.
 
@@ -711,7 +711,7 @@ branding:
 
 This will add a nice icon and a color to your action in the GitHub Marketplace. You can find the list of available icons [here](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#branding).
 
-### Publishing
+### Publishing {#publishing}
 
 Ok, here we are!
 
@@ -719,7 +719,7 @@ How do we publish our action? Just look at your GitHub repo. If you've properly 
 
 ![Publishing the action](./8xmg11iy690cf5ttjuyj.png)
 
-### Going live on the GitHub Marketplace
+### Going live on the GitHub Marketplace {#going-live-on-the-github-marketplace}
 
 Click on `Draft a release` and you will get to a page where you can set up all the required/missing information, for example, a well-written and informative `README.md`file.
 
@@ -733,7 +733,7 @@ Almost there... click the `Publish release` green button and you're done!
 
 Congratulations, you've just published your first GitHub Action!
 
-### Using your action
+### Using your action {#using-your-action}
 
 Now that you've published your action, everyone can use it in their workflows!
 
@@ -761,11 +761,11 @@ To specify the version, you can either use `owner/repo@{version}` (with `{versio
 
 ---
 
-## Final touches
+## Final touches {#final-touches}
 
 The action is complete, it's live in the store and it works on all GitHub repositories, but unless it's 100% complete and you won't ever update it again, you still have some room for improvements for a better developer experience (DX is quite trending these days).
 
-### Keeping dist up to date
+### Keeping dist up to date {#keeping-dist-up-to-date}
 
 One thing which will annoy you in this workflow is pushing new code and forgetting to also update the `dist` content.
 
@@ -795,7 +795,7 @@ npm run build
 
 Now make sure to run `npm install` once to update the hook. This will make sure that every time you commit, the `dist` folder will be updated.
 
-### Formatting & Linting
+### Formatting & Linting {#formatting---linting}
 
 Since we already set up our `pre-commit` hook, we can also add some formatting and linting to it.
 
@@ -854,7 +854,7 @@ npx husky add .husky/pre-commit "npx lint-staged"
 
 One more `npm install` and we're done!
 
-## Closing
+## Closing {#closing}
 
 If you followed all steps, you now have a pretty solid GitHub Action, published in the GitHub Marketplace, which is automatically built and linted on each commit. Ready to make a great Open Source project!
 

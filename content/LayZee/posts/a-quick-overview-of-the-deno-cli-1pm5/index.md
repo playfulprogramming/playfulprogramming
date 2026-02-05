@@ -49,7 +49,7 @@ Common CLI options in Deno version 1.4 supported by all commands:
 
 Other than these, some commands support permission options such as `--allow-net`. We will not discuss these in this article.
 
-# Bundle JavaScript module
+# Bundle JavaScript module {#bundle-javascript-module}
 
 The `deno bundle` command is used to bundle a module and its dependency tree into a single JavaScript module.
 
@@ -137,7 +137,7 @@ We're now left with a single JavaScript bundle that uses a `Map` to keep track o
 
 > When using this command, be careful when using features that are not supported by V8, such as top-level await. However, top-level await works with the V8 flag `--harmony-top-level-await`.
 
-# Cache remote Deno modules
+# Cache remote Deno modules {#cache-remote-deno-modules}
 
 For any module, we can cache (download) the module and every dependency if they're remote modules.
 
@@ -261,7 +261,7 @@ Here's the generated lockfile:
 
 The lockfile is a map over each dependent module and the hash of its source code.
 
-# Deno shell completions
+# Deno shell completions {#deno-shell-completions}
 
 We can get shell completions for the Deno CLI commands by outputting a profile script for the shell of our choice.
 
@@ -303,7 +303,7 @@ Now we can write `deno` then `Tab` through CLI commands.
 
 ![](./qk41wf6rppwxjxrvxbzr.png) *Deno CLI completions in Bash.*
 
-# Inline/online Deno module documentation
+# Inline/online Deno module documentation {#inline-online-deno-module-documentation}
 
 [Deno Doc](https://doc.deno.land/) is an official website that generates documentation for public Deno modules on-the-fly and caches them for 24 hours.
 
@@ -356,7 +356,7 @@ function atob(s: string): string
 
 *Documentation of global symbols displayed by using the `deno doc --builtin <symbol-path>` command.*
 
-# Evaluate JavaScript/TypeScript code
+# Evaluate JavaScript/TypeScript code {#evaluate-javascript-typescript-code}
 
 The `deno eval` command is used to evaluate a string containing JavaScript or TypeScript code.
 
@@ -426,7 +426,7 @@ deno eval --print "(() => { const a = 2, b = '2'; const result = a + b; return r
 
 *JavaScript evaluation with `deno eval --print` and an IIFE.*
 
-# Format Deno modules
+# Format Deno modules {#format-deno-modules}
 
 The `deno fmt` command formats modules in an opinionated style. The underlying tool is [the Rust-based `dprint`](https://dprint.dev/), but with no configuration options or plugins allowed.
 
@@ -472,7 +472,7 @@ error: Found 1 not formatted file in 4 files
 
 *Check source module formatting with `deno fmt --check`.*
 
-Display command usage and examples
+# Display command usage and examples {#display-command-usage-and-examples}
 
 Deno's built-in `deno help` command displays usage and examples for all commands or a single command.
 
@@ -497,7 +497,7 @@ deno help help
 
 The related `--help` option allows us to add help instructions to modules. To see an example, look at [the standard library's HTTP file server](https://deno.land/std/http/file_server.ts).
 
-# Display metadata and dependency tree for Deno module
+# Display metadata and dependency tree for Deno module {#display-metadata-and-dependency-tree-for-deno-module}
 
 We can use the `deno info` command to get the path, type, path of compiled code, path of source map, and the dependency tree of a module.
 
@@ -692,7 +692,7 @@ PS C:\projects\sandbox\deno-cli-app> deno info --unstable --json ./src/hello_wor
 
 *JSON dependency report for the `hello_world.ts` module.*
 
-# Install Deno module as executable
+# Install Deno module as executable {#install-deno-module-as-executable}
 
 Using the `deno install` command, we can install a Deno module as an executable.
 
@@ -749,7 +749,7 @@ deno "run" "https://deno.land/std/examples/xeval.ts" "$@"
 
 As Deno caches remote modules, it will be available without internet access. Alternatively, we can produce a standalone executable by using the `deno bundle` command and creating a shell script ourselves.
 
-# Linting Deno code
+# Linting Deno code {#linting-deno-code}
 
 Deno version 1.1 introduced a built-in, experimental linter which we can use with the `deno lint` command.
 
@@ -865,7 +865,7 @@ Available rules:
 
 *A list of active lint rules.*
 
-# Deno REPL (Read-eval-print loop)
+# Deno REPL (Read-eval-print loop) {#deno-repl-read-eval-print-loop-}
 
 If you want to take Deno for a spin or do some ad hoc scripting, the REPL is what you're looking for.
 
@@ -907,7 +907,7 @@ undefined
 
 *Start a Deno REPL with the `deno repl` command.*
 
-# Run Deno module
+# Run Deno module {#run-deno-module}
 
 We can use the `deno run` command to compile and evaluate a local or remote module. After running it the first time, the module and all its dependencies will be cached by Deno so that we can run it offline.
 
@@ -956,7 +956,7 @@ msg:2 { code: 1001, reason: "" }
 
 ![](./vqa79v70h26i705v4hyp.png) *Local Deno chat server.*
 
-# Deno test runner
+# Deno test runner {#deno-test-runner}
 
 Deno's built-in test runner drives the `Deno.test` framework.
 
@@ -1128,7 +1128,7 @@ The `deno types` command give us the type declarations of the active Deno execut
 
 `deno types > lib.deno.d.ts` writes the current Deno type declarations to the `lib.deno.d.ts` file.
 
-# Upgrade Deno executable
+# Upgrade Deno executable {#upgrade-deno-executable}
 
 The `deno upgrade` commands is used to upgrade the Deno executable to the latest version or a specific version.
 

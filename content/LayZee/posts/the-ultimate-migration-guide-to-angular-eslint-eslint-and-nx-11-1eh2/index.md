@@ -32,17 +32,17 @@ Let's explore different workspace configurations and discuss a few caveats. This
 - [Conclusion](#conclusion)
   - [Acknowledgements](#acknowledgements)
 
-# Prerequisites
+# Prerequisites {#prerequisites}
 
 1. It's recommended to use Node.js 12 for Nx 11.
 2. This guide assumes that Nx CLI version 11.x is installed globally.
 3. Install Angular CLI version 11.x globally just in case.
 
-# Setting up a new Nx Angular workspace with angular-eslint
+# Setting up a new Nx Angular workspace with angular-eslint {#setting-up-a-new-nx-angular-workspace-with-angulareslint}
 
 In this use case, we create a new Nx workspace. We can either use the `empty` workspace preset or the `angular` workspace preset.
 
-## Option 1: Use the empty workspace preset
+## Option 1: Use the empty workspace preset {#option-1-use-the-empty-workspace-preset}
 
 Using the `empty` workspace preset, we use `workspace.json` version 2 which is compatible with Nx plugins targeting Nx 11 or later.
 
@@ -251,7 +251,7 @@ In `workspace.json` we can verify that the `lint` targets use the `@nrwl/linter:
 
 The base `.eslintrc.json` configuration should mention the `@nrwl/nx/typescript` ESLint plugin. Open the `.eslintrc.json` files in the Angular application and library projects to verify that the `@nrwl/nx/angular`, `@nrwl/nx/angular-template`, and `@angular-eslint/template/process-inline-templates` ESLint plugins are enabled.
 
-## Option 2: Use the angular workspace preset
+## Option 2: Use the angular workspace preset {#option-2-use-the-angular-workspace-preset}
 
 As of Nx version 11.0.18, the `angular` workspace preset generates the initial Angular application project with angular-eslint, but generates the initial application and end-to-end testing projects without taking these parameters into account:
 
@@ -488,7 +488,7 @@ In `angular.json` we can verify that the `lint` targets use the `@nrwl/linter:es
 
 The base `.eslintrc.json` configuration should mention the `@nrwl/nx/typescript` ESLint plugin. Open the `.eslintrc.json` files in the Angular application and library projects to verify that the `@nrwl/nx/angular`, `@nrwl/nx/angular-template`, and `@angular-eslint/template/process-inline-templates` ESLint plugins are enabled.
 
-# Migrating an existing Nx 10 Angular workspace using ESLint
+# Migrating an existing Nx 10 Angular workspace using ESLint {#migrating-an-existing-nx-10-angular-workspace-using-eslint}
 
 When migrating to Nx 11, existing projects using ESLint will be migrated to include angular-eslint.
 
@@ -665,7 +665,7 @@ When migrating to Nx 11, existing projects using ESLint will be migrated to incl
    nx run-many --target=lint --all
    ```
 
-# Migrating an existing Nx 10 Angular workspace using TSLint
+# Migrating an existing Nx 10 Angular workspace using TSLint {#migrating-an-existing-nx-10-angular-workspace-using-tslint}
 
 As of Nx version 11.0.18, Nx hasn't got schematics for Nx Angular workspaces using TSLint to migrate to ESLint with angular-eslint.
 
@@ -1057,7 +1057,7 @@ For this example, we will use Nx' default test runners for the `angular` workspa
    nx run-many --target=lint --all
    ```
 
-# Conclusion
+# Conclusion {#conclusion}
 
 The `empty` preset for an Nx workspace is great, because it uses the new `workspace.json` version 2 schema with executors, generators, and targets. We can configure it however we want and it supports angular-eslint well.
 
@@ -1089,6 +1089,6 @@ Some Angular-specific TSLint rules from Codelyzer do not have corresponding angu
 
 Why should we migrate away from TSLint as fast as possible? On December 1st 2020, TSLint went fully end-of-life. No PRs or issues are accepted ever again. This means that any release of Angular, TypeScript, Node.js, or any of TSLint's dependencies can potentially break TSLint version 6.1.3, the last version to ever be published. TSLint was deprecated 2 years ago.
 
-## Acknowledgements
+## Acknowledgements {#acknowledgements}
 
 Thank you [James Henry](https://twitter.com/MrJamesHenry) for angular-eslint. Thank you Nrwl and [James Henry](https://twitter.com/MrJamesHenry) for angular-eslint support in Nx.

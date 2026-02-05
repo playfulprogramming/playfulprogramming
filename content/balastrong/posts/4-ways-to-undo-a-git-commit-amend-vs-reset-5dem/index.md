@@ -40,7 +40,7 @@ As usual, there's a live demo waiting for you on my YouTube channel where I show
 - [4. Reset (hard)](#4-reset-hard)
 - [Bonus: Restore Hard Deleted Changes](#bonus-restore-hard-deleted-changes)
 
-## 1. Amend no-edit
+## 1. Amend no-edit {#1-amend-no-edit}
 
 Let's start with the easiest situation, you already did a commit but you forgot to add some files.
 
@@ -53,7 +53,7 @@ git commit --amend --no-edit
 
 No extra actions required, you're done!
 
-## 2. Amend & Change Message
+## 2. Amend & Change Message {#2-amend--change-message}
 
 Similar situation to the previous one, but you also want to change the commit message.
 
@@ -66,7 +66,7 @@ This will open your default editor and you can change the commit message. Once y
 
 Actually, `git add .` is not required if all you wanted to do is to change the commit message. You can just run `git commit --amend`.
 
-## 3. Reset (soft)
+## 3. Reset (soft) {#3-reset-soft}
 
 This is the case where you want to undo a commit, but you want to keep the changes so that you can make a new commit at a later time.
 
@@ -83,7 +83,7 @@ After running this command, you'll see that the last commit is gone but the file
 
 You can now keep working and whenever you're ready you can do a new commit.
 
-## 4. Reset (hard)
+## 4. Reset (hard) {#4-reset-hard}
 
 This is the case where you want to undo a commit and you don't want to keep the changes.
 
@@ -93,7 +93,7 @@ If you want to delete the changes, you need to add the `--hard` flag while runni
 
 The full command we need this time is `git reset --hard HEAD~1` and it will delete the last commit and the changes. Forever. Or is it?
 
-## Bonus: Restore Hard Deleted Changes
+## Bonus: Restore Hard Deleted Changes {#bonus-restore-hard-deleted-changes}
 
 If you run `git reset --hard HEAD~1` and you're not happy with the result, you can still restore the changes.
 

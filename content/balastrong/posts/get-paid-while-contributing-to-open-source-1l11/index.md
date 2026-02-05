@@ -23,7 +23,8 @@ But. Once you get in the loop, this activity can become significantly time-consu
 
 Having a way to receive money, also gives the possibility to contribute for talented people that wouldn’t be able to spend their time for free.
 
-[![Click here for the YouTube video!](./dr0v5zfg19y606k7qqx4.png)](https://youtu.be/EQQgMnzsURk)
+<iframe src="https://youtube.com/watch?v=EQQgMnzsURk"></iframe>
+
 *Ok, the YouTube Thumbnail is weird, doesn't make you want to click and watch the video?*  😅
 
 ---
@@ -44,11 +45,11 @@ Hi, I’m Leonardo, I share content about Open Source (and some Web Development)
 
 The most common way you might already know, is by getting a sponsor or with crowdfunding, but since these are already quite known, I’ll describe first all the other ones and I’ll get back to it later.
 
-# From a regular employer
+# From a regular employer {#from-a-regular-employer}
 
 Now, you’ll be suprised, but you can already get paid for Open Source in your current job.
 
-## Contribute during your work day
+## Contribute during your work day {#contribute-during-your-work-day}
 
 If you use an Open Source software at work, ask your employer to let you contribute to it during your regular work day. The time spent on a project the company is already using, will benefit the company itself and you’re basically getting paid while improving a project really care about! Not the boring client requests.
 
@@ -56,13 +57,13 @@ If you need an extra leverage for your pitch to your boss, you can put on the ta
 
 That’s already a huge win-win condition and this runs in your favor!
 
-## Open your project
+## Open your project {#open-your-project}
 
 A slightly different way on the same trend of getting paid by your current employer is by asking to put open source your currently private work.
 
 People all over the world will be able to contribute to the project, bringing a huge benefit to the company and letting you work on Open Source projects while still getting paid.
 
-## Success stories
+## Success stories {#success-stories}
 
 If you need examples, there are already some successful companies giving some paid time to their employees, to work on Open Source. Some examples are Netflix, PayPal or Zalando.
 
@@ -72,7 +73,7 @@ If you want to know more, here you can find three links where they describe how 
 - <https://paypal.github.io/>
 - <https://opensource.zalando.com/> - <https://opensource.zalando.com/docs/using/contributing/>
 
-# Enterprise relations
+# Enterprise relations {#enterprise-relations}
 
 If you’re the owner of the project and the average user is other companies, this opens up to some interesting opportunities.
 
@@ -80,11 +81,11 @@ You can think of offering hosting, premium versions or paid customer support. If
 
 A more code-oriented solution can be using the Open-Core model. The core version of your software is Open Source, but you can monetize on add-ons or custom upgrades.
 
-# Sponsors and fundings
+# Sponsors and fundings {#sponsors-and-fundings}
 
 It’s now time to expand on what I mentioned in the beginning, getting a sponsor.
 
-## GitHub Sponsors
+## GitHub Sponsors {#github-sponsors}
 
 GitHub runs a project called GitHub Sponsors, and as you might guess from the name, it’s GitHub helping you in finding someone to pay you for your hard work.
 
@@ -96,23 +97,23 @@ One more good reason is that it’s all internal to GitHub, no need to use exter
 
 As a side note, in most countries, you still have to pay taxes on donations, so please do your own research based on the country you live in!
 
-## Open Collective
+## Open Collective {#open-collective}
 
 A similar option to GitHub Sponsors is Open Collective that also claims to have zero fees under some conditions and is quite popular. Unfortunately I haven’t studied it in details so I will not spend to many words to avoid telling you something wrong.
 
 Actually, if you know more about Open Collective, please drop a comment!
 
-# Indirect sources
+# Indirect sources {#indirect-sources}
 
 If everything I said until this point is not enough, there’s also a bonus way to make money, that is by getting noticed by someone for your quality contributions. Your name might end up in the HR’s desks of some companies and it can be the start of a new career. I talked about that in detail in another article on why you should go Open Source, if you’re interested in learning more, you can find it [here](https://dev.to/balastrong/8-reasons-why-you-should-contribute-to-open-source-today-1gn) ([Video version](https://youtu.be/uquIcISFtwg)).
 
-# Not for everyone
+# Not for everyone {#not-for-everyone}
 
 Ok, so, I’ve shared with you some interesting ways how to get paid but let’s think about it twice.
 
 Having someone give you money for working on an Open Source project is indeed great, but comes with a cost. If you started Open Source for passion, learning or just out of curiosity, you had no pressure but only fun. Now, if you’re paid, you’ve got responsibilities. For someone, it can be ok, but again, think about it and try to not go into burnout, it’s not a good idea.
 
-# One last thing...
+# One last thing... {#one-last-thing}
 
 There’s still a problem though, getting paid is cool but you also need a project to get started, right? Then you better check out [this other article](https://dev.to/this-is-learning/how-to-find-an-open-source-project-to-contribute-to-3093) ([or video](https://youtu.be/yfopPq4354o)) where I tell you some smart ways how to find the best project for you. Finding a project can be hard, at least, it was for me and I know also for some other friends… that’s why I shared some suggestions based on my own experience.
 

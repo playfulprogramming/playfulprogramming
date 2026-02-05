@@ -56,7 +56,7 @@ A stateful presentational component can have an initial state, regardless of the
 
 The user might not be the only actor able to change the checkbox state. Maybe a timer sets the state to checked after 10 seconds for whatever reason. The checkbox component will be notified of this state change through its input property.
 
-## Lean presentational components
+## Lean presentational components {#lean-presentational-components}
 
 When following the Model-View-Presenter pattern, we keep our presentational components lean. We keep logic out of our component templates, but also our component models (the component class instances).
 

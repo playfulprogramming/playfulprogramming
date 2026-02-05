@@ -23,13 +23,13 @@ order: 1
 
 <iframe src="https://www.youtube.com/watch?v=yfopPq4354o"></iframe>
 
-## Introduction
+## Introduction {#introduction}
 
 Welcome! You clicked on this post because you want to contribute to Open Source, but you need some help in finding the right project, correct? Keep reading for a few minutes and you'll get some insights that will probably help you a little bit 😉
 
 A common obstacle to overcome is finding the right project but don’t worry, happens to most of us. Everything that comes to your mind is either a huge project and you have no idea where to begin, or some dead projects without a maintainer or guidance on how to help.
 
-## Opensource Guide
+## Opensource Guide {#opensource-guide}
 
 The first step is looking at this cool resource called [opensource.guide](https://opensource.guide/)
 
@@ -39,7 +39,7 @@ Read carefully the content here as it will provide you with a useful insight tha
 
 In case you’re still wondering why you should contribute, there are plenty of benefits and good reasons, so many that I actually made [an entire video](https://youtu.be/uquIcISFtwg) on that.
 
-## Known projects
+## Known projects {#known-projects}
 
 Once you’ve got some good motivation and you understood the basics, I suppose you want to get started but you have no idea where to begin.
 
@@ -51,7 +51,7 @@ Some of the software you use everyday or the websites you visit might be Open So
 
 In my case, I use `vscode` as editor and I found reasonable to put that project in the list of potential repositories to contribute at.
 
-## Good First Issue & Help Wanted
+## Good First Issue & Help Wanted {#good-first-issue---help-wanted}
 
 A common way to find a project, potentially one that you don’t even know, is by going backward and searching from issues rather than from projects directly.
 
@@ -74,7 +74,7 @@ Those services usually give you some extra insights such as the amount of open i
 
 To be honest I’m not a fan of this approach as I think you need a deep knowledge of the project before writing some code for it. Anyway, those websites are quite common so I wanted to mention it. Maybe they will work well for you!
 
-## How to contribute
+## How to contribute {#how-to-contribute}
 
 Once you found a project that feels right for you, there are still a few steps to take before being 100% able to contribute effectively, for example finding the right issue that addresses a specific change to apply in the code. I'm writing the script of a video specifically on this topic that I'll post on my [YouTube Channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA). Feel free to add a comment here if you have some extra advices and I'll include them!
 

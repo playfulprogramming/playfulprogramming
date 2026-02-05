@@ -34,7 +34,7 @@ I’m going to split the activities into 6 categories and provide real examples 
 - [Code-related](#code-related)
 - [Not only software](#not-only-software)
 
-## Documentation
+## Documentation {#documentation}
 
 The name is pretty much self-explanatory, but this is really often overlooked. Let’s say you want to contribute to a project, but you have no idea how to run it on your machine. You hope that there’s a `CONTRIBUTING.md` file in the repo that tells you how to do that. Without that piece of documentation, you wouldn’t even be able to run the project! Do you get how important documentation is?
 
@@ -48,7 +48,7 @@ Don’t forget that answering questions on StackOverflow can be considered docum
 
 Oh, right, you can also translate existing content into your language to spread the knowledge, why not?
 
-## Management
+## Management {#management}
 
 Open Source projects have some kind of project management as well, usually on the shoulders of the owners and maintainers, but if you’re an organized person, you can help them a lot!
 
@@ -56,7 +56,7 @@ The main platform, in this case, is the GitHub issues tab. It’s quite common o
 
 You can help the community for example by linking duplicate issues, asking for more details in case a bug or a feature request is not clear enough, reproducing bugs and adding yourself more context, and so on.
 
-## Awareness
+## Awareness {#awareness}
 
 If you have deep knowledge of a particular project and you like public speaking, you might consider organizing workshops, meetups or talks to raise awareness about specific software or project.
 
@@ -64,7 +64,7 @@ Don’t forget that the more visibility a project gets, the more users and contr
 
 Do you know an easy way to raise awareness about open source? Hit like on this video and subscribe to my channel. I post regularly videos about Open Source and by helping me, you’re also helping the Open Source community! Thank you!
 
-## Design
+## Design {#design}
 
 This can be intended as a visual medium of documentation. Complex structures or flows often require a good visualization to be explained and understood properly. You can consider creating structured UML or simple flow chart diagrams to visualize and simplify.
 
@@ -72,7 +72,7 @@ You can see some examples from the [vscode repo](https://github.com/microsoft/vs
 
 ![vscode structure](./kpdp58ehxqrdyj3125r7.png)
 
-## Code related
+## Code related {#code-related}
 
 Let’s talk about code that is not features or bugfixes.
 
@@ -80,7 +80,7 @@ Code reviews are always welcome, you can have a look at open pull requests and a
 
 If you really really want to write code, you can think of creating some internal tools, for example, to quickly set up the project, improve the test coverage, and make debugging and local development easier. In general, code which helps the other contributors to be more productive and safe.
 
-## Not only software
+## Not only software {#not-only-software}
 
 If you think that GitHub is only a place where people put code, you’ll be surprised!
 

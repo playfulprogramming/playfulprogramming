@@ -44,7 +44,7 @@ I'll take you through both the technical foundations and practical implementatio
 
 ---
 
-## Two Worlds of Application Distribution
+## Two Worlds of Application Distribution {#two-worlds-of-application-distribution}
 
 First, I want to distinguish between each distribution method.
 
@@ -72,7 +72,7 @@ This approach represents a **shift-left** in application delivery—moving deplo
 
 The result? Applications that are more reliable, more secure, and significantly easier to deploy.
 
-## Technical Foundation
+## Technical Foundation {#technical-foundation}
 
 As a longtime Node.js developer, I was curious about how this feature was implemented. Let's peek under the hood!
 
@@ -272,7 +272,7 @@ MaybeLocal<Value> LoadSingleExecutableApplication(
 
 ---
 
-## Practical Implementation
+## Practical Implementation {#practical-implementation}
 
 ![Practice](./giphy.gif)
 
@@ -524,7 +524,7 @@ npx postject dist/app/node.exe NODE_SEA_BLOB dist/app/demo.blob ^
 > - Code cache and snapshots are platform-specific
 > - Native modules (still) require platform-specific compilation
 
-## Docker Integration
+## Docker Integration {#docker-integration}
 
 As someone who's built countless Docker images for Node.js apps, I couldn't wait to see how SEA could optimize container size.
 
@@ -633,7 +633,7 @@ EXPOSE ${PORT}
 ENTRYPOINT [ "/app/node" ]
 ```
 
-## Performance Benchmarks
+## Performance Benchmarks {#performance-benchmarks}
 
 Using the `useCodeCache` option offers a dual benefit of better performance and slightly improved code protection.
 
@@ -674,7 +674,7 @@ The performance improvement is most noticeable for:
 
 > For most applications, I'd definitely recommend enabling code cache despite the slight size increase.
 
-## The Reality of Code Protection
+## The Reality of Code Protection {#the-reality-of-code-protection}
 
 One question that frequently comes up when discussing SEA is:
 
@@ -801,7 +801,7 @@ For genuinely sensitive code, I recommend a multi-layered approach:
 
 ---
 
-## Conclusion
+## Conclusion {#conclusion}
 
 Node.js Single Executable Applications have transformed how I deliver Node.js applications, offering:
 

@@ -19,7 +19,7 @@ I splitted my commonplace book for this topic by two:
 - [Common Syntax](#common-syntax)
 - [Advanced Topics](#advanced-topics)
 
-## Common Syntax
+## Common Syntax {#common-syntax}
 
 **1️⃣ Basic Data Types**
 
@@ -378,7 +378,7 @@ class Service {
 }
 ```
 
-## Advanced Topics
+## Advanced Topics {#advanced-topics}
 
 **1️⃣ Generics**
 
