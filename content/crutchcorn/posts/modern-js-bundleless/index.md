@@ -316,7 +316,7 @@ Now, we'll update our  `package.json` to include the deps we want to use:
 }
 ```
 
-> As a helpful tip, [we can use `devDependencies` to track the tools we don't need to ship to the browser and `dependencies` as the libraries we need in production](https://playfulprogramming.com/posts/how-to-use-npm#dev-deps).
+> As a helpful tip, [we can use `devDependencies` to track the tools we don't need to ship to the browser and `dependencies` as the libraries we need in production](/posts/how-to-use-npm#dev-deps).
 
 And install them using `pnpm`:
 

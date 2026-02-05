@@ -20,6 +20,17 @@ export const gistPlatformDetector: PlatformDetector = {
 
 		const data = await getGist(gistId);
 
+		if (!data) {
+			parent.children.splice(
+				index,
+				1,
+				createComponent("FourOFourPlaceholder", {
+					url: src,
+				}),
+			);
+			return;
+		}
+
 		// TODO: How to handle no files in a Gist?
 		if (!data.files) return;
 
