@@ -45,11 +45,7 @@ export async function getYouTubeOEmbedDataFromUrl(
 		`https://noembed.com/embed?dataType=json&url=${encodeURIComponent(youtubeUrl)}`,
 	)
 		.then((res) => (res.ok ? res : Promise.reject(res)))
-		.then((res) => res.json())
-		.then((res) => ({
-			...res,
-			thumbnail_url: decodeURIComponent(res.thumbnail_url),
-		}));
+		.then((res) => res.json());
 }
 
 export const youtubeHosts = ["youtube.com", "www.youtube.com"];
