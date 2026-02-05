@@ -6,8 +6,8 @@ edited: "2025-10-08T05:23:45Z",
 tags: ["firebase", "angular", "webdev", "programming"],
 description: "In the world of web development, building dynamic and engaging user interfaces often leads developers...",
 originalLink: "https://dev.to/this-is-angular/seamless-synergy-hosting-your-angular-app-on-firebase-144i",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

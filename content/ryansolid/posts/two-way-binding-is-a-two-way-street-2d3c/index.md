@@ -5,8 +5,8 @@ published: "2024-07-31T21:19:18Z",
 tags: ["javascript", "vue", "svelte", "solidjs"],
 description: "In some circles, two-way binding is seen as the scourge of modern frontends, while in others it is...",
 originalLink: "https://dev.to/this-is-learning/two-way-binding-is-a-two-way-street-2d3c",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

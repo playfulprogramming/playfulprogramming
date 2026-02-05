@@ -6,8 +6,8 @@ edited: "2021-09-09T07:06:25Z",
 tags: ["typescript", "webdev"],
 description: "Hi Guys, Today I'll show you some advanced utilities exposed by the typescript language. Let's...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-advanced-types-3pp8",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 20
 }

@@ -6,8 +6,8 @@ edited: "2023-12-12T14:14:35Z",
 tags: ["yaml", "beginners"],
 description: "A quick overview of YAML sequences (arrays/lists) and mappings (hash maps/associative arrays).",
 originalLink: "https://dev.to/this-is-learning/yaml-collections-sequences-and-mappings-4meb",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

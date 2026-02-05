@@ -6,8 +6,8 @@ edited: "2021-09-09T07:06:05Z",
 tags: ["typescript", "webdev"],
 description: "In some cases, we need to manipulate some types to create new types. In these cases, we have to use...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-mapped-types-5bkn",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 19
 }

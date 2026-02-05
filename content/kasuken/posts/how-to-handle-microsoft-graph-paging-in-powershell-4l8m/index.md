@@ -5,8 +5,8 @@ published: "2023-10-17T05:14:18Z",
 tags: ["powershell", "azure"],
 description: "When you query the Microsoft Graph API, you may encounter a limitation: the API only returns a...",
 originalLink: "https://dev.to/this-is-learning/how-to-handle-microsoft-graph-paging-in-powershell-4l8m",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

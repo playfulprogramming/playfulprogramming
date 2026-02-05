@@ -6,8 +6,8 @@ edited: "2024-08-04T09:50:47Z",
 tags: ["python", "javascript", "dsa", "datastructures"],
 description: "In my ongoing quest to sharpen my LeetCode skills, I tackled the \"Best Time to Buy and Sell Stock II\"...",
 originalLink: "https://dev.to/this-is-learning/cracking-the-leetcode-122-best-time-to-buy-and-sell-stock-ii-17k5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

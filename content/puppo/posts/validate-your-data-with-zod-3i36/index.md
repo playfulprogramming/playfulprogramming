@@ -6,8 +6,8 @@ edited: "2023-01-26T11:42:48Z",
 tags: [],
 description: "Preface   Many developers don't know very well which is the line between Javascript and...",
 originalLink: "https://blog.delpuppo.net/validate-your-data-with-zod",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

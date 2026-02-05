@@ -6,8 +6,8 @@ edited: "2022-11-04T13:38:42Z",
 tags: ["testing", "javascript", "webdev"],
 description: "When we want to test our code, some things have dependencies inside, and you don't want to call these...",
 originalLink: "https://www.danywalls.com/how-to-mock-dependencies-with-jest",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

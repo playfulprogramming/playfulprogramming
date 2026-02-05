@@ -6,8 +6,8 @@ edited: "2025-09-02T05:01:37Z",
 tags: ["typescript", "nestjs", "tutorial"],
 description: "Declare lazy-loaded routes in NestJS and in-depth review of the DiscoveryService",
 originalLink: "https://dev.to/this-is-learning/dynamic-nestjs-listeners-discover-the-power-of-lazy-loading-53i2",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

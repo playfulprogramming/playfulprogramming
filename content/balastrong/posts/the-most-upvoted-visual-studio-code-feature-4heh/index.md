@@ -5,8 +5,8 @@ published: "2023-11-29T20:20:46Z",
 tags: ["vscode", "microsoft", "github", "productivity"],
 description: "Up until yesterday (technically, a few days ago), tabs were bound to the same vscode window, but...",
 originalLink: "https://leonardomontini.dev/multi-window-vscode",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Visual Studio Code",
 order: 5
 }

@@ -6,8 +6,8 @@ edited: "2025-10-22T15:52:09Z",
 tags: ["techtalks", "career"],
 description: "I have wanted to write about tech conferences for a while, and last week I was at Codemotion in...",
 originalLink: "https://leonardomontini.dev/codemotion-milan-25",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Developer Relations",
 order: 3
 }

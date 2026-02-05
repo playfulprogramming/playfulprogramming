@@ -6,8 +6,8 @@ edited: "2021-10-18T07:15:50Z",
 tags: ["typescript", "javascript", "webdev"],
 description: "Sometimes we have a long  list of imports, with files that come from the same place, it makes our...",
 originalLink: "https://dev.to/this-is-learning/simplify-imports-in-typescript-29jo",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

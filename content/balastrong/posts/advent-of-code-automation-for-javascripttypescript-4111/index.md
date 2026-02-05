@@ -5,8 +5,8 @@ published: "2023-12-03T21:27:55Z",
 tags: ["adventofcode", "javascript", "typescript", "webdev"],
 description: "December means Advent of Code for many of us 🎄 (or at least, the first few days of December)  These...",
 originalLink: "https://leonardomontini.dev/advent-of-code-javascript-typescript",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 14
 }

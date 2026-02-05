@@ -5,8 +5,8 @@ published: "2022-01-03T18:31:09Z",
 tags: ["go", "docker", "testing", "mongodb"],
 description: "Dockertest enables us to use Docker to create containers to run our tests against. With dockertest,...",
 originalLink: "https://mainawycliffe.dev/blog/using-dockertest-to-write-integration-tests-against-mongodb/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

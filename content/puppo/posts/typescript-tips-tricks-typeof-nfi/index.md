@@ -6,8 +6,8 @@ edited: "2021-09-09T07:01:54Z",
 tags: ["typescript", "webdev"],
 description: "Today I want to start a series of tips and tricks about Typescript. I will try to publish two/three...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-typeof-nfi",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 1
 }

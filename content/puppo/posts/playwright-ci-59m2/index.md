@@ -6,8 +6,8 @@ edited: "2023-02-21T07:21:23Z",
 tags: ["playwright", "testing", "github", "githubaction"],
 description: "Hi there, Today I want to speak about integrating Playwright in your GitHub action CI. So don't waste...",
 originalLink: "https://blog.delpuppo.net/playwright-ci",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 7
 }

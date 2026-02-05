@@ -5,8 +5,8 @@ published: "2021-06-17T07:06:05Z",
 tags: ["angular", "webdev", "javascript", "typescript"],
 description: "In this article, we will learn how to extend Scully functionality through plugins. We will do this by...",
 originalLink: "https://mainawycliffe.dev/blog/building-scully-rss-plugin-angular",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

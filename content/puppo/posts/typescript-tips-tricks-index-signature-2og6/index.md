@@ -6,8 +6,8 @@ edited: "2021-09-09T07:04:13Z",
 tags: ["typescript", "webdev"],
 description: "Welcome back guys, today I'll speak about the \"Index Signature\". In some cases, we need to create...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-index-signature-2og6",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 9
 }

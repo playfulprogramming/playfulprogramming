@@ -6,8 +6,8 @@ edited: "2025-09-02T04:58:50Z",
 tags: ["node", "tutorial", "devops", "docker"],
 description: "Discover how to package your Node.js applications into single executable files, reducing deployment complexity and improving security.",
 originalLink: "https://dev.to/this-is-learning/building-single-executable-applications-with-nodejs-16k3",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

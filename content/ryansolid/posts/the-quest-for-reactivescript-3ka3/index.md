@@ -6,8 +6,8 @@ edited: "2021-11-24T17:28:45Z",
 tags: ["javascript", "webdev", "reactivity"],
 description: "This article isn't going to teach you about the latest trends in frontend development. Or look in...",
 originalLink: "https://dev.to/this-is-learning/the-quest-for-reactivescript-3ka3",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2022-12-20T08:20:29Z",
 tags: ["qwik", "framework", "webdev", "performance"],
 description: "A few weeks ago I decided to create an e-commerce storefront based on real GraphQL APIs to sell...",
 originalLink: "https://dev.to/this-is-learning/qwik-web-revolution-by-default-4omp",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

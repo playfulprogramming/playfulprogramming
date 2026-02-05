@@ -5,8 +5,8 @@ published: "2023-10-31T14:21:33Z",
 tags: ["productivity", "webdev", "chrome", "opensource"],
 description: "Having a unique ID on each card is so important to efficiently communicate, but Trello does not show...",
 originalLink: "https://leonardomontini.dev/trello-numbers-fixed",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "My Dev Journey",
 order: 7
 }

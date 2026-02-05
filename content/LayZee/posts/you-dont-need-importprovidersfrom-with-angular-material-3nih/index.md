@@ -6,8 +6,8 @@ edited: "2025-03-30T20:38:26Z",
 tags: ["angular", "material", "providers", "standalone"],
 description: "Cover photo generated with Microsoft Designer.  Traditionally, we had to import mixed Angular modules...",
 originalLink: "https://dev.to/this-is-angular/you-dont-need-importprovidersfrom-with-angular-material-3nih",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

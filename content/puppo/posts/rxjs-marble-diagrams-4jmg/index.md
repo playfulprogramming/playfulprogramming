@@ -5,8 +5,8 @@ published: "2021-09-13T05:59:11Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hi guy, before continuing with the operators, today I want to explain the Marble Diagrams. The Marble...",
 originalLink: "https://dev.to/this-is-learning/rxjs-marble-diagrams-4jmg",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 4
 }

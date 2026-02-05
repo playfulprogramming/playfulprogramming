@@ -6,8 +6,8 @@ edited: "2021-09-17T14:20:31Z",
 tags: ["javascript", "webdev", "frameworks", "react"],
 description: "After I finished the first article I wasn't sure how long it would be before we'd have enough topics...",
 originalLink: "https://dev.to/this-is-learning/javascript-vs-javascript-round-2-fight-2m44",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "JavaScript vs JavaScript",
 order: 2
 }

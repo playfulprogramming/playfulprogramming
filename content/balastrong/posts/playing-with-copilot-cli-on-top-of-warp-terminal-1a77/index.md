@@ -6,8 +6,8 @@ edited: "2024-04-29T16:39:38Z",
 tags: ["terminal", "ai", "github", "productivity"],
 description: "I recently got access to the new Copilot CLI, which basically gives you the full power of GitHub...",
 originalLink: "https://leonardomontini.dev/copilot-cli-vs-warp-ai/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

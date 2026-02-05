@@ -5,8 +5,8 @@ published: "2024-01-23T07:31:57Z",
 tags: ["blazor", "aspnet", "csharp", "dotnet"],
 description: "In this post, I will show you how to add controllers to a Blazor Server app and how to use them to...",
 originalLink: "https://dev.to/this-is-learning/how-to-add-controllers-to-a-blazor-server-app-a9",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2022-11-22T22:17:42Z",
 tags: ["opensource", "github", "tutorial", "beginners"],
 description: "Intro   Let's see the steps you need from zero to creating your first Pull Request.  If...",
 originalLink: "https://leonardomontini.dev/first-pull-request/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Shorts",
 order: 4
 }

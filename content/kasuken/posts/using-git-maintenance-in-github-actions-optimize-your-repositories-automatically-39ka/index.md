@@ -5,8 +5,8 @@ published: "2024-12-20T07:04:23Z",
 tags: ["git", "github", "devops", "productivity"],
 description: "Integrating the git maintenance command into your GitHub Actions workflow can help keep your...",
 originalLink: "https://dev.to/this-is-learning/using-git-maintenance-in-github-actions-optimize-your-repositories-automatically-39ka",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Streamline Your Workflow with the Git Maintenance Command",
 order: 2
 }

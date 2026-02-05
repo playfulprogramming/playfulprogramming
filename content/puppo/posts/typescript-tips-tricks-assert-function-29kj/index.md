@@ -6,8 +6,8 @@ edited: "2021-09-09T07:05:42Z",
 tags: ["typescript", "webdev"],
 description: "There are times that we need to create some assertions to be sure an object respects some rules. A...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-assert-function-29kj",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 15
 }

@@ -5,8 +5,8 @@ published: "2023-04-28T13:03:41Z",
 tags: ["azure", "azurefunctions", "powershell"],
 description: "In this post, I'm going to show you how to create Azure Functions with PowerShell and Visual Studio...",
 originalLink: "https://dev.to/this-is-learning/create-an-azure-function-with-powershell-and-visual-studio-code-3k9n",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

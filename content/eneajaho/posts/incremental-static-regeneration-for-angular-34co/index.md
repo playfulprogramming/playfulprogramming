@@ -6,8 +6,8 @@ edited: "2022-11-10T11:34:59Z",
 tags: ["angular", "ssr", "ssg", "nextjs"],
 description: "If you are reading this, you've probably heard of SSR (Server-side rendering), SSG (Static site...",
 originalLink: "https://dev.to/eneajaho/incremental-static-regeneration-for-angular-34co",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

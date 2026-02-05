@@ -5,8 +5,8 @@ published: "2021-09-17T06:00:17Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Welcome back Guys,  Today we'll start with the Filtering Operators. As you can imagine these...",
 originalLink: "https://dev.to/this-is-learning/rxjs-filtering-operators-pe1",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 6
 }

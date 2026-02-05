@@ -5,8 +5,8 @@ published: "2023-05-31T07:34:31Z",
 tags: ["terminal", "ai", "productivity"],
 description: "After using Warp for over a couple of months (and collecting feedback from colleagues already using...",
 originalLink: "https://leonardomontini.dev/warp-terminal-vs-fig/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 8
 }

@@ -6,8 +6,8 @@ edited: "2022-11-23T11:14:05Z",
 tags: ["tutorial", "codenewbie", "beginners", "programming"],
 description: "What is a Code Smell?   Let me provide you with my personal definition and some examples to...",
 originalLink: "https://leonardomontini.dev/code-smell/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

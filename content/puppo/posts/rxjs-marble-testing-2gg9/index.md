@@ -6,8 +6,8 @@ edited: "2021-10-13T11:44:12Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hello Folks 👋! Today it's time to speak about testing and how to test the code when we use...",
 originalLink: "https://dev.to/this-is-learning/rxjs-marble-testing-2gg9",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 15
 }

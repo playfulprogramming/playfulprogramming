@@ -5,8 +5,8 @@ published: "2023-08-21T09:22:23Z",
 tags: ["webdev", "nextjs", "typescript", "codenewbie"],
 description: "Learning through tutorials alone is not enough, some hands-on practice is required in order to...",
 originalLink: "https://leonardomontini.dev/web-development-community-project",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 13
 }

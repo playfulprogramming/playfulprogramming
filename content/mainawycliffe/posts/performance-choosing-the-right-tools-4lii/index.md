@@ -6,8 +6,8 @@ edited: "2022-04-17T06:49:37Z",
 tags: ["webdev", "javascript", "typescript", "performance"],
 description: "Before I wrote this, I was in the middle of writing a Twitter thread about performance on the web and...",
 originalLink: "https://mainawycliffe.dev/blog/performance-choosing-right-tools/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

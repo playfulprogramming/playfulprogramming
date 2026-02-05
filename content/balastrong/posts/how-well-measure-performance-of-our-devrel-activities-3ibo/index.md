@@ -5,8 +5,8 @@ published: "2025-06-23T14:31:13Z",
 tags: ["devrel", "career"],
 description: "▶️ This article is extracted from a video transcript, slightly tweaked for better readability. Watch...",
 originalLink: "https://leonardomontini.dev/devrel-02/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Developer Relations",
 order: 2
 }

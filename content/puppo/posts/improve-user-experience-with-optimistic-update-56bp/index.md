@@ -5,8 +5,8 @@ published: "2023-05-11T05:56:50Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Hey Folks,  Sometimes to improve the user experience you can decide to bet on the success of your...",
 originalLink: "https://blog.delpuppo.net/improve-user-experience-with-optimistic-update",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 9
 }

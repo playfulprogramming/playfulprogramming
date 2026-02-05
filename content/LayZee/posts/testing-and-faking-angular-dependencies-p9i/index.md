@@ -6,8 +6,8 @@ edited: "2021-03-26T14:20:51Z",
 tags: ["angular", "testing", "dependencyinjection"],
 description: "Learn the ins an outs of Angular dependency injection in automated tests.",
 originalLink: "https://dev.to/this-is-angular/testing-and-faking-angular-dependencies-p9i",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Angular dependencies",
 order: 2
 }

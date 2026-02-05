@@ -5,8 +5,8 @@ published: "2024-05-14T11:22:28Z",
 tags: ["github", "gamedev", "webdev"],
 description: "You can play online multiplayer games on Github profiles! 🎮  Setting up a profile on GitHub is easy,...",
 originalLink: "https://leonardomontini.dev/4-github-games-readme-profiles/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Mastering GitHub",
 order: 8
 }

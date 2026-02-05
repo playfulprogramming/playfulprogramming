@@ -5,8 +5,8 @@ published: "2021-10-06T06:00:57Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "What's a Subject Luca? And why today do you want to speak about subjects? Is there a mistake in the...",
 originalLink: "https://dev.to/this-is-learning/rxjs-subjects-4m12",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 14
 }

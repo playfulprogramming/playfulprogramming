@@ -6,8 +6,8 @@ edited: "2022-07-27T05:30:04Z",
 tags: ["angular", "rxjs", "javascript"],
 description: "When we build an app, some data like the menu and options don't change with frequency. The best...",
 originalLink: "https://www.danywalls.com/how-caching-data-in-angular-with-rxjs",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -5,8 +5,8 @@ published: "2024-03-26T07:21:09Z",
 tags: ["typescript", "javascript", "webdev", "tutorial"],
 description: "One of the more advanced topics in Typescript is Generics and understanding and adding them to your...",
 originalLink: "https://www.allthingstypescript.dev/p/a-gentle-introduction-to-generics",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

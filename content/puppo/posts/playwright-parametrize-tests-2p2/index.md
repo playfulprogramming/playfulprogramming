@@ -6,8 +6,8 @@ edited: "2023-03-15T05:45:56Z",
 tags: ["playwright", "e2e"],
 description: "Hey folks,  Today it's time to speak about how to parametrize tests with Playwright.  There are cases...",
 originalLink: "https://blog.delpuppo.net/playwright-parametrize-tests",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 12
 }

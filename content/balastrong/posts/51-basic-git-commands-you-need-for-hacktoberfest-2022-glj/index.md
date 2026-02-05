@@ -6,8 +6,8 @@ edited: "2023-09-11T21:17:20Z",
 tags: ["hacktoberfest", "git", "beginners", "tutorial"],
 description: "Hacktoberfest is starting tomorrow!! Are you ready??  In case you're quite new to git, I will try to...",
 originalLink: "https://leonardomontini.dev/basic-git-commands-for-open-source/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Hacktoberfest",
 order: 3
 }

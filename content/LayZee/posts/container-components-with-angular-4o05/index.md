@@ -6,8 +6,8 @@ edited: "2021-03-22T21:56:14Z",
 tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
 description: "Container components are extracted from mixed Angular components to increase the maintainability, testability and scalability of our Angular apps.",
 originalLink: "https://dev.to/this-is-angular/container-components-with-angular-4o05",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
 order: 2
 }

@@ -6,8 +6,8 @@ edited: "2023-08-03T09:54:19Z",
 tags: ["debug", "webdev", "javascript", "tutorial"],
 description: "Please, don’t tell me you’re still using console.log to debug your application.  Ok, everyone does...",
 originalLink: "https://leonardomontini.dev/chrome-debugger/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 11
 }

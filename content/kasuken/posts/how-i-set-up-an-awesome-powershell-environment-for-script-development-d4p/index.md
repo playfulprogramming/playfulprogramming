@@ -6,8 +6,8 @@ edited: "2025-01-11T10:52:40Z",
 tags: ["powershell", "vscode", "development"],
 description: "Over the past few years, I’ve had the opportunity to help colleagues write and refine PowerShell...",
 originalLink: "https://dev.to/this-is-learning/how-i-set-up-an-awesome-powershell-environment-for-script-development-d4p",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

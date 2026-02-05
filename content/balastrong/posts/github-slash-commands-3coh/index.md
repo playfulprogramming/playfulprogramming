@@ -5,8 +5,8 @@ published: "2023-04-16T19:02:00Z",
 tags: ["github", "opensource", "productivity"],
 description: "Wait, what? Slash commands are available on GitHub?  I recorded a two minutes video to showcase how...",
 originalLink: "https://leonardomontini.dev/github-slash-commands/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Mastering GitHub",
 order: 4
 }

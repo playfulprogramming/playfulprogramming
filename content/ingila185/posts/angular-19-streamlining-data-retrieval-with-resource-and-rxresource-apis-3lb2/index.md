@@ -6,8 +6,8 @@ edited: "2024-11-10T11:16:05Z",
 tags: ["webdev", "angular", "javascript", "programming"],
 description: "Angular 19 introduces two exciting experimental APIs, resource and rxResource, designed to simplify...",
 originalLink: "https://dev.to/this-is-angular/angular-19-streamlining-data-retrieval-with-resource-and-rxresource-apis-3lb2",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

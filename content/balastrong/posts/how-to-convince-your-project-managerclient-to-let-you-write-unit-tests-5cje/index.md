@@ -5,8 +5,8 @@ published: "2023-05-24T20:23:40Z",
 tags: ["testing", "webdev", "productivity", "coding"],
 description: "I recently shared a video where I showed how Copilot Chat can write tests for you, a funny demo, but...",
 originalLink: "https://leonardomontini.dev/save-time-with-automated-tests/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 7
 }

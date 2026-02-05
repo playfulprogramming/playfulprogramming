@@ -6,8 +6,8 @@ edited: "2022-12-05T12:51:30Z",
 tags: ["beginners", "opensource", "javascript", "typescript"],
 description: "If you're familiar with my content, you know I often talk about how to find new Open Source projects...",
 originalLink: "https://leonardomontini.dev/beginner-friendly-open-source-projects/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 6
 }

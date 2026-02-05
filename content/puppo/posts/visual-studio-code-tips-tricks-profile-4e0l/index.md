@@ -5,8 +5,8 @@ published: "2023-01-10T09:00:42Z",
 tags: ["vscode", "code"],
 description: "Intro   During my daily work, sometimes I have to switch between different projects: backend...",
 originalLink: "https://blog.delpuppo.net/visual-studio-code-tips-tricks-profile",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "VsCode - Tips & Tricks",
 order: 5
 }

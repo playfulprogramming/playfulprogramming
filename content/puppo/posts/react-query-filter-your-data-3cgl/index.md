@@ -5,8 +5,8 @@ published: "2023-04-19T05:55:52Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Hey folks, Did you know that you can filter your data in react query? Noooo! Ok, it's time to learn...",
 originalLink: "https://blog.delpuppo.net/react-query-filter-your-data",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 6
 }

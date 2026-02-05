@@ -5,8 +5,8 @@ published: "2023-04-26T05:30:42Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Hey folks, Do you know that you can enable or disable a query in react query? Noooo! Ok, it's time to...",
 originalLink: "https://blog.delpuppo.net/react-query-enable-query",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 7
 }

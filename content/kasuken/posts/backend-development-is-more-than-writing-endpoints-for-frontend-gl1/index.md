@@ -6,8 +6,8 @@ edited: "2024-05-10T23:04:53Z",
 tags: ["webdev", "dotnet", "programming", "csharp"],
 description: "Backend development is a crucial part of web development that involves creating and maintaining the...",
 originalLink: "https://dev.to/this-is-learning/backend-development-is-more-than-writing-endpoints-for-frontend-gl1",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

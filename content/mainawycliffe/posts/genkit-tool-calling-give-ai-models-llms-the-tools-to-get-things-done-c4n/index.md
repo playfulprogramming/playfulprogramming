@@ -5,8 +5,8 @@ published: "2025-06-16T13:27:38Z",
 tags: ["ai", "tutorial", "javascript", "gemini"],
 description: "AI Models are taking over the world, and we are all looking for ways to use them to solve different...",
 originalLink: "https://newsletter.unstacked.dev/p/genkit-tool-calling-give-your-ai",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

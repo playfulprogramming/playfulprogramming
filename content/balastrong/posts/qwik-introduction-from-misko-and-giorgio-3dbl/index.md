@@ -5,8 +5,8 @@ published: "2023-06-26T09:01:02Z",
 tags: ["qwik", "javascript", "webdev", "community"],
 description: "On June 14th I've been in Florence to attend an amazing workshop about Qwik, held by Misko Hevery,...",
 originalLink: "https://leonardomontini.dev/qwik-framework/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 10
 }

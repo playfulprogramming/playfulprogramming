@@ -6,8 +6,8 @@ edited: "2023-06-02T07:53:29Z",
 tags: ["vs2022", "visualstudio", "restapi", "dotnet"],
 description: "One of the new features in Visual Studio 2022 is the support for HTTP files, which are text files...",
 originalLink: "https://dev.to/this-is-learning/visual-studio-2022-a-new-way-to-work-with-http-requests-and-responses-41hp",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Hidden gems in Visual Studio 2022",
 order: 2
 }

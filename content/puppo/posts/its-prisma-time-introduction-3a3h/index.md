@@ -5,8 +5,8 @@ published: "2021-12-14T07:08:16Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hi Folks 👋 and welcome back, Today I want to start a new series about Prisma. But before starting I...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-introduction-3a3h",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 1
 }

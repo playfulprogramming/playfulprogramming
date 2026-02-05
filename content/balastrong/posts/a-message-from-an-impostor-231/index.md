@@ -5,8 +5,8 @@ published: "2023-07-17T11:47:23Z",
 tags: ["learning", "motivation", "codenewbie", "beginners"],
 description: "Impostor syndrome is quite popular in the tech industry.  People around you seem to be super experts,...",
 originalLink: "https://leonardomontini.dev/professional-impostor/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "My Dev Journey",
 order: 3
 }

@@ -5,8 +5,8 @@ published: "2023-06-05T10:35:08Z",
 tags: ["astro", "webdev", "showdev", "typescript"],
 description: "Hello! If you read my articles often here on devto you probably noticed that I also publish them on...",
 originalLink: "https://leonardomontini.dev/astro-coding-session/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 9
 }

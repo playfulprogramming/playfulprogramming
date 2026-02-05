@@ -6,8 +6,8 @@ edited: "2024-10-08T04:38:08Z",
 tags: ["angular", "webdev", "javascript", "typescript"],
 description: "Angular 18 introduced Partial Hydration in ng-conf 2024, a powerful technique that significantly...",
 originalLink: "https://dev.to/this-is-angular/angular-18-improving-application-performance-with-partial-hydration-and-ssr-2nie",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

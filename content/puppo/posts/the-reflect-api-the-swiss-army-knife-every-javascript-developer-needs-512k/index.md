@@ -5,8 +5,8 @@ published: "2023-11-09T07:18:26Z",
 tags: ["javascript", "reflect"],
 description: "Ever wished for a magical toolkit that gives you superhero-like control over JavaScript objects? Say...",
 originalLink: "https://blog.delpuppo.net/the-reflect-api-the-swiss-army-knife-every-javascript-developer-needs",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "The JavaScript you don't know",
 order: 8
 }

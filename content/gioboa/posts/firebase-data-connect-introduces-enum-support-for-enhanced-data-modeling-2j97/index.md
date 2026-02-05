@@ -6,8 +6,8 @@ edited: "2025-07-31T10:14:03Z",
 tags: ["firebase", "programming", "database", "graphql"],
 description: "Enums allow you to quickly define a list of static, predefined values with a specific order, which...",
 originalLink: "https://dev.to/this-is-learning/firebase-data-connect-introduces-enum-support-for-enhanced-data-modeling-2j97",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

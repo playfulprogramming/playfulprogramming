@@ -6,8 +6,8 @@ edited: "2025-02-20T15:58:33Z",
 tags: ["webdev", "opensource", "career"],
 description: "I had no idea how much would have happened in 365 days 🤯  One year ago, on February 20th, 2024, I...",
 originalLink: "https://leonardomontini.dev/one-year-of-tanstack/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

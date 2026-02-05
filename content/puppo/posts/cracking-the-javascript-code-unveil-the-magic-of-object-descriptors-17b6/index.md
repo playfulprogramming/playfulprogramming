@@ -6,8 +6,8 @@ edited: "2023-11-09T07:27:01Z",
 tags: ["javascript", "object", "descriptor"],
 description: "👋 Hey, JavaScript developers!  Ever wondered what makes your objects tick? Or how to go all...",
 originalLink: "https://blog.delpuppo.net/cracking-the-javascript-code-unveil-the-magic-of-object-descriptors",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "The JavaScript you don't know",
 order: 7
 }

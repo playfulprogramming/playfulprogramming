@@ -5,8 +5,8 @@ published: "2025-02-10T09:37:27Z",
 tags: ["angular", "webdev", "javascript", "typescript"],
 description: "Over the last few years, Angular has grown through some significant and important changes. One of...",
 originalLink: "https://newsletter.unstacked.dev/p/exploring-routes-rendering-modes",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

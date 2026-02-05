@@ -6,8 +6,8 @@ edited: "2023-04-17T10:49:33Z",
 tags: ["github", "career", "opensource"],
 description: "Green squares on GitHub aren't just a mere activity indicator. Move a step back and look at the...",
 originalLink: "https://leonardomontini.dev/github-contribution-history/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "My Dev Journey",
 order: 1
 }

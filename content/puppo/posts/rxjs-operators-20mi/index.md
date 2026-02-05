@@ -5,8 +5,8 @@ published: "2021-09-10T04:53:36Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hi Guys and welcome back, today I introduce the concepts of Operators. Operators are functions. Isn't...",
 originalLink: "https://dev.to/this-is-learning/rxjs-operators-20mi",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 3
 }

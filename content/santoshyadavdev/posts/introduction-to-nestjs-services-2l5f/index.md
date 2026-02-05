@@ -6,8 +6,8 @@ edited: "2021-04-06T11:08:24Z",
 tags: ["typescript", "javascript", "node"],
 description: "Service   In enterprise applications, we follow the SOLID principle, where S stands for Sing...",
 originalLink: "https://medium.com/better-programming/introduction-to-nestjs-services-2a7c9a629da9",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "20daysofNestJS",
 order: 3
 }

@@ -6,8 +6,8 @@ edited: "2023-11-04T18:01:50Z",
 tags: ["kubernetes", "security", "git", "cloud"],
 description: "Kubernetes and GitOps offer a powerful way to manage your infrastructure and applications. However,...",
 originalLink: "https://www.davideimola.dev/blog/securing-secrets-in-the-gitops-era",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2023-04-03T13:36:36Z",
 tags: ["vscode", "github", "tutorial", "codenewbie"],
 description: "Doing Code Review 📖 on a GitHub Pull Request without leaving Visual Studio Code? Easy! 👇  Last week...",
 originalLink: "https://leonardomontini.dev/code-review-vscode-github/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub + Visual Studio Code",
 order: 2
 }

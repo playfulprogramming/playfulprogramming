@@ -6,8 +6,8 @@ edited: "2024-04-29T16:38:32Z",
 tags: ["productivity"],
 description: "I heard about \"Hey, GitHub\" (now called Copilot Voice) for the first time last November, in a very...",
 originalLink: "https://leonardomontini.dev/hey-github-voice-copilot/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Copilot",
 order: 1
 }

@@ -5,8 +5,8 @@ published: "2023-10-04T14:58:50Z",
 tags: ["opensource", "github", "hacktoberfest23"],
 description: "Tables like this one are in a lot of repositories, giving well deserved credit to their...",
 originalLink: "https://leonardomontini.dev/credit-all-contributors",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 9
 }

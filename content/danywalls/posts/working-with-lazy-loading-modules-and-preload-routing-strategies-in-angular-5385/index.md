@@ -6,8 +6,8 @@ edited: "2022-10-26T12:51:02Z",
 tags: ["angular"],
 description: "When we build an Angular application with multiple modules in a large app, the main script file...",
 originalLink: "https://www.danywalls.com/working-with-lazy-loading-modules-and-preload-routing-strategies-in-angular",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

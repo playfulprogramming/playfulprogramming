@@ -5,8 +5,8 @@ published: "2021-12-23T06:51:06Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hi Guys 👋 welcome back. Finally, today it's time to create our database, so don't waste time, and get...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-create-db-3e8n",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 4
 }

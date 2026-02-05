@@ -6,8 +6,8 @@ edited: "2022-11-22T22:19:02Z",
 tags: ["opensource", "github", "career"],
 description: "What if I tell you that you get paid in real money - with Open Source?  Wait, that's not a scam or a...",
 originalLink: "https://leonardomontini.dev/make-money-from-open-source/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 3
 }

@@ -6,8 +6,8 @@ edited: "2021-05-05T22:18:19Z",
 tags: ["learninginpublic", "webdev", "community"],
 description: "This is Learning is the place to share what you learn. Welcome!",
 originalLink: "https://dev.to/this-is-learning/welcome-to-this-is-learning-an-invitation-to-our-open-tech-authors-community-22e4",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

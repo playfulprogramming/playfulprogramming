@@ -6,8 +6,8 @@ edited: "2021-10-26T06:04:54Z",
 tags: ["angular", "testing"],
 description: "Introducing the ModuleTeardownOptions#destroyAfterEach option for the Angular testbed.",
 originalLink: "https://dev.to/this-is-angular/improving-angular-tests-by-enabling-angular-testing-module-teardown-38kh",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Configuring the Angular testbed",
 order: 1
 }

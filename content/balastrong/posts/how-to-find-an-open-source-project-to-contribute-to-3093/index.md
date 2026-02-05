@@ -6,8 +6,8 @@ edited: "2022-11-22T22:12:29Z",
 tags: ["opensource", "beginners", "programming", "tutorial"],
 description: "You can find a video version of this article on my YouTube Channel.   Introduction Opensource...",
 originalLink: "https://leonardomontini.dev/how-to-find-an-open-source-project/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 1
 }

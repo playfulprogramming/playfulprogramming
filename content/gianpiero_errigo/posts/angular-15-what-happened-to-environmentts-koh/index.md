@@ -6,8 +6,8 @@ edited: "2023-01-30T13:39:34Z",
 tags: ["angular", "typescript", "devops", "webdev"],
 description: "TL;DR: Nothing!   Angular 15 simply doesn't ship anymore environment files by default. You...",
 originalLink: "https://dev.to/this-is-angular/angular-15-what-happened-to-environmentts-koh",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

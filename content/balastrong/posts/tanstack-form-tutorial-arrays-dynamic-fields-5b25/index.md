@@ -5,8 +5,8 @@ published: "2024-06-04T14:07:50Z",
 tags: ["react", "angular", "tutorial", "codenewbie"],
 description: "Your form might not have a fixed number of fields, that's where arrays come in! Let's see today how...",
 originalLink: "https://leonardomontini.dev/tanstack-form-arrays-dynamic-fields/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "TanStack Form",
 order: 3
 }

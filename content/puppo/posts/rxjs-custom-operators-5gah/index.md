@@ -6,8 +6,8 @@ edited: "2021-10-13T11:43:40Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hi Folks 👋 after many articles in which I have illustrated the different types of operators already...",
 originalLink: "https://dev.to/this-is-learning/rxjs-custom-operators-5gah",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 13
 }

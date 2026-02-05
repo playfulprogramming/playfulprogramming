@@ -6,8 +6,8 @@ edited: "2021-09-09T07:05:12Z",
 tags: ["typescript", "webdev"],
 description: "In some cases, you have a field that you initialize in a method, and if you follow the flow of the...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-non-null-assertion-operator-21eb",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 13
 }

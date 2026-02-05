@@ -5,8 +5,8 @@ published: "2021-09-02T08:53:53Z",
 tags: ["typescript", "javascript", "webdev", "programming"],
 description: "From time to time, we come across situations where the type isn't known beforehand, i.e. could be...",
 originalLink: "https://mainawycliffe.dev/blog/typescript-use-unknown-instead-of-any",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "a-byte-of-typescript",
 order: 2
 }

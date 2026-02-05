@@ -6,8 +6,8 @@ edited: "2021-04-06T11:07:02Z",
 tags: ["javascript", "typescript", "webdev", "node"],
 description: "In my previous piece, we discussed NestJS services. In this piece, we’ll look at the injection scope....",
 originalLink: "https://medium.com/better-programming/a-deep-dive-into-nestjs-injection-scope-d45e87fd918d",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "20daysofNestJS",
 order: 4
 }

@@ -5,8 +5,8 @@ published: "2021-05-31T17:35:32Z",
 tags: ["motivation", "career"],
 description: "Cover photo by Ian Schneider on Unsplash.  Hey everyone, my name is Santosh. In this article, I will...",
 originalLink: "https://dev.to/this-is-learning/my-developer-journey-how-i-went-from-making-1-000-to-better-salary-11om",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

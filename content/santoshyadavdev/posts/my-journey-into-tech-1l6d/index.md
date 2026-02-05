@@ -6,8 +6,8 @@ edited: "2021-04-09T05:33:19Z",
 tags: ["motivation", "career"],
 description: "Last week I tweeted on Twitter how I am moving from a Slum where I lived for 29 years to a multi-stor...",
 originalLink: "https://indepth.dev/my-journey-into-tech",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

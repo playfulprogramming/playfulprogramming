@@ -5,8 +5,8 @@ published: "2021-12-30T07:06:20Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Welcome Guys, Today it's time to add some records to the database 😁 so don't waste time and get your...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-insert-fc2",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 6
 }

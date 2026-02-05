@@ -6,8 +6,8 @@ edited: "2021-09-09T07:02:49Z",
 tags: ["typescript", "webdev"],
 description: "Hi and welcome back! Today I talk about Union and Intersection.  In some cases, we have to combine...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-union-and-intersection-1a9l",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 4
 }

@@ -6,8 +6,8 @@ edited: "2023-05-23T08:23:52Z",
 tags: ["powershell", "bestpractices", "cleancode"],
 description: "PowerShell is a powerful scripting language that can automate tasks, manage configuration, and...",
 originalLink: "https://dev.to/this-is-learning/how-to-write-better-powershell-scripts-architecture-and-best-practices-emh",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

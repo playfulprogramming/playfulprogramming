@@ -5,8 +5,8 @@ published: "2021-09-29T06:03:31Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "One of the best practice in our work is handle the errors, so today I'll show you some operators in...",
 originalLink: "https://dev.to/this-is-learning/rxjs-error-handling-operators-57op",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 11
 }

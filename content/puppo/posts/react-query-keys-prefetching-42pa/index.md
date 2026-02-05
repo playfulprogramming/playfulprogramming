@@ -5,8 +5,8 @@ published: "2023-05-03T05:30:39Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Hey Folks, Today I want to share two important things if you are using ReactQuery. The first is how...",
 originalLink: "https://blog.delpuppo.net/react-query-keys-prefetching",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 8
 }

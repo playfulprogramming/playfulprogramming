@@ -6,8 +6,8 @@ edited: "2021-12-30T21:57:03Z",
 tags: ["javascript", "webdev", "typescript", "node"],
 description: "A while back, I had a look at why you should avoid using the any type and instead use the unknown...",
 originalLink: "https://mainawycliffe.dev/blog/type-assertions-in-typescript/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "a-byte-of-typescript",
 order: 6
 }

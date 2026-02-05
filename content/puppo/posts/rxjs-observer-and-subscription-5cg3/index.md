@@ -6,8 +6,8 @@ edited: "2021-09-09T07:07:03Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Welcome back guys, today the topics of the article are Observers and Subscriptions.         ...",
 originalLink: "https://dev.to/this-is-learning/rxjs-observer-and-subscription-5cg3",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 2
 }

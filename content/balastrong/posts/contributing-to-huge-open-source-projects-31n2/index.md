@@ -6,8 +6,8 @@ edited: "2023-10-12T10:08:19Z",
 tags: ["opensource", "github", "codenewbie", "tutorial"],
 description: "Let's say you want to contribute to a large Open Source project like React or VSCode: are you...",
 originalLink: "https://leonardomontini.dev/large-open-source-projects",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 10
 }

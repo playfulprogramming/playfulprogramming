@@ -6,8 +6,8 @@ edited: "2023-01-12T13:22:32Z",
 tags: ["git", "tutorial", "codenewbie", "productivity"],
 description: "Setting up an Alias   Repeating the same git commands over and over again can be such a...",
 originalLink: "https://leonardomontini.dev/git-alias-tutorial/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "git better - Improve your git skills",
 order: 1
 }

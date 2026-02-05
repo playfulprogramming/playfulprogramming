@@ -5,8 +5,8 @@ published: "2023-06-07T05:30:39Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Hey Folks,  Today it's time to learn how you can build an infinite query with React Query.  To build...",
 originalLink: "https://blog.delpuppo.net/react-query-infinite-queries",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 12
 }

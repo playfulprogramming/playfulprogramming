@@ -5,8 +5,8 @@ published: "2023-09-08T05:16:06Z",
 tags: ["javascript", "iterators", "async"],
 description: "In the ever-evolving landscape of JavaScript, staying up-to-date with its latest features is crucial...",
 originalLink: "https://blog.delpuppo.net/mastering-javascript-async-iterators-unlocking-asynchronous-magic",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Javascript Iterators & Generators",
 order: 3
 }

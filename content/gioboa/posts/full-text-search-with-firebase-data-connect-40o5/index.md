@@ -6,8 +6,8 @@ edited: "2025-07-25T09:25:34Z",
 tags: ["firebase", "webdev", "programming", "database"],
 description: "In the previous article, you saw how to create a project from scratch with Firebase Data...",
 originalLink: "https://dev.to/this-is-learning/full-text-search-with-firebase-data-connect-40o5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

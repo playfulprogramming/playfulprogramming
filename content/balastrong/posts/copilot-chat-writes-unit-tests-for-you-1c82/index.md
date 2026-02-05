@@ -6,8 +6,8 @@ edited: "2024-04-29T16:39:13Z",
 tags: ["github", "testing", "ai", "githubcopilot"],
 description: "We don't write tests because we don't have time.   How many times have you heard that? Or maybe you...",
 originalLink: "https://leonardomontini.dev/copilot-x-chat-unit-test/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Copilot",
 order: 4
 }

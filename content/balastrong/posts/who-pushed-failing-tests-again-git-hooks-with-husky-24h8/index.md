@@ -5,8 +5,8 @@ published: "2023-07-11T09:17:35Z",
 tags: ["git", "codenewbie", "node", "testing"],
 description: "Three things you do NOT want in your repository:   Unformatted code Warnings/errors Failing...",
 originalLink: "https://leonardomontini.dev/husky-git-hooks/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "git better - Improve your git skills",
 order: 5
 }

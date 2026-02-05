@@ -6,8 +6,8 @@ edited: "2021-05-17T21:14:39Z",
 tags: ["angular", "ivy", "globalization"],
 description: "AOT everywhere, dynamic globalisation, strict mode, Bazel, and much more.",
 originalLink: "https://dev.to/this-is-angular/a-look-at-major-features-in-the-angular-ivy-version-9-release-4dn7",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -5,8 +5,8 @@ published: "2023-04-05T06:30:39Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Hey Folks,  In this post, you'll learn how to debug and check whatever happens in your React Query...",
 originalLink: "https://blog.delpuppo.net/react-query-devtools",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 4
 }

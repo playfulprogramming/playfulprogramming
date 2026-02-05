@@ -6,8 +6,8 @@ edited: "2021-03-24T15:08:01Z",
 tags: ["angular", "ivy", "library"],
 description: "How to respond to Angular Ivy in 2020/2021 if you're a library author.",
 originalLink: "https://dev.to/this-is-angular/the-angular-ivy-guide-for-library-authors-9md",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

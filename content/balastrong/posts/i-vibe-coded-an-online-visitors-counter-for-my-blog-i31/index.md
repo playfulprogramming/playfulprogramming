@@ -5,8 +5,8 @@ published: "2025-07-16T09:56:21Z",
 tags: ["webdev", "githubcopilot", "astro", "netlify"],
 description: "You know that old-style \"X users online\" counter on a website? I've recently seen it on roe.dev's...",
 originalLink: "https://leonardomontini.dev/online-badge/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

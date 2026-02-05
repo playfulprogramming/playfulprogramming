@@ -6,8 +6,8 @@ edited: "2023-09-13T11:19:14Z",
 tags: ["blazor", "csharp", "azure", "webdev"],
 description: "In this blog post, I will show you how to create a simple contact form for your website using Blazor...",
 originalLink: "https://dev.to/this-is-learning/building-a-contact-form-with-microsoft-azure-and-blazor-3fbh",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

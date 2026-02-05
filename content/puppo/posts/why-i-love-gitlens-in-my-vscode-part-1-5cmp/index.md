@@ -6,8 +6,8 @@ edited: "2023-02-28T18:20:51Z",
 tags: ["git", "vscode", "gitlens", "gitkraken"],
 description: "In my daily routine, I work with git, and I suppose it's the same for you. I know all the standard...",
 originalLink: "https://blog.delpuppo.net/why-i-love-gitlens-in-my-vscode-first-steps",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitLens",
 order: 1
 }

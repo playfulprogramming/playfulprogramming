@@ -6,8 +6,8 @@ edited: "2024-10-22T06:11:51Z",
 tags: ["webdev", "frontend", "javascript", "programming"],
 description: "Have you wondered what these numbers in the DevTools are?    Earlier this year, Google introduced an...",
 originalLink: "https://dev.to/this-is-learning/core-web-vitals-now-built-n-to-chrome-1bdh",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

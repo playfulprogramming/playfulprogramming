@@ -6,8 +6,8 @@ edited: "2023-04-03T13:36:54Z",
 tags: ["vscode", "github", "opensource", "codenewbie"],
 description: "Did anyone say the word Productivity? We're all used to the GitHub User Interface so we usually...",
 originalLink: "https://leonardomontini.dev/pull-request-vscode-github/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub + Visual Studio Code",
 order: 1
 }

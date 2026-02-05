@@ -6,8 +6,8 @@ edited: "2021-09-09T07:04:47Z",
 tags: ["typescript", "webdev"],
 description: "How many times we expect an object property to have a value but it isn't?  In these cases,...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-readonly-modifier-52pp",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 10
 }

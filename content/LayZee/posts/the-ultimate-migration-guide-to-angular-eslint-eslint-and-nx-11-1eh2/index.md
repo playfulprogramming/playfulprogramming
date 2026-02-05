@@ -6,8 +6,8 @@ edited: "2021-04-22T20:04:51Z",
 tags: ["angular", "nx", "eslint"],
 description: "How to set up a new Nx workspace using angular-eslint or migrate an existing Nx workspace from ESLint or TSLint.",
 originalLink: "https://dev.to/this-is-angular/the-ultimate-migration-guide-to-angular-eslint-eslint-and-nx-11-1eh2",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

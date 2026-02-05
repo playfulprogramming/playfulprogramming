@@ -5,8 +5,8 @@ published: "2023-03-15T05:00:39Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Hey Folks, It's time to take a journey on react query. Don't you know it? Perfect, you are in the...",
 originalLink: "https://blog.delpuppo.net/react-query-usequery",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 1
 }

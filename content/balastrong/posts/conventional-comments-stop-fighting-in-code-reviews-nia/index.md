@@ -6,8 +6,8 @@ edited: "2024-02-14T07:47:27Z",
 tags: ["beginners", "codenewbie", "github"],
 description: "I’m sure you’ve heard about conventional commits, but what about conventional comments?           The...",
 originalLink: "https://leonardomontini.dev/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Mastering GitHub",
 order: 7
 }

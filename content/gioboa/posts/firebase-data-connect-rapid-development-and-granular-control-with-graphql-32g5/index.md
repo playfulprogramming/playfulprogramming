@@ -5,8 +5,8 @@ published: "2025-06-27T09:32:34Z",
 tags: ["firebase", "graphql", "webdev", "programming"],
 description: "Firebase Data Connect is simplifying the interaction between your applications and your databases. It...",
 originalLink: "https://dev.to/this-is-learning/firebase-data-connect-rapid-development-and-granular-control-with-graphql-32g5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

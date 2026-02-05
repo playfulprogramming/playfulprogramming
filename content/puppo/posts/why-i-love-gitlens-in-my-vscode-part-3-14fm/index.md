@@ -6,8 +6,8 @@ edited: "2023-03-15T05:46:25Z",
 tags: ["git", "vscode", "gitlens", "gitkraken"],
 description: "One of the processes I typically do in my daily work is interactive rebase. I commit a lot, and then...",
 originalLink: "https://blog.delpuppo.net/why-i-love-gitlens-in-my-vscode-interactive-rebase",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitLens",
 order: 3
 }

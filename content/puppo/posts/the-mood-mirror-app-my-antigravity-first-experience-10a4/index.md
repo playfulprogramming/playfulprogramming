@@ -6,8 +6,8 @@ edited: "2025-12-04T06:03:00Z",
 tags: ["ai", "gemini", "vibecoding", "antigravity"],
 description: "Just a week ago, Google launched Antigravity, and why not give it a try and share my experience? And...",
 originalLink: "https://blog.delpuppo.net/the-mood-mirror-app",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

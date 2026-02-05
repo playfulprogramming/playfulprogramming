@@ -5,8 +5,8 @@ published: "2023-04-17T10:49:06Z",
 tags: ["career", "motivation"],
 description: "I worked as a Full Stack Web Developer on what I realized it was to me a toxic workplace for software...",
 originalLink: "https://leonardomontini.dev/quit-toxic-development-workplace/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "My Dev Journey",
 order: 2
 }

@@ -5,8 +5,8 @@ published: "2023-11-21T20:38:25Z",
 tags: ["github", "docker", "productivity", "webdev"],
 description: "It's been a long time in my mind to write a series of posts regarding Codespaces but now it occurred...",
 originalLink: "https://dev.to/this-is-learning/github-codespaces-a-faster-way-to-develop-in-the-cloud-2ml4",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Codespaces: A Faster Way to Develop in the Cloud",
 order: 1
 }

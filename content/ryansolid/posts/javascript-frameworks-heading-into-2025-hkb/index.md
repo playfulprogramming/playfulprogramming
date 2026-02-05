@@ -6,8 +6,8 @@ edited: "2025-12-12T18:21:15Z",
 tags: ["webdev", "javascript", "webperf", "frameworks"],
 description: "I admit I wasn't sure I'd be writing this article this year. It's easy to write articles that excite...",
 originalLink: "https://dev.to/this-is-learning/javascript-frameworks-heading-into-2025-hkb",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "JavaScript Frameworks - Heading Into XXXX",
 order: 3
 }

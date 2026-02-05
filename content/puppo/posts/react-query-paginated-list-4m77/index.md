@@ -5,8 +5,8 @@ published: "2023-06-01T06:14:11Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Hey Folks,  Today it's time to learn how you can paginate a list with ReactQuery.  It's common to...",
 originalLink: "https://blog.delpuppo.net/react-query-paginated-list",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 11
 }

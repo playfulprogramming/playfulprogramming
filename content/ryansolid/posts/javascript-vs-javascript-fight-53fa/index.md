@@ -6,8 +6,8 @@ edited: "2021-09-10T23:40:52Z",
 tags: ["javascript", "webdev", "react", "frameworks"],
 description: "With software development, we are often presented with alternative choices for libraries and tools...",
 originalLink: "https://dev.to/this-is-learning/javascript-vs-javascript-fight-53fa",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "JavaScript vs JavaScript",
 order: 1
 }

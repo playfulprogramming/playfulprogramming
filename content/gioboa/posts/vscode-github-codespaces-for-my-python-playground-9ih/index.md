@@ -6,8 +6,8 @@ edited: "2022-12-20T08:15:58Z",
 tags: ["programming", "beginners", "cpp"],
 description: "Today I did some experiments with Python, I decided to do this activity with GitHub Codespaces...",
 originalLink: "https://dev.to/this-is-learning/vscode-github-codespaces-for-my-python-playground-9ih",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

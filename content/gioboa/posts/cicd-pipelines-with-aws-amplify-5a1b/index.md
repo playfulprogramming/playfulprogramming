@@ -6,8 +6,8 @@ edited: "2023-01-05T08:13:01Z",
 tags: [],
 description: "The company I work for is an AWS partner and it is natural that many of the applications we build are...",
 originalLink: "https://dev.to/this-is-learning/cicd-pipelines-with-aws-amplify-5a1b",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "CI/CD pipelines with AWS Amplify",
 order: 1
 }

@@ -6,8 +6,8 @@ edited: "2023-09-20T06:15:35Z",
 tags: ["javascript", "es6", "symbols"],
 description: "Introduction to JavaScript Symbols   JavaScript Symbols are a new primitive data type...",
 originalLink: "https://blog.delpuppo.net/unveiling-the-magic-exploring-javascript-symbols",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "The JavaScript you don't know",
 order: 1
 }

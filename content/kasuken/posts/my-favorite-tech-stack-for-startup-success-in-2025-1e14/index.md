@@ -5,8 +5,8 @@ published: "2025-01-14T14:48:47Z",
 tags: ["startup", "microsoft", "dotnet", "azure"],
 description: "In 2025, building a scalable and efficient tech stack is more critical than ever for startups aiming...",
 originalLink: "https://dev.to/this-is-learning/my-favorite-tech-stack-for-startup-success-in-2025-1e14",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

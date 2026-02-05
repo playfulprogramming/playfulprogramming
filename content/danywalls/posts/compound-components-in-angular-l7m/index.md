@@ -6,8 +6,8 @@ edited: "2022-09-30T10:50:47Z",
 tags: ["angular", "javascript"],
 description: "When we need to have different versions and use cases and make it flexible to the changes, however,...",
 originalLink: "https://www.danywalls.com/compound-components-in-angular",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2024-08-02T21:56:35Z",
 tags: ["javascript", "webdev", "reactivity", "signals"],
 description: "Most developers think about Reactivity as an event system. You have some state. You update that state...",
 originalLink: "https://dev.to/this-is-learning/scheduling-derivations-in-reactivity-4687",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Derivations in Reactivity",
 order: 2
 }

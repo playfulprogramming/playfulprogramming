@@ -6,8 +6,8 @@ edited: "2025-10-03T06:15:11Z",
 tags: ["git", "gitkraken", "ai", "gitlens"],
 description: "In the AI era, we can do many different things with LLM: generate code, images, videos or ask...",
 originalLink: "https://blog.delpuppo.net/improve-your-git-commit-messages-with-gitlens-tips",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

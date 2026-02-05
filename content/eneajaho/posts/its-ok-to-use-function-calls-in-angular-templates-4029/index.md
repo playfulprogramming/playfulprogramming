@@ -6,8 +6,8 @@ edited: "2022-11-10T11:35:23Z",
 tags: ["javascript", "angular", "performance", "typescript"],
 description: "“You should never use function calls on Angular templates!” — That’s what you will see all over the...",
 originalLink: "https://itnext.io/its-ok-to-use-function-calls-in-angular-templates-ffdd12b0789e",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

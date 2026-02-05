@@ -6,8 +6,8 @@ edited: "2022-11-08T10:20:03Z",
 tags: ["github", "code", "actions"],
 description: "Hi folks, today I'm going to speak about another cool VsCode Extension.  In many projects, I love...",
 originalLink: "https://blog.delpuppo.net/working-with-github-actions-from-your-best-editor",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "VsCode - Tips & Tricks",
 order: 4
 }

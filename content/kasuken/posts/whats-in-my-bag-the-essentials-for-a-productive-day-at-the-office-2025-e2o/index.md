@@ -6,8 +6,8 @@ edited: "2025-03-19T12:22:31Z",
 tags: ["productivity", "developer"],
 description: "As a developer and cloud engineer (or Architect, they call me like that), my work isn't confined to a...",
 originalLink: "https://dev.to/this-is-learning/whats-in-my-bag-the-essentials-for-a-productive-day-at-the-office-2025-e2o",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

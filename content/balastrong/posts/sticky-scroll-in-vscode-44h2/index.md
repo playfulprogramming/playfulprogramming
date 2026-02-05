@@ -6,8 +6,8 @@ edited: "2022-11-23T11:12:26Z",
 tags: ["vscode", "tutorial", "productivity", "programming"],
 description: "Classes and methods might get really long, making you lose context of what the code is about.  Visual...",
 originalLink: "https://leonardomontini.dev/sticky-scroll-vscode/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Shorts",
 order: 5
 }

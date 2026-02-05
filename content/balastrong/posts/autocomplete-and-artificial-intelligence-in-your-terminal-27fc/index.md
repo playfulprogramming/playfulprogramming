@@ -6,8 +6,8 @@ edited: "2023-02-02T08:38:44Z",
 tags: ["blockchain", "cryptocurrency", "web3", "crypto"],
 description: "I get asked on every single video what is this autocomplete I’ve got on my terminal, and the answer...",
 originalLink: "https://leonardomontini.dev/autocomplete-ai-terminal/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "git better - Improve your git skills",
 order: 3
 }

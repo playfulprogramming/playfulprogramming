@@ -6,8 +6,8 @@ edited: "2021-04-06T11:06:47Z",
 tags: ["discuss", "opensource"],
 description: "Before you read this article, I want to make it very clear, I am not blaming anyone here. Keeping thi...",
 originalLink: "https://medium.com/@santosh.yadav198613/time-for-employers-to-change-their-perspective-on-open-source-contribution-73d54765fddc",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

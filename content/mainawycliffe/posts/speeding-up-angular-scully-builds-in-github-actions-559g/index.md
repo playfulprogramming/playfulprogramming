@@ -5,8 +5,8 @@ published: "2021-04-19T07:38:45Z",
 tags: ["github", "action", "angular", "devops"],
 description: "In this article, we are going to learn how you can speed your Scully builds by re-using Angular build...",
 originalLink: "https://mainawycliffe.dev/blog/speeding-angular-scully-builds-github-actions",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

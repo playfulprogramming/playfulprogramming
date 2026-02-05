@@ -6,8 +6,8 @@ edited: "2022-12-28T10:35:40Z",
 tags: ["angular"],
 description: "This post keeps digging into AnimationRendererFactory creation routine, with a  focus on triggers...",
 originalLink: "https://dev.to/this-is-angular/angular-registering-animation-triggers-5gpg",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Deep dive into Angular animations framework",
 order: 2
 }

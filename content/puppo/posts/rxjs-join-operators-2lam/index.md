@@ -5,8 +5,8 @@ published: "2021-09-22T06:07:48Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hi Guys and Welcome Back, Today I'll speak about the Join Operators. Some of these operators are...",
 originalLink: "https://dev.to/this-is-learning/rxjs-join-operators-2lam",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 8
 }

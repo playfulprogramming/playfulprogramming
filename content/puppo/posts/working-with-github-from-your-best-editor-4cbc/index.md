@@ -6,8 +6,8 @@ edited: "2022-11-03T12:14:44Z",
 tags: ["productivity", "vscode", "github"],
 description: "In my daily work routine, many times I have to switch from VsCode and Github to create a PR, review a...",
 originalLink: "https://blog.delpuppo.net/working-with-github-from-your-best-editor",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "VsCode - Tips & Tricks",
 order: 3
 }

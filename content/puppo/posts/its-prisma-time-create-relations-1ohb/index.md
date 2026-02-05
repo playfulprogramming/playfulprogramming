@@ -5,8 +5,8 @@ published: "2021-12-28T07:21:03Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hi Folks 👋 today I'll show you how to create relations among your entities. So don't waste time and...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-create-relations-1ohb",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 5
 }

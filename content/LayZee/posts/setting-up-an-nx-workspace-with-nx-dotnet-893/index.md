@@ -6,8 +6,8 @@ edited: "2021-05-05T22:11:14Z",
 tags: ["nx", "dotnet", "githubactions", "github"],
 description: "Setting up an Nx workspace for .NET development with nx-dotnet. Also setting up a GitHub Actions CI workflow.",
 originalLink: "https://dev.to/this-is-learning/setting-up-an-nx-workspace-with-nx-dotnet-893",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Nx After Dark",
 order: 1
 }

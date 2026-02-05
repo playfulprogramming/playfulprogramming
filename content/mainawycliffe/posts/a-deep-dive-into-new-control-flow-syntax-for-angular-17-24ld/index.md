@@ -5,8 +5,8 @@ published: "2023-11-20T15:18:19Z",
 tags: ["angular", "webdev", "typescript", "javascript"],
 description: "With the release of Angular 17, I wanted to explore the control flow syntax in Angular and...",
 originalLink: "https://newsletter.unstacked.dev/p/a-deep-dive-into-new-control-flow",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

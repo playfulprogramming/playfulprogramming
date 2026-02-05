@@ -6,8 +6,8 @@ edited: "2022-07-27T06:59:10Z",
 tags: ["tooling", "testing", "devops", "beginners"],
 description: "This post is an extract from my new newsletter The Pragmatic Dev focused on covering developer tools,...",
 originalLink: "https://newsletter.pragmaticdevx.dev/p/why-you-should-be-using-it-test-driven",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

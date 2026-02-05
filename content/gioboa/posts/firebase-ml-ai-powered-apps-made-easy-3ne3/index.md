@@ -5,8 +5,8 @@ published: "2025-06-13T13:21:16Z",
 tags: ["machinelearning", "firebase", "mobile", "programming"],
 description: "How many times have you needed to translate your application, but didn't know where to start?  One of...",
 originalLink: "https://dev.to/this-is-learning/firebase-ml-ai-powered-apps-made-easy-3ne3",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

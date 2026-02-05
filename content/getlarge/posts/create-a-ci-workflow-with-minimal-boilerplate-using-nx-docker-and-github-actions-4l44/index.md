@@ -6,8 +6,8 @@ edited: "2025-07-10T14:03:01Z",
 tags: ["tutorial", "nx", "ci"],
 description: "In this post, I share my blueprint for a hybrid CI workflow that neither forces you to adapt to a...",
 originalLink: "https://dev.to/this-is-learning/create-a-ci-workflow-with-minimal-boilerplate-using-nx-docker-and-github-actions-4l44",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

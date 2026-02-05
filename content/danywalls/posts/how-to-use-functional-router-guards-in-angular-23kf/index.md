@@ -6,8 +6,8 @@ edited: "2022-12-04T13:20:18Z",
 tags: ["devrel", "productivity", "angular"],
 description: "Today I was talking with my friend Leifer, and he asked me some about Functional Guards in Angular...",
 originalLink: "https://www.danywalls.com/how-to-use-functional-router-guards-in-angular",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

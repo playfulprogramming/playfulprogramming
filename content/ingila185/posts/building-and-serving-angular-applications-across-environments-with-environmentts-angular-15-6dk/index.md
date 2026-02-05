@@ -6,8 +6,8 @@ edited: "2024-09-03T15:47:35Z",
 tags: ["javascript", "webdev", "programming", "angular"],
 description: "As an Angular developer, deploying your application to different environments – development (dev),...",
 originalLink: "https://dev.to/this-is-angular/building-and-serving-angular-applications-across-environments-with-environmentts-angular-15-6dk",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

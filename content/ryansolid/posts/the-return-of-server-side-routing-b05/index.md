@@ -6,8 +6,8 @@ edited: "2022-02-01T20:16:51Z",
 tags: ["javascript", "webdev", "webperf", "programming"],
 description: "Return? It never went away. Or at least that is what some smug \"told you so\" is going to say. But for...",
 originalLink: "https://dev.to/this-is-learning/the-return-of-server-side-routing-b05",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -5,8 +5,8 @@ published: "2021-12-27T17:55:33Z",
 tags: ["career", "workplace", "toxic"],
 description: "Photo by Kyle Nieber on Unsplash  It's been six years since I left my job at a startup where I worked...",
 originalLink: "https://dev.to/this-is-learning/how-i-made-workplace-toxic-1ici",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

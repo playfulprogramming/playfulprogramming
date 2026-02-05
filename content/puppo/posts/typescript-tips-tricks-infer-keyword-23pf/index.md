@@ -6,8 +6,8 @@ edited: "2021-09-09T07:06:17Z",
 tags: ["typescript", "webdev"],
 description: "Today I talk about the infer keyword. Sometimes, we need to get the value type of an array or get the...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-infer-keyword-23pf",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 18
 }

@@ -6,8 +6,8 @@ edited: "2025-10-08T05:24:24Z",
 tags: ["ai", "angular", "webdev", "gemini"],
 description: "In the ever-evolving landscape of web development, captivating visuals are no longer a luxury but a...",
 originalLink: "https://dev.to/this-is-angular/unleashing-creativity-gemini-image-generation-with-angular-4ola",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

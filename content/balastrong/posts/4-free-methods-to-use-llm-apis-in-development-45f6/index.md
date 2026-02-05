@@ -5,8 +5,8 @@ published: "2025-09-09T10:16:55Z",
 tags: ["ai", "llm", "node", "github"],
 description: "You might be in the situation I was the other day: I wanted to develop a small AI feature for...",
 originalLink: "https://leonardomontini.dev/free-llm-api/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

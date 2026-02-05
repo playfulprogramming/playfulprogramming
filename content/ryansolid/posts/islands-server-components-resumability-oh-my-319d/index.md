@@ -6,8 +6,8 @@ edited: "2023-09-14T06:56:08Z",
 tags: ["javascript", "webdev", "performance", "frameworks"],
 description: "It is no secret that the past 2 years have seen the beginnings of a fairly dramatic change in...",
 originalLink: "https://dev.to/this-is-learning/islands-server-components-resumability-oh-my-319d",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

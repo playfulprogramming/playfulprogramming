@@ -6,8 +6,8 @@ edited: "2021-04-08T13:21:21Z",
 tags: ["productivity", "career", "discuss"],
 description: "Last year I started working on the home setup, which I never thought would become my home office one...",
 originalLink: "https://dev.to/this-is-learning/my-home-office-setup-3l3f",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

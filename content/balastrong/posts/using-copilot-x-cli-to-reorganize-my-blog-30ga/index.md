@@ -6,8 +6,8 @@ edited: "2024-04-29T16:38:58Z",
 tags: ["github", "ai", "discuss", "programming"],
 description: "A few days ago I was working on my blog leonardomontini.dev as I'd like to give it a strong restyle...",
 originalLink: "https://leonardomontini.dev/copilot-x-cli-usage/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Copilot",
 order: 2
 }

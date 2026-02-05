@@ -5,8 +5,8 @@ published: "2023-10-09T04:31:24Z",
 tags: ["azure", "powershell"],
 description: "In my last recent talks and at work (I helped a lot of customers with Azure Automation and Azure...",
 originalLink: "https://dev.to/this-is-learning/azure-automation-vs-azure-functions-with-powershell-ef",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

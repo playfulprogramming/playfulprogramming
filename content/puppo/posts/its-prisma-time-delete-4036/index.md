@@ -5,8 +5,8 @@ published: "2022-01-05T07:20:02Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hi Guys 👋  today we are going to see the delete operation.  Before moving to the delete operation, in...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-delete-4036",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 7
 }

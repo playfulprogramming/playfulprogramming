@@ -6,8 +6,8 @@ edited: "2021-07-06T16:21:12Z",
 tags: ["solidjs", "devjournal", "javascript", "webdev"],
 description: "Last week we released SolidJS 1.0. A JavaScript framework built on a foundation of ideas long ago...",
 originalLink: "https://dev.to/this-is-learning/javascript-frameworks-and-metagaming-pb5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

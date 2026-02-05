@@ -6,8 +6,8 @@ edited: "2021-09-22T13:22:11Z",
 tags: ["angular", "animations", "css"],
 description: "Animations add life to your application and can greatly increase your app's overall user experience....",
 originalLink: "https://williamjuan.dev/blog/3-easy-ways-to-add-animation-to-your-angular-applications",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Animations in Angular",
 order: 1
 }

@@ -5,8 +5,8 @@ published: "2023-09-15T06:00:11Z",
 tags: ["javascript", "generator", "generators", "async"],
 description: "In the dynamic realm of JavaScript, the ability to efficiently handle asynchronous operations is...",
 originalLink: "https://blog.delpuppo.net/javascript-async-generators-unleashed-harnessing-asynchronous-power",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Javascript Iterators & Generators",
 order: 4
 }

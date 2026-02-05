@@ -5,8 +5,8 @@ published: "2023-10-04T06:22:01Z",
 tags: ["javascript", "es6", "weakset", "weaksets"],
 description: "In the vast landscape of JavaScript, many powerful features often go unnoticed. One such hidden gem...",
 originalLink: "https://blog.delpuppo.net/unlock-the-power-of-javascript-weakset-mastering-a-hidden-gem",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "The JavaScript you don't know",
 order: 3
 }

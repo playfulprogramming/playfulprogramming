@@ -5,8 +5,8 @@ published: "2023-09-27T05:50:43Z",
 tags: ["javascript", "es6", "weakmap"],
 description: "Introduction   JavaScript is a powerful and versatile programming language that has evolved...",
 originalLink: "https://blog.delpuppo.net/unlocking-javascripts-secret-weapon-the-power-of-weakmaps",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "The JavaScript you don't know",
 order: 2
 }

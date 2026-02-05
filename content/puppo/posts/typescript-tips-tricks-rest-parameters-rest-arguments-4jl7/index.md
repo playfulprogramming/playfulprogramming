@@ -6,8 +6,8 @@ edited: "2021-09-09T07:06:42Z",
 tags: ["typescript", "webdev"],
 description: "Hi guy and welcome back :) Today I'll talk about the Rest Parameters and the Rest...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-rest-parameters-rest-arguments-4jl7",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 21
 }

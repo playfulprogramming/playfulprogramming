@@ -6,8 +6,8 @@ edited: "2023-12-13T15:03:44Z",
 tags: ["angular", "typescript", "frontend", "webdev"],
 description: "I'm constantly exploring ways to improve user interaction on websites. Recently, while building a...",
 originalLink: "https://www.danywalls.com/add-router-animation-transitions-for-navigation-in-angular-17",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

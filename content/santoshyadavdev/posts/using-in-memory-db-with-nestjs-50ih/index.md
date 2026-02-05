@@ -6,8 +6,8 @@ edited: "2021-04-06T11:07:46Z",
 tags: ["typescript", "javascript", "webdev", "node"],
 description: "Let’s see why we should and how we can use in-memory-db, you can access the source code on GitHub....",
 originalLink: "https://medium.com/better-programming/using-in-memory-db-with-nestjs-803a91a8eb11",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "20daysofNestJS",
 order: 5
 }

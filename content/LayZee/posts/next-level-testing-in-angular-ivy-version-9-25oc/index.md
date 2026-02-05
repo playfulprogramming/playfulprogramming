@@ -6,8 +6,8 @@ edited: "2021-03-24T15:08:28Z",
 tags: ["angular", "ivy", "testing"],
 description: "AOT, faster tests, stronger types, and component harnesses.",
 originalLink: "https://dev.to/this-is-angular/next-level-testing-in-angular-ivy-version-9-25oc",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

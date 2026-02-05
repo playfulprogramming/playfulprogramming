@@ -5,8 +5,8 @@ published: "2024-02-06T12:50:28Z",
 tags: ["git", "tutorial", "codenewbie"],
 description: "Remember that file you deleted last week? Too bad, now you need it. Let's see how git restore can...",
 originalLink: "https://leonardomontini.dev/git-restore-deleted-file",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "git better - Improve your git skills",
 order: 6
 }

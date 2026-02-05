@@ -6,8 +6,8 @@ edited: "2022-09-02T14:13:33Z",
 tags: ["angular", "typescript", "javascript", "webdev"],
 description: "When we start to build the application and feel the code duplicated are in several places, our first...",
 originalLink: "https://www.danywalls.com/composition-and-inheritance-in-angular-1",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

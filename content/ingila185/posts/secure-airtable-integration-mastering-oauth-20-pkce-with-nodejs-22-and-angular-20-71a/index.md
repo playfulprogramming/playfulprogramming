@@ -6,8 +6,8 @@ edited: "2025-07-28T17:26:58Z",
 tags: ["webdev", "programming", "javascript", "angular"],
 description: "Integrating third-party services into B2B and SaaS applications demands robust security. When...",
 originalLink: "https://dev.to/this-is-learning/secure-airtable-integration-mastering-oauth-20-pkce-with-nodejs-22-and-angular-20-71a",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

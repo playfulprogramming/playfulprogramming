@@ -5,8 +5,8 @@ published: "2025-12-23T07:00:00Z",
 tags: ["gitkraken", "tooling"],
 description: "As a developer, you have to take control of your projects every day. Whether it is a company...",
 originalLink: "https://blog.delpuppo.net/take-control-of-your-job-with-gitlens-launchpad",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

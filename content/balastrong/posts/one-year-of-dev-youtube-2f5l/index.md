@@ -5,8 +5,8 @@ published: "2023-07-30T09:25:11Z",
 tags: ["webdev", "motivation", "career", "showdev"],
 description: "Exactly one year ago I started consistently posting on YouTube, at least a video every single week,...",
 originalLink: "https://leonardomontini.dev/dev-youtube-anniversary/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "My Dev Journey",
 order: 4
 }

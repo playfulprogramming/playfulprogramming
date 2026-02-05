@@ -6,8 +6,8 @@ edited: "2022-04-25T19:51:55Z",
 tags: ["javascript", "webdev", "solidjs", "marko"],
 description: "I've been sitting on writing this article for 2 years. In my heart this was the article I was going...",
 originalLink: "https://dev.to/this-is-learning/marko-for-sites-solid-for-apps-2c7d",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

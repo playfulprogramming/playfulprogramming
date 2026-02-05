@@ -6,8 +6,8 @@ edited: "2022-08-28T18:11:59Z",
 tags: ["angular", "ivy", "components"],
 description: "SCAMs are a safe, View Engine-compatible migration path towards standalone components.",
 originalLink: "https://dev.to/this-is-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Standalone Angular applications",
 order: 2
 }

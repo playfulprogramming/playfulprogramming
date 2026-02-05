@@ -6,8 +6,8 @@ edited: "2023-01-03T15:13:10Z",
 tags: ["emptystring"],
 description: "GitHub Actions are so cool, you can automate your workflow for free and they’re really easy to set...",
 originalLink: "https://leonardomontini.dev/run-github-action-in-local/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Actions",
 order: 1
 }

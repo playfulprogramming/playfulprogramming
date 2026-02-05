@@ -5,8 +5,8 @@ published: "2025-07-18T13:44:19Z",
 tags: ["ai", "firebase", "programming", "webdev"],
 description: "Firebase Studio is rapidly evolving into a robust, agentic development environment that leverages...",
 originalLink: "https://dev.to/this-is-learning/supercharge-your-firebase-projects-the-power-of-mcp-integration-de8",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

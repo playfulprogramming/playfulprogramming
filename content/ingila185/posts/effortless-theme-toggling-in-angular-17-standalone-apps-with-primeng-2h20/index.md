@@ -6,7 +6,7 @@ edited: "2024-07-24T13:10:59Z",
 tags: ["angular", "javascript", "typescript", "webdev"],
 description: "As I delved into PrimeNG and PrimeFlex for my recent Angular 17 standalone app with SSR, one aspect...",
 originalLink: "https://dev.to/this-is-angular/effortless-theme-toggling-in-angular-17-standalone-apps-with-primeng-2h20",
-socialImage: "social-image.png"
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2021-03-23T09:04:13Z",
 tags: ["javascript", "webdev", "react", "svelte"],
 description: "If the title agrees with you, you can stop reading right now. Move on to the next article. In technol...",
 originalLink: "https://dev.to/this-is-learning/how-react-isn-t-reactive-and-why-you-shouldn-t-care-152m",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

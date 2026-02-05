@@ -5,8 +5,8 @@ published: "2023-06-09T05:30:39Z",
 tags: ["mvp", "award", "microsoft", "journey"],
 description: "This history started many years ago! I was a student, and I was going to the ITS in Pordenone. I...",
 originalLink: "https://blog.delpuppo.net/my-journey-to-the-mvp-award",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

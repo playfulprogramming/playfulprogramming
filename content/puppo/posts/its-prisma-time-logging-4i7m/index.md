@@ -5,8 +5,8 @@ published: "2022-01-26T06:50:45Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hi Guys 👋  Today we are going to see how to enable logging in Prisma, so don't waste time and let's...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-logging-4i7m",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 13
 }

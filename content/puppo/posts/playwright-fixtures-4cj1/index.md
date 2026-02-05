@@ -6,8 +6,8 @@ edited: "2023-02-21T07:20:05Z",
 tags: ["playwright", "e2e"],
 description: "Hey there, Today I want to speak about Fixtures, a vital friend if you're going to work with...",
 originalLink: "https://blog.delpuppo.net/playwright-fixtures",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 5
 }

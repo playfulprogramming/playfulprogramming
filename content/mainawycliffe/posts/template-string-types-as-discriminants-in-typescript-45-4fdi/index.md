@@ -5,8 +5,8 @@ published: "2021-11-18T08:21:00Z",
 tags: ["typescript", "javascript", "webdev", "node"],
 description: "Typescript 4.5 was just released and one of the features that stood out to me is the Template String...",
 originalLink: "https://mainawycliffe.dev/blog/template-string-types-as-discriminants/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "a-byte-of-typescript",
 order: 5
 }

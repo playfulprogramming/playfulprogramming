@@ -6,8 +6,8 @@ edited: "2025-05-22T11:55:25Z",
 tags: ["ai", "firebase", "architecture", "productivity"],
 description: "Okay, you've seen it all, built it all, and probably debugged it all (more than once). You recognise...",
 originalLink: "https://dev.to/this-is-learning/firebase-studio-your-perfect-full-stack-picky-companion-56e4",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

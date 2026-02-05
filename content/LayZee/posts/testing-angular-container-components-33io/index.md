@@ -6,8 +6,8 @@ edited: "2021-03-22T21:07:07Z",
 tags: ["angular", "testing", "rxjs", "modelviewpresenter"],
 description: "Learn tactics for testing RxJS observables and application state commands. Opt out of Angular testing modules for blazingly fast unit tests.",
 originalLink: "https://dev.to/this-is-angular/testing-angular-container-components-33io",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
 order: 3
 }

@@ -5,8 +5,8 @@ published: "2021-03-08T16:46:09Z",
 tags: ["angular", "webdev", "javascript", "typescript"],
 description: "In this article, we are going to take a look at the Platform Module from Angular CDK. The platform mo...",
 originalLink: "https://mainawycliffe.dev/blog/angular-cdk-platform-module",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

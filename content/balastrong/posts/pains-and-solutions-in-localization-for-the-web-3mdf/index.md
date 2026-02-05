@@ -5,8 +5,8 @@ published: "2023-12-13T18:22:29Z",
 tags: ["webdev", "react", "javascript"],
 description: "There's nothing wrong in writing plain text in your HTML/JSX code, it renders nicely on the browser...",
 originalLink: "https://leonardomontini.dev/localization",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 15
 }

@@ -6,8 +6,8 @@ edited: "2023-01-15T12:27:14Z",
 tags: ["hackathon", "discuss", "community", "angular"],
 description: "In previous article we analyzed a generic workflow for the creation of a directive capable of adding...",
 originalLink: "https://dev.to/this-is-angular/material-forms-mat-checkbox-disabling-controls-2jc6",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Generic directive disabling form controls",
 order: 2
 }

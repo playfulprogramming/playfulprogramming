@@ -5,8 +5,8 @@ published: "2023-11-13T06:37:15Z",
 tags: ["ide", "font", "productivity"],
 description: "As a developer, I spend a lot of time writing and reading code. And one of the most important aspects...",
 originalLink: "https://dev.to/this-is-learning/why-i-love-monaspace-font-for-coding-47e7",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

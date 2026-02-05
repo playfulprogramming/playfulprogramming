@@ -6,8 +6,8 @@ edited: "2023-09-10T20:04:20Z",
 tags: ["life", "career", "personal"],
 description: "Photo by ROCCO STOPPOLONI on Unsplash  Last week, I was traveling to speak at CityJs + HalfStack Conf...",
 originalLink: "https://www.santoshyadav.dev/blog/2023-09-10-never-forget-where-you-come-from/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

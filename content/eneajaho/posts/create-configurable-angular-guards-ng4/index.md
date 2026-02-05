@@ -6,8 +6,8 @@ edited: "2023-08-09T23:03:46Z",
 tags: ["angular", "webdev", "javascript", "router"],
 description: "When building web application, from time to time we have to protect routes from unauthorized access....",
 originalLink: "https://medium.com/@eneajahollari/create-configurable-angular-guards-11800f84d90a",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

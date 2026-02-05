@@ -5,8 +5,8 @@ published: "2024-03-07T12:24:30Z",
 tags: ["typescript", "react", "javascript", "tutorial"],
 description: "Welcome to the third article of a series where we will explore TanStack Router, the new typesafe...",
 originalLink: "https://leonardomontini.dev/tanstack-router-query-params",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "TanStack Router",
 order: 3
 }

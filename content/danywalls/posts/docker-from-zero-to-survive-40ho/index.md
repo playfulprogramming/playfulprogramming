@@ -6,8 +6,8 @@ edited: "2021-11-02T22:09:52Z",
 tags: ["docker", "devops", "cloudskills"],
 description: "Be ready to deploy your apps with Docker is a one of higher-demand knowledge today, and this article...",
 originalLink: "https://dev.to/this-is-learning/docker-from-zero-to-survive-40ho",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

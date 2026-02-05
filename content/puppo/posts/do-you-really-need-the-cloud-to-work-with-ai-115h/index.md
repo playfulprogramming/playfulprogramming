@@ -5,8 +5,8 @@ published: "2025-06-25T06:27:11Z",
 tags: ["aisprint", "gemini", "ai", "chrome"],
 description: "We are in the AI era. New models emerge daily, and many applications have already integrated AI into...",
 originalLink: "https://blog.delpuppo.net/do-you-really-need-the-cloud-to-work-with-ai",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

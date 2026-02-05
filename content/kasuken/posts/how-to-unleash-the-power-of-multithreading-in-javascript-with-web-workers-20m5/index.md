@@ -5,8 +5,8 @@ published: "2023-05-16T13:04:52Z",
 tags: ["javascript", "webdev"],
 description: "As I mentioned in my two previous articles, JavaScript is a single-threaded language, which means it...",
 originalLink: "https://dev.to/this-is-learning/how-to-unleash-the-power-of-multithreading-in-javascript-with-web-workers-20m5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

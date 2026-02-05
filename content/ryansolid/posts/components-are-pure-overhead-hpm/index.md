@@ -6,8 +6,8 @@ edited: "2021-05-10T18:47:33Z",
 tags: ["javascript", "webdev", "react", "svelte"],
 description: "A couple of years ago in the The Real Cost of UI Components, I explored the cost of components in Jav...",
 originalLink: "https://dev.to/this-is-learning/components-are-pure-overhead-hpm",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

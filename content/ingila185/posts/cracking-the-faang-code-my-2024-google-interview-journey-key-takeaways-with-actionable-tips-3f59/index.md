@@ -6,8 +6,8 @@ edited: "2024-12-06T15:08:53Z",
 tags: ["programming", "webdev", "devrel", "coding"],
 description: "Earlier this year, I had the opportunity to interview for a role at Google. A recruiter reached out...",
 originalLink: "https://dev.to/this-is-learning/cracking-the-faang-code-my-2024-google-interview-journey-key-takeaways-with-actionable-tips-3f59",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

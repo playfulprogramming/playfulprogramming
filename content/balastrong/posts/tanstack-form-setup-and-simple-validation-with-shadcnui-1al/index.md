@@ -6,8 +6,8 @@ edited: "2024-05-21T19:22:37Z",
 tags: ["react", "typescript", "tutorial", "codenewbie"],
 description: "Forms are not an easy business 🤯  Luckily there are many libraries helping out with that and today...",
 originalLink: "https://leonardomontini.dev/tanstack-form-setup-validation/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "TanStack Form",
 order: 1
 }

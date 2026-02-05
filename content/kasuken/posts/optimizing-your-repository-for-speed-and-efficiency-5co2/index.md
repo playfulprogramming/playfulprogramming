@@ -5,8 +5,8 @@ published: "2024-12-19T19:19:52Z",
 tags: ["git", "devops", "productivity"],
 description: "In the last few weeks one of my repository started to be very slow and bloated. I try to commit all...",
 originalLink: "https://dev.to/this-is-learning/optimizing-your-repository-for-speed-and-efficiency-5co2",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Streamline Your Workflow with the Git Maintenance Command",
 order: 1
 }

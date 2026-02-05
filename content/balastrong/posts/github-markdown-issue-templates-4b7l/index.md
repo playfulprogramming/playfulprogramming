@@ -6,8 +6,8 @@ edited: "2023-09-14T06:28:18Z",
 tags: ["github", "opensource", "codenewbie", "productivity"],
 description: "When you, as a contributor, want to create a new issue on GitHub, you're presented with a blank page...",
 originalLink: "https://leonardomontini.dev/github-issue-markdown-template",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Mastering GitHub",
 order: 5
 }

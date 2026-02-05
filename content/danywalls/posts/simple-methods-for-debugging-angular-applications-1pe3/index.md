@@ -6,8 +6,8 @@ edited: "2023-06-19T06:10:33Z",
 tags: ["angular", "javascript", "frontend"],
 description: "As developers, we use a lot of our coding time to fix bugs. Debugging helps us find and remove errors...",
 originalLink: "https://www.danywalls.com/simple-methods-for-debugging-angular-applications",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

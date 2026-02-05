@@ -6,8 +6,8 @@ edited: "2024-04-29T16:39:05Z",
 tags: ["ai", "github", "programming", "git"],
 description: "GitHub Copilot CLI comes with three aliases:    ??: Ask for a generic shell command  git?: Ask for a...",
 originalLink: "https://leonardomontini.dev/copilot-x-git-cli/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Copilot",
 order: 3
 }

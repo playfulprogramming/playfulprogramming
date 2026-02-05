@@ -5,8 +5,8 @@ published: "2025-05-16T10:12:48Z",
 tags: ["firebase", "webdev", "programming", "ai"],
 description: "Imagine your online store as a giant warehouse. You've got tons of cool stuff, but customers are...",
 originalLink: "https://dev.to/this-is-learning/increase-your-sales-by-70-with-firebase-genkit-ai-ib",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

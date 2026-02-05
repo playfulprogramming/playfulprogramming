@@ -5,8 +5,8 @@ published: "2023-01-09T10:24:47Z",
 tags: ["angular", "typescript", "webdev", "javascript"],
 description: "How to write a directive to add it.            And why you shouldn't.   If as a coder you...",
 originalLink: "https://dev.to/this-is-angular/angular-forms-checkbox-disabling-controls-29np",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Generic directive disabling form controls",
 order: 1
 }

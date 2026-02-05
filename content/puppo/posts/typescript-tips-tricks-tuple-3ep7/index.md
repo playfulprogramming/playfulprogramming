@@ -6,8 +6,8 @@ edited: "2021-09-09T07:05:04Z",
 tags: ["typescript", "webdev"],
 description: "Tuple types allow you to express an array with a fixed number of elements whose types are known, but...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-tuple-3ep7",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 12
 }

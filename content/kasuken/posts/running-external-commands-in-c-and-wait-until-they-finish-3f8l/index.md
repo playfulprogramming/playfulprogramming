@@ -5,8 +5,8 @@ published: "2025-06-28T18:29:50Z",
 tags: ["csharp", "powershell"],
 description: "Ever needed your C# application to run a PowerShell script, wait until it's done, and print the...",
 originalLink: "https://dev.to/this-is-learning/running-external-commands-in-c-and-wait-until-they-finish-3f8l",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

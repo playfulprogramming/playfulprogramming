@@ -6,8 +6,8 @@ edited: "2022-11-23T11:16:07Z",
 tags: ["github", "git", "opensource", "beginners"],
 description: "Contributing to Open Source projects that are hosted on GitHub has a barrier: git.  Some fresh...",
 originalLink: "https://leonardomontini.dev/open-pull-request-github-desktop/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 5
 }

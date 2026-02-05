@@ -6,8 +6,8 @@ edited: "2023-04-26T07:57:05Z",
 tags: ["webdev", "javascript", "challenge", "codenewbie"],
 description: "Do you know Javascript? After the success of the previous video, I've decided to make a second one...",
 originalLink: "https://leonardomontini.dev/javascript-10-challenges/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 6
 }

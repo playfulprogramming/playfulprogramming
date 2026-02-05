@@ -6,8 +6,8 @@ edited: "2023-03-07T11:58:02Z",
 tags: ["github", "opensource", "tutorial", "awesome"],
 description: "Free resources for developers, board games and chess... what do they have in common? You can find...",
 originalLink: "https://leonardomontini.dev/github-awesome-lists/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Mastering GitHub",
 order: 2
 }

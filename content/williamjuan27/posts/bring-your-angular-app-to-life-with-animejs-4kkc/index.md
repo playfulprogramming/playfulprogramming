@@ -6,8 +6,8 @@ edited: "2025-08-20T12:31:50Z",
 tags: ["angular", "animejs", "webdev", "tutorial"],
 description: "With recent updates to the Angular framework, it is now recommended to move away from the...",
 originalLink: "https://williamjuan.dev/blog/bring-your-angular-app-to-life-with-animejs",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Animations in Angular",
 order: 6
 }

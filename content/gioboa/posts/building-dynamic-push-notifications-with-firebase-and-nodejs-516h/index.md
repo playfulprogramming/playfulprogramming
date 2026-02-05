@@ -6,8 +6,8 @@ edited: "2025-03-07T16:17:29Z",
 tags: ["node", "firebase", "javascript", "angular"],
 description: "In the previous article we saw how Firebase Cloud Messaging (FCM) is a versatile solution for...",
 originalLink: "https://dev.to/this-is-learning/building-dynamic-push-notifications-with-firebase-and-nodejs-516h",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

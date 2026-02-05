@@ -6,8 +6,8 @@ edited: "2023-08-15T14:26:38Z",
 tags: ["typescript", "javascript", "frontend"],
 description: "A few days ago, a friend asked how to prevent duplicate keys in an array, and I told him there are...",
 originalLink: "https://dev.to/this-is-learning/when-use-arrays-tuples-maps-and-sets-in-typescript-with-examples-57l6",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

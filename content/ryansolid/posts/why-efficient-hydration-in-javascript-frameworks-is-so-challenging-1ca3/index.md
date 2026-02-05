@@ -6,8 +6,8 @@ edited: "2022-02-08T11:35:58Z",
 tags: [],
 description: "Hydration is the name given to the process in JavaScript frameworks to initializing the page in the...",
 originalLink: "https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2021-09-09T07:02:32Z",
 tags: ["typescript", "webdev"],
 description: "Welcome back! Today I show you the Literal Types.  This feature permits you to create a set of...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-literal-types-10md",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 2
 }

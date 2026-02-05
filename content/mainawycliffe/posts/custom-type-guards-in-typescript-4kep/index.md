@@ -6,8 +6,8 @@ edited: "2021-09-16T14:41:39Z",
 tags: ["typescript", "javascript", "webdev", "node"],
 description: "Previously, we covered various approaches that you can take to narrowing types in Typescript. Type...",
 originalLink: "https://mainawycliffe.dev/blog/custom-type-guards-in-typescript",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "a-byte-of-typescript",
 order: 3
 }

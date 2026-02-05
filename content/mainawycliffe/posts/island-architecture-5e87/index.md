@@ -6,8 +6,8 @@ edited: "2022-04-21T04:20:41Z",
 tags: ["webdev", "javascript", "performance", "typescript"],
 description: "There are different ways to build a website. One of them was Multi-Page Applications (MPAs) which...",
 originalLink: "https://mainawycliffe.dev/blog/island-architecture/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

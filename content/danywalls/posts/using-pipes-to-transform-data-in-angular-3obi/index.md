@@ -6,8 +6,8 @@ edited: "2022-07-27T05:30:36Z",
 tags: ["angular", "javascript", "programming"],
 description: "Angular help us to convert values for display using Pipes; the pipes are a way to transform input...",
 originalLink: "https://www.danywalls.com/using-pipes-to-transform-data-in-angular",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

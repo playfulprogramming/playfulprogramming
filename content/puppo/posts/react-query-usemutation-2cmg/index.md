@@ -6,8 +6,8 @@ edited: "2023-03-22T06:43:24Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Hey Folks, It's time to talk about the second core concept in React Query, mutation.          What is...",
 originalLink: "https://blog.delpuppo.net/react-query-usemutation",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 2
 }

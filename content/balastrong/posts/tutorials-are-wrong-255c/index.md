@@ -6,8 +6,8 @@ edited: "2023-02-08T17:19:19Z",
 tags: ["tutorial", "beginners", "productivity", "codenewbie"],
 description: "Is the title a clickbait? Nope, let me explain.  Learning new stuff is amazing and courses and...",
 originalLink: "https://leonardomontini.dev/tutorials-are-wrong/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 1
 }

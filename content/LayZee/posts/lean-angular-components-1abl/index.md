@@ -6,8 +6,8 @@ edited: "2021-03-24T15:06:36Z",
 tags: ["angular", "architecture", "designpatterns", "components"],
 description: "Building a robust component architecture.",
 originalLink: "https://dev.to/this-is-angular/lean-angular-components-1abl",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
 order: 6
 }

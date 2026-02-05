@@ -6,8 +6,8 @@ edited: "2023-04-12T07:03:58Z",
 tags: ["react", "reactquery", "reacthooks"],
 description: "Every application should handle an authentication flow; in this article, you'll learn how to build an...",
 originalLink: "https://blog.delpuppo.net/react-query-authentication-flow",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "React Query",
 order: 5
 }

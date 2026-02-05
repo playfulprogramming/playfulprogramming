@@ -6,8 +6,8 @@ edited: "2021-09-09T07:04:00Z",
 tags: ["typescript", "webdev"],
 description: "Hi guys, today I'll talk about the difference between any and unknown.  Any Any type is a particular...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-any-vs-unknown-2ho6",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 7
 }

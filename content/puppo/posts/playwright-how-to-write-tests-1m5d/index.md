@@ -6,8 +6,8 @@ edited: "2023-02-21T07:18:45Z",
 tags: ["playwright", "e2e"],
 description: "What are you going to learn in this post?   In this post, you will learn how to write tests...",
 originalLink: "https://blog.delpuppo.net/playwright-how-to-write-tests",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 2
 }

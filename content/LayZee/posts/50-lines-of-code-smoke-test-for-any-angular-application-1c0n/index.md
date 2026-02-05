@@ -6,8 +6,8 @@ edited: "2021-01-18T12:29:16Z",
 tags: ["angular", "testing"],
 description: "Where there's smoke, there's fire. Use this top-level integrated test suite for any Angular application.",
 originalLink: "https://dev.to/this-is-angular/50-lines-of-code-smoke-test-for-any-angular-application-1c0n",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

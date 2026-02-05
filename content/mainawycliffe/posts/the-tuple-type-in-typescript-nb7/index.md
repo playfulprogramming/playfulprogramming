@@ -5,8 +5,8 @@ published: "2022-02-22T07:49:25Z",
 tags: ["typescript", "javascript", "webdev", "node"],
 description: "A tuple type is an array with a predefined length and predefined types in each index position in the...",
 originalLink: "https://mainawycliffe.dev/blog/tuple-type-in-typescript/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "a-byte-of-typescript",
 order: 7
 }

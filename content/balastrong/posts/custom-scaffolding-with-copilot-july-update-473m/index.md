@@ -6,8 +6,8 @@ edited: "2024-04-29T16:39:22Z",
 tags: ["githubcopilot", "github", "news", "vscode"],
 description: "You got the idea for a new and fun side project which you will abandon after a few weeks, but that's...",
 originalLink: "https://leonardomontini.dev/copilot-create-workspace/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Copilot",
 order: 5
 }

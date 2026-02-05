@@ -5,8 +5,8 @@ published: "2021-10-19T23:02:37Z",
 tags: ["angular"],
 description: "Photo by John Bakator on Unsplash           NgRx Effects   Effects are a powerful model for handling...",
 originalLink: "https://dev.to/this-is-angular/moving-material-dialog-lifecycle-into-ngrx-effects-5d99",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

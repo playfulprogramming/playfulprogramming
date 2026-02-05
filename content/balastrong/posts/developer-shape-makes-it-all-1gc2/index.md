@@ -5,8 +5,8 @@ published: "2023-08-14T10:39:28Z",
 tags: ["webdev", "career", "beginners", "codenewbie"],
 description: "Since a couple of days I’m seeing this screenshot everywhere on Twitter and Linkedin, and I’m sorry...",
 originalLink: "https://leonardomontini.dev/developer-shape-i-t-pi",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 12
 }

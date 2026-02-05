@@ -5,8 +5,8 @@ published: "2023-02-22T13:10:00Z",
 tags: ["webdev", "node", "javascript", "opensource"],
 description: "When you work on multiple projects, and this happens quite often if you're into Open Source, you will...",
 originalLink: "https://leonardomontini.dev/multiple-node-version-nvm/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 3
 }

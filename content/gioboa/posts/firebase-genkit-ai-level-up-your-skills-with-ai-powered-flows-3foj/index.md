@@ -5,8 +5,8 @@ published: "2025-04-24T08:36:52Z",
 tags: ["firebase", "ai", "programming", "javascript"],
 description: "The rapid evolution of artificial intelligence is fundamentally transforming how we build and...",
 originalLink: "https://dev.to/this-is-learning/firebase-genkit-ai-level-up-your-skills-with-ai-powered-flows-3foj",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

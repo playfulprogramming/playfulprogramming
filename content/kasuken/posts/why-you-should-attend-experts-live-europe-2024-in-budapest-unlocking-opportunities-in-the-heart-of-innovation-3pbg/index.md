@@ -5,8 +5,8 @@ published: "2024-09-01T19:15:18Z",
 tags: ["event", "microsoft", "azure"],
 description: "The IT landscape is ever-evolving, and staying ahead of the curve is crucial for professionals...",
 originalLink: "https://dev.to/this-is-learning/why-you-should-attend-experts-live-europe-2024-in-budapest-unlocking-opportunities-in-the-heart-of-innovation-3pbg",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

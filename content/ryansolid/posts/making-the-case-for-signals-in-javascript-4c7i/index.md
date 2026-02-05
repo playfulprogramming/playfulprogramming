@@ -6,8 +6,8 @@ edited: "2023-03-03T19:23:39Z",
 tags: ["javascript", "webdev", "solidjs", "reactivity"],
 description: "Amidst all the conversation around Signals the recent weeks, I have forgotten to talk about arguably...",
 originalLink: "https://dev.to/this-is-learning/making-the-case-for-signals-in-javascript-4c7i",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

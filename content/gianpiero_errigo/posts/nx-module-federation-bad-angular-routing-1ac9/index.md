@@ -6,8 +6,8 @@ edited: "2023-01-23T18:19:00Z",
 tags: ["angular", "nx", "typescript", "webpack"],
 description: "While puzzling around with Nx' Webpack Module Federation support, I stumbled upon an issue that...",
 originalLink: "https://dev.to/this-is-angular/nx-module-federation-bad-angular-routing-1ac9",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

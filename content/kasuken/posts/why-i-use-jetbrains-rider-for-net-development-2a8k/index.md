@@ -6,8 +6,8 @@ edited: "2025-11-13T09:51:28Z",
 tags: ["dotnet", "productivity"],
 description: "Finding the ideal IDE for .NET work is rarely a straightforward journey. As .NET developers, I invest...",
 originalLink: "https://dev.to/this-is-learning/why-i-use-jetbrains-rider-for-net-development-2a8k",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

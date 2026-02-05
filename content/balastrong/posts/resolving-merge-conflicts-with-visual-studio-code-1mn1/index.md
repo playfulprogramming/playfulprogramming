@@ -6,8 +6,8 @@ edited: "2022-12-05T12:51:45Z",
 tags: ["tutorial", "vscode", "productivity", "codenewbie"],
 description: "Today I launched my Discord server to talk about Open Source and Web Development, feel free to join:...",
 originalLink: "https://leonardomontini.dev/merge-conflict-vscode/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Visual Studio Code",
 order: 3
 }

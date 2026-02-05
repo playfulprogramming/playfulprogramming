@@ -6,8 +6,8 @@ edited: "2022-08-23T20:43:49Z",
 tags: ["javascript", "webdev", "marko", "qwik"],
 description: "Maybe you've heard the term Resumability thrown around recently. Maybe someone gushing over Miško...",
 originalLink: "https://dev.to/this-is-learning/resumability-wtf-2gcm",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

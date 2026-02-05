@@ -5,8 +5,8 @@ published: "2022-12-28T08:49:07Z",
 tags: ["javascript", "firebase", "tooling", "typescript"],
 description: "One of the pain points that I am sure some of us have come across when using Firebase projects that...",
 originalLink: "https://mainawycliffe.dev/blog/supercharge-your-firebase-app-development-using-nx/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

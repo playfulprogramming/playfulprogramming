@@ -6,8 +6,8 @@ edited: "2025-09-26T09:20:07Z",
 tags: ["azure", "angular", "webdev", "programming"],
 description: "Every business need for a reliable and scalable cloud infrastructure, this is precisely where Azure...",
 originalLink: "https://dev.to/this-is-angular/deploying-your-angular-app-to-azure-53nc",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -5,8 +5,8 @@ published: "2023-03-20T11:34:37Z",
 tags: ["github", "opensource", "tutorial", "codenewbie"],
 description: "How to Fork a repository on GitHub is as easy as pressing a button, we take this for granted, but why...",
 originalLink: "https://leonardomontini.dev/github-fork/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Mastering GitHub",
 order: 3
 }

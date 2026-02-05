@@ -5,8 +5,8 @@ published: "2024-02-24T21:40:15Z",
 tags: ["git", "github"],
 description: "Pushing all branches simultaneously streamlines the process of synchronizing your local repository...",
 originalLink: "https://dev.to/this-is-learning/how-to-push-all-branches-from-command-line-3nib",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

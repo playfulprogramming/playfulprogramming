@@ -6,8 +6,8 @@ edited: "2025-04-02T09:12:27Z",
 tags: ["firebase", "database", "webdev", "mobile"],
 description: "Google offers robust, real-time NoSQL database solutions: the original Realtime Database and the...",
 originalLink: "https://dev.to/this-is-learning/3-pillars-only-senior-developers-know-about-firebase-and-firestore-databases-oe0",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

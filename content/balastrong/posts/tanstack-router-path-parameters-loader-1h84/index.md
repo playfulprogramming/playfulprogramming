@@ -5,8 +5,8 @@ published: "2024-02-29T10:51:49Z",
 tags: ["typescript", "react", "tutorial", "learning"],
 description: "Welcome to the second article of a series where we will explore TanStack Router, the new typesafe...",
 originalLink: "https://leonardomontini.dev/tanstack-router-path-parameters-loader",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "TanStack Router",
 order: 2
 }

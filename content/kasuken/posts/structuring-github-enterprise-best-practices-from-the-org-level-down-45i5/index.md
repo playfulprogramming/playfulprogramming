@@ -5,8 +5,8 @@ published: "2025-06-17T10:38:11Z",
 tags: ["github", "githubactions"],
 description: "Ever joined a GitHub Enterprise and thought, “Who organized this… chaos?”   I created this post...",
 originalLink: "https://dev.to/this-is-learning/structuring-github-enterprise-best-practices-from-the-org-level-down-45i5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

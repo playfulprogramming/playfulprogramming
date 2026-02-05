@@ -6,8 +6,8 @@ edited: "2023-03-18T08:23:52Z",
 tags: ["javascript", "webdev", "patterns", "architecture"],
 description: "Deciding on the approaches and tools to use to build on web these days can be a challenging prospect....",
 originalLink: "https://dev.to/this-is-learning/patterns-for-building-javascript-websites-in-2022-5a93",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

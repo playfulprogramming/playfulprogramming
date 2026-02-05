@@ -6,8 +6,8 @@ edited: "2025-06-21T13:58:40Z",
 tags: ["react", "typescript", "tanstack"],
 description: "Some routes in your application require authentication or other conditions to be met before users can...",
 originalLink: "https://leonardomontini.dev/tanstack-router-guard/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

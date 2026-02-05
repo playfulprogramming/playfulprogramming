@@ -6,8 +6,8 @@ edited: "2023-02-21T07:21:43Z",
 tags: ["playwright", "e2e", "mocking", "api"],
 description: "Hi there, Today I want to talk about how to mock API with Playwright.  To do that, I add a new...",
 originalLink: "https://blog.delpuppo.net/playwright-mock-api",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 8
 }

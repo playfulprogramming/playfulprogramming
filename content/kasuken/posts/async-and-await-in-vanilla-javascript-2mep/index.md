@@ -5,8 +5,8 @@ published: "2023-05-04T18:47:01Z",
 tags: ["javascript", "webdev", "webassembly"],
 description: "In the last couple of years I work a lot with Blazor WebAssembly for my personal projects and, first...",
 originalLink: "https://dev.to/this-is-learning/async-and-await-in-vanilla-javascript-2mep",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

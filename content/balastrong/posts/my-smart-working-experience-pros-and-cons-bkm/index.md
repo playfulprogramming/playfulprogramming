@@ -5,8 +5,8 @@ published: "2023-08-28T08:47:00Z",
 tags: ["remote", "career", "motivation"],
 description: "I’m doing smart working in a full remote company for a couple of years. These are the pros and cons...",
 originalLink: "https://leonardomontini.dev/smartworking-full-remote-company/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "My Dev Journey",
 order: 5
 }

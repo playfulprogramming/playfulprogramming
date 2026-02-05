@@ -6,8 +6,8 @@ edited: "2023-02-21T07:23:26Z",
 tags: ["playwright", "apitesting"],
 description: "In this path with Playwright we spent a lot of time speaking about e2e tests and component testing in...",
 originalLink: "https://blog.delpuppo.net/playwright-not-just-for-frontend",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 11
 }

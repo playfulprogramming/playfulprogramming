@@ -6,8 +6,8 @@ edited: "2024-10-22T21:50:15Z",
 tags: ["javascript", "webdev", "reactivity", "signals"],
 description: "There is a reason why the first time you learn about a reactive system the example always looks...",
 originalLink: "https://dev.to/this-is-learning/derivations-in-reactivity-4fo1",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Derivations in Reactivity",
 order: 1
 }

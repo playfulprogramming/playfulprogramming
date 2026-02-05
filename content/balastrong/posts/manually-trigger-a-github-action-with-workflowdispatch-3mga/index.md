@@ -5,8 +5,8 @@ published: "2023-01-10T19:16:22Z",
 tags: ["discuss", "ai", "softwaredevelopment"],
 description: "There's a plethora of triggers you can use to run a GitHub Action. You can run it on a schedule, on a...",
 originalLink: "https://leonardomontini.dev/github-action-manual-trigger/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Actions",
 order: 3
 }

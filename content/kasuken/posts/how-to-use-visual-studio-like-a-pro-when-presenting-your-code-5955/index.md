@@ -5,8 +5,8 @@ published: "2023-05-10T07:10:00Z",
 tags: ["visualstudio", "csharp", "speaking"],
 description: "Visual Studio is great to write code and create something amazing, but sometimes, you may want to use...",
 originalLink: "https://dev.to/this-is-learning/how-to-use-visual-studio-like-a-pro-when-presenting-your-code-5955",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Hidden gems in Visual Studio 2022",
 order: 1
 }

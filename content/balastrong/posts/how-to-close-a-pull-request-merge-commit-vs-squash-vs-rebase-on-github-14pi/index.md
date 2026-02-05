@@ -6,8 +6,8 @@ edited: "2023-02-21T07:56:26Z",
 tags: ["git", "github", "programming"],
 description: "When Merging a Pull Request on GitHub, you mainly have three options, with a merge commit, squash or...",
 originalLink: "https://leonardomontini.dev/close-pr-strategy-merge-commit-squash-rebase/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 8
 }

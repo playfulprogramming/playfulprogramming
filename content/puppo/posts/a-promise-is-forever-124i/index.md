@@ -6,8 +6,8 @@ edited: "2024-02-07T21:46:31Z",
 tags: ["javascript", "es6", "promise", "abotwrotethis"],
 description: "In the ever-evolving world of web development, mastering asynchronous operations is a crucial skill...",
 originalLink: "https://blog.delpuppo.net/a-promise-is-forever",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -5,8 +5,8 @@ published: "2024-02-26T19:21:50Z",
 tags: ["react", "tutorial", "typescript", "frontend"],
 description: "Welcome to the first article of a series where we will explore TanStack Router, a new router for...",
 originalLink: "https://leonardomontini.dev/tanstack-router-setup",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "TanStack Router",
 order: 1
 }

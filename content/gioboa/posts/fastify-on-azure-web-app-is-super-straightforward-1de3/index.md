@@ -6,8 +6,8 @@ edited: "2022-12-20T08:15:31Z",
 tags: ["azure", "vscode", "node", "fastify"],
 description: "Today I'll show you step by step how easy it is to deploy a Fastify server on Azure Function.       ...",
 originalLink: "https://dev.to/this-is-learning/fastify-on-azure-web-app-is-super-straightforward-1de3",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

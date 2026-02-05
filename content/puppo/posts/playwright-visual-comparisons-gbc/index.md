@@ -6,8 +6,8 @@ edited: "2023-02-21T07:22:06Z",
 tags: ["playwright", "e2e", "visual"],
 description: "Hi there,  Today I want to speak about Visual comparisons with Playwright.  In some projects is...",
 originalLink: "https://blog.delpuppo.net/playwright-visual-comparisons",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 9
 }

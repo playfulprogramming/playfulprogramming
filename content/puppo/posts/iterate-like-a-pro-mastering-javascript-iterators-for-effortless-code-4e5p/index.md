@@ -5,8 +5,8 @@ published: "2023-08-25T06:10:55Z",
 tags: ["javascript", "iterators"],
 description: "Welcome to this blog post, where we're about to unravel the power and versatility of JavaScript...",
 originalLink: "https://blog.delpuppo.net/iterate-like-a-pro-mastering-javascript-iterators-for-effortless-code",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Javascript Iterators & Generators",
 order: 1
 }

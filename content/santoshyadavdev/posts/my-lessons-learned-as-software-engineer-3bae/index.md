@@ -6,8 +6,8 @@ edited: "2021-09-21T05:09:39Z",
 tags: ["career", "webdev"],
 description: "Photo by Christin Hume on Unsplash  My friend Vinit Shahdeo asked me to share my experience as...",
 originalLink: "https://dev.to/this-is-learning/my-lessons-learned-as-software-engineer-3bae",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2023-06-14T14:09:04Z",
 tags: ["webdev", "architecture", "monorepo", "nx"],
 description: "Introduction   When I embarked on my journey as a software developer, I delved into the...",
 originalLink: "https://dev.to/this-is-learning/architects-delight-enforcing-layers-and-project-boundaries-with-nx-2d8o",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

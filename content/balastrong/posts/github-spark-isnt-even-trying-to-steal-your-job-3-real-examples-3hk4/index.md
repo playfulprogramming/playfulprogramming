@@ -5,8 +5,8 @@ published: "2024-11-12T11:52:03Z",
 tags: ["github", "githubcopilot", "webdev", "ai"],
 description: "Spark is the latest creation from the GitHub Next team, which was announced on stage at GitHub...",
 originalLink: "https://leonardomontini.dev/github-spark-reviews/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Mastering GitHub",
 order: 9
 }

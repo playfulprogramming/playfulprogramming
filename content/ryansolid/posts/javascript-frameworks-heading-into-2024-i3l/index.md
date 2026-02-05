@@ -6,8 +6,8 @@ edited: "2025-12-12T18:20:53Z",
 tags: ["webdev", "javascript", "webperf", "frameworks"],
 description: "I won't be the first to say it, but I will say it nonetheless, 2023 was quite the year for JavaScript...",
 originalLink: "https://dev.to/this-is-learning/javascript-frameworks-heading-into-2024-i3l",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "JavaScript Frameworks - Heading Into XXXX",
 order: 2
 }

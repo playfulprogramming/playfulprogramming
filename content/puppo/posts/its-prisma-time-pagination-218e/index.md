@@ -5,8 +5,8 @@ published: "2022-01-13T07:10:33Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hi Guys 👋 Today we are going to see how to paginate our results. So don't waste time and let's...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-pagination-218e",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 10
 }

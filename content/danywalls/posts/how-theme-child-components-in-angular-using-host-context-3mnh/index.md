@@ -6,8 +6,8 @@ edited: "2022-02-17T07:56:52Z",
 tags: ["angular", "css", "javascript"],
 description: "When we create a component, you can reuse it in some places, and his style should also relate to his...",
 originalLink: "https://www.danywalls.com/post?slug=How_theme_child_components_in_Angular_using_host_context&token=2StXtWTte2C0AjxFAfSc9H",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "styling angular apps",
 order: 2
 }

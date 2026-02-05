@@ -6,8 +6,8 @@ edited: "2022-11-23T11:14:23Z",
 tags: ["webdev", "opensource", "vscode", "tutorial"],
 description: "Do you want to add a new feature on Visual Studio Code, or fix an existing bug? Here’s how to do...",
 originalLink: "https://leonardomontini.dev/contribute-to-visual-studio-code/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Visual Studio Code",
 order: 1
 }

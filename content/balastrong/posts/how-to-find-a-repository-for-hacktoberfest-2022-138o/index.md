@@ -6,8 +6,8 @@ edited: "2023-09-11T21:16:57Z",
 tags: ["opensource", "hacktoberfest", "github", "tutorial"],
 description: "Hacktoberfest will start in a few days, are you ready??  Let me check my gear... git updated to the...",
 originalLink: "https://leonardomontini.dev/hacktoberfest-find-a-repository/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Hacktoberfest",
 order: 2
 }

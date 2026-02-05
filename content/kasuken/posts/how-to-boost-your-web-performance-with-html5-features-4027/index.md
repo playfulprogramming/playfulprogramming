@@ -6,8 +6,8 @@ edited: "2023-06-07T13:35:05Z",
 tags: ["webdev", "html", "beginners", "performance"],
 description: "Performance is a crucial aspect of web development, as it affects the user experience, accessibility,...",
 originalLink: "https://dev.to/this-is-learning/how-to-boost-your-web-performance-with-html5-features-4027",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

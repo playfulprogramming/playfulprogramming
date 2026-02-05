@@ -5,8 +5,8 @@ published: "2023-11-21T20:38:45Z",
 tags: ["dotnet", "github", "productivity", "docker"],
 description: "A few days ago Microsoft released the new version of .NET: .NET 8. This is the stable version of the...",
 originalLink: "https://dev.to/this-is-learning/set-up-github-codespaces-for-a-net-8-application-5999",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Codespaces: A Faster Way to Develop in the Cloud",
 order: 2
 }

@@ -6,8 +6,8 @@ edited: "2025-05-05T15:28:12Z",
 tags: ["javascript", "typescript", "testing", "webdev"],
 description: "Over my long career as a software engineer, unit testing involving third-party APIS, such as database...",
 originalLink: "https://newsletter.unstacked.dev/p/level-up-your-testing-game-with-jest",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

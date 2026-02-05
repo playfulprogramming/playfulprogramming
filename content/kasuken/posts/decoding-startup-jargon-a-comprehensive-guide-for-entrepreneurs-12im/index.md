@@ -5,8 +5,8 @@ published: "2024-02-16T07:57:13Z",
 tags: ["startup", "devlife"],
 description: "In the fast-paced world of startups, communication is key. However, navigating through the sea of...",
 originalLink: "https://dev.to/this-is-learning/decoding-startup-jargon-a-comprehensive-guide-for-entrepreneurs-12im",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -5,8 +5,8 @@ published: "2021-12-21T07:02:02Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hello Folks 👋  and welcome back to this series, today it's time to create your first table with...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-create-table-3911",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 3
 }

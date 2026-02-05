@@ -6,8 +6,8 @@ edited: "2023-04-28T19:45:12Z",
 tags: ["terminal", "rust", "programming", "productivity"],
 description: "When I moved from Windows to Mac a year ago I also developed the habit of using the terminal much...",
 originalLink: "https://leonardomontini.dev/warp-rust-terminal/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2022-11-10T11:17:08Z",
 tags: ["angular", "typescript", "eslint", "prettier"],
 description: "Everyone wants to write code in a fast bug-free way without thinking about its style most of the...",
 originalLink: "https://itnext.io/configure-prettier-and-eslint-with-angular-e7b4ce979cd8",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

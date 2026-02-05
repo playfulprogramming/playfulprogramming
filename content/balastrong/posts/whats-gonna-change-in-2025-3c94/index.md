@@ -5,8 +5,8 @@ published: "2025-01-06T14:46:50Z",
 tags: ["career", "codenewbie"],
 description: "I just realized that I should probably open source my mind. I wrote this script and recorded a video,...",
 originalLink: "https://leonardomontini.dev/opensource-my-mind/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

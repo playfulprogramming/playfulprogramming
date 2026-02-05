@@ -6,8 +6,8 @@ edited: "2021-09-09T07:07:18Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hi Guys, Today I want to start a little series about Reactive Programming with RxJS. I start from the...",
 originalLink: "https://dev.to/this-is-learning/rxjs-observable-597e",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 1
 }

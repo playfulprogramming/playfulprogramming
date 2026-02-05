@@ -6,8 +6,8 @@ edited: "2021-06-02T19:13:03Z",
 tags: ["react", "javascript", "webdev", "marko"],
 description: "This is my personal journey, so if you are here hoping for the general \"How To\" guide you won't find...",
 originalLink: "https://dev.to/this-is-learning/learning-to-appreciate-react-server-components-49ka",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

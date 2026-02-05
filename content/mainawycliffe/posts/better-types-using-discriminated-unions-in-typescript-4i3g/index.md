@@ -5,8 +5,8 @@ published: "2021-09-27T08:03:07Z",
 tags: ["typescript", "javascript", "webdev", "node"],
 description: "How we define our types in Typescript impacts how effective typescript is at warning us when we make...",
 originalLink: "https://mainawycliffe.dev/blog/better-types-using-discriminated-types-in-typescript",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "a-byte-of-typescript",
 order: 4
 }

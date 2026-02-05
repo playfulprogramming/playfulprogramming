@@ -6,8 +6,8 @@ edited: "2024-04-25T06:14:58Z",
 tags: ["productivity"],
 description: "As a developer, my workdays are filled with coding, designing, and collaborating with colleagues both...",
 originalLink: "https://dev.to/this-is-learning/whats-in-my-bag-when-i-go-to-the-office-april-2024-edition-4edg",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

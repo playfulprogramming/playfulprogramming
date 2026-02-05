@@ -5,8 +5,8 @@ published: "2023-09-12T11:14:51Z",
 tags: ["hacktoberfest23", "opensource", "hacktoberfest"],
 description: "Hacktoberfest 2023 will NOT have the usual tshirt and stickers as a reward.  This has been announced...",
 originalLink: "https://leonardomontini.dev/hacktoberfest-swag-2023",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Hacktoberfest",
 order: 4
 }

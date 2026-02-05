@@ -6,8 +6,8 @@ edited: "2024-04-09T13:41:53Z",
 tags: ["webdev", "javascript", "tutorial", "typescript"],
 description: "In a previous issue, we learned about the fundamentals of Generics in Typescript and how we can use...",
 originalLink: "https://www.allthingstypescript.dev/p/generic-constraints-a-gentle-introduction",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2021-09-18T23:08:54Z",
 tags: ["angular", "nx", "ngrx", "monorepo"],
 description: "In Part 2 of this tutorial, we'll set up our custom generate project tool and create the shared and booking data access libraries with NgRx. To honor the flow of dependencies, we extract a shared environments library.",
 originalLink: "https://dev.to/this-is-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-2-1e2j",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "How to set up an Nx-style monorepo workspace with the Angular CLI",
 order: 2
 }

@@ -5,8 +5,8 @@ published: "2024-08-20T12:17:11Z",
 tags: ["startup", "webdev", "cleancode", "development"],
 description: "Introduction   Whether you're a coding ninja or a startup wizard, understanding tech debt,...",
 originalLink: "https://dev.to/this-is-learning/navigating-tech-debt-in-early-stage-startups-the-double-edged-sword-4fef",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

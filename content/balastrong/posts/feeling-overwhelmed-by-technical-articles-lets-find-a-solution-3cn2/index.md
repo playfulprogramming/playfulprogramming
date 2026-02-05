@@ -5,8 +5,8 @@ published: "2024-04-21T08:47:34Z",
 tags: ["productivity", "career", "learning", "codenewbie"],
 description: "Sometimes I feel that I'm reading a lot of technical articles and watching videos, but nothing really...",
 originalLink: "https://leonardomontini.dev/technical-content-vs-doom-scrolling/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "My Dev Journey",
 order: 8
 }

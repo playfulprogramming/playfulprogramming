@@ -6,8 +6,8 @@ edited: "2025-02-21T09:23:43Z",
 tags: ["firebase", "google", "react", "frontend"],
 description: "Create the React application   Once upon a time you had to struggle with a thousand...",
 originalLink: "https://dev.to/this-is-learning/firebase-deploy-a-react-application-with-firebase-hosting-560j",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -6,8 +6,8 @@ edited: "2021-09-01T02:25:30Z",
 tags: ["marko", "javascript", "webdev", "tutorial"],
 description: "Marko recently released a preview for its upcoming Tags API. This is pretty exciting as it adds a...",
 originalLink: "https://dev.to/this-is-learning/taking-marko-s-tags-api-for-a-test-drive-2n6i",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

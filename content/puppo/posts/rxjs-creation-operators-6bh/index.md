@@ -5,8 +5,8 @@ published: "2021-09-15T06:30:11Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Welcome back guys, today I'll start to show you the Creation operators in RxJS.  The Creation...",
 originalLink: "https://dev.to/this-is-learning/rxjs-creation-operators-6bh",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 5
 }

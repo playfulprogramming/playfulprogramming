@@ -6,8 +6,8 @@ edited: "2023-02-21T07:19:39Z",
 tags: ["playwright", "e2e"],
 description: "Hi there, today you will learn how to generate the code for your tests.  First of all, you have to...",
 originalLink: "https://blog.delpuppo.net/playwright-generate-tests-code",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 4
 }

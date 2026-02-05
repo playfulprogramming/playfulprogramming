@@ -5,8 +5,8 @@ published: "2023-12-07T13:55:00Z",
 tags: ["powershell"],
 description: "Sometimes, you may want to access the sub properties of an object, which are the properties of the...",
 originalLink: "https://dev.to/this-is-learning/how-to-retrieve-sub-properties-in-a-powershell-script-with-the-invoke-expression-method-16f4",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

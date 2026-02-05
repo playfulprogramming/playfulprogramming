@@ -6,8 +6,8 @@ edited: "2024-11-08T11:16:46Z",
 tags: ["angular", "webdev", "javascript", "programming"],
 description: "Angular continues to evolve, bringing exciting features with each release. Angular 19 is no...",
 originalLink: "https://dev.to/this-is-angular/angular-19-5-game-changing-features-you-need-to-know-32cd",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

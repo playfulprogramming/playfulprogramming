@@ -6,8 +6,8 @@ edited: "2022-07-09T09:57:35Z",
 tags: ["go", "tutorial", "beginners", "tooling"],
 description: "Live reloading changes to our codebase is one of the core tenants of a great developer experience....",
 originalLink: "https://mainawycliffe.dev/blog/live-reloading-golang-using-air/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

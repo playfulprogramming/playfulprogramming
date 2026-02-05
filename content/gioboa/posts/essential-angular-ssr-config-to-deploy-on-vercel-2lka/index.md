@@ -5,8 +5,8 @@ published: "2025-10-16T09:57:01Z",
 tags: ["webdev", "programming", "angular", "vercel"],
 description: "The world of web development is constantly evolving, with a strong emphasis on performance, user...",
 originalLink: "https://dev.to/this-is-angular/essential-angular-ssr-config-to-deploy-on-vercel-2lka",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

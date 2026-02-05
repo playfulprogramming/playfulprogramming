@@ -5,8 +5,8 @@ published: "2024-04-23T11:05:29Z",
 tags: ["webdev", "react", "css", "javascript"],
 description: "Shadcn/ui is great, components are good-looking, easy to setup and customize, and everyone likes it…...",
 originalLink: "https://leonardomontini.dev/shadcn-ui-use-with-caution/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 21
 }

@@ -6,8 +6,8 @@ edited: "2023-09-13T19:05:30Z",
 tags: ["angular", "javascript", "webdev", "signals"],
 description: "In collaboration with Chau Tran.   The migration wave to signals is real, state management libraries...",
 originalLink: "https://medium.com/@eneajahollari/a-sweet-spot-between-signals-and-observables-a3c9620768f1",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

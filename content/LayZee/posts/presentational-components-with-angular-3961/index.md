@@ -6,8 +6,8 @@ edited: "2021-03-22T21:50:17Z",
 tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
 description: "Presentational components encapsulate presentation and UI behaviour. They can be stateful or stateless and are connected to the application state through their data binding API.",
 originalLink: "https://dev.to/this-is-angular/presentational-components-with-angular-3961",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
 order: 4
 }

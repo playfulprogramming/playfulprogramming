@@ -5,8 +5,8 @@ published: "2021-09-27T06:14:27Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hi Guys and welcome back, today I'll illustrate you two simple types of the pipeable operators:...",
 originalLink: "https://dev.to/this-is-learning/rxjs-conditional-mathematical-operators-1hh7",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 10
 }

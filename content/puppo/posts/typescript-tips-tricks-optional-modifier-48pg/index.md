@@ -6,8 +6,8 @@ edited: "2021-09-09T07:04:35Z",
 tags: ["typescript", "webdev"],
 description: "Hi guys and welcome back, Today I'll talk about the optional modifier. Sometimes we have objects that...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-optional-modifier-48pg",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 8
 }

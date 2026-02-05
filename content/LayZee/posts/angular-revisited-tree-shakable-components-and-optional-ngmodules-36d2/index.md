@@ -6,8 +6,8 @@ edited: "2022-08-28T18:11:57Z",
 tags: ["angular", "ivy", "components", "designpatterns"],
 description: "NgModule is arguably one of the most confusing Angular concepts.",
 originalLink: "https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Standalone Angular applications",
 order: 1
 }

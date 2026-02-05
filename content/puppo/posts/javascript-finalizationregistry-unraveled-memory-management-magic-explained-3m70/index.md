@@ -5,8 +5,8 @@ published: "2023-10-25T06:21:41Z",
 tags: ["javascript", "memory", "leak"],
 description: "Introduction   JavaScript's memory management can be tricky, especially when it comes to...",
 originalLink: "https://blog.delpuppo.net/javascript-finalizationregistry-unraveled-memory-management-magic-explained",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "The JavaScript you don't know",
 order: 6
 }

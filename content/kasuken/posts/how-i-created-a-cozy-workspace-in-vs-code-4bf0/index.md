@@ -6,8 +6,8 @@ edited: "2025-12-11T22:18:36Z",
 tags: ["vscode", "productivity", "development", "githubcopilot"],
 description: "I love VS Code. It is fast, flexible, and works for almost any stack. But the default layout is not...",
 originalLink: "https://dev.to/this-is-learning/how-i-created-a-cozy-workspace-in-vs-code-4bf0",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

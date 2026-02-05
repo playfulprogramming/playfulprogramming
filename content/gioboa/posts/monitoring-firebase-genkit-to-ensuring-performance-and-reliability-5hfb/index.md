@@ -5,8 +5,8 @@ published: "2025-06-06T09:32:37Z",
 tags: ["firebase", "ai", "programming", "googlecloud"],
 description: "As we increasingly integrate Large Language Models (LLMs) into our applications, understanding and...",
 originalLink: "https://dev.to/this-is-learning/monitoring-firebase-genkit-to-ensuring-performance-and-reliability-5hfb",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

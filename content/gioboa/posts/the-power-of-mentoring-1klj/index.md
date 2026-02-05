@@ -6,8 +6,8 @@ edited: "2022-12-20T08:18:38Z",
 tags: ["teaching", "frontend", "webdev", "learning"],
 description: "It's been some time since I started my extra-work FREE mentoring path through the Mentorcruise...",
 originalLink: "https://dev.to/this-is-learning/the-power-of-mentoring-1klj",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

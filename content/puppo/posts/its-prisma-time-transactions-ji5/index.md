@@ -6,8 +6,8 @@ edited: "2023-02-16T09:29:21Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hello Guys 👋  Today it's time to speak about transactions.  Transactions are a pillar of the database...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-transactions-ji5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 12
 }

@@ -5,8 +5,8 @@ published: "2023-03-14T12:45:42Z",
 tags: ["webdev", "javascript", "beginners"],
 description: "Do you know Javascript? The language we all love has some weird and sometimes unexpected...",
 originalLink: "https://leonardomontini.dev/javascript-minigames/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 4
 }

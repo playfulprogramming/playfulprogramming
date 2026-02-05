@@ -6,8 +6,8 @@ edited: "2022-02-21T07:31:33Z",
 tags: ["javascript", "webdev", "qwik", "performance"],
 description: "When Misko Hevery (creator of AngularJS) approaches you to look at his new framework, well, you stop...",
 originalLink: "https://dev.to/this-is-learning/resumable-javascript-with-qwik-2i29",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

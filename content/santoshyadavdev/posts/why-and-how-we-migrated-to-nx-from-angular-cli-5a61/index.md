@@ -6,8 +6,8 @@ edited: "2022-03-20T19:42:52Z",
 tags: ["angular", "nx", "migration", "monorepo"],
 description: "Photo by Luca Bravo on Unsplash  Note: Due to NDA, we won't mention the client's name.  We finished...",
 originalLink: "https://dev.to/this-is-angular/why-and-how-we-migrated-to-nx-from-angular-cli-5a61",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

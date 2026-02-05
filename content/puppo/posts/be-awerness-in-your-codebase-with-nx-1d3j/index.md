@@ -6,8 +6,8 @@ edited: "2022-11-29T09:10:43Z",
 tags: ["nx", "monorepo", "onboarding", "graph"],
 description: "Preface   Is your team aware of the relations between your modules? Is a team member able to...",
 originalLink: "https://blog.delpuppo.net/be-aware-of-your-codebase-with-nx",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

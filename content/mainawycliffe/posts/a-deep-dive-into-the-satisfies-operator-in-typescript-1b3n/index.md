@@ -6,8 +6,8 @@ edited: "2024-03-12T19:42:16Z",
 tags: ["javascript", "typescript", "webdev", "tutorial"],
 description: "In Typescript version 4.9, Typescript introduced the satisfies operator. Over the last few months, I...",
 originalLink: "https://www.allthingstypescript.dev/p/a-deep-dive-into-the-typescript-satisfies",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -5,8 +5,8 @@ published: "2022-02-14T06:40:37Z",
 tags: ["typescript", "javascript", "webdev", "help"],
 description: "Arrays are already well described in typescript, but sometimes we need to be more strict with our...",
 originalLink: "https://dev.to/this-is-learning/typescript-readonlynotemptyarray-2id7",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

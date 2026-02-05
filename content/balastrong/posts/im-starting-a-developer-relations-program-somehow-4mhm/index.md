@@ -6,8 +6,8 @@ edited: "2025-06-17T12:53:09Z",
 tags: ["devrel", "career"],
 description: "▶️ Video version on YouTube: https://youtu.be/ERWzk5iOAiU  Hey everybody, look at that! I finally had...",
 originalLink: "https://leonardomontini.dev/devrel-01/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Developer Relations",
 order: 1
 }

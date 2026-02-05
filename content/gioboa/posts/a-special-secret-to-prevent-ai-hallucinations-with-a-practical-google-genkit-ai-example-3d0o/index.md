@@ -5,8 +5,8 @@ published: "2025-05-08T12:08:22Z",
 tags: ["ai", "node", "firebase", "programming"],
 description: "Generative AI models possess the remarkable ability to generate human-quality text, code, images, and...",
 originalLink: "https://dev.to/this-is-learning/a-special-secret-to-prevent-ai-hallucinations-with-a-practical-google-genkit-ai-example-3d0o",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

@@ -5,8 +5,8 @@ published: "2023-04-06T06:00:39Z",
 tags: ["playwright", "e2e"],
 description: "Hi folks, In release 1.32, Playwright released a new cool feature for us, the UI Mode!  This feature...",
 originalLink: "https://blog.delpuppo.net/playwright-ui-mode",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 13
 }

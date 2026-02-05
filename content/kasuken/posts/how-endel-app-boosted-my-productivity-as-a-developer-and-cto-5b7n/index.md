@@ -5,8 +5,8 @@ published: "2024-01-27T09:00:56Z",
 tags: ["productivity", "devlive"],
 description: "As a developer and CTO, I have to juggle multiple tasks and projects every day. I need to write code,...",
 originalLink: "https://dev.to/this-is-learning/how-endel-app-boosted-my-productivity-as-a-developer-and-cto-5b7n",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

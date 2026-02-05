@@ -6,8 +6,8 @@ edited: "2022-12-20T08:16:13Z",
 tags: ["vscode", "productivity", "webdev", "javascript"],
 description: "Hi 👋 today I want to share with you 5 extensions that are vital in my daily job.   I don't like too...",
 originalLink: "https://dev.to/this-is-learning/vscode-my-5-vital-extensions-to-be-productive-11db",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

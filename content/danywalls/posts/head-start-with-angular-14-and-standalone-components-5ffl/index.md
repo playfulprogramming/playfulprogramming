@@ -6,8 +6,8 @@ edited: "2022-11-24T07:34:04Z",
 tags: ["angular", "javascript", "frontend", "webdev"],
 description: "Since version 14, we can play with Standalone Components as an easy way to build module-less...",
 originalLink: "https://www.danywalls.com/head-start-with-angular-14-and-standalone-components",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

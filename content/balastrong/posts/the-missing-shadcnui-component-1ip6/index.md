@@ -5,8 +5,8 @@ published: "2024-07-10T13:18:47Z",
 tags: ["react", "webdev", "javascript"],
 description: "The beauty of shadcn/ui is that it's not a component library, but a set of components that you can...",
 originalLink: "https://leonardomontini.dev/shadcn-autocomplete/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 22
 }

@@ -6,8 +6,8 @@ edited: "2023-04-30T13:23:02Z",
 tags: ["github", "learning", "git", "githubcopilot"],
 description: "Introduction   A few months ago I started to talk about my journey as a Technical Instructor...",
 originalLink: "https://dev.to/this-is-learning/my-linkedin-course-learning-github-by-numbers-237j",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

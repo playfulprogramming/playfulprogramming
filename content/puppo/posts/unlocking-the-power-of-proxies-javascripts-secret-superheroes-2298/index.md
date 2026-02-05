@@ -6,8 +6,8 @@ edited: "2023-10-18T09:27:19Z",
 tags: ["javascript", "es6", "proxy", "proxies"],
 description: "JavaScript's Proxy object is a powerful feature that enables you to intercept and customize...",
 originalLink: "https://blog.delpuppo.net/unlocking-the-power-of-proxies-javascripts-secret-superheroes",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "The JavaScript you don't know",
 order: 5
 }

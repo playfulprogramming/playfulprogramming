@@ -6,8 +6,8 @@ edited: "2024-11-04T10:02:49Z",
 tags: ["angular", "webdev", "javascript", "programming"],
 description: "Angular 19 is on the horizon, and it’s bringing a host of exciting new features to the table. One of...",
 originalLink: "https://dev.to/this-is-angular/angular-19-introduction-to-linkedsignal-190a",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

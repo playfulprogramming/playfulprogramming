@@ -6,8 +6,8 @@ edited: "2023-09-11T21:16:48Z",
 tags: ["hacktoberfest", "github", "opensource", "tutorial"],
 description: "September is almost over and Hacktoberfest is to begin soon!  But what is Hacktoberfest? It is not an...",
 originalLink: "https://leonardomontini.dev/hacktoberfest-starter-guide/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Hacktoberfest",
 order: 1
 }

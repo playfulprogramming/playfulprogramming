@@ -5,8 +5,8 @@ published: "2024-05-28T11:09:48Z",
 tags: ["vscode", "programming", "productivity"],
 description: "Colors 🌈 help us identify things in our surroundings, including Visual Studio Code instances and...",
 originalLink: "https://leonardomontini.dev/vscode-folder-path-color-peacock/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Visual Studio Code",
 order: 6
 }

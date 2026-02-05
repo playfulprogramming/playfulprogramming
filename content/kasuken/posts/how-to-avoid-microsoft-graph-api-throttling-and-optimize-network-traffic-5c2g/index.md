@@ -5,8 +5,8 @@ published: "2023-10-13T11:16:47Z",
 tags: ["azure", "microsoftgraph"],
 description: "In the last few months I received a lot of requests from customers about avoiding Microsoft Graph API...",
 originalLink: "https://dev.to/this-is-learning/how-to-avoid-microsoft-graph-api-throttling-and-optimize-network-traffic-5c2g",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

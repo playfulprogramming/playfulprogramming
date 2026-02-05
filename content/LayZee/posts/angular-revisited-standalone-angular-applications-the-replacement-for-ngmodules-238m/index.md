@@ -6,8 +6,8 @@ edited: "2023-12-20T11:09:22Z",
 tags: ["angular"],
 description: "The future is now, old man. Standalone Angular applications are now a viable alternative to classic NgModule-based Angular applications.",
 originalLink: "https://dev.to/this-is-angular/angular-revisited-standalone-angular-applications-the-replacement-for-ngmodules-238m",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Standalone Angular applications",
 order: 3
 }

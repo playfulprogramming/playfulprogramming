@@ -6,8 +6,8 @@ edited: "2021-08-26T10:04:14Z",
 tags: ["typescript", "webdev", "javascript", "programming"],
 description: "In the spirit of my last few articles, where we have looked into Template Literal Types and Types and...",
 originalLink: "https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "a-byte-of-typescript",
 order: 1
 }

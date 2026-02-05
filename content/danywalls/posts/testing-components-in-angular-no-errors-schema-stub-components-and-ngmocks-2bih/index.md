@@ -5,8 +5,8 @@ published: "2024-07-13T10:21:30Z",
 tags: ["angular"],
 description: "When we need to write a test for components, it is not hard. The pain starts when our components...",
 originalLink: "https://www.danywalls.com/testing-components-in-angular-noerrorsschema-stub-components-and-ngmocks",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

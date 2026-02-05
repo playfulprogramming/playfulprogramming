@@ -5,8 +5,8 @@ published: "2023-04-21T12:14:28Z",
 tags: ["csharp", "webdev", "tooling"],
 description: "ASP.NET and Visual Studio are powerful tools for web application development, but like any software,...",
 originalLink: "https://dev.to/this-is-learning/how-to-clean-up-aspnet-and-visual-studio-cache-and-temp-files-2oee",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

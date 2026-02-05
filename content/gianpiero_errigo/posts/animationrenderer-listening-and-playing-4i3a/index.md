@@ -5,8 +5,8 @@ published: "2023-01-02T10:59:34Z",
 tags: ["angular", "webdev", "typescript", "javascript"],
 description: "In the first two articles of this series we learned how AnimationRendererFactory generates its...",
 originalLink: "https://dev.to/this-is-angular/animationrenderer-listening-and-playing-4i3a",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Deep dive into Angular animations framework",
 order: 3
 }

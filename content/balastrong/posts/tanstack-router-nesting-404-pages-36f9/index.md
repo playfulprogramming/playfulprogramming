@@ -6,8 +6,8 @@ edited: "2024-04-23T10:53:46Z",
 tags: ["typescript", "react", "tutorial", "codenewbie"],
 description: "Welcome to the fifth article of a series where we will explore TanStack Router, the new typesafe...",
 originalLink: "https://leonardomontini.dev/tanstack-nesting-404/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "TanStack Router",
 order: 5
 }

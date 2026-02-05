@@ -6,8 +6,8 @@ edited: "2025-08-22T06:55:19Z",
 tags: ["nx", "angular", "deprecation"],
 description: "The defaultProject Nx CLI setting is deprecated. However, there's a hidden alternative.",
 originalLink: "https://dev.to/this-is-learning/stop-using-the-defaultproject-nx-cli-setting-and-start-using-nxdefaultproject-2ka5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

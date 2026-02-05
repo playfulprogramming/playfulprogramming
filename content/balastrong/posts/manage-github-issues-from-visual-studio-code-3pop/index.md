@@ -5,8 +5,8 @@ published: "2023-04-03T13:36:03Z",
 tags: ["github", "vscode", "codenewbie", "tutorial"],
 description: "Stop! 🛑 You no longer need to open GitHub and search 🔎 for that issue you were assigned to. You can...",
 originalLink: "https://leonardomontini.dev/manage-issues-vscode-github/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub + Visual Studio Code",
 order: 3
 }

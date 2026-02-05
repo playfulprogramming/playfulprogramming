@@ -6,8 +6,8 @@ edited: "2023-02-01T07:06:39Z",
 tags: ["angular"],
 description: "The local component scope of a standalone Angular component is managed by listing declarable dependencies in the Component.imports metadata option.",
 originalLink: "https://dev.to/this-is-angular/the-local-component-scope-of-standalone-angular-components-3g60",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Standalone Angular applications",
 order: 4
 }

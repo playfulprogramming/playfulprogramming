@@ -6,8 +6,8 @@ edited: "2023-03-07T11:57:09Z",
 tags: ["github", "opensource", "tutorial", "beginners"],
 description: "Hello everyone, Leonardo here!  Today we talk about GitHub and some cool features it offers to...",
 originalLink: "https://leonardomontini.dev/github-tips-and-tricks/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Mastering GitHub",
 order: 1
 }

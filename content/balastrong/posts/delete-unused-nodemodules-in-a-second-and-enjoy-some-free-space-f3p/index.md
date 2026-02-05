@@ -6,8 +6,8 @@ edited: "2022-11-22T22:17:17Z",
 tags: ["npm", "javascript", "tutorial", "webdev"],
 description: "Intro   In this article I'll tell you about a cool tool I just found on npm, called npkill,...",
 originalLink: "https://leonardomontini.dev/free-disk-space-npkill/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Shorts",
 order: 3
 }

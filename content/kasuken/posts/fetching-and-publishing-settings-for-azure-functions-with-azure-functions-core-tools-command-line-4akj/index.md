@@ -6,8 +6,8 @@ edited: "2023-12-05T14:31:57Z",
 tags: ["azure", "azurefunctions", "tooling", "webdev"],
 description: "During my daily activities I develop a lot of Azure Functions. Every time I struggle to synchronize...",
 originalLink: "https://dev.to/this-is-learning/fetching-and-publishing-settings-for-azure-functions-with-azure-functions-core-tools-command-line-4akj",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

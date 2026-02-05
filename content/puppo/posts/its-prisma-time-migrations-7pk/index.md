@@ -5,8 +5,8 @@ published: "2022-02-02T07:36:09Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hello Guys 👋, Today it's time to speak about migrations.  Migrations in Prisma are managed by Prisma...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-migrations-7pk",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 15
 }

@@ -6,8 +6,8 @@ edited: "2025-11-24T22:27:34Z",
 tags: ["mcp", "githubcopilot", "ai", "vscode"],
 description: "I recently had a look at the Chrome MCP server and it looks really cool. So, let me show you a quick...",
 originalLink: "https://leonardomontini.dev/chrome-mcp-server-guide/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

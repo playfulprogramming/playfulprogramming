@@ -6,8 +6,8 @@ edited: "2022-11-10T11:35:12Z",
 tags: ["angular", "typescript", "codecompletion", "webdev"],
 description: "Working with Angular has its gotchas, but what makes it really a joy to start off, is its language...",
 originalLink: "https://medium.com/@eneajahollari/introduction-to-angular-language-service-4d3e67901a77",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

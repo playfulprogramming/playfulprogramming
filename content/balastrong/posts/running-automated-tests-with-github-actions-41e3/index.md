@@ -5,8 +5,8 @@ published: "2023-01-03T15:23:55Z",
 tags: ["developer", "webdev", "career", "learning"],
 description: "GitHub Actions can bring your project to life, for real!  If you never used them, this video tutorial...",
 originalLink: "https://leonardomontini.dev/automated-tests-github-action/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Actions",
 order: 2
 }

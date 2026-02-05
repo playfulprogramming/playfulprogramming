@@ -6,8 +6,8 @@ edited: "2021-09-09T07:03:30Z",
 tags: ["typescript", "webdev"],
 description: "Welcome back, guys! The topic of today is Overloaded Functions.  All self-respecting programming...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-overloaded-functions-f75",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 5
 }

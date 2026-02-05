@@ -6,8 +6,8 @@ edited: "2023-09-01T06:11:54Z",
 tags: ["javascript", "generators", "generator"],
 description: "Welcome to this blog post, where we're diving into the fascinating world of JavaScript generators. If...",
 originalLink: "https://blog.delpuppo.net/unleashing-the-power-demystifying-javascript-generators",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Javascript Iterators & Generators",
 order: 2
 }

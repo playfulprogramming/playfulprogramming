@@ -6,8 +6,8 @@ edited: "2023-12-11T09:06:49Z",
 tags: ["angular", "angularssr", "typescript", "webdev"],
 description: "In this quick tutorial, we will learn best way to handle browser storage with Angular SSR",
 originalLink: "https://blog.shhdharmen.me/browser-storage-in-angular-ssr",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

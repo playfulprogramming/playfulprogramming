@@ -6,8 +6,8 @@ edited: "2020-11-15T20:36:34Z",
 tags: ["angular"],
 description: "An opinion piece on the Angular team management.",
 originalLink: "https://dev.to/this-is-angular/angular-struggles-in-2020-1po4",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

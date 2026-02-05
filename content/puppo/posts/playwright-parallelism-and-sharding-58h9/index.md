@@ -6,8 +6,8 @@ edited: "2023-02-21T07:22:51Z",
 tags: ["playwright", "e2e"],
 description: "Hey Folks,  Today I'll speak about parallelism and sharding with Playwright, so don't waste time and...",
 originalLink: "https://blog.delpuppo.net/playwright-parallelism-and-sharding",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 10
 }

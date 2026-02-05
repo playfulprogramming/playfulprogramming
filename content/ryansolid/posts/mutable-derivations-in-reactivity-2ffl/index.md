@@ -5,8 +5,8 @@ published: "2024-10-23T22:59:58Z",
 tags: ["javascript", "webdev", "reactivity", "signals"],
 description: "All this exploration into scheduling and async made me realize how much we still don't understand...",
 originalLink: "https://dev.to/this-is-learning/mutable-derivations-in-reactivity-2ffl",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Derivations in Reactivity",
 order: 4
 }

@@ -5,8 +5,8 @@ published: "2021-09-22T14:22:17Z",
 tags: ["angular", "animations", "css"],
 description: "Most of you probably have heard of Animate.css. It is an open-source CSS animation library with lots...",
 originalLink: "https://williamjuan.dev/blog/animate-your-angular-app-using-animate-css",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Animations in Angular",
 order: 2
 }

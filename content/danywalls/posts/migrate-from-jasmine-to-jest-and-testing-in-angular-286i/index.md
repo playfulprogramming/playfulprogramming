@@ -6,8 +6,8 @@ edited: "2022-11-04T13:40:02Z",
 tags: ["angular", "testing", "frontend", "javascript"],
 description: "Angular, by default, comes with Jasmine; it is a great testing framework. I spent one year and a half...",
 originalLink: "https://www.danywalls.com/from-jasmine-to-jest-and-testing-library-in-angular-projects",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

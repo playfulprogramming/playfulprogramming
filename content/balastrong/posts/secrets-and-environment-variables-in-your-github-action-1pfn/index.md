@@ -5,8 +5,8 @@ published: "2023-07-03T10:32:02Z",
 tags: ["github", "githubactions", "devops", "security"],
 description: "If you need to use some secret values in your pipeline, for example an API key to send a Slack...",
 originalLink: "https://leonardomontini.dev/github-actions-secrets-variables/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Actions",
 order: 5
 }

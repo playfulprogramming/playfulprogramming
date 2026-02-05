@@ -6,8 +6,8 @@ edited: "2021-05-05T17:44:56Z",
 tags: ["typescript", "webdev", "javascript"],
 description: "Every once in a while, you end up in a situation where you need some variation of a type. For instanc...",
 originalLink: "https://mainawycliffe.dev/blog/transforming-types-typescript-utility-types",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

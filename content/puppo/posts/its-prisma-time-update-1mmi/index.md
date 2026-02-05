@@ -5,8 +5,8 @@ published: "2022-01-07T08:00:45Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hi Folks 👋 Today it's time to learn something about the update operation, so don't waste time and...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-update-1mmi",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 8
 }

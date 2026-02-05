@@ -5,8 +5,8 @@ published: "2024-01-16T13:04:41Z",
 tags: ["webdev", "opensource", "codenewbie", "json"],
 description: "Everytime you write a config for a common tool, for example you're writing a GitHub Action in Visual...",
 originalLink: "https://leonardomontini.dev/json-schema",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 18
 }

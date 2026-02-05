@@ -5,8 +5,8 @@ published: "2023-09-29T20:49:32Z",
 tags: ["event", "powershell", "azure"],
 description: "I’m excited to share with you my experience at Experts Live Europe 2023, a premier conference for IT...",
 originalLink: "https://dev.to/this-is-learning/experts-live-2023-my-recap-4ack",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

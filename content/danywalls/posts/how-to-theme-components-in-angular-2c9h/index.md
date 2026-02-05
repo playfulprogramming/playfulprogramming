@@ -6,8 +6,8 @@ edited: "2022-02-17T07:53:11Z",
 tags: ["angular", "webdev", "javascript", "css"],
 description: "When we build components it needs to be flexible, because they can be used in many places or...",
 originalLink: "https://www.danywalls.com/post?slug=Theme_angular_components_&token=1yWfsoh2FpKpZ9lgBSNcxr",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "styling angular apps",
 order: 1
 }

@@ -6,8 +6,8 @@ edited: "2025-08-20T22:18:47Z",
 tags: ["nx", "eslint", "npm", "angular"],
 description: "The `@nx/dependency-checks` ESLint rule is an invaluable tool in managing peer dependencies of a buildable or publishable Nx library.",
 originalLink: "https://dev.to/this-is-learning/manage-nx-library-dependencies-with-the-nxdependency-checks-eslint-rule-2lem",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

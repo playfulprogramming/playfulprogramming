@@ -6,8 +6,8 @@ edited: "2023-02-28T18:19:45Z",
 tags: ["git", "vscode", "gitlens", "gitkraken"],
 description: "When you work with git, you want to get info about commits and who changed the codebase...",
 originalLink: "https://blog.delpuppo.net/why-i-love-gitlens-in-my-vscode-blame-compare",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitLens",
 order: 2
 }

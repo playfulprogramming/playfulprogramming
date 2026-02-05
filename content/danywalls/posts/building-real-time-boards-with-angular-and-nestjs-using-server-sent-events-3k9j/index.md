@@ -6,8 +6,8 @@ edited: "2024-05-14T12:33:25Z",
 tags: ["angular", "javascript", "typescript"],
 description: "When I need to build real-time apps with Angular, most of the time I use SignalR, but a few days ago,...",
 originalLink: "https://www.danywalls.com/building-real-time-boards-with-angular-and-nestjs-using-server-sent-events",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

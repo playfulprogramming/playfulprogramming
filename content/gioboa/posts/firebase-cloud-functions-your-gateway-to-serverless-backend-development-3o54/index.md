@@ -6,8 +6,8 @@ edited: "2025-04-30T07:51:15Z",
 tags: ["firebase", "serverless", "backend", "programming"],
 description: "The digital landscape is evolving at an unprecedented pace. Demands for faster, more scalable, and...",
 originalLink: "https://dev.to/this-is-learning/firebase-cloud-functions-your-gateway-to-serverless-backend-development-3o54",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

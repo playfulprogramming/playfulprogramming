@@ -6,8 +6,8 @@ edited: "2022-11-23T11:13:44Z",
 tags: ["opensource", "beginners", "github", "codenewbie"],
 description: "One of the major blockers for newcomers to Open Source is that unpleasant impression of not feeling...",
 originalLink: "https://leonardomontini.dev/feeling-ready-for-open-source/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 4
 }

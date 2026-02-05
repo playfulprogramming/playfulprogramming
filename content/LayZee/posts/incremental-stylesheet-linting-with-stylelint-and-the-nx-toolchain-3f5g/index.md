@@ -6,8 +6,8 @@ edited: "2022-12-23T00:59:39Z",
 tags: ["nx", "stylelint", "angular", "react"],
 description: "Add and configure Stylelint. Then automate Stylelint workflows in your Nx workspace.",
 originalLink: "https://dev.to/this-is-learning/incremental-stylesheet-linting-with-stylelint-and-the-nx-toolchain-3f5g",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

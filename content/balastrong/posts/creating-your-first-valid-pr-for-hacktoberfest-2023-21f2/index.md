@@ -5,8 +5,8 @@ published: "2023-09-18T12:16:36Z",
 tags: ["hacktoberfest", "hacktoberfest23", "github", "opensource"],
 description: "Starting from September 26th you can register for the event. There will be a button on the official...",
 originalLink: "https://leonardomontini.dev/hacktoberfest-first-valid-pr",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Hacktoberfest",
 order: 5
 }

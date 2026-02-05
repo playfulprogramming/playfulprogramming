@@ -6,8 +6,8 @@ edited: "2023-12-27T09:56:16Z",
 tags: ["networking", "network", "protocols"],
 description: "Network protocols are sets of rules and standards that enable communication between devices over a...",
 originalLink: "https://dev.to/this-is-learning/how-to-speak-the-language-of-the-internet-a-guide-to-the-most-common-network-protocols-j8e",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

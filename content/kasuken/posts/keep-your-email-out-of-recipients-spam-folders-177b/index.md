@@ -5,8 +5,8 @@ published: "2024-01-14T14:57:22Z",
 tags: ["m365", "microsoft365"],
 description: "Spam is a common problem for email users and administrators. Spam messages can clutter your inbox,...",
 originalLink: "https://dev.to/this-is-learning/keep-your-email-out-of-recipients-spam-folders-177b",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

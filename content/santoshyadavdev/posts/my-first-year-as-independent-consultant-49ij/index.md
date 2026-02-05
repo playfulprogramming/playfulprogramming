@@ -6,8 +6,8 @@ edited: "2021-10-15T22:45:35Z",
 tags: ["career", "consulting", "webdev"],
 description: "Photo by Callum Shaw on Unsplash  Last year around August 2020, I decided to leave my full-time job...",
 originalLink: "https://dev.to/this-is-learning/my-first-year-as-independent-consultant-49ij",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

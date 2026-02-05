@@ -6,8 +6,8 @@ edited: "2023-03-21T16:20:03Z",
 tags: ["css", "tailwindcss", "webdev"],
 description: "There has been some buzz recently in the frontend world around the term \"Signals\". In seemingly short...",
 originalLink: "https://dev.to/this-is-learning/the-evolution-of-signals-in-javascript-8ob",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

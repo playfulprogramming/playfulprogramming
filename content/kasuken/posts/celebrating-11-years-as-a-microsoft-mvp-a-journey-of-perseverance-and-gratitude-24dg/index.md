@@ -6,8 +6,8 @@ edited: "2024-08-22T09:34:15Z",
 tags: ["microsoft", "awards"],
 description: "Introduction to the Microsoft MVP Program   The Microsoft Most Valuable Professional (MVP)...",
 originalLink: "https://dev.to/this-is-learning/celebrating-11-years-as-a-microsoft-mvp-a-journey-of-perseverance-and-gratitude-24dg",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

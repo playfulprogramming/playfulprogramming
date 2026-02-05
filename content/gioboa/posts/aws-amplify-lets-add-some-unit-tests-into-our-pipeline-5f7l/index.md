@@ -5,8 +5,8 @@ published: "2023-01-06T13:18:11Z",
 tags: ["aws", "cloud", "testing", "webdev"],
 description: "In the previous article, we saw how to set up a pipeline with AWS Amplify, but as long as things are...",
 originalLink: "https://dev.to/this-is-learning/aws-amplify-lets-add-some-unit-tests-into-our-pipeline-5f7l",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "CI/CD pipelines with AWS Amplify",
 order: 2
 }

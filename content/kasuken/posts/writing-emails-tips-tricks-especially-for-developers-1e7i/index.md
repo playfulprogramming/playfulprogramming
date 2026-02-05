@@ -6,8 +6,8 @@ edited: "2025-08-19T07:49:28Z",
 tags: ["productivity", "developers"],
 description: "You can write clean, efficient code. But can you write a clean, efficient email?  As developers, we...",
 originalLink: "https://dev.to/this-is-learning/writing-emails-tips-tricks-especially-for-developers-1e7i",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

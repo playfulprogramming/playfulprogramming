@@ -6,8 +6,8 @@ edited: "2023-08-10T08:43:06Z",
 tags: [],
 description: "GitHub Actions are a powerful tool to automate your workflow. They can be used to run tests, deploy...",
 originalLink: "https://leonardomontini.dev/typescript-github-action",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "GitHub Actions",
 order: 4
 }

@@ -6,8 +6,8 @@ edited: "2023-02-21T07:18:23Z",
 tags: ["playwright", "e2e"],
 description: "In the last period, in the frontend ecosystem, a new e2e tool has come up and it has started to...",
 originalLink: "https://blog.delpuppo.net/playwright-lets-start",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 1
 }

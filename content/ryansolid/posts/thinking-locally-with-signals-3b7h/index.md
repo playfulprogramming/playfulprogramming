@@ -6,8 +6,8 @@ edited: "2023-10-13T18:12:17Z",
 tags: ["javascript", "webdev", "react", "solidjs"],
 description: "As the creator of SolidJS, I was very influenced by React when designing the library. Despite what...",
 originalLink: "https://dev.to/this-is-learning/thinking-locally-with-signals-3b7h",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

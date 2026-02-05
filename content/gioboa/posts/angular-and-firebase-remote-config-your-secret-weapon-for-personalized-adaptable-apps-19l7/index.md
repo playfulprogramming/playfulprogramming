@@ -6,8 +6,8 @@ edited: "2025-03-14T08:24:48Z",
 tags: ["firebase", "angular", "frontend", "webdev"],
 description: "In today's rapidly evolving digital landscape, adaptability is key to success. Applications need to...",
 originalLink: "https://dev.to/this-is-angular/angular-and-firebase-remote-config-your-secret-weapon-for-personalized-adaptable-apps-19l7",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

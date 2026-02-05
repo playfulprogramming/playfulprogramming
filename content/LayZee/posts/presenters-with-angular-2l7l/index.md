@@ -6,8 +6,8 @@ edited: "2021-03-22T21:50:33Z",
 tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
 description: "Learn how to extract presenters from presentational components. We discuss stateful and stateless presenters, component-to-presenter ratios and when to use a component or a pipe instead of a presenter.",
 originalLink: "https://dev.to/this-is-angular/presenters-with-angular-2l7l",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
 order: 5
 }

@@ -6,8 +6,8 @@ edited: "2023-01-12T13:22:58Z",
 tags: ["motivation", "productivity"],
 description: "I'm quite sure all of these happened to you at least once:   You committed a change with the wrong...",
 originalLink: "https://leonardomontini.dev/git-undo-amend-reset/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "git better - Improve your git skills",
 order: 2
 }

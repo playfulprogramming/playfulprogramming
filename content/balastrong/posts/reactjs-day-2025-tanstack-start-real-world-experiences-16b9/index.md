@@ -5,8 +5,8 @@ published: "2025-10-20T18:32:45Z",
 tags: ["react", "community", "techtalks"],
 description: "When I'm writing this I'm still on the train back from ReactJSDay, the largest conference on ReactJS...",
 originalLink: "https://leonardomontini.dev/react-js-day-2025/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "My Dev Journey",
 order: 9
 }

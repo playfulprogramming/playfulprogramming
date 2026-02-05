@@ -6,8 +6,8 @@ edited: "2021-11-25T08:20:47Z",
 tags: ["devops", "docker", "beginners"],
 description: "If you work with docker, typing for every action is not a good deal, and sometimes it can be a...",
 originalLink: "https://dev.to/this-is-learning/from-docker-to-docker-compose-way-56h",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

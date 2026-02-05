@@ -5,8 +5,8 @@ published: "2022-01-18T08:44:57Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Welcome back Folks 👋  Today we are seeing how to aggregate and group data.  Let's start from the...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-aggregate-and-groupby-36a7",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 11
 }

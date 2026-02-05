@@ -5,8 +5,8 @@ published: "2024-01-31T10:59:14Z",
 tags: ["documentation", "webdev", "beginners", "codenewbie"],
 description: "I spent 15 minutes every single day reading documentation and here’s what I learnt.  In the last two...",
 originalLink: "https://leonardomontini.dev/15-days-of-documentation",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 20
 }

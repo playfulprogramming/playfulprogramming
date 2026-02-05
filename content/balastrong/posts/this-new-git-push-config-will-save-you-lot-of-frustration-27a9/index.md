@@ -6,8 +6,8 @@ edited: "2022-11-22T22:16:56Z",
 tags: ["git", "beginners", "github", "tutorial"],
 description: "If you have 59 seconds and in particular you're also on mobile, you might enjoy watching the YouTube...",
 originalLink: "https://leonardomontini.dev/git-push-auto-setup-remote/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Shorts",
 order: 2
 }

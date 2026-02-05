@@ -5,8 +5,8 @@ published: "2025-07-04T14:16:18Z",
 tags: ["firebase", "webdev", "ai", "programming"],
 description: "The realm of Artificial Intelligence (AI) is rapidly evolving, bringing with it exciting new...",
 originalLink: "https://dev.to/this-is-learning/firebase-unleashing-hybrid-on-device-inference-for-web-applications-36pb",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

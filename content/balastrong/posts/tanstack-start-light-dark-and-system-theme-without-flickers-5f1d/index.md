@@ -5,8 +5,8 @@ published: "2025-08-25T12:33:00Z",
 tags: ["react", "ssr", "tailwindcss", "tutorial"],
 description: "Having multiple themes is a common request on (web) applications nowadays, at least having light,...",
 originalLink: "https://leonardomontini.dev/tanstack-start-theme/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 23
 }

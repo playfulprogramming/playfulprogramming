@@ -6,8 +6,8 @@ edited: "2023-01-16T16:04:34Z",
 tags: ["gratitude", "angular"],
 description: "Yes, that’s normal! Why? Because of how Angular does change detection under the hood!  To better...",
 originalLink: "https://eneajahollari.medium.com/async-pipe-is-not-pure-948f7b24e2d1",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

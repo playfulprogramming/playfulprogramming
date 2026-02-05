@@ -5,8 +5,8 @@ published: "2024-01-25T13:34:27Z",
 tags: ["opensource", "beginners", "codenewbie", "webdev"],
 description: "I'm launching a GitHub organization to host community projects. The mission is to learn Web...",
 originalLink: "https://leonardomontini.dev/webdev-open-source-community",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 19
 }

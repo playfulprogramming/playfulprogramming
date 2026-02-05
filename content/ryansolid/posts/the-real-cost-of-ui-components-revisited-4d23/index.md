@@ -6,8 +6,8 @@ edited: "2021-06-25T17:55:25Z",
 tags: ["javascript", "webdev", "performance", "webperf"],
 description: "With my focus recently going back to look at optimization for the Solid 1.0 release, I thought I'd...",
 originalLink: "https://dev.to/this-is-learning/the-real-cost-of-ui-components-revisited-4d23",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

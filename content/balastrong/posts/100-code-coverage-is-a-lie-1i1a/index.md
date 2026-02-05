@@ -5,8 +5,8 @@ published: "2023-02-09T18:20:00Z",
 tags: ["postgres", "sql", "howto"],
 description: "On a project I finally hit 100% Code Coverage 🎯 what could go wrong now? I tested ALL lines of my...",
 originalLink: "https://leonardomontini.dev/code-coverage-is-a-lie/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 2
 }

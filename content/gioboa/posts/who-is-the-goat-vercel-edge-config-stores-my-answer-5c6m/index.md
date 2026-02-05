@@ -5,8 +5,8 @@ published: "2022-12-23T10:28:10Z",
 tags: ["vercel", "qwik", "webdev", "deploy"],
 description: "A few weeks ago Vercel released Edge Config, a new feature available to everyone so I tried it...",
 originalLink: "https://dev.to/this-is-learning/who-is-the-goat-vercel-edge-config-stores-my-answer-5c6m",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

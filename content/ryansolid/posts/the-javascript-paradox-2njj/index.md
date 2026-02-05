@@ -5,8 +5,8 @@ published: "2022-08-08T15:27:32Z",
 tags: ["javascript", "webdev", "performance"],
 description: "I'm not sure if there's ever been a language more loathed, yet so widely used, as JavaScript.  I'm...",
 originalLink: "https://dev.to/this-is-learning/the-javascript-paradox-2njj",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

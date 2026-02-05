@@ -5,8 +5,8 @@ published: "2021-09-20T06:40:29Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Welcome back, Today I'll speak about the Transformation Operators. These operators are used to modify...",
 originalLink: "https://dev.to/this-is-learning/rxjs-transformation-operators-173o",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 7
 }

@@ -6,8 +6,8 @@ edited: "2025-06-03T19:23:11Z",
 tags: ["aspnet", "dotnet", "performance", "webperf"],
 description: "APIs are the backbone of modern applications, but even the cleanest code can drag if performance...",
 originalLink: "https://dev.to/this-is-learning/tips-for-improving-api-performance-in-aspnet-core-n4o",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

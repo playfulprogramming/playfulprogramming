@@ -6,8 +6,8 @@ edited: "2023-10-11T06:29:44Z",
 tags: ["javascript", "es6", "weakref", "weakrefs"],
 description: "Introduction to WeakRef   WeakRef is a powerful feature in JavaScript that allows developers...",
 originalLink: "https://blog.delpuppo.net/javascript-weakref-explained-harnessing-memory-management-magic",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "The JavaScript you don't know",
 order: 4
 }

@@ -6,8 +6,8 @@ edited: "2021-07-16T18:40:07Z",
 tags: ["javascript", "webdev", "marko", "astro"],
 description: "There was a time that I would have never imagined the need to write an article like this. If you were...",
 originalLink: "https://dev.to/this-is-learning/building-javascript-frameworks-to-conquer-ecommerce-3glc",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

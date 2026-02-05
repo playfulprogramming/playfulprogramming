@@ -6,8 +6,8 @@ edited: "2025-04-16T15:27:00Z",
 tags: ["firebase", "ai", "programming", "productivity"],
 description: "Firebase, Google's comprehensive platform for building mobile and web applications, has continually...",
 originalLink: "https://dev.to/this-is-learning/firebase-studio-6-tips-only-senior-engineers-know-2c1k",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

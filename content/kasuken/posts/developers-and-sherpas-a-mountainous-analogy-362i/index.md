@@ -5,8 +5,8 @@ published: "2023-11-26T19:22:04Z",
 tags: ["developers", "productivity", "programming"],
 description: "Have you ever wondered what it takes to be a successful software developer? Do you think you have the...",
 originalLink: "https://dev.to/this-is-learning/developers-and-sherpas-a-mountainous-analogy-362i",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

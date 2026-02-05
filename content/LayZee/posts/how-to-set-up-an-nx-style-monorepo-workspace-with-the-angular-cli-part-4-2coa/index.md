@@ -6,8 +6,8 @@ edited: "2021-09-18T23:09:12Z",
 tags: ["angular", "nx", "cli", "monorepo"],
 description: "In Part 4 of this tutorial, we create the check-in data access and check-in feature shell libraries. We create the check-in desktop application, review and verify how much our tool automated and finally create the mobile check-in application.",
 originalLink: "https://dev.to/this-is-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-4-2coa",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "How to set up an Nx-style monorepo workspace with the Angular CLI",
 order: 4
 }

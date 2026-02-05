@@ -6,8 +6,8 @@ edited: "2024-10-22T07:16:51Z",
 tags: ["angular", "webdev", "frontend", "javascript"],
 description: "Change detection is a fundamental aspect of Angular, responsible for identifying and updating parts...",
 originalLink: "https://dev.to/this-is-angular/the-evolution-of-change-detection-from-angular-2-zonejs-to-angular-18-provideexperimentalzonelesschangedetection-4f77",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

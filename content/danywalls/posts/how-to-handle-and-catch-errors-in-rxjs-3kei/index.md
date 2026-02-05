@@ -6,8 +6,8 @@ edited: "2022-07-27T05:31:32Z",
 tags: ["javascript", "rxjs", "angular", "webdev"],
 description: "In Rxjs, when we work with observables handling the errors is a bit confusing for beginners because...",
 originalLink: "https://www.danywalls.com/how-to-handle-and-catch-errors-in-rxjs",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

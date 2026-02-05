@@ -6,8 +6,8 @@ edited: "2024-08-06T20:28:58Z",
 tags: ["javascript", "webdev", "signals", "solidjs"],
 description: "Congratulations on making it through the series thus far. But this is where things start to go off...",
 originalLink: "https://dev.to/this-is-learning/async-derivations-in-reactivity-ec5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Derivations in Reactivity",
 order: 3
 }

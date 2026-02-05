@@ -6,8 +6,8 @@ edited: "2023-04-11T10:05:11Z",
 tags: ["javascript", "typescript", "tutorial", "beginners"],
 description: "You can find a video version of this article on my YouTube Channel.           Intro   Today we're...",
 originalLink: "https://leonardomontini.dev/typescript-test-driven-development/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

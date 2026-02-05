@@ -6,8 +6,8 @@ edited: "2021-11-01T21:01:20Z",
 tags: ["angular", "testing"],
 description: "Surprising to some, calling TestBed.compileComponents is unnecessary unless you're Google. ",
 originalLink: "https://dev.to/this-is-angular/simplifying-angular-testbed-setup-by-converting-to-synchronous-test-hooks-19cl",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Configuring the Angular testbed",
 order: 2
 }

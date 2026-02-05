@@ -6,8 +6,8 @@ edited: "2025-03-14T08:25:07Z",
 tags: ["firebase", "angular", "frontend", "webdev"],
 description: "Firebase Authentication provides a robust and easy-to-implement backend service for user...",
 originalLink: "https://dev.to/this-is-angular/firebase-authentication-with-angular-19-ief",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

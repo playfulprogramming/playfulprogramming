@@ -5,8 +5,8 @@ published: "2025-06-15T14:28:33Z",
 tags: ["tooling"],
 description: "As a developer  and productivity geek, I’m always on the lookout for tools that actually make a...",
 originalLink: "https://dev.to/this-is-learning/tools-i-use-every-day-june-2025-edition-2kmb",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

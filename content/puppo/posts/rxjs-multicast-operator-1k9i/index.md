@@ -5,8 +5,8 @@ published: "2021-10-01T06:23:32Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hi Folk 👋, in the previous articles we've seen that when we subscribe to an observable, the...",
 originalLink: "https://dev.to/this-is-learning/rxjs-multicast-operator-1k9i",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 12
 }

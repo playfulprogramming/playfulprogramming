@@ -6,8 +6,8 @@ edited: "2021-09-09T07:02:22Z",
 tags: ["typescript", "webdev"],
 description: "Welcome back! Today I'll talk about the keyof operator.  This operator helps us to extract the...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-keyof-4an0",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 3
 }

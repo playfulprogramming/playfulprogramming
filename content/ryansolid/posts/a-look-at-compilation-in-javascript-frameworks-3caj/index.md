@@ -6,8 +6,8 @@ edited: "2021-06-03T20:09:15Z",
 tags: ["javascript", "webdev", "svelte", "marko"],
 description: "In 2017 Tom Dale, wrote Compilers are the New Frameworks. And he was right. In 2017 things were alrea...",
 originalLink: "https://dev.to/this-is-learning/a-look-at-compilation-in-javascript-frameworks-3caj",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

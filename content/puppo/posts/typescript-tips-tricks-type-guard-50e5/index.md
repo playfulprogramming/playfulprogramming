@@ -6,8 +6,8 @@ edited: "2021-09-09T07:06:33Z",
 tags: ["typescript", "webdev"],
 description: "There are some cases, where we need to detect the type of the object to get the correct...",
 originalLink: "https://dev.to/this-is-learning/typescript-tips-tricks-type-guard-50e5",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Typescript - Tips & Tricks",
 order: 16
 }

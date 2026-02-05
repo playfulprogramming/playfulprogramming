@@ -6,8 +6,8 @@ edited: "2025-12-12T18:20:34Z",
 tags: ["career", "productivity", "discuss"],
 description: "The wonderful thing about glimpsing into the future is that the path is never completely clear. We...",
 originalLink: "https://dev.to/this-is-learning/javascript-frameworks-heading-into-2023-nln",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "JavaScript Frameworks - Heading Into XXXX",
 order: 1
 }

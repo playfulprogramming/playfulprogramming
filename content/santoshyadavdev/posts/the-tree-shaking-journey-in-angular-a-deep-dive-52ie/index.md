@@ -5,8 +5,8 @@ published: "2024-12-23T17:08:33Z",
 tags: ["angular", "modern", "treeshaking", "santoshyadavdev"],
 description: "Hey friends, how are you doing? This year, I tried a new Angular version and wanted to experiment...",
 originalLink: "https://www.santoshyadav.dev/blog/2024-12-20-the-tree-shaking-journey-in-angular-a-deep-dive/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

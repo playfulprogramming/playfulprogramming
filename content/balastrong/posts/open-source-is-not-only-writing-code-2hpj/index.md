@@ -6,8 +6,8 @@ edited: "2022-11-22T22:18:39Z",
 tags: ["opensource", "github", "tutorial", "beginners"],
 description: "You can find a video version of this article on my YouTube channel.       Did you know that you can...",
 originalLink: "https://leonardomontini.dev/open-source-without-code/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 2
 }

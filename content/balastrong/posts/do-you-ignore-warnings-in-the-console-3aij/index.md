@@ -6,8 +6,8 @@ edited: "2024-01-09T13:37:10Z",
 tags: [],
 description: "How often when you run your build command you see a bunch of warnings in the console? I mean, they've...",
 originalLink: "https://leonardomontini.dev/broken-windows-warnings",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Web Development",
 order: 17
 }

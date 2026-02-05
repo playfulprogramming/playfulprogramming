@@ -6,8 +6,8 @@ edited: "2023-02-13T11:20:01Z",
 tags: ["git", "tutorial", "beginners", "codenewbie"],
 description: "Why do you need to move commits between branches? Let's imagine this scenario:  You're so happy, the...",
 originalLink: "https://leonardomontini.dev/git-move-commits-between-branches/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "git better - Improve your git skills",
 order: 4
 }

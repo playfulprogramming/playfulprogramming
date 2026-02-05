@@ -6,8 +6,8 @@ edited: "2022-11-22T19:07:43Z",
 tags: ["javascript", "solidjs", "webdev", "performance"],
 description: "It's been a while since I wrote a piece about a SolidJS technology innovation. It's been two years...",
 originalLink: "https://dev.to/this-is-learning/client-side-routing-without-the-javascript-3k1i",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

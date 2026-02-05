@@ -5,8 +5,8 @@ published: "2021-09-24T05:59:52Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Welcome back Guys, Today I'll show you some utility operators. Let's start :)   tap    Used to...",
 originalLink: "https://dev.to/this-is-learning/rxjs-utility-operators-904",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
 order: 9
 }

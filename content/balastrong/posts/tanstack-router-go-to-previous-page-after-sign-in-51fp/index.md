@@ -5,8 +5,8 @@ published: "2025-09-16T14:36:21Z",
 tags: ["react", "webdev", "tutorial", "javascript"],
 description: "Welcome back to the TanStack Router series, today going double digits with chapter 10!  Let's fix a...",
 originalLink: "https://leonardomontini.dev/tanstack-router-login-redirect/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "TanStack Router",
 order: 6
 }

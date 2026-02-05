@@ -5,8 +5,8 @@ published: "2021-06-09T06:53:47Z",
 tags: ["typescript", "webdev", "javascript"],
 description: "In this article, we are going to learn how to create functions which are easy to test and mock using...",
 originalLink: "https://mainawycliffe.dev/blog/types-and-mocking-typescript",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

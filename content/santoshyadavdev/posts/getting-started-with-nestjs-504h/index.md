@@ -6,8 +6,8 @@ edited: "2021-04-06T11:07:29Z",
 tags: ["javascript", "typescript", "node"],
 description: "This is the first part of the series of articles on the Node.js framework known as NestJS, in this ar...",
 originalLink: "https://medium.com/@santosh.yadav198613/getting-started-with-nestjs-a4e8b0b09db4",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "20daysofNestJS",
 order: 1
 }

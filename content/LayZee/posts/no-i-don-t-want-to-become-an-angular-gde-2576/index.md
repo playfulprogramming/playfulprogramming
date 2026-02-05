@@ -6,8 +6,8 @@ edited: "2020-11-19T20:10:19Z",
 tags: ["angular", "gde", "community"],
 description: "An opinion piece on the Angular team and GDE program management.",
 originalLink: "https://dev.to/this-is-angular/no-i-don-t-want-to-become-an-angular-gde-2576",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

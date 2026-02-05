@@ -6,8 +6,8 @@ edited: "2024-01-21T05:40:32Z",
 tags: ["career", "community", "writing", "devjournal"],
 description: "Hello everyone, this is my last blog post of the year and I want to share with you some of the...",
 originalLink: "https://dev.to/this-is-learning/my-wrap-up-of-2023-a-year-of-growth-and-recognition-4b6n",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

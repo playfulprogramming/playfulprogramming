@@ -5,8 +5,8 @@ published: "2022-07-18T09:05:19Z",
 tags: ["typescript", "javascript", "webdev", "vscode"],
 description: "When you read JavaScript/Typescript code, have you ever encountered an imported package and wanted to...",
 originalLink: "https://mainawycliffe.dev/blog/npm-imported-packages-lens/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

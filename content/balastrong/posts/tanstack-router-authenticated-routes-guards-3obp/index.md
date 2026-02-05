@@ -5,8 +5,8 @@ published: "2024-03-12T14:50:42Z",
 tags: ["typescript", "react", "tutorial", "webdev"],
 description: "Welcome to the fourth article of a series where we will explore TanStack Router, the new typesafe...",
 originalLink: "https://leonardomontini.dev/tanstack-router-authenticated-guards",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "TanStack Router",
 order: 4
 }

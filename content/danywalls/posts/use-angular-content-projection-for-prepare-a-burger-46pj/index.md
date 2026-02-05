@@ -6,8 +6,8 @@ edited: "2021-11-03T18:33:11Z",
 tags: ["angular", "codenewbie", "javascript"],
 description: "One of the easiest things is a burger. The burger has the same base but changes its content, so let's...",
 originalLink: "https://dev.to/this-is-angular/use-angular-content-projection-for-prepare-a-burger-46pj",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

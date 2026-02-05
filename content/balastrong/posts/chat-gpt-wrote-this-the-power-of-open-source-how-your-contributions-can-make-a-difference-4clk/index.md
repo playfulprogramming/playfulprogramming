@@ -5,8 +5,8 @@ published: "2022-12-08T15:42:11Z",
 tags: ["javascript", "webdev"],
 description: "Everyone is going crazy for ChatGPT so I wanted to give it a try myself. I'm not the best person to...",
 originalLink: "https://leonardomontini.dev/chat-gpt-about-open-source/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Open Source",
 order: 7
 }

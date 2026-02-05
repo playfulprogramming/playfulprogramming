@@ -5,8 +5,8 @@ published: "2022-01-28T07:10:53Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hello Folks 👋 Today it's time to see how we can execute our own queries.  In prisma we can run two...",
 originalLink: "https://dev.to/this-is-learning/its-prisma-time-execute-your-own-queries-4olp",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "It's Prisma Time",
 order: 14
 }

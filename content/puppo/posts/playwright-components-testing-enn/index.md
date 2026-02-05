@@ -6,8 +6,8 @@ edited: "2023-02-21T07:20:59Z",
 tags: ["playwright", "components", "testing"],
 description: "Hi there, Today I'll speak about a beta feature in Playwright: Components.  The team is building a...",
 originalLink: "https://blog.delpuppo.net/playwright-components-testing",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 6
 }

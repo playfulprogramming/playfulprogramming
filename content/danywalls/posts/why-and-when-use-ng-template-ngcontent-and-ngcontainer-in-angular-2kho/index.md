@@ -6,8 +6,8 @@ edited: "2023-06-01T17:29:37Z",
 tags: ["angular", "javascript", "frontend", "programming"],
 description: "When I started to play with templates and dynamic content in angular, I get surprised by multiple...",
 originalLink: "https://www.danywalls.com/why-and-when-use-ng-template-ngcontent-and-ngcontainer-in-angular",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

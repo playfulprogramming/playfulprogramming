@@ -6,8 +6,8 @@ edited: "2023-02-21T07:19:12Z",
 tags: ["playwright", "e2e", "vscode", "extensions"],
 description: "Debug your tests   One of the most popular things done by developers is to debug the code...",
 originalLink: "https://blog.delpuppo.net/playwright-debug-your-tests",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Playwright",
 order: 3
 }

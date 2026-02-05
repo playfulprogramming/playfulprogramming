@@ -6,8 +6,8 @@ edited: "2024-05-28T11:09:02Z",
 tags: ["react", "vscode", "webdev", "chrome"],
 description: "Debugging a React app is far from being an easy task... if you don't know the tools you already have,...",
 originalLink: "https://leonardomontini.dev/vscode-react-debugger",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "Visual Studio Code",
 order: 4
 }

@@ -6,8 +6,8 @@ edited: "2025-10-07T12:45:31Z",
 tags: ["astro", "aws", "githubcopilot", "webdev"],
 description: "For me, in general, the best way to learn something new is to start from zero and hit...",
 originalLink: "https://dev.to/this-is-learning/building-my-new-website-with-astro-github-copilot-and-aws-amplify-3eoc",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

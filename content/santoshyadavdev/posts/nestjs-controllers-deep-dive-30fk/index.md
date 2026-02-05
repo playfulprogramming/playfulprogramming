@@ -6,8 +6,8 @@ edited: "2021-04-06T11:08:48Z",
 tags: ["javascript", "typescript", "webdev"],
 description: "In this blog post, we will explore the controller which is the most important part of NestJS....",
 originalLink: "https://medium.com/better-programming/nestjs-controllers-deep-dive-5c49e19d0941",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "20daysofNestJS",
 order: 2
 }

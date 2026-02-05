@@ -6,8 +6,8 @@ edited: "2022-11-22T22:16:32Z",
 tags: ["github", "tutorial", "opensource", "typescript"],
 description: "When navigating through GitHub you may land on awesome profiles with \"live\" content being updated...",
 originalLink: "https://leonardomontini.dev/chess-stats-on-github-action/",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 

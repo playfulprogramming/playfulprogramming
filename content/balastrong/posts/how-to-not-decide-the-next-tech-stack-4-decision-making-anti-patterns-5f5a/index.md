@@ -5,8 +5,8 @@ published: "2023-10-19T09:34:25Z",
 tags: ["career", "webdev", "productivity", "softwaredevelopment"],
 description: "These are 4 really easy ways of making horrible decisions, but don't worry, being able to recognize...",
 originalLink: "https://leonardomontini.dev/decision-making-antipatterns",
-coverImage: "cover-image.png",
-socialImage: "social-image.png",
+coverImg: "cover-image.png",
+socialImg: "social-image.png",
 collection: "My Dev Journey",
 order: 6
 }

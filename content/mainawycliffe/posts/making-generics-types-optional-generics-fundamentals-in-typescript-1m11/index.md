@@ -6,8 +6,8 @@ edited: "2024-05-01T05:08:53Z",
 tags: ["typescript", "webdev", "javascript", "tutorial"],
 description: "In the last two issues, we started exploring generics, where we looked at the fundamentals of...",
 originalLink: "https://www.allthingstypescript.dev/p/making-generics-types-optional-generics",
-coverImage: "cover-image.png",
-socialImage: "social-image.png"
+coverImg: "cover-image.png",
+socialImg: "social-image.png"
 }
 ---
 
