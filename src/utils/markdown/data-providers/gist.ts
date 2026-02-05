@@ -12,7 +12,7 @@ export async function getGist(gistId: string) {
 	});
 
 	if (res.status !== 200) {
-		throw new Error(`Failed to fetch gist ${gistId}`);
+		return null;
 	}
 
 	return res.data;
