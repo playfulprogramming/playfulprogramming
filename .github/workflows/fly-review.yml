@@ -25,7 +25,7 @@ jobs:
     if: ${{ github.event.action != 'closed' && github.event.pull_request.head.repo.full_name != github.repository }}
     runs-on: ubuntu-latest
     outputs:
-      unsafe: ${{ steps.changes.outputs.unsafe == 'true' }}
+      unsafe: ${{ steps.changes.outputs.unsafe }}
     permissions:
       pull-requests: read
     steps:
@@ -39,7 +39,7 @@ jobs:
   review-unsafe:
     name: Review for unsafe changes
     needs: [check-pr]
-    if: ${{ needs.check-pr.outputs.unsafe }}
+    if: ${{ needs.check-pr.outputs.unsafe != 'false' }}
     runs-on: ubuntu-latest
     environment: review-unsafe
     steps:
