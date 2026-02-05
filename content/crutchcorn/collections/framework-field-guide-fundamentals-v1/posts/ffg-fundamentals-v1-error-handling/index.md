@@ -776,7 +776,7 @@ Unfortunately, React is not able to handle thrown errors invisibly to the user w
 
 ## Angular
 
-As covered before, Angular is able to ignore all errors thrown outside the `constructor` method. However, if an error does occur in the `constructor` method, it's challenging ([but not impossible](https://playfulprogramming.com/posts/angular-constructor-error-behavior#The-short-term-fix)) to sidestep. Because of the complexity of the code required to ignore `constructor` method errors, we won't cover it in this book.
+As covered before, Angular is able to ignore all errors thrown outside the `constructor` method. However, if an error does occur in the `constructor` method, it's challenging ([but not impossible](/posts/angular-constructor-error-behavior#The-short-term-fix)) to sidestep. Because of the complexity of the code required to ignore `constructor` method errors, we won't cover it in this book.
 
 > Want to see an official solution to this problem? [Star my feature request on GitHub, which outlines a longer-term solution built-into Angular](https://github.com/angular/angular/issues/51941).
 
