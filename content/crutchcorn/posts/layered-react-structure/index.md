@@ -223,7 +223,7 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
 
 ## Defining Utilities vs Services {#utils-vs-services}
 
-In 2015 Promises were introduced into JavaScript. While they were a good solution to the problem of [the Christmas tree callback problem](https://playfulprogramming.com/posts/async-and-promises#Callbacks), they weren't intuitive to use until `async` and `await` were implemented in the ecosystem around 2017.
+In 2015 Promises were introduced into JavaScript. While they were a good solution to the problem of [the Christmas tree callback problem](/posts/async-and-promises#Callbacks), they weren't intuitive to use until `async` and `await` were implemented in the ecosystem around 2017.
 
 ```javascript
 function main() {
@@ -503,7 +503,7 @@ describe("PeopleView", () => {
 
 This setup enables you to validate actual user behavior rather than testing implementation details.
 
-> Want to learn more about best testing practices? [See our article for 5 suggestions to write the best tests you can.](https://playfulprogramming.com/posts/five-suggestions-for-simpler-tests)
+> Want to learn more about best testing practices? [See our article for 5 suggestions to write the best tests you can.](/posts/five-suggestions-for-simpler-tests)
 
 ## Test Runner {#vitest}
 

@@ -78,10 +78,10 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 
 	const isPlayfulDomain = new URL(siteUrl).hostname === url.hostname;
 
-	const result = isPlayfulDomain
-		? { src: "/share-banner.png" }
-		: pictureNode
-			? undefined
+	const result = pictureNode
+		? undefined
+		: isPlayfulDomain
+			? { src: "/share-banner.png" }
 			: (await getUrlMetadata(url.toString()).catch(() => undefined))?.banner;
 	if (!pictureNode && !result) {
 		logError(vfile, anchorNode, "Link preview could not find a banner image.");

@@ -339,6 +339,7 @@ We support the following properties on a post:
 - `version`: The version of the article
   - IE: `v1`, `v3.5`, etc
   - Useful when combined with `upToDateSlug` and `noindex`
+- `socialImg`: The social image to use when sharing the article. If not present, we will generate one for you based on the title, authors, and a nice background.
 
 
 ### Collection Frontmatter
