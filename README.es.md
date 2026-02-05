@@ -16,8 +16,9 @@ Este repository actúa como la ubicación del código fuente para el [blog de Pl
 
 ## Patrocinadores
 
-<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://playfulprogramming.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
-<a href="https://www.fastly.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="Fastly" src="https://playfulprogramming.com/sponsors/fastly.svg" width="300"/></a>
+<a href="https://www.fastly.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="Fastly" src="./public/sponsors/fastly.svg" width="300"/></a>
+<a href="https://coderabbit.link/pfp" target="_blank" rel="noopener noreferrer sponsored"><img alt="Fastly" src="./public/sponsors/coderabbit.svg" width="300"/></a>
+<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="./public/sponsors/the-polyglot-developer.svg" width="300"/></a>
 
 [Reconocemos todos los patrocinios que compartimos abiertamente en GitHub](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed)
 
