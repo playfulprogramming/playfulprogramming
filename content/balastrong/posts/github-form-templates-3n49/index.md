@@ -129,7 +129,7 @@ In this article we've seen how to use GitHub Issue Form Templates to help contri
 Did you know that you can also create issues directly from Visual Studio Code? I talk about that in this article:
 
 <!-- ::start:link-preview -->
-[Manage GitHub Issues from Visual Studio Code](https://playfulprogramming.com/posts/manage-github-issues-from-visual-studio-code-3pop)
+[Manage GitHub Issues from Visual Studio Code](/posts/manage-github-issues-from-visual-studio-code-3pop)
 <!-- ::end:link-preview -->
 
 ---

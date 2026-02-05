@@ -162,7 +162,7 @@ For reactive frameworks, directionality requires more consideration because it a
 Albeit, this is a bigger buy-in because if your base primitives do not have explicit setters it is odd the derived ones would. So this is a pattern that makes the most sense from the source.
 
 <!-- ::start:link-preview -->
-[Thinking Locally with Signals](https://playfulprogramming.com/posts/thinking-locally-with-signals-3b7h)
+[Thinking Locally with Signals](/posts/thinking-locally-with-signals-3b7h)
 <!-- ::end:link-preview -->
 
 ---

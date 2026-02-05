@@ -24,7 +24,7 @@ In the past few weeks, we've seen the culmination of a build of excitement aroun
 > For a history of Signals in JavaScript check out my article:
 
 <!-- ::start:link-preview -->
-[The Evolution of Signals in JavaScript](https://playfulprogramming.com/posts/the-evolution-of-signals-in-javascript-8ob)
+[The Evolution of Signals in JavaScript](/posts/the-evolution-of-signals-in-javascript-8ob)
 <!-- ::end:link-preview -->
 
 The truth is Signals never went away. They lived several years in obscurity as third-party libraries or hidden behind frameworks' plain object APIs. Even though the common rhetoric that came in with React and the Virtual DOM condemned the patterns as unpredictable and dangerous. And they weren't wrong.
@@ -194,7 +194,7 @@ Since the first introduction of Solid we've had people [exploring](https://githu
 In 2021, I took a stab at it.
 
 <!-- ::start:link-preview -->
-[The Quest for ReactiveScript](https://playfulprogramming.com/posts/the-quest-for-reactivescript-3ka3)
+[The Quest for ReactiveScript](/posts/the-quest-for-reactivescript-3ka3)
 <!-- ::end:link-preview -->
 
 React team also announced they were looking at this too.

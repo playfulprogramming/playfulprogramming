@@ -20,7 +20,7 @@ I had **never touched Astro before**, but I wanted to explore it because it felt
 Instead of following tutorials, I decided to apply my own “**Copilot personas**” approach — the same method I use in my daily projects to guide AI tools like GitHub Copilot through different roles: architect, implementer, reviewer, and so on. It felt like pair programming with an assistant that never gets tired.
 
 <!-- ::start:link-preview -->
-[GitHub Copilot: A Persona-Based Approach to Real-World Development](https://playfulprogramming.com/posts/github-copilot-a-persona-based-approach-to-real-world-development-56ee)
+[GitHub Copilot: A Persona-Based Approach to Real-World Development](/posts/github-copilot-a-persona-based-approach-to-real-world-development-56ee)
 <!-- ::end:link-preview -->
 
 To make the challenge even more interesting, I built the entire project **inside GitHub Codespaces**, streamed the first steps **live on Twitch**, and deployed it for the first time ever using **AWS Amplify** with an Astro adapter.

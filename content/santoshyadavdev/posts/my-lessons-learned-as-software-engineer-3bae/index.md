@@ -56,11 +56,11 @@ The last learning from my Career so far, start contributing to Open Source. I ha
 You can also read my journey below
 
 <!-- ::start:link-preview -->
-[My Journey into Tech](https://playfulprogramming.com/posts/my-journey-into-tech-1l6d)
+[My Journey into Tech](/posts/my-journey-into-tech-1l6d)
 <!-- ::end:link-preview -->
 
 Also I shared How I went from $1000 to better salary
 
 <!-- ::start:link-preview -->
-[My Developer Journey – How I Went from Making $1,000 to Better Salary](https://playfulprogramming.com/posts/my-developer-journey-how-i-went-from-making-1-000-to-better-salary-11om)
+[My Developer Journey – How I Went from Making $1,000 to Better Salary](/posts/my-developer-journey-how-i-went-from-making-1-000-to-better-salary-11om)
 <!-- ::end:link-preview -->

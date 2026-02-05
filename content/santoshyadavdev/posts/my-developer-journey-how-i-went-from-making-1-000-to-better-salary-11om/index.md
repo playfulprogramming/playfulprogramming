@@ -189,5 +189,5 @@ And don't forget that salary negotiation is an important skill. Never underestim
 You can read my life story.
 
 <!-- ::start:link-preview -->
-[My Journey into Tech](https://playfulprogramming.com/posts/my-journey-into-tech-1l6d)
+[My Journey into Tech](/posts/my-journey-into-tech-1l6d)
 <!-- ::end:link-preview -->

@@ -17,7 +17,7 @@ Integrating the `git maintenance` command into your **GitHub Actions** workflow 
 You can read more about it, in my previous post:
 
 <!-- ::start:link-preview -->
-[Optimizing Your Repository for Speed and Efficiency](https://playfulprogramming.com/posts/optimizing-your-repository-for-speed-and-efficiency-5co2)
+[Optimizing Your Repository for Speed and Efficiency](/posts/optimizing-your-repository-for-speed-and-efficiency-5co2)
 <!-- ::end:link-preview -->
 
 ### When Does `git maintenance` in GitHub Actions Make Sense?

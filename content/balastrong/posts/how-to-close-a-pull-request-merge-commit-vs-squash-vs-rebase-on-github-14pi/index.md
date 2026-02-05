@@ -100,7 +100,7 @@ But didn’t we just forget about something important? Like… what happens if t
 Hit like ❤️ if you liked this article and have a look here:
 
 <!-- ::start:link-preview -->
-[Resolving Merge Conflicts with Visual Studio Code](https://playfulprogramming.com/posts/resolving-merge-conflicts-with-visual-studio-code-1mn1)
+[Resolving Merge Conflicts with Visual Studio Code](/posts/resolving-merge-conflicts-with-visual-studio-code-1mn1)
 <!-- ::end:link-preview -->
 
 ---
