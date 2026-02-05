@@ -1,4 +1,5 @@
 import { Languages } from "types/index";
+import { LocalFile } from "types/LocalFile";
 
 export interface FuturePost {
 	order: number;
@@ -42,16 +43,7 @@ export interface CollectionInfo extends RawCollectionInfo {
 	locales: Languages[];
 	locale: Languages;
 	postCount: number;
-	coverImgMeta: {
-		// Relative to "public/people"
-		relativePath: string;
-		// Relative to site root
-		relativeServerPath: string;
-		// This is not stored, it's generated at build time
-		absoluteFSPath: string;
-		height: number;
-		width: number;
-	};
+	coverImgMeta: LocalFile;
 }
 
 export interface SearchCollectionInfo extends CollectionInfo {
