@@ -29,7 +29,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 		</h1>
 
 		{
-			post.coverImgMeta.relativeServerPath ? (
+			post.coverImgMeta?.relativeServerPath ? (
 				<img class={style.coverImg} alt="" src={post.coverImgMeta.relativeServerPath} />
 			) : null
 		}
