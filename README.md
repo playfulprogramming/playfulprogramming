@@ -17,7 +17,7 @@ This repository acts as the source code location for [the Playful Programming bl
 ## Sponsors
 
 <a href="https://www.fastly.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="Fastly" src="./public/sponsors/fastly.svg" width="300"/></a>
-<a href="https://coderabbit.link/pfp" target="_blank" rel="noopener noreferrer sponsored"><img alt="Fastly" src="./public/sponsors/coderabbit.svg" width="300"/></a>
+<a href="https://coderabbit.link/pfp" target="_blank" rel="noopener noreferrer sponsored"><img alt="CodeRabbit" src="./public/sponsors/coderabbit.svg" width="300"/></a>
 <a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="./public/sponsors/the-polyglot-developer.svg" width="300"/></a>
 
 [We disclose every sponsorship we share openly on GitHub](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed)
