@@ -21,7 +21,7 @@ So, are some tutorials wrong? Or all tutorials? And what is this Tutorial Hell?
 
 *Do you like watching videos over reading? You can find a video version here:*
 
-[![Click here for the YouTube video!](./xqnmfh0925otv9idru7i.png)](https://youtu.be/U6oWq2RPP_4)
+<iframe src="https://youtu.be/U6oWq2RPP_4"></iframe>
 
 ---
 

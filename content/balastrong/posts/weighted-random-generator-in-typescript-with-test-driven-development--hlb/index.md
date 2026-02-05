@@ -127,7 +127,7 @@ In the meantime, the library has been extended with more utility methods (`getIt
 
 Feel free to jump on GitHub and extend it, even more, I'm waiting for your Pull Requests! :)
 
-[![Video Thumbnail](./s90hctbvtsr24dbprb4u.png)](https://youtu.be/jNBw9_qNgmo)
+<iframe src="https://youtu.be/jNBw9_qNgmo"></iframe>
 
 ---
 

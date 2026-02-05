@@ -33,7 +33,7 @@ Rewards are not only for contributors, but also for maintainers are they're the 
 
 You can find in this video here below my take on how to participate and what to take from this year's edition:
 
-[![Youtube Video!](./lac8ezvdr4spt3ln22u7.png)](https://youtu.be/P_YJ4CbuUs0)
+<iframe src="https://youtu.be/P_YJ4CbuUs0"></iframe>
 
 ---
 

@@ -15,7 +15,7 @@ order: 2
 
 *You can find a [video version](https://youtu.be/NEzYE1-37SA) of this article on my [YouTube channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA).*
 
-[![YouTube Video](./vdxjuxw8e5qovuxnc5bw.png)](https://youtu.be/NEzYE1-37SA)
+<iframe src="https://youtu.be/NEzYE1-37SA"></iframe>
 
 ---
 

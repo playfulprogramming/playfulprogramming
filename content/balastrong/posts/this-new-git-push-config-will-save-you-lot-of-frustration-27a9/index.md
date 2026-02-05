@@ -15,7 +15,7 @@ order: 2
 
 If you have 59 seconds and in particular you're also on mobile, you might enjoy watching the YouTube #Shorts video.
 
-[![YouTube Video](./oorxbnl87cb86fw5jr9p.png)](https://youtube.com/shorts/KrgNpJA0sX4)
+<iframe src="https://youtube.com/shorts/KrgNpJA0sX4></iframe>
 
 ---
 
@@ -58,7 +58,8 @@ It will set in your global git configuration file the value `true` to `push.auto
 With that set, all first-time push on new branches will automatically set the default upstream.
 
 To see it live, you can have a look at this short YouTube video.
-[![YouTube Video](./oorxbnl87cb86fw5jr9p-1.png)](https://youtube.com/shorts/KrgNpJA0sX4)
+
+<iframe src="https://youtube.com/shorts/KrgNpJA0sX4"></iframe>
 
 ---
 

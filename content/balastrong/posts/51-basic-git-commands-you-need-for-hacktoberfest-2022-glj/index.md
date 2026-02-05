@@ -36,7 +36,7 @@ Technically, you could do all these steps even without commands in terminal but 
 
 If you want to see how these commands can be used in a real case, you can watch this video I just uploaded on my [YouTube Channel](https://www.youtube.com/channel/UC-KqnO3ez7vF-kyIQ_22rdA?sub_confirmation=1) where i talk about Open Source and Web Development!
 
-[![Youtube Video](./lbt5nrhycb5wxu32wfkh.png)](https://youtu.be/hTeHtkpTvqI)
+<iframe src="https://youtu.be/hTeHtkpTvqI"></iframe>
 
 ---
 

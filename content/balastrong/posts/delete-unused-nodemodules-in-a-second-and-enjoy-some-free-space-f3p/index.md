@@ -17,7 +17,7 @@ order: 3
 
 In this article I'll tell you about a cool tool I just found on npm, called `npkill`, that helps you cleaning `node_modules` from projects you no longer user but still want to keep.
 
-[![YouTube Video](./vuk03d51s8734fy6gdzl.png)](https://youtube.com/shorts/76UXyiPJQwI)
+<iframe src="https://youtube.com/shorts/76UXyiPJQwI"></iframe>
 
 Video link: https://youtube.com/shorts/76UXyiPJQwI
 
@@ -89,7 +89,8 @@ Let me know if you already knew this tool or if you're going to use it... how mu
 ---
 
 Want to see it in action? Check out this YouTube #Shorts video!
-[![YouTube Video](./vuk03d51s8734fy6gdzl-1.png)](https://youtube.com/shorts/76UXyiPJQwI)
+
+<iframe src="https://youtube.com/shorts/76UXyiPJQwI"></iframe>
 
 ---
 

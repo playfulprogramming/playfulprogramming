@@ -21,4 +21,4 @@ The software is Open Source if you want to contribute! You can find here the rep
 
 **BONUS**: Since the video, the OS project moved forward and now you can select a different color for the numbers :D
 
-[![Logo](./wwvy8he62x7o3eyh9s06.jpeg)](https://youtu.be/G-nZXr_Gs6o)
+<iframe src="https://youtu.be/G-nZXr_Gs6o"></iframe>

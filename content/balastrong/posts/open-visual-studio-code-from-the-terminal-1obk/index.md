@@ -23,7 +23,7 @@ It can also accept a parameter that is the path, so with `code your/path` it wil
 
 Last but for sure not least, I made a short video as usual about the topic, you can find it here:
 
-[![Watch the video](./959tma6x31fj1a4nv1l8.png)](https://youtube.com/shorts/oUHlR_ouEAA)
+<iframe src="https://youtube.com/shorts/oUHlR_ouEAA"></iframe>
 
 ---
 

@@ -77,7 +77,7 @@ What do you think? I created a playlist of minigames or challenges just like thi
 
 Guess what, the playlist is called “**Can you spot the code smell?**”
 
-[![Code Smell Playlist](./gjqx8uve6v2o76711r5g.png)](https://youtube.com/playlist?list=PLOQjd5dsGSxKcEVtnt1EIAPj6Z0PvPv-f)
+[Code Smell Playlist ![](./gjqx8uve6v2o76711r5g.png)](https://youtube.com/playlist?list=PLOQjd5dsGSxKcEVtnt1EIAPj6Z0PvPv-f)
 
 ---
 

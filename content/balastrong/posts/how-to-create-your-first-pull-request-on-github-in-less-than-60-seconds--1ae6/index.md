@@ -28,7 +28,7 @@ It's mostly for beginners, so if you're already actively contributing you might 
 
 If you want to start today ([you should](https://youtu.be/uquIcISFtwg)), then you better watch the video!
 
-[![Youtube Video](./eonk9rcg9v65r3e3zp5i.png) ](https://youtube.com/shorts/0HKE5nDypUg)
+<iframe src="https://youtube.com/shorts/0HKE5nDypUg"></iframe>
 
 ## How to create your First Pull Request on GitHub in less than 60 seconds
 

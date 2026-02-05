@@ -17,7 +17,7 @@ I recently posted an Article about benefits and advantages from contributing in 
 
 I released the video version on YouTube, go check it out!
 
-[![Video Preview](./b4es4ax5b0tw4cffvjw3.png)](https://youtu.be/uquIcISFtwg)
+<iframe src="https://youtu.be/uquIcISFtwg"></iframe>
 
 Here's the link: https://youtu.be/uquIcISFtwg
 
