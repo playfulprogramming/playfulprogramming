@@ -16,7 +16,7 @@ This has created a situation, where hiring has become very competitive. Staring 
 
 However from the very beginning, I realised that this was not going to be your regular CRUD app. The requirements were a bit more tailored. During the design phase, I asked myslef one important question shaped the entire project: How do I design a stack that balances performance, maintainability, and real-world usefulness?
 
-This article, inspired by Corbin Crutchley's [How to Pick Tech Stacks For New Projects](https://playfulprogramming.com/posts/how-to-pick-tech-stacks-for-new-projects), walks through the functional needs of Job Helper, the technical decisions I made to support them, and my thought process when making these decisions. (why I believe they were the right tradeoffs.)
+This article, inspired by Corbin Crutchley's [How to Pick Tech Stacks For New Projects](/posts/how-to-pick-tech-stacks-for-new-projects), walks through the functional needs of Job Helper, the technical decisions I made to support them, and my thought process when making these decisions. (why I believe they were the right tradeoffs.)
 
 ![Job Helper Architecture](./job_helper_architecture.png)
 
