@@ -1,0 +1,17 @@
+<h4 class="text-center">Beers provide by the component</h4>
+<p class="text-center">Pick one :)</p>
+<div class="columns">
+  <div class="column col-12">
+    <div *ngIf="beers$ | async as beers; else loading">
+      <div class="chip" *ngFor="let beer of beers">
+        <img [src]="beer?.image_url" class="avatar avatar-sm" />
+        {{ beer.name }}
+      </div>
+    </div>
+    <ng-template #loading>
+      <div class="text-center">
+        <span class="text-center loading"></span>
+      </div>
+    </ng-template>
+  </div>
+</div>

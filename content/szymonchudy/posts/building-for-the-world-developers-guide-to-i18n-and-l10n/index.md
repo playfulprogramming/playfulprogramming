@@ -258,7 +258,7 @@ The same goes for gendered phrases (some languages change wording depending on w
 
 While the syntax may seem unfriendly, delegating plurals, gender variants, and other language variations to the i18n abstraction again makes your code cleaner and language-agnostic, allowing text to be stored and managed in one place. It may feel like extra work, but it saves you from awkward translations and unhappy users later.
 
-### #4 Never Concatenate Strings In Code
+### #4 Never Concatenate Strings In Code {#4-never-concatenate-strings-in-code}
 
 Building sentences in code by concatenating parts is a recipe for localization bugs. For example:
 
