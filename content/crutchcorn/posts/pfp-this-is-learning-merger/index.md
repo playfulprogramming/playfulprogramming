@@ -128,30 +128,14 @@ And much more.
 >
 > Sound like a project you might want to help build? [Come join us and help us build it out!](https://playfulprogramming.com/join-us/)
 
+# Thank you
 
+Neither "This is Learning" or "Playful Programming" would be where we are today without you; the readers.
 
+We're excited by our next chapter as we continue to serve the community with learning materials. There's still a great deal of work for us to accomplish, but we're driven by the northern star of those that we're able to serve.
 
+We appreciate your continued support and hope to see you in our community.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Until next time,
 
 \- Corbin Crutchley, Executive Director of Playful Programming  
