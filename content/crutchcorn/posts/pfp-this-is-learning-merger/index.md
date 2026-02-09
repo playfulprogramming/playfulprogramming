@@ -1,22 +1,16 @@
 ---
 {
     title: "Merging the \"This Is\" Community into \"Playful Programming\"",
-    description: "// TODO: Write this",
+    description: "This is Learning and Playful Programming are merging to create a stronger open-source education community with 750+ articles and expanded resources.",
     published: '2026-02-09T20:12:03.284Z',
     tags: ['announcements'],
     license: 'cc-by-4'
 }
 ---
 
-Today's an exciting day; **Two programming communities are coming together** to help re-enforce one another's goals in educating others.
+Today marks a major milestone for open-source education: **["This is Learning"](https://x.com/Thisis_Learning) and ["Playful Programming"](https://playfulprogramming.com) are joining forces.** We are bringing two communities together to reinforce our shared goal of transparent, accessible developer education.
 
-![Two unicorn hoofs high-fiving with "Playful Programming hearts This is Learning" text above it](./til_announcement.png)
-
-The two communities in question?
-
-1) ["This is Learning"](https://x.com/Thisis_Learning) (and the sub-project of ["This is Angular"](https://x.com/Thisis_Angular))
-
-2) [Playful Programming](https://playfulprogramming.com)
+![Two unicorn hooves high-fiving with "Playful Programming hearts This is Learning" text above it](./til_announcement.png)
 
 Let's introduce each community and explain what this means for both communities.
 
@@ -30,7 +24,9 @@ Santosh and Lars are both highly accomplished engineers and community leaders. B
 
 It's no wonder, then, that since they started their project they've:
 
-- [Had over 1480 articles released on their Dev.to community by over 175 authors](https://dev.to/this-is-learning) ([including 650 articles specifically about Angular](https://dev.to/this-is-angular))
+- [Facilitated the release of over 1480 articles on their Dev.to community by over 175 authors](https://dev.to/this-is-learning)
+  - [This includes 650 articles specifically about Angular in their "This is Angular" sub-brand](https://dev.to/this-is-angular)
+
 - [Created 100 videos on their YouTube channel](https://www.youtube.com/c/ThisisTechTalks)
 - [Ran a successful virtual conference in 2024](https://til-conf.netlify.app/)
 - Created two courses for [NgRx](https://this-is-angular.github.io/ngrx-essentials-course/) and [RxJS](https://this-is-learning.github.io/rxjs-fundamentals-course/)
@@ -55,7 +51,7 @@ Playful Programming (originally called ["Unicorn Utterances"](https://playfulpro
 Since then, we as a community have:
 
 - [Had over 230 articles released on our site from over 60 contributors](https://playfulprogramming.com/search/?q=*)
-- [Ran a Discord community with 2700 members ](https://discord.gg/FMcvc6T)
+- [Ran a Discord community with 2700 members](https://discord.gg/FMcvc6T)
 
 - [Made a bespoke highly performant and accessible website](https://playfulprogramming.com) 
   - [The site was built along the timeline of 7000+ commits](https://github.com/playfulprogramming/playfulprogramming)
@@ -82,13 +78,20 @@ As such, **we will be doing the following** going forward:
 - Retain Playful Programming's name, branding, and structure
 - Keeping our board of directors as-is
 - Rename This is Learning's Dev.to blog to "Playful Programming" and their Angular specific blog to "Playful Programming Angular"
-- Merging This is Learning's community Discord server into Playful Programming's Discord server
-- Continuing to run the "This is Tech Talks" podcast under Playful Programming (and possibly renaming it)
+- Continuing to run the "This is Tech Talks" podcast under Playful Programming
 - Reposting authors of This is Learning's existing content to opt-into reposting their content to the Playful Programming website
 
-Again, it's that last point that we've spent a considerable amount of time enabling. 20 TiL authors agreed for us to port hundreds of their posts to our site. This required us to develop many new features for our site, but has resulted in **our site having 750+ articles present today!**
+Again, it's that last point that we've spent a considerable amount of time enabling. Twenty TiL authors agreed for us to port hundreds of their posts to our site. This required us to develop many new features for our site, but has resulted in **our site having 750+ articles present today!**
 
 !["This brings our article count to 750+"](750_articles.png)
+
+> **A note for TiL contributors:**
+>
+> While we've done our best to reach out to all existing contributors to TiL, we acknowledge that it's tough to keep up-to-date with every community we find ourselves in.
+>
+> As such, if you'd like to have your contents on our site or have feedback regarding this change, reach out to me on [any of my social media channels](https://crutchcorn.dev) and I'll help migrate your content or address concerns you might have.
+>
+> Regardless of if you'd like your content reposted onto our site, your Dev.to content will remain fully in-tact and all links to existing content should redirect on Dev.to's site.
 
 # Our future
 
@@ -100,7 +103,7 @@ But this isn't all we have planned! We also intend on:
 
 ----
 
-One concern we've already heard from authors, however, is ease of posting to Playful's site. Today, [writing a post for our site includes making a pull request to our GitHub repo](https://github.com/playfulprogramming/playfulprogramming/blob/main/CONTRIBUTING.md). While we've tried to reduce friction with that process as much as we can, we know that writing for Dev.to using a GUI is much easier to navigate.
+With this influx of new content and authors, we want to improve the writing experience. One concern we've heard from authors is challenges with posting to Playful's site. Today, [writing a post for our site includes making a pull request to our GitHub repo](https://github.com/playfulprogramming/playfulprogramming/blob/main/CONTRIBUTING.md). While we've tried to reduce friction with that process as much as we can, we know that writing for Dev.to using a GUI is much easier to navigate.
 
 As such, we're working incredibly hard on building out a custom CMS for our site. Here's a small mockup preview of such:
 
@@ -130,7 +133,7 @@ And much more.
 
 # Thank you
 
-Neither "This is Learning" or "Playful Programming" would be where we are today without you; the readers.
+Neither "This is Learning" nor "Playful Programming" would be where we are today without you; the readers.
 
 We're excited by our next chapter as we continue to serve the community with learning materials. There's still a great deal of work for us to accomplish, but we're driven by the northern star of those that we're able to serve.
 
