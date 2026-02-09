@@ -1,9 +1,11 @@
 ---
+{
   title: "Onboarding in the Ever-Changing World of AI",
   description: "I’ve recently joined a new company, and I wanted to share my experience from my first week, what onboarding used to look like, and how AI is changing the game.",
   published: '2026-02-09',
-  tags: ["experience", "opinion", "AI", "onboarding", "productivity", "developer experience", "software development", "programming"],
+  tags: ["experience", "opinion", "ai", "programming"],
   license: 'cc-by-4' 
+}
 ---
 
 # Onboarding in the Ever-Changing World of AI
