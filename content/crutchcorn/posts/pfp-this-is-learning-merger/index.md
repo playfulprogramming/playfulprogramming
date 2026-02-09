@@ -8,7 +8,9 @@
 }
 ---
 
-Today's an exciting day; Two programming communities are coming together to help re-enforce one another's goals in educating others.
+Today's an exciting day; **Two programming communities are coming together** to help re-enforce one another's goals in educating others.
+
+![Two unicorn hoofs high-fiving with "Playful Programming hearts This is Learning" text above it](./til_announcement.png)
 
 The two communities in question?
 
@@ -19,6 +21,8 @@ The two communities in question?
 Let's introduce each community and explain what this means for both communities.
 
 # Introducing "This is Learning"
+
+![A text logo of "TiL"](./til_logo.png)
 
 "This is Learning" was originally created in 2020 by [Santosh Yadav](https://www.santoshyadav.dev/) and [Lars Gyrup Brink Nielsen](https://github.com/layzeedk) to bring together authors and share software development knowledge.
 
@@ -37,6 +41,8 @@ It's no wonder, then, that since they started their project they've:
 Throughout it all, they always remained strictly "not for profit" and encouraged cross-posting, self-controlled content ownership, and community wellbeing over all else.
 
 # Introducing "Playful Programming"
+
+![Smiling cartoon unicorn with a bowtie](./pfp_logo.png)
 
 "Playful Programming" was started by [James Fenn](http://jfenn.me/), [Evelyn Hathaway](https://playfulprogramming.com/people/evelynhathaway), and [myself (Corbin Crutchley)](https://github.com/crutchcorn) in [2019](https://playfulprogramming.com/posts/uttering-hello-introduction-post/).
 
@@ -57,8 +63,9 @@ Since then, we as a community have:
   - [Created a robust design system with hundreds of design components and 300+ variables alone](https://www.figma.com/design/Ul8KB1Sc6etCNTRCRSc27z/Playful-Programming---Website?m=auto&t=jtN97SD9KIA9GZ09-6)
 - [Had a mailing list with over 1500 subscribers](https://mailinglist.playfulprogramming.com/)
 - [Started a **free** 12-week coding bootcamp teaching web development using our resources](https://playfulprogramming.com/events/sacramento-bootcamp/)
+- [Became a California non-profit](https://playfulprogramming.com/posts/playful-programming-non-profit/)
 
-
+That last item is one I'm particularly proud of. It continually reminds (and enforces) our goals to keep our content accessible and driven towards the community; not towards profits.
 
 
 
