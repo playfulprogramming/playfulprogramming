@@ -71,7 +71,7 @@ That last item is one I'm particularly proud of. It continually reminds (and enf
 
 As both organizations have scaled, we've faced different challenges:
 
-- For TiL, they've remained focused on the content. This has meant that they have a strong repertoire of content, but have focused less on other avenues of growth: branding, a custom website, and non-authoring community outreach.
+- For TiL, they've remained focused on the content. This has meant that they have a strong repertoire of content, but have focused less on other avenues of growth.
 
 - Contrarily, PFP has developed a powerful brand, a "uniquely ours" website, and a larger community in our Discord. We're proud of what we've put out, but it does mean that our content catalog is comparatively weak.
 
