@@ -6,6 +6,9 @@ on:
   # It has been the cause of multiple GHA-related exploits!
   pull_request_target:
     types: [opened, reopened, synchronize, closed]
+  merge_group:
+    types:
+      - checks_requested
 
 env:
   DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}-review:pr-${{ github.event.pull_request.number }}
@@ -22,7 +25,7 @@ jobs:
   # If the PR is from a fork, and changes anything outside of the content folder, it needs to be manually reviewed
   check-pr:
     name: Check PR changes
-    if: ${{ github.event.action != 'closed' && github.event.pull_request.head.repo.full_name != github.repository }}
+    if: ${{ github.event_name == 'pull_request_target' && github.event.action != 'closed' && github.event.pull_request.head.repo.full_name != github.repository }}
     runs-on: ubuntu-latest
     outputs:
       unsafe: ${{ steps.changes.outputs.unsafe }}
@@ -75,7 +78,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
+          push: ${{ github.event_name == 'pull_request_target' }}
           tags: ${{ env.DOCKER_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

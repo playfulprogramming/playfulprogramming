@@ -35,14 +35,19 @@
 	},
 	"sponsors": [
 		{
-			"name": "The Polyglot Developer",
-			"logo": "/sponsors/the-polyglot-developer.svg",
-			"url": "https://www.thepolyglotdeveloper.com/"
-		},
-		{
 			"name": "Fastly",
 			"logo": "/sponsors/fastly.svg",
 			"url": "https://www.fastly.com/"
+		},
+		{
+			"name": "CodeRabbit",
+			"logo": "/sponsors/coderabbit.svg",
+			"url": "https://coderabbit.link/pfp"
+		},
+		{
+			"name": "The Polyglot Developer",
+			"logo": "/sponsors/the-polyglot-developer.svg",
+			"url": "https://www.thepolyglotdeveloper.com/"
 		}
 	]
 }
