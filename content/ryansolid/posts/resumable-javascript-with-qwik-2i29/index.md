@@ -5,7 +5,7 @@ published: "2022-02-17T15:27:13Z",
 edited: "2022-02-21T07:31:33Z",
 tags: ["javascript", "webdev", "qwik", "performance"],
 description: "When Misko Hevery (creator of AngularJS) approaches you to look at his new framework, well, you stop...",
-originalLink: "https://dev.to/this-is-learning/resumable-javascript-with-qwik-2i29",
+originalLink: "https://https://dev.to/playfulprogramming/resumable-javascript-with-qwik-2i29",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -29,7 +29,7 @@ So unsurprisingly their core mechanics weren't designed in a way to leverage thi
 
 The most powerful one might be not redo any of the work in the browser that was already done on the server. A JavaScript framework designed to do less work in the browser. Not the first framework to do so. But perhaps the first to realize the idealized hydration execution.
 
-> Hydration is the process of adding interactivity to server rendered HTML. It involves attaching event handlers, and initializing application state. For most JavaScript libraries this is a top-down process very similar to re-rendering the whole app again in the browser, even if it doesn't actually create any new DOM nodes. For a more complete guide on Hydration see [Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3).
+> Hydration is the process of adding interactivity to server rendered HTML. It involves attaching event handlers, and initializing application state. For most JavaScript libraries this is a top-down process very similar to re-rendering the whole app again in the browser, even if it doesn't actually create any new DOM nodes. For a more complete guide on Hydration see [Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://https://dev.to/playfulprogramming/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3).
 
 ---
 

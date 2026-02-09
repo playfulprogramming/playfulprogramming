@@ -4,7 +4,7 @@ title: "Unlocking the Power of Out-GridView in PowerShell",
 published: "2024-04-30T08:24:43Z",
 tags: ["powershell"],
 description: "Unlocking the Power of Out-GridView in PowerShell  When it comes to PowerShell, every seasoned...",
-originalLink: "https://dev.to/this-is-learning/unlocking-the-power-of-out-gridview-in-powershell-4aei",
+originalLink: "https://https://dev.to/playfulprogramming/unlocking-the-power-of-out-gridview-in-powershell-4aei",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -4,7 +4,7 @@ title: "It's Prisma Time - Execute your own queries",
 published: "2022-01-28T07:10:53Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hello Folks 👋 Today it's time to see how we can execute our own queries.  In prisma we can run two...",
-originalLink: "https://dev.to/this-is-learning/its-prisma-time-execute-your-own-queries-4olp",
+originalLink: "https://https://dev.to/playfulprogramming/its-prisma-time-execute-your-own-queries-4olp",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "It's Prisma Time",
@@ -62,7 +62,7 @@ result.forEach(post => {
 ```
 
 If you look closely this piece of code, you can notice that the `result` variable is an array of type Post, and also the `$queryRaw` method indicates that as its return type. By doing so, we receive the right check by typescript in the following rows of code. But there is a thing to keep in mind. The conversion from the result of the query to your type is not guaranteed by Prisma, it's your business in this case.
-*N.B. If you don't indicate your result type, by default Prisma returns the [unknown](https://dev.to/this-is-learning/typescript-tips-tricks-any-vs-unknown-2ho6) type*
+*N.B. If you don't indicate your result type, by default Prisma returns the [unknown](https://https://dev.to/playfulprogramming/typescript-tips-tricks-any-vs-unknown-2ho6) type*
 
 Let's move on and see another feature that we can adopt when we are using these methods.
 Sometimes we have to use the IN operator in a custom query. Probably you are thinking that using the `map` method of the array is the right thing, unfortunately it's not so. To do this, Prisma exposes us a specific method `Prisma.join`. This method builds for us the IN clause in a safety mode, so we can use it in our custom queries.

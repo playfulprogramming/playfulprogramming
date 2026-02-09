@@ -5,7 +5,7 @@ published: "2020-11-16T21:05:46Z",
 edited: "2023-02-08T21:23:17Z",
 tags: ["angular", "testing", "router"],
 description: "Learn how to test route guards in isolated unit tests. Also learn how to test route guards in practice with RouterTestingModule.",
-originalLink: "https://dev.to/this-is-angular/testing-angular-route-guards-with-the-routertestingmodule-45c9",
+originalLink: "https://dev.to/playfulprogramming-angular/testing-angular-route-guards-with-the-routertestingmodule-45c9",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Angular router testing",
@@ -1264,6 +1264,6 @@ With test suites covering our route guards, we can feel confident about adding t
 
 # Related articles
 
-Learn about the `RouterTestingModule` and how to test routing components in "[Testing Angular routing components with the RouterTestingModule](https://dev.to/this-is-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0)".
+Learn about the `RouterTestingModule` and how to test routing components in "[Testing Angular routing components with the RouterTestingModule](https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0)".
 
-Learn how to test routed components in "[Testing routed Angular components with the RouterTestingModule](https://dev.to/this-is-angular/testing-routed-angular-components-with-the-routertestingmodule-1791)".
+Learn how to test routed components in "[Testing routed Angular components with the RouterTestingModule](https://dev.to/playfulprogramming-angular/testing-routed-angular-components-with-the-routertestingmodule-1791)".

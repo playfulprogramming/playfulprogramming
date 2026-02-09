@@ -4,7 +4,7 @@ title: "The JavaScript Paradox",
 published: "2022-08-08T15:27:32Z",
 tags: ["javascript", "webdev", "performance"],
 description: "I'm not sure if there's ever been a language more loathed, yet so widely used, as JavaScript.  I'm...",
-originalLink: "https://dev.to/this-is-learning/the-javascript-paradox-2njj",
+originalLink: "https://https://dev.to/playfulprogramming/the-javascript-paradox-2njj",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -48,7 +48,7 @@ JavaScript is probably more concerned with producing less JavaScript than anyone
 
 We lean heavily into bundlers and compilers to strip out every bit of code we don't need. The goal is to optimize every last bit of execution in our templates. Create specific languages to better capture intent to make that all possible. We analyze our apps to break apart code that can only be run on the server from code that runs in both places. And we use that information to reduce data serialization costs.
 
-We even leverage server-side rendering to inform how to reduce the cost of booting up the application in the browser, through [newer concepts like resumability](https://dev.to/this-is-learning/conquering-javascript-hydration-a9f). Running the application on the server fills in the gaps compilation can't handle ahead of time.
+We even leverage server-side rendering to inform how to reduce the cost of booting up the application in the browser, through [newer concepts like resumability](https://https://dev.to/playfulprogramming/conquering-javascript-hydration-a9f). Running the application on the server fills in the gaps compilation can't handle ahead of time.
 
 <iframe src="https://x.com/Madisonkanna/status/1555033936463466496"></iframe>
 

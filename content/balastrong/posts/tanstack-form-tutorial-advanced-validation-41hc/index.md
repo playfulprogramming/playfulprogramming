@@ -15,7 +15,7 @@ order: 2
 
 Validation is one of the core features of forms, probably the most important one.
 
-In [the last article](https://dev.to/this-is-learning/tanstack-form-setup-and-simple-validation-with-shadcnui-1al) we set up together a simple form with TanStack Form and basic validation. Today we'll push it a bit further and see how to handle more complex validation scenarios. In this order:
+In [the last article](https://https://dev.to/playfulprogramming/tanstack-form-setup-and-simple-validation-with-shadcnui-1al) we set up together a simple form with TanStack Form and basic validation. Today we'll push it a bit further and see how to handle more complex validation scenarios. In this order:
 
 1. Form-level validation
 2. Backend validation

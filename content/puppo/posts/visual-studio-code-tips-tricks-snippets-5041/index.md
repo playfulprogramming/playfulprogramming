@@ -4,7 +4,7 @@ title: "Visual Studio Code - Tips & Tricks - Snippets",
 published: "2022-03-21T07:53:21Z",
 tags: ["vscode", "productivity", "programming", "webdev"],
 description: "If you used to adopt Visual Studio in the past probably you already know something about...",
-originalLink: "https://dev.to/this-is-learning/visual-studio-code-tips-tricks-snippets-5041",
+originalLink: "https://https://dev.to/playfulprogramming/visual-studio-code-tips-tricks-snippets-5041",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "VsCode - Tips & Tricks",
@@ -21,7 +21,7 @@ If you open a javascript file or a typescript file and you type `log` and after 
 In VsCode there are many others snippets already implemented out-of-the-box but the VsCode's team doesn't stop here.
 VsCode enables you to create your own snippets, or import them from the extensions. But that's not all, you can create your own snippets available in all your projects, or create snippets for a specific project and accessible by all the team of that project.
 After all these words, let's see how the snippets work and how you can create your own snippets.
-First of all, to create a new snippet you have to open the [Command Palette](https://dev.to/this-is-learning/visual-studio-code-tips-tricks-command-palette-and-its-friends-2bhi), type "Configure User snippets" and press ENTER. After that VsCode suggests you some options, two of these are:
+First of all, to create a new snippet you have to open the [Command Palette](https://https://dev.to/playfulprogramming/visual-studio-code-tips-tricks-command-palette-and-its-friends-2bhi), type "Configure User snippets" and press ENTER. After that VsCode suggests you some options, two of these are:
 
 - New Global snippets file...
 - New Snippets file for '`name of your project`'...

@@ -4,7 +4,7 @@ title: "Understanding and Using ConfigureAwait in Asynchronous Programming",
 published: "2023-05-29T12:22:00Z",
 tags: ["csharp", "async", "dotnet", "dotnetcore"],
 description: "In this article, I will explain what ConfigureAwait is, why it is important to use it correctly, and...",
-originalLink: "https://dev.to/this-is-learning/understanding-and-using-configureawait-in-asynchronous-programming-2da3",
+originalLink: "https://https://dev.to/playfulprogramming/understanding-and-using-configureawait-in-asynchronous-programming-2da3",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -4,7 +4,7 @@ title: "Impostor Syndrome: from A - Z",
 published: "2024-10-09T11:31:24Z",
 tags: ["career", "learning"],
 description: "Impostor Syndrome is something many of us have faced at one point or another—a persistent, nagging...",
-originalLink: "https://dev.to/this-is-learning/impostor-syndrome-from-a-z-4dhl",
+originalLink: "https://https://dev.to/playfulprogramming/impostor-syndrome-from-a-z-4dhl",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -4,7 +4,7 @@ title: "How to Enhance the API Response with a Wrapper Class with Additional Inf
 published: "2025-01-16T20:04:11Z",
 tags: ["dotnet", "api"],
 description: "One of the challenges of using API (minimal or not) is how to customize the response format and...",
-originalLink: "https://dev.to/this-is-learning/how-to-enhance-the-api-response-with-a-wrapper-class-with-additional-information-with-net-minimal-45ea",
+originalLink: "https://https://dev.to/playfulprogramming/how-to-enhance-the-api-response-with-a-wrapper-class-with-additional-information-with-net-minimal-45ea",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -5,7 +5,7 @@ published: "2022-04-14T11:25:47Z",
 edited: "2022-04-19T08:39:23Z",
 tags: ["tooling", "devexeperience", "github", "git"],
 description: "Photo by Annie Spratt on Unsplash  In the last couple of years, the number of developers contributing...",
-originalLink: "https://dev.to/this-is-learning/how-github-is-improving-developer-experience-8jj",
+originalLink: "https://https://dev.to/playfulprogramming/how-github-is-improving-developer-experience-8jj",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

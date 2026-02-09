@@ -4,7 +4,7 @@ title: "What's in my bag for Experts Live Europe",
 published: "2023-09-17T22:06:31Z",
 tags: ["eventsinyourcity", "speaking"],
 description: "I am very excited to attend Experts Live Europe, a community-driven IT conference focused on...",
-originalLink: "https://dev.to/this-is-learning/whats-in-my-bag-for-experts-live-europe-9dn",
+originalLink: "https://https://dev.to/playfulprogramming/whats-in-my-bag-for-experts-live-europe-9dn",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

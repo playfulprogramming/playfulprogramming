@@ -5,7 +5,7 @@ published: "2022-07-30T09:57:00Z",
 edited: "2022-09-11T12:09:25Z",
 tags: ["opensource", "github", "discuss", "career"],
 description: "Hello everyone!  I recently posted an Article about benefits and advantages from contributing in Open...",
-originalLink: "https://dev.to/this-is-learning/video-how-open-source-can-change-your-life-4kg7",
+originalLink: "https://https://dev.to/playfulprogramming/video-how-open-source-can-change-your-life-4kg7",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

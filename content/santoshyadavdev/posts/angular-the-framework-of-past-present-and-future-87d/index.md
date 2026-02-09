@@ -5,7 +5,7 @@ published: "2023-04-06T22:34:23Z",
 edited: "2023-04-07T07:40:37Z",
 tags: ["angular", "webdev", "programming"],
 description: "Photo by Drew Beamer on Unsplash  I started using Angular in 2017 when version 4 was released. And I...",
-originalLink: "https://dev.to/this-is-angular/angular-the-framework-of-past-present-and-future-87d",
+originalLink: "https://dev.to/playfulprogramming-angular/angular-the-framework-of-past-present-and-future-87d",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

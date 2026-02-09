@@ -5,7 +5,7 @@ published: "2025-04-02T09:06:44Z",
 edited: "2025-04-02T09:12:27Z",
 tags: ["firebase", "database", "webdev", "mobile"],
 description: "Google offers robust, real-time NoSQL database solutions: the original Realtime Database and the...",
-originalLink: "https://dev.to/this-is-learning/3-pillars-only-senior-developers-know-about-firebase-and-firestore-databases-oe0",
+originalLink: "https://https://dev.to/playfulprogramming/3-pillars-only-senior-developers-know-about-firebase-and-firestore-databases-oe0",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -98,7 +98,7 @@ Ensure users can only read and write data they are permitted to see or modify (e
 Validate the structure, type, and content of data being written. Prevent users from writing malformed or invalid data that could break your application or corrupt your dataset.
 With security rules, you can stop malicious users from performing costly operations, like deleting entire collections or writing massive amounts of junk data, which could incur huge costs or render your app unusable.
 
-For a more detailed exploration of this specific pillar, please refer to [my dedicated article](https://dev.to/this-is-learning/exploring-firebase-database-security-rules-1kmk) on the subject.
+For a more detailed exploration of this specific pillar, please refer to [my dedicated article](https://https://dev.to/playfulprogramming/exploring-firebase-database-security-rules-1kmk) on the subject.
 
 ## 3: Optimizing Queries and Data Retrieval
 

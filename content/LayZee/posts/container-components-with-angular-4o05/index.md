@@ -5,7 +5,7 @@ published: "2020-12-30T00:32:09Z",
 edited: "2021-03-22T21:56:14Z",
 tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
 description: "Container components are extracted from mixed Angular components to increase the maintainability, testability and scalability of our Angular apps.",
-originalLink: "https://dev.to/this-is-angular/container-components-with-angular-4o05",
+originalLink: "https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
@@ -17,7 +17,7 @@ order: 2
 
 *Original publication date: 2018-11-06.*
 
-With [the Model-View-Presenter design pattern](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h) it is easy to use any application state management library or pattern whether its a redux-like state container like the NgRx Store or simply plain old services as in [the “Tour of Heroes” Angular tutorial](https://angular.io/tutorial).
+With [the Model-View-Presenter design pattern](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h) it is easy to use any application state management library or pattern whether its a redux-like state container like the NgRx Store or simply plain old services as in [the “Tour of Heroes” Angular tutorial](https://angular.io/tutorial).
 
 Container components sit at the boundary of the presentational layer and integrate our UI with the application state. They serve two main purposes:
 
@@ -30,7 +30,7 @@ In this article we will go through the process of extracting a container compone
 
 ---
 
-Most of the terms used in this article are explained in the introductory article “[Model-View-Presenter with Angular](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h)”.
+Most of the terms used in this article are explained in the introductory article “[Model-View-Presenter with Angular](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h)”.
 
 ---
 
@@ -569,17 +569,17 @@ Remember that container components serve two main purposes:
 - Container components supply a data flow for presentation.
 - Container components translate component-specific events to application state commands—or *actions* to put it in Redux/NgRx Store terms.
 
-One of the big advantages of using container components is increased testability. Continue your study in “[Testing Angular container components](https://dev.to/this-is-angular/testing-angular-container-components-33io)”.
+One of the big advantages of using container components is increased testability. Continue your study in “[Testing Angular container components](https://dev.to/playfulprogramming-angular/testing-angular-container-components-33io)”.
 
 # Related articles
 
-Read the introductory article “[Model-View-Presenter with Angular](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h)”.
+Read the introductory article “[Model-View-Presenter with Angular](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h)”.
 
 This is also where you will find links to the companion GitHub repository, related articles, and other useful resources.
 
-Learn how to test container component logic with blazingly fast unit tests in “[Testing Angular container components](https://dev.to/this-is-angular/testing-angular-container-components-33io)”.
+Learn how to test container component logic with blazingly fast unit tests in “[Testing Angular container components](https://dev.to/playfulprogramming-angular/testing-angular-container-components-33io)”.
 
-After extracting a container component from a mixed component, we continue by restructuring the rest of the mixed component to a presentational component. This is covered in "[Presentational components with Angular](https://dev.to/this-is-angular/presentational-components-with-angular-3961)".
+After extracting a container component from a mixed component, we continue by restructuring the rest of the mixed component to a presentational component. This is covered in "[Presentational components with Angular](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961)".
 
 # Acknowledgements
 

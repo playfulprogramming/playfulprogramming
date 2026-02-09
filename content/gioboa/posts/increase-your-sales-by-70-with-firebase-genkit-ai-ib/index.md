@@ -4,7 +4,7 @@ title: "Increase Your Sales by 70% with Firebase Genkit AI",
 published: "2025-05-16T10:12:48Z",
 tags: ["firebase", "webdev", "programming", "ai"],
 description: "Imagine your online store as a giant warehouse. You've got tons of cool stuff, but customers are...",
-originalLink: "https://dev.to/this-is-learning/increase-your-sales-by-70-with-firebase-genkit-ai-ib",
+originalLink: "https://https://dev.to/playfulprogramming/increase-your-sales-by-70-with-firebase-genkit-ai-ib",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -117,7 +117,7 @@ The `system prompt` is where you define the AI's "persona". In this case, it's a
 
 The `prompt` takes the customer's information (location, age, gender, interests, past orders) and asks the AI to suggest products.
 
-The `Output Schema` ensures that the AI gives you the information in a structured format, so you can use it easily in your e-commerce system. This is also useful for avoiding hallucinations because you are providing guidance to the AI. (I wrote about this [here](https://dev.to/this-is-learning/a-special-secret-to-prevent-ai-hallucinations-with-a-practical-google-genkit-ai-example-3d0o))
+The `Output Schema` ensures that the AI gives you the information in a structured format, so you can use it easily in your e-commerce system. This is also useful for avoiding hallucinations because you are providing guidance to the AI. (I wrote about this [here](https://https://dev.to/playfulprogramming/a-special-secret-to-prevent-ai-hallucinations-with-a-practical-google-genkit-ai-example-3d0o))
 
 The AI can then suggest products based on a holistic view of the customer and products. Based on the customer's interest.
 

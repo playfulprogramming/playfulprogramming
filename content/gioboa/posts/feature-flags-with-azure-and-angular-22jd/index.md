@@ -5,7 +5,7 @@ published: "2022-11-10T12:39:27Z",
 edited: "2022-12-20T08:17:14Z",
 tags: ["azure", "angular", "webdev", "programming"],
 description: "Recently I'm developing an Angular application, but with the increasing complexity and pressing...",
-originalLink: "https://dev.to/this-is-learning/feature-flags-with-azure-and-angular-22jd",
+originalLink: "https://https://dev.to/playfulprogramming/feature-flags-with-azure-and-angular-22jd",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

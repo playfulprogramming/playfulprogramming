@@ -5,7 +5,7 @@ published: "2025-03-26T10:44:55Z",
 edited: "2025-03-26T10:52:28Z",
 tags: ["firebase", "database", "programming", "security"],
 description: "Firebase Realtime Database offers incredible power and ease-of-use for building collaborative,...",
-originalLink: "https://dev.to/this-is-learning/exploring-firebase-database-security-rules-1kmk",
+originalLink: "https://https://dev.to/playfulprogramming/exploring-firebase-database-security-rules-1kmk",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

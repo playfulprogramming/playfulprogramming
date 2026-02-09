@@ -4,7 +4,7 @@ title: "Firebase Genkit-AI: Level Up Your Skills with AI-Powered Flows",
 published: "2025-04-24T08:36:52Z",
 tags: ["firebase", "ai", "programming", "javascript"],
 description: "The rapid evolution of artificial intelligence is fundamentally transforming how we build and...",
-originalLink: "https://dev.to/this-is-learning/firebase-genkit-ai-level-up-your-skills-with-ai-powered-flows-3foj",
+originalLink: "https://https://dev.to/playfulprogramming/firebase-genkit-ai-level-up-your-skills-with-ai-powered-flows-3foj",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

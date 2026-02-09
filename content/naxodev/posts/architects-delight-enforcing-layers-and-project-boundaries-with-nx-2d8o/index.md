@@ -5,7 +5,7 @@ published: "2023-06-11T12:20:53Z",
 edited: "2023-06-14T14:09:04Z",
 tags: ["webdev", "architecture", "monorepo", "nx"],
 description: "Introduction   When I embarked on my journey as a software developer, I delved into the...",
-originalLink: "https://dev.to/this-is-learning/architects-delight-enforcing-layers-and-project-boundaries-with-nx-2d8o",
+originalLink: "https://https://dev.to/playfulprogramming/architects-delight-enforcing-layers-and-project-boundaries-with-nx-2d8o",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -54,7 +54,7 @@ In the current example, we define a vertical slice or vertical layer based on th
 
 ![A Rectangle containing a smaller square. The rectangle represents the bounded context, the square represents the library. The rectangle has a caption: Booking, and the square another: feature. Both captions make reference to the level of the tags.](./p9wgu71c58ynjxc5gqe5.png)
 
-Additionally, we can use grouping folders with Nx to further streamline the structure. I believe there should be a direct connection between tags and grouping folders. I've discussed these patterns extensively in my article ["Semantic Grouping Folders with Nx."](https://dev.to/this-is-learning/semantic-grouping-folders-with-nx-3467)
+Additionally, we can use grouping folders with Nx to further streamline the structure. I believe there should be a direct connection between tags and grouping folders. I've discussed these patterns extensively in my article ["Semantic Grouping Folders with Nx."](https://https://dev.to/playfulprogramming/semantic-grouping-folders-with-nx-3467)
 
 ## Enforcing Project Boundaries with Nx
 

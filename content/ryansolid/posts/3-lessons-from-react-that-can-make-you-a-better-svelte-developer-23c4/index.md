@@ -5,7 +5,7 @@ published: "2021-07-22T18:01:14Z",
 edited: "2021-07-23T18:02:24Z",
 tags: ["javascript", "webdev", "svelte", "react"],
 description: "Svelte is an amazing JavaScript framework that has been getting a lot of attention the last year....",
-originalLink: "https://dev.to/this-is-learning/3-lessons-from-react-that-can-make-you-a-better-svelte-developer-23c4",
+originalLink: "https://https://dev.to/playfulprogramming/3-lessons-from-react-that-can-make-you-a-better-svelte-developer-23c4",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

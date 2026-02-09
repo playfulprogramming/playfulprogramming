@@ -5,7 +5,7 @@ published: "2021-03-22T21:06:02Z",
 edited: "2021-03-22T21:07:07Z",
 tags: ["angular", "testing", "rxjs", "modelviewpresenter"],
 description: "Learn tactics for testing RxJS observables and application state commands. Opt out of Angular testing modules for blazingly fast unit tests.",
-originalLink: "https://dev.to/this-is-angular/testing-angular-container-components-33io",
+originalLink: "https://dev.to/playfulprogramming-angular/testing-angular-container-components-33io",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
@@ -26,7 +26,7 @@ Container component templates are hardly worth testing, since they only contain 
 
 ---
 
-Many terms used in this article are explained in the introductory article “[Model-View-Presenter with Angular](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h)”.
+Many terms used in this article are explained in the introductory article “[Model-View-Presenter with Angular](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h)”.
 
 ---
 
@@ -34,7 +34,7 @@ Many terms used in this article are explained in the introductory article “[Mo
 
 Container components are built specifically to bind data to presentational components. Because of this, we immediately know the number and types of observable properties and methods that our container components need.
 
-In the article “[Container components with Angular](https://dev.to/this-is-angular/container-components-with-angular-4o05)”, we extracted the `HeroesContainerComponent` from a mixed component.
+In the article “[Container components with Angular](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05)”, we extracted the `HeroesContainerComponent` from a mixed component.
 
 To bind to the presentational heroes component, `HeroesContainerComponent` needs:
 
@@ -50,7 +50,7 @@ Our container component delegates to a `HeroService` for commands and queries ag
 
 Read an example of how types in TypeScript can be sneaky, especially for developers used to developing in mainstream C-family object-oriented programming languages such as C# and Java.
 
-“[Sorry C# and Java developers, this is not how TypeScript works](https://dev.to/this-is-learning/sorry-c-and-java-developers-this-is-not-how-typescript-works-401)”
+“[Sorry C# and Java developers, this is not how TypeScript works](https://https://dev.to/playfulprogramming/sorry-c-and-java-developers-this-is-not-how-typescript-works-401)”
 
 ---
 
@@ -369,11 +369,11 @@ You can find [the full heroes container component test suite](https://github.com
 
 ## Related articles
 
-Read the introductory article “[Model-View-Presenter with Angular](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h)”.
+Read the introductory article “[Model-View-Presenter with Angular](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h)”.
 
 This is also where you will find links to the companion GitHub repository, related articles, and other useful resources.
 
-Are you sick of worrying about state management and back-end stuff in your Angular components? Extract all that nasty non-presentational logic into container components. This is how: "[Container components with Angular](https://dev.to/this-is-angular/container-components-with-angular-4o05)".
+Are you sick of worrying about state management and back-end stuff in your Angular components? Extract all that nasty non-presentational logic into container components. This is how: "[Container components with Angular](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05)".
 
 ## Editor
 

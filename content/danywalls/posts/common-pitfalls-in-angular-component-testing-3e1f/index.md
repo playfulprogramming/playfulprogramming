@@ -5,7 +5,7 @@ published: "2023-01-28T08:12:23Z",
 edited: "2023-02-24T17:34:19Z",
 tags: ["angular", "testing", "javascript", "webdev"],
 description: "When talking about unit testing, the first definition that comes into our head is to test the minor...",
-originalLink: "https://dev.to/this-is-angular/common-pitfalls-in-angular-component-testing-3e1f",
+originalLink: "https://dev.to/playfulprogramming-angular/common-pitfalls-in-angular-component-testing-3e1f",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -4,7 +4,7 @@ title: "Navigating Open Spaces: Survival Guide for Neurodivergent Individuals",
 published: "2024-03-19T09:29:42Z",
 tags: ["productivity", "watercooler"],
 description: "Navigating open spaces can be challenging for anyone, but for neurodivergent individuals, it can...",
-originalLink: "https://dev.to/this-is-learning/navigating-open-spaces-survival-guide-for-neurodivergent-individuals-4l73",
+originalLink: "https://https://dev.to/playfulprogramming/navigating-open-spaces-survival-guide-for-neurodivergent-individuals-4l73",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

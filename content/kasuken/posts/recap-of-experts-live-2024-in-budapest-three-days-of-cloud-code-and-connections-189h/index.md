@@ -4,7 +4,7 @@ title: "Recap of Experts Live 2024 in Budapest: Three Days of Cloud, Code, and C
 published: "2024-10-07T13:48:51Z",
 tags: ["event", "community", "azure", "showdev"],
 description: "In a previous post I wrote why it's important to join events and especially, in this case, Experts...",
-originalLink: "https://dev.to/this-is-learning/recap-of-experts-live-2024-in-budapest-three-days-of-cloud-code-and-connections-189h",
+originalLink: "https://https://dev.to/playfulprogramming/recap-of-experts-live-2024-in-budapest-three-days-of-cloud-code-and-connections-189h",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

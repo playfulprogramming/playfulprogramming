@@ -5,7 +5,7 @@ published: "2021-05-19T14:28:18Z",
 edited: "2021-05-19T19:12:27Z",
 tags: ["javascript", "webdev", "devjournal", "solidjs"],
 description: "I decided to do a quick tally and I realized I've written almost 70 articles in the last 2 and a half...",
-originalLink: "https://dev.to/this-is-learning/two-years-of-writing-about-designing-javascript-frameworks-2018-2020-3ha5",
+originalLink: "https://https://dev.to/playfulprogramming/two-years-of-writing-about-designing-javascript-frameworks-2018-2020-3ha5",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

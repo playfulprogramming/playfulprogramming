@@ -5,7 +5,7 @@ published: "2021-10-14T14:13:08Z",
 edited: "2021-10-14T15:54:18Z",
 tags: ["javascript", "webdev", "react", "vue"],
 description: "Size in JavaScript Frameworks is actually a pretty tricky thing to estimate.   Even nailing down the...",
-originalLink: "https://dev.to/this-is-learning/javascript-framework-todomvc-size-comparison-504f",
+originalLink: "https://https://dev.to/playfulprogramming/javascript-framework-todomvc-size-comparison-504f",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

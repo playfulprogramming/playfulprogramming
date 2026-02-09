@@ -5,7 +5,7 @@ published: "2021-03-24T13:59:36Z",
 edited: "2021-07-29T22:17:55Z",
 tags: ["angular", "ivy", "components"],
 description: "The Angular Ivy runtime introduces a new concept called component features. Component features are mixins for components. They add, remove or modify traits at runtime.",
-originalLink: "https://dev.to/this-is-angular/component-features-with-angular-ivy-213h",
+originalLink: "https://dev.to/playfulprogramming-angular/component-features-with-angular-ivy-213h",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -5,7 +5,7 @@ published: "2021-12-14T19:54:19Z",
 edited: "2021-12-14T20:14:27Z",
 tags: ["javascript", "webdev", "react", "solidjs"],
 description: "I had someone recently reach out to me to ask \"What is Suspense in the general sense?\" They said all...",
-originalLink: "https://dev.to/this-is-learning/why-all-the-suspense-understanding-async-consistency-in-javascript-frameworks-3kdp",
+originalLink: "https://https://dev.to/playfulprogramming/why-all-the-suspense-understanding-async-consistency-in-javascript-frameworks-3kdp",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -5,7 +5,7 @@ published: "2025-03-19T10:15:40Z",
 edited: "2025-03-19T10:29:36Z",
 tags: ["firebase", "angular", "frontend", "webdev"],
 description: "In today's web development world, building dynamic and real-time applications is more important than...",
-originalLink: "https://dev.to/this-is-angular/building-realtime-web-apps-with-angular-and-firebase-database-2mkb",
+originalLink: "https://dev.to/playfulprogramming-angular/building-realtime-web-apps-with-angular-and-firebase-database-2mkb",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

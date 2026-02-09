@@ -5,7 +5,7 @@ published: "2021-03-24T14:43:24Z",
 edited: "2021-03-24T14:45:36Z",
 tags: ["angular", "nx", "ngrx", "architecture"],
 description: "Extract workspace libraries to get tiny Angular application projects. We'll create assets, styles, and environments libraries for an Nx workspace. Step-by-step commands and instructions.",
-originalLink: "https://dev.to/this-is-angular/tiny-angular-application-projects-in-nx-workspaces-229a",
+originalLink: "https://dev.to/playfulprogramming-angular/tiny-angular-application-projects-in-nx-workspaces-229a",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

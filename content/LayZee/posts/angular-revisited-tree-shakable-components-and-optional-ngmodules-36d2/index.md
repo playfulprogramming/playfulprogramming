@@ -5,7 +5,7 @@ published: "2020-11-20T21:24:56Z",
 edited: "2022-08-28T18:11:57Z",
 tags: ["angular", "ivy", "components", "designpatterns"],
 description: "NgModule is arguably one of the most confusing Angular concepts.",
-originalLink: "https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2",
+originalLink: "https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Standalone Angular applications",
@@ -392,7 +392,7 @@ Angular modules were traditionally the primary method to configure injectors for
 
 Tree-shakable dependencies are easier to reason about and less error-prone. Even better, they result in smaller application bundles, especially if used in shared dependencies and published libraries.
 
-Like in most other aspects, Angular is very flexible when it comes to dependencies. Learn all about them in “[Tree-shakable dependencies in Angular projects](https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”.
+Like in most other aspects, Angular is very flexible when it comes to dependencies. Learn all about them in “[Tree-shakable dependencies in Angular projects](https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”.
 
 ## Still useful for dynamic providers and multi providers
 
@@ -402,7 +402,7 @@ Another example where Angular modules still have their use is for multi provider
 
 # Libraries and shared bundles
 
-Like discussed in “[Tree-shakable dependencies in Angular projects](https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”, Angular libraries and shared bundles can put tree-shakable providers to good use. With Angular Development Kit’s Build Optimizer which is included in the default Angular CLI production configuration, even unused declarables are tree-shakable.
+Like discussed in “[Tree-shakable dependencies in Angular projects](https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”, Angular libraries and shared bundles can put tree-shakable providers to good use. With Angular Development Kit’s Build Optimizer which is included in the default Angular CLI production configuration, even unused declarables are tree-shakable.
 
 However, entry components aren’t tree-shakable. A library like Angular Material actually has a few entry components. Every component that is rendered through an Angular CDK Overlay or Portal Outlet needs to be declared as an entry component. This includes Angular Material’s Autocomplete, Datepicker, and Select components.
 
@@ -454,9 +454,9 @@ Here’s the recording of my talk presented at ngVikings 2019 in Copenhagen:
 
 # Related articles
 
-Step-by-step refactoring of a simple application from a single Angular module containing all declarables to SCAMs in *[Emulating standalone components using single component Angular modules](https://dev.to/this-is-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do)*.
+Step-by-step refactoring of a simple application from a single Angular module containing all declarables to SCAMs in *[Emulating standalone components using single component Angular modules](https://dev.to/playfulprogramming-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do)*.
 
-Dependency injection is a key feature of Angular. Since Angular version 6, we can configure tree-shakable dependencies which are easier to reason about and compile to smaller bundles. Learn all the details in *[Tree-shakable dependencies in Angular projects](https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg)*.
+Dependency injection is a key feature of Angular. Since Angular version 6, we can configure tree-shakable dependencies which are easier to reason about and compile to smaller bundles. Learn all the details in *[Tree-shakable dependencies in Angular projects](https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg)*.
 
 A useful Angular pattern needs a schematic. [Younes](https://twitter.com/yjaaidi) created a SCAM schematic which he introduces along with some thoughts on the pattern in his article “[Your Angular Module is a SCAM!](https://medium.com/wishtack/your-angular-module-is-a-scam-b4136ca3917b)”.
 

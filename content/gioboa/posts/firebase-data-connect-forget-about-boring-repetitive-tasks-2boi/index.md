@@ -5,7 +5,7 @@ published: "2025-06-20T13:39:34Z",
 edited: "2025-06-27T10:24:36Z",
 tags: ["firebase", "database", "programming", "webdev"],
 description: "For years, the Firebase platform has been synonymous with rapid, scalable application development,...",
-originalLink: "https://dev.to/this-is-learning/firebase-data-connect-forget-about-boring-repetitive-tasks-2boi",
+originalLink: "https://https://dev.to/playfulprogramming/firebase-data-connect-forget-about-boring-repetitive-tasks-2boi",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

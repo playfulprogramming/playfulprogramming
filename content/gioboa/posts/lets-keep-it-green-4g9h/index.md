@@ -5,7 +5,7 @@ published: "2022-11-04T11:07:18Z",
 edited: "2022-12-20T08:17:35Z",
 tags: ["refactoring", "cleancode", "testing", "webdev"],
 description: "Working as a consultant I often carry out refactoring activities. I want to talk about that in this...",
-originalLink: "https://dev.to/this-is-learning/lets-keep-it-green-4g9h",
+originalLink: "https://https://dev.to/playfulprogramming/lets-keep-it-green-4g9h",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

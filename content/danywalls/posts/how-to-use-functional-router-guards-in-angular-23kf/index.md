@@ -158,7 +158,7 @@ In Angular 14, we can use the inject function in the constructor function scope 
 
 Our guard functions need to get the router and the domain service to match our guards requirements.
 
-If you want to learn more about the `inject`  I recommend looking at the article of @armen(https://dev.to/this-is-angular/always-use-inject-2do4) about Inject to answer your questions.
+If you want to learn more about the `inject`  I recommend looking at the article of @armen(https://dev.to/playfulprogramming-angular/always-use-inject-2do4) about Inject to answer your questions.
 
 ```typescript
 import {inject} from '@angular/core';

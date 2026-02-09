@@ -4,7 +4,7 @@ title: "Setting up VS Code for C# development",
 published: "2023-08-31T13:58:01Z",
 tags: ["csharp", "vscode"],
 description: "Visual Studio Code (VS Code) is a popular and versatile code editor that supports many languages and...",
-originalLink: "https://dev.to/this-is-learning/setting-up-vs-code-for-c-development-21do",
+originalLink: "https://https://dev.to/playfulprogramming/setting-up-vs-code-for-c-development-21do",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

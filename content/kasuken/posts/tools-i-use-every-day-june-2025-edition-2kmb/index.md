@@ -4,7 +4,7 @@ title: "Tools I Use Every Day (June 2025 Edition)",
 published: "2025-06-15T14:28:33Z",
 tags: ["tooling"],
 description: "As a developer  and productivity geek, I’m always on the lookout for tools that actually make a...",
-originalLink: "https://dev.to/this-is-learning/tools-i-use-every-day-june-2025-edition-2kmb",
+originalLink: "https://https://dev.to/playfulprogramming/tools-i-use-every-day-june-2025-edition-2kmb",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

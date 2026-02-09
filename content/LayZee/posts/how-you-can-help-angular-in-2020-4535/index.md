@@ -5,7 +5,7 @@ published: "2020-11-18T10:34:08Z",
 edited: "2022-11-20T14:55:51Z",
 tags: ["angular", "ivy", "community"],
 description: "2020 is the year you can help the Angular ecosystem thrive.",
-originalLink: "https://dev.to/this-is-angular/how-you-can-help-angular-in-2020-4535",
+originalLink: "https://dev.to/playfulprogramming-angular/how-you-can-help-angular-in-2020-4535",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

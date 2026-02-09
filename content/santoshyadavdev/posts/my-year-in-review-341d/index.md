@@ -5,7 +5,7 @@ published: "2022-12-14T23:02:02Z",
 edited: "2022-12-15T09:30:08Z",
 tags: ["review", "journey"],
 description: "Photo by Mantas Hesthaven on Unsplash  This is going to be challenging to write. This year felt like...",
-originalLink: "https://dev.to/this-is-learning/my-year-in-review-341d",
+originalLink: "https://https://dev.to/playfulprogramming/my-year-in-review-341d",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

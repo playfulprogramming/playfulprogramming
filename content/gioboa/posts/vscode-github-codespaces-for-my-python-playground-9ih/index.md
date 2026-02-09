@@ -5,7 +5,7 @@ published: "2022-12-10T19:33:34Z",
 edited: "2022-12-20T08:15:58Z",
 tags: ["programming", "beginners", "cpp"],
 description: "Today I did some experiments with Python, I decided to do this activity with GitHub Codespaces...",
-originalLink: "https://dev.to/this-is-learning/vscode-github-codespaces-for-my-python-playground-9ih",
+originalLink: "https://https://dev.to/playfulprogramming/vscode-github-codespaces-for-my-python-playground-9ih",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -43,7 +43,7 @@ Once the repository was cloned locally, via VSCode, I used the command:
 ### Run locally
 
 With this approach (docker installed locally) you can use VSCode Dev Container feature as I described in this article 😊
-[Tidy up your machine with Visual Studio Code Dev Containers](https://dev.to/this-is-learning/tidy-up-your-machine-with-visual-studio-code-dev-containers-256n)
+[Tidy up your machine with Visual Studio Code Dev Containers](https://https://dev.to/playfulprogramming/tidy-up-your-machine-with-visual-studio-code-dev-containers-256n)
 
 #### Then I selected "Show All definitions"<br>
 

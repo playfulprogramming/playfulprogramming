@@ -5,7 +5,7 @@ published: "2025-07-23T07:44:57Z",
 edited: "2025-07-23T08:19:34Z",
 tags: ["azure", "cloud", "ai", "programming"],
 description: "The rise of Large Language Models (LLMs) has opened unprecedented possibilities for businesses, from...",
-originalLink: "https://dev.to/this-is-learning/power-your-innovation-llm-model-selection-within-azures-ecosystem-ain",
+originalLink: "https://https://dev.to/playfulprogramming/power-your-innovation-llm-model-selection-within-azures-ecosystem-ain",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

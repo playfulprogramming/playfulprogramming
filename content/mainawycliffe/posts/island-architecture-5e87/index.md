@@ -98,9 +98,9 @@ This article looked at Islands Architecture, why they exist, and the frameworks 
 
 1. [Why Progressive Hydration is Harder than You Think](https://www.builder.io/blog/why-progressive-hydration-is-harder-than-you-think?utm_source=twitter)
 2. [From Static to Interactive: Why Resumability is the Best Alternative to Hydration](https://www.builder.io/blog/from-static-to-interactive-why-resumability-is-the-best-alternative-to-hydration)
-3. [JavaScript vs. JavaScript. Fight!](https://dev.to/this-is-learning/javascript-vs-javascript-fight-53fa)
-4. [Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3)
-5. [Resumable JavaScript with Qwik](https://dev.to/this-is-learning/resumable-javascript-with-qwik-2i29)
+3. [JavaScript vs. JavaScript. Fight!](https://https://dev.to/playfulprogramming/javascript-vs-javascript-fight-53fa)
+4. [Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://https://dev.to/playfulprogramming/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3)
+5. [Resumable JavaScript with Qwik](https://https://dev.to/playfulprogramming/resumable-javascript-with-qwik-2i29)
 6. [Conquering JavaScript Hydration Event delegation is the key to not running over the component... Apr 15](https://dev.to/ryansolid/comment/1ni8p)
 7. [State of JavaScript 2021: Framework Reflections](https://dev.to/ryansolid/state-of-javascript-2021-framework-reflections-2i77)
 8. [A first look at Qwik - the HTML first framework WRITTEN BYMIŠKO HEVERY JULY 2, 2021](https://www.builder.io/blog/introducing-qwik-framework)

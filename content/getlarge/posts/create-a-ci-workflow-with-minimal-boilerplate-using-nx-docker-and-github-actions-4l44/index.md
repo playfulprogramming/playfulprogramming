@@ -5,7 +5,7 @@ published: "2024-08-04T11:14:05Z",
 edited: "2025-07-10T14:03:01Z",
 tags: ["tutorial", "nx", "ci"],
 description: "In this post, I share my blueprint for a hybrid CI workflow that neither forces you to adapt to a...",
-originalLink: "https://dev.to/this-is-learning/create-a-ci-workflow-with-minimal-boilerplate-using-nx-docker-and-github-actions-4l44",
+originalLink: "https://https://dev.to/playfulprogramming/create-a-ci-workflow-with-minimal-boilerplate-using-nx-docker-and-github-actions-4l44",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -249,7 +249,7 @@ The following section will show how to simplify environment variables by sharing
 
 [DotenvX](https://dotenvx.com) is a library that simplifies managing and sharing environment variables. With features like partial or complete public key encryption and easy grouping by stage name, safely sharing environment variables has never been easier!
 
-Check out my article [Exploring DotenvX](https://dev.to/this-is-learning/exploring-dotenvx-46ng) for a detailed guide on how to use DotenvX.
+Check out my article [Exploring DotenvX](https://https://dev.to/playfulprogramming/exploring-dotenvx-46ng) for a detailed guide on how to use DotenvX.
 
 > **Note**:
 > I have a personal affinity with DotenvX (and Dotenv Vault) but there are other open-source solutions available for managing environment variables, such as [Infisical](https://github.com/Infisical/infisical) or [sops](https://github.com/getsops/sops). Feel free to explore and choose the one that best fits your needs.

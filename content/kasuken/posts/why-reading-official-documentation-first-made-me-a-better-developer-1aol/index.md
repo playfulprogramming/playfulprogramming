@@ -4,7 +4,7 @@ title: "Why Reading Official Documentation First Made Me a Better Developer",
 published: "2024-08-30T20:22:45Z",
 tags: ["webdev", "documentation", "learning"],
 description: "As a developer, the constant need for learning and adapting to new technologies is a given. However,...",
-originalLink: "https://dev.to/this-is-learning/why-reading-official-documentation-first-made-me-a-better-developer-1aol",
+originalLink: "https://https://dev.to/playfulprogramming/why-reading-official-documentation-first-made-me-a-better-developer-1aol",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -14,7 +14,7 @@ order: 2
 
 Welcome to the second article of a series where we will explore TanStack Router, the new typesafe routing library (and state manager, in some cases) for React.
 
-In the [first article](https://dev.to/this-is-learning/tanstack-router-setup-routing-in-react-4gf7) we saw how to set up a new project with TanStack Router and how to create a couple of routes. In this article we'll see how to handle path parameters and how to use a loader to fetch data before rendering a route.
+In the [first article](https://https://dev.to/playfulprogramming/tanstack-router-setup-routing-in-react-4gf7) we saw how to set up a new project with TanStack Router and how to create a couple of routes. In this article we'll see how to handle path parameters and how to use a loader to fetch data before rendering a route.
 
 ## Path Parameters
 

@@ -5,7 +5,7 @@ published: "2022-07-12T16:58:20Z",
 edited: "2022-07-12T22:11:24Z",
 tags: ["react", "vue", "svelte", "solidjs"],
 description: "Sometimes there are problems that have no universally good solutions. There is some tradeoff to be...",
-originalLink: "https://dev.to/this-is-learning/the-cost-of-consistency-in-ui-frameworks-4agi",
+originalLink: "https://https://dev.to/playfulprogramming/the-cost-of-consistency-in-ui-frameworks-4agi",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

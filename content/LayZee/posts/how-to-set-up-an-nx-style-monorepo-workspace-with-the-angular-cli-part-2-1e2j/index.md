@@ -5,7 +5,7 @@ published: "2021-03-31T12:15:06Z",
 edited: "2021-09-18T23:08:54Z",
 tags: ["angular", "nx", "ngrx", "monorepo"],
 description: "In Part 2 of this tutorial, we'll set up our custom generate project tool and create the shared and booking data access libraries with NgRx. To honor the flow of dependencies, we extract a shared environments library.",
-originalLink: "https://dev.to/this-is-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-2-1e2j",
+originalLink: "https://dev.to/playfulprogramming-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-2-1e2j",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "How to set up an Nx-style monorepo workspace with the Angular CLI",
@@ -567,7 +567,7 @@ We added the NgRx Store DevTools package, used the NgRx schematics to create a `
 
 Some of the configuration needed to know whether the application was running in the development or production mode. This state is usually defined in the environment object of the application project.
 
-Since the shared data access is a library project, it must not depend on an application project. Because of this, we used a recipe from the article "[Tiny Angular application projects in Nx workspaces](https://dev.to/this-is-angular/tiny-angular-application-projects-in-nx-workspaces-229a)" to extract a shared environments library. We set up file replacements in our builders.
+Since the shared data access is a library project, it must not depend on an application project. Because of this, we used a recipe from the article "[Tiny Angular application projects in Nx workspaces](https://dev.to/playfulprogramming-angular/tiny-angular-application-projects-in-nx-workspaces-229a)" to extract a shared environments library. We set up file replacements in our builders.
 
 With this in place, both our booking desktop application project and the shared data access library project was able to depend on the environment configuration.
 

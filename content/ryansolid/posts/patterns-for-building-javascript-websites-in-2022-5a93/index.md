@@ -5,7 +5,7 @@ published: "2022-06-08T16:11:03Z",
 edited: "2023-03-18T08:23:52Z",
 tags: ["javascript", "webdev", "patterns", "architecture"],
 description: "Deciding on the approaches and tools to use to build on web these days can be a challenging prospect....",
-originalLink: "https://dev.to/this-is-learning/patterns-for-building-javascript-websites-in-2022-5a93",
+originalLink: "https://https://dev.to/playfulprogramming/patterns-for-building-javascript-websites-in-2022-5a93",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -76,7 +76,7 @@ If there is any take away about routing it is that every time we've made a signi
 
 [Introducing TurboLinks for Rails 4.0](https://geekmonkey.org/introducing-turbolinks-for-rails-4-0/) - Fabian Becker, 2012
 [Have Single-Page Apps Ruined the Web?](https://www.youtube.com/watch?v=860d8usGC0o) - Rich Harris, Oct 2021
-[The Return of Server Side Routing](https://dev.to/this-is-learning/the-return-of-server-side-routing-b05) - Ryan Carniato, Jan 2022
+[The Return of Server Side Routing](https://https://dev.to/playfulprogramming/the-return-of-server-side-routing-b05) - Ryan Carniato, Jan 2022
 [Remixing React Router](https://remix.run/blog/remixing-react-router) - Ryan Florence, Mar 2022
 [Routing I'm not Smart Enough for a SPA](https://dev.to/tigt/routing-im-not-smart-enough-for-a-spa-5hki) - Taylor Hunt, Apr 2022
 
@@ -127,7 +127,7 @@ We have compute so near to the end user, but it doesn't necessarily change the d
 
 > *Hydration is the work done in the browser to get a server rendered app/page into the same state as if it had been client rendered* - Michael Rawlings
 
-Hydration has [proven a challenge to do efficiently](https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3). And it is important as slow hydration gives the illusion of a fully interactive site when it isn't. We talk about things like Time to Interactive looking at page load metrics. But different techniques often defer work rather than address it, and measuring these things is still a work in progress.
+Hydration has [proven a challenge to do efficiently](https://https://dev.to/playfulprogramming/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3). And it is important as slow hydration gives the illusion of a fully interactive site when it isn't. We talk about things like Time to Interactive looking at page load metrics. But different techniques often defer work rather than address it, and measuring these things is still a work in progress.
 
 It doesn't help that it isn't easy to talk about Hydration. We often talk about qualities of the solution rather than having a name for the approach. The reason is Hydration operates along 3 dimensions:
 
@@ -169,10 +169,10 @@ Most JavaScript Frameworks today are Eager, Full, and Replayable. This includes 
 [Maybe you Don't Need that Spa](https://medium.com/@mlrawlings/maybe-you-dont-need-that-spa-f2c659bc7fec) - Michael Rawlings, May 2020
 [Islands Architecture](https://jasonformat.com/islands-architecture/) - Jason Miller, Aug 2020
 [Introducing Zero-Bundle-Size React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) - Dan Abramov & co, Dec 2020
-[Is Okb of JavaScript in your Future?](https://dev.to/this-is-learning/is-0kb-of-javascript-in-your-future-48og) - Ryan Carniato, May 2021
+[Is Okb of JavaScript in your Future?](https://https://dev.to/playfulprogramming/is-0kb-of-javascript-in-your-future-48og) - Ryan Carniato, May 2021
 [What is Partial Hydration and Why is Everyone Talking about It?](https://ajcwebdev.com/what-is-partial-hydration-and-why-is-everyone-talking-about-it) - Anthony Campolo, Nov 2021
-[Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3) - Ryan Carniato, Feb 2022
-[Conquering JavaScript Hydration](https://dev.to/this-is-learning/conquering-javascript-hydration-a9f) - Ryan Carniato, Mar 2022
+[Why Efficient Hydration in JavaScript Frameworks is so Challenging](https://https://dev.to/playfulprogramming/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3) - Ryan Carniato, Feb 2022
+[Conquering JavaScript Hydration](https://https://dev.to/playfulprogramming/conquering-javascript-hydration-a9f) - Ryan Carniato, Mar 2022
 [Hydration is Pure Overhead](https://www.builder.io/blog/hydration-is-pure-overhead) - Misko Hevery, Apr 2022
 
 ---

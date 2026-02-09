@@ -5,7 +5,7 @@ published: "2019-12-06T19:29:17Z",
 edited: "2021-04-06T11:06:03Z",
 tags: ["angular", "javascript", "java", "typescript"],
 description: "Recently one of the .Net developer asked me the question \"why we use class rather than interfaces whi...",
-originalLink: "https://dev.to/this-is-angular/dependency-injection-simplified-for-net-and-java-developers-4j1l",
+originalLink: "https://dev.to/playfulprogramming-angular/dependency-injection-simplified-for-net-and-java-developers-4j1l",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

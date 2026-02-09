@@ -5,7 +5,7 @@ published: "2022-01-26T00:33:23Z",
 edited: "2022-02-01T20:16:51Z",
 tags: ["javascript", "webdev", "webperf", "programming"],
 description: "Return? It never went away. Or at least that is what some smug \"told you so\" is going to say. But for...",
-originalLink: "https://dev.to/this-is-learning/the-return-of-server-side-routing-b05",
+originalLink: "https://https://dev.to/playfulprogramming/the-return-of-server-side-routing-b05",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -21,7 +21,7 @@ But like all things, there is potential for too much of a good thing. JavaScript
 
 And it is something that those who see themselves as stewards of the web are very concerned with. On both sides of the discussion. By this point, it should be clear that it may be difficult to achieve a one size fits all solution, but there are definite improvements to be made.
 
-The common thread is to send less JavaScript to the browser seen most recently championed by [0kb of JS frameworks](https://dev.to/this-is-learning/is-0kb-of-javascript-in-your-future-48og). But I want to expand on this as the repercussions are about more than progressive enhancement or lazy hydration. Everything is converging on architectural change that we have not seen the likes of since when SPAs came on the scenes over a decade ago.
+The common thread is to send less JavaScript to the browser seen most recently championed by [0kb of JS frameworks](https://https://dev.to/playfulprogramming/is-0kb-of-javascript-in-your-future-48og). But I want to expand on this as the repercussions are about more than progressive enhancement or lazy hydration. Everything is converging on architectural change that we have not seen the likes of since when SPAs came on the scenes over a decade ago.
 
 We're putting routing back on the server.
 

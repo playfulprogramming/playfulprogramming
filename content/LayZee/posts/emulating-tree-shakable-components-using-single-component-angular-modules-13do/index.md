@@ -5,7 +5,7 @@ published: "2020-11-20T21:54:12Z",
 edited: "2022-08-28T18:11:59Z",
 tags: ["angular", "ivy", "components"],
 description: "SCAMs are a safe, View Engine-compatible migration path towards standalone components.",
-originalLink: "https://dev.to/this-is-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do",
+originalLink: "https://dev.to/playfulprogramming-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Standalone Angular applications",
@@ -17,7 +17,7 @@ order: 2
 
 *Original publication date: 2019-06-21.*
 
-[SCAMs (single component Angular modules)](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2) can emulate standalone components by having an Angular module only be concerned about declaring and exporting a single component. A SCAM instructs the Angular compiler to link **declarable dependencies** (components, directives, and pipes used in a component template) to its component template by importing other SCAMs and fine-grained third-party Angular modules.
+[SCAMs (single component Angular modules)](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2) can emulate standalone components by having an Angular module only be concerned about declaring and exporting a single component. A SCAM instructs the Angular compiler to link **declarable dependencies** (components, directives, and pipes used in a component template) to its component template by importing other SCAMs and fine-grained third-party Angular modules.
 
 We’ll work with a small application containing the zippy component, a button directive with a custom click handler, and the capitalize pipe. To prepare the application for standalone components, we will refactor the application to use SCAMs.
 
@@ -281,7 +281,7 @@ You know, having all declarations in the same Angular module is pretty mind-bogg
 
 So we have a nested component tree, but all components are declared by the same Angular module.
 
-For a component template to work, Angular needs to know how to map component selectors to components, directive selectors to directives and pipe names to pipes. Angular will consider the Angular module declaring the component. The declaring Angular module has [a transitive compilation scope](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-module-scope) which lists these mappings to declarables.
+For a component template to work, Angular needs to know how to map component selectors to components, directive selectors to directives and pipe names to pipes. Angular will consider the Angular module declaring the component. The declaring Angular module has [a transitive compilation scope](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-module-scope) which lists these mappings to declarables.
 
 The `ZippyComponent` uses the `ButtonDirective`. They were both declared by the `AppModule` in the original application. The declarable dependency is linked and the component template can be compiled.
 
@@ -293,13 +293,13 @@ The `AppComponent` uses the `ZippyComponent` and the `CapitalizePipe`. They were
 
 In an application using SCAMs such as our refactored zippy application, all components have a transitive compilation scope that matches exactly the declarable dependencies used by their templates. Nothing more, nothing less.
 
-A SCAM’s [transitive exported scope](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-exported-scope) consists at most of its specific declarable. A routed or bootstrapped component’s SCAMs will have an empty transitive exported scope. This is also the case for a dynamic component’s SCAM, but it will instead list the component as an entry component liked mentioned in a previous section.
+A SCAM’s [transitive exported scope](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-exported-scope) consists at most of its specific declarable. A routed or bootstrapped component’s SCAMs will have an empty transitive exported scope. This is also the case for a dynamic component’s SCAM, but it will instead list the component as an entry component liked mentioned in a previous section.
 
 ## Standalone components
 
 ![](./rk7jf56n4ubg6ov4z7xp.jpeg) *Photo by [Providence Doucet](https://unsplash.com/@providence) on Unsplash.*
 
-One of the main reasons for using SCAMs is to end up with [standalone components](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#tree-shakable-components) having [local component scopes](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#local-component-scope). With the Ivy rewrite, every component is treated as an entry component, meaning that it can be dynamically rendered, it can be routed and it can be bootstrapped.
+One of the main reasons for using SCAMs is to end up with [standalone components](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#tree-shakable-components) having [local component scopes](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#local-component-scope). With the Ivy rewrite, every component is treated as an entry component, meaning that it can be dynamically rendered, it can be routed and it can be bootstrapped.
 
 In the View Engine—the current Angular rendering engine—entry components cannot be tree shaked from our application bundles. Their entry component metadata annotations are there to explicitly instruct the compiler to always include them, even though they might not be used in any component templates.
 
@@ -371,7 +371,7 @@ Here’s the recording of my talk presented at ngVikings 2019 in Copenhagen:
 
 ## Related articles
 
-Standalone components is just one of the techniques used to make Angular modules optional. Read what you can expect from the upcoming Angular Ivy era in “[Angular revisited: Tree-shakable components and optional NgModules](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2)”.
+Standalone components is just one of the techniques used to make Angular modules optional. Read what you can expect from the upcoming Angular Ivy era in “[Angular revisited: Tree-shakable components and optional NgModules](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2)”.
 
 ## Peer reviewers
 

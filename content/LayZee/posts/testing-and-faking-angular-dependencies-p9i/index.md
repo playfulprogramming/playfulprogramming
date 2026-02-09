@@ -5,7 +5,7 @@ published: "2021-03-24T13:34:23Z",
 edited: "2021-03-26T14:20:51Z",
 tags: ["angular", "testing", "dependencyinjection"],
 description: "Learn the ins an outs of Angular dependency injection in automated tests.",
-originalLink: "https://dev.to/this-is-angular/testing-and-faking-angular-dependencies-p9i",
+originalLink: "https://dev.to/playfulprogramming-angular/testing-and-faking-angular-dependencies-p9i",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Angular dependencies",
@@ -19,7 +19,7 @@ order: 2
 
 Dependency injection is a key feature of Angular. This flexible approach makes our declarables and class-based services easier to test in isolation.
 
-[Tree-shakable dependencies](https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg) remove the layer of indirection that is Angular modules, but how do we test their tree-shakable providers? We’ll test value factories that depend on injection tokens for platform-specific APIs.
+[Tree-shakable dependencies](https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg) remove the layer of indirection that is Angular modules, but how do we test their tree-shakable providers? We’ll test value factories that depend on injection tokens for platform-specific APIs.
 
 Some components have browser-specific features. Together, we’ll test a banner that notifies our user that we’re ending Internet Explorer 11 support. A proper test suite can give us enough confidence that we won’t even have to test the banner in Internet Explorer 11.
 
@@ -31,7 +31,7 @@ Through examples, we’ll explore component fixtures, component initialisation, 
 
 ## Faking dependency injection tokens used in token providers
 
-In “[Tree-shakable dependencies in Angular projects](https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”, we created a dependency injection token that evaluates to a flag indicating whether the current browser is Internet Explorer 11.
+In “[Tree-shakable dependencies in Angular projects](https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”, we created a dependency injection token that evaluates to a flag indicating whether the current browser is Internet Explorer 11.
 
 ```ts
 // user-agent.token.ts
@@ -582,7 +582,7 @@ During this process, we investigated gotchas when using the `inject` testing fun
 
 We tested the Internet Explorer 11 deprecation banner in many ways, to the degree that there should barely be a need to test it in the actual browser. We faked its dependencies in its component test suite, but as we discussed, we should always test it in a real browser target for complex integration scenarios.
 
-Explore the options that Angular’s dependency injection enable us to do during development in “[Faking dependencies in Angular applications](https://dev.to/this-is-angular/faking-dependencies-in-angular-applications-4d2f)”.
+Explore the options that Angular’s dependency injection enable us to do during development in “[Faking dependencies in Angular applications](https://dev.to/playfulprogramming-angular/faking-dependencies-in-angular-applications-4d2f)”.
 
 ## Resources
 
@@ -594,9 +594,9 @@ Microsoft’s [Modern.IE](http://modern.ie/) domain has free resources for gener
 
 ## Related articles
 
-We’ll create a browser faker to test the banner component during development in “[Faking dependencies in Angular applications](https://dev.to/this-is-angular/faking-dependencies-in-angular-applications-4d2f)”.
+We’ll create a browser faker to test the banner component during development in “[Faking dependencies in Angular applications](https://dev.to/playfulprogramming-angular/faking-dependencies-in-angular-applications-4d2f)”.
 
-Learn how to provide tree-shakable dependencies and other complicated configurations of Angular dependency injection in “[Tree-shakable dependencies in Angular projects](https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”. This is the article that our application is based on.
+Learn how to provide tree-shakable dependencies and other complicated configurations of Angular dependency injection in “[Tree-shakable dependencies in Angular projects](https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”. This is the article that our application is based on.
 
 ## Reviewers
 

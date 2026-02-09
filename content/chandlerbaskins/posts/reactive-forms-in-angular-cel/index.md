@@ -5,7 +5,7 @@ published: "2021-08-26T13:43:08Z",
 edited: "2021-08-27T17:49:29Z",
 tags: ["angular"],
 description: "Photo by SIMON LEE on Unsplash           Forms can be complicated   Seriously. I feel like the days...",
-originalLink: "https://dev.to/this-is-angular/reactive-forms-in-angular-cel",
+originalLink: "https://dev.to/playfulprogramming-angular/reactive-forms-in-angular-cel",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -5,7 +5,7 @@ published: "2025-02-28T09:17:28Z",
 edited: "2025-03-14T08:24:58Z",
 tags: ["angular", "firebase", "frontend", "typescript"],
 description: "Push notifications are a powerful way to re-engage users, deliver timely updates, and drive traffic...",
-originalLink: "https://dev.to/this-is-angular/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a",
+originalLink: "https://dev.to/playfulprogramming-angular/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

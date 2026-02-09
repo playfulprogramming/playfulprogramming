@@ -5,7 +5,7 @@ published: "2020-11-16T21:05:34Z",
 edited: "2023-02-08T21:23:18Z",
 tags: ["angular", "testing", "router"],
 description: "Learn how to stub the ActivatedRoute for shallow routed component tests. Also learn to use the RouterTestingModule for integrated routed component tests.",
-originalLink: "https://dev.to/this-is-angular/testing-routed-angular-components-with-the-routertestingmodule-1791",
+originalLink: "https://dev.to/playfulprogramming-angular/testing-routed-angular-components-with-the-routertestingmodule-1791",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Angular router testing",
@@ -656,14 +656,14 @@ The `RouterTestingModule` not only allows us to integrated our tests with the re
 
 An interesting point about the `HeroDetailComponent` is that it's both a routed component and a routing component. We've seen that it's the target of a dynamic route, but it also uses the `Location` service to navigate back to the `DashboardComponent` in the Tour of Heroes application which makes it a routing component.
 
-If you'd like to test this behaviour as well, follow the techniques demonstrated in "[Testing Angular routing components with the RouterTestingModule](https://dev.to/this-is-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0)".
+If you'd like to test this behaviour as well, follow the techniques demonstrated in "[Testing Angular routing components with the RouterTestingModule](https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0)".
 
 # Thank you
 
-Finally, I would like to extend a big thank you to **you**! Your interest in my previous article, "[Testing Angular routing components with the RouterTestingModule](https://dev.to/this-is-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0)", ignited my interest in exploring the `RouterTestingModule` further.
+Finally, I would like to extend a big thank you to **you**! Your interest in my previous article, "[Testing Angular routing components with the RouterTestingModule](https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0)", ignited my interest in exploring the `RouterTestingModule` further.
 
 # Related articles
 
-Learn about the `RouterTestingModule` and how to test routing components in "[Testing Angular routing components with the RouterTestingModule](https://dev.to/this-is-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0)".
+Learn about the `RouterTestingModule` and how to test routing components in "[Testing Angular routing components with the RouterTestingModule](https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0)".
 
-Learn how to fake routing data and stub services to test Angular route guards in isolation as well as how to verify them in practice using the `RouterTestingModule` in "[Testing Angular route guards with the RouterTestingModule](https://dev.to/this-is-angular/testing-angular-route-guards-with-the-routertestingmodule-45c9)".
+Learn how to fake routing data and stub services to test Angular route guards in isolation as well as how to verify them in practice using the `RouterTestingModule` in "[Testing Angular route guards with the RouterTestingModule](https://dev.to/playfulprogramming-angular/testing-angular-route-guards-with-the-routertestingmodule-45c9)".

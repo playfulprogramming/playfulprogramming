@@ -5,7 +5,7 @@ published: "2021-03-23T08:10:18Z",
 edited: "2021-03-23T09:20:50Z",
 tags: ["javascript", "webdev", "reactivity"],
 description: "My recent article How React is not reactive, and why you shouldn't care opened up a much larger debat...",
-originalLink: "https://dev.to/this-is-learning/what-the-hell-is-reactive-programming-anyway-31p5"
+originalLink: "https://https://dev.to/playfulprogramming/what-the-hell-is-reactive-programming-anyway-31p5"
 }
 ---
 

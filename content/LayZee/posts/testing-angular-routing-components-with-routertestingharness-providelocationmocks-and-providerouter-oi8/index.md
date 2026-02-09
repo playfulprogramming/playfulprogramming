@@ -5,7 +5,7 @@ published: "2023-02-08T23:54:59Z",
 edited: "2023-02-09T07:32:14Z",
 tags: ["angular", "testing", "router"],
 description: "Learn how to implement integrated routing component tests with RouterTestingHarness, provideRouter, and provideLocationMocks.",
-originalLink: "https://dev.to/this-is-angular/testing-angular-routing-components-with-routertestingharness-providelocationmocks-and-providerouter-oi8",
+originalLink: "https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-routertestingharness-providelocationmocks-and-providerouter-oi8",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Angular router testing",
@@ -15,7 +15,7 @@ order: 4
 
 *Cover art by DALL·E 2.*
 
-It's been three years since [Testing Angular routing components with the RouterTestingModule](https://dev.to/this-is-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0). This article revisits integrated routing component tests with modern Angular APIs, including standalone components, [`provideRouter`](https://angular.io/api/router/provideRouter), [`provideLocationMocks`](https://angular.io/api/common/testing/provideLocationMocks), and [`RouterTestingHarness`](https://next.angular.io/api/router/testing/RouterTestingHarness). Additionally, we use a [SIFERS](https://medium.com/@kolodny/testing-with-sifers-c9d6bb5b362) for managing our test setup and test utilities.
+It's been three years since [Testing Angular routing components with the RouterTestingModule](https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0). This article revisits integrated routing component tests with modern Angular APIs, including standalone components, [`provideRouter`](https://angular.io/api/router/provideRouter), [`provideLocationMocks`](https://angular.io/api/common/testing/provideLocationMocks), and [`RouterTestingHarness`](https://next.angular.io/api/router/testing/RouterTestingHarness). Additionally, we use a [SIFERS](https://medium.com/@kolodny/testing-with-sifers-c9d6bb5b362) for managing our test setup and test utilities.
 
 ![The show hero detail use case](./2nmyzdvl6jlded36ix89.png)
 
@@ -26,7 +26,7 @@ It's been three years since [Testing Angular routing components with the RouterT
 [`provideRouter`](https://angular.io/api/router/provideRouter) (introduced by Angular version 14.2) is the standalone version of [`RouterModule.forRoot`](https://angular.io/api/router/RouterModule#forroot). Combine it with [`provideLocationMocks`](https://angular.io/api/common/testing/provideLocationMocks) (introduced by Angular version 15.0) and we have the standalone version of [`RouterTestingModule.withRoutes`](https://angular.io/api/router/testing/RouterTestingModule#withroutes).
 
 > ℹ️ Note
-> Read [What does the RouterTestingModule do?](https://dev.to/this-is-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0#what-does-the-routertestingmodule-do) for a detailed explanation of how [`RouterTestingModule`](https://angular.io/api/router/testing/RouterTestingModule) replaces Angular Router dependencies. [`provideLocationMocks`](https://angular.io/api/common/testing/provideLocationMocks) does the same.
+> Read [What does the RouterTestingModule do?](https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0#what-does-the-routertestingmodule-do) for a detailed explanation of how [`RouterTestingModule`](https://angular.io/api/router/testing/RouterTestingModule) replaces Angular Router dependencies. [`provideLocationMocks`](https://angular.io/api/common/testing/provideLocationMocks) does the same.
 
 ## RouterTestingHarness
 
@@ -144,7 +144,7 @@ describe('DashboardComponent (integrated)', () => {
 (1) Notice how we only call [`RouterTestingHarness.create`](https://next.angular.io/api/router/testing/RouterTestingHarness#create) once per test case in our `setup` SIFERS.
 
 > ⚠️ Warning
-> [`ModuleTeardownOptions#destroyAfterEach`](https://angular.io/api/core/testing/ModuleTeardownOptions#properties) must be set to `true` for [`RouterTestingHarness`](https://next.angular.io/api/router/testing/RouterTestingHarness) to work correctly. See [Improving Angular tests by enabling Angular testing module teardown](https://dev.to/this-is-angular/improving-angular-tests-by-enabling-angular-testing-module-teardown-38kh) for details on this option.
+> [`ModuleTeardownOptions#destroyAfterEach`](https://angular.io/api/core/testing/ModuleTeardownOptions#properties) must be set to `true` for [`RouterTestingHarness`](https://next.angular.io/api/router/testing/RouterTestingHarness) to work correctly. See [Improving Angular tests by enabling Angular testing module teardown](https://dev.to/playfulprogramming-angular/improving-angular-tests-by-enabling-angular-testing-module-teardown-38kh) for details on this option.
 
 (1) We could have passed an initial URL, for example `await RouterTestingHarness.create("/")` or `await RouterTestingHarness.create("/heroes")` but it doesn't return an activated component.
 

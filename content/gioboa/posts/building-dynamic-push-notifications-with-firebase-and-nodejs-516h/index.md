@@ -5,13 +5,13 @@ published: "2025-03-07T16:09:08Z",
 edited: "2025-03-07T16:17:29Z",
 tags: ["node", "firebase", "javascript", "angular"],
 description: "In the previous article we saw how Firebase Cloud Messaging (FCM) is a versatile solution for...",
-originalLink: "https://dev.to/this-is-learning/building-dynamic-push-notifications-with-firebase-and-nodejs-516h",
+originalLink: "https://https://dev.to/playfulprogramming/building-dynamic-push-notifications-with-firebase-and-nodejs-516h",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
 ---
 
-In the [previous article](https://dev.to/this-is-learning/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a) we saw how Firebase Cloud Messaging (FCM) is a versatile solution for delivering push notifications to various platforms.
+In the [previous article](https://https://dev.to/playfulprogramming/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a) we saw how Firebase Cloud Messaging (FCM) is a versatile solution for delivering push notifications to various platforms.
 
 While basic notifications are useful, custom notifications allow you to tailor the user experience with specific data and actions.
 
@@ -19,7 +19,7 @@ Let's see how sending custom notifications using Node.js and integrating them wi
 
 ## Prerequisites
 
-Completed the basic FCM setup as described in the [previous article](https://dev.to/this-is-learning/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a).
+Completed the basic FCM setup as described in the [previous article](https://https://dev.to/playfulprogramming/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a).
 You should have:
 
 - A Firebase project.
@@ -109,7 +109,7 @@ admin.messaging().subscribeToTopic(['client-id-token'],'default')
 
 ## Modifying the Angular Service Worker
 
-The service worker code of the [previous article](https://dev.to/this-is-learning/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a) is almost correct, but here is a refined version that handles the custom data and notification clicks.
+The service worker code of the [previous article](https://https://dev.to/playfulprogramming/push-notifications-in-angular-19-with-firebase-cloud-messaging-3o3a) is almost correct, but here is a refined version that handles the custom data and notification clicks.
 
 ```javascript
 importScripts(

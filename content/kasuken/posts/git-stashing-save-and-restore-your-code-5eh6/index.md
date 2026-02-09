@@ -4,7 +4,7 @@ title: "Git stashing: save and restore your code",
 published: "2025-03-19T07:56:00Z",
 tags: ["git", "github", "devops", "development"],
 description: "Have you ever been in the middle of coding when suddenly you needed to switch branches, but your work...",
-originalLink: "https://dev.to/this-is-learning/git-stashing-save-and-restore-your-code-5eh6",
+originalLink: "https://https://dev.to/playfulprogramming/git-stashing-save-and-restore-your-code-5eh6",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

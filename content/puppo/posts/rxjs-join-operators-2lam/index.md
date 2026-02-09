@@ -4,7 +4,7 @@ title: "RxJS - Join Operators",
 published: "2021-09-22T06:07:48Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hi Guys and Welcome Back, Today I'll speak about the Join Operators. Some of these operators are...",
-originalLink: "https://dev.to/this-is-learning/rxjs-join-operators-2lam",
+originalLink: "https://https://dev.to/playfulprogramming/rxjs-join-operators-2lam",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
@@ -13,7 +13,7 @@ order: 8
 ---
 
 Hi Guys and Welcome Back,
-Today I'll speak about the Join Operators. Some of these operators are similar to other operators shown in the [Creation Operators](https://dev.to/this-is-learning/rxjs-creation-operators-6bh) but they are used in different contexts, ok let's start!
+Today I'll speak about the Join Operators. Some of these operators are similar to other operators shown in the [Creation Operators](https://https://dev.to/playfulprogramming/rxjs-creation-operators-6bh) but they are used in different contexts, ok let's start!
 
 - **[combineLatestAll](https://rxjs.dev/api/operators/combineLatestAll)**
 
@@ -53,7 +53,7 @@ source$.pipe(
 ```
 
 ![CombineLatestAll Marble Diagram](./lv89hgb4oy8qmn6v2sid.jpg)
-As you can see, this operator is the brother of the combineLatest operator discussed in a previous article [RxJS - Creation Operators](https://dev.to/this-is-learning/rxjs-creation-operators-6bh).
+As you can see, this operator is the brother of the combineLatest operator discussed in a previous article [RxJS - Creation Operators](https://https://dev.to/playfulprogramming/rxjs-creation-operators-6bh).
 Its job is to convert an Observable of Observables to an array of values, where each item of this array is a value of an observable.
 When we use this operator we need to remember that the first value emitted by the operator is when all the observables have emitted at least one value.
 This operator is used when in the pipe chain we have an operator that emits a list of observables; using this operator we can flat the values in a single array including all the values emitted by these observables.

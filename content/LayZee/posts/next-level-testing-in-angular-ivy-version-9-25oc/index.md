@@ -5,7 +5,7 @@ published: "2021-03-24T14:18:32Z",
 edited: "2021-03-24T15:08:28Z",
 tags: ["angular", "ivy", "testing"],
 description: "AOT, faster tests, stronger types, and component harnesses.",
-originalLink: "https://dev.to/this-is-angular/next-level-testing-in-angular-ivy-version-9-25oc",
+originalLink: "https://dev.to/playfulprogramming-angular/next-level-testing-in-angular-ivy-version-9-25oc",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -81,7 +81,7 @@ The `TestbedHarnessEnvironment` is first and foremost meant to be used with Jasm
 
 If our testing stack is not supported by the harness environments provided by Angular CDK, we can implement our own harness environment.
 
-[Learn how to create your own component harnesses in "Create a component harness for your tests with Angular CDK"](https://dev.to/this-is-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg).
+[Learn how to create your own component harnesses in "Create a component harness for your tests with Angular CDK"](https://dev.to/playfulprogramming-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg).
 
 ## Angular Material adds component harnesses
 
@@ -89,7 +89,7 @@ Angular Material version 9 exposes component harnesses for Angular Material comp
 
 By providing us with component harnesses, the Angular Components team can justify changing DOM implementations without breaking our component tests. This is exactly what they plan to do as they are currently replacing Angular-native implementations with adapters for Material Component for the web, another Google project.
 
-[Learn how to use Angular Material's component harnesses in "Create a component harness for your tests with Angular CDK"](https://dev.to/this-is-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg).
+[Learn how to use Angular Material's component harnesses in "Create a component harness for your tests with Angular CDK"](https://dev.to/playfulprogramming-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg).
 
 ## Component harness benefits
 

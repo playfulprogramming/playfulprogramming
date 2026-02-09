@@ -5,7 +5,7 @@ published: "2022-08-30T14:00:17Z",
 edited: "2023-12-20T11:09:22Z",
 tags: ["angular"],
 description: "The future is now, old man. Standalone Angular applications are now a viable alternative to classic NgModule-based Angular applications.",
-originalLink: "https://dev.to/this-is-angular/angular-revisited-standalone-angular-applications-the-replacement-for-ngmodules-238m",
+originalLink: "https://dev.to/playfulprogramming-angular/angular-revisited-standalone-angular-applications-the-replacement-for-ngmodules-238m",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Standalone Angular applications",
@@ -89,7 +89,7 @@ Replace with [`bootstrapApplication`](https://angular.io/api/platform-browser/bo
 
 ### NgModule.declarations
 
-Declares components, directives, and pipes, including them in Angular module's [transitive compilation scope](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-compilation-scope).
+Declares components, directives, and pipes, including them in Angular module's [transitive compilation scope](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-compilation-scope).
 
 > ⚠️ **Warning**
 > A classic component, directive, or pipe can only be declared in one Angular module. Declaring them in multiple Angular modules results in compilation errors.
@@ -107,7 +107,7 @@ In Angular Ivy, components do not have to be marked explicitly as entry componen
 
 ### NgModule.exports
 
-Marks classic and/or standalone declarables as part of this Angular module's [transitive exported scope](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-exported-scope). Listing other Angular modules includes their transitive exported scope in this Angular module's transitive exported scope.
+Marks classic and/or standalone declarables as part of this Angular module's [transitive exported scope](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-exported-scope). Listing other Angular modules includes their transitive exported scope in this Angular module's transitive exported scope.
 
 Replace with the native `export` declaration to make a standalone declarable accessible to the template of a component including it in its [`Component.imports`](https://angular.io/api/core/Component#imports) metadata option or the transitive scope of an Angular module including it in its [`NgModule.imports`](https://angular.io/api/core/NgModule#imports) or [`NgModule.exports`](https://angular.io/api/core/NgModule#exports) metadata options.
 
@@ -144,7 +144,7 @@ Replace with the [`Component.jit`](https://angular.io/api/core/Component#inherit
 
 ### NgModule.imports
 
-Includes the [transitive exported scope](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-exported-scope) of listed Angular modules in this Angular module's [transitive module scope](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-module-scope). Standalone declarables can also be listed to include them in this Angular module's transitive module scope.
+Includes the [transitive exported scope](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-exported-scope) of listed Angular modules in this Angular module's [transitive module scope](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-module-scope). Standalone declarables can also be listed to include them in this Angular module's transitive module scope.
 
 This links imported declarables to templates of components declared by this Angular module.
 
@@ -156,7 +156,7 @@ To mark components, directives, and pipes as declarable dependencies of a standa
 
 Lists providers that are added to the environment injector(s) (formerly known as module injectors) that this Angular module is part of.
 
-Angular version 6 introduced [tree-shakable providers](https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg), removing the need for Angular modules to configure environment injectors, at the time known as module injectors.
+Angular version 6 introduced [tree-shakable providers](https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg), removing the need for Angular modules to configure environment injectors, at the time known as module injectors.
 
 Replace `NgModule.providers` with the [`InjectionToken.factory`](https://angular.io/api/core/InjectionToken) metadata option, [`Injectable.providedIn`](https://angular.io/api/core/Injectable#providedIn) metadata option, [`Route#providers`](https://angular.io/api/router/Route#properties) setting, and [`ApplicationConfig#providers`](https://angular.io/api/platform-browser/ApplicationConfig) setting.
 

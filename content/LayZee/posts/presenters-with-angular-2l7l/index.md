@@ -5,7 +5,7 @@ published: "2021-03-22T21:49:28Z",
 edited: "2021-03-22T21:50:33Z",
 tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
 description: "Learn how to extract presenters from presentational components. We discuss stateful and stateless presenters, component-to-presenter ratios and when to use a component or a pipe instead of a presenter.",
-originalLink: "https://dev.to/this-is-angular/presenters-with-angular-2l7l",
+originalLink: "https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
@@ -208,7 +208,7 @@ Finally, Angular pipes only encapsulate presentational logic. They can't be used
 
 ## Simple example
 
-In "[Presentational components with Angular](https://dev.to/this-is-angular/presentational-components-with-angular-3961)", we moved presentational logic from the heroes component template to the heroes component model to minimise logic in the template.
+In "[Presentational components with Angular](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961)", we moved presentational logic from the heroes component template to the heroes component model to minimise logic in the template.
 
 ```ts
 // heroes.component.ts
@@ -955,9 +955,9 @@ We end up with one or more presenters which cover these concerns:
 
 ## Related articles
 
-Read the introductory article “[Model-View-Presenter with Angular](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h)”. This is also where you'll find links to the companion GitHub repository, related articles, and other useful resources.
+Read the introductory article “[Model-View-Presenter with Angular](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h)”. This is also where you'll find links to the companion GitHub repository, related articles, and other useful resources.
 
-[Learn how to convert a mixed component to a presentational component in "Presentational components with Angular"](https://dev.to/this-is-angular/presentational-components-with-angular-3961).
+[Learn how to convert a mixed component to a presentational component in "Presentational components with Angular"](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961).
 
 ## Peer reviewers
 

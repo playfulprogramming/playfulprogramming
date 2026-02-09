@@ -5,7 +5,7 @@ published: "2021-05-03T05:28:38Z",
 edited: "2021-05-05T22:18:19Z",
 tags: ["learninginpublic", "webdev", "community"],
 description: "This is Learning is the place to share what you learn. Welcome!",
-originalLink: "https://dev.to/this-is-learning/welcome-to-this-is-learning-an-invitation-to-our-open-tech-authors-community-22e4",
+originalLink: "https://https://dev.to/playfulprogramming/welcome-to-this-is-learning-an-invitation-to-our-open-tech-authors-community-22e4",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -33,12 +33,12 @@ As a seasoned writer or content creator, you'll find like-minded peers, discuss 
 
 The This is Learning family of publications currently consists of 2 publications:
 
-- [This is Angular](https://dev.to/this-is-angular) ([RSS](https://dev.to/feed/this-is-angular))
-- [This is Learning](https://dev.to/this-is-learning) ([RSS](https://dev.to/feed/this-is-learning))
+- [This is Angular](https://dev.to/playfulprogramming-angular) ([RSS](https://dev.to/feed/this-is-angular))
+- [This is Learning](https://dev.to/playfulprogramming) ([RSS](https://dev.to/feed/this-is-learning))
 
-With strong roots in the Angular community, we currently have a team of 14 writers publishing on [This is Angular](https://dev.to/this-is-angular). [This is Angular](https://dev.to/this-is-angular) is a publication about Angular-specific technology and topics. As is the case for all This is Learning parts, the [This is Learning](https://dev.to/this-is-learning) publication is free from conflict of interests. Your opinion, your experience, and the content you share is deeply appreciated. Don't hold back. In fact, let's move forward.
+With strong roots in the Angular community, we currently have a team of 14 writers publishing on [This is Angular](https://dev.to/playfulprogramming-angular). [This is Angular](https://dev.to/playfulprogramming-angular) is a publication about Angular-specific technology and topics. As is the case for all This is Learning parts, the [This is Learning](https://dev.to/playfulprogramming) publication is free from conflict of interests. Your opinion, your experience, and the content you share is deeply appreciated. Don't hold back. In fact, let's move forward.
 
-[This is Learning](https://dev.to/this-is-learning) has a diverse team of tech writers and content creators. Our worldwide group of 13 authors includes everything from software graduates through software developers to software architects as well as developer advocates and framework authors.
+[This is Learning](https://dev.to/playfulprogramming) has a diverse team of tech writers and content creators. Our worldwide group of 13 authors includes everything from software graduates through software developers to software architects as well as developer advocates and framework authors.
 
 # Other content
 

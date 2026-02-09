@@ -5,7 +5,7 @@ published: "2021-05-03T14:27:12Z",
 edited: "2022-06-11T04:19:26Z",
 tags: ["javascript", "webdev", "react", "svelte"],
 description: "Zero JavaScript has been the new buzz phrase around JavaScript libraries for the last little while....",
-originalLink: "https://dev.to/this-is-learning/is-0kb-of-javascript-in-your-future-48og",
+originalLink: "https://https://dev.to/playfulprogramming/is-0kb-of-javascript-in-your-future-48og",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

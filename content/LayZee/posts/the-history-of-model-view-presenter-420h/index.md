@@ -5,7 +5,7 @@ published: "2020-11-18T11:05:09Z",
 edited: "2020-11-24T20:34:03Z",
 tags: ["webdev", "history", "modelviewpresenter", "modelviewcontroller"],
 description: "Dust off the history books and discover the origins of the MVP pattern.",
-originalLink: "https://dev.to/this-is-learning/the-history-of-model-view-presenter-420h",
+originalLink: "https://https://dev.to/playfulprogramming/the-history-of-model-view-presenter-420h",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -60,4 +60,4 @@ The current generation of UI frameworks such as Angular, Aurelia, Dojo, Inferno,
 
 Identifying that the popular UI frameworks have no design pattern of choice for separating our applications into horizontal software layers, we have to pick one and apply it on our own if we want to enforce separation of concerns.
 
-Drawing from the wisdom of the React community, I have described a variant of the Model-View-Presenter pattern that is well-fitted for the Angular platform. Read "[Model-View-Presenter with Angular](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h)" to learn more.
+Drawing from the wisdom of the React community, I have described a variant of the Model-View-Presenter pattern that is well-fitted for the Angular platform. Read "[Model-View-Presenter with Angular](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h)" to learn more.

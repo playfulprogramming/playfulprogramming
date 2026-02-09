@@ -4,7 +4,7 @@ title: "Safari 17 Beta: A Game Changer for PWAs on MacOS",
 published: "2023-06-06T15:20:00Z",
 tags: ["pwa", "pwabuilder", "webdev"],
 description: "Safari 17 Beta is the latest version of Apple's web browser, which was released on June 5, 2023. It...",
-originalLink: "https://dev.to/this-is-learning/safari-17-beta-a-game-changer-for-pwas-on-macos-ddp",
+originalLink: "https://https://dev.to/playfulprogramming/safari-17-beta-a-game-changer-for-pwas-on-macos-ddp",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

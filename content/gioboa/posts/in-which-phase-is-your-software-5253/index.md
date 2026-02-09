@@ -5,7 +5,7 @@ published: "2022-10-28T16:18:26Z",
 edited: "2022-12-20T08:17:56Z",
 tags: ["webdev", "programming", "productivity", "testing"],
 description: "I recently gave a talk on testing and I focused the speech on the life cycle of a successful...",
-originalLink: "https://dev.to/this-is-learning/in-which-phase-is-your-software-5253",
+originalLink: "https://https://dev.to/playfulprogramming/in-which-phase-is-your-software-5253",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -4,7 +4,7 @@ title: "The Top 5 Best Takeaways from Microsoft Build 2023",
 published: "2023-05-26T21:34:00Z",
 tags: ["microsoft", "ai", "devhome"],
 description: "Microsoft Build 2023 was a three-day event that showcased the latest innovations and tools for...",
-originalLink: "https://dev.to/this-is-learning/the-top-5-best-takeaways-from-microsoft-build-2023-43nh",
+originalLink: "https://https://dev.to/playfulprogramming/the-top-5-best-takeaways-from-microsoft-build-2023-43nh",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

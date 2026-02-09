@@ -5,13 +5,13 @@ published: "2025-07-25T09:25:26Z",
 edited: "2025-07-25T09:25:34Z",
 tags: ["firebase", "webdev", "programming", "database"],
 description: "In the previous article, you saw how to create a project from scratch with Firebase Data...",
-originalLink: "https://dev.to/this-is-learning/full-text-search-with-firebase-data-connect-40o5",
+originalLink: "https://https://dev.to/playfulprogramming/full-text-search-with-firebase-data-connect-40o5",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
 ---
 
-In the [previous article](https://dev.to/this-is-learning/firebase-data-connect-rapid-development-and-granular-control-with-graphql-32g5), you saw how to create a project from scratch with Firebase Data Connect.
+In the [previous article](https://https://dev.to/playfulprogramming/firebase-data-connect-rapid-development-and-granular-control-with-graphql-32g5), you saw how to create a project from scratch with Firebase Data Connect.
 
 Today, I want to talk to you about a brand new feature:
 

@@ -5,7 +5,7 @@ published: "2020-11-24T20:32:03Z",
 edited: "2021-03-22T21:58:02Z",
 tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
 description: "The MVP pattern increases separation of concerns, maintainability, testability and scalability in complex Angular apps by using container components, presentational components and presenters.",
-originalLink: "https://dev.to/this-is-angular/model-view-presenter-with-angular-533h",
+originalLink: "https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
@@ -96,8 +96,8 @@ Our view binds onto the properties of the presenter to simply project the state 
 
 To apply the Model-View-Presenter pattern to an Angular application, we will introduce concepts that are heavily inspired by the React community. Our components will—for the purpose of these articles—belong in one of these three categories:
 
-- [Presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961)
-- [Container components](https://dev.to/this-is-angular/container-components-with-angular-4o05)
+- [Presentational components](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961)
+- [Container components](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05)
 - Mixed components
 
 React developers have been extracting presentational components and container components from mixed components for several years. We can use the same concepts in our Angular applications. Additionally, we will introduce the concept of presenters.
@@ -126,7 +126,7 @@ While this logic is expected in an application, grouping it all in a single plac
 
 # Presenters
 
-Behavioural logic and complex presentational logic is extracted into a *[presenter](https://dev.to/this-is-angular/presenters-with-angular-2l7l)* to get a simple presentational component. The presenter has no UI and often no or only a few injected dependencies, making it easy to test and reason about.
+Behavioural logic and complex presentational logic is extracted into a *[presenter](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l)* to get a simple presentational component. The presenter has no UI and often no or only a few injected dependencies, making it easy to test and reason about.
 
 The presenter is rarely aware of the rest of the application. Usually, only a single presentational component references a presenter.
 
@@ -254,15 +254,15 @@ We will build isolated unit tests in which we stub service dependencies using Ja
 
 # Related articles
 
-Learn about the history of the Model-View-Presenter pattern and how its sibling pattern Model-View-Controller was introduced to client-side UI frameworks for the web. Read “[The history of Model-View-Presenter](https://dev.to/this-is-learning/the-history-of-model-view-presenter-420h)”.
+Learn about the history of the Model-View-Presenter pattern and how its sibling pattern Model-View-Controller was introduced to client-side UI frameworks for the web. Read “[The history of Model-View-Presenter](https://https://dev.to/playfulprogramming/the-history-of-model-view-presenter-420h)”.
 
-Are you sick of worrying about state management and back-end stuff in your Angular components? Extract all that nasty non-presentational logic into container components. Read how in “[Container components with Angular](https://dev.to/this-is-angular/container-components-with-angular-4o05)”.
+Are you sick of worrying about state management and back-end stuff in your Angular components? Extract all that nasty non-presentational logic into container components. Read how in “[Container components with Angular](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05)”.
 
-Learn how to test container component logic with blazingly fast unit tests in “[Testing Angular container components](https://dev.to/this-is-angular/testing-angular-container-components-33io)”.
+Learn how to test container component logic with blazingly fast unit tests in “[Testing Angular container components](https://dev.to/playfulprogramming-angular/testing-angular-container-components-33io)”.
 
-"[Presentational components with Angular](https://dev.to/this-is-angular/presentational-components-with-angular-3961)" discusses pure, deterministic and potentially reusable components which only depend on input properties and user interaction-triggered events to determine their internal state.
+"[Presentational components with Angular](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961)" discusses pure, deterministic and potentially reusable components which only depend on input properties and user interaction-triggered events to determine their internal state.
 
-[Learn how to extract a presenter from a presentational component in "Presenters with Angular"](https://dev.to/this-is-angular/presenters-with-angular-2l7l).
+[Learn how to extract a presenter from a presentational component in "Presenters with Angular"](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l).
 
 In “[Lean Angular components](https://indepth.dev/lean-angular-components/)”, we discuss the importance of a robust component architecture. Model-View-Presenter encapsulates several of the patterns that help us achieve this.
 

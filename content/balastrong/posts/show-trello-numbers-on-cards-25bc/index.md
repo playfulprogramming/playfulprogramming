@@ -5,7 +5,7 @@ published: "2022-07-28T07:32:00Z",
 edited: "2022-09-24T11:01:19Z",
 tags: [],
 description: "TL;DR: The video was originally posted on YouTube, for a higher-quality version you can watch it...",
-originalLink: "https://dev.to/this-is-learning/show-trello-numbers-on-cards-25bc",
+originalLink: "https://https://dev.to/playfulprogramming/show-trello-numbers-on-cards-25bc",
 collection: "Shorts",
 order: 1
 }

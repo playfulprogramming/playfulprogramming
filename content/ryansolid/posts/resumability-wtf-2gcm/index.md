@@ -5,7 +5,7 @@ published: "2022-08-23T20:22:00Z",
 edited: "2022-08-23T20:43:49Z",
 tags: ["javascript", "webdev", "marko", "qwik"],
 description: "Maybe you've heard the term Resumability thrown around recently. Maybe someone gushing over Miško...",
-originalLink: "https://dev.to/this-is-learning/resumability-wtf-2gcm",
+originalLink: "https://https://dev.to/playfulprogramming/resumability-wtf-2gcm",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -187,7 +187,7 @@ It is important to recognize while these optimizations often come as trio they w
 
 We aren't here yet, and it will take some time. But we are closing the circle that was opened up with Single Page App server rendering. We created the Hydration monster, and now we have to defeat it. The biggest ask is that to fully mitigate the performance tradeoffs we find ourselves with MPAs today.
 
-Until we can reconcile the gap here, and this all relies on [routing](https://dev.to/this-is-learning/the-return-of-server-side-routing-b05), there is going to be a question of which tradeoffs are worth it. We need every piece working in tandem to even have a chance for this approach to prove itself.
+Until we can reconcile the gap here, and this all relies on [routing](https://https://dev.to/playfulprogramming/the-return-of-server-side-routing-b05), there is going to be a question of which tradeoffs are worth it. We need every piece working in tandem to even have a chance for this approach to prove itself.
 
 But if it does, it will finally have unified the old Web of imperative jQuery with the machinery of modern declarative JavaScript frameworks. And maybe even delete the need for words like resumability and hydration in our Web vocabulary.
 

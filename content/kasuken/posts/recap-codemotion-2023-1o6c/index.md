@@ -4,7 +4,7 @@ title: "Recap Codemotion 2023",
 published: "2023-10-30T09:06:00Z",
 tags: ["eventsinyourcity", "events"],
 description: "Last week, I had the opportunity to attend Codemotion 2023, one of the biggest tech conferences in...",
-originalLink: "https://dev.to/this-is-learning/recap-codemotion-2023-1o6c",
+originalLink: "https://https://dev.to/playfulprogramming/recap-codemotion-2023-1o6c",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

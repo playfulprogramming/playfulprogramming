@@ -5,7 +5,7 @@ published: "2025-11-20T12:50:24Z",
 edited: "2025-11-20T12:53:59Z",
 tags: ["vscode", "productivity", "webdev", "showdev"],
 description: "VS Code tasks are powerful, but most developers barely use them. The problem is not the feature...",
-originalLink: "https://dev.to/this-is-learning/why-i-built-taskdeck-and-how-it-improves-your-vs-code-workflow-4fk9",
+originalLink: "https://https://dev.to/playfulprogramming/why-i-built-taskdeck-and-how-it-improves-your-vs-code-workflow-4fk9",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -5,7 +5,7 @@ published: "2025-05-25T17:56:31Z",
 edited: "2025-05-25T17:57:36Z",
 tags: ["github", "security"],
 description: "If you're anything like me, you’ve probably typed in authenticator codes a hundred times a day, just...",
-originalLink: "https://dev.to/this-is-learning/how-to-configure-yubikey-with-github-3lga",
+originalLink: "https://https://dev.to/playfulprogramming/how-to-configure-yubikey-with-github-3lga",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

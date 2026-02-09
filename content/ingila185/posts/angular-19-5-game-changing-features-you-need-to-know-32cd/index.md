@@ -5,7 +5,7 @@ published: "2024-11-06T16:53:20Z",
 edited: "2024-11-08T11:16:46Z",
 tags: ["angular", "webdev", "javascript", "programming"],
 description: "Angular continues to evolve, bringing exciting features with each release. Angular 19 is no...",
-originalLink: "https://dev.to/this-is-angular/angular-19-5-game-changing-features-you-need-to-know-32cd",
+originalLink: "https://dev.to/playfulprogramming-angular/angular-19-5-game-changing-features-you-need-to-know-32cd",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -27,7 +27,7 @@ Angular 19 is poised to make standalone components the default option. This mean
 
 ## 3. Zoneless Change Detection
 
-Angular has continuously refined its change detection strategy. While `Zone.js` provided a solid foundation in the early days, it introduced some performance overhead and increased bundle size. To address this, Angular has introduced the experimental zoneless change detection feature, activated through `provideExperimentalZonelessChangeDetection()`. [Read more about it here.](https://dev.to/this-is-angular/the-evolution-of-change-detection-from-angular-2-zonejs-to-angular-18-provideexperimentalzonelesschangedetection-4f77)
+Angular has continuously refined its change detection strategy. While `Zone.js` provided a solid foundation in the early days, it introduced some performance overhead and increased bundle size. To address this, Angular has introduced the experimental zoneless change detection feature, activated through `provideExperimentalZonelessChangeDetection()`. [Read more about it here.](https://dev.to/playfulprogramming-angular/the-evolution-of-change-detection-from-angular-2-zonejs-to-angular-18-provideexperimentalzonelesschangedetection-4f77)
 
 Zoneless change detection promises substantial benefits, including:
 
@@ -37,7 +37,7 @@ Zoneless change detection promises substantial benefits, including:
 
 ## 4. linkedSignal: Boosting Reactivity for a Responsive Application
 
-`linkedSignal` is a new primitive designed to enhance the reactivity of Angular applications. It provides a way to create writable signals that automatically update their values based on changes in a source signal. This feature simplifies data flow and promotes a more responsive user experience. You can find more details about linkedSignal from [this](https://dev.to/this-is-angular/angular-19-introduction-to-linkedsignal-190a) article.
+`linkedSignal` is a new primitive designed to enhance the reactivity of Angular applications. It provides a way to create writable signals that automatically update their values based on changes in a source signal. This feature simplifies data flow and promotes a more responsive user experience. You can find more details about linkedSignal from [this](https://dev.to/playfulprogramming-angular/angular-19-introduction-to-linkedsignal-190a) article.
 
 Angular 19 is expected to introduce several overloads of `linkedSignal`, including:
 
@@ -57,7 +57,7 @@ Managing asynchronous data retrieval can be cumbersome. Angular 19 introduces ex
 **rxResource API:** This API utilizes `Observables` to manage asynchronous data retrieval. It simplifies the handling of data streams, making it easier to control data flow and handle errors.
 Both resource and `rxResource` APIs aim to improve the way developers interact with asynchronous data within Angular applications.
 
-[Here](https://dev.to/this-is-angular/angular-19-streamlining-data-retrieval-with-resource-and-rxresource-apis-3lb2) you can find more information about `resource` and `rxResource` API.
+[Here](https://dev.to/playfulprogramming-angular/angular-19-streamlining-data-retrieval-with-resource-and-rxresource-apis-3lb2) you can find more information about `resource` and `rxResource` API.
 
 These are just a few of the exciting features expected in Angular 19. With its focus on DX and performance, Angular 19 promises to streamline development workflows and create faster, more responsive web applications. Stay tuned for the official release to experience these advancements firsthand!
 

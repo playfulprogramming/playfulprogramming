@@ -5,7 +5,7 @@ published: "2021-03-24T14:08:51Z",
 edited: "2021-03-24T15:08:01Z",
 tags: ["angular", "ivy", "library"],
 description: "How to respond to Angular Ivy in 2020/2021 if you're a library author.",
-originalLink: "https://dev.to/this-is-angular/the-angular-ivy-guide-for-library-authors-9md",
+originalLink: "https://dev.to/playfulprogramming-angular/the-angular-ivy-guide-for-library-authors-9md",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -119,9 +119,9 @@ We can use them in internal tests, both for unit, integration, and end-to-end te
 
 Angular Material version 9 is the first library to expose component harnesses for their components.
 
-[Learn about component harnesses and other new testing features and improvements in "Next-level testing in Angular Ivy version 9"](https://dev.to/this-is-angular/next-level-testing-in-angular-ivy-version-9-25oc).
+[Learn about component harnesses and other new testing features and improvements in "Next-level testing in Angular Ivy version 9"](https://dev.to/playfulprogramming-angular/next-level-testing-in-angular-ivy-version-9-25oc).
 
-[Learn how to create your own component harnesses in "Create a component harness for your tests with Angular CDK"](https://dev.to/this-is-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg).
+[Learn how to create your own component harnesses in "Create a component harness for your tests with Angular CDK"](https://dev.to/playfulprogramming-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg).
 
 ### Remove entryComponents metadata
 
@@ -147,7 +147,7 @@ For our library tests, we should note that `TestBed.get` has been replaced by th
 
 [Learn about additional provider scopes in "Improved Dependeny Injection with the new providedIn scopes 'any' and 'platform'"](https://dev.to/christiankohler/improved-dependeny-injection-with-the-new-providedin-scopes-any-and-platform-30bb).
 
-[Learn about stronger typing and other test features and improvements in "Next-level testing in Angular Ivy version 9"](https://dev.to/this-is-angular/next-level-testing-in-angular-ivy-version-9-25oc).
+[Learn about stronger typing and other test features and improvements in "Next-level testing in Angular Ivy version 9"](https://dev.to/playfulprogramming-angular/next-level-testing-in-angular-ivy-version-9-25oc).
 
 ## Creating and publishing an Angular Ivy library
 

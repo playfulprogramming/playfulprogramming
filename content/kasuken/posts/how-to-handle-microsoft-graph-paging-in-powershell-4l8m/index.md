@@ -4,7 +4,7 @@ title: "How To Handle Microsoft Graph Paging in PowerShell",
 published: "2023-10-17T05:14:18Z",
 tags: ["powershell", "azure"],
 description: "When you query the Microsoft Graph API, you may encounter a limitation: the API only returns a...",
-originalLink: "https://dev.to/this-is-learning/how-to-handle-microsoft-graph-paging-in-powershell-4l8m",
+originalLink: "https://https://dev.to/playfulprogramming/how-to-handle-microsoft-graph-paging-in-powershell-4l8m",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

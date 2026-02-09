@@ -5,7 +5,7 @@ published: "2022-03-21T14:50:07Z",
 edited: "2022-03-22T07:38:48Z",
 tags: ["javascript", "webdev", "marko", "qwik"],
 description: "That is an ambitious title for an article. An ambitious goal in general. Hydration, the process of...",
-originalLink: "https://dev.to/this-is-learning/conquering-javascript-hydration-a9f",
+originalLink: "https://https://dev.to/playfulprogramming/conquering-javascript-hydration-a9f",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

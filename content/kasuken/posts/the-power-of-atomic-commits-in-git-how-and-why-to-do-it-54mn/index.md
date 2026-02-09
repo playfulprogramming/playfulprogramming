@@ -4,7 +4,7 @@ title: "The Power of Atomic Commits in Git: How and Why to Do It",
 published: "2023-12-22T05:59:44Z",
 tags: ["git", "github", "productivity"],
 description: "Using Git effectively requires some good practices and habits, such as making atomic commits.       ...",
-originalLink: "https://dev.to/this-is-learning/the-power-of-atomic-commits-in-git-how-and-why-to-do-it-54mn",
+originalLink: "https://https://dev.to/playfulprogramming/the-power-of-atomic-commits-in-git-how-and-why-to-do-it-54mn",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

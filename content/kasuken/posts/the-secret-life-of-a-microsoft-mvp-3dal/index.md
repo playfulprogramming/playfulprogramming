@@ -5,7 +5,7 @@ published: "2024-12-10T10:30:00Z",
 edited: "2025-06-16T08:11:18Z",
 tags: ["microsoft", "devlife"],
 description: "For over a decade now (11 years right now), I’ve carried the title of Microsoft Most Valuable...",
-originalLink: "https://dev.to/this-is-learning/the-secret-life-of-a-microsoft-mvp-3dal",
+originalLink: "https://https://dev.to/playfulprogramming/the-secret-life-of-a-microsoft-mvp-3dal",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

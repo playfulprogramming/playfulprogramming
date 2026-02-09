@@ -5,7 +5,7 @@ published: "2023-05-09T12:35:00Z",
 edited: "2023-05-08T06:04:14Z",
 tags: ["javascript", "webdev"],
 description: "In my previous article I described how to use Async and Await in Vanilla JavaScript.                 ...",
-originalLink: "https://dev.to/this-is-learning/how-to-use-promiseall-and-promiseraceto-speed-up-your-javascript-code-3obh",
+originalLink: "https://https://dev.to/playfulprogramming/how-to-use-promiseall-and-promiseraceto-speed-up-your-javascript-code-3obh",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

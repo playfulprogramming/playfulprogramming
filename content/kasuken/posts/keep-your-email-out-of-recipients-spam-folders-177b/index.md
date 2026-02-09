@@ -4,7 +4,7 @@ title: "Keep Your Email out of Recipients’ Spam Folders",
 published: "2024-01-14T14:57:22Z",
 tags: ["m365", "microsoft365"],
 description: "Spam is a common problem for email users and administrators. Spam messages can clutter your inbox,...",
-originalLink: "https://dev.to/this-is-learning/keep-your-email-out-of-recipients-spam-folders-177b",
+originalLink: "https://https://dev.to/playfulprogramming/keep-your-email-out-of-recipients-spam-folders-177b",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

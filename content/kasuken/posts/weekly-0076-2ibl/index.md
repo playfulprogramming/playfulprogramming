@@ -5,7 +5,7 @@ published: "2024-08-26T18:02:47Z",
 edited: "2024-08-26T18:03:00Z",
 tags: ["weeklyretro", "devjournal"],
 description: "Monday   Dedicated time to meticulously outline the comprehensive roadmap for Cloud Glow, my...",
-originalLink: "https://dev.to/this-is-learning/weekly-0076-2ibl",
+originalLink: "https://https://dev.to/playfulprogramming/weekly-0076-2ibl",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -21,7 +21,7 @@ After a considerable hiatus, I finally returned to the blogging sphere with a ne
 
 In my article, I take a deep dive into the nuances of technical debt, examining both its potential benefits and drawbacks for young companies. I discuss how, when managed strategically, technical debt can actually accelerate a startup's growth and market entry. However, I also caution about the long-term consequences of accumulating too much technical debt without a plan for addressing it.
 
-The post, titled "Navigating Tech Debt in Early-Stage Startups: The Double-Edged Sword," can be found at: https://dev.to/this-is-learning/navigating-tech-debt-in-early-stage-startups-the-double-edged-sword-4fef
+The post, titled "Navigating Tech Debt in Early-Stage Startups: The Double-Edged Sword," can be found at: https://https://dev.to/playfulprogramming/navigating-tech-debt-in-early-stage-startups-the-double-edged-sword-4fef
 
 I'm excited to share these insights with the tech community and hope it sparks meaningful discussions about sustainable development practices in the startup ecosystem.
 
@@ -49,7 +49,7 @@ Dedicated the morning to developing a comprehensive SEO strategy for the Brandpl
 
 In the afternoon, I took some time to reflect on my professional journey and share my experiences with the tech community. This resulted in the publication of a detailed and personal blog post chronicling my 11-year tenure as a Microsoft MVP. The article not only highlights the milestones of this significant achievement but also delves into the challenges faced, lessons learned, and the immense gratitude I feel for the opportunities this role has provided. This piece serves as both a celebration of my career and an inspiration for aspiring tech professionals.
 
-https://dev.to/this-is-learning/celebrating-11-years-as-a-microsoft-mvp-a-journey-of-perseverance-and-gratitude-24dg
+https://https://dev.to/playfulprogramming/celebrating-11-years-as-a-microsoft-mvp-a-journey-of-perseverance-and-gratitude-24dg
 
 For our new secret side project, we made significant progress in establishing the foundational elements of our development infrastructure. After extensive discussions and careful consideration, we finalized the naming convention for the application versions. This standardization will ensure consistency and clarity throughout our development process, facilitating easier tracking and management of different iterations of our product.
 

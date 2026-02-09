@@ -5,13 +5,13 @@ published: "2023-03-03T19:06:06Z",
 edited: "2023-03-03T19:23:39Z",
 tags: ["javascript", "webdev", "solidjs", "reactivity"],
 description: "Amidst all the conversation around Signals the recent weeks, I have forgotten to talk about arguably...",
-originalLink: "https://dev.to/this-is-learning/making-the-case-for-signals-in-javascript-4c7i",
+originalLink: "https://https://dev.to/playfulprogramming/making-the-case-for-signals-in-javascript-4c7i",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
 ---
 
-Amidst all the conversation around Signals the recent weeks, I have forgotten to talk about arguably the most important topic. Why should you care? I've covered their [evolution](https://dev.to/this-is-learning/the-evolution-of-signals-in-javascript-8ob) and [opposition](https://dev.to/this-is-learning/react-vs-signals-10-years-later-3k71), but I haven't actually made the case for using them.
+Amidst all the conversation around Signals the recent weeks, I have forgotten to talk about arguably the most important topic. Why should you care? I've covered their [evolution](https://https://dev.to/playfulprogramming/the-evolution-of-signals-in-javascript-8ob) and [opposition](https://https://dev.to/playfulprogramming/react-vs-signals-10-years-later-3k71), but I haven't actually made the case for using them.
 
 There has been a narrative around them related to performance which is not without merit but it is so much more than that. It is more than about developer experience too. It is about flipping the current paradigm on its head.
 
@@ -165,7 +165,7 @@ I call this Signal's (*singular*) Hook Rule. There are consequences to this. The
 
 Another consideration is around disposal. Subscriptions link both ways so if one side is long-lived it is possible to hold onto memory longer than desired. Modern frameworks are pretty good at handling this disposal automatically but this is inherent to Signal's design.
 
-Finally, historically there were concerns about large uncontrollable graphs. Cycles and unpredictable propagation. These concerns largely are in past due to the work that has been done over the [past several years](https://dev.to/this-is-learning/the-evolution-of-signals-in-javascript-8ob). I'd go as far as these problems are what Signals solve and why you would use them over other message/event systems.
+Finally, historically there were concerns about large uncontrollable graphs. Cycles and unpredictable propagation. These concerns largely are in past due to the work that has been done over the [past several years](https://https://dev.to/playfulprogramming/the-evolution-of-signals-in-javascript-8ob). I'd go as far as these problems are what Signals solve and why you would use them over other message/event systems.
 
 ---
 
@@ -190,10 +190,10 @@ Whether Signals are best suited to be held by developers or to be low-level prim
 Related Resources:
 
 [A Hands-on Introduction to Fine-grained Reactivity](https://dev.to/ryansolid/a-hands-on-introduction-to-fine-grained-reactivity-3ndf)
-[The Evolution of Signals in JavaScript](https://dev.to/this-is-learning/the-evolution-of-signals-in-javascript-8ob)
-[React vs Signals: 10 Years Later](https://dev.to/this-is-learning/react-vs-signals-10-years-later-3k71)
+[The Evolution of Signals in JavaScript](https://https://dev.to/playfulprogramming/the-evolution-of-signals-in-javascript-8ob)
+[React vs Signals: 10 Years Later](https://https://dev.to/playfulprogramming/react-vs-signals-10-years-later-3k71)
 [Virtual DOM is Pure Overhead](https://svelte.dev/blog/virtual-dom-is-pure-overhead) By Rich Harris
-[Components are Pure Overhead](https://dev.to/this-is-learning/components-are-pure-overhead-hpm)
+[Components are Pure Overhead](https://https://dev.to/playfulprogramming/components-are-pure-overhead-hpm)
 [Metaphysics and JavaScript](https://docs.google.com/presentation/d/1PUvpXMBEDS45rd0wHu6tF3j_8wmGC6cOLtOw2hzU-mw/edit#slide=id.p) By Rich Harris
 [Making setInterval Declarative with React Hooks](https://overreacted.io/making-setinterval-declarative-with-react-hooks/) By Dan Abramov
 [Before you memo()](https://overreacted.io/before-you-memo/) By Dan Abramov

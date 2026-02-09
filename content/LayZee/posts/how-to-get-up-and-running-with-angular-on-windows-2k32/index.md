@@ -5,7 +5,7 @@ published: "2019-11-30T00:25:09Z",
 edited: "2020-11-15T21:44:03Z",
 tags: ["angular", "beginners", "windows", "tooling"],
 description: "Are you struggling with setting up an Angular development environment on Windows? Let us get you up and running in no time!",
-originalLink: "https://dev.to/this-is-angular/how-to-get-up-and-running-with-angular-on-windows-2k32",
+originalLink: "https://dev.to/playfulprogramming-angular/how-to-get-up-and-running-with-angular-on-windows-2k32",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -4,7 +4,7 @@ title: "How we built This is Learning Community",
 published: "2023-02-27T00:15:51Z",
 tags: ["authentication", "programming", "productivity", "csharp"],
 description: "Photo by Clay Banks on Unsplash  This is Learning was started in 2020 by @layzee. I presented how we...",
-originalLink: "https://dev.to/this-is-learning/how-we-built-this-is-learning-community-g34",
+originalLink: "https://https://dev.to/playfulprogramming/how-we-built-this-is-learning-community-g34",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -12,7 +12,7 @@ socialImg: "social-image.png"
 
 Photo by <a href="https://unsplash.com/@claybanks?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Clay Banks</a> on <a href="https://unsplash.com/photos/LjqARJaJotc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-This is Learning was started in 2020 by @layzee. I presented how we built this community at the GDE summit in Berlin in Jan 2023. Over the last 3 years, [this-is-learning](https://dev.to/this-is-learning) and [this-is-angular](https://dev.to/this-is-angular) have grown over 150+ contributors and more than 2.5M views.
+This is Learning was started in 2020 by @layzee. I presented how we built this community at the GDE summit in Berlin in Jan 2023. Over the last 3 years, [this-is-learning](https://dev.to/playfulprogramming) and [this-is-angular](https://dev.to/playfulprogramming-angular) have grown over 150+ contributors and more than 2.5M views.
 
 # How It Started
 
@@ -30,7 +30,7 @@ When I was thinking about collaboration, there are 2 things I can do.
 
 - Collaborate with @layzee as I have known him since 2019, and admire his work for the community.
 
-I decided to reach out to Lars and proposed that I join [this-is-learning](https://dev.to/this-is-learning), and Lars was convinced, as we can focus on more areas other than blogs.
+I decided to reach out to Lars and proposed that I join [this-is-learning](https://dev.to/playfulprogramming), and Lars was convinced, as we can focus on more areas other than blogs.
 
 During our call, we exchanged thoughts on the values of the community,
 
@@ -41,7 +41,7 @@ During our call, we exchanged thoughts on the values of the community,
 
 ## Other Initiatives
 
-After joining the [this-is-learning](https://dev.to/this-is-learning) as co-founder, we decided to bring more initiatives to grow the community.
+After joining the [this-is-learning](https://dev.to/playfulprogramming) as co-founder, we decided to bring more initiatives to grow the community.
 We started
 
 - This Is Tech Talks Podcast (https://www.youtube.com/@ThisisTechTalks)

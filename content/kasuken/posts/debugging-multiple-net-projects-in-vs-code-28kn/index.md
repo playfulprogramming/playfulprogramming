@@ -4,7 +4,7 @@ title: "Debugging Multiple .NET Projects in VS Code",
 published: "2023-03-23T09:51:43Z",
 tags: ["vscode", "dotnet", "webdev"],
 description: "It is quite common, especially in medium/large projects, to have to run multiple projects in debug...",
-originalLink: "https://dev.to/this-is-learning/debugging-multiple-net-projects-in-vs-code-28kn",
+originalLink: "https://https://dev.to/playfulprogramming/debugging-multiple-net-projects-in-vs-code-28kn",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

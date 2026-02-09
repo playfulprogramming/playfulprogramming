@@ -5,7 +5,7 @@ published: "2022-11-07T16:17:37Z",
 edited: "2022-11-22T19:07:43Z",
 tags: ["javascript", "solidjs", "webdev", "performance"],
 description: "It's been a while since I wrote a piece about a SolidJS technology innovation. It's been two years...",
-originalLink: "https://dev.to/this-is-learning/client-side-routing-without-the-javascript-3k1i",
+originalLink: "https://https://dev.to/playfulprogramming/client-side-routing-without-the-javascript-3k1i",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -15,7 +15,7 @@ It's been a while since I wrote a piece about a [SolidJS](https://www.solidjs.co
 
 While React had introduced these concepts, implementing them for a fine-grained reactive system was a whole other sort of beast. Requiring a little imagination and completely different solutions that avoided diffing.
 
-And that is a similar feeling to the exploration we've been doing recently. Inspired equal parts from [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) and Island solutions like [Marko](https://markojs.com/) and [Astro](https://astro.build/), Solid has made it's first steps into [Partial Hydration](https://dev.to/this-is-learning/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3). (*comparison at the bottom*)
+And that is a similar feeling to the exploration we've been doing recently. Inspired equal parts from [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) and Island solutions like [Marko](https://markojs.com/) and [Astro](https://astro.build/), Solid has made it's first steps into [Partial Hydration](https://https://dev.to/playfulprogramming/why-efficient-hydration-in-javascript-frameworks-is-so-challenging-1ca3). (*comparison at the bottom*)
 
 ---
 

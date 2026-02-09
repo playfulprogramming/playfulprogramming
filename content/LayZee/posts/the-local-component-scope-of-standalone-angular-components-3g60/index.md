@@ -5,7 +5,7 @@ published: "2022-08-31T07:03:12Z",
 edited: "2023-02-01T07:06:39Z",
 tags: ["angular"],
 description: "The local component scope of a standalone Angular component is managed by listing declarable dependencies in the Component.imports metadata option.",
-originalLink: "https://dev.to/this-is-angular/the-local-component-scope-of-standalone-angular-components-3g60",
+originalLink: "https://dev.to/playfulprogramming-angular/the-local-component-scope-of-standalone-angular-components-3g60",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Standalone Angular applications",
@@ -19,7 +19,7 @@ A standalone component is independent from an Angular module. It directly refere
 
 ## Declarable dependencies
 
-A standalone Angular component specifies declarable dependencies in the [`Component.imports`](https://angular.io/api/core/Component#imports) metadata option to manage its [local component scope](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#local-component-scope).
+A standalone Angular component specifies declarable dependencies in the [`Component.imports`](https://angular.io/api/core/Component#imports) metadata option to manage its [local component scope](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#local-component-scope).
 
 Let's consider a standalone implementation of the hero detail component from [the Tour of Heroes tutorial](https://angular.io/tutorial):
 
@@ -107,7 +107,7 @@ With the exception of the `FormsModule`, this closely matches the component temp
 
 ## Transitive compilation scope
 
-When we compare this to the [transitive compilation scope](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-compilation-scope) of the declaring module of a classic Angular component, we notice an increased mental overhead in the classic Angular component style:
+When we compare this to the [transitive compilation scope](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2#transitive-compilation-scope) of the declaring module of a classic Angular component, we notice an increased mental overhead in the classic Angular component style:
 
 ![The transitive compilation scope of the classic hero detail module (simplified)](./bou443zhcmnpat7k55h7.png)
 
@@ -131,10 +131,10 @@ This brings us to the next topic: Maintenance.
 
 Take another look at the previous expanded transitive compilation scope. As the codebase evolves, how do we keep the declarable dependencies in sync with the transitive compilation scope? How do we determine when our component template no longer uses any declarable from an Angular module exporting more than a dozen declarables.
 
-This gets harder for every declared component in an Angular module and every non-[SCAM](https://dev.to/this-is-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do) module imported.
+This gets harder for every declared component in an Angular module and every non-[SCAM](https://dev.to/playfulprogramming-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do) module imported.
 
 > ℹ️ **Note**
-> It's time to convert [SCAMs](https://dev.to/this-is-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do) to standalone declarables. That was always their purpose, after all.
+> It's time to convert [SCAMs](https://dev.to/playfulprogramming-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do) to standalone declarables. That was always their purpose, after all.
 
 It's easier to scan a standalone component template and compare it to the imported standalone declarables listed in the [`Component.imports`](https://angular.io/api/core/Component#imports) metadata option.
 

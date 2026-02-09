@@ -5,7 +5,7 @@ published: "2020-11-16T20:06:22Z",
 edited: "2023-02-08T23:40:30Z",
 tags: ["angular", "testing", "router"],
 description: "Learn how to implement shallow and integrated routing component tests with the RouterTestingModule. Explore the Location service and its dependencies.",
-originalLink: "https://dev.to/this-is-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0",
+originalLink: "https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Angular router testing",
@@ -487,7 +487,7 @@ describe('DashboardComponent (shallow)', () => {
 
 As a finishing thought on this example, this test case shows us that having route paths hidden inside templates is a code smell. Magic strings in templates force us to have magic strings in tests. This will become even more apparent in the integrated routing component test.
 
-See [Listings 3.1, 3.2, and 3.3 of "Lean Angular components"](https://dev.to/this-is-angular/lean-angular-components-1abl) for a simple example of solving this issue or try out [Routeshub](https://routeshub.gitbook.io/docs/) by [Max Tarsis](https://twitter.com/maktarsis). Routeshub is a route management library that integrates easily with the Angular router.
+See [Listings 3.1, 3.2, and 3.3 of "Lean Angular components"](https://dev.to/playfulprogramming-angular/lean-angular-components-1abl) for a simple example of solving this issue or try out [Routeshub](https://routeshub.gitbook.io/docs/) by [Max Tarsis](https://twitter.com/maktarsis). Routeshub is a route management library that integrates easily with the Angular router.
 
 # Integrated routing component test with the RouterTestingModule
 
@@ -898,9 +898,9 @@ Thank you for reading. I appreciate your support! It's been my pleasure to educa
 
 # Related articles
 
-Continue learning about the `RouterTestingModule` and how it's used to test routed Angular components in "[Testing routed Angular components with the RouterTestingModule](https://dev.to/this-is-angular/testing-routed-angular-components-with-the-routertestingmodule-1791)".
+Continue learning about the `RouterTestingModule` and how it's used to test routed Angular components in "[Testing routed Angular components with the RouterTestingModule](https://dev.to/playfulprogramming-angular/testing-routed-angular-components-with-the-routertestingmodule-1791)".
 
-Learn how to fake routing data and stub services to test Angular route guards in isolation as well as how to verify them in practice using the `RouterTestingModule` in "[Testing Angular route guards with the RouterTestingModule](https://dev.to/this-is-angular/testing-angular-route-guards-with-the-routertestingmodule-45c9)".
+Learn how to fake routing data and stub services to test Angular route guards in isolation as well as how to verify them in practice using the `RouterTestingModule` in "[Testing Angular route guards with the RouterTestingModule](https://dev.to/playfulprogramming-angular/testing-angular-route-guards-with-the-routertestingmodule-45c9)".
 
 # Reviewers
 

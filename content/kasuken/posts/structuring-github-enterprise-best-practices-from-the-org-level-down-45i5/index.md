@@ -4,7 +4,7 @@ title: "Structuring GitHub Enterprise: Best Practices from the Org Level Down",
 published: "2025-06-17T10:38:11Z",
 tags: ["github", "githubactions"],
 description: "Ever joined a GitHub Enterprise and thought, “Who organized this… chaos?”   I created this post...",
-originalLink: "https://dev.to/this-is-learning/structuring-github-enterprise-best-practices-from-the-org-level-down-45i5",
+originalLink: "https://https://dev.to/playfulprogramming/structuring-github-enterprise-best-practices-from-the-org-level-down-45i5",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

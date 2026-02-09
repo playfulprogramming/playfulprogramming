@@ -5,7 +5,7 @@ published: "2019-11-29T23:36:59Z",
 edited: "2020-11-15T20:51:43Z",
 tags: ["typescript", "csharp", "java", "javascript"],
 description: "JavaScript is a loosely typed programming language and TypeScript does not change that.",
-originalLink: "https://dev.to/this-is-learning/sorry-c-and-java-developers-this-is-not-how-typescript-works-401",
+originalLink: "https://https://dev.to/playfulprogramming/sorry-c-and-java-developers-this-is-not-how-typescript-works-401",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

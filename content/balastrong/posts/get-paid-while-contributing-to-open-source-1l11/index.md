@@ -115,7 +115,7 @@ Having someone give you money for working on an Open Source project is indeed gr
 
 # One last thing... {#one-last-thing}
 
-There’s still a problem though, getting paid is cool but you also need a project to get started, right? Then you better check out [this other article](https://dev.to/this-is-learning/how-to-find-an-open-source-project-to-contribute-to-3093) ([or video](https://youtu.be/yfopPq4354o)) where I tell you some smart ways how to find the best project for you. Finding a project can be hard, at least, it was for me and I know also for some other friends… that’s why I shared some suggestions based on my own experience.
+There’s still a problem though, getting paid is cool but you also need a project to get started, right? Then you better check out [this other article](https://https://dev.to/playfulprogramming/how-to-find-an-open-source-project-to-contribute-to-3093) ([or video](https://youtu.be/yfopPq4354o)) where I tell you some smart ways how to find the best project for you. Finding a project can be hard, at least, it was for me and I know also for some other friends… that’s why I shared some suggestions based on my own experience.
 
 ---
 

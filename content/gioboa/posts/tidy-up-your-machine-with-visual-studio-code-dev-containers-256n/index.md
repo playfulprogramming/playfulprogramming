@@ -5,7 +5,7 @@ published: "2022-11-26T19:35:50Z",
 edited: "2022-12-20T08:12:33Z",
 tags: ["discuss"],
 description: "I recently discovered the Visual Studio Code - Dev Containers feature and I thought to share with you...",
-originalLink: "https://dev.to/this-is-learning/tidy-up-your-machine-with-visual-studio-code-dev-containers-256n",
+originalLink: "https://https://dev.to/playfulprogramming/tidy-up-your-machine-with-visual-studio-code-dev-containers-256n",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

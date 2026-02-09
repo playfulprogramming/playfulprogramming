@@ -5,7 +5,7 @@ published: "2019-08-01T13:20:28Z",
 edited: "2021-04-09T05:31:45Z",
 tags: ["opensource", "javascript", "angular", "ngrx"],
 description: "Photo by Markus Spiske on Unsplash  Hello everyone, my name is Santosh Yadav and I want to share my O...",
-originalLink: "https://dev.to/this-is-learning/my-open-source-journey-336j",
+originalLink: "https://https://dev.to/playfulprogramming/my-open-source-journey-336j",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

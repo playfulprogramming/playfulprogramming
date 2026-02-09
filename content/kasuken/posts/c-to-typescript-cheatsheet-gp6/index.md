@@ -4,7 +4,7 @@ title: "C# to Typescript Cheatsheet",
 published: "2025-03-16T16:42:22Z",
 tags: ["csharp", "typescript"],
 description: "As a consultant, sometimes, I have to switch from a project to another. My main (and favorite)...",
-originalLink: "https://dev.to/this-is-learning/c-to-typescript-cheatsheet-gp6",
+originalLink: "https://https://dev.to/playfulprogramming/c-to-typescript-cheatsheet-gp6",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

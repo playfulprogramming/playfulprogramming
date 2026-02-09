@@ -5,7 +5,7 @@ published: "2021-11-12T15:19:34Z",
 edited: "2021-11-17T19:20:22Z",
 tags: ["javascript", "webdev", "frameworks", "architecture"],
 description: "Transitional JavaScript Apps? What? Well honestly I'm not sure I know completely myself. It is an...",
-originalLink: "https://dev.to/this-is-learning/understanding-transitional-javascript-apps-27i2",
+originalLink: "https://https://dev.to/playfulprogramming/understanding-transitional-javascript-apps-27i2",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

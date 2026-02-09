@@ -19,7 +19,7 @@ But what is [Hacktoberfest](https://hacktoberfest.com/)? It is not an Anonymous 
 
 Hacktoberfest also comes with a challenge and the first 40.000 participants to complete it, will be eligible to decide between two prizes: the official Hacktoberfest 2022 t-shirt, or a tree planted in their name.
 
-Participation is bound to Open Source contributions, and starting from this year not only from code but also all the [other ways](https://dev.to/this-is-learning/open-source-is-not-only-writing-code-2hpj) we know are counting as contributes.
+Participation is bound to Open Source contributions, and starting from this year not only from code but also all the [other ways](https://https://dev.to/playfulprogramming/open-source-is-not-only-writing-code-2hpj) we know are counting as contributes.
 
 ---
 

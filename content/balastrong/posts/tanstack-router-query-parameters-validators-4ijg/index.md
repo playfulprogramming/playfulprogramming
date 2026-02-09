@@ -14,9 +14,9 @@ order: 3
 
 Welcome to the third article of a series where we will explore TanStack Router, the new typesafe routing library (and state manager, in some cases) for React.
 
-In the [first article](https://dev.to/this-is-learning/tanstack-router-setup-routing-in-react-4gf7) we saw how to set up a new project with TanStack Router and how to create a couple of routes.
+In the [first article](https://https://dev.to/playfulprogramming/tanstack-router-setup-routing-in-react-4gf7) we saw how to set up a new project with TanStack Router and how to create a couple of routes.
 
-In the [second article](https://dev.to/this-is-learning/tanstack-router-setup-routing-in-react-4gf7) instead, the focus was on path parameters and loaders.
+In the [second article](https://https://dev.to/playfulprogramming/tanstack-router-setup-routing-in-react-4gf7) instead, the focus was on path parameters and loaders.
 
 In this article, we'll see how you can properly parse and handle query parameters (aka search parameters) and how they can be effectively used as a state manager. Besides, imagine being able to share your state by just passing the URL, how convenient!
 

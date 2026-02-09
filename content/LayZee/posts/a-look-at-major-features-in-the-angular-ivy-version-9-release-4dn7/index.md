@@ -5,7 +5,7 @@ published: "2021-03-24T14:29:14Z",
 edited: "2021-05-17T21:14:39Z",
 tags: ["angular", "ivy", "globalization"],
 description: "AOT everywhere, dynamic globalisation, strict mode, Bazel, and much more.",
-originalLink: "https://dev.to/this-is-angular/a-look-at-major-features-in-the-angular-ivy-version-9-release-4dn7",
+originalLink: "https://dev.to/playfulprogramming-angular/a-look-at-major-features-in-the-angular-ivy-version-9-release-4dn7",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -23,7 +23,7 @@ In previous versions of Angular, we had to opt-in to Ivy. In version 9, we inste
 
 Libraries *can* be AOT-compiled directly to Ivy instructions and metadata, but this is not recommended. The Angular team has a View Engine-to-Ivy migration plan which recommends only publishing AOT-compiled View Engine-compatible libraries for Angular version 9. The Angular compatibility compiler will upgrade View Engine-compatible libraries to Ivy when installed in an Angular Ivy application project.
 
-[Learn about library compatibility and the View Engine-to-Ivy transition plan in “The Angular Ivy guide for library authors”](https://dev.to/this-is-angular/the-angular-ivy-guide-for-library-authors-9md).
+[Learn about library compatibility and the View Engine-to-Ivy transition plan in “The Angular Ivy guide for library authors”](https://dev.to/playfulprogramming-angular/the-angular-ivy-guide-for-library-authors-9md).
 
 ```json
 {
@@ -303,9 +303,9 @@ Angular version 9 comes with official components for YouTube and Google Maps. A 
 
 The biggest surprise of the Angular version 9 release is the many improvements to testing. Long-standing performance issues are resolved, types are improved and new concepts are introduced.
 
-[Learn about major features and improvements for testing in "Next-level testing in Angular Ivy version 9"](https://dev.to/this-is-angular/next-level-testing-in-angular-ivy-version-9-25oc).
+[Learn about major features and improvements for testing in "Next-level testing in Angular Ivy version 9"](https://dev.to/playfulprogramming-angular/next-level-testing-in-angular-ivy-version-9-25oc).
 
-[Learn how to create and use your own component harnesses in "Create a component harness for your tests with Angular CDK"](https://dev.to/this-is-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg).
+[Learn how to create and use your own component harnesses in "Create a component harness for your tests with Angular CDK"](https://dev.to/playfulprogramming-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg).
 
 ## Conclusion
 
@@ -317,9 +317,9 @@ Angular Ivy is an enabler for features to come. As we have discussed in this art
 
 We only discussed what is part of the public, stable Angular version 9 APIs. A few experimental APIs are part of this release, such as `renderComponent`, `markDirty`, and `detectChanges`. However, they are still subject to change.
 
-With the deprecation of entry component declarations and lazy loaded components using render modules, we are one step closer to [tree-shakable components and optional Angular modules](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2).
+With the deprecation of entry component declarations and lazy loaded components using render modules, we are one step closer to [tree-shakable components and optional Angular modules](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2).
 
-[Component features](https://dev.to/this-is-angular/component-features-with-angular-ivy-213h) are also part of this release, but only exposed for internal use by Ivy.
+[Component features](https://dev.to/playfulprogramming-angular/component-features-with-angular-ivy-213h) are also part of this release, but only exposed for internal use by Ivy.
 
 The Angular Ivy version 9 release gives us improvements for bundling, testing, the developer experience, tooling, debugging, and type checking. Quite a good collection of features.
 

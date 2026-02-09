@@ -4,7 +4,7 @@ title: "Typescript - (ReadOnly)NotEmptyArray",
 published: "2022-02-14T06:40:37Z",
 tags: ["typescript", "javascript", "webdev", "help"],
 description: "Arrays are already well described in typescript, but sometimes we need to be more strict with our...",
-originalLink: "https://dev.to/this-is-learning/typescript-readonlynotemptyarray-2id7",
+originalLink: "https://https://dev.to/playfulprogramming/typescript-readonlynotemptyarray-2id7",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -36,7 +36,7 @@ type ReadOnlyNotEmptyArray<T> = Readonly<NotEmptyArray<T>>;
 
 This type prevents all the arrays' mutations so we can work with arrays with confidence.
 
-The last point that I want to let you is how to convert an Array to a NotEmptyArray. To do that we need to create a [type guard](https://dev.to/this-is-learning/typescript-tips-tricks-type-guard-50e5) function. This function can be done in this way.
+The last point that I want to let you is how to convert an Array to a NotEmptyArray. To do that we need to create a [type guard](https://https://dev.to/playfulprogramming/typescript-tips-tricks-type-guard-50e5) function. This function can be done in this way.
 
 ```ts
 function isNotEmptyArray<T>(as: T[]): as is NotEmptyArray<T> {

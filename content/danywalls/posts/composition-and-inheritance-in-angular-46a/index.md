@@ -513,9 +513,9 @@ If you are in the same situation refactor is one of the ways to take,  I thoroug
 
 - [The key points of Working Effectively with Legacy Code](https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/).
 
-- [How to build a reusable form component](https://dev.to/this-is-angular/lean-angular-components-1abl) by @[Michael Karén](@melcor76)
+- [How to build a reusable form component](https://dev.to/playfulprogramming-angular/lean-angular-components-1abl) by @[Michael Karén](@melcor76)
 
-- [Lean Angular Components](https://dev.to/this-is-angular/lean-angular-components-1abl) @[Lars Gyrup Brink Nielsen](@LayZee)
+- [Lean Angular Components](https://dev.to/playfulprogramming-angular/lean-angular-components-1abl) @[Lars Gyrup Brink Nielsen](@LayZee)
 
 - [Composition over Inheritance video explain by mpj](https://www.youtube.com/watch?v=wfMtDGfHWpA)
 

@@ -5,7 +5,7 @@ published: "2025-08-01T10:52:24Z",
 edited: "2025-08-01T10:52:41Z",
 tags: ["azure", "ai", "microsoft", "programming"],
 description: "Large Language Models (LLMs) offer incredible potential for businesses, but managing the costs...",
-originalLink: "https://dev.to/this-is-learning/azure-foundry-creating-a-pay-as-you-go-llm-service-207d",
+originalLink: "https://https://dev.to/playfulprogramming/azure-foundry-creating-a-pay-as-you-go-llm-service-207d",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -5,7 +5,7 @@ published: "2021-10-08T06:16:39Z",
 edited: "2021-10-13T11:44:12Z",
 tags: ["javascript", "typescript", "rxjs"],
 description: "Hello Folks 👋! Today it's time to speak about testing and how to test the code when we use...",
-originalLink: "https://dev.to/this-is-learning/rxjs-marble-testing-2gg9",
+originalLink: "https://https://dev.to/playfulprogramming/rxjs-marble-testing-2gg9",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "RxJS - Getting Started",
@@ -62,7 +62,7 @@ Ok, I think that now you have an idea of the difference between these two types 
 
 # Marble Testing
 
-To test our code in RxJS we use Marble testing. A method that combines the [Marble Diagram](https://dev.to/this-is-learning/rxjs-marble-diagrams-4jmg) with the code, and allows us to represent the behaviours of our observables and translate them to something that the Testing Framework can understand.
+To test our code in RxJS we use Marble testing. A method that combines the [Marble Diagram](https://https://dev.to/playfulprogramming/rxjs-marble-diagrams-4jmg) with the code, and allows us to represent the behaviours of our observables and translate them to something that the Testing Framework can understand.
 
 ## Marble Syntax
 

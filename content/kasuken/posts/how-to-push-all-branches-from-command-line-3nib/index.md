@@ -4,7 +4,7 @@ title: "How to Push All Branches from Command Line",
 published: "2024-02-24T21:40:15Z",
 tags: ["git", "github"],
 description: "Pushing all branches simultaneously streamlines the process of synchronizing your local repository...",
-originalLink: "https://dev.to/this-is-learning/how-to-push-all-branches-from-command-line-3nib",
+originalLink: "https://https://dev.to/playfulprogramming/how-to-push-all-branches-from-command-line-3nib",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

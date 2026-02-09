@@ -5,7 +5,7 @@ published: "2025-07-11T13:18:03Z",
 edited: "2025-07-11T13:19:22Z",
 tags: ["firebase", "angular", "ai", "programming"],
 description: "Some of you asked me to create an example of integration between Angular and one of Firebase's latest...",
-originalLink: "https://dev.to/this-is-angular/firebase-hybrid-on-device-with-angular-50o9",
+originalLink: "https://dev.to/playfulprogramming-angular/firebase-hybrid-on-device-with-angular-50o9",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

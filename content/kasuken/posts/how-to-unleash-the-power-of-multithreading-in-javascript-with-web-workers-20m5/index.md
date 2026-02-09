@@ -4,7 +4,7 @@ title: "How to Unleash the Power of Multithreading in JavaScript with Web Worker
 published: "2023-05-16T13:04:52Z",
 tags: ["javascript", "webdev"],
 description: "As I mentioned in my two previous articles, JavaScript is a single-threaded language, which means it...",
-originalLink: "https://dev.to/this-is-learning/how-to-unleash-the-power-of-multithreading-in-javascript-with-web-workers-20m5",
+originalLink: "https://https://dev.to/playfulprogramming/how-to-unleash-the-power-of-multithreading-in-javascript-with-web-workers-20m5",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

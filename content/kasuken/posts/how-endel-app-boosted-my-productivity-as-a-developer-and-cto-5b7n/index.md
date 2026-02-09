@@ -4,7 +4,7 @@ title: "How Endel App Boosted My Productivity as a Developer and CTO",
 published: "2024-01-27T09:00:56Z",
 tags: ["productivity", "devlive"],
 description: "As a developer and CTO, I have to juggle multiple tasks and projects every day. I need to write code,...",
-originalLink: "https://dev.to/this-is-learning/how-endel-app-boosted-my-productivity-as-a-developer-and-cto-5b7n",
+originalLink: "https://https://dev.to/playfulprogramming/how-endel-app-boosted-my-productivity-as-a-developer-and-cto-5b7n",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

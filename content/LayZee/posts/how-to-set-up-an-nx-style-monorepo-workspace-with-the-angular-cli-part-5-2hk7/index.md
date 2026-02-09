@@ -5,7 +5,7 @@ published: "2021-03-31T12:15:31Z",
 edited: "2021-09-18T23:09:19Z",
 tags: ["angular", "nx", "cli", "monorepo"],
 description: "In the final part of this tutorial, we create the seatmap data access, seat listing feature, shared buttons UI, and shared formatting utilities library. Finally, we compare our approach with the full Nx toolchain.",
-originalLink: "https://dev.to/this-is-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-5-2hk7",
+originalLink: "https://dev.to/playfulprogramming-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-5-2hk7",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "How to set up an Nx-style monorepo workspace with the Angular CLI",
@@ -253,7 +253,7 @@ yarn generate-project library ui ui-buttons --scope=shared --npm-scope=nrwl-airl
 
 <figcaption>Generate shared buttons UI library.</figcaption>
 
-Let's delete the default component and create a new confirm button component with a [SCAM](https://dev.to/this-is-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do).
+Let's delete the default component and create a new confirm button component with a [SCAM](https://dev.to/playfulprogramming-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do).
 
 ```bash
 npx rimraf libs/shared/ui-buttons/src/lib/buttons

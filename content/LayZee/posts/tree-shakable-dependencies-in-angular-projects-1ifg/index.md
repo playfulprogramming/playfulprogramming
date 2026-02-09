@@ -5,7 +5,7 @@ published: "2020-11-22T22:37:58Z",
 edited: "2021-03-26T14:20:43Z",
 tags: ["angular", "dependencyinjection", "treeshaking"],
 description: "Since Angular version 6, we can create tree-shakable dependencies and even leave out Angular modules.",
-originalLink: "https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg",
+originalLink: "https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Angular dependencies",
@@ -474,11 +474,11 @@ Unused tree-shakable services from shared libraries and Angular libraries are re
 
 # Related articles
 
-Tree-shakable dependencies is just one of the techniques used to make Angular modules optional. Read what you can expect from the upcoming Angular Ivy era in “[Angular revisited: tree-shakable components and optional NgModules](https://dev.to/this-is-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2)”.
+Tree-shakable dependencies is just one of the techniques used to make Angular modules optional. Read what you can expect from the upcoming Angular Ivy era in “[Angular revisited: tree-shakable components and optional NgModules](https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2)”.
 
-Learn the ins and outs of Angular dependency injection in automated tests in “[Testing and faking Angular dependencies](https://dev.to/this-is-angular/testing-and-faking-angular-dependencies-p9i)”.
+Learn the ins and outs of Angular dependency injection in automated tests in “[Testing and faking Angular dependencies](https://dev.to/playfulprogramming-angular/testing-and-faking-angular-dependencies-p9i)”.
 
-We’ll create a browser faker to test the banner component during development in “[Faking dependencies in Angular applications](https://dev.to/this-is-angular/faking-dependencies-in-angular-applications-4d2f)”.
+We’ll create a browser faker to test the banner component during development in “[Faking dependencies in Angular applications](https://dev.to/playfulprogramming-angular/faking-dependencies-in-angular-applications-4d2f)”.
 
 # Peer reviewers
 

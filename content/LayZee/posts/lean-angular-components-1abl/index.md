@@ -5,7 +5,7 @@ published: "2021-03-24T12:43:12Z",
 edited: "2021-03-24T15:06:36Z",
 tags: ["angular", "architecture", "designpatterns", "components"],
 description: "Building a robust component architecture.",
-originalLink: "https://dev.to/this-is-angular/lean-angular-components-1abl",
+originalLink: "https://dev.to/playfulprogramming-angular/lean-angular-components-1abl",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
@@ -51,7 +51,7 @@ Considering the horizontal layers of a web application in Figure 1, components o
 
 ## Model-View-Presenter—a collection of techniques
 
-I’ve previously collected common techniques and described them in the article “[Model-View-Presenter with Angular](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h)” and its related articles. Why? To have a detailed guide on how to separate concerns in Angular applications.
+I’ve previously collected common techniques and described them in the article “[Model-View-Presenter with Angular](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h)” and its related articles. Why? To have a detailed guide on how to separate concerns in Angular applications.
 
 Follow my Model-View-Presenter variation for Angular and you will almost certainly have an application that is maintainable, testable, scalable, and performant.
 
@@ -123,7 +123,7 @@ I would take it one step further and say that not even presentation or user inte
 
 ## Designing presentational components
 
-[Presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961) present application state that is passed to them through input properties. If data transformation or computed properties are necessary, the application state is passed through a [presenter](https://dev.to/this-is-angular/presenters-with-angular-2l7l)—a component level service.
+[Presentational components](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961) present application state that is passed to them through input properties. If data transformation or computed properties are necessary, the application state is passed through a [presenter](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l)—a component level service.
 
 The architecture guide describes this in its very next paragraph:
 
@@ -131,7 +131,7 @@ The architecture guide describes this in its very next paragraph:
 
 # Managing control flow
 
-Another responsibility of a [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961) is to be a method of passing control flows initiated by user interaction to behaviour-encapsulating services—what I call **[presenters](https://dev.to/this-is-angular/presenters-with-angular-2l7l)**. Side effects of the presenters are mapped to output properties as needed. In simple use cases, a user interaction is mapped directly to an output property.
+Another responsibility of a [presentational component](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961) is to be a method of passing control flows initiated by user interaction to behaviour-encapsulating services—what I call **[presenters](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l)**. Side effects of the presenters are mapped to output properties as needed. In simple use cases, a user interaction is mapped directly to an output property.
 
 This is another principle that is mentioned in the architecture guide:
 
@@ -149,7 +149,7 @@ This hits the nail on its head. The guide encourages us to follow these principl
 
 ## Container components are not enough
 
-Even with components split into [container components](https://dev.to/this-is-angular/container-components-with-angular-4o05) and [presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961), we should still add another layer of abstraction to prevent components from doing too much. Business logic should be extracted into component level services like facades or even component-specific services such as [presenters](https://dev.to/this-is-angular/presenters-with-angular-2l7l).
+Even with components split into [container components](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05) and [presentational components](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961), we should still add another layer of abstraction to prevent components from doing too much. Business logic should be extracted into component level services like facades or even component-specific services such as [presenters](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l).
 
 ## For long-lived project and software products
 
@@ -237,7 +237,7 @@ export class CartComponent {
 
 Listings 2.1 and 2.2 are our starting point—a mixed component with concerns spanning many horizontal layers. It also features logic at different abstraction levels.
 
-The mixed cart component has logic for presentation, presentation implementation details, high level presentation logic, low level presentation logic, and low level user interaction logic. These categories of logic might be alright to add to a [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961), but it’s definitely at a point where we should consider refactoring it.
+The mixed cart component has logic for presentation, presentation implementation details, high level presentation logic, low level presentation logic, and low level user interaction logic. These categories of logic might be alright to add to a [presentational component](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961), but it’s definitely at a point where we should consider refactoring it.
 
 It also contains non-presentational logic in the categories of state management implementation details, and low level business logic. State management is the first concern that we should extract. Local UI state is the exception which is categorised as a user interaction concern—part of UI behaviour.
 
@@ -353,11 +353,11 @@ export class CartComponent {
 
 In Listings 4.1 and 4.2, we see that there is now minimal logic left in the presentational cart component. The shipping route URL is passed as an input property. This component doesn’t care what the full route URL is or how to access it.
 
-In the same way, this component is happy to iterate over products, passing each one to a separate instance of another [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961) we extracted, the cart item component.
+In the same way, this component is happy to iterate over products, passing each one to a separate instance of another [presentational component](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961) we extracted, the cart item component.
 
 I won’t go through the implementation details of the even more simple cart item component, but the full solution is available in [a StackBlitz workspace](https://stackblitz.com/edit/angular-lean-cart-component).
 
-We’ve extracted yet another [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961), the checkout component.
+We’ve extracted yet another [presentational component](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961), the checkout component.
 
 ```html
 <!-- checkout.component.html -->
@@ -505,13 +505,13 @@ The full refactored solution is available as [a StackBlitz workspace](https://st
 
 <figcaption>Figure 4. Cart: Initial concerns.</figcaption>
 
-Initially, many different concerns were located in a single mixed component as seen in Figure 4. The concerns in the lower section are definitely not supposed to be in a [presentational component](https://dev.to/this-is-angular/presentational-components-with-angular-3961), that is state management implementation details, high level business logic and low level business logic.
+Initially, many different concerns were located in a single mixed component as seen in Figure 4. The concerns in the lower section are definitely not supposed to be in a [presentational component](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961), that is state management implementation details, high level business logic and low level business logic.
 
 ![](./7i4ho4jo1wnahevwsokt.png)
 
 <figcaption>Figure 5. Cart: Refactored concerns.</figcaption>
 
-After refactoring the cart feature into multiple components and a [presenter](https://dev.to/this-is-angular/presenters-with-angular-2l7l), concerns are reasonably separated, as seen in Figure 5.
+After refactoring the cart feature into multiple components and a [presenter](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l), concerns are reasonably separated, as seen in Figure 5.
 
 Every software artifact is concerned with logic from a single horizontal layer or two at the most. They also manage to keep a single abstraction level in most cases.
 
@@ -533,7 +533,7 @@ Even 100 lines of code for a component should have us worried or at the very lea
 
 A reason for extracting logic to services is reuse. Data services and other services related to application state management has a big chance of being or potentially becoming reusable to multiple parts of our applications, maybe even multiple projects.
 
-Similarly, when non-presentational logic is extracted from a component, we end up with [presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961) that can be reused with state from different part of an application or potentially in multiple projects.
+Similarly, when non-presentational logic is extracted from a component, we end up with [presentational components](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961) that can be reused with state from different part of an application or potentially in multiple projects.
 
 Another upside of extracting logic to a service is that services are easier and faster to test in isolation. Additionally, a simple component with only presentational concerns is easier to test in isolation. This is because we move dependencies and encapsulate implementation details outside of the components.
 
@@ -591,7 +591,7 @@ More interestingly, the guide tells us to provide a service at the component lev
 
 ---
 
-Read “[Tree-shakable dependencies in Angular projects](https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg)” to learn every detail about Angular providers.
+Read “[Tree-shakable dependencies in Angular projects](https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg)” to learn every detail about Angular providers.
 
 ---
 
@@ -603,7 +603,7 @@ This guideline recommends us to extract data operation and interaction logic to 
 
 > The component’s responsibility is for the presentation and gathering of information for the view. It should not care how it gets the data, just that it knows who to ask for it. Separating the data services moves the logic on how to get it to the data service, and lets the component be simpler and more focused on the view.
 
-This is very much about separation of concerns. We don’t work at different horizontal layers of the application in the same place. Instead, let’s design components that are only concerned about presentation. I prefer to even extract presentation and user interaction to delegate those concerns to component level services such as [presenters](https://dev.to/this-is-angular/presenters-with-angular-2l7l).
+This is very much about separation of concerns. We don’t work at different horizontal layers of the application in the same place. Instead, let’s design components that are only concerned about presentation. I prefer to even extract presentation and user interaction to delegate those concerns to component level services such as [presenters](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l).
 
 The style guide reminds us that extracting logic from the component into an abstract interface, makes it easier to test the component.
 
@@ -613,11 +613,11 @@ We let the component delegate the task of retrieving or storing data to a servic
 
 For simple applications or projects with a short lifespan, mixed components are acceptable since there’s no big need for maintainability, scalability or even testability of the codebase.
 
-For large, complex applications, we have a higher need for maximising the valuable traits that were just mentioned. To do this, we need [presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961) that only contain logic that belongs to the presentational, horizontal application layers. These components should only deal with a concern at a single abstraction level.
+For large, complex applications, we have a higher need for maximising the valuable traits that were just mentioned. To do this, we need [presentational components](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961) that only contain logic that belongs to the presentational, horizontal application layers. These components should only deal with a concern at a single abstraction level.
 
-Lean [presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961) are only concerned about presenting information to our users and allow them to interact with the application. Implementation details are left for other software artifacts that belong in different horizontal application layers. Complex logic for presentation or user interaction is delegated to component level services such as [presenters](https://dev.to/this-is-angular/presenters-with-angular-2l7l).
+Lean [presentational components](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961) are only concerned about presenting information to our users and allow them to interact with the application. Implementation details are left for other software artifacts that belong in different horizontal application layers. Complex logic for presentation or user interaction is delegated to component level services such as [presenters](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l).
 
-We can also have lean [container components](https://dev.to/this-is-angular/container-components-with-angular-4o05). They project application state to [presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961) and convert application-specific events to commands that affect the application state. Complex logic is delegated to an application level service such as a facade—maybe even a component-specific service at the component level such as a data mapper.
+We can also have lean [container components](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05). They project application state to [presentational components](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961) and convert application-specific events to commands that affect the application state. Complex logic is delegated to an application level service such as a facade—maybe even a component-specific service at the component level such as a data mapper.
 
 ---
 
@@ -625,7 +625,7 @@ An alternative to the container/presentational component pattern is using BLoCs 
 
 Learn about BLoCs in [Suguru Inatomi](https://dev.to/lacolaco)’s article “[BLoC design pattern with Angular](https://medium.com/lacolaco-blog/bloc-design-pattern-with-angular-1c2f0339f6a3)”.
 
-Make sure to also read my follow up in [this thread](https://medium.com/@LayZeeDK/very-interesting-suguru-thank-you-for-sharing-ec3c2dc7e82e) where I compare this design pattern to [container components](https://dev.to/this-is-angular/container-components-with-angular-4o05), [presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961) and [presenters](https://dev.to/this-is-angular/presenters-with-angular-2l7l) while suggesting some improvements to Suguru’s ideas.
+Make sure to also read my follow up in [this thread](https://medium.com/@LayZeeDK/very-interesting-suguru-thank-you-for-sharing-ec3c2dc7e82e) where I compare this design pattern to [container components](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05), [presentational components](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961) and [presenters](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l) while suggesting some improvements to Suguru’s ideas.
 
 ---
 
@@ -645,7 +645,7 @@ Let’s minimise the logic in our components to a level that they are barely wor
 
 ## Related articles
 
-One way to design lean Angular components is to use [container components](https://dev.to/this-is-angular/container-components-with-angular-4o05), [presentational components](https://dev.to/this-is-angular/presentational-components-with-angular-3961) and [presenters](https://dev.to/this-is-angular/presenters-with-angular-2l7l). I explain how in the introductory article “[Model-View-Presenter with Angular](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h)”.
+One way to design lean Angular components is to use [container components](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05), [presentational components](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961) and [presenters](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l). I explain how in the introductory article “[Model-View-Presenter with Angular](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h)”.
 
 ## Acknowledgements
 

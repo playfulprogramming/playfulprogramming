@@ -4,7 +4,7 @@ title: "It's Prisma Time - Seeding",
 published: "2022-02-04T06:57:04Z",
 tags: ["javascript", "typescript", "database", "orm"],
 description: "Hello Folks 👋 Today we'll see how to handle seed with Prisma.  Seeding allows you to re-create...",
-originalLink: "https://dev.to/this-is-learning/its-prisma-time-seeding-43h4",
+originalLink: "https://https://dev.to/playfulprogramming/its-prisma-time-seeding-43h4",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "It's Prisma Time",
@@ -104,7 +104,7 @@ the result will seem like this
 
 Our database is ready with all migrations and our seeds.
 Now, I think you have all the notions to work with confidence with Prisma, so it's time to let you go for your steps.
-This is the last post of this [series](https://dev.to/this-is-learning/series/15827) folks.
+This is the last post of this [series](https://https://dev.to/playfulprogramming/series/15827) folks.
 I hope my posts helped you to view better this fantastic tool, surely they helped me a lot to understand it better.
 So, I hope Prisma can be your friend in your daily work and it can help you to work in the right way with our databases.
 

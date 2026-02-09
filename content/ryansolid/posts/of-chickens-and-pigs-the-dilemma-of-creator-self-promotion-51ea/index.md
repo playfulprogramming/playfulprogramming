@@ -5,7 +5,7 @@ published: "2021-04-22T18:18:01Z",
 edited: "2021-04-25T02:43:09Z",
 tags: ["webdev", "devjournal", "javascript", "opensource"],
 description: "Have you ever created a new library? You saw a gap when creating a project at work. So you worked on...",
-originalLink: "https://dev.to/this-is-learning/of-chickens-and-pigs-the-dilemma-of-creator-self-promotion-51ea",
+originalLink: "https://https://dev.to/playfulprogramming/of-chickens-and-pigs-the-dilemma-of-creator-self-promotion-51ea",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

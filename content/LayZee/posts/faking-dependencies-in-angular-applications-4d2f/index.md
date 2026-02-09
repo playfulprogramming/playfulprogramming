@@ -5,7 +5,7 @@ published: "2021-03-24T13:44:32Z",
 edited: "2021-03-26T14:21:21Z",
 tags: ["angular", "dependencyinjection", "testing"],
 description: "Create components and directives for manual tests.",
-originalLink: "https://dev.to/this-is-angular/faking-dependencies-in-angular-applications-4d2f",
+originalLink: "https://dev.to/playfulprogramming-angular/faking-dependencies-in-angular-applications-4d2f",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Angular dependencies",
@@ -19,7 +19,7 @@ order: 3
 
 Using the power of Angular’s dependency injection system, we can fake specific use cases. This is useful for automated tests, but in this article, we’ll look at a way to use it for manual testing.
 
-In “[Testing and faking Angular dependencies](https://dev.to/this-is-angular/testing-and-faking-angular-dependencies-p9i)”, we created an Internet Explorer 11 deprecation banner component and added test suites. We didn’t test it in an actual Internet Explorer 11 browser yet.
+In “[Testing and faking Angular dependencies](https://dev.to/playfulprogramming-angular/testing-and-faking-angular-dependencies-p9i)”, we created an Internet Explorer 11 deprecation banner component and added test suites. We didn’t test it in an actual Internet Explorer 11 browser yet.
 
 To make life easier for ourselves, we’ll create a browser faker component that’s only enabled in development mode thanks to a custom structural directive. For fun, we’ll add text pipes to use common string operations in our component templates.
 
@@ -610,9 +610,9 @@ Microsoft’s [Modern.IE](http://modern.ie/) domain has free resources for gener
 
 ## Related articles
 
-Look into techniques for configuring and resolving dependencies in an Angular testing environment in “[Testing and faking Angular dependencies](https://dev.to/this-is-angular/testing-and-faking-angular-dependencies-p9i)”.
+Look into techniques for configuring and resolving dependencies in an Angular testing environment in “[Testing and faking Angular dependencies](https://dev.to/playfulprogramming-angular/testing-and-faking-angular-dependencies-p9i)”.
 
-Learn how to provide tree-shakable dependencies and other complicated configurations of Angular dependency injection in “[Tree-shakable dependencies in Angular projects](https://dev.to/this-is-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”. This is the article that our application is based on.
+Learn how to provide tree-shakable dependencies and other complicated configurations of Angular dependency injection in “[Tree-shakable dependencies in Angular projects](https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg)”. This is the article that our application is based on.
 
 ## Reviewers
 

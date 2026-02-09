@@ -5,7 +5,7 @@ published: "2023-08-25T12:01:00Z",
 edited: "2023-08-27T08:14:45Z",
 tags: ["powershell", "programming", "terminal", "csv"],
 description: "PowerShell is a powerful scripting language that can manipulate various types of data, such as...",
-originalLink: "https://dev.to/this-is-learning/powershell-turn-your-custom-objects-into-csv-files-and-vice-versa-with-a-snap-of-your-fingers-ifk",
+originalLink: "https://https://dev.to/playfulprogramming/powershell-turn-your-custom-objects-into-csv-files-and-vice-versa-with-a-snap-of-your-fingers-ifk",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -4,7 +4,7 @@ title: "Two-way Binding is a Two-way Street",
 published: "2024-07-31T21:19:18Z",
 tags: ["javascript", "vue", "svelte", "solidjs"],
 description: "In some circles, two-way binding is seen as the scourge of modern frontends, while in others it is...",
-originalLink: "https://dev.to/this-is-learning/two-way-binding-is-a-two-way-street-2d3c",
+originalLink: "https://https://dev.to/playfulprogramming/two-way-binding-is-a-two-way-street-2d3c",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

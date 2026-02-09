@@ -5,7 +5,7 @@ published: "2020-02-13T20:22:19Z",
 edited: "2022-05-15T21:22:26Z",
 tags: ["science", "productivity", "mindset", "knowledge"],
 description: "Quantum-entangled rubber duck debugging using real-life subjects. A theory by Michael Hladky.",
-originalLink: "https://dev.to/this-is-learning/the-quantum-duck-debugging-theory-406d",
+originalLink: "https://https://dev.to/playfulprogramming/the-quantum-duck-debugging-theory-406d",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

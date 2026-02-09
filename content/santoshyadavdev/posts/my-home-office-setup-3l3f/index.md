@@ -5,7 +5,7 @@ published: "2020-10-17T18:38:10Z",
 edited: "2021-04-08T13:21:21Z",
 tags: ["productivity", "career", "discuss"],
 description: "Last year I started working on the home setup, which I never thought would become my home office one...",
-originalLink: "https://dev.to/this-is-learning/my-home-office-setup-3l3f",
+originalLink: "https://https://dev.to/playfulprogramming/my-home-office-setup-3l3f",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

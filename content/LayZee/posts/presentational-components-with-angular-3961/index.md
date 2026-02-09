@@ -5,7 +5,7 @@ published: "2021-03-22T21:35:55Z",
 edited: "2021-03-22T21:50:17Z",
 tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
 description: "Presentational components encapsulate presentation and UI behaviour. They can be stateful or stateless and are connected to the application state through their data binding API.",
-originalLink: "https://dev.to/this-is-angular/presentational-components-with-angular-3961",
+originalLink: "https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Model-View-Presenter with Angular",
@@ -120,7 +120,7 @@ Because of this, we can optimise performance in our change detection cycles by u
 
 ## Simple example
 
-We continue where we left off in an early section of "[Container components with Angular](https://dev.to/this-is-angular/container-components-with-angular-4o05)". Let's see where we're at with the mixed dashboard component from the Tour of Heroes tutorial– or what's left of it after we extracted a container component as seen in Listing 1.
+We continue where we left off in an early section of "[Container components with Angular](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05)". Let's see where we're at with the mixed dashboard component from the Tour of Heroes tutorial– or what's left of it after we extracted a container component as seen in Listing 1.
 
 ```ts
 // dashboard.component.ts
@@ -641,7 +641,7 @@ With the logic extracted to the component model, we have the option to test it w
 
 This step is first of all about moving non-presentational logic out of the component model as a presentational component should only be concerned about presentation and user interaction.
 
-In "[Container components with Angular](https://dev.to/this-is-angular/container-components-with-angular-4o05)", we already extracted persistence and state management concerns into a container component. What we're left with at this point in the component model is form validation, a user interaction concern.
+In "[Container components with Angular](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05)", we already extracted persistence and state management concerns into a container component. What we're left with at this point in the component model is form validation, a user interaction concern.
 
 When we're left with only presentation and user interaction concerns as is now the case for the presentational heroes component, we ensure that the logic has minimal complexity. If it gets complicated enough that it needs separate testing, we should extract it to a presenter. A topic that we'll cover in an upcoming article.
 
@@ -765,15 +765,15 @@ We end up with a presentational component that serves two main purposes:
 - Present application state to the user
 - Change application state triggered by user interaction
 
-[Continue your journey in "Presenters with Angular"](https://dev.to/this-is-angular/presenters-with-angular-2l7l).
+[Continue your journey in "Presenters with Angular"](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l).
 
 ## Related articles
 
-Read the introductory article “[Model-View-Presenter with Angular](https://dev.to/this-is-angular/model-view-presenter-with-angular-533h)”. This is also where you'll find links to the companion GitHub repository, related articles, and other useful resources.
+Read the introductory article “[Model-View-Presenter with Angular](https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h)”. This is also where you'll find links to the companion GitHub repository, related articles, and other useful resources.
 
-[Learn how to extract a container component from a mixed component in "Container components with Angular"](https://dev.to/this-is-angular/container-components-with-angular-4o05).
+[Learn how to extract a container component from a mixed component in "Container components with Angular"](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05).
 
-[Learn how to extract a presenter from a presentational component in "Presenters with Angular"](https://dev.to/this-is-angular/presenters-with-angular-2l7l).
+[Learn how to extract a presenter from a presentational component in "Presenters with Angular"](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l).
 
 ## Peer reviewers
 

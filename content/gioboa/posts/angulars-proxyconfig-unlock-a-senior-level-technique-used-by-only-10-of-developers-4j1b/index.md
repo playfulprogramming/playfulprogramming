@@ -5,7 +5,7 @@ published: "2025-04-25T12:51:26Z",
 edited: "2025-04-25T12:56:04Z",
 tags: ["angular", "webdev", "programming", "javascript"],
 description: "In the world of modern web development, Angular has established itself as a leading framework for...",
-originalLink: "https://dev.to/this-is-angular/angulars-proxyconfig-unlock-a-senior-level-technique-used-by-only-10-of-developers-4j1b",
+originalLink: "https://dev.to/playfulprogramming-angular/angulars-proxyconfig-unlock-a-senior-level-technique-used-by-only-10-of-developers-4j1b",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -5,7 +5,7 @@ published: "2021-03-24T15:04:50Z",
 edited: "2022-12-23T00:59:03Z",
 tags: ["angular", "testing", "cdk", "componentharnesses"],
 description: "Learn how to create and consume a custom component harness using Angular CDK. With a step-by-step case study, we run it in unit tests and end-to-end tests.",
-originalLink: "https://dev.to/this-is-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg",
+originalLink: "https://dev.to/playfulprogramming-angular/create-a-component-harness-for-your-tests-with-angular-cdk-46bg",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -5,7 +5,7 @@ published: "2024-07-27T12:00:37Z",
 edited: "2024-07-27T12:01:58Z",
 tags: ["tutorial", "env"],
 description: "Evaluate DotenvX to manage environment variables",
-originalLink: "https://dev.to/this-is-learning/exploring-dotenvx-46ng",
+originalLink: "https://https://dev.to/playfulprogramming/exploring-dotenvx-46ng",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

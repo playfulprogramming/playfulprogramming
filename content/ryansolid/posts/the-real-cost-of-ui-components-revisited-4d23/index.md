@@ -5,7 +5,7 @@ published: "2021-06-25T16:21:18Z",
 edited: "2021-06-25T17:55:25Z",
 tags: ["javascript", "webdev", "performance", "webperf"],
 description: "With my focus recently going back to look at optimization for the Solid 1.0 release, I thought I'd...",
-originalLink: "https://dev.to/this-is-learning/the-real-cost-of-ui-components-revisited-4d23",
+originalLink: "https://https://dev.to/playfulprogramming/the-real-cost-of-ui-components-revisited-4d23",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -98,7 +98,7 @@ If anything this test was setup in Web Components favor. There is no Shadow DOM 
 
 It might not always be this way to be sure. Web Component performance has improved in the 2 years since I last tested. But it isn't as simple as saying use the platform. As it turns out all JavaScript frameworks use the platform, just some more efficiently than others. It's a delicate balance between platform for standards sake, and using it only so far as it is empirically beneficial. There are way more factors than performance here.
 
-But it is pretty clear that frameworks that scale with well with more components, such as Virtual DOM libraries like React or Inferno or ["component-less"](https://dev.to/this-is-learning/components-are-pure-overhead-hpm) libraries like Solid, don't experience as much overhead.
+But it is pretty clear that frameworks that scale with well with more components, such as Virtual DOM libraries like React or Inferno or ["component-less"](https://https://dev.to/playfulprogramming/components-are-pure-overhead-hpm) libraries like Solid, don't experience as much overhead.
 
 This doesn't come as much as revelation to me this time around. But maybe by looking at a few numbers we can better extrapolate where we should cautious. This is just a brutal microbenchmark that only really shows us the framework level bottlenecks and the real ones happen usually in our user code. But for those looking to evaluate on pure technological approach maybe there is some value here.
 
