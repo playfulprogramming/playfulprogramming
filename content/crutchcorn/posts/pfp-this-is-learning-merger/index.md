@@ -20,11 +20,11 @@ The two communities in question?
 
 Let's introduce each community and explain what this means for both communities.
 
-# Introducing "This is Learning"
+# Introducing "This is Learning" (TiL)
 
 ![A text logo of "TiL"](./til_logo.png)
 
-"This is Learning" was originally created in 2020 by [Santosh Yadav](https://www.santoshyadav.dev/) and [Lars Gyrup Brink Nielsen](https://github.com/layzeedk) to bring together authors and share software development knowledge.
+"This is Learning" (TiL) was originally created in 2020 by [Santosh Yadav](https://www.santoshyadav.dev/) and [Lars Gyrup Brink Nielsen](https://github.com/layzeedk) to bring together authors and share software development knowledge.
 
 Santosh and Lars are both highly accomplished engineers and community leaders. Both receiving multi-year awards from prestigious organizations like GitHub, Microsoft, Google, and Nx for their efforts on "This is" as well as many other open-source projects.
 
@@ -40,11 +40,11 @@ It's no wonder, then, that since they started their project they've:
 
 Throughout it all, they always remained strictly "not for profit" and encouraged cross-posting, self-controlled content ownership, and community wellbeing over all else.
 
-# Introducing "Playful Programming"
+# Introducing "Playful Programming" (PFP)
 
 ![Smiling cartoon unicorn with a bowtie](./pfp_logo.png)
 
-"Playful Programming" was started by [James Fenn](http://jfenn.me/), [Evelyn Hathaway](https://playfulprogramming.com/people/evelynhathaway), and [myself (Corbin Crutchley)](https://github.com/crutchcorn) in [2019](https://playfulprogramming.com/posts/uttering-hello-introduction-post/).
+"Playful Programming" (PFP) was started by [James Fenn](http://jfenn.me/), [Evelyn Hathaway](https://playfulprogramming.com/people/evelynhathaway), and [myself (Corbin Crutchley)](https://github.com/crutchcorn) in [2019](https://playfulprogramming.com/posts/uttering-hello-introduction-post/).
 
 Playful Programming (originally called ["Unicorn Utterances"](https://playfulprogramming.com/posts/rebrand-to-playful-programming/)) started as an alternative to a bootcamp that I worked in that I felt was acting predatory to the students in my area. Knowing that James and Evelyn were all-star engineers, I asked for their help to propel our mission — of teaching others in a transparent and helpful way — forward. 
 
@@ -67,39 +67,66 @@ Since then, we as a community have:
 
 That last item is one I'm particularly proud of. It continually reminds (and enforces) our goals to keep our content accessible and driven towards the community; not towards profits.
 
+# Details about the merger
 
+As both organizations have scaled, we've faced different challenges:
 
-// TODO: Talk about how authors "opted in" to our migration
+- For TiL, they've remained focused on the content. This has meant that they have a strong repertoire of content, but have focused less on other avenues of growth: branding, a custom website, and non-authoring community outreach.
 
+- Contrarily, PFP has developed a powerful brand, a "uniquely ours" website, and a larger community in our Discord. We're proud of what we've put out, but it does mean that our content catalog is comparatively weak.
 
+After some discussion between Lars, Santosh, and myself, we realized that we'd be able to grow a substantially healthier community with a joint effort.
 
+As such, **we will be doing the following** going forward:
 
+- Retain Playful Programming's name, branding, and structure
+- Keeping our board of directors as-is
+- Rename This is Learning's Dev.to blog to "Playful Programming" and their Angular specific blog to "Playful Programming Angular"
+- Merging This is Learning's community Discord server into Playful Programming's Discord server
+- Continuing to run the "This is Tech Talks" podcast under Playful Programming (and possibly renaming it)
+- Reposting authors of This is Learning's existing content to opt-into reposting their content to the Playful Programming website
+
+Again, it's that last point that we've spent a considerable amount of time enabling. 20 TiL authors agreed for us to port hundreds of their posts to our site. This required us to develop many new features for our site, but has resulted in **our site having 750+ articles present today!**
+
+!["This brings our article count to 750+"](750_articles.png)
 
 # Our future
 
-// TODO: Talk about our plans for a CMS to make authoring articles easier.
+But this isn't all we have planned! We also intend on:
 
-// TODO: Talk about our plans to make our CMS fully git-backed for enforcing transparency and easy migrations away
+- Migrating TiL's RxJS and NgRx courses into Playful Programming's collections feature
+- Creating topic-specific pages to explore content of (like "This is Angular" provided for the broader "This is Learning" community)
+- Building out integrations with social media feeds to automatically promote authors' works
 
-// TODO: Talk about plans to integrate our CMS to Dev.to to mirror content from our site to theirs
+----
 
-![TODO: Write this](./pfp_cms_mockup.png)
+One concern we've already heard from authors, however, is ease of posting to Playful's site. Today, [writing a post for our site includes making a pull request to our GitHub repo](https://github.com/playfulprogramming/playfulprogramming/blob/main/CONTRIBUTING.md). While we've tried to reduce friction with that process as much as we can, we know that writing for Dev.to using a GUI is much easier to navigate.
 
+As such, we're working incredibly hard on building out a custom CMS for our site. Here's a small mockup preview of such:
 
+![A mockup of a post creation screen with fake images and tags](./pfp_cms_mockup.png)
 
+> Why build out a custom CMS?
 
+While there's [a long and well-researched answer to that question](https://github.com/playfulprogramming/playfulprogramming/pull/1297), the long-story short is that we haven't found a CMS that allows our content to be stored in a Git repository with the features we want to support in the long run.
 
+> Why do you want to store content in Git?
 
+The biggest reason for wanting to store authors' contents in Git is that it's a systemic answer to our goals of remaining maximally transparent. If our values are ever mismatched from authors', we want an easy way for authors to take their whole dataset with them without needing to access an account or API token.
 
+And while radical transparency is our primary motivator, creating our own CMS allows us to add features in the future like:
 
+- Cross-posting to Dev.to instantly
+- Social media feed promotion of our authors' material
+- Additional components that markdown doesn't provide out-of-the-box
+- Revision history from the editor itself
+- Multi-player editing
 
+And much more.
 
-
-
-
-
-
-
+> **Join us:**
+>
+> Sound like a project you might want to help build? [Come join us and help us build it out!](https://playfulprogramming.com/join-us/)
 
 
 
