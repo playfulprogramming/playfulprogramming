@@ -3,12 +3,12 @@
   name: "Santosh Yadav",
   firstName: "Santosh",
   lastName: "Yadav",
-  description: "GDE Angular, GitHub Star, Microsoft MVP ,Open source contributor, Co-Founder ThisisLearning ",
+  description: "Developer Advocate, GDE Angular, GitHub Star, Microsoft MVP ,Open source contributor",
   socials:
     {
       twitter: "SantoshYadavDev",
       github: "santoshyadavdev",
-      website: "http://santoshyadav.dev",
+      website: "https://www.santoshyadav.dev/",
     },
 
   profileImg: "./santoshyadavdev.png",
