@@ -1,0 +1,9 @@
+{
+	"name": "@ffg-ecosystem/uncontrolled-validation-18",
+	"scripts": {
+		"start": "servor --reload src"
+	},
+	"devDependencies": {
+		"servor": "^4.0.2"
+	}
+}
