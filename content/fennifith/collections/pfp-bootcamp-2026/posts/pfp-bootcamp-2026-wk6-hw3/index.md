@@ -1,7 +1,6 @@
 ---
 {
 	title: "Week 6 - Tier 3 Homework",
-	description: "aaaa",
 	published: '2026-02-11T21:12:03.284Z',
 	order: 2,
 	noindex: true
@@ -336,4 +335,8 @@ Once you're done, you should see a page like this:
 ![A list of credit card data](./finished.png)
 
 Congrats!
+
+## Above and beyond
+
+If you reach the end of this week's homework, try combining this `fetch()` call with the loading animation from Tier 2. See if you can get the animation to display while the `fetch()` call is being processed, and stop once the call is complete.
 
