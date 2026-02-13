@@ -38,12 +38,11 @@ import {
 } from "./search";
 import { SearchResultCount } from "./components/search-result-count";
 import { isDefined } from "utils/is-defined";
-import { OramaClientProvider, useOramaSearch } from "./orama";
-import { SearchFooter } from "./components/search-footer";
+import { SearchProvider, useSearch } from "./services";
 import {
 	MAX_COLLECTIONS_PER_PAGE,
 	MAX_POSTS_PER_PAGE,
-	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+	// HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 } from "./constants";
 import { useFilterState } from "./use-filter-state";
 
@@ -53,9 +52,8 @@ function usePersistedEmptyRef<T extends object>(value: T) {
 		if (Object.entries(value).length) {
 			ref.current = value;
 			return value;
-		} else {
-			return ref.current ?? value;
 		}
+		return ref.current ?? value;
 	}, [value]);
 }
 
@@ -159,7 +157,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 		enabled,
 	});
 
-	const { searchForTerm } = useOramaSearch();
+	const { searchForTerm } = useSearch();
 	const fetchSearchQuery = useCallback(
 		({
 			signal,
@@ -169,8 +167,8 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			queryKey: [string, SearchQuery];
 		}) => {
 			// Analytics go brr
-			if (plausible) {
-				plausible("search", { props: { searchVal: query.searchQuery } });
+			if (window.plausible) {
+				window.plausible("search", { props: { searchVal: query.searchQuery } });
 			}
 
 			return searchForTerm(query, signal);
@@ -195,7 +193,6 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			totalCollections: 0,
 			tags: {},
 			authors: {},
-			duration: 0,
 		},
 		refetchOnWindowFocus: false,
 		retry: false,
@@ -212,7 +209,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			const filteredTags = tags.filter(([_, count]) => count >= 3);
 
 			return Object.fromEntries(filteredTags.length > 5 ? filteredTags : tags);
-		}, [isWildcardSearch, data.tags]),
+		}, [isWildcardSearch, data.tags, people.tags]),
 	);
 	const authorCounts = usePersistedEmptyRef(
 		isWildcardSearch
@@ -222,13 +219,14 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 			: data.authors,
 	);
 
-	// if searchh term has more than a certain number of words, then use hybrid mode Orama search for smart/AI searching capabilities
-	const isHybridSearch = useMemo(
-		() =>
-			query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
-			ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
-		[query.searchQuery],
-	);
+	// if search term has more than a certain number of words, then use hybrid mode search for smart/AI searching capabilities
+	// const isHybridSearch = useMemo(
+	// 	() =>
+	// 		query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
+	// 		HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+	// 	[query.searchQuery],
+	// );
+	const isHybridSearch = useMemo(() => false, []);
 
 	const isError = isErrorPeople || isErrorData;
 
@@ -283,7 +281,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const setContentToDisplay = useCallback(
 		(display: DisplayContentType) => {
 			setQuery(() => ({
-				display: display,
+				display,
 				page: 1, // Reset both page counters when changing filters
 			}));
 		},
@@ -301,7 +299,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const setSort = useCallback(
 		(sort: SortType) => {
 			setQuery(() => ({
-				sort: sort,
+				sort,
 				page: 1, // Reset both page counters when changing filters
 			}));
 		},
@@ -330,7 +328,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	useLayoutEffect(() => {
 		const header = document.querySelector("#header-bar") as HTMLElement;
 		setEl(header);
-	}, []);
+	}, [setEl]);
 
 	const headerHeight = size.height;
 
@@ -480,9 +478,10 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 								>
 									{data.collections.map((collection) => (
 										<CollectionCard
+											key={collection.slug}
 											collection={collection}
 											authors={collection.authors
-												.map((id) => peopleMap.get(id + ""))
+												.map((id) => peopleMap.get(`${id}`))
 												.filter(isDefined)}
 											headingTag="h3"
 										/>
@@ -527,7 +526,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 								}}
 								page={{
 									currentPage: query.page,
-									lastPage: lastPage,
+									lastPage,
 								}}
 								getPageHref={(pageNum) => {
 									const pageParams = new URLSearchParams(
@@ -538,9 +537,6 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 								}}
 							/>
 						)}
-					{enabled && !isContentLoading && !noResults && (
-						<SearchFooter duration={data.duration} />
-					)}
 				</section>
 			</div>
 		</div>
@@ -554,10 +550,10 @@ interface RootSearchPageProps {
 }
 export default function SearchPage({ siteTitle }: RootSearchPageProps) {
 	return (
-		<OramaClientProvider>
+		<SearchProvider>
 			<QueryClientProvider client={queryClient}>
 				<SearchPageBase siteTitle={siteTitle} />
 			</QueryClientProvider>
-		</OramaClientProvider>
+		</SearchProvider>
 	);
 }

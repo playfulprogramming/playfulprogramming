@@ -46,17 +46,17 @@ const tagExplainerParser = unified()
 	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
 
 for (const [key, tag] of Object.entries(tagsRaw)) {
-	let explainer = undefined;
-	let explainerType: TagInfo["explainerType"] | undefined = undefined;
+	let explainer;
+	let explainerType: TagInfo["explainerType"] | undefined;
 
 	if ("image" in tag && tag.image.endsWith(".svg")) {
 		const license = await fs
-			.readFile("public" + tag.image.replace(".svg", "-LICENSE.md"), "utf-8")
+			.readFile(`public${tag.image.replace(".svg", "-LICENSE.md")}`, "utf-8")
 			.catch((_) => undefined);
 
 		const attribution = await fs
 			.readFile(
-				"public" + tag.image.replace(".svg", "-ATTRIBUTION.md"),
+				`public${tag.image.replace(".svg", "-ATTRIBUTION.md")}`,
 				"utf-8",
 			)
 			.catch((_) => undefined);
@@ -214,12 +214,11 @@ async function readCollection(
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
 				return true;
-			} else {
-				console.warn(
-					`${collectionPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
-				);
-				return false;
 			}
+			console.warn(
+				`${collectionPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
+			);
+			return false;
 		});
 
 		// count the number of posts in the collection
@@ -296,15 +295,42 @@ async function readPost(
 		// get an excerpt of the post markdown no longer than 150 chars
 		const excerpt = getExcerpt(fileMatter.content, 150);
 
+		let coverImgMeta: PostInfo["coverImgMeta"] | undefined;
+		if (frontmatter.coverImg) {
+			const coverImgSize = await getImageSize(frontmatter.coverImg, postPath);
+			if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
+				throw new Error(`${postPath}: Unable to parse cover image size`);
+			}
+
+			coverImgMeta = {
+				height: coverImgSize.height,
+				width: coverImgSize.width,
+				...resolvePath(frontmatter.coverImg, postPath)!,
+			};
+		}
+
+		let socialImgMeta: PostInfo["socialImgMeta"] | undefined;
+		if (frontmatter.socialImg) {
+			const socialImgSize = await getImageSize(frontmatter.socialImg, postPath);
+			if (!socialImgSize || !socialImgSize.width || !socialImgSize.height) {
+				throw new Error(`${postPath}: Unable to parse social image size`);
+			}
+
+			socialImgMeta = {
+				height: socialImgSize.height,
+				width: socialImgSize.width,
+				...resolvePath(frontmatter.socialImg, postPath)!,
+			};
+		}
+
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
 				return true;
-			} else {
-				console.warn(
-					`${postPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
-				);
-				return false;
 			}
+			console.warn(
+				`${postPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
+			);
+			return false;
 		});
 
 		postObjects.push({
@@ -317,7 +343,7 @@ async function readPost(
 			locale,
 			locales,
 			tags: frontmatterTags,
-			wordCount: wordCount,
+			wordCount,
 			description: frontmatter.description || excerpt,
 			excerpt,
 			publishedMeta:
@@ -325,6 +351,8 @@ async function readPost(
 				dayjs(frontmatter.published).format("MMMM D, YYYY"),
 			editedMeta:
 				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
+			coverImgMeta,
+			socialImgMeta,
 		});
 	}
 

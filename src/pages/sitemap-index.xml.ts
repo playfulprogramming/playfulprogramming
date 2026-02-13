@@ -3,7 +3,7 @@ import { Readable } from "stream";
 import { siteUrl } from "constants/site-config";
 
 export const GET = async () => {
-	const entries = [{ url: siteUrl + "/sitemap-0.xml" }];
+	const entries = [{ url: `${siteUrl}/sitemap-0.xml` }];
 
 	const stream = new SitemapIndexStream();
 

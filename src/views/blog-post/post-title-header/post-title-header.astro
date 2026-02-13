@@ -28,6 +28,16 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 			{title}
 		</h1>
 
+		{
+			post.coverImgMeta?.relativeServerPath ? (
+				<img
+					class={style.coverImg}
+					alt=""
+					src={post.coverImgMeta.relativeServerPath}
+				/>
+			) : null
+		}
+
 		<div class={style.details}>
 			<div class={style.date}>
 				<div class={style.date__published}>

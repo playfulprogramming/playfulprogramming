@@ -8,15 +8,15 @@ export function LongWave() {
 				<span
 					className={style.longWaveSpan}
 					dangerouslySetInnerHTML={{ __html: longWave }}
-				></span>
+				/>
 				<span
 					className={style.longWaveSpan}
 					dangerouslySetInnerHTML={{ __html: longWave }}
-				></span>
+				/>
 				<span
 					className={style.longWaveSpan}
 					dangerouslySetInnerHTML={{ __html: longWave }}
-				></span>
+				/>
 			</div>
 			<div className={style.loopFade} />
 			<div className={style.loopFadeRight} />

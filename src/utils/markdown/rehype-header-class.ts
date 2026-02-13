@@ -54,7 +54,7 @@ export const rehypeHeaderClass: Plugin<[RehypeHeaderClassOpts], Root> = (
 				);
 				const className = opts.className(nodeHeadingRank);
 
-				node.tagName = "h" + tagHeadingRank;
+				node.tagName = `h${tagHeadingRank}`;
 				node.properties.className = className;
 
 				const headerText = toString(node as never);

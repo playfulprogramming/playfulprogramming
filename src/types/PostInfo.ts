@@ -1,4 +1,5 @@
 import { Languages } from "types/index";
+import { LocalFile } from "types/LocalFile";
 
 export interface RawPostInfo {
 	title: string;
@@ -14,6 +15,8 @@ export interface RawPostInfo {
 	noindex?: boolean;
 	version?: string;
 	upToDateSlug?: string;
+	socialImg?: string;
+	coverImg?: string;
 }
 
 export interface PostInfo extends RawPostInfo {
@@ -30,9 +33,12 @@ export interface PostInfo extends RawPostInfo {
 	publishedMeta: string;
 	editedMeta?: string;
 	wordCount: number;
+	socialImgMeta?: LocalFile;
+	coverImgMeta?: LocalFile;
 }
 
 export interface SearchPostInfo extends PostInfo {
+	id: string;
 	banner?: string;
 	searchMeta: string;
 	publishedTimestamp: number;

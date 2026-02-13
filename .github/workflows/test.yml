@@ -7,19 +7,21 @@ on:
   push:
     branches:
       - main
+  merge_group:
+    types:
+      - checks_requested
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  test:
+  test-unit:
     env:
       CI: true
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Setup pnpm
@@ -29,12 +31,42 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: pnpm
-
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
-
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
       - name: Test
-        run: pnpm run test
+        run: pnpm run test:unit
+  test-e2e:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          lfs: true
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Set Docker UID/GID
+        run: |
+          echo "UID=$(id -u)" >> $GITHUB_ENV
+          echo "GID=$(id -g)" >> $GITHUB_ENV
+      - name: Run Playwright tests (Docker)
+        run: pnpm --filter e2e test
+      - uses: actions/upload-artifact@v6
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: e2e/.playwright/test-results
+          retention-days: 30
+
   tsc:
     env:
       CI: true

@@ -138,7 +138,7 @@ export async function generateCollectionEPub(
 	collection: CollectionInfo,
 	collectionPosts: PostInfo[],
 ): Promise<Buffer> {
-	const fileTmpDir = await fs.mkdtemp(tmpdir() + path.sep + "pfp-collection-");
+	const fileTmpDir = await fs.mkdtemp(`${tmpdir() + path.sep}pfp-collection-`);
 	const fileLocation = path.join(fileTmpDir, `${collection.slug}.epub`);
 
 	const authors = collection.authors

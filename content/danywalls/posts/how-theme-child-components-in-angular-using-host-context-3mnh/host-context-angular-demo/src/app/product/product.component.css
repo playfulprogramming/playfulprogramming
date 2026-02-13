@@ -1,0 +1,19 @@
+:host(.dark) .content {
+  background-color: rgb(83, 83, 83);
+}
+
+:host(.day) .content {
+  background-color: rgb(238, 238, 110);
+}
+
+:host-context(my-app.dark) .content {
+  background-color: black;
+  color: white;
+}
+
+.content {
+  background-color: lightcoral;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 5px;
+}

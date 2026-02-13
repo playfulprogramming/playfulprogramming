@@ -5,7 +5,8 @@
 	published: '1999-09-18',
 	tags: [],
 	license: 'cc-by-nc-sa-4',
-	noindex: true
+	noindex: true,
+    coverImg: "share-banner.png"
 }
 ---
 
@@ -202,7 +203,7 @@ Pretend this is something very thought provoking[^1][^2]
 ## Link to another post
 
 <!-- ::start:link-preview -->
-[Writing Modern JavaScript without a Bundler](https://playfulprogramming.com/posts/modern-js-bundleless)
+[Writing Modern JavaScript without a Bundler](/posts/modern-js-bundleless)
 <!-- ::end:link-preview -->
 
 ## Link to an external site
@@ -225,6 +226,48 @@ Pretend this is something very thought provoking[^1][^2]
 I found a trend line of $$\left(x\log_{10} x \cdot 16\right) + 101$$ was reasonable. A file containing a union of size 1 is 101 bytes
 
 Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\times10^{17}$$ MB, or 315 ZB
+
+# Users
+
+<!-- ::user id="crutchcorn" -->
+
+# YouTube and Videos Embeds
+
+A normal YouTube video
+
+<iframe src="https://www.youtube.com/watch?v=_licnRxAVk0"></iframe>
+
+A YouTube short
+
+<iframe src="https://www.youtube.com/shorts/Fdbha07mFzo"></iframe>
+
+A Vimeo video
+
+<iframe src="https://vimeo.com/750377602"></iframe>
+
+A Twitch clip
+
+<iframe src="https://clips.twitch.tv/TacitFitIcecreamTriHard-KgJCKYYIEPqxe4dQ"></iframe>
+
+> We can't get a ton of data from Twitch without using their API (and therefore a token), so this is just a simple embed
+
+# X Embeds
+
+With text:
+
+<iframe src="https://x.com/playful_program/status/1917675879695552789"></iframe>
+
+With picture:
+
+<iframe src="https://x.com/playful_program/status/1917675872854614490"></iframe>
+
+404 embed:
+
+<iframe src="https://x.com/playful_program/status/123"></iframe>
+
+# GitHub Gist Embeds
+
+<iframe src="https://gist.github.com/crutchcorn/36fe5553219c05ea38bacf1c7396085b"></iframe>
 
 # Thanks for taking the trip down here
 
