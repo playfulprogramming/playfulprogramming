@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+</head>
+
+<body>
+  <ol>
+    <li class="selectable-item"><label><input type="checkbox" />First item</label></li>
+    <li class="selectable-item"><label><input type="checkbox" />Second item</label></li>
+    <li class="selectable-item"><label><input type="checkbox" />Third item</label></li>
+  </ol>
+  <script>
+    // Control + A to select all
+    document.addEventListener('keydown', (event) => {
+      if ((event.ctrlKey && event.key === 'a') || (event.metaKey && event.key === 'a')) {
+        event.preventDefault();
+        const items = document.querySelectorAll('.selectable-item');
+        items.forEach(item => {
+          const checkbox = item.querySelector('input[type="checkbox"]');
+          checkbox.checked = !checkbox.checked;
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
