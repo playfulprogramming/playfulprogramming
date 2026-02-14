@@ -363,7 +363,10 @@ const people = new Map<string, PersonInfo[]>();
 for (const personId of await fs.readdir(contentDirectory)) {
 	if (!isNotJunk(personId)) continue;
 	const personPath = join(contentDirectory, personId);
-	people.set(personId, await readPerson(personPath));
+	const personEntries = await readPerson(personPath);
+	if (personEntries.length) {
+		people.set(personId, personEntries);
+	}
 }
 
 const collections = new Map<string, CollectionInfo[]>();
@@ -376,12 +379,12 @@ for (const personId of [...people.keys()]) {
 
 	for (const slug of slugs) {
 		const collectionPath = join(collectionsDirectory, slug);
-		collections.set(
-			slug,
-			await readCollection(collectionPath, {
-				authors: [personId],
-			}),
-		);
+		const collectionEntries = await readCollection(collectionPath, {
+			authors: [personId],
+		});
+		if (collectionEntries.length) {
+			collections.set(slug, collectionEntries);
+		}
 	}
 }
 
@@ -403,13 +406,13 @@ await Promise.all(
 		await Promise.all(
 			slugs.map(async (slug) => {
 				const postPath = join(postsDirectory, slug);
-				posts.set(
-					slug,
-					await readPost(postPath, {
-						authors: collection[0].authors,
-						collection: collection[0].slug,
-					}),
-				);
+				const postEntries = await readPost(postPath, {
+					authors: collection[0].authors,
+					collection: collection[0].slug,
+				});
+				if (postEntries.length) {
+					posts.set(slug, postEntries);
+				}
 			}),
 		);
 	}),
@@ -425,12 +428,12 @@ await Promise.all(
 		await Promise.all(
 			slugs.map(async (slug) => {
 				const postPath = join(postsDirectory, slug);
-				posts.set(
-					slug,
-					await readPost(postPath, {
-						authors: [personId],
-					}),
-				);
+				const postEntries = await readPost(postPath, {
+					authors: [personId],
+				});
+				if (postEntries.length) {
+					posts.set(slug, postEntries);
+				}
 			}),
 		);
 	}),
