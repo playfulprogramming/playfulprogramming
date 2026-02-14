@@ -42,6 +42,7 @@ import { rehypeRelativePaths } from "./rehype-relative-paths";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { setMathProperty } from "./katex-css";
+import { transformQuizRadio } from "utils/markdown/components/quiz-radio/rehype-transform";
 import { transformUser } from "utils/markdown/components/user/rehype-transform";
 
 export function createHtmlPlugins(unified: Processor) {
@@ -100,6 +101,7 @@ export function createHtmlPlugins(unified: Processor) {
 					"no-ebook": transformNoop,
 					"only-ebook": transformVoid,
 					tabs: transformTabs,
+					"quiz-radio": transformQuizRadio,
 					user: transformUser,
 				},
 			})

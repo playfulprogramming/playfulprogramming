@@ -1,0 +1,10 @@
+---
+import {
+	QuizRadio as PreactQuizRadio,
+	QuizRadioProps,
+} from "components/quiz-radio/quiz-radio";
+
+export type Props = QuizRadioProps;
+---
+
+<PreactQuizRadio {...Astro.props} client:load />
