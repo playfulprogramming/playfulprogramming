@@ -10,8 +10,8 @@
 		linkedIn: "franklincarvajal",
 		website: "https://frankcarv.com/about",
 	},
-	profileImg: "./frankfulness.jgp,
+	profileImg: "./frankfulness.jpg",
 	color: "#eab308",
-	roles: ["devops", "developer", "author", "community"]
+	roles: []
 }
 ---
