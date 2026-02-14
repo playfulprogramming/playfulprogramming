@@ -11,6 +11,7 @@ import GistPlaceholder from "../iframes/gist-placeholder.astro";
 import FourOFourPlaceholder from "../iframes/404-placeholder.astro";
 import Hint from "./hint/hint.astro";
 import Tooltip from "./tooltip/tooltip.astro";
+import QuizRadio from "./quiz-radio/quiz-radio.astro";
 import User from "./user/user.astro";
 
 export interface PlayfulRoot {
@@ -83,6 +84,7 @@ export const components = {
 	GistPlaceholder,
 	FourOFourPlaceholder,
 	Hint,
+	QuizRadio,
 	User,
 } as const;
 

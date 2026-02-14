@@ -1,4 +1,4 @@
-import { QuizRadio, QuizRadioOption } from "./quiz-radio";
+import { QuizRadioOption } from "components/quiz-radio/quiz-radio";
 import { RehypeFunctionComponent } from "../types";
 import {
 	findLargestHeading,
@@ -8,6 +8,7 @@ import {
 import { getHeaderNodeId } from "rehype-slug-custom-id";
 import { Element, Text } from "hast";
 import { toString } from "hast-util-to-string";
+import { createComponent } from "../components";
 
 export const transformQuizRadio: RehypeFunctionComponent = ({ children }) => {
 	// Setup
@@ -53,7 +54,7 @@ export const transformQuizRadio: RehypeFunctionComponent = ({ children }) => {
 					enableCustomId: true,
 				});
 				const label = toString(option);
-				options.push({ value, label, correct });
+				options.push({ id: value, label, isCorrect: correct });
 			}
 
 			if (options.length !== 0) {
@@ -65,13 +66,10 @@ export const transformQuizRadio: RehypeFunctionComponent = ({ children }) => {
 	}
 
 	return [
-		QuizRadio({
-			id: questionId,
+		createComponent("QuizRadio", {
 			title,
 			options,
-			numberOfVotes: 23,
-			numberOfCorrectVotes: 13,
-			children: localChildren,
+			votesLabel: "23 votes",
 		}),
 	];
 };
