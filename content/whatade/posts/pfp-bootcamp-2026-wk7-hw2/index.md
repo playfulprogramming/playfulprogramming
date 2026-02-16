@@ -90,7 +90,7 @@ You have now created a reusable component.
 
 ---
 
-# 2. Intro to JSX
+# 2. JSX
 
 JSX:
 
@@ -211,7 +211,7 @@ function FlashCard(props) {
     <div className="card">
       <h2>{props.question}</h2>
 
-      {open && <p>{props.answer}</p>}
+      <p hidden={!open}>{props.answer}</p>
     </div>
   );
 }
@@ -221,8 +221,8 @@ What is happening?
 
 - `open` is a boolean
 - It starts as `false`
-- `{open && <p>...</p>}` means:
-    - Only show the paragraph if `open` is true
+- `hidden={!open}` on the paragraph means:
+    - Hide the answer when `open` is false, show it when `open` is true
 
 ---
 
@@ -253,7 +253,7 @@ function FlashCard(props) {
     >
       <h2>{props.question}</h2>
 
-      {open && <p>{props.answer}</p>}
+      <p hidden={!open}>{props.answer}</p>
     </div>
   );
 }
@@ -305,7 +305,7 @@ function FlashCard(props) {
       onClick={() => setOpen(!open)}
     >
       <h2>{props.question}</h2>
-      {open && <p>{props.answer}</p>}
+      <p hidden={!open}>{props.answer}</p>
     </div>
   );
 }
