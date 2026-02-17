@@ -33,7 +33,6 @@ Create a file called `App.jsx`.
 Start with this:
 
 ```jsx
-import { useState } from "react";
 import "./App.css";
 
 function App() {
@@ -187,90 +186,9 @@ props.answer
 
 ---
 
-# 5. useState
-
-Now we add behavior.
-
-We want:
-
-- The answer hidden by default
-- Clicking the card reveals it
-- Clicking again hides it
-
----
-
-## Add useState
-
-Update the `FlashCard` component:
-
-```jsx
-function FlashCard(props) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className="card">
-      <h2>{props.question}</h2>
-
-      <p hidden={!open}>{props.answer}</p>
-    </div>
-  );
-}
-```
-
-What is happening?
-
-- `open` is a boolean
-- It starts as `false`
-- `hidden={!open}` on the paragraph means:
-    - Hide the answer when `open` is false, show it when `open` is true
-
----
-
-# 6. Event Bindings
-
-In normal JavaScript, you would use:
-
-```js
-element.addEventListener("click", ...)
-```
-
-In React, we use:
-
-```
-onClick
-```
-
-Update your `FlashCard`:
-
-```jsx
-function FlashCard(props) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div
-      className="card"
-      onClick={() => setOpen(!open)}
-    >
-      <h2>{props.question}</h2>
-
-      <p hidden={!open}>{props.answer}</p>
-    </div>
-  );
-}
-```
-
-Now:
-
-- Clicking the card calls `setOpen`
-- `!open` toggles between true and false
-- React re-renders automatically
-
----
-
 # Full Code (App.jsx)
 
 ```jsx
-import { useState } from "react";
 import "./App.css";
 
 function App() {
@@ -297,15 +215,10 @@ function App() {
 }
 
 function FlashCard(props) {
-  const [open, setOpen] = useState(false);
-
   return (
-    <div
-      className="card"
-      onClick={() => setOpen(!open)}
-    >
+    <div className="card">
       <h2>{props.question}</h2>
-      <p hidden={!open}>{props.answer}</p>
+      <p>{props.answer}</p>
     </div>
   );
 }
@@ -320,16 +233,12 @@ export default App;
 When finished:
 
 - You see multiple flash cards
-- Only the question is visible at first
-- Clicking a card reveals the answer
-- Clicking again hides it
+- Each card shows the question and answer
 - Cards are styled using CSS
 - Everything is built using:
     - Components
     - JSX
     - Props
-    - useState
-    - Event bindings
     - CSS import
 
-You have now built an interactive React app using core fundamentals.
+You have now built a React flash card app using core fundamentals.
