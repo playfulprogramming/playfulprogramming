@@ -42,7 +42,10 @@ import { rehypeRelativePaths } from "./rehype-relative-paths";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { setMathProperty } from "./katex-css";
-import { transformQuizRadio } from "utils/markdown/components/quiz-radio/rehype-transform";
+import {
+	rehypeQuizIndexes,
+	transformQuizRadio,
+} from "utils/markdown/components/quiz-radio/rehype-transform";
 import { transformUser } from "utils/markdown/components/user/rehype-transform";
 
 export function createHtmlPlugins(unified: Processor) {
@@ -80,6 +83,7 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeAstroImageMd)
 			.use(rehypeLinkPreview)
 			.use(rehypeDetailsElement)
+			.use(rehypeQuizIndexes)
 			.use(rehypeCodeEmbed)
 			.use(rehypeUnicornIFrameClickToRun, {
 				srcReplacements: [],

@@ -1,11 +1,10 @@
-import CheckmarkIcon from "src/icons/checkmark.svg?raw";
-import DotIcon from "src/icons/dot.svg?raw";
-import CloseIcon from "src/icons/close.svg?raw";
 import { useId, useState } from "preact/hooks";
 import { RawSvg } from "components/image/raw-svg";
 import style from "./quiz-radio.module.scss";
 import { Button } from "components/button/button";
 import { Form, Label, Radio, RadioGroup } from "react-aria-components";
+import RadioButtonIcon from "src/icons/radio_button.svg?raw";
+import RadioButtonSelectedIcon from "src/icons/radio_button_selected.svg?raw";
 
 export interface QuizRadioOption {
 	id: string;
@@ -18,28 +17,54 @@ export interface QuizRadioOption {
 export interface QuizRadioProps {
 	title: string;
 	options: QuizRadioOption[];
-	votesLabel: string;
+	questionNum: number;
+	totalNum: number;
+	votesLabel?: string;
+	errorMessage?: string;
+	value?: string;
+	onChange(value: string): void;
+	onSubmit?(): void;
 }
 
-export function QuizRadio(props: QuizRadioProps): Element {
-	const { title, options } = props;
-	const quizId = useId();
-	const [selectedOption, setSelectedOption] = useState();
-
+export function QuizRadio(props: QuizRadioProps) {
 	return (
-		<Form className={style.quizOptionContainer}>
-			<RadioGroup>
-				<Label>{title}</Label>
+		<Form className={`${style.quizOptionContainer} markdownCollapsePadding`}>
+			<RadioGroup value={props.value} onChange={props.onChange}>
+				<span class={`${style.quizNum} text-style-body-medium`}>
+					<span class="text-style-body-medium-bold">{props.questionNum}</span>
+					{" of "}
+					<span class="text-style-body-medium-bold">{props.totalNum}</span>
+				</span>
+				<Label className={`${style.quizOptionTitle} text-style-headline-5`}>
+					{props.title}
+				</Label>
+				<span class={`${style.quizPrompt} text-style-body-medium-bold`}>
+					Select the correct answer.
+				</span>
 				<div class={style.quizOptionOptionsContainer}>
-					{options.map((option) => {
-						const optionId = `quiz-option:${quizId}:${option.id}`;
+					{props.options.map((option) => {
 						return (
 							<Radio
-								key={optionId}
-								value={optionId}
-								className={style.quizOptionOptionInnerContainer}
+								key={option.id}
+								value={option.id}
+								className={`${style.quizOptionOptionInnerContainer} text-style-body-medium`}
 							>
-								{option.label}
+								<RawSvg
+									class={style.icon}
+									icon={
+										props.value === option.id
+											? RadioButtonSelectedIcon
+											: RadioButtonIcon
+									}
+									aria-hidden
+								/>
+								{option.labelHtml ? (
+									<span
+										dangerouslySetInnerHTML={{ __html: option.labelHtml }}
+									/>
+								) : (
+									<span>{option.label}</span>
+								)}
 							</Radio>
 						);
 					})}
@@ -48,32 +73,25 @@ export function QuizRadio(props: QuizRadioProps): Element {
 
 			<div class={style.quizOptionBottomContainer}>
 				<div class={style.quizOptionButtonRowContainer}>
-					<p
-						style="display: none"
-						data-loading-message
-						class={`${style.quizOptionLoading} text-style-button-regular`}
-					>
-						Submitting your answer
-						<span class={style.quizOptionLoadingDotOne}>.</span>
-						<span class={style.quizOptionLoadingDotTwo}>.</span>
-						<span class={style.quizOptionLoadingDotThree}>.</span>
-					</p>
-					<p data-votes class={style.quizOptionVotes}>
+					<p class={`${style.quizOptionVotes} text-style-body-medium`}>
 						{props.votesLabel}
 					</p>
 					<span class={style.quizOptionButtonContainer}>
-						<Button tag="button" variant="primary-emphasized" disabled>
+						<Button
+							tag="button"
+							variant="primary-emphasized"
+							disabled={props.value === undefined}
+						>
 							Submit
 						</Button>
 					</span>
 				</div>
-				<p
-					style="display: none"
-					class={`${style.quizOptionErrorCode} text-style-body-small-bold`}
-				>
-					An error occurred. Please try again.
-				</p>
+				{props.errorMessage && (
+					<p class={`${style.quizOptionErrorCode} text-style-body-small-bold`}>
+						{props.errorMessage}
+					</p>
+				)}
 			</div>
 		</Form>
-	) as never;
+	);
 }

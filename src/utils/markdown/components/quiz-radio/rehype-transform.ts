@@ -8,9 +8,39 @@ import {
 import { getHeaderNodeId } from "rehype-slug-custom-id";
 import { Element, Text } from "hast";
 import { toString } from "hast-util-to-string";
-import { createComponent } from "../components";
+import {
+	ComponentMarkupNode,
+	createComponent,
+	isComponentMarkup,
+	PlayfulRoot,
+} from "../components";
+import { toHtml } from "hast-util-to-html";
+import { Plugin } from "unified";
+import { visit } from "unist-util-visit";
 
-export const transformQuizRadio: RehypeFunctionComponent = ({ children }) => {
+/**
+ * Adds question-num and total-num attributes onto each quiz-radio node in the document.
+ */
+export const rehypeQuizIndexes: Plugin<[], PlayfulRoot> = () => {
+	return (tree, _) => {
+		const quizComponents: ComponentMarkupNode[] = [];
+		visit(tree, isComponentMarkup, (node) => {
+			if (node.component === "quiz-radio") {
+				quizComponents.push(node);
+			}
+		});
+
+		quizComponents.forEach((node, i) => {
+			node.attributes["question-num"] = String(i + 1);
+			node.attributes["total-num"] = String(quizComponents.length);
+		});
+	};
+};
+
+export const transformQuizRadio: RehypeFunctionComponent = ({
+	children,
+	attributes,
+}) => {
 	// Setup
 	const largestSize = findLargestHeading(children as Element[]);
 
@@ -38,23 +68,22 @@ export const transformQuizRadio: RehypeFunctionComponent = ({ children }) => {
 				if (option.type !== "element" && option.tagName !== "li") {
 					continue;
 				}
-				const rawLabel = toString(option);
+				const innerText = option.children[0] as Text;
 				// We want `rawLabel` to start with `( )` or `(x)` to indicate the radio button and it's correctness or not
 				// If it is not, we assume this `ul` is not a quiz radio option list and don't want to transform it
-				const match = /^\((.)\) (.*)$/.exec(rawLabel);
+				const match = /^\((.)\) (.*)$/.exec(innerText.value);
 				if (!match) {
 					localChildren.push(child);
 					break;
 				}
 				const correct = match[1] === "x";
-				const innerText = option.children[0] as Text;
 				// Remove the `( )` or `(x)` from the label
 				innerText.value = match[2];
 				const { id: value } = getHeaderNodeId(option, {
 					enableCustomId: true,
 				});
-				const label = toString(option);
-				options.push({ id: value, label, isCorrect: correct });
+				const labelHtml = toHtml(option.children);
+				options.push({ id: value, labelHtml, isCorrect: correct });
 			}
 
 			if (options.length !== 0) {
@@ -69,7 +98,8 @@ export const transformQuizRadio: RehypeFunctionComponent = ({ children }) => {
 		createComponent("QuizRadio", {
 			title,
 			options,
-			votesLabel: "23 votes",
+			questionNum: Number(attributes["question-num"]),
+			totalNum: Number(attributes["total-num"]),
 		}),
 	];
 };

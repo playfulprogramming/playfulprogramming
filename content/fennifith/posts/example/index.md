@@ -291,7 +291,7 @@ Cool text between the section I love teaching yipee
 
 <!-- ::start:quiz-radio -->
 ## Why did you do that
-- ( ) I'm sorry 
+- ( ) I'm sorry
 - ( ) it was a continuous lapse of judgement
 - ( ) I didn't mean it
 - (x) I didn't do it
@@ -302,7 +302,7 @@ Cool text between the section I love teaching yipee
 ## don't touch me!
 - (x) *adds vertical padding so questions don't touch*
 - ( ) `code`
-- ( ) _bold_
+- ( ) **bold**
 - ( ) rreally long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long eally long really long
 <!-- ::end:quiz-radio -->
 
