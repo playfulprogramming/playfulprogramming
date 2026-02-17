@@ -5,6 +5,7 @@ import { PostInfo } from "types/PostInfo";
 import { relative } from "path";
 import fs from "fs/promises";
 import { createHash } from "crypto";
+import { RETRY_COUNT } from "./common";
 
 interface PostImagesResponse {
 	banner?: string;
@@ -22,7 +23,7 @@ export async function getPostImages(
 		indexMd5: createHash("md5").update(indexRaw).digest("hex"),
 	};
 
-	for (let retries = 0; retries < 10; retries++) {
+	for (let retries = 0; retries < RETRY_COUNT; retries++) {
 		await setTimeout(Math.pow(retries, 2) * 1000);
 
 		const req = await client

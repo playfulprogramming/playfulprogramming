@@ -11,7 +11,7 @@ import { getHrefContainerProps } from "utils/href-container-script";
 import style from "./book-club.module.scss";
 
 interface EventBlockWithMetadata extends EventBlock {
-	location_metadata: UrlMetadataResponse;
+	location_metadata?: UrlMetadataResponse;
 }
 
 interface BookClubLargeCardProps {
@@ -35,7 +35,7 @@ function BookClubLargeCard({ eventBlock }: BookClubLargeCardProps) {
 				<img
 					className={style.largeCardImage}
 					crossOrigin={"anonymous"}
-					src={eventBlock.location_metadata.banner?.src ?? defaultCoverImage}
+					src={eventBlock.location_metadata?.banner?.src ?? defaultCoverImage}
 					alt=""
 					height={315}
 				/>
@@ -74,7 +74,7 @@ function BookClubSmallCard({ eventBlock }: BookClubSmallCardProps) {
 				<img
 					className={style.smallCardImage}
 					crossOrigin={"anonymous"}
-					src={eventBlock.location_metadata.banner?.src ?? defaultCoverImage}
+					src={eventBlock.location_metadata?.banner?.src ?? defaultCoverImage}
 					alt=""
 					width={171}
 					height={96}
