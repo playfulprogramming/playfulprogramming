@@ -13,6 +13,6 @@ export interface NonRecurringEventsCardProps {
 export type LatestEventBlockLocationMetadataType = Record<
 	string,
 	EventBlock & {
-		location_metadata: UrlMetadataResponse;
+		location_metadata?: UrlMetadataResponse;
 	}
 >;
