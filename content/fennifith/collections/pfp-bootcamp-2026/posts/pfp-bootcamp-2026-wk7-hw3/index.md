@@ -2,7 +2,8 @@
 {
   title: "Week 7 - Tier 3 Homework",
   published: "2026-02-18T21:00:00.000Z",
-  order: 3,
+  order: 5,
+  authors: ['whatade'],
   noindex: true
 }
 ---
@@ -80,56 +81,6 @@ Now:
 - That toggles between true and false
 - React re-renders and the answer shows or hides
 
----
-
-# Full Code (App.jsx)
-
-```jsx
-import { useState } from "react";
-import "./App.css";
-
-function App() {
-  return (
-    <div className="app">
-      <h1>Flash Cards</h1>
-
-      <FlashCard
-        question="What is React?"
-        answer="A JavaScript library for building user interfaces."
-      />
-
-      <FlashCard
-        question="What is JSX?"
-        answer="A syntax that looks like HTML but works inside JavaScript."
-      />
-
-      <FlashCard
-        question="What is useState?"
-        answer="A React hook that lets you store and update state."
-      />
-    </div>
-  );
-}
-
-function FlashCard(props) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div
-      className="card"
-      onClick={() => setOpen(!open)}
-    >
-      <h2>{props.question}</h2>
-      <p hidden={!open}>{props.answer}</p>
-    </div>
-  );
-}
-
-export default App;
-```
-
----
-
 # Expected Result
 
 When finished:
@@ -142,5 +93,12 @@ When finished:
   - `useState` for open/closed state
   - A conditional `hidden` prop on the answer
   - `onClick` to toggle the card
+
+<details>
+<summary>Full Code</summary>
+
+<iframe data-frame-title="Flash Card App" src="pfp-code:./pfp-wk7-hw3-project?file=src/App.jsx"></iframe>
+
+</details>
 
 You have now built an interactive flash card app that builds on your T2 work.

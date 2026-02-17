@@ -2,7 +2,8 @@
 {
   title: "Week 7 - Tier 2 Homework",
   published: "2026-02-18T21:00:00.000Z",
-  order: 2,
+  order: 4,
+  authors: ['whatade'],
   noindex: true
 }
 ---
@@ -184,50 +185,6 @@ props.question
 props.answer
 ```
 
----
-
-# Full Code (App.jsx)
-
-```jsx
-import "./App.css";
-
-function App() {
-  return (
-    <div className="app">
-      <h1>Flash Cards</h1>
-
-      <FlashCard
-        question="What is React?"
-        answer="A JavaScript library for building user interfaces."
-      />
-
-      <FlashCard
-        question="What is JSX?"
-        answer="A syntax that looks like HTML but works inside JavaScript."
-      />
-
-      <FlashCard
-        question="What is useState?"
-        answer="A React hook that lets you store and update state."
-      />
-    </div>
-  );
-}
-
-function FlashCard(props) {
-  return (
-    <div className="card">
-      <h2>{props.question}</h2>
-      <p>{props.answer}</p>
-    </div>
-  );
-}
-
-export default App;
-```
-
----
-
 # Expected Result
 
 When finished:
@@ -240,5 +197,12 @@ When finished:
     - JSX
     - Props
     - CSS import
+
+<details>
+<summary>Full Code</summary>
+
+<iframe data-frame-title="Flash Card App" src="pfp-code:./pfp-wk7-hw2-project?file=src/App.jsx"></iframe>
+
+</details>
 
 You have now built a React flash card app using core fundamentals.
