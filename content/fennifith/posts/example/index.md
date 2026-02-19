@@ -337,15 +337,3 @@ location.href = atob("aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ
 ```
 <!-- ::end:quiz-radio -->
 
-<!-- graceful failures
-- ( ) [link](#hi)
-- ( ) ![link](#hi)
-- ( ) - sub list
-- ( ) 1. sub list
-- ( ) # headings
-
-multiple lists in one radio
-
-non lists in the radio
-
- -->

@@ -45,9 +45,9 @@ import { setMathProperty } from "./katex-css";
 import {
 	rehypeQuizIndexes,
 	transformQuiz,
-	transformQuizRadio,
 } from "utils/markdown/components/quiz/rehype-transform";
 import { transformUser } from "utils/markdown/components/user/rehype-transform";
+import { transformQuizRadio } from "./components/quiz/rehype-transform-quiz-radio";
 
 export function createHtmlPlugins(unified: Processor) {
 	return (
