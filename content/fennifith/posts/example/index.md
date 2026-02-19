@@ -277,6 +277,8 @@ With picture:
 
 Here are the rules—get the answer right or else 😈
 
+<!-- ::start:quiz -->
+
 <!-- ::start:quiz-radio -->
 ## Based on what you’ve seen: Why does JS? {#why-does-js}
 - ( ) Option 1 {#1}
@@ -298,12 +300,41 @@ Cool text between the section I love teaching yipee
 - (x) You'll have to talk to my lawyer
 <!-- ::end:quiz-radio -->
 
+<!-- ::end:quiz -->
+
+## Standalone question
+
 <!-- ::start:quiz-radio -->
 ## don't touch me!
 - (x) *adds vertical padding so questions don't touch*
 - ( ) `code`
 - ( ) **bold**
 - ( ) rreally long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long eally long really long
+<!-- ::end:quiz-radio -->
+
+<!-- ::start:quiz-radio -->
+## Question with an explanation
+- (x) Confusing answer
+- ( ) Confusing answer
+- ( ) Confusing answer
+- ( ) Confusing answer
+
+This is why the question is because of the way it is.
+
+Look at [this link](https://example.com).
+<!-- ::end:quiz-radio -->
+
+<!-- ::start:quiz-radio -->
+## Never
+- ( ) Gonna
+- ( ) Give
+- (x) You
+- ( ) Up
+
+Try running this code in your browser:
+```js
+location.href = atob("aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==");
+```
 <!-- ::end:quiz-radio -->
 
 <!-- graceful failures

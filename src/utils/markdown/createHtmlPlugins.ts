@@ -44,8 +44,9 @@ import rehypeKatex from "rehype-katex";
 import { setMathProperty } from "./katex-css";
 import {
 	rehypeQuizIndexes,
+	transformQuiz,
 	transformQuizRadio,
-} from "utils/markdown/components/quiz-radio/rehype-transform";
+} from "utils/markdown/components/quiz/rehype-transform";
 import { transformUser } from "utils/markdown/components/user/rehype-transform";
 
 export function createHtmlPlugins(unified: Processor) {
@@ -106,6 +107,7 @@ export function createHtmlPlugins(unified: Processor) {
 					"only-ebook": transformVoid,
 					tabs: transformTabs,
 					"quiz-radio": transformQuizRadio,
+					quiz: transformQuiz,
 					user: transformUser,
 				},
 			})
