@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "components/types";
+import { ComponentChildren } from "preact";
 import { useState, useRef } from "preact/hooks";
 import { useElementSize } from "../../../hooks/use-element-size";
 import styles from "./filter-section.module.scss";
@@ -12,6 +13,7 @@ interface FilterSectionProps extends HTMLAttributes<HTMLDivElement> {
 	onClear: () => void;
 	class?: string;
 	className?: string;
+	children?: ComponentChildren;
 }
 
 export const FilterSection = ({
@@ -22,7 +24,7 @@ export const FilterSection = ({
 	class: className = "",
 	className: classNameName = "",
 	...props
-}: PropsWithChildren<FilterSectionProps>) => {
+}: FilterSectionProps) => {
 	const id = useRandomId();
 
 	const [collapsed, setCollapsed] = useState(false);

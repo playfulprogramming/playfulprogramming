@@ -74,5 +74,14 @@
 	max-height: 100%;
 }
 
-.tagEmoji {
+.sidebarSearch {
+	width: 90%;
+	margin: 0.5rem auto;
+}
+
+.sidebarSearch input {
+	height: 28px;
+	min-height: 28px;
+	line-height: 28px;
+	box-sizing: border-box;
 }

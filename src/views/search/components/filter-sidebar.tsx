@@ -9,6 +9,8 @@ import { DisplayContentType, SortType } from "src/views/search/search";
 import { DEFAULT_TAG_EMOJI } from "./constants";
 import { FilterSidebarControls } from "./filter-sidebar-controls";
 import { FilterState } from "../use-filter-state";
+import { useState, useMemo, useEffect } from "preact/hooks";
+import { SearchInput } from "components/input/input";
 
 interface FilterSidebarProps {
 	desktopStyle?: CSSProperties;
@@ -40,6 +42,31 @@ export const FilterSidebar = ({
 	numberOfCollections,
 }: FilterSidebarProps) => {
 	const hideSearchbar = !searchString;
+
+	const [tagQuery, setTagQuery] = useState("");
+	const [authorQuery, setAuthorQuery] = useState("");
+
+	useEffect(() => {
+		if (hideSearchbar) {
+			setTagQuery("");
+			setAuthorQuery("");
+		}
+	}, [hideSearchbar]);
+
+	const filteredTags = useMemo(() => {
+		const q = tagQuery.trim().toLowerCase();
+		if (!q) return tags;
+		return tags.filter((tag) =>
+			(tag.displayName ?? tag.tag).toLowerCase().includes(q),
+		);
+	}, [tags, tagQuery]);
+
+	const filteredAuthor = useMemo(() => {
+		const q = authorQuery.trim().toLowerCase();
+		if (!q) return authors;
+		return authors.filter((author) => author.name.toLowerCase().includes(q));
+	}, [authors, authorQuery]);
+
 	return (
 		<aside
 			className={`${styles.sidebarContainer}`}
@@ -74,7 +101,17 @@ export const FilterSidebar = ({
 				selectedNumber={filterState.tags.length}
 				onClear={() => filterState.setTags([])}
 			>
-				{tags.map((tag, i) => {
+				<SearchInput
+					usedInPreact
+					variant="dense"
+					placeholder="Search tags"
+					value={tagQuery}
+					onInput={(e) =>
+						setTagQuery((e.currentTarget as HTMLInputElement).value)
+					}
+					className={styles.sidebarSearch}
+				/>
+				{filteredTags.map((tag, i) => {
 					return (
 						<FilterSectionItem
 							key={tag.tag}
@@ -106,7 +143,17 @@ export const FilterSidebar = ({
 				selectedNumber={filterState.authors.length}
 				onClear={() => filterState.setAuthors([])}
 			>
-				{authors.map((author) => {
+				<SearchInput
+					usedInPreact
+					variant="dense"
+					placeholder="Search authors..."
+					value={authorQuery}
+					onInput={(e) =>
+						setAuthorQuery((e.currentTarget as HTMLInputElement).value)
+					}
+					className={styles.sidebarSearch}
+				/>
+				{filteredAuthor.map((author) => {
 					return (
 						<FilterSectionItem
 							key={author.id}
