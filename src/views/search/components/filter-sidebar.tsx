@@ -61,7 +61,7 @@ export const FilterSidebar = ({
 		);
 	}, [tags, tagQuery]);
 
-	const filteredAuthor = useMemo(() => {
+	const filteredAuthors = useMemo(() => {
 		const q = authorQuery.trim().toLowerCase();
 		if (!q) return authors;
 		return authors.filter((author) => author.name.toLowerCase().includes(q));
@@ -104,7 +104,7 @@ export const FilterSidebar = ({
 				<SearchInput
 					usedInPreact
 					variant="dense"
-					placeholder="Search tags"
+					placeholder="Search tags.."
 					value={tagQuery}
 					onInput={(e) =>
 						setTagQuery((e.currentTarget as HTMLInputElement).value)
@@ -153,7 +153,7 @@ export const FilterSidebar = ({
 					}
 					className={styles.sidebarSearch}
 				/>
-				{filteredAuthor.map((author) => {
+				{filteredAuthors.map((author) => {
 					return (
 						<FilterSectionItem
 							key={author.id}
