@@ -13,6 +13,7 @@ interface FilterSectionProps extends HTMLAttributes<HTMLDivElement> {
 	onClear: () => void;
 	class?: string;
 	className?: string;
+	searchSlot?: ComponentChildren;
 	children?: ComponentChildren;
 }
 
@@ -21,6 +22,7 @@ export const FilterSection = ({
 	children,
 	selectedNumber,
 	onClear,
+	searchSlot,
 	class: className = "",
 	className: classNameName = "",
 	...props
@@ -107,23 +109,25 @@ export const FilterSection = ({
 				)}
 			</h3>
 			<div
-				role="group"
-				aria-labelledby={`${id}-title`}
-				id={`${id}-group`}
-				className={styles.passThru}
+				className={styles.sectionContent}
+				aria-hidden={collapsed}
+				inert={collapsed}
+				onScroll={onScroll}
 			>
-				<fieldset className={styles.passThru}>
-					<legend className="visually-hidden">{title}</legend>
-					<ul
-						role="list"
-						className={styles.sectionContent}
-						aria-hidden={collapsed}
-						onScroll={onScroll}
-						inert={collapsed}
-					>
-						{children}
-					</ul>
-				</fieldset>
+				{searchSlot}
+				<div
+					role="group"
+					aria-labelledby={`${id}-title`}
+					id={`${id}-group`}
+					className={styles.passThru}
+				>
+					<fieldset className={styles.passThru}>
+						<legend className="visually-hidden">{title}</legend>
+						<ul role="list" className={styles.sectionContentList}>
+							{children}
+						</ul>
+					</fieldset>
+				</div>
 			</div>
 		</div>
 	);

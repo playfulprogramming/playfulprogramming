@@ -100,17 +100,19 @@ export const FilterSidebar = ({
 				data-testid="tag-filter-section-sidebar"
 				selectedNumber={filterState.tags.length}
 				onClear={() => filterState.setTags([])}
+				searchSlot={
+					<SearchInput
+						usedInPreact
+						variant="dense"
+						placeholder="Search tags..."
+						value={tagQuery}
+						onInput={(e) =>
+							setTagQuery((e.currentTarget as HTMLInputElement).value)
+						}
+						className={styles.sidebarSearch}
+					/>
+				}
 			>
-				<SearchInput
-					usedInPreact
-					variant="dense"
-					placeholder="Search tags.."
-					value={tagQuery}
-					onInput={(e) =>
-						setTagQuery((e.currentTarget as HTMLInputElement).value)
-					}
-					className={styles.sidebarSearch}
-				/>
 				{filteredTags.map((tag, i) => {
 					return (
 						<FilterSectionItem
@@ -142,17 +144,19 @@ export const FilterSidebar = ({
 				data-testid="author-filter-section-sidebar"
 				selectedNumber={filterState.authors.length}
 				onClear={() => filterState.setAuthors([])}
+				searchSlot={
+					<SearchInput
+						usedInPreact
+						variant="dense"
+						placeholder="Search authors..."
+						value={authorQuery}
+						onInput={(e) =>
+							setAuthorQuery((e.currentTarget as HTMLInputElement).value)
+						}
+						className={styles.sidebarSearch}
+					/>
+				}
 			>
-				<SearchInput
-					usedInPreact
-					variant="dense"
-					placeholder="Search authors..."
-					value={authorQuery}
-					onInput={(e) =>
-						setAuthorQuery((e.currentTarget as HTMLInputElement).value)
-					}
-					className={styles.sidebarSearch}
-				/>
 				{filteredAuthors.map((author) => {
 					return (
 						<FilterSectionItem
