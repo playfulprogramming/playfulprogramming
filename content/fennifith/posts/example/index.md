@@ -5,7 +5,8 @@
 	published: '1999-09-18',
 	tags: [],
 	license: 'cc-by-nc-sa-4',
-	noindex: true
+	noindex: true,
+    coverImg: "share-banner.png"
 }
 ---
 
@@ -202,7 +203,7 @@ Pretend this is something very thought provoking[^1][^2]
 ## Link to another post
 
 <!-- ::start:link-preview -->
-[Writing Modern JavaScript without a Bundler](https://playfulprogramming.com/posts/modern-js-bundleless)
+[Writing Modern JavaScript without a Bundler](/posts/modern-js-bundleless)
 <!-- ::end:link-preview -->
 
 ## Link to an external site
@@ -263,6 +264,10 @@ With picture:
 404 embed:
 
 <iframe src="https://x.com/playful_program/status/123"></iframe>
+
+# GitHub Gist Embeds
+
+<iframe src="https://gist.github.com/crutchcorn/36fe5553219c05ea38bacf1c7396085b"></iframe>
 
 # Thanks for taking the trip down here
 

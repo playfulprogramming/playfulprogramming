@@ -14,7 +14,7 @@ export function RecurringEventsCard({
 		latestEventBlockLocationMetadata[event.slug];
 
 	const latestEventBannerSrc =
-		latestEventBlockWithMetadata?.location_metadata.banner?.src;
+		latestEventBlockWithMetadata?.location_metadata?.banner?.src;
 
 	return (
 		<li

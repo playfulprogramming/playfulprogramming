@@ -16,7 +16,7 @@ Signals are seemingly everywhere today. Among others, there's some flavor of sig
 - [Solid.js](https://www.solidjs.com/docs/latest/api#createsignal)
 - [Svelte](https://svelte.dev/blog/runes)
 - [Qwik](https://qwik.dev/docs/components/state/#usesignal)
-- [And many more](https://dev.to/this-is-learning/the-evolution-of-signals-in-javascript-8ob)
+- [And many more](https://https://dev.to/playfulprogramming/the-evolution-of-signals-in-javascript-8ob)
 
 There's even [efforts to bring signals into JavaScript itself](https://github.com/tc39/proposal-signals).
 

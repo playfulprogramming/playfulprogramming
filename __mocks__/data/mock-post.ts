@@ -18,6 +18,20 @@ export const MockPost: PostInfo = {
 	file: "path/index.md",
 	path: "path",
 	wordCount: 10000,
+	coverImgMeta: {
+		absoluteFSPath: "",
+		height: 0,
+		relativePath: "",
+		relativeServerPath: "",
+		width: 0,
+	},
+	socialImgMeta: {
+		absoluteFSPath: "",
+		height: 0,
+		relativePath: "",
+		relativeServerPath: "",
+		width: 0,
+	},
 };
 
 export const MockMultiAuthorPost: PostInfo = {
@@ -38,6 +52,20 @@ export const MockMultiAuthorPost: PostInfo = {
 	file: "path/index.md",
 	path: "path",
 	wordCount: 100000,
+	coverImgMeta: {
+		absoluteFSPath: "",
+		height: 0,
+		relativePath: "",
+		relativeServerPath: "",
+		width: 0,
+	},
+	socialImgMeta: {
+		absoluteFSPath: "",
+		height: 0,
+		relativePath: "",
+		relativeServerPath: "",
+		width: 0,
+	},
 };
 
 export const MockMuliLanguagePost: PostInfo = {
@@ -58,6 +86,20 @@ export const MockMuliLanguagePost: PostInfo = {
 	file: "path/index.md",
 	path: "path",
 	wordCount: 100000,
+	coverImgMeta: {
+		absoluteFSPath: "",
+		height: 0,
+		relativePath: "",
+		relativeServerPath: "",
+		width: 0,
+	},
+	socialImgMeta: {
+		absoluteFSPath: "",
+		height: 0,
+		relativePath: "",
+		relativeServerPath: "",
+		width: 0,
+	},
 };
 
 export const MockCanonicalPost: PostInfo = {
@@ -79,4 +121,18 @@ export const MockCanonicalPost: PostInfo = {
 	file: "path/index.md",
 	path: "path",
 	wordCount: 100000,
+	coverImgMeta: {
+		absoluteFSPath: "",
+		height: 0,
+		relativePath: "",
+		relativeServerPath: "",
+		width: 0,
+	},
+	socialImgMeta: {
+		absoluteFSPath: "",
+		height: 0,
+		relativePath: "",
+		relativeServerPath: "",
+		width: 0,
+	},
 };

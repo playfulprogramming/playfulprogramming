@@ -116,7 +116,7 @@ This won’t work! Why?
 
 Because when change detection runs, the pipe will check the parameters in the transform method and if they haven’t changed, it will return the last value that it had cached before.
 
-_I’ve explained it more deeply in my previous post: [It’s ok to use function calls in Angular templates!](https://dev.to/this-is-angular/its-ok-to-use-function-calls-in-angular-templates-4029) , where I explain how pipes memoization works and how we can do the same thing too when using normal functions._
+_I’ve explained it more deeply in my previous post: [It’s ok to use function calls in Angular templates!](https://dev.to/playfulprogramming-angular/its-ok-to-use-function-calls-in-angular-templates-4029) , where I explain how pipes memoization works and how we can do the same thing too when using normal functions._
 
 This is the moment where we **opt-out** of pipe memoization by using the **pure: false** flag.
 

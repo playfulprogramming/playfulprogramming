@@ -1,63 +1,104 @@
-import { CloudManager } from "@oramacloud/client";
 import * as api from "utils/api";
 import type { PostInfo, SearchPostInfo } from "types/PostInfo";
 import type { SearchCollectionInfo } from "types/CollectionInfo";
 import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
 import { getExcerpt } from "utils/markdown/get-excerpt";
 import matter from "gray-matter";
-import {
-	ORAMA_COLLECTIONS_INDEX_ID,
-	ORAMA_POSTS_INDEX_ID,
-} from "src/views/search/constants";
 import { getPostImages } from "utils/hoof";
 import asyncPool from "tiny-async-pool";
 import env from "constants/env";
+import Typesense from "typesense";
+import {
+	PUBLIC_SEARCH_ENDPOINT_HOST,
+	PUBLIC_SEARCH_ENDPOINT_PORT,
+	PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
+} from "../../src/views/search/constants";
+import { collectionSchema, PostDocument, postSchema } from "utils/search";
 
 // The deploy script cannot use import.meta.env, as it runs through tsx
-if (!env.ORAMA_PRIVATE_API_KEY) {
-	console.error("ORAMA_PRIVATE_API_KEY is not defined in the environment!");
+if (!env.TYPESENSE_WRITE_API_KEY) {
+	console.error("TYPESENSE_WRITE_API_KEY is not defined in the environment!");
 	process.exit(1);
 }
 
-const oramaCloudManager = new CloudManager({
-	api_key: env.ORAMA_PRIVATE_API_KEY,
+const client = new Typesense.Client({
+	nodes: [
+		{
+			host: PUBLIC_SEARCH_ENDPOINT_HOST,
+			port: PUBLIC_SEARCH_ENDPOINT_PORT,
+			protocol: PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
+		},
+	],
+	apiKey: env.TYPESENSE_WRITE_API_KEY,
+	connectionTimeoutSeconds: 10,
 });
 
+const existingCollections = await client.collections().retrieve();
+
+function findCollection(name: string) {
+	return existingCollections.find((c) => c.name === name);
+}
+
+function shallowCompare<T extends object>(a: T, b: T) {
+	if (Object.keys(a).length !== Object.keys(b).length) return false;
+	return Object.entries(a).every(([key, value]) => value === b[key as never]);
+}
+
+async function upsertCollection(
+	schema: typeof collectionSchema | typeof postSchema,
+) {
+	const collection = findCollection(schema.name);
+
+	if (!collection) {
+		console.log(`Creating ${schema.name} collection...`);
+		await client.collections().create(schema);
+		return;
+	}
+
+	const updateSchema: Partial<typeof schema> = {
+		fields: [],
+	};
+
+	for (const field of schema.fields) {
+		const matchingField = collection.fields.find((f) => f.name === field.name);
+		if (!matchingField) {
+			updateSchema.fields!.push(field);
+			continue;
+		}
+		if (!shallowCompare(matchingField, field)) {
+			// https://typesense.org/docs/29.0/api/collections.html#modifying-an-existing-field
+			updateSchema.fields!.push({ name: field.name, drop: true } as never);
+			updateSchema.fields!.push(field);
+		}
+	}
+
+	if (!updateSchema.fields?.length) return;
+
+	await client.collections(collection.name).update(updateSchema);
+}
+
 async function deployPosts(posts: SearchPostInfo[]) {
-	const index = oramaCloudManager.index(ORAMA_POSTS_INDEX_ID);
-	console.log(`Uploading ${posts.length} posts to ${ORAMA_POSTS_INDEX_ID}...`);
-	const isSnapshot = await index.snapshot(posts);
-	if (!isSnapshot) {
-		throw new Error("Unable to upload posts.");
-	}
+	await upsertCollection(postSchema);
 
-	console.log(`Deploying ${ORAMA_POSTS_INDEX_ID}...`);
-	const isDeployed = await index.deploy();
-	if (!isDeployed) {
-		throw new Error("Unable to deploy posts.");
-	}
+	console.log(`Importing posts...`);
+	await client
+		.collections<PostDocument>(postSchema.name)
+		.documents()
+		.import(posts, { action: "upsert" });
 
-	console.log(`Index ${ORAMA_POSTS_INDEX_ID} is deployed!`);
+	console.log(`Index posts is deployed!`);
 }
 
 async function deployCollections(collections: SearchCollectionInfo[]) {
-	const index = oramaCloudManager.index(ORAMA_COLLECTIONS_INDEX_ID);
+	await upsertCollection(collectionSchema);
 
-	console.log(
-		`Uploading ${collections.length} collections to ${ORAMA_COLLECTIONS_INDEX_ID}...`,
-	);
-	const isSnapshot = await index.snapshot(collections);
-	if (!isSnapshot) {
-		throw new Error("Unable to upload collections.");
-	}
+	console.log(`Importing collections...`);
+	await client
+		.collections<PostDocument>(collectionSchema.name)
+		.documents()
+		.import(collections, { action: "upsert" });
 
-	console.log(`Deploying ${ORAMA_COLLECTIONS_INDEX_ID}...`);
-	const isDeployed = await index.deploy();
-	if (!isDeployed) {
-		throw new Error("Unable to deploy collections.");
-	}
-
-	console.log(`Index ${ORAMA_COLLECTIONS_INDEX_ID} is deployed!`);
+	console.log(`Index collections is deployed!`);
 }
 
 async function processPost(post: PostInfo): Promise<SearchPostInfo> {
@@ -82,6 +123,8 @@ async function processPost(post: PostInfo): Promise<SearchPostInfo> {
 
 	return {
 		...post,
+		// https://typesense.org/docs/29.0/api/documents.html#index-documents
+		id: post.slug,
 		banner: postImages?.banner || undefined,
 		excerpt,
 		searchMeta,
@@ -113,6 +156,7 @@ const collections = api.getCollectionsByLang("en").map((collection) => {
 
 	return {
 		...collection,
+		id: collection.slug,
 		excerpt,
 		searchMeta,
 		publishedTimestamp: new Date(collection.published).getTime(),

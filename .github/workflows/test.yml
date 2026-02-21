@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - main
+  merge_group:
+    types:
+      - checks_requested
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
