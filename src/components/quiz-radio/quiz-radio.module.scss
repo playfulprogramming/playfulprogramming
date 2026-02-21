@@ -144,6 +144,8 @@
 		align-items: center;
 		justify-content: flex-start;
 		border-radius: var(--quiz-option_corner-radius);
+		// needed to prevent clipping with the ::before style on .explanation
+		z-index: 1;
 		@include transition(color background-color);
 	}
 

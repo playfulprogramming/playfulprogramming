@@ -1,7 +1,7 @@
 import { Element } from "hast";
 
 export const isNodeHeading = (n: Element) =>
-	n.type === "element" && /h[1-6]/.exec(n.tagName);
+	n.type === "element" && /^h[1-6]$/.test(n.tagName);
 
 export const findLargestHeading = (nodes: Element[]) => {
 	let largestSize = Infinity;

@@ -67,7 +67,11 @@ export const transformQuizRadio: RehypeFunctionComponent = ({
 		if (!isElement(option)) continue;
 		if (option.tagName !== "li") continue;
 
-		const innerText = option.children.find((c) => c.type === "text");
+		const innerParagraphEl = option.children.find(
+			(c): c is Element => isElement(c) && c.tagName === "p",
+		);
+		const optionContentEl = innerParagraphEl ?? option;
+		const innerText = optionContentEl.children.find((c) => c.type === "text");
 		if (!innerText) continue;
 
 		// We want `rawLabel` to start with `( )` or `(x)` to indicate the radio button and it's correctness or not
@@ -83,12 +87,12 @@ export const transformQuizRadio: RehypeFunctionComponent = ({
 		const correct = match[1] === "x";
 		// Remove the `( )` or `(x)` from the label
 		innerText.value = match[2];
-		const { id: value } = getHeaderNodeId(option, {
+		const { id: value } = getHeaderNodeId(optionContentEl, {
 			enableCustomId: true,
 		});
 
 		let isAllowedTagError = false;
-		visit(option, isElement, (node, _, parent) => {
+		visit(optionContentEl, isElement, (node, _, parent) => {
 			if (parent && !ALLOWED_OPTION_TAGS.has(node.tagName)) {
 				logError(
 					vfile,
@@ -100,7 +104,7 @@ export const transformQuizRadio: RehypeFunctionComponent = ({
 		});
 		if (isAllowedTagError) continue;
 
-		const labelHtml = toHtml(option.children);
+		const labelHtml = toHtml(optionContentEl.children);
 		options.push({ id: value, labelHtml, isCorrect: correct });
 	}
 

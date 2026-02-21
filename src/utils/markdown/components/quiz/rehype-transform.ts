@@ -47,7 +47,7 @@ export const rehypeQuizIndexes: Plugin<[], PlayfulRoot> = () => {
 		Object.entries(quizzes).forEach(([quizId, quizData], i) => {
 			const questionIds: string[] = [];
 			quizData.questions.forEach((question, questionIndex) => {
-				const id = `${quizId}-question-${i + questionIndex}`;
+				const id = `${quizId}-question-${questionIndex + 1}`;
 				question.attributes["id"] = id;
 				question.attributes["question-num"] = String(questionIndex + 1);
 				question.attributes["total-num"] = String(quizData.questions.length);
@@ -73,7 +73,7 @@ export const transformQuiz: RehypeFunctionComponent = ({
 			"QuizResults",
 			{
 				quizId: attributes.id,
-				questionIds: attributes.questions.split(","),
+				questionIds: attributes.questions?.split(",") ?? [],
 			},
 			children,
 		),
