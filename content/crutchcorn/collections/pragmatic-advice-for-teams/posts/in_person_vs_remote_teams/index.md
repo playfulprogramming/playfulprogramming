@@ -2,7 +2,7 @@
 {
     title: "In-Person vs Remote Engineering Teams",
     description: "An exploration of the pros and cons of in-person and remote engineering teams, drawing from personal experience.",
-    published: "2025-12-08T13:45:00.284Z",
+    published: "2026-02-20T13:45:00.284Z",
     tags: ['leadership', 'opinion'],
     license: 'cc-by-4',
     order: 2
