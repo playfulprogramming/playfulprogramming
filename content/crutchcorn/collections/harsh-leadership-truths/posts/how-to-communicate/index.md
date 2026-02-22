@@ -84,7 +84,7 @@ This is why I suggest adding as much context as you can in your initial message.
 
 While [the phrase "Bottom Line Up Front" (or "BLUF") has origins in the U.S. military](https://web.archive.org/web/20190126172241/https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/r25_50.pdf), the core principals can be highly useful in civilian contexts as well. The gist of it is simple: For longer messages, kickstart your conversation with your ultimate ask at the front of the conversation.
 
-![Instead of reading the whole message to get to the important bits, start your messages with the biggest stuff](./bluf.svg)
+![Instead of reading the whole message to get to the important bits, start your messages with the biggest stuff](./bluf.png)
 
 This is helpful for all kinds of folks, but doubly so for those that are in high positions or are otherwise very busy. This allows the reader to reduce the amount of noise they need to ingest to make a decision and dictate where they can refocus that energy in further communications with you.
 
