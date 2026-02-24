@@ -43,7 +43,6 @@
 	display: flex;
 	gap: var(--popup_item_gap);
 	align-items: center;
-	padding: var(--popup_item_padding);
 	min-height: var(--popup_item_min-height);
 	border-radius: var(--popup_item_corner-radius);
 	min-width: var(--popup_min-width);
@@ -59,6 +58,10 @@
 
 .option.selected {
 	background-color: var(--popup_item_background-color_selected);
+}
+
+.option.padded {
+	padding: var(--popup_item_padding);
 }
 
 .option:hover {
