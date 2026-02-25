@@ -270,7 +270,7 @@ class ChildComponent {}
 	template: `
 		<div>
 			<button (click)="setShowChild()">Toggle Child</button>
-			@if (showChild) {
+			@if (showChild()) {
 				<child-comp />
 			}
 		</div>
