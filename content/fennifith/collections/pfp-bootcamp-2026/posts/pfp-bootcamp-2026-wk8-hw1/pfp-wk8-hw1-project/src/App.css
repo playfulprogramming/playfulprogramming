@@ -1,0 +1,16 @@
+.app {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.card h2 {
+  margin: 0 0 10px 0;
+}
