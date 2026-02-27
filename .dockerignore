@@ -8,3 +8,6 @@ e2e/.cache
 e2e/.playwright
 dist
 public/content
+native/target
+native/*.node
+native/*.log

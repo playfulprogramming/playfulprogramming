@@ -43,6 +43,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { setMathProperty } from "./katex-css";
 import { transformUser } from "utils/markdown/components/user/rehype-transform";
+import { rehypeMermaidSvg } from "./rehype-mermaid-svg";
 
 export function createHtmlPlugins(unified: Processor) {
 	return (
@@ -71,6 +72,7 @@ export function createHtmlPlugins(unified: Processor) {
 			})
 			.use(remarkMath)
 			.use(rehypeKatex)
+			.use(rehypeMermaidSvg)
 			.use(setMathProperty)
 			/**
 			 * Insert custom HTML generation code here

@@ -152,6 +152,7 @@
 		"@internationalized/date": "^3.10.1",
 		"@nanostores/preact": "^1.0.0",
 		"@plausible-analytics/tracker": "^0.4.4",
+		"@playfulprogramming/native": "workspace:*",
 		"@preact/signals": "^2.5.1",
 		"@react-aria/calendar": "^3.9.3",
 		"@react-aria/utils": "^3.32.0",

@@ -4,14 +4,24 @@ FROM node:22-alpine3.22 AS builder
 # Create app directory
 WORKDIR /var/app
 
+# Install rust
+RUN apk add --update-cache build-base
+RUN wget -q -S -O - https://sh.rustup.rs/ | sh -s -- -y
+ENV PATH=/root/.cargo/bin:$PATH
+
 # Prepare pnpm according to the root package.json
 COPY package.json .
-RUN corepack enable
-RUN corepack install
+RUN corepack enable && corepack install
 
 # Install dependencies with pnpm
-COPY pnpm-lock.yaml .
+COPY --parents pnpm-workspace.yaml pnpm-lock.yaml */package.json .
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter "!e2e"
+
+# Copy and build the native addon
+COPY --parents native/Cargo.toml native/Cargo.lock native/src .
+RUN RUSTFLAGS="-C target-feature=-crt-static" pnpm --filter native build
+COPY --parents native/index.ts .
+COPY public/fonts/Figtree/Figtree-Regular.ttf /usr/share/fonts/truetype/figtree/Figtree-Regular.ttf
 
 # Copy and build the app
 COPY --parents assets content public src astro.config.ts tsconfig.json .env .

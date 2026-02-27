@@ -160,6 +160,26 @@ Summary blocks are a way to show a summary of a section of content. They are use
 </details>
 ```
 
+## Mermaid Diagrams
+
+You can embed a [mermaid diagram](https://mermaid.js.org/) by creating a code block with the "mermaid" language identifier.
+
+For example:
+
+````
+Here is a simple flow chart:
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+````
+
+> Dev note: These graphs are rendered with [1jehuang/mermaid-rs-renderer](https://github.com/1jehuang/mermaid-rs-renderer)! To display them locally, make sure to [set up Rust/Cargo](https://rustup.rs/) and run `pnpm --filter native build` before starting your dev server.
+
 ## Components
 
 Like MDX, Playful Programming supports the use of components in markdown files. Unlike MDX, we use a different syntax to define components and do not use React or JSX.

@@ -126,6 +126,13 @@ body.dark,
 		max-height: 50vh;
 	}
 
+	svg.mermaid {
+		display: block;
+		max-width: 100%;
+		height: auto;
+  		margin: var(--site-spacing) auto;
+	}
+
 	pre,
 	code {
 		@extend .text-style-code;
