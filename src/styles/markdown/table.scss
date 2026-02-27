@@ -59,23 +59,18 @@
 
 		background-color: var(--table_background-color);
 
+		&[data-sticky-headers] {
+			overflow-x: auto;
+
+			thead {
+				top: 0;
+			}
+		}
+
 		// If there is no heading row, apply padding-top
 		@supports selector(:has(tbody)) {
 			&:not(:has(thead)) {
 				padding-top: var(--table_padding-bottom);
-			}
-		}
-	}
-
-	.table-overflow {
-		@include until(560px) {
-			.table-container {
-				overflow-y: auto;
-				width: 100%;
-			}
-
-			table:has(tr:nth-child(4)) thead {
-				top: 0 !important;
 			}
 		}
 	}
