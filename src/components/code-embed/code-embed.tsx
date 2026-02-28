@@ -24,7 +24,7 @@ interface ContainerProps {
 
 export function Container(props: ContainerProps) {
 	return (
-		<div class={style.container}>
+		<div class={`${style.container} markdownCollapsePadding`}>
 			<div class={style.title}>
 				<p class="text-style-body-medium-bold">{props.title}</p>
 				{props.editUrl ? (
