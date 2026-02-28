@@ -1,4 +1,5 @@
 use mermaid_rs_renderer::{LayoutConfig, RenderOptions, Theme};
+use neon::{prelude::{Context, FunctionContext, ModuleContext}, result::{JsResult, NeonResult}, types::JsString};
 use std::sync::LazyLock;
 
 const MERMAID_GIT_COLORS: [&str; 8] = [
@@ -101,7 +102,21 @@ static RENDER_OPTIONS: LazyLock<RenderOptions> = LazyLock::new(|| RenderOptions 
     layout: LayoutConfig::default(),
 });
 
-#[neon::export]
-fn render_mermaid(document: String) -> String {
-    mermaid_rs_renderer::render_with_options(&document, RENDER_OPTIONS.clone()).unwrap()
+fn render_mermaid(mut cx: FunctionContext) -> JsResult<JsString> {
+    let document = cx.argument::<JsString>(0)?.value(&mut cx);
+    let result = mermaid_rs_renderer::render_with_options(&document, RENDER_OPTIONS.clone());
+    match result {
+        Ok(svg_result) => Ok(cx.string(svg_result)),
+        Err(error) => {
+            eprintln!("{:?}", error);
+            let error = cx.string(error.to_string());
+            cx.throw(error)
+        },
+    }
+}
+
+#[neon::main]
+fn main(mut cx: ModuleContext) -> NeonResult<()> {
+    cx.export_function("renderMermaid", render_mermaid)?;
+    Ok(())
 }

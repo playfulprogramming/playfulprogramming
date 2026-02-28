@@ -26,20 +26,33 @@ export const rehypeMermaidSvg: Plugin<[], Root> = () => {
 			if (className !== "language-mermaid") return;
 			const mermaidContent = toString(codeEl);
 
-			if (native) {
-				const svgHtml = native.renderMermaid(mermaidContent);
-				const svgEl = fromHtml(svgHtml, { fragment: true })
-					.children[0] as Element;
-				svgEl.properties.preserveAspectRatio = "xMinYMin meet";
-				svgEl.properties.className = "mermaid";
-				parent.children.splice(index, 1, svgEl);
-			} else {
+			if (!native) {
 				logError(
 					vfile,
 					node,
 					"Cannot render mermaid diagram - native package is not built!",
 				);
+				return;
 			}
+
+			let svgHtml: string;
+			try {
+				svgHtml = native.renderMermaid(mermaidContent);
+			} catch (e) {
+				logError(
+					vfile,
+					node,
+					"Cannot render mermaid diagram - encountered an error:",
+					String(e),
+				);
+				return;
+			}
+
+			const svgEl = fromHtml(svgHtml, { fragment: true })
+				.children[0] as Element;
+			svgEl.properties.preserveAspectRatio = "xMinYMin meet";
+			svgEl.properties.className = "mermaid";
+			parent.children.splice(index, 1, svgEl);
 		});
 	};
 };
