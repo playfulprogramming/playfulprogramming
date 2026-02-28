@@ -26,10 +26,27 @@ import aboutRaw from "../../content/data/about.json";
 import rolesRaw from "../../content/data/roles.json";
 import licensesRaw from "../../content/data/licenses.json";
 import tagsRaw from "../../content/data/tags.json";
+import { LocalFile } from "types/LocalFile";
 
 function isNotJunk(name: string): boolean {
 	// Ignore VSCode and JetBrains project files
 	return baseIsNotJunk(name) && name !== ".idea" && name !== ".vscode";
+}
+
+async function resolveImageFile(
+	imgPath: string,
+	basePath: string,
+): Promise<LocalFile> {
+	const coverImgSize = await getImageSize(imgPath, basePath);
+	if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
+		throw new Error(`${basePath}: Unable to parse ${imgPath} image size`);
+	}
+
+	return {
+		height: coverImgSize.height,
+		width: coverImgSize.width,
+		...resolvePath(imgPath, basePath)!,
+	};
 }
 
 export const contentDirectory = join(process.cwd(), "content");
@@ -197,19 +214,13 @@ async function readCollection(
 		const fileContents = await fs.readFile(filePath, "utf-8");
 		const frontmatter = matter(fileContents).data as RawCollectionInfo;
 
-		const coverImgSize = await getImageSize(
+		const coverImgMeta = await resolveImageFile(
 			frontmatter.coverImg,
 			collectionPath,
 		);
-		if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
-			throw new Error(`${collectionPath}: Unable to parse cover image size`);
-		}
-
-		const coverImgMeta = {
-			height: coverImgSize.height,
-			width: coverImgSize.width,
-			...resolvePath(frontmatter.coverImg, collectionPath)!,
-		};
+		const socialImgMeta = frontmatter.socialImg
+			? await resolveImageFile(frontmatter.socialImg, collectionPath)
+			: undefined;
 
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
@@ -237,6 +248,7 @@ async function readCollection(
 			postCount,
 			tags: frontmatterTags,
 			coverImgMeta,
+			socialImgMeta,
 		});
 	}
 
@@ -295,33 +307,12 @@ async function readPost(
 		// get an excerpt of the post markdown no longer than 150 chars
 		const excerpt = getExcerpt(fileMatter.content, 150);
 
-		let coverImgMeta: PostInfo["coverImgMeta"] | undefined;
-		if (frontmatter.coverImg) {
-			const coverImgSize = await getImageSize(frontmatter.coverImg, postPath);
-			if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
-				throw new Error(`${postPath}: Unable to parse cover image size`);
-			}
-
-			coverImgMeta = {
-				height: coverImgSize.height,
-				width: coverImgSize.width,
-				...resolvePath(frontmatter.coverImg, postPath)!,
-			};
-		}
-
-		let socialImgMeta: PostInfo["socialImgMeta"] | undefined;
-		if (frontmatter.socialImg) {
-			const socialImgSize = await getImageSize(frontmatter.socialImg, postPath);
-			if (!socialImgSize || !socialImgSize.width || !socialImgSize.height) {
-				throw new Error(`${postPath}: Unable to parse social image size`);
-			}
-
-			socialImgMeta = {
-				height: socialImgSize.height,
-				width: socialImgSize.width,
-				...resolvePath(frontmatter.socialImg, postPath)!,
-			};
-		}
+		const coverImgMeta = frontmatter.coverImg
+			? await resolveImageFile(frontmatter.coverImg, postPath)
+			: undefined;
+		const socialImgMeta = frontmatter.socialImg
+			? await resolveImageFile(frontmatter.socialImg, postPath)
+			: undefined;
 
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {

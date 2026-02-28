@@ -22,18 +22,23 @@ import Header from "src/views/collections/framework-field-guide/segments/header.
 import Hero from "../../../views/collections/framework-field-guide-fundamentals/segments/hero-fundamentals.astro";
 import Fundamentals from "../../../views/collections/framework-field-guide-fundamentals/segments/fundamentals-fundamentals.astro";
 import Ecosystem from "../../../views/collections/framework-field-guide-fundamentals/segments/ecosystem-fundamentals.astro";
-import { getPersonById } from "../../../utils/api";
+import { getCollectionBySlug, getPersonById } from "../../../utils/api";
+
+const collection = getCollectionBySlug(
+	"framework-field-guide-fundamentals",
+	"en",
+)!;
 ---
 
 <Barebones>
 	<SEO
 		slot="head"
-		title={"The Framework Field Guide - Fundamentals"}
-		description={"A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth."}
+		title={collection.title}
+		description={collection.description}
 		peopleData={[getPersonById("crutchcorn", "en")!]}
-		publishedTime={"2024-03-11T13:45:00.284Z"}
+		publishedTime={collection.published}
 		type={"book"}
-		shareImage={"/custom-content/collections/framework-field-guide-fundamentals/framework_field_guide_fundamentals_social.png"}
+		shareImage={collection.socialImgMeta?.relativeServerPath}
 	/>
 	<Header />
 	<main>

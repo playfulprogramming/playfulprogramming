@@ -35,19 +35,21 @@ import TheRestContainer from "src/views/collections/framework-field-guide/segmen
 import SignUp from "src/views/collections/framework-field-guide/segments/sign-up.astro";
 import WhyLearnAllThree from "src/views/collections/framework-field-guide/segments/why-learn-all-three.astro";
 import WhatDoIGet from "src/views/collections/framework-field-guide/segments/what-do-i-get.astro";
-import { getPersonById } from "utils/api";
+import { getCollectionBySlug, getPersonById } from "utils/api";
 import BlockingTabsSignalScript from "components/tabs/blocking-tabs-signal-script.astro";
+
+const collection = getCollectionBySlug("framework-field-guide", "en")!;
 ---
 
 <Barebones>
 	<SEO
 		slot="head"
-		title={"The Framework Field Guide"}
-		description={"A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth."}
+		title={collection.title}
+		description={collection.description}
 		peopleData={[getPersonById("crutchcorn", "en")!]}
-		publishedTime={"2022-12-01T13:45:00.284Z"}
+		publishedTime={collection.published}
 		type={"book"}
-		shareImage={"/custom-content/collections/framework-field-guide/framework_field_guide_social.png"}
+		shareImage={collection.socialImgMeta?.relativeServerPath}
 	/>
 	<Header />
 	<main>

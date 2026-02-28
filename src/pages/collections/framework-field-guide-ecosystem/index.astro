@@ -21,18 +21,23 @@ import SEO from "src/components/seo/seo.astro";
 import Header from "src/views/collections/framework-field-guide/segments/header.astro";
 import Hero from "../../../views/collections/framework-field-guide-ecosystem/segments/hero-ecosystem.astro";
 import Ecosystem from "../../../views/collections/framework-field-guide-ecosystem/segments/ecosystem-ecosystem.astro";
-import { getPersonById } from "../../../utils/api";
+import { getCollectionBySlug, getPersonById } from "../../../utils/api";
+
+const collection = getCollectionBySlug(
+	"framework-field-guide-ecosystem",
+	"en",
+)!;
 ---
 
 <Barebones>
 	<SEO
 		slot="head"
-		title={"The Framework Field Guide - Ecosystem"}
-		description={"Learn the surrounding tools around Angular, React, and Vue all at once and for free. Allow your apps to flourish using common tools."}
+		title={collection.title}
+		description={collection.description}
 		peopleData={[getPersonById("crutchcorn", "en")!]}
-		publishedTime={"2025-01-01T13:45:00.284Z"}
+		publishedTime={collection.published}
 		type={"book"}
-		shareImage={"/custom-content/collections/framework-field-guide-ecosystem/framework_field_guide_ecosystem_social.png"}
+		shareImage={collection.socialImgMeta?.relativeServerPath}
 	/>
 	<Header />
 	<main>
