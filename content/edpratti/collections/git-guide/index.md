@@ -4,8 +4,7 @@
     description:
     "Git is a version control system that is used to build the vast majority of software that we use every day. In this collection, we'll learn everything there is to know so you can manage your changes in a clean, organized and efficient way.",
     coverImg: "./cover.png",
-    socialImg:
-    "/custom-content/collections/git_guide/git_guide_cover.png",
+    socialImg: "./git_guide_social.png",
     tags: ["css", "design", "html"],
     published: "2025-04-23",
     buttons: [{ text: "Read now", url: "/posts/git-basics" }]
