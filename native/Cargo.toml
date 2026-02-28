@@ -13,5 +13,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 neon = "1.1"
-mermaid-rs-renderer = { git = "https://github.com/1jehuang/mermaid-rs-renderer", tag = "v0.2.0", default-features = false }
+mermaid-rs-renderer = { version = "0.2.0", default-features = false }
 lazy_static = "1.5.0"
