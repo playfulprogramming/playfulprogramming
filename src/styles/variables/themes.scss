@@ -43,6 +43,11 @@
 	--surface_primary_emphasis-low: var(--primary80_32);
 	--surface_primary_emphasis-none: var(--primary80_16);
 
+	--opaque-surface_primary_emphasis-high: var(--primary80);
+	--opaque-surface_primary_emphasis-medium: var(--primary85);
+	--opaque-surface_primary_emphasis-low: var(--primary90);
+	--opaque-surface_primary_emphasis-none: var(--primary95);
+
 	--surface_secondary_emphasis-high: var(--secondary80);
 	--surface_secondary_emphasis-medium: var(--secondary80_72);
 	--surface_secondary_emphasis-low: var(--secondary80_40);
@@ -128,6 +133,11 @@ body.dark,
 		--surface_primary_emphasis-medium: var(--primary40_64);
 		--surface_primary_emphasis-low: var(--primary40_32);
 		--surface_primary_emphasis-none: var(--primary40_16);
+
+		--opaque-surface_primary_emphasis-high: var(--primary40);
+		--opaque-surface_primary_emphasis-medium: var(--primary30);
+		--opaque-surface_primary_emphasis-low: var(--primary20);
+		--opaque-surface_primary_emphasis-none: var(--primary10);
 
 		--surface_secondary_emphasis-high: var(--secondary40);
 		--surface_secondary_emphasis-medium: var(--secondary40_72);

@@ -1,0 +1,23 @@
+{
+  "name": "@playfulprogramming/native",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "cargo test",
+    "cargo-build": "cargo build --message-format=json-render-diagnostics > cargo.log",
+    "cross-build": "cross build --message-format=json-render-diagnostics > cross.log",
+    "postcargo-build": "neon dist < cargo.log",
+    "postcross-build": "neon dist -m /target < cross.log",
+    "debug": "pnpm run cargo-build",
+    "build": "pnpm run cargo-build --release",
+    "cross": "pnpm run cross-build --release"
+  },
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@neon-rs/cli": "0.1.82"
+  }
+}

@@ -37,6 +37,10 @@ export default defineConfig({
 		},
 	},
 	vite: {
+		build: {
+			emitAssets: true,
+		},
+		assetsInclude: ["**/*.node"],
 		server: {
 			allowedHosts: ["localhost", "web"],
 		},
