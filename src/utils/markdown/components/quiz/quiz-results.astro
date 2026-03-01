@@ -1,0 +1,15 @@
+---
+import {
+	QuizResultsInline as PreactQuizResults,
+	QuizResultsInlineProps,
+} from "components/quiz-radio/quiz-results-inline";
+import Content from "../content.astro";
+import { PlayfulNode } from "../components";
+
+export type Props = QuizResultsInlineProps & { children: PlayfulNode[] };
+
+const { children, ...props } = Astro.props;
+---
+
+<Content content={children} />
+<PreactQuizResults {...props} client:load />

@@ -272,3 +272,72 @@ With picture:
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>
+
+# Quiz Components
+
+Here are the rules—get the answer right or else 😈
+
+<!-- ::start:quiz -->
+
+<!-- ::start:quiz-radio -->
+## Based on what you’ve seen: Why does JS? {#why-does-js}
+- ( ) Option 1 {#1}
+- (x) Option 2 {#2}
+- ( ) Option 3 {#3}
+- ( ) Option 4 {#4}
+<!-- ::end:quiz-radio -->
+
+Cool text between the section I love teaching yipee
+
+[link](#why-does-js)
+
+<!-- ::start:quiz-radio -->
+## Why did you do that
+- ( ) I'm sorry
+- ( ) it was a continuous lapse of judgement
+- ( ) I didn't mean it
+- (x) I didn't do it
+- (x) You'll have to talk to my lawyer
+<!-- ::end:quiz-radio -->
+
+<!-- ::end:quiz -->
+
+## Standalone question
+
+<!-- ::start:quiz-radio -->
+## don't touch me!
+- (x) *adds vertical padding so questions don't touch*
+- ( ) `code`
+- ( ) **bold**
+- ( ) rreally long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long eally long really long
+<!-- ::end:quiz-radio -->
+
+<!-- ::start:quiz-radio -->
+## Question with an explanation
+- (x) Confusing answer
+- ( ) Confusing answer
+- ( ) Confusing answer
+- ( ) Confusing answer
+
+This is why the question is because of the way it is.
+
+Look at [this link](https://example.com).
+<!-- ::end:quiz-radio -->
+
+<!-- ::start:quiz-radio -->
+## Never
+
+- ( ) Gonna
+
+- ( ) Give
+
+- (x) You
+
+- ( ) Up
+
+Try running this code in your browser:
+```js
+location.href = atob("aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==");
+```
+<!-- ::end:quiz-radio -->
+
