@@ -37,6 +37,12 @@ async function resolveImageFile(
 	imgPath: string,
 	basePath: string,
 ): Promise<LocalFile> {
+	if (imgPath.replace(/^\.\//, "").indexOf("/") !== -1) {
+		throw new Error(
+			`${basePath}: Image ${imgPath} must be stored adjacent to its md file.`,
+		);
+	}
+
 	const coverImgSize = await getImageSize(imgPath, basePath);
 	if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
 		throw new Error(`${basePath}: Unable to parse ${imgPath} image size`);
