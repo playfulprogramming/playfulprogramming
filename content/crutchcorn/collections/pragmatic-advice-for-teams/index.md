@@ -4,8 +4,7 @@
   description: "Practical guidance for engineering management and team building.",
   tags: ['leadership', 'opinion'],
   coverImg: "./cover.png",
-  socialImg:
-    "/custom-content/collections/pragmatic-advice-for-teams/pragmatic_advice_for_teams_social.png",
+  socialImg: "./pragmatic_advice_for_teams_social.png",
   published: "2026-02-02T13:45:00.284Z",
   buttons: [{ text: "Read now", url: "/posts/tradeoffs-in-engineering-identities" }]
 }

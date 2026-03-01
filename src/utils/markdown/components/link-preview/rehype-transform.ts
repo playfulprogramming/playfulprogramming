@@ -10,9 +10,10 @@ import {
 	PlayfulRoot,
 } from "../components";
 import { Plugin } from "unified";
-import { getUrlMetadata } from "utils/hoof";
+import { getUrlMetadata, UrlMetadataResponse } from "utils/hoof";
 import { logError } from "utils/markdown/logger";
 import { siteUrl } from "constants/site-config";
+import * as api from "utils/api";
 
 /**
  * Transform image-wrapped links into a link preview component
@@ -43,6 +44,35 @@ export const rehypeLinkPreview: Plugin<[], PlayfulRoot> = () => {
 		}
 	};
 };
+
+function getPlayfulUrlBanner(url: URL): UrlMetadataResponse["banner"] {
+	const [, postSlug] = /^\/posts\/([^\/]+)/.exec(url.pathname) ?? [];
+	if (postSlug) {
+		const post = api.getPostBySlug(postSlug, "en");
+		if (post?.socialImgMeta) {
+			return {
+				src: post.socialImgMeta.relativeServerPath,
+				width: post.socialImgMeta.width,
+				height: post.socialImgMeta.height,
+			};
+		}
+	}
+
+	const [, collectionSlug] =
+		/^\/collections\/([^\/]+)/.exec(url.pathname) ?? [];
+	if (collectionSlug) {
+		const collection = api.getCollectionBySlug(collectionSlug, "en");
+		if (collection?.socialImgMeta) {
+			return {
+				src: collection.socialImgMeta.relativeServerPath,
+				width: collection.socialImgMeta.width,
+				height: collection.socialImgMeta.height,
+			};
+		}
+	}
+
+	return { src: "/share-banner.png" };
+}
 
 export const transformLinkPreview: RehypeFunctionComponent = async ({
 	vfile,
@@ -81,7 +111,7 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 	const result = pictureNode
 		? undefined
 		: isPlayfulDomain
-			? { src: "/share-banner.png" }
+			? getPlayfulUrlBanner(url)
 			: (await getUrlMetadata(url.toString()).catch(() => undefined))?.banner;
 	if (!pictureNode && !result) {
 		logError(vfile, anchorNode, "Link preview could not find a banner image.");

@@ -4,6 +4,7 @@
   description: "Learn how different frameworks handle forms, what features they contain and how to implement them in your applications.",
   tags: ["webdev"],
   coverImg: "./cover.png",
+  socialImg: "./return_to_form_social.png",
   published: "2025-01-21",
   buttons: [{ text: "Read now", url: "/posts/angular-forms-intro" }]
 }
