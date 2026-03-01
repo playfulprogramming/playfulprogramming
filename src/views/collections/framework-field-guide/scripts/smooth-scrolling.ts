@@ -6,7 +6,7 @@ export function enableSmoothScrolling() {
 			target.scrollIntoView({
 				behavior: "smooth",
 				block:
-					(el.getAttribute("data-smooth-scroll") as  // eslint-disable-next-line no-undef
+					(el.getAttribute("data-smooth-scroll") as
 						| ScrollLogicalPosition
 						| undefined) ?? "center",
 			});
