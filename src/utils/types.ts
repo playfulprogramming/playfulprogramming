@@ -1,9 +1,12 @@
 /**
  * Extracts the return type of a specific overload from an overloaded function, matched by the provided argument types tuple.
  *
+ * @template Overload - The overloaded function type.
+ * @template Args - A tuple of argument types used to match a specific overload signature.
+ *
  * Note:
- * - Supports a **maximum of 5 overloads**.
- * - Returns `never` if no overload signature matches the provided `Args` or number of overloads exceeds the maximum overload limit.
+ * - Supports a **maximum of 5 overloads**. If a function has more, only the last 5 are evaluated from last to first in declaration order. Overloads outside this range may resolve to `never`.
+ * - Returns `never` if no overload signature matches the provided `Args`.
  */
 export type OverloadReturnType<
 	Overload extends (...args: unknown[]) => unknown,
