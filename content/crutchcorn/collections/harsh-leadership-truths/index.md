@@ -4,8 +4,7 @@
   description: "Exploring the often overlooked and uncomfortable realities of engineering leadership.",
   tags: ['leadership', 'opinion'],
   coverImg: "./cover.png",
-  socialImg:
-    "/custom-content/collections/harsh-leadership-truths/harsh_leadership_truths_social.png",
+  socialImg: "./harsh_leadership_truths_social.png",
   published: "2026-03-02T13:45:00.284Z",
   buttons: [{ text: "Read now", url: "/posts/how-a-promotion-can-kill-a-career" }],
   chapterList: [
