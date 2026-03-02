@@ -2,7 +2,7 @@
 {
     title: "How a Promotion Can Kill a Career",
     description: "Why you should be cautious of moving too quickly with your titles.",
-    published: "2025-11-17T13:45:00.284Z",
+    published: "2026-03-02T13:45:00.284Z",
     tags: ['leadership', 'opinion'],
     license: 'cc-by-4',
     order: 1
