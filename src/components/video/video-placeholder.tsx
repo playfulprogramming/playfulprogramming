@@ -13,8 +13,8 @@ import { HTMLAttributes } from "preact/compat";
 const isCredentiallessSupported = false;
 
 export interface VideoPlaceholderProps {
-	width: string;
-	height: string;
+	width: number;
+	height: number;
 	src: string;
 	iframeAttrs: HTMLAttributes<HTMLIFrameElement>;
 	pageTitle: string;
@@ -66,12 +66,12 @@ export function VideoPlaceholder({
 				</div>
 			</div>
 			{!frameVisible ? (
-				<div
-					class={style.placeholder}
-					style={`height: ${Number(height) ? `${height}px` : height};`}
-				>
+				<div class={style.placeholder}>
 					<img
 						src={props.pageThumbnail}
+						width={width}
+						height={height}
+						style={{ aspectRatio: width / height }}
 						alt=""
 						class={style.thumbnail}
 						loading="lazy"
@@ -100,8 +100,9 @@ export function VideoPlaceholder({
 			) : (
 				<iframe
 					src={props.src}
+					class={style.iframe}
 					{...iframeProps}
-					style={`height: ${Number(height) ? `${height}px` : height};`}
+					style={{ aspectRatio: width / height }}
 					loading="lazy"
 				/>
 			)}

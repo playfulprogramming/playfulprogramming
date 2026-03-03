@@ -3,17 +3,13 @@ import { VFile } from "vfile";
 import { ComponentMarkupNode } from "utils/markdown/components";
 import { UrlMetadataResponse } from "utils/hoof";
 
-interface IFrameData {
-	// May be `100%`, `10px`, `50` or any other `height=""` value
-	height: string | number | boolean | (string | number)[];
-	width: string | number | boolean | (string | number)[];
+interface SrcData {
+	src: string;
 	metadata: UrlMetadataResponse | undefined;
-	pageTitle: string;
-	iframeAttrs: Record<string, string>;
 }
 
 export interface PlatformDetector {
-	detect(url: string): boolean;
+	detect(src: SrcData): boolean;
 	rehypeTransform: (props: {
 		tree: Root;
 		file: VFile;
@@ -21,6 +17,6 @@ export interface PlatformDetector {
 		node: Element;
 		src: string;
 		index: number;
-		iframeData: IFrameData;
+		metadata: UrlMetadataResponse | undefined;
 	}) => Promise<void>;
 }

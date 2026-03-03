@@ -131,12 +131,14 @@ export interface paths {
 			};
 			requestBody?: {
 				content: {
-					/** @example {
+					/**
+					 * @example {
 					 *       "slug": "example",
 					 *       "author": "fennifith",
 					 *       "path": "content/fennifith/posts/example/index.md",
 					 *       "indexMd5": "6cd3556deb0da54bca060b4c39479839"
-					 *     } */
+					 *     }
+					 */
 					"application/json": {
 						slug: string;
 						author: string;
@@ -185,9 +187,11 @@ export interface paths {
 			};
 			requestBody: {
 				content: {
-					/** @example {
+					/**
+					 * @example {
 					 *       "url": "https://playfulprogramming.com"
-					 *     } */
+					 *     }
+					 */
 					"application/json": {
 						/** Format: uri */
 						url: string;
@@ -207,8 +211,50 @@ export interface paths {
 								src: string;
 								width?: number;
 								height?: number;
+								altText?: string;
 							};
 							banner?: {
+								src: string;
+								width?: number;
+								height?: number;
+								altText?: string;
+							};
+							gist?: {
+								username: string;
+								description?: string;
+								files: {
+									filename: string;
+									contentUrl: string;
+									language: string;
+								}[];
+							};
+							post?: {
+								author: {
+									name: string;
+									handle: string;
+									avatar?: {
+										src: string;
+										width?: number;
+										height?: number;
+										altText?: string;
+									};
+								};
+								content: string;
+								url: string;
+								image?: {
+									src: string;
+									width?: number;
+									height?: number;
+									altText?: string;
+								};
+								numLikes?: number;
+								numReposts?: number;
+								numReplies?: number;
+								createdAt: string;
+							};
+							/** @enum {unknown} */
+							embedType?: "post" | "gist" | "video";
+							embed?: {
 								src: string;
 								width?: number;
 								height?: number;
@@ -216,6 +262,40 @@ export interface paths {
 							error: boolean;
 						};
 					};
+				};
+			};
+		};
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	"/development/sync-all": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/** @description Spawns tasks to sync all posts and authors to the db */
+		post: {
+			parameters: {
+				query?: never;
+				header?: never;
+				path?: never;
+				cookie?: never;
+			};
+			requestBody?: never;
+			responses: {
+				/** @description Default Response */
+				200: {
+					headers: {
+						[name: string]: unknown;
+					};
+					content?: never;
 				};
 			};
 		};

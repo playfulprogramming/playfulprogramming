@@ -1,31 +1,11 @@
 import { PlatformDetector } from "utils/markdown/iframes/platform-detectors/types";
-import { getXPostData, xHosts } from "utils/markdown/data-providers";
 import { createComponent } from "utils/markdown/components";
 import unicornHappy from "assets/unicorn_happy.svg?url";
 
 export const xPlatformDetector: PlatformDetector = {
-	detect: (src) => {
-		const srcUrl = new URL(src);
-		const isX = xHosts.includes(srcUrl.hostname);
-
-		// https://x.com/playful_program/status/1917675872854614490
-		const xPathParts = srcUrl.pathname.split("/").filter(Boolean);
-		const xStatus = xPathParts[1];
-		const isXPost = xStatus === "status";
-
-		return isX && isXPost;
-	},
-	rehypeTransform: async ({ parent, index, src }) => {
-		const srcUrl = new URL(src);
-		const xPathParts = srcUrl.pathname.split("/").filter(Boolean);
-		const xUserId = xPathParts[0];
-		const xPostId = xPathParts[xPathParts.length - 1];
-
-		const post = await getXPostData({
-			userId: xUserId,
-			postId: xPostId,
-		});
-
+	detect: ({ metadata }) => metadata?.embedType === "post",
+	rehypeTransform: async ({ parent, index, src, metadata }) => {
+		const post = metadata?.post;
 		if (!post) {
 			parent.children.splice(
 				index,
@@ -37,12 +17,13 @@ export const xPlatformDetector: PlatformDetector = {
 			return;
 		}
 
-		const photo = post?.media?.photos?.[0];
+		const photo = post?.image;
 		const picture = photo
 			? {
-					url: photo.url,
+					url: photo.src,
 					alt: photo.altText,
-					aspectRatio: photo.height / photo.width,
+					aspectRatio:
+						photo.width && photo.height ? photo.height / photo.width : 1,
 				}
 			: undefined;
 
@@ -50,15 +31,15 @@ export const xPlatformDetector: PlatformDetector = {
 			index,
 			1,
 			createComponent("XPlaceholder", {
-				text: post.text,
-				handle: post.author.screen_name,
+				text: post.content,
+				handle: post.author.handle,
 				name: post.author.name,
 				link: post.url,
-				date: post.created_at,
-				profilePic: post.author.avatar_url ?? unicornHappy,
-				likes: post.likes,
-				reposts: post.reposts,
-				replies: post.replies,
+				date: post.createdAt,
+				profilePic: post.author.avatar?.src ?? unicornHappy,
+				likes: post.numLikes,
+				reposts: post.numReposts,
+				replies: post.numReplies,
 				picture,
 				// TODO: Handle video, images, et al
 			}),

@@ -13,15 +13,16 @@ dayjs.extend(advancedFormat);
 interface XEmbedPicture {
 	url: string;
 	alt?: string;
-	aspectRatio?: number;
+	width?: number;
+	height?: number;
 }
 
 export interface XEmbedPlaceholderProps {
 	text: string;
 	profilePic: string;
-	likes: number;
-	reposts: number;
-	replies: number;
+	likes?: number;
+	reposts?: number;
+	replies?: number;
 	date: string;
 	handle: string;
 	name: string;
@@ -51,6 +52,7 @@ export function XEmbedPlaceholder({
 						data-nozoom
 						src={profilePic}
 						alt={`${handle}'s profile picture`}
+						crossorigin="anonymous"
 					/>
 				</div>
 				<div className={style.topWide}>
@@ -83,7 +85,15 @@ export function XEmbedPlaceholder({
 					<img
 						src={picture.url}
 						alt={picture.alt}
-						style={{ aspectRatio: picture.aspectRatio }}
+						width={picture.width}
+						height={picture.height}
+						style={{
+							aspectRatio:
+								picture.width && picture.height
+									? picture.height / picture.width
+									: undefined,
+						}}
+						crossorigin="anonymous"
 					/>
 				</div>
 			) : null}

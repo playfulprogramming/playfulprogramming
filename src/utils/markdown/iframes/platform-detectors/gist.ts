@@ -1,26 +1,13 @@
 import { PlatformDetector } from "utils/markdown/iframes/platform-detectors/types";
-import { getGist } from "utils/markdown/data-providers";
 import { createComponent } from "utils/markdown/components";
-import { gistHosts } from "utils/markdown/data-providers/gist";
 import { GistCodeBlock } from "utils/markdown/iframes/hastscript-components/GistCodeBlock";
 
 export const gistPlatformDetector: PlatformDetector = {
-	detect: (src) => {
-		const srcUrl = new URL(src);
-		const isGist = gistHosts.includes(srcUrl.hostname);
-		return isGist;
-	},
-	rehypeTransform: async ({ parent, index, src }) => {
-		const srcUrl = new URL(src);
+	detect: ({ metadata }) => metadata?.embedType === "gist",
+	rehypeTransform: async ({ parent, metadata, index, src }) => {
+		const gist = metadata?.gist;
 
-		// https://gist.github.com/crutchcorn/36fe5553219c05ea38bacf1c7396085b
-		const gistPathParts = srcUrl.pathname.split("/").filter(Boolean);
-		const githubUsername = gistPathParts[0];
-		const gistId = gistPathParts[1];
-
-		const data = await getGist(gistId);
-
-		if (!data) {
+		if (!gist) {
 			parent.children.splice(
 				index,
 				1,
@@ -32,17 +19,11 @@ export const gistPlatformDetector: PlatformDetector = {
 		}
 
 		// TODO: How to handle no files in a Gist?
-		if (!data.files) return;
+		if (!gist.files.length) return;
+		const file = gist.files[0];
 
-		const file = Object.values(
-			// "File name.txt": {}
-			data.files,
-		)[0];
-
-		if (!file) return;
-		if (!file.content) return;
-
-		const { contents, truncated } = limitStringToNLines(file.content, 10);
+		const fileContent = await fetch(file.contentUrl).then((r) => r.text());
+		const { contents, truncated } = limitStringToNLines(fileContent, 10);
 		// This is the language from GitHub's API, might not align with Shiki's lang code
 		const language = file.language?.toLowerCase() ?? "text";
 
@@ -52,7 +33,7 @@ export const gistPlatformDetector: PlatformDetector = {
 			createComponent(
 				"GistPlaceholder",
 				{
-					username: githubUsername,
+					username: gist.username,
 					href: src,
 					filename: file.filename ?? "Untitled",
 				},

@@ -85,7 +85,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				);
 
 				// Find any embeds and use them if they're present
-				const platformDetector = platformDetectors.find((p) => p.detect(src));
+				const platformDetector = platformDetectors.find((p) =>
+					p.detect({ src, metadata }),
+				);
 				if (platformDetector) {
 					return await platformDetector.rehypeTransform({
 						parent,
@@ -94,13 +96,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 						tree,
 						index,
 						src,
-						iframeData: {
-							iframeAttrs,
-							metadata,
-							height,
-							width,
-							pageTitle,
-						},
+						metadata,
 					});
 				}
 
