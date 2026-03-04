@@ -118,12 +118,42 @@ One of the most popular means of versioning is "semantic versioning" (aka "semve
 
 [![TODO: Replace this](https://www.softwarecraftsperson.com/images/semver.png)](https://www.softwarecraftsperson.com/posts/2020-12-06-semantic-versioning-semver-introduction/)
 
+This system is designed to allow teams — both internal and external — that rely on your product to know when they need to take action on their end.
 
+When I know a vendor is supporting patch versions properly, it means that I can move to the new version freely and should do so quickly to avoid security and other bugs. No work should be needed on my end to adopt this new version.
 
+Similarly, when a major version is introduced, I know I should seek out the changelog of a product to understand what's been introduced so I can adopt new features. Like before, no work should be needed to adopt a new version, but work might be needed to adopt the new featuresets introduced.
 
+Finally, majors indicate that fundamental shifts have occured and that I might need to be more cautious as I spend dedicated effort to adopt a new system.
 
-- Semver
-- Talk about how to expose this to users for debugging purposes
+### Time-based versioning
+
+Sometimes, you might not need that level of granularity in your software. Especially for SaaS platforms that might not offer an API or other integrations, just versioning based on when you last released is valuable. We often show these through:
+
+```
+YYYY.MM.DD
+```
+
+To show allow the user to understand when a version was last released and support smoother support tickets to help users stuck on old versions for some reason.
+
+### Debugging Versioning
+
+Oftentimes, especially in products where the user needs to install something — like a mobile app, desktop program, or even a Progressive Web Application (PWA) — there's often a chance where the user is running an older version of the app when reporting bugs.
+
+Having a quick ability to showcase this version to the user is helpful for those instances, but not something you want to expose the user to in non-debugging scenarios. This is why programs on the macOS operating system often hide this information in a menu bar dropdown:
+
+![TODO: Write this](./about_typora.png)
+
+Many other applications may expose this through similar system menus. On mobile, most apps choose to place this `version` in the settings page of the app:
+
+![TODO: Add alt](./about_spotify.jpg)
+
+Some applications even hide debug information further:
+
+- Many React Native apps have a specific settings screen that you can shake your phone for additional debug toggles
+- [The Android operating system hides "Developer mode" behind a hidden toggle that requires you to press `"Build number"` seven times in the settings page](https://developer.android.com/studio/debug/dev-options)
+
+There's many ways you can make this information unobtrusive but accessible when needed.
 
 # Application Splitting
 
