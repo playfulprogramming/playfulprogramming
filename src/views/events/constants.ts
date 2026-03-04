@@ -196,11 +196,11 @@ export const bookClubBlocks = [
 		timezone: "America/Los_Angeles",
 	},
 	{
-		slug: "book-club-03-03-2026",
-		starts_at: dayjs("03-03-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
+		slug: "book-club-03-04-2026",
+		starts_at: dayjs("03-04-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
 			.tz("America/Los_Angeles", true)
 			.toDate(),
-		ends_at: dayjs("03-03-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
+		ends_at: dayjs("03-04-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
 			.tz("America/Los_Angeles", true)
 			.toDate(),
 		location_description: 'The "You" in CPU: Fork-Exec',
