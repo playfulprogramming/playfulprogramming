@@ -4,7 +4,7 @@ import { translate } from "../../utils";
 import ContributorCard from "../../components/contributor-card/contributor-card.astro";
 import style from "./contributors-and-partners.module.scss";
 
-const people = api.getPeopleByLang("en");
+const people = await api.getPeopleByLang("en");
 
 const { partners, nonPartners } = people.reduce(
 	(prev, person) => {

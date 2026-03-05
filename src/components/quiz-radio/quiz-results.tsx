@@ -1,10 +1,10 @@
 import { useCallback, useMemo } from "preact/hooks";
 import style from "./quiz-results.module.scss";
-import { Button } from "components/button/button";
-import QuizIcon from "src/icons/quiz.svg?raw";
-import CorrectIcon from "src/icons/correct.svg?raw";
-import IncorrectIcon from "src/icons/incorrect.svg?raw";
-import { RawSvg } from "components/image/raw-svg";
+import { Button } from "#components/button/button";
+import QuizIcon from "#src/icons/quiz.svg?raw";
+import CorrectIcon from "#src/icons/correct.svg?raw";
+import IncorrectIcon from "#src/icons/incorrect.svg?raw";
+import { RawSvg } from "#components/image/raw-svg";
 
 export interface QuizQuestion {
 	isAnswered: boolean;

@@ -1,11 +1,11 @@
-import { RehypeFunctionComponent } from "../types";
+import type { RehypeFunctionComponent } from "../types.ts";
 import {
 	ComponentMarkupNode,
 	createComponent,
 	isComponentMarkup,
 	PlayfulRoot,
-} from "../components";
-import { Plugin } from "unified";
+} from "../components.ts";
+import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
 /**

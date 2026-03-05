@@ -1,19 +1,19 @@
-import { Root, Element } from "hast";
-import { VFile } from "vfile";
-import { Plugin } from "unified";
+import type { Root, Element } from "hast";
+import type { VFile } from "vfile";
+import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
-import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants";
+import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants.ts";
 import {
 	ComponentMarkupNode,
 	ComponentNode,
 	createComponent,
 	isComponentMarkup,
-} from "../components";
-import { logError } from "../logger";
-import { getUrlMetadata } from "utils/hoof";
-import { rehypeTransformGist } from "./platform-detectors/gist";
-import { rehypeTransformVideo } from "./platform-detectors/video";
-import { rehypeTransformPost } from "./platform-detectors/post";
+} from "../components/index.ts";
+import { logError } from "../logger.ts";
+import { getUrlMetadata } from "#utils/hoof/index.ts";
+import { rehypeTransformGist } from "./platform-detectors/gist.ts";
+import { rehypeTransformVideo } from "./platform-detectors/video.ts";
+import { rehypeTransformPost } from "./platform-detectors/post.ts";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;

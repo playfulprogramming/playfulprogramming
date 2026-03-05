@@ -1,6 +1,6 @@
 import { RehypeEmbedTransformProps } from "./types";
-import { ComponentNode, createComponent } from "utils/markdown/components";
-import unicornHappy from "assets/unicorn_happy.svg?url";
+import { ComponentNode, createComponent } from "#utils/markdown/components";
+import unicornHappy from "#src/assets/unicorn_happy.svg?url";
 
 export function rehypeTransformPost({
 	src,

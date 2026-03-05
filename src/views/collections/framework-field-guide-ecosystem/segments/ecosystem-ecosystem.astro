@@ -9,9 +9,12 @@ import {
 	getPostsByCollection,
 } from "../../../../utils/api";
 
-const collection = getCollectionBySlug("framework-field-guide-ecosystem", "en");
+const collection = await getCollectionBySlug(
+	"framework-field-guide-ecosystem",
+	"en",
+);
 
-const chapterList = getPostsByCollection(
+const chapterList = await getPostsByCollection(
 	"framework-field-guide-ecosystem",
 	"en",
 );
@@ -29,7 +32,7 @@ const chapterList = getPostsByCollection(
 			<CollectionTableOfContents
 				title="Chapters*"
 				chaptersToShow={5}
-				chapterList={collection!.chapterList}
+				chapterList={collection!.chapterList as never}
 				posts={chapterList}
 			/>
 			<BottomContents />

@@ -1,5 +1,5 @@
 import { MockPerson } from "./mock-person";
-import { CollectionInfo } from "types/index";
+import { CollectionInfo } from "#types/index";
 
 export const MockCollection: CollectionInfo = {
 	kind: "collection",

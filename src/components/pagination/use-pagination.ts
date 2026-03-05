@@ -1,4 +1,4 @@
-import { PageInfo } from "components/pagination/types";
+import { PageInfo } from "#components/pagination/types";
 import { useMemo } from "preact/hooks";
 
 const PAGE_BUTTON_COUNT = 6;

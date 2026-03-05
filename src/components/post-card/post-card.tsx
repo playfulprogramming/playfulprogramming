@@ -1,10 +1,10 @@
 import style from "./post-card.module.scss";
-import { PersonInfo } from "types/index";
-import { Chip } from "components/index";
-import date from "src/icons/date.svg?raw";
-import authorsSvg from "src/icons/authors.svg?raw";
-import { getHrefContainerProps } from "utils/href-container-script";
-import { buildSearchQuery } from "src/views/search/search";
+import { PersonInfo } from "#types/index";
+import { Chip } from "#components/index";
+import date from "#src/icons/date.svg?raw";
+import authorsSvg from "#src/icons/authors.svg?raw";
+import { getHrefContainerProps } from "#utils/href-container-script";
+import { buildSearchQuery } from "#src/views/search/search";
 import { PostInfoWithBanner } from "./types";
 
 interface PostCardProps {

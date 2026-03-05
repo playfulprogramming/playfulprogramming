@@ -1,6 +1,6 @@
-import { PostInfo } from "types/PostInfo";
-import { CollectionInfo } from "types/CollectionInfo";
-import { PropsWithChildren } from "components/types";
+import { PostInfo } from "#types/PostInfo.ts";
+import { CollectionInfo } from "#types/CollectionInfo.ts";
+import { PropsWithChildren } from "#components/types.ts";
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
 import { SearchQuery } from "./search";
@@ -19,7 +19,7 @@ import {
 	collectionSchema,
 	PostDocument,
 	postSchema,
-} from "utils/search";
+} from "#utils/search.ts";
 
 export interface SearchContext {
 	client: InstanceType<typeof Typesense.Client>;

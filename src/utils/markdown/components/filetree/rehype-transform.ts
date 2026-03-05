@@ -19,13 +19,16 @@
  * <!-- filetree:end -->
  */
 import { toString } from "hast-util-to-string";
-import { Element, ElementContent } from "hast";
+import type { Element, ElementContent } from "hast";
 import { visit } from "unist-util-visit";
 import JSON5 from "json5";
-import { RehypeFunctionComponent } from "../types";
-import { logError } from "utils/markdown/logger";
-import type { DirectoryProps, FileProps } from "components/file-list/file-list";
-import { createComponent } from "../components";
+import { RehypeFunctionComponent } from "../types.ts";
+import { logError } from "#utils/markdown/logger.ts";
+import type {
+	DirectoryProps,
+	FileProps,
+} from "#components/file-list/file-list.tsx";
+import { createComponent } from "../components.ts";
 import { toHtml } from "hast-util-to-html";
 
 interface DirectoryMetadata {

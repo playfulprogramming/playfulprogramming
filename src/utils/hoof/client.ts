@@ -1,6 +1,6 @@
 import createClient from "openapi-fetch";
 import type { paths } from "./schema";
-import env from "constants/env";
+import env from "#src/constants/env";
 import { ratelimitMiddleware } from "./ratelimitMiddleware";
 
 if (env.MODE === "production" && !env.HOOF_AUTH_TOKEN) {

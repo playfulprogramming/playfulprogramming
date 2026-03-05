@@ -1,19 +1,19 @@
-import { Element } from "hast";
+import type { Element } from "hast";
 import { find } from "unist-util-find";
 import { toString } from "hast-util-to-string";
 import { URL } from "url";
-import { RehypeFunctionComponent } from "../types";
-import { isElement } from "utils/markdown/unist-is-element";
+import type { RehypeFunctionComponent } from "../types.ts";
+import { isElement } from "#utils/markdown/unist-is-element.ts";
 import {
 	ComponentMarkupNode,
 	createComponent,
 	PlayfulRoot,
-} from "../components";
+} from "../components.ts";
 import { Plugin } from "unified";
-import { getUrlMetadata, UrlMetadataResponse } from "utils/hoof";
-import { logError } from "utils/markdown/logger";
-import { siteUrl } from "constants/site-config";
-import * as api from "utils/api";
+import { getUrlMetadata, UrlMetadataResponse } from "#utils/hoof/index.ts";
+import { logError } from "#utils/markdown/logger.ts";
+import { siteUrl } from "#src/constants/site-config.ts";
+import * as api from "#utils/api.ts";
 
 /**
  * Transform image-wrapped links into a link preview component
@@ -45,10 +45,12 @@ export const rehypeLinkPreview: Plugin<[], PlayfulRoot> = () => {
 	};
 };
 
-function getPlayfulUrlBanner(url: URL): UrlMetadataResponse["banner"] {
+async function getPlayfulUrlBanner(
+	url: URL,
+): Promise<UrlMetadataResponse["banner"]> {
 	const [, postSlug] = /^\/posts\/([^\/]+)/.exec(url.pathname) ?? [];
 	if (postSlug) {
-		const post = api.getPostBySlug(postSlug, "en");
+		const post = await api.getPostBySlug(postSlug, "en");
 		if (post?.socialImgMeta) {
 			return {
 				src: post.socialImgMeta.relativeServerPath,
@@ -61,7 +63,7 @@ function getPlayfulUrlBanner(url: URL): UrlMetadataResponse["banner"] {
 	const [, collectionSlug] =
 		/^\/collections\/([^\/]+)/.exec(url.pathname) ?? [];
 	if (collectionSlug) {
-		const collection = api.getCollectionBySlug(collectionSlug, "en");
+		const collection = await api.getCollectionBySlug(collectionSlug, "en");
 		if (collection?.socialImgMeta) {
 			return {
 				src: collection.socialImgMeta.relativeServerPath,
@@ -111,7 +113,7 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 	const result = pictureNode
 		? undefined
 		: isPlayfulDomain
-			? getPlayfulUrlBanner(url)
+			? await getPlayfulUrlBanner(url)
 			: (await getUrlMetadata(url.toString()).catch(() => undefined))?.banner;
 	if (!pictureNode && !result) {
 		logError(vfile, anchorNode, "Link preview could not find a banner image.");

@@ -1,5 +1,5 @@
-import { PersonInfo } from "types/PersonInfo";
-import { TagInfo } from "types/TagInfo";
+import { PersonInfo } from "#types/PersonInfo.ts";
+import { TagInfo } from "#types/TagInfo.ts";
 
 export const SEARCH_QUERY_KEY = "q";
 export const PAGE_KEY = "page";

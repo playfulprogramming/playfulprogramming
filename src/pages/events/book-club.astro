@@ -3,7 +3,7 @@ import BookClubPage from "../../views/book-club/book-club";
 import Document from "../../layouts/document.astro";
 import SEO from "../../components/seo/seo.astro";
 import { events } from "../../views/events/constants";
-import { getUrlMetadata, UrlMetadataResponse } from "utils/hoof";
+import { getUrlMetadata, UrlMetadataResponse } from "#utils/hoof";
 import { Event, EventBlock } from "../../views/events/types";
 
 const event: Event = events.find((e) => e.slug === "book-club")!;

@@ -1,19 +1,19 @@
-import * as api from "utils/api";
-import type { PostInfo, SearchPostInfo } from "types/PostInfo";
-import type { SearchCollectionInfo } from "types/CollectionInfo";
-import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
-import { getExcerpt } from "utils/markdown/get-excerpt";
+import * as api from "#utils/api";
+import type { PostInfo, SearchPostInfo } from "#types/PostInfo";
+import type { SearchCollectionInfo } from "#types/CollectionInfo";
+import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile";
+import { getExcerpt } from "#utils/markdown/get-excerpt";
 import matter from "gray-matter";
-import { getPostImages } from "utils/hoof";
+import { getPostImages } from "#utils/hoof";
 import asyncPool from "tiny-async-pool";
-import env from "constants/env";
+import env from "#src/constants/env";
 import Typesense from "typesense";
 import {
 	PUBLIC_SEARCH_ENDPOINT_HOST,
 	PUBLIC_SEARCH_ENDPOINT_PORT,
 	PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
 } from "../../src/views/search/constants";
-import { collectionSchema, PostDocument, postSchema } from "utils/search";
+import { collectionSchema, PostDocument, postSchema } from "#utils/search";
 
 // The deploy script cannot use import.meta.env, as it runs through tsx
 if (!env.TYPESENSE_WRITE_API_KEY) {
@@ -107,8 +107,9 @@ async function processPost(post: PostInfo): Promise<SearchPostInfo> {
 	const vfileContent = matter(vfile.value.toString()).content;
 	const excerpt = getExcerpt(vfileContent, undefined);
 	// Collect searchable author info (name, social media handles, etc)
-	const searchMeta = post.authors
-		.map((id) => api.getPersonById(id, "en"))
+	const searchMeta = (
+		await Promise.all(post.authors.map((id) => api.getPersonById(id, "en")))
+	)
 		.filter((a) => !!a)
 		.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
 		.flatMap((set) => Array.from(set))
@@ -133,20 +134,28 @@ async function processPost(post: PostInfo): Promise<SearchPostInfo> {
 }
 
 const posts: SearchPostInfo[] = [];
-for await (const post of asyncPool(8, api.getPostsByLang("en"), processPost)) {
+for await (const post of asyncPool(
+	8,
+	await api.getPostsByLang("en"),
+	processPost,
+)) {
 	posts.push(post);
 }
 
 await deployPosts(posts);
 
-const collections = api.getCollectionsByLang("en").map((collection) => {
-	const chapters = api.getPostsByCollection(collection.slug, "en");
+const collections: SearchCollectionInfo[] = [];
+for (const collection of await api.getCollectionsByLang("en")) {
+	const chapters = await api.getPostsByCollection(collection.slug, "en");
 	const excerpt = chapters
 		.map((chapter) => `${chapter.title} ${chapter.description}`)
 		.join(" ");
 	// Collect searchable author info (name, social media handles, etc)
-	const searchMeta = collection.authors
-		.map((id) => api.getPersonById(id, "en"))
+	const searchMeta = (
+		await Promise.all(
+			collection.authors.map((id) => api.getPersonById(id, "en")),
+		)
+	)
 		.filter((a) => !!a)
 		.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
 		.flatMap((set) => Array.from(set))
@@ -154,13 +163,13 @@ const collections = api.getCollectionsByLang("en").map((collection) => {
 
 	console.debug("Indexed collection", collection.slug);
 
-	return {
+	collections.push({
 		...collection,
 		id: collection.slug,
 		excerpt,
 		searchMeta,
 		publishedTimestamp: new Date(collection.published).getTime(),
-	} satisfies SearchCollectionInfo;
-});
+	});
+}
 
 await deployCollections(collections);

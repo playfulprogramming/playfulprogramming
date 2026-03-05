@@ -1,4 +1,4 @@
-import { Root } from "mdast";
+import type { Root } from "mdast";
 import { visit } from "unist-util-visit";
 import { Plugin } from "unified";
 import JSON5 from "json5";

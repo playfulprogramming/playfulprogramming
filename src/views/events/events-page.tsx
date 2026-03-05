@@ -3,13 +3,13 @@ import { events } from "./constants";
 import {
 	RadioButton,
 	RadioButtonGroup,
-} from "components/button-radio-group/button-radio-group";
+} from "#components/button-radio-group/button-radio-group.tsx";
 
 import { useElementSize } from "../../hooks/use-element-size";
 
 import { Calendar } from "./components/calendar/calendar";
 import { LongWave } from "./components/long-wave/long-wave";
-import filter from "src/icons/filter.svg?raw";
+import filter from "#src/icons/filter.svg?raw";
 import style from "./events-page.module.scss";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";

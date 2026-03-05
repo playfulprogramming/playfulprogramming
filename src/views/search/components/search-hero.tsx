@@ -1,4 +1,4 @@
-import { JSXNode } from "components/types";
+import { JSXNode } from "#components/types.ts";
 import styles from "./search-hero.module.scss";
 import tags from "../../../../content/data/tags.json";
 

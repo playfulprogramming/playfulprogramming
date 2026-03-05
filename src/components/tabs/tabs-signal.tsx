@@ -1,4 +1,4 @@
-import { JSXNode } from "components/types";
+import { JSXNode } from "#components/types";
 import { signal } from "@preact/signals";
 import { Tabs as InnerTabs, TabsItem as InnerTabsItem } from "./tabs";
 

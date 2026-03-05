@@ -1,0 +1,36 @@
+name: test
+
+on:
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    types:
+      - checks_requested
+
+jobs:
+  lint-markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --ignore-scripts
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@22103cc46bda19c2b464ffe86db46df6922fd323
+        with:
+          json: true
+
+      - name: Verify changed files
+        run: echo "${{ steps.changed-files.outputs.all_changed_files }}" | node --experimental-strip-types scripts/lint-markdown-files.ts

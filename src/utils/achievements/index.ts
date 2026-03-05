@@ -1,7 +1,7 @@
-import { getPostsByPerson } from "src/utils/api";
-import { PersonInfo } from "types/PersonInfo";
+import { getPostsByPerson } from "#src/utils/api";
+import { PersonInfo } from "#types/PersonInfo";
 import { contributorYears, fetchGitHubData } from "./github";
-import * as api from "utils/api";
+import * as api from "#utils/api";
 
 export interface Achievement {
 	name: string;
@@ -15,7 +15,7 @@ export async function* getAchievements(
 		? await fetchGitHubData(person.socials.github)
 		: undefined;
 
-	const authoredPosts = getPostsByPerson(person.id, "en");
+	const authoredPosts = await getPostsByPerson(person.id, "en");
 
 	if (person.achievements.includes("site-redesign")) {
 		yield {
@@ -52,7 +52,7 @@ export async function* getAchievements(
 		};
 	}
 
-	if (api.getCollectionsByPerson(person.id, "en").length > 0) {
+	if ((await api.getCollectionsByPerson(person.id, "en")).length > 0) {
 		yield {
 			name: "Collect 'em all",
 			body: "Author a collection of posts!",

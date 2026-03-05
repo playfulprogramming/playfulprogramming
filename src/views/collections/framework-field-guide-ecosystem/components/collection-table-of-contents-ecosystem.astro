@@ -8,7 +8,7 @@ interface ChapterList {
 	order: string;
 }
 
-interface CollectionTableOfContentsProps {
+export interface Props {
 	title?: string;
 	posts: PostInfo[];
 	chapterList?: ChapterList[];
@@ -17,7 +17,7 @@ interface CollectionTableOfContentsProps {
 }
 
 const { title, posts, chapterList, chaptersToShow, postPrefixToRemove } =
-	Astro.props as CollectionTableOfContentsProps;
+	Astro.props;
 
 const maxChapterToShow = chaptersToShow ?? 10;
 

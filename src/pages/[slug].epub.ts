@@ -3,13 +3,13 @@ import {
 	getCollectionBySlug,
 	getCollectionsByLang,
 	getPostsByCollection,
-} from "utils/api";
-import { generateCollectionEPub } from "utils/epubs/generate-collection-epub";
+} from "#utils/api";
+import { generateCollectionEPub } from "#utils/epubs/generate-collection-epub";
 
 export const GET: APIRoute = async ({ params }) => {
 	const slug = String(params.slug);
-	const collection = getCollectionBySlug(slug, "en")!;
-	const collectionPosts = getPostsByCollection(slug, "en");
+	const collection = (await getCollectionBySlug(slug, "en"))!;
+	const collectionPosts = await getPostsByCollection(slug, "en");
 
 	const epub = await generateCollectionEPub(collection, collectionPosts);
 
@@ -20,7 +20,7 @@ export const GET: APIRoute = async ({ params }) => {
 	});
 };
 
-export function getStaticPaths() {
-	const collections = getCollectionsByLang("en");
+export async function getStaticPaths() {
+	const collections = await getCollectionsByLang("en");
 	return collections.map((c) => ({ params: { slug: c.slug } }));
 }

@@ -1,14 +1,14 @@
 ---
 import { Icon } from "astro-icon/components";
-import * as data from "src/utils/data";
-import { Button, IconOnlyButton } from "components/index";
+import * as data from "#src/utils/data";
+import { Button, IconOnlyButton } from "#components/index";
 import DarkLightButton from "./dark-light-button/dark-light-button.astro";
 import BackButton from "./back-button/back-button.astro";
 import style from "./header.module.scss";
-import logo from "src/assets/playfulprogramming_sticker.svg?url";
-import { removePrefixLanguageFromPath, translate } from "utils/translations";
-import { SearchInput } from "components/input/input";
-import { SEARCH_QUERY_KEY } from "src/views/search/search";
+import logo from "#src/assets/playfulprogramming_sticker.svg?url";
+import { removePrefixLanguageFromPath, translate } from "#utils/translations";
+import { SearchInput } from "#components/input/input";
+import { SEARCH_QUERY_KEY } from "#src/views/search/search";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 const isHome = path === "/";

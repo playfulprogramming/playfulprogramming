@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import { visit, SKIP, EXIT } from "unist-util-visit";
 import { is } from "unist-util-is";
 import { toString } from "hast-util-to-string";
-import { Nodes } from "hast";
+import type { Nodes } from "hast";
 
 const unifiedChain = unified()
 	.use(remarkParse, { fragment: true } as never)

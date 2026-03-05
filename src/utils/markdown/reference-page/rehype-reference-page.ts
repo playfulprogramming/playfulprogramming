@@ -1,11 +1,11 @@
-import { Root, Node } from "hast";
+import type { Root, Node } from "hast";
 import { Plugin } from "unified";
-import { PostInfo, RawPostInfo } from "types/PostInfo";
+import { PostInfo, RawPostInfo } from "#types/PostInfo.ts";
 import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
-import { SuperScriptLink } from "./link";
-import * as api from "utils/api";
-import { MarkdownVFile } from "../types";
+import { SuperScriptLink } from "./link.tsx";
+import * as api from "#utils/api.ts";
+import { MarkdownVFile } from "../types.ts";
 
 export interface CollectionLinks {
 	node: Node;
@@ -33,13 +33,13 @@ export const rehypeReferencePage: Plugin<
 	[RehypeReferencePageOptions],
 	Root
 > = ({ referenceTitle }) => {
-	return (tree, vfile) => {
+	return async (tree, vfile) => {
 		const post = (vfile as MarkdownVFile).data.frontmatter as PostInfo;
 		const collection = post.collection
-			? api.getCollectionBySlug(post.collection, "en")
+			? await api.getCollectionBySlug(post.collection, "en")
 			: undefined;
 		const collectionPosts = post.collection
-			? api.getPostsByCollection(post.collection, "en")
+			? await api.getPostsByCollection(post.collection, "en")
 			: [];
 		if (!collection || !collectionPosts.length) return;
 

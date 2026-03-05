@@ -4,6 +4,6 @@ export * from "./PostInfo";
 export * from "./RolesInfo";
 export * from "./TagInfo";
 export * from "./PersonInfo";
-import { languages } from "constants/index";
+import { languages } from "#src/constants/index";
 
 export type Languages = keyof typeof languages;

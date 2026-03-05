@@ -1,8 +1,8 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
-import { PostInfo } from "types/PostInfo";
+import { PostInfo } from "#types/PostInfo";
 import { visit } from "unist-util-visit";
-import * as api from "utils/api";
+import * as api from "#utils/api";
 import { MarkdownVFile } from "./types";
 
 function normalizeUrl(url: string) {
@@ -10,10 +10,10 @@ function normalizeUrl(url: string) {
 }
 
 export const rehypeRemoveCollectionLinks: Plugin<[], Root> = () => {
-	return (tree, vfile) => {
+	return async (tree, vfile) => {
 		const post = (vfile as MarkdownVFile).data.frontmatter as PostInfo;
 		const posts = post.collection
-			? api.getPostsByCollection(post.collection, "en")
+			? await api.getPostsByCollection(post.collection, "en")
 			: [];
 
 		visit(tree, "element", (node, _index, _parent) => {

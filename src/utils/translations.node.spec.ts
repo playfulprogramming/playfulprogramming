@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Languages } from "types/index";
+import { Languages } from "#types/index";
 import * as translations from "./translations";
 
 describe("utils/translations.ts", () => {

@@ -1,6 +1,6 @@
 import * as fs from "fs/promises";
 import { VFile } from "vfile";
-import { MarkdownFileInfo, MarkdownVFile } from "./types";
+import { MarkdownFileInfo, MarkdownVFile } from "./types.ts";
 
 export async function getMarkdownVFile(
 	data: MarkdownFileInfo,
@@ -20,6 +20,7 @@ export async function getMarkdownVFile(
 		slug: data.slug,
 		frontmatter: data,
 		headingsWithIds: [],
+		warnings: [],
 	};
 	return new VFile({
 		value: fileContent,
