@@ -2,7 +2,7 @@
 {
   title: "Week 9 - Tier 3 Homework",
   published: "2026-03-04T21:00:00.000Z",
-  order: 10,
+  order: 11,
   noindex: true
 }
 ---
