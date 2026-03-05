@@ -1,10 +1,10 @@
-import { PlatformDetector } from "utils/markdown/iframes/platform-detectors/types";
+import { PlatformDetector } from "#utils/markdown/iframes/platform-detectors/types";
 import {
 	getIFrameAttributes,
 	getVideoDataFromUrl,
 	videoHosts,
-} from "utils/markdown/data-providers";
-import { createComponent } from "utils/markdown/components";
+} from "#utils/markdown/data-providers";
+import { createComponent } from "#utils/markdown/components";
 
 export const videoPlatformDetector: PlatformDetector = {
 	detect: (src) => {

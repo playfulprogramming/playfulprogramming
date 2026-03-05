@@ -1,4 +1,4 @@
-import { JSXNode } from "components/types";
+import { JSXNode } from "#components/types";
 import style from "./anchored-tooltip.module.scss";
 import classNames from "classnames";
 

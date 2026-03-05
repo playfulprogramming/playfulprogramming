@@ -31,7 +31,7 @@ import {
 	useOverlayTrigger,
 	usePopover,
 } from "react-aria";
-import { IconOnlyButton } from "components/button/button";
+import { IconOnlyButton } from "#components/button/button.tsx";
 import style from "./calendar.module.scss";
 import { useWindowSize } from "../../../../hooks/use-window-size";
 import { tabletLarge, tabletSmall } from "../../../../tokens/breakpoints";
@@ -54,8 +54,8 @@ import { useIsOnClient } from "../../../../hooks/use-is-on-client";
 import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScrollGutterHack";
 import { OverlayTriggerState, useOverlayTriggerState } from "react-stately";
 import { DOMProps } from "@react-types/shared";
-import author from "src/icons/authors.svg?raw";
-import wifi from "src/icons/wifi.svg?raw";
+import author from "#src/icons/authors.svg?raw";
+import wifi from "#src/icons/wifi.svg?raw";
 
 const CustomButton = forwardRef(
 	(

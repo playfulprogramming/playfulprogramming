@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
-import { getAllPosts, getPostBySlug } from "utils/api";
+import { getAllPosts, getPostBySlug } from "#utils/api";
 import path from "path";
-import { contentDirectory } from "utils/data";
+import { contentDirectory } from "#utils/data";
 import fs from "fs/promises";
 import { zip } from "fflate";
 

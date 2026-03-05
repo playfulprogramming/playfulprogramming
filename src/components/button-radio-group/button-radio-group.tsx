@@ -6,7 +6,7 @@ import {
 	useRadioGroup,
 	VisuallyHidden,
 } from "react-aria";
-import { Button } from "components/button/button";
+import { Button } from "#components/button/button";
 import { PropsWithChildren, useContext } from "preact/compat";
 import { useRef } from "preact/hooks";
 import { RadioGroupProps, useRadioGroupState } from "react-stately";

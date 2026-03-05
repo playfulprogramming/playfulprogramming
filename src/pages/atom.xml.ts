@@ -1,6 +1,6 @@
 import { Feed } from "feed";
-import { siteUrl } from "constants/site-config";
-import { getPostsByLang, getPersonById } from "utils/api";
+import { siteUrl } from "#src/constants/site-config";
+import { getPostsByLang, getPersonById } from "#utils/api";
 import licenses from "../../content/data/licenses.json";
 
 export const GET = () => {

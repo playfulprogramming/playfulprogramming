@@ -1,16 +1,16 @@
 ---
 import ProfileSection from "./components/profile-section.astro";
 import { SubHeader } from "../../components/subheader/subheader";
-import { PostCardGrid } from "components/post-card/post-card-grid";
-import { PersonInfo, PostInfo } from "types/index";
+import { PostCardGrid } from "#components/post-card/post-card-grid.tsx";
+import { PersonInfo, PostInfo } from "#types/index.ts";
 import { Button } from "../../components";
 import styles from "./person-page.module.scss";
 import AchievementCard from "./components/achievement-card.astro";
 import { buildSearchQuery } from "../search/search";
-import { getAchievements, Achievement } from "src/utils/achievements";
-import { translate } from "utils/translations";
-import * as api from "utils/api";
-import { isDefined } from "utils/is-defined";
+import { getAchievements, Achievement } from "#src/utils/achievements";
+import { translate } from "#utils/translations.ts";
+import * as api from "#utils/api.ts";
+import { isDefined } from "#utils/is-defined.ts";
 
 interface UnicornPageProps {
 	person: PersonInfo;

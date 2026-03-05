@@ -2,7 +2,7 @@ import type { JSX } from "preact";
 import type { ImageMetadata } from "astro";
 import { siteUrl } from "../../constants/site-config";
 import { SUPPORTED_IMAGE_SIZES } from "./constants";
-import env from "constants/env";
+import env from "#src/constants/env";
 
 export interface GetPictureSizes {
 	[size: number]: {

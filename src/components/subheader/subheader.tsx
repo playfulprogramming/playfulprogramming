@@ -1,4 +1,4 @@
-import { PropsWithOptionalChildren } from "components/types";
+import { PropsWithOptionalChildren } from "#components/types";
 import styles from "./subheader.module.scss";
 import { HTMLAttributes } from "preact/compat";
 

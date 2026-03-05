@@ -1,5 +1,13 @@
 import { Languages } from ".";
 
+export interface PersonStub {
+	kind: "person";
+	id: string;
+	file: string;
+	locale: Languages;
+	locales: Languages[];
+}
+
 export interface RawPersonInfo {
 	name: string;
 	firstName: string;
@@ -29,8 +37,7 @@ export interface RawPersonInfo {
 	boardRoles?: Array<string>;
 }
 
-export interface PersonInfo extends Required<RawPersonInfo> {
-	kind: "person";
+export interface PersonInfo extends Required<RawPersonInfo>, PersonStub {
 	id: string;
 	file: string;
 	locale: Languages;

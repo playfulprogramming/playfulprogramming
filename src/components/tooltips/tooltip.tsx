@@ -1,8 +1,8 @@
-import { RawSvg } from "components/image/raw-svg";
-import InfoIcon from "src/icons/info.svg?raw";
-import WarningIcon from "src/icons/warning.svg?raw";
+import { RawSvg } from "#components/image/raw-svg";
+import InfoIcon from "#src/icons/info.svg?raw";
+import WarningIcon from "#src/icons/warning.svg?raw";
 import style from "./tooltip.module.scss";
-import { JSXNode } from "components/types";
+import { JSXNode } from "#components/types";
 
 interface TooltipProps {
 	icon: "info" | "warning";

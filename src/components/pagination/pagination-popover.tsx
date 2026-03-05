@@ -1,13 +1,13 @@
 import { useRef, useState } from "preact/hooks";
 import { Fragment, RefObject } from "preact";
 import mainStyles from "./pagination.module.scss";
-import more from "src/icons/more_horiz.svg?raw";
-import { PaginationProps } from "components/pagination/types";
+import more from "#src/icons/more_horiz.svg?raw";
+import { PaginationProps } from "#components/pagination/types";
 import style from "./pagination-popover.module.scss";
-import { Button, IconOnlyButton } from "components/button/button";
+import { Button, IconOnlyButton } from "#components/button/button";
 import subtract from "../../icons/subtract.svg?raw";
 import add from "../../icons/add.svg?raw";
-import { Input } from "components/input/input";
+import { Input } from "#components/input/input";
 import {
 	useDialog,
 	useOverlayTrigger,
@@ -19,7 +19,7 @@ import {
 } from "react-aria";
 import { OverlayTriggerState, useOverlayTriggerState } from "react-stately";
 import { DOMProps } from "@react-types/shared";
-import { useReactAriaScrollGutterHack } from "src/hooks/useReactAriaScrollGutterHack";
+import { useReactAriaScrollGutterHack } from "#src/hooks/useReactAriaScrollGutterHack";
 
 function PopupContents(
 	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> & {
@@ -110,8 +110,10 @@ function PopupContents(
 	);
 }
 
-interface PaginationPopoverProps
-	extends Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> {
+interface PaginationPopoverProps extends Pick<
+	PaginationProps,
+	"page" | "getPageHref" | "softNavigate"
+> {
 	triggerRef: RefObject<Element>;
 	state: OverlayTriggerState;
 	overlayProps: DOMProps;

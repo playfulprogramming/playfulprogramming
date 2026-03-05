@@ -2,7 +2,7 @@ import { RehypeFunctionComponent } from "../types";
 import path from "path";
 import fs from "fs/promises";
 import { getStackblitzUrl } from "./getStackblitzUrl";
-import { logError } from "utils/markdown/logger";
+import { logError } from "#utils/markdown/logger";
 import { Plugin } from "unified";
 import {
 	ComponentMarkupNode,
@@ -10,7 +10,7 @@ import {
 	PlayfulRoot,
 } from "../components";
 import { visit } from "unist-util-visit";
-import { FileEntry } from "components/code-embed/types";
+import { FileEntry } from "#components/code-embed/types";
 import { codeToHtml } from "./code-embed-shiki";
 
 /**

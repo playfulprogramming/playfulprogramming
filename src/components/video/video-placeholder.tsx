@@ -1,8 +1,8 @@
-import { IconOnlyButton } from "components/button/button";
-import { RawSvg } from "components/image/raw-svg";
+import { IconOnlyButton } from "#components/button/button";
+import { RawSvg } from "#components/image/raw-svg";
 import { useState } from "preact/hooks";
-import PlayIcon from "src/icons/play.svg?raw";
-import FallbackPageIcon from "src/icons/website.svg?raw";
+import PlayIcon from "#src/icons/play.svg?raw";
+import FallbackPageIcon from "#src/icons/website.svg?raw";
 import style from "./video-placeholder.module.scss";
 import { HTMLAttributes } from "preact/compat";
 

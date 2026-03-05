@@ -3,17 +3,17 @@ import { find } from "unist-util-find";
 import { toString } from "hast-util-to-string";
 import { URL } from "url";
 import { RehypeFunctionComponent } from "../types";
-import { isElement } from "utils/markdown/unist-is-element";
+import { isElement } from "#utils/markdown/unist-is-element";
 import {
 	ComponentMarkupNode,
 	createComponent,
 	PlayfulRoot,
 } from "../components";
 import { Plugin } from "unified";
-import { getUrlMetadata, UrlMetadataResponse } from "utils/hoof";
-import { logError } from "utils/markdown/logger";
-import { siteUrl } from "constants/site-config";
-import * as api from "utils/api";
+import { getUrlMetadata, UrlMetadataResponse } from "#utils/hoof";
+import { logError } from "#utils/markdown/logger";
+import { siteUrl } from "#src/constants/site-config";
+import * as api from "#utils/api";
 
 /**
  * Transform image-wrapped links into a link preview component

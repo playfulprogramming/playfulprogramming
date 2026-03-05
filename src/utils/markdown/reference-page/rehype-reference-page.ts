@@ -1,10 +1,10 @@
 import { Root, Node } from "hast";
 import { Plugin } from "unified";
-import { PostInfo, RawPostInfo } from "types/PostInfo";
+import { PostInfo, RawPostInfo } from "#types/PostInfo";
 import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
 import { SuperScriptLink } from "./link";
-import * as api from "utils/api";
+import * as api from "#utils/api";
 import { MarkdownVFile } from "../types";
 
 export interface CollectionLinks {

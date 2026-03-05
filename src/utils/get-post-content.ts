@@ -1,7 +1,7 @@
 import * as fs from "fs/promises";
 import matter from "gray-matter";
 import path from "path";
-import { PostInfo } from "types/PostInfo";
+import { PostInfo } from "#types/PostInfo";
 import { contentDirectory } from "./data";
 
 /**

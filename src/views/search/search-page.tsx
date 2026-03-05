@@ -6,7 +6,7 @@ import {
 	useRef,
 	useState,
 } from "preact/hooks";
-import { Pagination } from "components/pagination/pagination";
+import { Pagination } from "#components/pagination/pagination.tsx";
 import { useSearchParams } from "./use-search-params";
 import {
 	QueryClient,
@@ -15,15 +15,15 @@ import {
 } from "@tanstack/react-query";
 
 import style from "./search-page.module.scss";
-import { PostCardGrid } from "components/post-card/post-card-grid";
+import { PostCardGrid } from "#components/post-card/post-card-grid.tsx";
 import { Fragment } from "preact";
-import { CollectionCard } from "components/collection-card/collection-card";
+import { CollectionCard } from "#components/collection-card/collection-card.tsx";
 import { FilterDisplay } from "./components/filter-display";
 import { useElementSize } from "../../hooks/use-element-size";
 import { SearchTopbar } from "./components/search-topbar";
 import { SearchHero } from "./components/search-hero";
-import { LargeButton } from "components/button/button";
-import retry from "src/icons/refresh.svg?raw";
+import { LargeButton } from "#components/button/button.tsx";
+import retry from "#src/icons/refresh.svg?raw";
 import sadUnicorn from "../../assets/unicorn_sad.svg";
 import happyUnicorn from "../../assets/unicorn_happy.svg";
 import scaredUnicorn from "../../assets/unicorn_scared.svg";
@@ -37,7 +37,7 @@ import {
 	PAGE_KEY,
 } from "./search";
 import { SearchResultCount } from "./components/search-result-count";
-import { isDefined } from "utils/is-defined";
+import { isDefined } from "#utils/is-defined.ts";
 import { SearchProvider, useSearch } from "./services";
 import {
 	MAX_COLLECTIONS_PER_PAGE,

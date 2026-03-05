@@ -2,7 +2,7 @@ import { visit } from "unist-util-visit";
 import { Plugin } from "unified";
 import { toString } from "hast-util-to-string";
 import { createComponent, PlayfulRoot } from "../components";
-import { trimElements } from "utils/markdown/unist-trim-elements";
+import { trimElements } from "#utils/markdown/unist-trim-elements";
 import { isValidComponentParent } from "../rehype-validate-components";
 
 /**

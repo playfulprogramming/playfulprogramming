@@ -1,7 +1,7 @@
-import { getPostsByPerson } from "src/utils/api";
-import { PersonInfo } from "types/PersonInfo";
+import { getPostsByPerson } from "#src/utils/api";
+import { PersonInfo } from "#types/PersonInfo";
 import { contributorYears, fetchGitHubData } from "./github";
-import * as api from "utils/api";
+import * as api from "#utils/api";
 
 export interface Achievement {
 	name: string;

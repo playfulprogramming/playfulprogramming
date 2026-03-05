@@ -3,7 +3,7 @@ import {
 	FileProps,
 	File,
 	FileListList,
-} from "components/file-list/file-list";
+} from "#components/file-list/file-list";
 import {
 	useCallback,
 	useEffect,
@@ -12,11 +12,11 @@ import {
 	useState,
 } from "preact/hooks";
 import { FileEntry } from "./types";
-import { Dialog } from "components/dialog/dialog";
+import { Dialog } from "#components/dialog/dialog";
 import style from "./file-picker.module.scss";
-import { IconOnlyButton } from "components/button/button";
-import CloseIcon from "src/icons/close.svg?raw";
-import { RawSvg } from "components/image/raw-svg";
+import { IconOnlyButton } from "#components/button/button";
+import CloseIcon from "#src/icons/close.svg?raw";
+import { RawSvg } from "#components/image/raw-svg";
 
 interface FilePickerProps {
 	entries: Array<FileEntry>;

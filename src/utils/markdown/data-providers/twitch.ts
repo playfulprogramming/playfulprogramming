@@ -1,4 +1,4 @@
-import { siteUrl } from "constants/site-config";
+import { siteUrl } from "#src/constants/site-config";
 
 const parent = new URL(siteUrl).hostname;
 

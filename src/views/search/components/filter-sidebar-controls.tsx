@@ -1,11 +1,11 @@
 import style from "./filter-sidebar-controls.module.scss";
-import { DisplayContentType, SortType } from "src/views/search/search";
-import { Item, SelectWithLabel } from "components/select/select";
-import { RadioButtonGroup } from "components/button-radio-group/button-radio-group";
-import { RadioListButton } from "components/button-radio-group/button-radio-list";
-import { RawSvg } from "components/image/raw-svg";
-import ArticlesIcon from "src/icons/articles.svg?raw";
-import NotebookIcon from "src/icons/notebook.svg?raw";
+import { DisplayContentType, SortType } from "#src/views/search/search";
+import { Item, SelectWithLabel } from "#components/select/select.tsx";
+import { RadioButtonGroup } from "#components/button-radio-group/button-radio-group.tsx";
+import { RadioListButton } from "#components/button-radio-group/button-radio-list.tsx";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+import ArticlesIcon from "#src/icons/articles.svg?raw";
+import NotebookIcon from "#src/icons/notebook.svg?raw";
 import { useMemo, useRef } from "preact/hooks";
 
 interface FilterSidebarControlsProps {

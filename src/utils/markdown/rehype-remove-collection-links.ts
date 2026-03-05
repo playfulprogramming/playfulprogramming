@@ -1,8 +1,8 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
-import { PostInfo } from "types/PostInfo";
+import { PostInfo } from "#types/PostInfo";
 import { visit } from "unist-util-visit";
-import * as api from "utils/api";
+import * as api from "#utils/api";
 import { MarkdownVFile } from "./types";
 
 function normalizeUrl(url: string) {

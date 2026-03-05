@@ -2,17 +2,17 @@ import {
 	getVimeoOEmbedDataFromUrl,
 	vimeoHosts,
 	VimeoOEmbedResponse,
-} from "utils/markdown/data-providers/vimeo";
+} from "#utils/markdown/data-providers/vimeo";
 import {
 	getYouTubeOEmbedDataFromUrl,
 	youtubeHosts,
 	YouTubeOEmbedResponse,
-} from "utils/markdown/data-providers/youtube";
+} from "#utils/markdown/data-providers/youtube";
 import {
 	getTwitchVideoDataFromUrl,
 	twitchHosts,
-} from "utils/markdown/data-providers/twitch";
-import { getGenericOEmbedDataFromUrl } from "utils/markdown/data-providers/oembed";
+} from "#utils/markdown/data-providers/twitch";
+import { getGenericOEmbedDataFromUrl } from "#utils/markdown/data-providers/oembed";
 
 export async function getVideoDataFromUrl(
 	url: string,

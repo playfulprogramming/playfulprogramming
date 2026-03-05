@@ -7,11 +7,11 @@ import {
 	PreviewError,
 	PreviewFrame,
 	PreviewPlaceholder,
-} from "components/code-embed/code-embed";
+} from "#components/code-embed/code-embed";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { $container, runEmbed } from "./webcontainer-script";
-import { FileEntry } from "components/code-embed/types";
+import { FileEntry } from "#components/code-embed/types";
 import { CodeEmbedContent } from "./code-embed-content";
 
 // Given the base webcontainer URL, modify it with any changes made in the address bar

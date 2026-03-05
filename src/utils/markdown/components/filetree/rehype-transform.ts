@@ -23,8 +23,11 @@ import { Element, ElementContent } from "hast";
 import { visit } from "unist-util-visit";
 import JSON5 from "json5";
 import { RehypeFunctionComponent } from "../types";
-import { logError } from "utils/markdown/logger";
-import type { DirectoryProps, FileProps } from "components/file-list/file-list";
+import { logError } from "#utils/markdown/logger";
+import type {
+	DirectoryProps,
+	FileProps,
+} from "#components/file-list/file-list";
 import { createComponent } from "../components";
 import { toHtml } from "hast-util-to-html";
 

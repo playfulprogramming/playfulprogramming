@@ -1,5 +1,5 @@
 /** @jsxRuntime automatic */
-import type { GetPictureResult } from "utils/get-picture";
+import type { GetPictureResult } from "#utils/get-picture";
 import type { Element } from "hast";
 
 interface PictureProps {

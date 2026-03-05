@@ -1,6 +1,6 @@
-import { RawSvg } from "components/image/raw-svg";
-import { JSXNode } from "components/types";
-import ChevronDownIcon from "src/icons/chevron_down.svg?raw";
+import { RawSvg } from "#components/image/raw-svg";
+import { JSXNode } from "#components/types";
+import ChevronDownIcon from "#src/icons/chevron_down.svg?raw";
 import style from "./hint.module.scss";
 
 interface HintProps {

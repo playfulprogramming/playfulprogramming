@@ -1,7 +1,7 @@
 import { Root, Element } from "hast";
 import { VFile } from "vfile";
-import { ComponentMarkupNode } from "utils/markdown/components";
-import { UrlMetadataResponse } from "utils/hoof";
+import { ComponentMarkupNode } from "#utils/markdown/components";
+import { UrlMetadataResponse } from "#utils/hoof";
 
 interface IFrameData {
 	// May be `100%`, `10px`, `50` or any other `height=""` value

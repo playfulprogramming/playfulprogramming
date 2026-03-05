@@ -18,9 +18,15 @@
 		"type": "git",
 		"url": "git+https://github.com/playfulprogramming/playfulprogramming.git"
 	},
-	"packageManager": "pnpm@10.28.1",
+	"packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017",
 	"engines": {
 		"node": "22.x"
+	},
+	"imports": {
+		"#components/*": "./src/components/*",
+		"#src/*": "./src/*",
+		"#types/*": "./src/types/*",
+		"#utils/*": "./src/utils/*"
 	},
 	"scripts": {
 		"debug": "NODE_OPTIONS='--inspect-brk' astro dev --verbose",
@@ -34,7 +40,7 @@
 		"format": "prettier -w . --cache --plugin-search-dir=.",
 		"lint": "eslint \"src/**/*.{js,ts,tsx,jsx,astro}\" \"*.{js,ts,tsx,jsx}\"",
 		"lint:fix": "eslint --cache --fix \"src/**/*.{js,ts,tsx,jsx,astro}\" \"*.{js,ts,tsx,jsx}\"",
-		"search-index:deploy": "tsx --env-file-if-exists=.env --tsconfig tsconfig.script.json build-scripts/search-index/deploy.ts",
+		"search-index:deploy": "node --env-file-if-exists=.env --experimental-strip-types build-scripts/search-index/deploy.ts",
 		"hoof:generate": "openapi-typescript 'https://hoof.playfulprogramming.com/docs/openapi.json' -o src/utils/hoof/schema.d.ts",
 		"tsc": "astro check && tsc --noEmit",
 		"test": "pnpm run test:unit && pnpm run test:e2e",

@@ -4,14 +4,14 @@ import {
 	SitemapStream,
 	streamToPromise,
 } from "sitemap";
-import * as api from "utils/api";
+import * as api from "#utils/api";
 import dayjs from "dayjs";
-import { PostInfo } from "types/PostInfo";
-import { CollectionInfo } from "types/CollectionInfo";
-import { Languages } from "types/index";
+import { PostInfo } from "#types/PostInfo";
+import { CollectionInfo } from "#types/CollectionInfo";
+import { Languages } from "#types/index";
 import { Readable } from "stream";
-import { siteUrl } from "constants/site-config";
-import { events } from "src/views/events/constants";
+import { siteUrl } from "#src/constants/site-config";
+import { events } from "#src/views/events/constants";
 
 const About = (await import("./[...locale]/about.astro")) as unknown as {
 	getStaticPaths: () => Promise<Array<{ params: { locale?: Languages } }>>;

@@ -1,7 +1,7 @@
 import { Octokit } from "octokit";
 import { GraphqlResponseError } from "@octokit/graphql";
-import { getPeopleByLang } from "utils/api";
-import env from "constants/env";
+import { getPeopleByLang } from "#utils/api";
+import env from "#src/constants/env";
 
 const octokit = env.GITHUB_TOKEN
 	? new Octokit({

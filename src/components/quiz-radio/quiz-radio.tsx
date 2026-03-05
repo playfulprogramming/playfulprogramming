@@ -1,12 +1,12 @@
 import { useCallback, useMemo } from "preact/hooks";
-import { RawSvg } from "components/image/raw-svg";
+import { RawSvg } from "#components/image/raw-svg";
 import style from "./quiz-radio.module.scss";
-import { Button } from "components/button/button";
+import { Button } from "#components/button/button";
 import { Form, Label, Radio, RadioGroup } from "react-aria-components";
-import RadioButtonIcon from "src/icons/radio_button.svg?raw";
-import RadioButtonSelectedIcon from "src/icons/radio_button_selected.svg?raw";
-import RadioButtonCorrectIcon from "src/icons/radio_button_correct_filled.svg?raw";
-import RadioButtonIncorrectIcon from "src/icons/radio_button_incorrect_filled.svg?raw";
+import RadioButtonIcon from "#src/icons/radio_button.svg?raw";
+import RadioButtonSelectedIcon from "#src/icons/radio_button_selected.svg?raw";
+import RadioButtonCorrectIcon from "#src/icons/radio_button_correct_filled.svg?raw";
+import RadioButtonIncorrectIcon from "#src/icons/radio_button_incorrect_filled.svg?raw";
 import { ComponentChildren } from "preact";
 
 export interface QuizRadioOption {

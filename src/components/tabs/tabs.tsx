@@ -1,4 +1,4 @@
-import { JSXNode } from "components/types";
+import { JSXNode } from "#components/types";
 import "./tabs.scss";
 import { useRef } from "preact/hooks";
 

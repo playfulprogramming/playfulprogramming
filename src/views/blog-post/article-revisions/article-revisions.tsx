@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import style from "./article-revisions.module.scss";
-import listStyle from "components/select/select.module.scss";
-import down from "src/icons/chevron_down.svg?raw";
-import { debounce } from "utils/debounce";
-import { PostInfo, PostVersion } from "types/PostInfo";
-import { siteMetadata } from "constants/site-config";
-import { Option } from "components/select/basic-option";
+import listStyle from "#components/select/select.module.scss";
+import down from "#src/icons/chevron_down.svg?raw";
+import { debounce } from "#utils/debounce.ts";
+import { PostInfo, PostVersion } from "#types/PostInfo.ts";
+import { siteMetadata } from "#src/constants/site-config";
+import { Option } from "#components/select/basic-option.tsx";
 
 interface PopOverLocation {
 	x: number;

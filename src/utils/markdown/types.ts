@@ -1,5 +1,5 @@
 import { VFile } from "vfile";
-import { PostHeadingInfo } from "types/PostInfo";
+import { PostHeadingInfo } from "#types/PostInfo";
 import { CollectionLinks } from "./reference-page/rehype-reference-page";
 
 export type MarkdownKind = "post" | "collection" | "unicorn" | "page";

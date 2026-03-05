@@ -1,14 +1,14 @@
-import { Button } from "components/button/button";
-import * as data from "src/utils/data";
+import { Button } from "#components/button/button";
+import * as data from "#src/utils/data";
 
-import discord from "src/icons/discord.svg?raw";
-import linkedin from "src/icons/linkedin.svg?raw";
-import twitter from "src/icons/twitter.svg?raw";
-import mastodon from "src/icons/mastodon.svg?raw";
-import bluesky from "src/icons/bluesky.svg?raw";
-import facebook from "src/icons/facebook.svg?raw";
-import rss from "src/icons/rss.svg?raw";
-import youtube from "src/icons/youtube.svg?raw";
+import discord from "#src/icons/discord.svg?raw";
+import linkedin from "#src/icons/linkedin.svg?raw";
+import twitter from "#src/icons/twitter.svg?raw";
+import mastodon from "#src/icons/mastodon.svg?raw";
+import bluesky from "#src/icons/bluesky.svg?raw";
+import facebook from "#src/icons/facebook.svg?raw";
+import rss from "#src/icons/rss.svg?raw";
+import youtube from "#src/icons/youtube.svg?raw";
 
 const icons: Record<string, string> = {
 	discord,

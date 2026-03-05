@@ -1,5 +1,5 @@
 import { VNode } from "preact";
-import { CheckboxBox } from "components/checkbox-box/checkbox-box";
+import { CheckboxBox } from "#components/checkbox-box/checkbox-box.tsx";
 import { useCheckbox, useFocusRing, VisuallyHidden } from "react-aria";
 import style from "./filter-section-item.module.scss";
 import { useToggleState } from "react-stately";

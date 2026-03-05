@@ -14,22 +14,19 @@
 		"noEmit": true,
 		"jsx": "react-jsx",
 		"skipLibCheck": true,
+		"erasableSyntaxOnly": true,
+		"allowImportingTsExtensions": true,
 		"jsxImportSource": "preact",
 		"allowSyntheticDefaultImports": true,
 		"lib": ["DOM", "es2024"],
 		"baseUrl": ".",
+		"types": ["@testing-library/jest-dom"],
 		"paths": {
-			"constants/*": ["./src/constants/*"],
-			"pfp-constants": ["./src/constants"],
-			"types/*": ["./src/types/*"],
-			"pfp-types": ["./src/types"],
-			"components/*": ["./src/components/*"],
-			"utils/*": ["./src/utils/*"],
-			"pfp-utils": ["./src/utils"],
-			"assets/*": ["./src/assets/*"],
-			"ui-test-utils": ["./src/ui-test-utils"]
-		},
-		"types": ["@testing-library/jest-dom"]
+			"#src/*": ["./src/*"],
+			"#types/*": ["./src/types/*"],
+			"#components/*": ["./src/components/*"],
+			"#utils/*": ["./src/utils/*"]
+		}
 	},
 	"include": [".astro/types.d.ts", ".astro/icon.d.ts", "**/*"],
 	"exclude": ["dist", "content"]

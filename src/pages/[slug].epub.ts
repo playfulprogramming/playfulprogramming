@@ -3,8 +3,8 @@ import {
 	getCollectionBySlug,
 	getCollectionsByLang,
 	getPostsByCollection,
-} from "utils/api";
-import { generateCollectionEPub } from "utils/epubs/generate-collection-epub";
+} from "#utils/api";
+import { generateCollectionEPub } from "#utils/epubs/generate-collection-epub";
 
 export const GET: APIRoute = async ({ params }) => {
 	const slug = String(params.slug);

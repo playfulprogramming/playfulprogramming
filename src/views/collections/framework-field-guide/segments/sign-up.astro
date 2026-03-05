@@ -1,12 +1,12 @@
 ---
-import { Picture } from "components/image/picture";
+import { Picture } from "#components/image/picture.tsx";
 import SignupForm from "../components/signup-form.astro";
 import Discord from "../icons/discord.astro";
 import X from "../icons/x.astro";
 import LinkedIn from "../icons/linkedin.astro";
 import BlueSky from "../icons/bluesky.astro";
 import styles from "./sign-up.module.scss";
-import { getPersonById } from "utils/api";
+import { getPersonById } from "#utils/api.ts";
 ---
 
 <section class={styles.signUpContainer} aria-labelledby="signup-form">

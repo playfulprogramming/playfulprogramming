@@ -1,21 +1,21 @@
 ---
 import style from "./about.module.scss";
 import "../../styles/shiki.scss";
-import * as data from "src/utils/data";
-import { translate } from "src/utils/translations";
-import TranslationsHeader from "src/views/base/translations/translations-header.astro";
+import * as data from "#src/utils/data";
+import { translate } from "#src/utils/translations";
+import TranslationsHeader from "#src/views/base/translations/translations-header.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { License } from "./license";
 import BannerSvg from "./banner-svg.astro";
-import * as api from "utils/api";
-import { Languages } from "types/index";
+import * as api from "#utils/api";
+import { Languages } from "#types/index";
 import { VFile } from "vfile";
-import { getMarkdownHtml } from "utils/markdown";
-import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
-import { MarkdownFileInfo, MarkdownVFile } from "utils/markdown/types";
+import { getMarkdownHtml } from "#utils/markdown";
+import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile";
+import { MarkdownFileInfo, MarkdownVFile } from "#utils/markdown/types";
 import { Links } from "./components";
 import ContributorCard from "../../components/contributor-card/contributor-card.astro";
-import Content from "utils/markdown/components/content.astro";
+import Content from "#utils/markdown/components/content.astro";
 
 interface Props {
 	locales: Languages[];

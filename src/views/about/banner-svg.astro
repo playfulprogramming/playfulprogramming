@@ -1,8 +1,8 @@
 ---
 import fs from "fs/promises";
-import { getPeopleByLang } from "utils/api";
+import { getPeopleByLang } from "#utils/api";
 import style from "./banner-svg.module.scss";
-import { Picture } from "components/image/picture";
+import { Picture } from "#components/image/picture";
 
 const sticker_star = await fs.readFile(
 	"public/stickers/sticker_star.svg",

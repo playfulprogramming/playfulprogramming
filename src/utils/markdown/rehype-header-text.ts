@@ -2,7 +2,7 @@ import { headingRank } from "hast-util-heading-rank";
 import { hasProperty } from "hast-util-has-property";
 import { toString } from "hast-util-to-string";
 import { Root, Parent } from "hast";
-import { PostHeadingInfo } from "src/types/index";
+import { PostHeadingInfo } from "#src/types/index";
 import { Plugin } from "unified";
 import { visit, SKIP } from "unist-util-visit";
 import { isMarkdownVFile } from "./types";

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
-import { debounce } from "utils/debounce";
+import { debounce } from "#utils/debounce.ts";
 
 export type SetSearchParams<T> = (updater: (prev: T) => T) => void;
 

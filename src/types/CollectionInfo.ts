@@ -1,5 +1,14 @@
-import { Languages } from "types/index";
-import { LocalFile } from "types/LocalFile";
+import { Languages } from "#types/index";
+import { LocalFile } from "#types/LocalFile";
+
+export interface CollectionStub {
+	kind: "collection";
+	slug: string;
+	file: string;
+	locales: Languages[];
+	locale: Languages;
+	authors: string[];
+}
 
 export interface FuturePost {
 	order: number;
@@ -34,14 +43,9 @@ export interface RawCollectionInfo {
 	chapterList?: Array<CurrentPost | FuturePost>;
 }
 
-export interface CollectionInfo extends RawCollectionInfo {
-	kind: "collection";
-	slug: string;
-	file: string;
+export interface CollectionInfo extends RawCollectionInfo, CollectionStub {
 	authors: string[];
 	tags: string[];
-	locales: Languages[];
-	locale: Languages;
 	postCount: number;
 	coverImgMeta: LocalFile;
 	socialImgMeta?: LocalFile;

@@ -1,9 +1,9 @@
-import { PostInfo, CollectionInfo } from "types/index";
+import { PostInfo, CollectionInfo } from "#types/index.ts";
 import style from "./article-nav.module.scss";
 import arrow_left from "../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../icons/arrow_right.svg?raw";
 import { getShortTitle } from "../../../utils/remove-article-collection-prefix";
-import { getHrefContainerProps } from "utils/href-container-script";
+import { getHrefContainerProps } from "#utils/href-container-script.ts";
 
 type ArticleNavItemProps = {
 	post: PostInfo;

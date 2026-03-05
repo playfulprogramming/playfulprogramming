@@ -1,4 +1,4 @@
-import env from "constants/env";
+import env from "#src/constants/env";
 import { Octokit } from "octokit";
 
 const octokit = new Octokit({

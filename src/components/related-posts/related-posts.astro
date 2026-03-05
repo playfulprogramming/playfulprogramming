@@ -2,9 +2,9 @@
 import { PostInfo } from "../../types";
 import style from "./related-posts.module.scss";
 import RelatedPostsCard from "./related-posts-card.astro";
-import * as api from "utils/api";
-import { getSuggestedArticles } from "utils/get-suggested-articles";
-import { isDefined } from "utils/is-defined";
+import * as api from "#utils/api";
+import { getSuggestedArticles } from "#utils/get-suggested-articles";
+import { isDefined } from "#utils/is-defined";
 
 interface RelatedPostsProps {
 	post: PostInfo;

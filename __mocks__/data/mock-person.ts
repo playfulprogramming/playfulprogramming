@@ -1,5 +1,5 @@
 import { MockRole } from "./mock-role";
-import { PersonInfo } from "types/index";
+import { PersonInfo } from "#types/index";
 
 export const MockPerson: PersonInfo = {
 	kind: "person",

@@ -1,6 +1,6 @@
 import { createComponent } from "../components";
 import { RehypeFunctionComponent } from "../types";
-import { getPersonById } from "utils/api";
+import { getPersonById } from "#utils/api";
 
 export const transformUser: RehypeFunctionComponent = ({ attributes }) => {
 	const user = attributes.id;

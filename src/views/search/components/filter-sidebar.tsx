@@ -1,16 +1,16 @@
 import styles from "./filter-sidebar.module.scss";
-import { LargeButton } from "components/button/button";
+import { LargeButton } from "#components/button/button.tsx";
 import { CSSProperties } from "preact/compat";
 import { FilterSection } from "./filter-section";
 import { FilterSectionItem } from "./filter-section-item";
-import { Picture as UUPicture } from "components/image/picture";
+import { Picture as UUPicture } from "#components/image/picture.tsx";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
-import { DisplayContentType, SortType } from "src/views/search/search";
+import { DisplayContentType, SortType } from "#src/views/search/search";
 import { DEFAULT_TAG_EMOJI } from "./constants";
 import { FilterSidebarControls } from "./filter-sidebar-controls";
 import { FilterState } from "../use-filter-state";
 import { useState, useMemo, useEffect } from "preact/hooks";
-import { SearchInput } from "components/input/input";
+import { SearchInput } from "#components/input/input.tsx";
 
 interface FilterSidebarProps {
 	desktopStyle?: CSSProperties;

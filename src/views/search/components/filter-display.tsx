@@ -1,12 +1,12 @@
 import { useMemo } from "preact/hooks";
-import { PersonInfo, TagInfo } from "types/index";
+import type { PersonInfo, TagInfo } from "#types/index.ts";
 import { CSSProperties } from "preact/compat";
 import { useWindowSize } from "../../../hooks/use-window-size";
 import { tabletLarge } from "../../../tokens/breakpoints";
 import { FilterDialog } from "./filter-dialog";
 import { FilterSidebar } from "./filter-sidebar";
 import tagsObj from "../../../../content/data/tags.json";
-import { DisplayContentType, SortType } from "src/views/search/search";
+import { DisplayContentType, SortType } from "#src/views/search/search";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
 import { FilterState } from "../use-filter-state";
 

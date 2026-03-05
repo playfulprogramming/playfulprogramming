@@ -1,16 +1,16 @@
 ---
-import { PostCardGrid } from "src/components/post-card/post-card-grid";
-import { Button } from "components/button/button";
-import { Languages, PostInfo, CollectionInfo } from "types/index";
-import { translate } from "utils/translations";
-import { CollectionCard } from "components/collection-card/collection-card";
+import { PostCardGrid } from "#src/components/post-card/post-card-grid";
+import { Button } from "#components/button/button.tsx";
+import { Languages, PostInfo, CollectionInfo } from "#types/index.ts";
+import { translate } from "#utils/translations.ts";
+import { CollectionCard } from "#components/collection-card/collection-card.tsx";
 import { SubHeader } from "../../components/subheader/subheader";
 import Hero from "../../components/hero/hero.astro";
 import SearchSection from "../../components/search-section/search-section.astro";
 import styles from "./homepage.module.scss";
-import { buildSearchQuery } from "src/views/search/search";
-import * as api from "utils/api";
-import { isDefined } from "utils/is-defined";
+import { buildSearchQuery } from "#src/views/search/search";
+import * as api from "#utils/api.ts";
+import { isDefined } from "#utils/is-defined.ts";
 
 export interface HomepageProps {
 	posts: PostInfo[];

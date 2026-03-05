@@ -1,8 +1,8 @@
-import { PlatformDetector } from "utils/markdown/iframes/platform-detectors/types";
-import { getGist } from "utils/markdown/data-providers";
-import { createComponent } from "utils/markdown/components";
-import { gistHosts } from "utils/markdown/data-providers/gist";
-import { GistCodeBlock } from "utils/markdown/iframes/hastscript-components/GistCodeBlock";
+import { PlatformDetector } from "#utils/markdown/iframes/platform-detectors/types";
+import { getGist } from "#utils/markdown/data-providers";
+import { createComponent } from "#utils/markdown/components";
+import { gistHosts } from "#utils/markdown/data-providers/gist";
+import { GistCodeBlock } from "#utils/markdown/iframes/hastscript-components/GistCodeBlock";
 
 export const gistPlatformDetector: PlatformDetector = {
 	detect: (src) => {

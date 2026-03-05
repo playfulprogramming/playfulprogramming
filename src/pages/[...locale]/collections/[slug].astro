@@ -1,13 +1,13 @@
 ---
-import SEO from "src/components/seo/seo.astro";
-import Document from "src/layouts/document.astro";
-import * as api from "utils/api";
-import CollectionPage from "src/views/collections/collection-page.astro";
-import CollectionChapter from "src/views/collections/collection-chapter.astro";
-import { SubHeader } from "src/components/subheader/subheader";
-import { translate } from "utils/translations";
-import { CurrentPost, FuturePost, Languages } from "types/index";
-import { getMarkdownHtml } from "utils/markdown";
+import SEO from "#src/components/seo/seo.astro";
+import Document from "#src/layouts/document.astro";
+import * as api from "#utils/api";
+import CollectionPage from "#src/views/collections/collection-page.astro";
+import CollectionChapter from "#src/views/collections/collection-chapter.astro";
+import { SubHeader } from "#src/components/subheader/subheader";
+import { translate } from "#utils/translations";
+import { CurrentPost, FuturePost, Languages } from "#types/index";
+import { getMarkdownHtml } from "#utils/markdown";
 
 export async function getStaticPaths() {
 	const collections = api.getAllCollections();

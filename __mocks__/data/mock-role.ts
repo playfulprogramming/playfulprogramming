@@ -1,4 +1,4 @@
-import { RolesInfo } from "types/RolesInfo";
+import { RolesInfo } from "#types/RolesInfo";
 
 export const MockRole: RolesInfo = {
 	id: "developer",

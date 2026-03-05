@@ -1,7 +1,7 @@
 import { setTimeout } from "timers/promises";
 import { client } from "./client";
 import { isSocketError } from "./isSocketError";
-import { PostInfo } from "types/PostInfo";
+import { PostInfo } from "#types/PostInfo";
 import { relative } from "path";
 import fs from "fs/promises";
 import { createHash } from "crypto";

@@ -2,8 +2,8 @@
 import BlockingThemeChangerScript from "../page-components/layouts/blocking-theme-changer-script.astro";
 import "../global.scss";
 import Barebones from "./barebones.astro";
-import Header from "src/views/base/navigation/header.astro";
-import { getPrefixLanguageFromPath } from "utils/translations";
+import Header from "#src/views/base/navigation/header.astro";
+import { getPrefixLanguageFromPath } from "#utils/translations";
 
 const lang = getPrefixLanguageFromPath(Astro.url.pathname);
 
@@ -26,7 +26,7 @@ const props = Astro.props as {
 		import "src/utils/href-container-script";
 	</script>
 	<script>
-		import { enableStickyScrollListener } from "src/utils/sticky-scroll-script";
+		import { enableStickyScrollListener } from "#src/utils/sticky-scroll-script";
 		enableStickyScrollListener();
 	</script>
 </Barebones>

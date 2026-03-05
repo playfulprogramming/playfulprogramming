@@ -1,4 +1,4 @@
-import { PersonInfo } from "types/PersonInfo";
+import type { PersonInfo } from "#types/PersonInfo.ts";
 
 export interface ExtendedTag {
 	tag: string;

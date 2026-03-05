@@ -1,9 +1,9 @@
 ---
-import { getPictureUrls } from "utils/get-picture";
+import { getPictureUrls } from "../../utils/get-picture/index.ts";
 import { getPeopleByLang } from "../../utils/api";
 import style from "./get-involved-header.module.scss";
 import Hr from "./hr.astro";
-import { Button } from "components/index";
+import { Button } from "#components/index.ts";
 
 const people = getPeopleByLang("en").map((person) => {
 	const imageUrls = getPictureUrls({

@@ -1,4 +1,4 @@
-import { TweetAPIResponse } from "utils/markdown/data-providers/fx-embed/types";
+import { TweetAPIResponse } from "#utils/markdown/data-providers/fx-embed/types";
 
 interface GetXPostDataProps {
 	userId: string;

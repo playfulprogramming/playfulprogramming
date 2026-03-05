@@ -9,8 +9,8 @@ import {
 	isComponentMarkup,
 } from "../components";
 import { logError } from "../logger";
-import { getUrlMetadata } from "utils/hoof";
-import { platformDetectors } from "utils/markdown/iframes/platform-detectors";
+import { getUrlMetadata } from "#utils/hoof";
+import { platformDetectors } from "#utils/markdown/iframes/platform-detectors";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;

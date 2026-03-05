@@ -6,7 +6,7 @@ import path from "path";
 /**
  * They need to be the same `getImage` with the same `globalThis` instance, thanks to the "hack" workaround.
  */
-import { getPicture } from "utils/get-picture";
+import { getPicture } from "#utils/get-picture";
 import { getImageSize } from "../../get-image-size";
 import { resolvePath } from "../../url-paths";
 import { Picture } from "./picture";

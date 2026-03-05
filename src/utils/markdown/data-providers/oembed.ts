@@ -1,6 +1,6 @@
 import { visit } from "unist-util-visit";
 import { Element } from "hast";
-import { createHTMLVisitor } from "utils/markdown/data-providers/common";
+import { createHTMLVisitor } from "#utils/markdown/data-providers/common";
 
 export async function getGenericOEmbedDataFromUrl<T>(
 	url: string,

@@ -1,58 +1,29 @@
-import {
-	RawCollectionInfo,
+import type {
 	PersonInfo,
-	RawPostInfo,
 	PostInfo,
 	CollectionInfo,
 	TagInfo,
-	RawPersonInfo,
-} from "types/index";
+} from "#types/index.ts";
 import * as fs from "fs/promises";
 import path, { join } from "path";
 import { isNotJunk as baseIsNotJunk } from "junk";
-import { getImageSize } from "../utils/get-image-size";
-import { resolvePath } from "./url-paths";
-import matter from "gray-matter";
-import dayjs from "dayjs";
-
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
-import { rehypePlayfulElementMap } from "./markdown/rehype-playful-element-map";
-import { getExcerpt } from "./markdown/get-excerpt";
-import { getLanguageFromFilename } from "./translations";
-import aboutRaw from "../../content/data/about.json";
-import rolesRaw from "../../content/data/roles.json";
-import licensesRaw from "../../content/data/licenses.json";
-import tagsRaw from "../../content/data/tags.json";
-import { LocalFile } from "types/LocalFile";
+import { rehypePlayfulElementMap } from "./markdown/rehype-playful-element-map.ts";
+import { getLanguageFromFilename } from "./translations.ts";
+import aboutRaw from "../../content/data/about.json" with { type: "json" };
+import rolesRaw from "../../content/data/roles.json" with { type: "json" };
+import licensesRaw from "../../content/data/licenses.json" with { type: "json" };
+import tagsRaw from "../../content/data/tags.json" with { type: "json" };
+import { readPerson } from "./content/readPerson.ts";
+import { readCollection } from "./content/readCollection.ts";
+import { readPost } from "./content/readPost.ts";
 
 function isNotJunk(name: string): boolean {
 	// Ignore VSCode and JetBrains project files
 	return baseIsNotJunk(name) && name !== ".idea" && name !== ".vscode";
-}
-
-async function resolveImageFile(
-	imgPath: string,
-	basePath: string,
-): Promise<LocalFile> {
-	if (imgPath.replace(/^\.\//, "").indexOf("/") !== -1) {
-		throw new Error(
-			`${basePath}: Image ${imgPath} must be stored adjacent to its md file.`,
-		);
-	}
-
-	const coverImgSize = await getImageSize(imgPath, basePath);
-	if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
-		throw new Error(`${basePath}: Unable to parse ${imgPath} image size`);
-	}
-
-	return {
-		height: coverImgSize.height,
-		width: coverImgSize.width,
-		...resolvePath(imgPath, basePath)!,
-	};
 }
 
 export const contentDirectory = join(process.cwd(), "content");
@@ -104,7 +75,7 @@ for (const [key, tag] of Object.entries(tagsRaw)) {
 	});
 }
 
-async function readPerson(personPath: string): Promise<PersonInfo[]> {
+async function indexPerson(personPath: string): Promise<PersonInfo[]> {
 	const personId = path.basename(personPath);
 
 	const files = (await fs.readdir(personPath))
@@ -113,93 +84,27 @@ async function readPerson(personPath: string): Promise<PersonInfo[]> {
 
 	const locales = files.map(getLanguageFromFilename);
 
-	const personObjects = [];
+	const personObjects: PersonInfo[] = [];
 
 	for (const file of files) {
 		const locale = getLanguageFromFilename(file);
 		const filePath = join(personPath, file);
-		const fileContents = await fs.readFile(filePath, "utf-8");
-		const frontmatter = matter(fileContents).data as RawPersonInfo;
 
-		const profileImgSize = await getImageSize(
-			frontmatter.profileImg,
-			personPath,
+		personObjects.push(
+			await readPerson({
+				kind: "person",
+				id: personId,
+				file: filePath,
+				locale,
+				locales,
+			}),
 		);
-		if (!profileImgSize || !profileImgSize.width || !profileImgSize.height) {
-			throw new Error(`${personPath}: Unable to parse profile image size`);
-		}
-
-		const person: PersonInfo = {
-			pronouns: "",
-			color: "",
-			roles: [],
-			achievements: [],
-			boardRoles: [],
-			...frontmatter,
-			kind: "person",
-			id: personId,
-			file: filePath,
-			locale,
-			locales,
-			totalPostCount: 0,
-			totalWordCount: 0,
-			profileImgMeta: {
-				height: profileImgSize.height,
-				width: profileImgSize.width,
-				...resolvePath(frontmatter.profileImg, personPath)!,
-			},
-		};
-
-		// normalize social links - if a URL or "@name" is entered, only preserve the last part
-		const normalizeUsername = (username: string | undefined) =>
-			username?.trim()?.replace(/^.*[/@](?!$)/, "");
-
-		person.socials.twitter = normalizeUsername(person.socials.twitter);
-		person.socials.github = normalizeUsername(person.socials.github);
-		person.socials.gitlab = normalizeUsername(person.socials.gitlab);
-		person.socials.linkedIn = normalizeUsername(person.socials.linkedIn);
-		person.socials.twitch = normalizeUsername(person.socials.twitch);
-		person.socials.dribbble = normalizeUsername(person.socials.dribbble);
-		person.socials.threads = normalizeUsername(person.socials.threads);
-		person.socials.cohost = normalizeUsername(person.socials.cohost);
-
-		// "mastodon" should be a full URL; this will error if not valid
-		try {
-			if (person.socials.mastodon)
-				person.socials.mastodon = new URL(person.socials.mastodon).toString();
-		} catch (e) {
-			console.error(
-				`'${person.id}' socials.mastodon is not a valid URL: '${person.socials.mastodon}'`,
-			);
-			throw e;
-		}
-
-		// "bluesky" should be a full URL; this will error if not valid
-		try {
-			if (person.socials.bluesky)
-				person.socials.bluesky = new URL(person.socials.bluesky).toString();
-		} catch (e) {
-			console.error(
-				`'${person.id}' socials.mastodon is not a valid URL: '${person.socials.bluesky}'`,
-			);
-			throw e;
-		}
-
-		if (person.socials.youtube) {
-			// this can either be a "@username" or "channel/{id}" URL, which cannot be mixed.
-			const username = normalizeUsername(person.socials.youtube);
-			person.socials.youtube = person.socials.youtube.includes("@")
-				? `https://www.youtube.com/@${username}`
-				: `https://www.youtube.com/channel/${username}`;
-		}
-
-		personObjects.push(person);
 	}
 
 	return personObjects;
 }
 
-async function readCollection(
+async function indexCollection(
 	collectionPath: string,
 	fallbackInfo: {
 		authors: string[];
@@ -217,51 +122,23 @@ async function readCollection(
 	for (const file of files) {
 		const locale = getLanguageFromFilename(file);
 		const filePath = join(collectionPath, file);
-		const fileContents = await fs.readFile(filePath, "utf-8");
-		const frontmatter = matter(fileContents).data as RawCollectionInfo;
 
-		const coverImgMeta = await resolveImageFile(
-			frontmatter.coverImg,
-			collectionPath,
+		collectionObjects.push(
+			await readCollection({
+				kind: "collection",
+				slug,
+				file: filePath,
+				locale,
+				locales,
+				authors: fallbackInfo.authors,
+			}),
 		);
-		const socialImgMeta = frontmatter.socialImg
-			? await resolveImageFile(frontmatter.socialImg, collectionPath)
-			: undefined;
-
-		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
-			if (tags.has(tag)) {
-				return true;
-			}
-			console.warn(
-				`${collectionPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
-			);
-			return false;
-		});
-
-		// count the number of posts in the collection
-		const postCount = (
-			await fs.readdir(join(collectionPath, "posts")).catch((_) => [])
-		).filter(isNotJunk).length;
-
-		collectionObjects.push({
-			...fallbackInfo,
-			...frontmatter,
-			kind: "collection",
-			slug,
-			file: filePath,
-			locale,
-			locales,
-			postCount,
-			tags: frontmatterTags,
-			coverImgMeta,
-			socialImgMeta,
-		});
 	}
 
 	return collectionObjects;
 }
 
-async function readPost(
+async function indexPost(
 	postPath: string,
 	fallbackInfo: {
 		authors: string[];
@@ -279,78 +156,18 @@ async function readPost(
 	for (const file of files) {
 		const locale = getLanguageFromFilename(file);
 		const filePath = join(postPath, file);
-		const fileContents = await fs.readFile(filePath, "utf-8");
-		const fileMatter = matter(fileContents);
-		const frontmatter = fileMatter.data as RawPostInfo;
 
-		// Look... Okay? Just.. Look.
-		// Yes, we could use rehypeRetext and then XYZW but jeez there's so many edgecases.
-
-		/**
-		 * An ode to words
-		 *
-		 * Oh words, what can be said of thee?
-		 *
-		 * Not much me.
-		 *
-		 * See, it's conceived that ye might have intriguing definitions from one-to-another
-		 *
-		 * This is to say: "What is a word?"
-		 *
-		 * An existential question at best, a sisyphean effort at worst.
-		 *
-		 * See, while `forms` and `angular` might be considered one word each: what of `@angular/forms`? Is that 2?
-		 *
-		 * Or, what of `@someone mentioned Angular's forms`? Is that 4?
-		 *
-		 * This is a long-winded way of saying "We know our word counter is inaccurate, but so is yours."
-		 *
-		 * Please do let us know if you have strong thoughts/answers on the topic,
-		 * we're happy to hear them.
-		 */
-		const wordCount = fileMatter.content.split(/\s+/).length;
-
-		// get an excerpt of the post markdown no longer than 150 chars
-		const excerpt = getExcerpt(fileMatter.content, 150);
-
-		const coverImgMeta = frontmatter.coverImg
-			? await resolveImageFile(frontmatter.coverImg, postPath)
-			: undefined;
-		const socialImgMeta = frontmatter.socialImg
-			? await resolveImageFile(frontmatter.socialImg, postPath)
-			: undefined;
-
-		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
-			if (tags.has(tag)) {
-				return true;
-			}
-			console.warn(
-				`${postPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
-			);
-			return false;
-		});
-
-		postObjects.push({
-			...fallbackInfo,
-			...frontmatter,
-			kind: "post",
-			slug,
-			file: filePath,
-			path: path.relative(contentDirectory, postPath),
-			locale,
-			locales,
-			tags: frontmatterTags,
-			wordCount,
-			description: frontmatter.description || excerpt,
-			excerpt,
-			publishedMeta:
-				frontmatter.published &&
-				dayjs(frontmatter.published).format("MMMM D, YYYY"),
-			editedMeta:
-				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
-			coverImgMeta,
-			socialImgMeta,
-		});
+		postObjects.push(
+			await readPost({
+				kind: "post",
+				slug,
+				file: filePath,
+				locale,
+				locales,
+				authors: fallbackInfo.authors,
+				collection: fallbackInfo.collection,
+			}),
+		);
 	}
 
 	return postObjects;
@@ -360,7 +177,7 @@ const people = new Map<string, PersonInfo[]>();
 for (const personId of await fs.readdir(contentDirectory)) {
 	if (!isNotJunk(personId)) continue;
 	const personPath = join(contentDirectory, personId);
-	const personEntries = await readPerson(personPath);
+	const personEntries = await indexPerson(personPath);
 	if (personEntries.length) {
 		people.set(personId, personEntries);
 	}
@@ -376,7 +193,14 @@ for (const personId of [...people.keys()]) {
 
 	for (const slug of slugs) {
 		const collectionPath = join(collectionsDirectory, slug);
-		const collectionEntries = await readCollection(collectionPath, {
+
+		if (collections.has(slug)) {
+			throw new Error(
+				`Post slug collision on ${collectionPath} - already exists: ${collections.get(slug)?.at(0)?.file}`,
+			);
+		}
+
+		const collectionEntries = await indexCollection(collectionPath, {
 			authors: [personId],
 		});
 		if (collectionEntries.length) {
@@ -403,7 +227,14 @@ await Promise.all(
 		await Promise.all(
 			slugs.map(async (slug) => {
 				const postPath = join(postsDirectory, slug);
-				const postEntries = await readPost(postPath, {
+
+				if (posts.has(slug)) {
+					throw new Error(
+						`Post slug collision on ${postPath} - already exists: ${posts.get(slug)?.at(0)?.file}`,
+					);
+				}
+
+				const postEntries = await indexPost(postPath, {
 					authors: collection[0].authors,
 					collection: collection[0].slug,
 				});
@@ -425,7 +256,14 @@ await Promise.all(
 		await Promise.all(
 			slugs.map(async (slug) => {
 				const postPath = join(postsDirectory, slug);
-				const postEntries = await readPost(postPath, {
+
+				if (posts.has(slug)) {
+					throw new Error(
+						`Post slug collision on ${postPath} - already exists: ${posts.get(slug)?.at(0)?.file}`,
+					);
+				}
+
+				const postEntries = await indexPost(postPath, {
 					authors: [personId],
 				});
 				if (postEntries.length) {

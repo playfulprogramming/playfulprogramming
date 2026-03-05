@@ -1,6 +1,6 @@
-import { PlatformDetector } from "utils/markdown/iframes/platform-detectors/types";
-import { getXPostData, xHosts } from "utils/markdown/data-providers";
-import { createComponent } from "utils/markdown/components";
+import { PlatformDetector } from "#utils/markdown/iframes/platform-detectors/types";
+import { getXPostData, xHosts } from "#utils/markdown/data-providers";
+import { createComponent } from "#utils/markdown/components";
 import unicornHappy from "assets/unicorn_happy.svg?url";
 
 export const xPlatformDetector: PlatformDetector = {

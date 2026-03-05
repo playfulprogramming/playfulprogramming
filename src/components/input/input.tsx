@@ -6,8 +6,8 @@ import {
 	IconOnlyButton,
 	ButtonProps,
 	AllowedTags,
-} from "components/button/button";
-import { useRandomId } from "utils/preact/useId";
+} from "#components/button/button";
+import { useRandomId } from "#utils/preact/useId";
 import { ReactElement, Ref } from "preact/compat";
 
 interface InputProps extends JSX.InputHTMLAttributes {
