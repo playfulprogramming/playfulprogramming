@@ -1,0 +1,31 @@
+.app {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.add-card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+  max-width: 400px;
+}
+
+.add-card-form input {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.card h2 {
+  margin: 0 0 10px 0;
+}
