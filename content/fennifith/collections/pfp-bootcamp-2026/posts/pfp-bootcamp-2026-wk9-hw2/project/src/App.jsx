@@ -5,39 +5,58 @@ function App() {
   const [cards, setCards] = useState([]);
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
-  const [correctCount, setCorrectCount] = useState(0);
-  const [incorrectCount, setIncorrectCount] = useState(0);
+  const [correctCount, setCorrectCount] = useState(undefined);
+  const [incorrectCount, setIncorrectCount] = useState(undefined);
 
   // Load saved score from localStorage on first render
   useEffect(() => {
     try {
       const stored = localStorage.getItem("flashcard-score");
-      if (!stored) return;
+      if (!stored) {
+        setCorrectCount(0);
+        setIncorrectCount(0);
+        return;
+      }
       const parsed = JSON.parse(stored);
       if (typeof parsed.correctCount === "number") {
         setCorrectCount(parsed.correctCount);
+      } else {
+        setCorrectCount(0);
       }
       if (typeof parsed.incorrectCount === "number") {
         setIncorrectCount(parsed.incorrectCount);
+      } else {
+        setIncorrectCount(0);
       }
     } catch {
-      // If anything goes wrong reading/parsing, just ignore and start from zero
+      setCorrectCount(0);
+      setIncorrectCount(0);
     }
   }, []);
 
-  // Persist score to localStorage whenever it changes
+  // Persist score to localStorage whenever it changes (skip until we've loaded)
   useEffect(() => {
-    const payload = {
-      correctCount,
-      incorrectCount,
-    };
+    if (correctCount === undefined || incorrectCount === undefined) {
+      return;
+    }
+    const payload = { correctCount, incorrectCount };
     localStorage.setItem("flashcard-score", JSON.stringify(payload));
   }, [correctCount, incorrectCount]);
 
   const accuracyPercent = useMemo(() => {
-    const total = correctCount + incorrectCount;
-    if (!total) return 0;
-    return Math.round((correctCount / total) * 100);
+    let c = 0;
+    if (correctCount !== undefined) {
+      c = correctCount;
+    }
+    let i = 0;
+    if (incorrectCount !== undefined) {
+      i = incorrectCount;
+    }
+    const total = c + i;
+    if (!total) {
+      return 0;
+    }
+    return Math.round((c / total) * 100);
   }, [correctCount, incorrectCount]);
 
   useEffect(() => {
@@ -47,16 +66,35 @@ function App() {
   }, []);
 
   function handleMarkCorrect() {
-    setCorrectCount((count) => count + 1);
+    setCorrectCount((count) => {
+      if (count === undefined) {
+        return 1;
+      }
+      return count + 1;
+    });
   }
 
   function handleMarkIncorrect() {
-    setIncorrectCount((count) => count + 1);
+    setIncorrectCount((count) => {
+      if (count === undefined) {
+        return 1;
+      }
+      return count + 1;
+    });
+  }
+
+  function getCardAnswer(card) {
+    if (card.correct_answer !== undefined) {
+      return card.correct_answer;
+    }
+    return card.answer;
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!newQuestion.trim() || !newAnswer.trim()) return;
+    if (!newQuestion.trim() || !newAnswer.trim()) {
+      return;
+    }
     setCards([
       ...cards,
       {
@@ -69,13 +107,22 @@ function App() {
     setNewAnswer("");
   }
 
+  let displayCorrect = 0;
+  if (correctCount !== undefined) {
+    displayCorrect = correctCount;
+  }
+  let displayIncorrect = 0;
+  if (incorrectCount !== undefined) {
+    displayIncorrect = incorrectCount;
+  }
+
   return (
     <div className="app">
       <h1>Flash Cards</h1>
 
       <section className="scoreboard">
-        <p>Correct: {correctCount}</p>
-        <p>Incorrect: {incorrectCount}</p>
+        <p>Correct: {displayCorrect}</p>
+        <p>Incorrect: {displayIncorrect}</p>
         <p>Accuracy: {accuracyPercent}%</p>
       </section>
 
@@ -99,7 +146,7 @@ function App() {
         <FlashCard
           key={card.id}
           question={card.question}
-          answer={card.correct_answer ?? card.answer}
+          answer={getCardAnswer(card)}
           onCorrect={handleMarkCorrect}
           onIncorrect={handleMarkIncorrect}
         />
@@ -108,7 +155,7 @@ function App() {
   );
 }
 
-function FlashCard({ question, answer, onCorrect, onIncorrect }) {
+function FlashCard(props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -116,14 +163,16 @@ function FlashCard({ question, answer, onCorrect, onIncorrect }) {
       className="card"
       onClick={() => setOpen(!open)}
     >
-      <h2>{question}</h2>
-      {open && <p>{answer}</p>}
+      <h2>{props.question}</h2>
+      {open && <p>{props.answer}</p>}
       <div className="card-actions">
         <button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            onCorrect?.();
+            if (props.onCorrect) {
+              props.onCorrect();
+            }
           }}
         >
           Correct
@@ -132,7 +181,9 @@ function FlashCard({ question, answer, onCorrect, onIncorrect }) {
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            onIncorrect?.();
+            if (props.onIncorrect) {
+              props.onIncorrect();
+            }
           }}
         >
           Incorrect

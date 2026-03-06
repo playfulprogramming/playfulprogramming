@@ -35,20 +35,22 @@ In Tier 3, we’ll **upgrade your scoring**:
 In your `App` component, replace the single `score` state with two counters:
 
 ```jsx
-const [correctCount, setCorrectCount] = useState(0);
-const [incorrectCount, setIncorrectCount] = useState(0);
+const [correctCount, setCorrectCount] = useState(undefined);
+const [incorrectCount, setIncorrectCount] = useState(undefined);
 ```
 
 You can remove the old `score` state:
 
 ```jsx
 // Before (Tier 2)
-const [score, setScore] = useState(0);
+const [score, setScore] = useState(undefined);
 
 // After (Tier 3)
-const [correctCount, setCorrectCount] = useState(0);
-const [incorrectCount, setIncorrectCount] = useState(0);
+const [correctCount, setCorrectCount] = useState(undefined);
+const [incorrectCount, setIncorrectCount] = useState(undefined);
 ```
+
+Starting as `undefined` avoids a race: the save effect can skip writing until the load effect has run, so it never overwrites saved counts.
 
 ---
 
@@ -67,8 +69,18 @@ In `App`, update how you render each `FlashCard` so that:
     key={card.id}
     question={card.question}
     answer={card.correct_answer}
-    onCorrect={() => setCorrectCount((count) => count + 1)}
-    onIncorrect={() => setIncorrectCount((count) => count + 1)}
+    onCorrect={() => setCorrectCount((count) => {
+      if (count === undefined) {
+        return 1;
+      }
+      return count + 1;
+    })}
+    onIncorrect={() => setIncorrectCount((count) => {
+      if (count === undefined) {
+        return 1;
+      }
+      return count + 1;
+    })}
   />
 ))}
 ```
@@ -79,15 +91,24 @@ You don’t need to change the inside of `FlashCard` for this step, as long as i
 
 ## 3. Show the counts in your main component
 
-Next, update the JSX inside `App` so that it shows both counts at the top of the page:
+Next, update the JSX inside `App` so that it shows both counts at the top of the page. Use variables so you can show `0` before the load effect has run:
 
 ```jsx
+let displayCorrect = 0;
+if (correctCount !== undefined) {
+  displayCorrect = correctCount;
+}
+let displayIncorrect = 0;
+if (incorrectCount !== undefined) {
+  displayIncorrect = incorrectCount;
+}
+
 return (
   <div className="app">
     <h1>Flash Cards</h1>
 
-    <p>Correct: {correctCount}</p>
-    <p>Incorrect: {incorrectCount}</p>
+    <p>Correct: {displayCorrect}</p>
+    <p>Incorrect: {displayIncorrect}</p>
 
     {cards.map((card) => (
       {/* ... your FlashCard code from above ... */}
@@ -108,10 +129,19 @@ At the top of your `App` component (near your state declarations), add:
 
 ```jsx
 const accuracyPercent = useMemo(() => {
-  const total = correctCount + incorrectCount;
-  if (total === 0) return 0;
-
-  return Math.round((correctCount / total) * 100);
+  let c = 0;
+  if (correctCount !== undefined) {
+    c = correctCount;
+  }
+  let i = 0;
+  if (incorrectCount !== undefined) {
+    i = incorrectCount;
+  }
+  const total = c + i;
+  if (total === 0) {
+    return 0;
+  }
+  return Math.round((c / total) * 100);
 }, [correctCount, incorrectCount]);
 ```
 
@@ -121,11 +151,11 @@ Make sure you’ve imported `useMemo` from React at the top of the file:
 import { useEffect, useMemo, useState } from "react";
 ```
 
-Then, display the percentage under your counts:
+Then, display the percentage under your counts (reuse the same `displayCorrect` and `displayIncorrect` variables you added above):
 
 ```jsx
-<p>Correct: {correctCount}</p>
-<p>Incorrect: {incorrectCount}</p>
+<p>Correct: {displayCorrect}</p>
+<p>Incorrect: {displayIncorrect}</p>
 <p>Accuracy: {accuracyPercent}%</p>
 ```
 
@@ -135,42 +165,52 @@ Now the page will always show the **latest** percentage, even as `correctCount` 
 
 ## 5. (Optional) Save and restore counts with `localStorage`
 
-If you want to extend your Tier 2 `localStorage` logic, you can store both counts instead of a single `score`.
+If you want to extend your Tier 2 `localStorage` logic, you can store both counts instead of a single `score`. Use the same pattern as Tier 2: initial state `undefined`, load effect always sets both values, save effect skips while either is `undefined`.
 
-1. **Load the saved counts once when the app starts:**
+1. **Load the saved counts once when the app starts.** Always set both counts by the end (from storage or `0`):
 
 ```jsx
 useEffect(() => {
-  const storedScore = localStorage.getItem("flashcard-score");
-  if (!storedScore) return;
-
-  const parsed = JSON.parse(storedScore);
-
-  if (typeof parsed.correctCount === "number") {
-    setCorrectCount(parsed.correctCount);
-  }
-
-  if (typeof parsed.incorrectCount === "number") {
-    setIncorrectCount(parsed.incorrectCount);
+  try {
+    const stored = localStorage.getItem("flashcard-score");
+    if (!stored) {
+      setCorrectCount(0);
+      setIncorrectCount(0);
+      return;
+    }
+    const parsed = JSON.parse(stored);
+    if (typeof parsed.correctCount === "number") {
+      setCorrectCount(parsed.correctCount);
+    } else {
+      setCorrectCount(0);
+    }
+    if (typeof parsed.incorrectCount === "number") {
+      setIncorrectCount(parsed.incorrectCount);
+    } else {
+      setIncorrectCount(0);
+    }
+  } catch {
+    setCorrectCount(0);
+    setIncorrectCount(0);
   }
 }, []);
 ```
 
-2. **Save the counts whenever they change:**
+2. **Save the counts whenever they change.** Skip saving until both are defined (load has run):
 
 ```jsx
 useEffect(() => {
-  const data = {
-    correctCount,
-    incorrectCount,
-  };
+  if (correctCount === undefined || incorrectCount === undefined) {
+    return;
+  }
 
+  const data = { correctCount, incorrectCount };
   localStorage.setItem("flashcard-score", JSON.stringify(data));
 }, [correctCount, incorrectCount]);
 ```
 
 With this in place:
 
-- Refreshing the page will *restore* your correct/incorrect counts.
-- The `accuracyPercent` from `useMemo` will immediately recompute from the restored values.
+- The save effect never runs with the initial `undefined` values, so it never overwrites storage before load.
+- Refreshing the page will *restore* your correct/incorrect counts, and `accuracyPercent` will recompute from the restored values.
 
