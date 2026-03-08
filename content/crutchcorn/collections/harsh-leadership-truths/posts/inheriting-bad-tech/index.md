@@ -2,7 +2,7 @@
 {
     title: "What I Did When I Inherited Bad Tech",
     description: "How I helped turn around a struggling engineering team by rethinking our approach to development.",
-    published: "2025-11-24T13:45:00.284Z",
+    published: "2026-03-08T13:45:00.284Z",
     tags: ['leadership', 'opinion'],
     license: 'cc-by-4',
     order: 2
