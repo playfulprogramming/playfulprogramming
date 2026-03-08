@@ -219,83 +219,58 @@ export interface paths {
 								height?: number;
 								altText?: string;
 							};
-							gist?: {
-								username: string;
-								description?: string;
-								files: {
-									filename: string;
-									contentUrl: string;
-									language: string;
-								}[];
-							};
-							post?: {
-								author: {
-									name: string;
-									handle: string;
-									avatar?: {
-										src: string;
+							embed?:
+								| {
+										/** @enum {string} */
+										type: "gist";
+										gist?: {
+											username: string;
+											description?: string;
+											files: {
+												filename: string;
+												contentUrl: string;
+												language: string;
+											}[];
+										};
+								  }
+								| {
+										/** @enum {string} */
+										type: "post";
+										post?: {
+											author: {
+												name: string;
+												handle: string;
+												avatar?: {
+													src: string;
+													width?: number;
+													height?: number;
+													altText?: string;
+												};
+											};
+											content: string;
+											url: string;
+											image?: {
+												src: string;
+												width?: number;
+												height?: number;
+												altText?: string;
+											};
+											numLikes?: number;
+											numReposts?: number;
+											numReplies?: number;
+											createdAt: string;
+										};
+								  }
+								| {
+										/** @enum {string} */
+										type: "video";
+										src?: string;
 										width?: number;
 										height?: number;
-										altText?: string;
-									};
-								};
-								content: string;
-								url: string;
-								image?: {
-									src: string;
-									width?: number;
-									height?: number;
-									altText?: string;
-								};
-								numLikes?: number;
-								numReposts?: number;
-								numReplies?: number;
-								createdAt: string;
-							};
-							/** @enum {unknown} */
-							embedType?: "post" | "gist" | "video";
-							embed?: {
-								src: string;
-								width?: number;
-								height?: number;
-							};
+								  };
 							error: boolean;
 						};
 					};
-				};
-			};
-		};
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	"/development/sync-all": {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		get?: never;
-		put?: never;
-		/** @description Spawns tasks to sync all posts and authors to the db */
-		post: {
-			parameters: {
-				query?: never;
-				header?: never;
-				path?: never;
-				cookie?: never;
-			};
-			requestBody?: never;
-			responses: {
-				/** @description Default Response */
-				200: {
-					headers: {
-						[name: string]: unknown;
-					};
-					content?: never;
 				};
 			};
 		};

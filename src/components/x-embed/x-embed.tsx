@@ -11,8 +11,8 @@ import { RawSvg } from "components/image/raw-svg";
 dayjs.extend(advancedFormat);
 
 interface XEmbedPicture {
-	url: string;
-	alt?: string;
+	src: string;
+	altText?: string;
 	width?: number;
 	height?: number;
 }
@@ -83,14 +83,14 @@ export function XEmbedPlaceholder({
 			{picture ? (
 				<div className={style.mediaContainer}>
 					<img
-						src={picture.url}
-						alt={picture.alt}
+						src={picture.src}
+						alt={picture.altText}
 						width={picture.width}
 						height={picture.height}
 						style={{
 							aspectRatio:
 								picture.width && picture.height
-									? picture.height / picture.width
+									? `${picture.width}/${picture.height}`
 									: undefined,
 						}}
 						crossorigin="anonymous"

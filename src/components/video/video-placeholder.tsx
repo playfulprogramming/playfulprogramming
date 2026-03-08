@@ -3,6 +3,7 @@ import { RawSvg } from "components/image/raw-svg";
 import { useState } from "preact/hooks";
 import PlayIcon from "src/icons/play.svg?raw";
 import FallbackPageIcon from "src/icons/website.svg?raw";
+import YoutubeIcon from "src/icons/youtube.svg?raw";
 import style from "./video-placeholder.module.scss";
 import { HTMLAttributes } from "preact/compat";
 
@@ -16,10 +17,15 @@ export interface VideoPlaceholderProps {
 	width: number;
 	height: number;
 	src: string;
+	webUrl: string;
 	iframeAttrs: HTMLAttributes<HTMLIFrameElement>;
 	pageTitle: string;
 	pageIcon?: string;
 	pageThumbnail: string;
+}
+
+function isYouTube(src: string) {
+	return URL.parse(src)?.hostname === "www.youtube.com";
 }
 
 export function VideoPlaceholder({
@@ -55,7 +61,10 @@ export function VideoPlaceholder({
 							onError={() => setPageIconError(true)}
 						/>
 					) : (
-						<RawSvg icon={FallbackPageIcon} aria-hidden />
+						<RawSvg
+							icon={isYouTube(props.src) ? YoutubeIcon : PlayIcon}
+							aria-hidden
+						/>
 					)}
 				</div>
 				<div class={style.headerInfo}>
@@ -71,7 +80,7 @@ export function VideoPlaceholder({
 						src={props.pageThumbnail}
 						width={width}
 						height={height}
-						style={{ aspectRatio: width / height }}
+						style={{ aspectRatio: `${width}/${height}` }}
 						alt=""
 						class={style.thumbnail}
 						loading="lazy"
@@ -89,7 +98,7 @@ export function VideoPlaceholder({
 									onClick: () => setFrameVisible(true),
 								}
 							: {
-									href: props.src,
+									href: props.webUrl,
 									rel: "nofollow noopener noreferrer",
 									target: "_blank",
 								})}
@@ -102,7 +111,7 @@ export function VideoPlaceholder({
 					src={props.src}
 					class={style.iframe}
 					{...iframeProps}
-					style={{ aspectRatio: width / height }}
+					style={{ aspectRatio: `${width}/${height}` }}
 					loading="lazy"
 				/>
 			)}
