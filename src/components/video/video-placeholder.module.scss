@@ -32,7 +32,8 @@
 	flex-direction: column;
 	border-radius: var(--embed_corner-radius);
 	background-color: var(--embed_background-color);
-	margin: var(--site-spacing) 0;
+	margin: var(--site-spacing) auto;
+	max-width: 640px;
 }
 
 .header {
@@ -98,6 +99,7 @@
 }
 
 .placeholder {
+	display: flex;
 	background-color: var(--embed_iframe_background-color);
 	border: var(--embed-iframe_border-width) solid
 		var(--embed_iframe_border_color);
@@ -149,11 +151,13 @@
 }
 
 .thumbnail {
-	position: absolute;
-	top: 0;
-	left: 0;
 	width: 100% !important;
-	height: 100% !important;
+	height: auto;
 	object-fit: cover;
 	object-position: center;
+}
+
+.iframe {
+	width: 100% !important;
+	height: auto;
 }

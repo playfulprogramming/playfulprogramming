@@ -1,51 +1,32 @@
-import { PlatformDetector } from "utils/markdown/iframes/platform-detectors/types";
-import {
-	getIFrameAttributes,
-	getVideoDataFromUrl,
-	videoHosts,
-} from "utils/markdown/data-providers";
-import { createComponent } from "utils/markdown/components";
+import { RehypeEmbedTransformProps } from "./types";
+import { ComponentNode, createComponent } from "utils/markdown/components";
 
-export const videoPlatformDetector: PlatformDetector = {
-	detect: (src) => {
-		const srcUrl = new URL(src);
-		const isVideo = videoHosts.includes(srcUrl.hostname);
-		return isVideo;
-	},
-	rehypeTransform: async ({ parent, index, src, iframeData }) => {
-		const json = await getVideoDataFromUrl(src).catch(() => null);
+export function rehypeTransformVideo({
+	src,
+	embed,
+	metadata,
+}: RehypeEmbedTransformProps<"video">): ComponentNode[] {
+	const embedSrc = embed.src;
 
-		let pageThumbnail = "/illustrations/illustration-webpage.svg";
-
-		let { pageTitle, iframeAttrs } = iframeData;
-
-		if (json) {
-			pageTitle = `${json?.title ?? pageTitle}`;
-			pageThumbnail = json?.thumbnail_url ?? pageThumbnail;
-			const {
-				height: _height,
-				width: _width,
-				...otherIframeProps
-			} = await getIFrameAttributes(json.html);
-			iframeAttrs = { ...iframeAttrs, ...otherIframeProps } as never;
-		}
-
-		const { height, width, metadata } = iframeData;
-
-		parent.children.splice(
-			index,
-			1,
-			createComponent("VideoPlaceholder", {
-				width: width.toString(),
-				height: height.toString(),
-				src,
-				pageTitle,
-				pageIcon: metadata?.icon?.src,
-				pageThumbnail,
-				iframeAttrs,
+	if (!embedSrc) {
+		return [
+			createComponent("FourOFourPlaceholder", {
+				url: src,
 			}),
-		);
+		];
+	}
 
-		return;
-	},
-};
+	return [
+		createComponent("VideoPlaceholder", {
+			width: embed.width ?? 240,
+			height: embed.height ?? 160,
+			src: embedSrc,
+			webUrl: src,
+			pageTitle: metadata?.title ?? "",
+			pageIcon: metadata?.icon?.src,
+			pageThumbnail:
+				metadata?.banner?.src ?? "/illustrations/illustration-webpage.svg",
+			iframeAttrs: {},
+		}),
+	];
+}

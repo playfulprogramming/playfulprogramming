@@ -5,12 +5,15 @@ import { visit } from "unist-util-visit";
 import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants";
 import {
 	ComponentMarkupNode,
+	ComponentNode,
 	createComponent,
 	isComponentMarkup,
 } from "../components";
 import { logError } from "../logger";
 import { getUrlMetadata } from "utils/hoof";
-import { platformDetectors } from "utils/markdown/iframes/platform-detectors";
+import { rehypeTransformGist } from "./platform-detectors/gist";
+import { rehypeTransformVideo } from "./platform-detectors/video";
+import { rehypeTransformPost } from "./platform-detectors/post";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
@@ -85,38 +88,44 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				);
 
 				// Find any embeds and use them if they're present
-				const platformDetector = platformDetectors.find((p) => p.detect(src));
-				if (platformDetector) {
-					return await platformDetector.rehypeTransform({
-						parent,
-						node,
-						file,
-						tree,
-						index,
+				let embedNodes: ComponentNode[] | undefined;
+				if (metadata?.embed?.type === "gist") {
+					embedNodes = await rehypeTransformGist({
 						src,
-						iframeData: {
-							iframeAttrs,
-							metadata,
-							height,
-							width,
-							pageTitle,
-						},
+						metadata,
+						embed: metadata.embed,
+					});
+				}
+				if (metadata?.embed?.type === "video") {
+					embedNodes = rehypeTransformVideo({
+						src,
+						metadata,
+						embed: metadata.embed,
+					});
+				}
+				if (metadata?.embed?.type === "post") {
+					embedNodes = rehypeTransformPost({
+						src,
+						metadata,
+						embed: metadata.embed,
 					});
 				}
 
-				// Default
-				parent.children.splice(
-					index,
-					1,
-					createComponent("IframePlaceholder", {
-						width: width.toString(),
-						height: height.toString(),
-						src: String(src),
-						pageTitle,
-						pageIcon: metadata?.icon?.src,
-						iframeAttrs,
-					}),
-				);
+				if (!embedNodes) {
+					// Default
+					embedNodes = [
+						createComponent("IframePlaceholder", {
+							width: width.toString(),
+							height: height.toString(),
+							src: String(src),
+							pageTitle,
+							pageIcon: metadata?.icon?.src,
+							iframeAttrs,
+						}),
+					];
+				}
+
+				parent.children.splice(index, 1, ...embedNodes);
 			}),
 		);
 	};

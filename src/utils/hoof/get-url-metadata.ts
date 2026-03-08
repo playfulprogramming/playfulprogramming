@@ -2,21 +2,10 @@ import { setTimeout } from "timers/promises";
 import { client } from "./client";
 import { isSocketError } from "./isSocketError";
 import { RETRY_COUNT } from "./common";
+import { paths } from "./schema";
 
-export interface UrlMetadataResponse {
-	title?: string;
-	icon?: {
-		src: string;
-		width?: number;
-		height?: number;
-	};
-	banner?: {
-		src: string;
-		width?: number;
-		height?: number;
-	};
-	error: boolean;
-}
+export type UrlMetadataResponse =
+	paths["/tasks/url-metadata"]["post"]["responses"][200]["content"]["application/json"];
 
 export async function getUrlMetadata(
 	url: string,

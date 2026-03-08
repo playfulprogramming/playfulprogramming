@@ -11,17 +11,18 @@ import { RawSvg } from "components/image/raw-svg";
 dayjs.extend(advancedFormat);
 
 interface XEmbedPicture {
-	url: string;
-	alt?: string;
-	aspectRatio?: number;
+	src: string;
+	altText?: string;
+	width?: number;
+	height?: number;
 }
 
 export interface XEmbedPlaceholderProps {
 	text: string;
 	profilePic: string;
-	likes: number;
-	reposts: number;
-	replies: number;
+	likes?: number;
+	reposts?: number;
+	replies?: number;
 	date: string;
 	handle: string;
 	name: string;
@@ -51,6 +52,7 @@ export function XEmbedPlaceholder({
 						data-nozoom
 						src={profilePic}
 						alt={`${handle}'s profile picture`}
+						crossorigin="anonymous"
 					/>
 				</div>
 				<div className={style.topWide}>
@@ -81,9 +83,17 @@ export function XEmbedPlaceholder({
 			{picture ? (
 				<div className={style.mediaContainer}>
 					<img
-						src={picture.url}
-						alt={picture.alt}
-						style={{ aspectRatio: picture.aspectRatio }}
+						src={picture.src}
+						alt={picture.altText}
+						width={picture.width}
+						height={picture.height}
+						style={{
+							aspectRatio:
+								picture.width && picture.height
+									? `${picture.width}/${picture.height}`
+									: undefined,
+						}}
+						crossorigin="anonymous"
 					/>
 				</div>
 			) : null}
