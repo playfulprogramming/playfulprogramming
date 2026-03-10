@@ -1,6 +1,7 @@
 import { setTimeout } from "timers/promises";
 import { client } from "./client";
 import { isSocketError } from "./isSocketError";
+import { RETRY_COUNT } from "./common";
 
 export interface UrlMetadataResponse {
 	title?: string;
@@ -20,7 +21,7 @@ export interface UrlMetadataResponse {
 export async function getUrlMetadata(
 	url: string,
 ): Promise<UrlMetadataResponse> {
-	for (let retries = 0; retries < 10; retries++) {
+	for (let retries = 0; retries < RETRY_COUNT; retries++) {
 		await setTimeout(Math.pow(retries, 2) * 1000);
 
 		const req = await client

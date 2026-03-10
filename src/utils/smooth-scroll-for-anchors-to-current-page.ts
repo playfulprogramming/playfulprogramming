@@ -13,7 +13,6 @@ export const enableSmoothScrollForAnchorsToCurrentPage = () => {
 			const block =
 				((e.target as HTMLAnchorElement | null)?.getAttribute(
 					"data-scroll-block",
-					// eslint-disable-next-line no-undef
 				) as ScrollLogicalPosition | undefined) ?? "center";
 
 			e.preventDefault();

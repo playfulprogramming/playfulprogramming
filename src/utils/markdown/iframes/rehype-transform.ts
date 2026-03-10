@@ -10,12 +10,6 @@ import {
 } from "../components";
 import { logError } from "../logger";
 import { getUrlMetadata } from "utils/hoof";
-import {
-	getIFrameAttributes,
-	getVideoDataFromUrl,
-	videoHosts,
-} from "utils/markdown/data-providers";
-import { getXPostData, xHosts } from "utils/markdown/data-providers/x";
 import { platformDetectors } from "utils/markdown/iframes/platform-detectors";
 
 interface RehypeUnicornIFrameClickToRunProps {
@@ -50,21 +44,21 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				let {
 					height,
 					width,
-					src,
 					// eslint-disable-next-line prefer-const
 					dataFrameTitle,
 					// eslint-disable-next-line prefer-const
 					...propsToPreserve
 				} = node.properties;
+				let src = String(node.properties.src);
 
 				for (const replacement of srcReplacements) {
-					src = replacement(src!.toString(), file);
+					src = replacement(src, file);
 				}
 
 				width = width ?? EMBED_SIZE.w;
 				height = height ?? EMBED_SIZE.h;
 
-				const metadata = await getUrlMetadata(src!.toString()).catch((e) => {
+				const metadata = await getUrlMetadata(src).catch((e) => {
 					logError(file, node, "Could not fetch URL metadata!", e);
 					return undefined;
 				});
@@ -91,19 +85,15 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				);
 
 				// Find any embeds and use them if they're present
-				for (const platformDetector of platformDetectors) {
-					const strSrc = String(src!);
-					const isPlatform = platformDetector.detect(strSrc);
-					if (!isPlatform) {
-						continue;
-					}
+				const platformDetector = platformDetectors.find((p) => p.detect(src));
+				if (platformDetector) {
 					return await platformDetector.rehypeTransform({
 						parent,
 						node,
 						file,
 						tree,
 						index,
-						src: strSrc,
+						src,
 						iframeData: {
 							iframeAttrs,
 							metadata,

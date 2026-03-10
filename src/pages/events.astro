@@ -3,17 +3,14 @@ import EventsPage from "../views/events/events-page";
 import Document from "../layouts/document.astro";
 import SEO from "../components/seo/seo.astro";
 import { events } from "../views/events/constants";
-import { getUrlMetadata, UrlMetadataResponse } from "utils/hoof";
+import { getUrlMetadata } from "utils/hoof";
 import { EventBlock } from "../views/events/types";
+import { LatestEventBlockLocationMetadataType } from "../views/events/components/event-cards/types";
 
 // We only need the latest event block location metadata to show on the list view
 // Record<EventSlug, EventBlockWithMetadata>
-const latestEventBlockLocationMetadata: Record<
-	string,
-	EventBlock & {
-		location_metadata: UrlMetadataResponse;
-	}
-> = {};
+const latestEventBlockLocationMetadata: LatestEventBlockLocationMetadataType =
+	{};
 
 // Do not use `Promise.all`, as the getUrlMetadata retry logic may break builds when parallelism is enabled
 for (const event of events) {
@@ -48,7 +45,7 @@ for (const event of events) {
 
 	const location_metadata = await getUrlMetadata(
 		nearestButNotPastEvent.location_url,
-	);
+	).catch(() => undefined);
 
 	latestEventBlockLocationMetadata[event.slug] = {
 		...nearestButNotPastEvent,

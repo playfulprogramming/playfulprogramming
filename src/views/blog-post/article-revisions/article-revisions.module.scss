@@ -102,10 +102,12 @@
 	}
 
 	.item {
+		align-self: stretch;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
+		padding: var(--popup_item_padding);
 		text-decoration: none;
 		min-width: var(--popup_min-width);
 

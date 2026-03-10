@@ -8,8 +8,8 @@ interface RawSvgProps extends HTMLAttributes<SVGElement> {
 
 // when running in SSR, use hast/fromHtml - otherwise, use the browser API
 let extractSvg: (html: string) => {
-	attributes: Record<string, unknown>,
-	innerHTML: string,
+	attributes: Record<string, unknown>;
+	innerHTML: string;
 };
 if (import.meta.env.SSR) {
 	const { fromHtml } = await import("hast-util-from-html");
@@ -24,10 +24,9 @@ if (import.meta.env.SSR) {
 		const svgStartOffset = svgEl.children.at(0)?.position?.start?.offset ?? 0;
 		const svgEndOffset = svgEl.children.at(-1)?.position?.end?.offset ?? 0;
 		const attributes = Object.fromEntries(
-			Object.entries(svgEl.properties)
-			.map(([key, value]) => {
+			Object.entries(svgEl.properties).map(([key, value]) => {
 				return [key, value instanceof Array ? value.join(" ") : String(value)];
-			})
+			}),
 		);
 		const innerHTML = html.substring(svgStartOffset, svgEndOffset);
 		return { attributes, innerHTML };

@@ -18,7 +18,7 @@ env:
     }
 
 concurrency:
-  group: pr-${{ github.event.pull_request.number }}-deploy
+  group: pr-${{ github.event.pull_request.number || github.run_id }}-deploy
   cancel-in-progress: true
 
 jobs:

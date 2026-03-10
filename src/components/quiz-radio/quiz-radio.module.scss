@@ -1,0 +1,295 @@
+@use "src/tokens/index" as *;
+
+:root {
+	--quiz-option_unselected_background-color_default: var(--transparent);
+	--quiz-option_unselected_background-color_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--quiz-option_unselected_background-color_pressed: var(
+		--surface_primary_emphasis-high
+	);
+	--quiz-option_unselected_background-color_focused: var(--background_focus);
+	--quiz-option_unselected_foreground-color_default: var(
+		--foreground_emphasis-medium
+	);
+	--quiz-option_unselected_foreground-color_interaction: var(
+		--foreground_emphasis-high
+	);
+
+	--quiz-option_selected_background-color_default: var(
+		--surface_primary_emphasis-low
+	);
+	--quiz-option_selected_background-color_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--quiz-option_selected_background-color_pressed: var(
+		--surface_primary_emphasis-high
+	);
+	--quiz-option_selected_background-color_focused: var(--background_focus);
+	--quiz-option_selected_foreground-color: var(--primary_on-variant);
+	--quiz-option_selected_icon-color: var(--primary_default);
+	--quiz-option_selected_icon-bg-color: var(--background_primary);
+
+	--quiz-option_disabled_foreground-color_default: var(--foreground_disabled);
+	--quiz-option_disabled_icon-color: var(--foreground_disabled);
+
+	--quiz-option_correct_background-color: var(--surface_positive_emphasis-low);
+	--quiz-option_correct_text-color: var(--positive_on-variant);
+	--quiz-option_correct_explanation_text-color: var(--positive_default);
+
+	// Radio button color overrides
+	--quiz-option_correct_icon-color: var(--positive_default);
+	--quiz-option_correct_icon-bg-color: var(--background_positive);
+
+	--quiz-option_incorrect_background-color: var(
+		--surface_secondary_emphasis-low
+	);
+	--quiz-option_incorrect_text-color: var(--secondary_on-variant);
+	--quiz-option_incorrect_explanation_text-color: var(--secondary_default);
+
+	// Radio button color overrides
+	--quiz-option_incorrect_icon-color: var(--secondary_default);
+	--quiz-option_incorrect_icon-bg-color: var(--background_secondary);
+
+	--quiz-option_focus-outline_width: var(--border-width_focus);
+	--quiz-option_focus-outline_color: var(--focus-outline_primary);
+	--quiz-option_corner-radius: var(--corner-radius_m);
+	--quiz-option_icon_size: var(--icon-size_regular);
+
+	--quiz-option_padding-vertical: var(--spc-3x);
+	--quiz-option_padding-left: var(--spc-3x);
+	--quiz-option_padding-right: var(--spc-6x);
+	--quiz-option_gap: var(--spc-3x);
+	--quiz-option_row_padding-horizontal: var(--spc-3x);
+
+	--quiz_background-color: var(--surface_primary_emphasis-none);
+	--quiz_corner-radius: var(--corner-radius_xl);
+
+	// Error handling
+	--quiz_error_background-color: var(--surface_error_emphasis-low);
+	--quiz_error_foreground-color: var(--error_on-variant);
+	--quiz_error_corner-radius: var(--corner-radius_l);
+
+	--quiz_explanation_background-color: var(--surface_primary_emphasis-low);
+	--quiz_explanation_foreground-color: var(--primary_on-variant);
+}
+
+.quizOptionContainer {
+	background-color: var(--quiz_background-color);
+	border-radius: var(--quiz_corner-radius);
+	width: fit-content;
+	max-width: 100%;
+	margin: var(--site-spacing) 0;
+
+	&:has(.markdownCollapsePadding, pre) {
+		width: 100%;
+	}
+}
+
+.quizNum {
+	display: block;
+	padding: var(--spc-8x) var(--spc-6x) var(--spc-2x) var(--spc-6x);
+}
+
+.quizOptionTitle {
+	display: block;
+	padding: 0 var(--spc-6x) var(--spc-2x) var(--spc-6x);
+	margin: 0 !important;
+}
+
+.quizPrompt {
+	display: block;
+	padding: 0 var(--spc-6x) var(--spc-4x) var(--spc-6x);
+	color: var(--primary_default);
+}
+
+.quizOptionBottomContainer {
+	padding: var(--spc-3x);
+}
+
+.quizOptionButtonRowContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: var(--spc-3x);
+	padding: var(--spc-3x);
+}
+
+.quizOptionVotes {
+	display: flex;
+	align-items: center;
+	margin: 0 !important;
+}
+
+.quizOptionOptionsContainer {
+	display: flex;
+	flex-direction: column;
+	padding-left: var(--quiz-option_row_padding-horizontal);
+	padding-right: var(--quiz-option_row_padding-horizontal);
+}
+
+.option {
+	display: flex;
+	gap: var(--quiz-option_gap);
+	align-items: center;
+
+	.optionInner {
+		width: fit-content;
+		padding: var(--quiz-option_padding-vertical)
+			var(--quiz-option_padding-right) var(--quiz-option_padding-vertical)
+			var(--quiz-option_padding-left);
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+		border-radius: var(--quiz-option_corner-radius);
+		// needed to prevent clipping with the ::before style on .explanation
+		z-index: 1;
+		@include transition(color background-color);
+	}
+
+	.explanation {
+		padding: 0;
+		margin: 0;
+	}
+}
+
+/**
+ * General purpose SVG logic
+ */
+.icon {
+	flex-shrink: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--quiz-option_icon_size);
+	height: var(--quiz-option_icon_size);
+	// TODO: Double-check with Ed?
+	margin-right: var(--quiz-option_gap);
+	border-radius: 50%;
+	@include transition(color);
+}
+
+/**
+ * Checked state
+ */
+.option[data-selected] {
+	.optionInner {
+		color: var(--quiz-option_selected_foreground-color);
+		background-color: var(--quiz-option_selected_background-color_default);
+	}
+
+	&[data-hovered]:not([data-disabled]) .optionInner {
+		background-color: var(--quiz-option_selected_background-color_hovered);
+	}
+
+	&[data-pressed]:not([data-disabled]) .optionInner {
+		background-color: var(--quiz-option_selected_background-color_pressed);
+	}
+
+	&[data-focus-visible] .optionInner {
+		background-color: var(--quiz-option_selected_background-color_focused);
+		outline: var(--quiz-option_focus-outline_width) solid
+			var(--quiz-option_focus-outline_color);
+	}
+
+	.icon {
+		color: var(--quiz-option_selected_icon-color);
+		background-color: var(--quiz-option_selected_icon-bg-color);
+	}
+}
+
+/**
+ * Unselected state
+ */
+.option:not([data-selected]) {
+	.optionInner {
+		color: var(--quiz-option_unselected_foreground-color_default);
+		background-color: var(--quiz-option_unselected_background-color_default);
+	}
+
+	&[data-hovered]:not([data-disabled]) .optionInner {
+		background-color: var(--quiz-option_unselected_background-color_hovered);
+	}
+
+	&[data-pressed]:not([data-disabled]) .optionInner {
+		background-color: var(--quiz-option_unselected_background-color_pressed);
+	}
+
+	&[data-focus-visible] .optionInner {
+		background-color: var(--quiz-option_unselected_background-color_focused);
+		outline: var(--quiz-option_focus-outline_width) solid
+			var(--quiz-option_focus-outline_color);
+	}
+}
+
+.option[data-disabled] {
+	.optionInner {
+		color: var(--quiz-option_disabled_foreground-color_default);
+	}
+	.icon {
+		color: var(--quiz-option_disabled_icon-color);
+	}
+}
+
+.option[data-incorrect="true"] {
+	.optionInner {
+		background-color: var(--quiz-option_incorrect_background-color);
+		color: var(--quiz-option_incorrect_text-color);
+	}
+	.icon {
+		background-color: var(--quiz-option_incorrect_icon-bg-color);
+		color: var(--quiz-option_incorrect_icon-color);
+	}
+	.explanationLabel {
+		color: var(--quiz-option_incorrect_explanation_text-color);
+	}
+}
+
+.option[data-correct="true"] {
+	.optionInner {
+		background-color: var(--quiz-option_correct_background-color);
+		color: var(--quiz-option_correct_text-color);
+	}
+	.icon {
+		background-color: var(--quiz-option_correct_icon-bg-color);
+		color: var(--quiz-option_correct_icon-color);
+	}
+	.explanationLabel {
+		color: var(--quiz-option_correct_explanation_text-color);
+	}
+}
+
+.quizOptionErrorCode {
+	margin: 0;
+	background-color: var(--quiz_error_background-color);
+	color: var(--quiz_error_foreground-color);
+	border-radius: var(--quiz_error_corner-radius);
+	padding: var(--spc-3x) var(--spc-4x);
+}
+
+.explanation {
+	background-color: var(--quiz_explanation_background-color);
+	color: var(--quiz_explanation_foreground-color);
+	// border-radius: var(--quiz_explanation_corner-radius);
+	padding: var(--spc-3x) var(--spc-6x);
+	border-bottom-left-radius: var(--quiz_corner-radius);
+	border-bottom-right-radius: var(--quiz_corner-radius);
+	padding-top: calc(var(--spc-3x) + var(--quiz_corner-radius));
+	margin-top: calc(-1 * var(--quiz_corner-radius));
+	position: relative;
+
+	&::before {
+		display: block;
+		content: ' ';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: var(--quiz_corner-radius);
+		background: linear-gradient(var(--quiz_background-color), var(--quiz_background-color)), var(--background_primary);
+		border-bottom-left-radius: var(--quiz_corner-radius);
+		border-bottom-right-radius: var(--quiz_corner-radius);
+	}
+}

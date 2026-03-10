@@ -26,10 +26,33 @@ import aboutRaw from "../../content/data/about.json";
 import rolesRaw from "../../content/data/roles.json";
 import licensesRaw from "../../content/data/licenses.json";
 import tagsRaw from "../../content/data/tags.json";
+import { LocalFile } from "types/LocalFile";
 
 function isNotJunk(name: string): boolean {
 	// Ignore VSCode and JetBrains project files
 	return baseIsNotJunk(name) && name !== ".idea" && name !== ".vscode";
+}
+
+async function resolveImageFile(
+	imgPath: string,
+	basePath: string,
+): Promise<LocalFile> {
+	if (imgPath.replace(/^\.\//, "").indexOf("/") !== -1) {
+		throw new Error(
+			`${basePath}: Image ${imgPath} must be stored adjacent to its md file.`,
+		);
+	}
+
+	const coverImgSize = await getImageSize(imgPath, basePath);
+	if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
+		throw new Error(`${basePath}: Unable to parse ${imgPath} image size`);
+	}
+
+	return {
+		height: coverImgSize.height,
+		width: coverImgSize.width,
+		...resolvePath(imgPath, basePath)!,
+	};
 }
 
 export const contentDirectory = join(process.cwd(), "content");
@@ -197,19 +220,13 @@ async function readCollection(
 		const fileContents = await fs.readFile(filePath, "utf-8");
 		const frontmatter = matter(fileContents).data as RawCollectionInfo;
 
-		const coverImgSize = await getImageSize(
+		const coverImgMeta = await resolveImageFile(
 			frontmatter.coverImg,
 			collectionPath,
 		);
-		if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
-			throw new Error(`${collectionPath}: Unable to parse cover image size`);
-		}
-
-		const coverImgMeta = {
-			height: coverImgSize.height,
-			width: coverImgSize.width,
-			...resolvePath(frontmatter.coverImg, collectionPath)!,
-		};
+		const socialImgMeta = frontmatter.socialImg
+			? await resolveImageFile(frontmatter.socialImg, collectionPath)
+			: undefined;
 
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
@@ -237,6 +254,7 @@ async function readCollection(
 			postCount,
 			tags: frontmatterTags,
 			coverImgMeta,
+			socialImgMeta,
 		});
 	}
 
@@ -295,33 +313,12 @@ async function readPost(
 		// get an excerpt of the post markdown no longer than 150 chars
 		const excerpt = getExcerpt(fileMatter.content, 150);
 
-		let coverImgMeta: PostInfo["coverImgMeta"] | undefined;
-		if (frontmatter.coverImg) {
-			const coverImgSize = await getImageSize(frontmatter.coverImg, postPath);
-			if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
-				throw new Error(`${postPath}: Unable to parse cover image size`);
-			}
-
-			coverImgMeta = {
-				height: coverImgSize.height,
-				width: coverImgSize.width,
-				...resolvePath(frontmatter.coverImg, postPath)!,
-			};
-		}
-
-		let socialImgMeta: PostInfo["socialImgMeta"] | undefined;
-		if (frontmatter.socialImg) {
-			const socialImgSize = await getImageSize(frontmatter.socialImg, postPath);
-			if (!socialImgSize || !socialImgSize.width || !socialImgSize.height) {
-				throw new Error(`${postPath}: Unable to parse social image size`);
-			}
-
-			socialImgMeta = {
-				height: socialImgSize.height,
-				width: socialImgSize.width,
-				...resolvePath(frontmatter.socialImg, postPath)!,
-			};
-		}
+		const coverImgMeta = frontmatter.coverImg
+			? await resolveImageFile(frontmatter.coverImg, postPath)
+			: undefined;
+		const socialImgMeta = frontmatter.socialImg
+			? await resolveImageFile(frontmatter.socialImg, postPath)
+			: undefined;
 
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
@@ -363,7 +360,10 @@ const people = new Map<string, PersonInfo[]>();
 for (const personId of await fs.readdir(contentDirectory)) {
 	if (!isNotJunk(personId)) continue;
 	const personPath = join(contentDirectory, personId);
-	people.set(personId, await readPerson(personPath));
+	const personEntries = await readPerson(personPath);
+	if (personEntries.length) {
+		people.set(personId, personEntries);
+	}
 }
 
 const collections = new Map<string, CollectionInfo[]>();
@@ -376,12 +376,12 @@ for (const personId of [...people.keys()]) {
 
 	for (const slug of slugs) {
 		const collectionPath = join(collectionsDirectory, slug);
-		collections.set(
-			slug,
-			await readCollection(collectionPath, {
-				authors: [personId],
-			}),
-		);
+		const collectionEntries = await readCollection(collectionPath, {
+			authors: [personId],
+		});
+		if (collectionEntries.length) {
+			collections.set(slug, collectionEntries);
+		}
 	}
 }
 
@@ -403,13 +403,13 @@ await Promise.all(
 		await Promise.all(
 			slugs.map(async (slug) => {
 				const postPath = join(postsDirectory, slug);
-				posts.set(
-					slug,
-					await readPost(postPath, {
-						authors: collection[0].authors,
-						collection: collection[0].slug,
-					}),
-				);
+				const postEntries = await readPost(postPath, {
+					authors: collection[0].authors,
+					collection: collection[0].slug,
+				});
+				if (postEntries.length) {
+					posts.set(slug, postEntries);
+				}
 			}),
 		);
 	}),
@@ -425,12 +425,12 @@ await Promise.all(
 		await Promise.all(
 			slugs.map(async (slug) => {
 				const postPath = join(postsDirectory, slug);
-				posts.set(
-					slug,
-					await readPost(postPath, {
-						authors: [personId],
-					}),
-				);
+				const postEntries = await readPost(postPath, {
+					authors: [personId],
+				});
+				if (postEntries.length) {
+					posts.set(slug, postEntries);
+				}
 			}),
 		);
 	}),

@@ -44,6 +44,7 @@ export interface CollectionInfo extends RawCollectionInfo {
 	locale: Languages;
 	postCount: number;
 	coverImgMeta: LocalFile;
+	socialImgMeta?: LocalFile;
 }
 
 export interface SearchCollectionInfo extends CollectionInfo {

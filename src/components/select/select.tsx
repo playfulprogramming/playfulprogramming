@@ -265,7 +265,7 @@ export function Option({ item, state }: OptionProps) {
 		<li
 			{...optionProps}
 			ref={ref}
-			class={`${styles.option} ${isSelected ? styles.selected : ""}`}
+			class={`${styles.option} ${styles.padded} ${isSelected ? styles.selected : ""}`}
 			data-focus-visible={isFocusVisible}
 		>
 			<span className={`text-style-button-regular ${styles.optionText}`}>

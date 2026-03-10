@@ -1,0 +1,21 @@
+---
+import {
+	QuizRadioInline as PreactQuizRadio,
+	QuizRadioInlineProps,
+} from "components/quiz-radio/quiz-radio-inline";
+import { PlayfulNode } from "../components";
+import Content from "../content.astro";
+
+export type Props = QuizRadioInlineProps & { children: PlayfulNode[] };
+const { children, ...props } = Astro.props;
+---
+
+{
+	children.length ? (
+		<PreactQuizRadio {...props} client:load>
+			<Content content={children} />
+		</PreactQuizRadio>
+	) : (
+		<PreactQuizRadio {...props} client:load />
+	)
+}

@@ -93,8 +93,9 @@ if (collection?.chapterList?.length) {
 		description={collection.description}
 		peopleData={authors}
 		publishedTime={collection.published}
+		noindex={collection.noindex}
 		type={collection.type}
-		shareImage={collection.socialImg ||
+		shareImage={collection.socialImgMeta?.relativeServerPath ||
 			collection.coverImgMeta.relativeServerPath}
 		providedLangs={collection.locales}
 	/>
