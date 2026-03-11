@@ -9,10 +9,9 @@ import { RawSvg } from "components/image/raw-svg";
 import { Button, IconOnlyButton } from "components/button/button";
 import style from "./code-embed.module.scss";
 import { useCallback, useId, useMemo } from "preact/hooks";
-import { ChangeEvent, TargetedEvent } from "preact/compat";
+import { TargetedEvent, ComponentChildren } from "preact";
 import { FilePicker } from "./file-picker";
 import { FileEntry } from "./types";
-import { ComponentChildren } from "preact";
 import { ResizeablePanels } from "./resizeable-panels";
 
 interface ContainerProps {
@@ -75,7 +74,7 @@ export function AddressBar({
 	}, [value, onSubmit]);
 
 	const handleChange = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
+		(e: TargetedEvent<HTMLInputElement, Event>) => {
 			onChange(e.currentTarget.value);
 		},
 		[onChange],

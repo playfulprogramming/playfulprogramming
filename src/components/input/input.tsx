@@ -1,5 +1,5 @@
 import style from "./input.module.scss";
-import { Fragment, JSX } from "preact";
+import { Fragment, InputHTMLAttributes, JSX } from "preact";
 import search from "../../icons/search.svg?raw";
 import close from "../../icons/close.svg?raw";
 import {
@@ -10,7 +10,7 @@ import {
 import { useRandomId } from "utils/preact/useId";
 import { ReactElement, Ref } from "preact/compat";
 
-interface InputProps extends JSX.InputHTMLAttributes {
+interface InputProps extends InputHTMLAttributes {
 	label?: string;
 	containerClass?: string;
 }
