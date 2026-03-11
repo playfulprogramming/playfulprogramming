@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
 import { PersonInfo, TagInfo } from "types/index";
-import { CSSProperties } from "preact/compat";
+import { CSSProperties } from "preact";
 import { useWindowSize } from "../../../hooks/use-window-size";
 import { tabletLarge } from "../../../tokens/breakpoints";
 import { FilterDialog } from "./filter-dialog";
