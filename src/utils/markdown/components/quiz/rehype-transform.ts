@@ -44,7 +44,7 @@ export const rehypeQuizIndexes: Plugin<[], PlayfulRoot> = () => {
 			}
 		});
 
-		Object.entries(quizzes).forEach(([quizId, quizData], i) => {
+		Object.entries(quizzes).forEach(([quizId, quizData]) => {
 			const questionIds: string[] = [];
 			quizData.questions.forEach((question, questionIndex) => {
 				const id = `${quizId}-question-${questionIndex + 1}`;

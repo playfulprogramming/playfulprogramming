@@ -1,4 +1,3 @@
-import { PropsWithChildren } from "components/types";
 import { ComponentChildren } from "preact";
 import { useState, useRef } from "preact/hooks";
 import { useElementSize } from "../../../hooks/use-element-size";

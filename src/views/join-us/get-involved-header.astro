@@ -342,7 +342,7 @@ const people = getPeopleByLang("en").map((person) => {
 			if (selection?.toString()?.length) return;
 
 			if (e.type === "mousedown" && isMouseEvent(e)) {
-				const flags = e.buttons !== undefined ? e.buttons : e.which;
+				const flags = e.buttons;
 				const isPrimaryButton = (flags & 1) === 1;
 				if (!isPrimaryButton) return;
 

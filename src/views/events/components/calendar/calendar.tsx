@@ -7,7 +7,6 @@ import {
 	CalendarGridHeader,
 	CalendarGridProps,
 	CalendarHeaderCell,
-	Heading,
 	useContextProps,
 	CalendarState,
 	CalendarCellProps,
@@ -39,7 +38,6 @@ import { MutableRef, useContext, useMemo, useRef } from "preact/hooks";
 import {
 	CalendarDate,
 	fromDate,
-	isSameDay,
 	isSameMonth,
 	isToday,
 } from "@internationalized/date";
@@ -117,7 +115,7 @@ export const CustomCalendarCell = forwardRef(
 			{},
 			{
 				// When "get", mirror the base state
-				get: (target, prop) => {
+				get: (_target, prop) => {
 					const baseStateHookData = hookData.get(baseState) || {};
 					return baseStateHookData[prop as keyof typeof baseState];
 				},

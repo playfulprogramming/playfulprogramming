@@ -2,7 +2,6 @@ import { siteUrl } from "constants/site-config";
 import { getAllPosts, getAllCollections } from "utils/api";
 import { PostInfo } from "types/PostInfo";
 import { CollectionInfo } from "types/CollectionInfo";
-import env from "constants/env";
 
 const noIndexPosts = getAllPosts().filter((post) => post.noindex);
 const noIndexCollection = getAllCollections().filter(
