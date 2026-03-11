@@ -133,7 +133,7 @@ export function SelectWithLabel<T extends object>({
 			>
 				<span {...valueProps}>
 					{prefixSelected}
-					{state.selectedItem ? state.selectedItem.rendered : defaultValue}
+					{state.selectedItems[0]?.rendered ?? defaultValue}
 				</span>
 			</Button>
 
@@ -200,7 +200,7 @@ export function Select<T extends object>({
 			>
 				<span {...valueProps}>
 					{prefixSelected}
-					{state.selectedItem ? state.selectedItem.rendered : defaultValue}
+					{state.selectedItems[0]?.rendered ?? defaultValue}
 				</span>
 			</Button>
 
