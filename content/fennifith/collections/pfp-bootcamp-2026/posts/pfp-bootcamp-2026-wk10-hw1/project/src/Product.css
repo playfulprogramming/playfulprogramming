@@ -1,0 +1,11 @@
+.product {
+	padding: 20px;
+	margin: 20px;
+	background: black;
+	border-radius: 8px;
+}
+
+.product-price {
+	color: lightgreen;
+	font-weight: bold;
+}
