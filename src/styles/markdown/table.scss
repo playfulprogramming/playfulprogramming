@@ -96,6 +96,11 @@
 		position: sticky;
 		top: var(--page_header-height);
 
+		// Account for the mobile ToC when calculating sticky header top offset
+		body:has(#mobile-table-of-contents) & {
+			top: calc(var(--page_header-height) + var(--toc-mobile_header-height));
+		}
+
 		// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
 		// and renders with the thead element, rather than being held in place by the table layout (which is an issue with `position: sticky`)
 		box-shadow: inset 100vw 100vh 0 var(--table_background-color);
