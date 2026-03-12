@@ -120,8 +120,7 @@
 		padding: var(--toc-mobile_list_padding-vertival)
 			var(--toc-mobile_list_padding-horizontal);
 		height: calc(
-			100vh - ((var(--header_logo_size) + var(--header_padding-vertical) * 2)) -
-				(1.5rem + (16 * 2px))
+			100vh - var(--page_header-height) - var(--toc-mobile_header-height)
 		);
 		clip-path: inset(0);
 		overflow: auto;
