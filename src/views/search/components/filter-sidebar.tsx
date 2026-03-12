@@ -1,6 +1,6 @@
 import styles from "./filter-sidebar.module.scss";
 import { LargeButton } from "components/button/button";
-import { CSSProperties } from "preact/compat";
+import { CSSProperties } from "preact";
 import { FilterSection } from "./filter-section";
 import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";

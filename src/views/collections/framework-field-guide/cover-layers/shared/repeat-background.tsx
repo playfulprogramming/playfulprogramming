@@ -1,4 +1,4 @@
-import { JSX } from "preact";
+import type { CSSProperties } from "preact";
 import {
 	useCallback,
 	useLayoutEffect,
@@ -9,11 +9,8 @@ import {
 
 interface RepeatBackgroundProps {
 	svg: string;
-	fallbackStyle?: Omit<JSX.HTMLAttributes<HTMLElement>["style"], string>;
-	javascriptEnabledStyle?: Omit<
-		JSX.HTMLAttributes<HTMLElement>["style"],
-		string
-	>;
+	fallbackStyle?: CSSProperties;
+	javascriptEnabledStyle?: CSSProperties;
 	aspectRatio: string;
 }
 

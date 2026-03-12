@@ -4,15 +4,14 @@ import {
 	GetPictureOptions,
 	GetPictureUrls,
 } from "utils/get-picture";
-import type { JSX } from "preact";
+import { HTMLAttributes } from "preact";
 
 interface PictureProps extends GetPictureOptions {
 	urls?: GetPictureUrls;
 	alt: string;
 	class?: string;
-	pictureAttrs?: JSX.HTMLAttributes<HTMLPictureElement> &
-		Record<string, unknown>;
-	imgAttrs?: JSX.HTMLAttributes<HTMLImageElement> & Record<string, unknown>;
+	pictureAttrs?: HTMLAttributes<HTMLPictureElement> & Record<string, unknown>;
+	imgAttrs?: HTMLAttributes<HTMLImageElement> & Record<string, unknown>;
 }
 
 export const Picture = ({
