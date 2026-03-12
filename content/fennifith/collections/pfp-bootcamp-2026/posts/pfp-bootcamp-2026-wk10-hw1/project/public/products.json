@@ -1,0 +1,20 @@
+[
+  {
+    "id": "sunglasses",
+    "name": "Cool Sunglasses",
+    "description": "These sunglasses are very cool and totally worth your money.",
+    "price": 200
+  },
+  {
+    "id": "hat",
+    "name": "Cool Hat",
+    "description": "This hat is very cool and totally worth your money.",
+    "price": 80
+  },
+  {
+    "id": "rubber-ducky",
+    "name": "Rubber Ducky",
+    "description": "This rubber duck is very cool and totally worth your money.",
+    "price": 1000
+  }
+]
