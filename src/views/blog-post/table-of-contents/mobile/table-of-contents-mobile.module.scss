@@ -6,6 +6,8 @@
 	--toc-mobile_header_padding-horizontal: var(--site-spacing);
 	--toc-mobile_header_padding-vertical: calc(var(--site-spacing));
 
+	--toc-mobile_header-height: 0px;
+
 	--toc-mobile_header_padding-bottom: var(--spc-4x);
 	--toc-mobile_header_gap: var(--site-spacing);
 
@@ -49,11 +51,8 @@
 
 	@include until($tabletLarge) {
 		--toc-mobile_list_padding-horizontal: var(--spc-2x);
-
-		// override ---page_header-height when the mobile ToC is active so that sticky components know where the header ends
-		--page_header-height: calc(
-			var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px +
-				var(--toc-mobile_header_padding-vertical) * 2 + 1.5rem
+		--toc-mobile_header-height: calc(
+			var(--toc-mobile_header_padding-vertical) * 2 + 1.5rem
 		);
 	}
 
