@@ -1,4 +1,4 @@
-import type { JSX } from "preact";
+import { ImgHTMLAttributes, SourceHTMLAttributes } from "preact";
 import type { ImageMetadata } from "astro";
 import { siteUrl } from "../../constants/site-config";
 import { SUPPORTED_IMAGE_SIZES } from "./constants";
@@ -27,8 +27,8 @@ export interface GetPictureOptions {
 
 export interface GetPictureResult {
 	urls: GetPictureUrls;
-	image: JSX.ImgHTMLAttributes;
-	sources: JSX.SourceHTMLAttributes[];
+	image: ImgHTMLAttributes;
+	sources: SourceHTMLAttributes[];
 }
 
 function getSupportedWidth(width: number) {

@@ -1167,9 +1167,7 @@ describe("Search page", () => {
 
 		// Re-render
 		{
-			const { getByTestId, getByText } = render(
-				<SearchPage mockClient={client} />,
-			);
+			const { getByTestId } = render(<SearchPage mockClient={client} />);
 
 			const searchInput = getByTestId("search-input");
 			await user.type(searchInput, "*");
