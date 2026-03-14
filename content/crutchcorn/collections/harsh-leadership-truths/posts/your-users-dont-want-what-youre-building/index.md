@@ -28,11 +28,31 @@ Let's dive into things and answer these questions. Along the way, we'll cover:
 
 # Losing sight of "now" by looking too far ahead
 
-// TODO: Talk about how my vision of iPads and Folding Phones becoming the default compute device for many helped me validate this idea in my mind, without understanding their limitations very well.
+In 2017 and 2018, it was impossible to find a marketing stance from Apple that didn't try to position their iPad as a laptop killer. From their [controversial 2018 "What's a Computer" iPad Ad](https://9to5mac.com/2017/11/16/ipad-pro-whats-a-computer-ad/) to their ["special event" announcements in 2018, sharing sales numbers of the iPad](https://www.cnbc.com/2018/10/30/apple-says-the-ipad-is-outselling-every-laptop-on-the-market.html), Apple seemed confident that the slate computer was poised to takeover the computing space.
+
+Shortly after, in February 2019, [Samsung released their first "Galaxy Fold" phone](https://www.samsung.com/levant/smartphones/galaxy-fold/). While there had been another device like it [released in November of 2018 by Royole](https://www.theverge.com/2019/1/8/18174278/royole-flexpai-foldable-phone-android-ces-2019), this was going to be the first mass-marketed phone of its kind. With the larger inner screen and multitask-capable processor, the nature of the device lent itself well to those that see themselves as mobile power users.
+
+For me at the time, it felt like mobile computing — nay, computing as a whole — was working its way towards a singular convergance of hardware. Imagine a tablet that you could attach a keyboard to for a laptop mode. That same laptop could then be docked for a desktop view with a keyboard and mouse — just like [Samsung DeX](https://www.samsung.com/us/apps/dex/_). Now imagine that tablet being folded up and turned into your daily phone.
+
+While I knew — even at the time — that the device I dreamed about was far into the future for advanced usage, I found myself thinking about it more and more. I knew from reviews of the iPads and Folds of the world that for simple usage — word documents, video playback, and such — that this **was** possible. What if I could help bring simple development workflows — like mild web development or tech blogging — to these device as well?
+
+And maybe the future device of my dreams wasn't so far into the future, either. Later in 2020, [Apple released the M1 processor](https://www.apple.com/newsroom/2020/11/apple-unleashes-m1/) into their laptops to power their next generation of devices. This processor was directly related to the chips Apple used in their iPhones and iPads; maybe this was the start of a transition to these more mobile devices?
+
+------
+
+To enable the code platform I envisioned, there had to be a foundation to it all; **getting the code itself onto your device**. While there were projects like [StackBlitz](https://www.businessinsider.com/stackblitz-bolt-silicon-valley-hottest-ai-coding-startup-nearly-died-2025-5) and [CodeSandbox](https://en.wikipedia.org/wiki/CodeSandbox) as far back as 2017 that proved you could host an IDE on the web, I wanted to take a different approach. After all, while StackBlitz was useful for rapid prototyping, the lack of filesystem access often limited what tools were available and made offline code editing impossible.
+
+
+
+
+
+
 
 # Never finding the product I should have built
 
 // TODO: Talk about how this COULD have been positioned in a billion different ways; especially its possible utility in "Learn to code" products
+
+// TODO: Talk about the relative success of "Swift Playgrounds", released in 2016 https://en.wikipedia.org/wiki/Swift_Playgrounds
 
 # Mistaking an audience for a market
 
