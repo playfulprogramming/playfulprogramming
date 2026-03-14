@@ -13,6 +13,7 @@ import { rehypeAstroImageMd } from "./picture/rehype-transform";
 import { rehypePlayfulElementMap } from "./rehype-playful-element-map";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
 import { rehypeHeaderText } from "./rehype-header-text";
+import { rehypeValidateHeadingLinks } from "./rehype-validate-heading-links";
 import { rehypeHeaderClass } from "./rehype-header-class";
 import { Processor } from "unified";
 import { rehypeShikiUU } from "./shiki/rehype-transform";
@@ -113,6 +114,7 @@ export function createHtmlPlugins(unified: Processor) {
 			})
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
+			.use(rehypeValidateHeadingLinks)
 			.use(rehypeHeaderClass, {
 				// the page starts at h3 (under {title} -> "Post content")
 				depth: 2,
