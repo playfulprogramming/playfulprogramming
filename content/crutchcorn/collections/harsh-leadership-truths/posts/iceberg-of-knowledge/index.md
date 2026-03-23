@@ -40,7 +40,7 @@ Someone once told me that there's different levels of knowledge:
 2) Knowledge within a problem space
 3) Knowledge within a specific problem
 
-# Knowledge within a Field
+# Knowledge within a field
 
 Let's use forms written for websites as an example:
 
@@ -48,7 +48,7 @@ Let's use forms written for websites as an example:
 
 This person may know a great deal about web development, enough to name obscure JavaScript and HTML APIs.
 
-# Knowledge within a Problem Space
+# Knowledge within a problem space
 
 Despite the seemingly simple task of building out a form for a website, there's suprising complexity:
 
@@ -69,3 +69,28 @@ This person may know the ins-and-outs of nuanced specifics of constructing prope
 
 For example, Telephone number inputs.
 
+# Knowledge within a specific problem
+
+
+
+# The tradeoff of different knowledge kinds
+
+The closer you are analogous to a specific problem, the more valuable you are when solving those specific problems for an organization. I've used this to my benefit a number of times when consulting; having a niche understanding of a problem space enables you to charge more and ship quicker for that subset of problems that you're an expert within.
+
+But on the flip side, stay for longer than a short-term contract stint and the breadth of knowledge often outweighs the specificity of depth, especially in the day and age of AI where one is able to adapt to new information at expedited rates.
+
+## Community's views of knowledge
+
+It's ironic that given the nuance in specific problems, many view the importance hierarchy of problems in an inverse chain where deep insight into the broadest possible category is the most valuable. 
+
+
+
+Despite calling knowledge an "iceberg" it's more akin to say that it's more of a [Mandelbrot fractal](https://en.wikipedia.org/wiki/Mandelbrot_set): Where each problem you zoom into has its own fractal of information which itself has its own fractal.
+
+![Zooming into a set of spirals which themselves contain a new set of spirals](mandelbrot_sequence_new.gif)
+
+
+
+
+
+This problem is exacerbated by the fact that someone sufficiently skilled in their specific problem can often solve said problem fairly quickly because of their intimacy with a problem. This helps unintentionally devalue the problem space in the minds of others because it appears at the surface to be a "solved problem." 
