@@ -4,9 +4,7 @@
   firstName: "Nacho",
   lastName: "Vazquez",
   description:
-    "Front-end architect, tech writer, meetup speaker, and scuba diving lover.
-
-    I prefer to be under the waves, but if I'm dry, I code",
+    "Front-end architect, tech writer, meetup speaker, and scuba diving lover.\n\n    I prefer to be under the waves, but if I'm dry, I code",
   socials:
     {
       twitter: "naxodev",

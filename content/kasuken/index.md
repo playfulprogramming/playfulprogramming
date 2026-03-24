@@ -3,8 +3,7 @@
   name: "Emanuele Bartolesi",
   firstName: "Emanuele",
   lastName: "Bartolesi",
-  description: "🏆 Microsoft MVP (12x) & GitHub Star (4x) ⭐
-    👨‍🎓 LinkedIn Technical Instructor 🎓",
+  description: "🏆 Microsoft MVP (12x) & GitHub Star (4x) ⭐\n    👨‍🎓 LinkedIn Technical Instructor 🎓",
   socials:
     {
       twitter: "kasuken",
