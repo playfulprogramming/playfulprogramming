@@ -30,7 +30,7 @@ export function logError(
 		// In GitHub Actions, format an error message that can show up in a PR
 		// https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
 		const meta = {
-			file: vfile.path,
+			file: relativePath,
 			col: node.position?.start?.column,
 			endColumn: node.position?.end?.column,
 			line: node.position?.start?.line,
