@@ -37,7 +37,8 @@ export const GET: APIRoute = async ({ url }) => {
 	}
 
 	if (!entity) {
-		throw new Error(`Could not find path ${file}.`);
+		console.log(`No match for path ${file}`);
+		return Response.json({ warnings: [] });
 	}
 
 	const data = await getMarkdownHtml(entity);

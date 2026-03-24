@@ -4,7 +4,16 @@ import { kill } from "process";
 import { setTimeout } from "node:timers/promises";
 import type { WarningInfo } from "#src/utils/markdown/types.ts";
 
-const changedFiles = (await json(process.stdin)) as string[];
+const changedFiles = ((await json(process.stdin)) as string[]).filter(
+	(path) =>
+		path.startsWith("content/") &&
+		!path.startsWith("content/site/") &&
+		!path.startsWith("content/data/"),
+);
+if (changedFiles.length === 0) {
+	console.log("No changes to lint.");
+	process.exit(0);
+}
 
 const devProcess = spawn("pnpm", ["run", "dev", "--port=5432"], {
 	env: {
