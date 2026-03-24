@@ -1,3 +1,4 @@
+import { WarningInfo } from "#src/utils/markdown/types.ts";
 import { Languages } from ".";
 
 export interface PersonStub {
@@ -7,6 +8,7 @@ export interface PersonStub {
 	file: string;
 	locale: Languages;
 	locales: Languages[];
+	warnings: WarningInfo[];
 }
 
 export interface RawPersonInfo {

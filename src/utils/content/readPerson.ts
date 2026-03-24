@@ -4,19 +4,36 @@ import type {
 	RawPersonInfo,
 } from "#types/PersonInfo.ts";
 import { resolvePath } from "../url-paths.ts";
-import * as fs from "fs/promises";
-import matter from "gray-matter";
 import { getImageSize } from "../get-image-size.ts";
+import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
+import { MarkdownVFile } from "../markdown/types.ts";
+import { parseFrontmatter } from "./parseFrontmatter.ts";
+import { logError } from "../markdown/logger.ts";
+import { Value } from "typebox/value";
+import { PersonInfoSchema } from "./schema/PersonInfoSchema.ts";
 
-export async function readPerson(stub: PersonStub): Promise<PersonInfo> {
+export async function readPerson(
+	stub: PersonStub,
+	vfilePromise: Promise<MarkdownVFile> = getMarkdownVFile(stub),
+): Promise<PersonInfo> {
+	const vfile = await vfilePromise;
 	const personPath = stub.file.split("/").slice(0, -1).join("/");
-	const filePath = stub.file;
-	const fileContents = await fs.readFile(filePath, "utf-8");
-	const frontmatter = matter(fileContents).data as RawPersonInfo;
+	const { frontmatter, frontmatterNode } =
+		await parseFrontmatter<RawPersonInfo>(vfile);
+
+	try {
+		Value.Parse(PersonInfoSchema, frontmatter);
+	} catch (e) {
+		logError(
+			vfile,
+			frontmatterNode,
+			e instanceof Error ? e.message : String(e),
+		);
+	}
 
 	const profileImgSize = await getImageSize(frontmatter.profileImg, personPath);
 	if (!profileImgSize || !profileImgSize.width || !profileImgSize.height) {
-		throw new Error(`${personPath}: Unable to parse profile image size`);
+		logError(vfile, frontmatterNode, "Unable to parse profile image size");
 	}
 
 	const person: PersonInfo = {
@@ -30,8 +47,8 @@ export async function readPerson(stub: PersonStub): Promise<PersonInfo> {
 		totalPostCount: 0,
 		totalWordCount: 0,
 		profileImgMeta: {
-			height: profileImgSize.height,
-			width: profileImgSize.width,
+			height: profileImgSize?.height ?? 0,
+			width: profileImgSize?.width ?? 0,
 			...resolvePath(frontmatter.profileImg, personPath)!,
 		},
 	};

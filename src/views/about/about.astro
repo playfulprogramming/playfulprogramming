@@ -24,7 +24,7 @@ interface Props {
 }
 
 const { locales, locale, file } = Astro.props as Props;
-const fileInfo: MarkdownFileInfo = { kind: "page", file };
+const fileInfo: MarkdownFileInfo = { kind: "page", file, warnings: [] };
 const vfile = await getMarkdownVFile(fileInfo);
 
 const [content1, content2, content3] = await Promise.all(

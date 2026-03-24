@@ -40,19 +40,23 @@ function cache<Args extends string[], Ret>(
 
 export const getAllPosts = cache(async (): Promise<PostInfo[]> => {
 	return await Promise.all(
-		[...posts.values()].flatMap((locales) => locales).map(readPost),
+		[...posts.values()].flatMap((locales) => locales).map((p) => readPost(p)),
 	);
 });
 
 export const getAllCollections = cache(async (): Promise<CollectionInfo[]> => {
 	return await Promise.all(
-		[...collections.values()].flatMap((locales) => locales).map(readCollection),
+		[...collections.values()]
+			.flatMap((locales) => locales)
+			.map((c) => readCollection(c)),
 	);
 });
 
 export const getAllPeople = cache(async (): Promise<PersonInfo[]> => {
 	return await Promise.all(
-		[...people.values()].flatMap((locales) => locales).map(readPerson),
+		[...people.values()]
+			.flatMap((locales) => locales)
+			.map((p) => readPerson(p)),
 	);
 });
 
@@ -73,7 +77,7 @@ export const getPeopleByLang = cache(
 					(locales) => locales.find((p) => p.locale === language) || locales[0],
 				)
 				.filter(isDefined)
-				.map(readPerson),
+				.map((p) => readPerson(p)),
 		);
 	},
 );
@@ -94,7 +98,7 @@ export const getPostsByLang = cache(
 					(locales) => locales.find((p) => p.locale === language) || locales[0],
 				)
 				.filter(isDefined)
-				.map(readPost),
+				.map((p) => readPost(p)),
 		);
 		return postsByLang.filter((p) => !p.noindex).sort(compareByPublished);
 	},
@@ -108,7 +112,7 @@ export const getPostsByCollection = cache(
 					(locales) => locales.find((p) => p.locale === language) || locales[0],
 				)
 				.filter((p) => p?.collection === collectionSlug)
-				.map(readPost),
+				.map((p) => readPost(p)),
 		);
 		return postsByCollection.sort((postA, postB) =>
 			Number(postA.order) > Number(postB.order) ? 1 : -1,
@@ -124,7 +128,7 @@ export const getPostVersionsBySlug = cache(
 					(locales) => locales.find((p) => p.locale === language) || locales[0],
 				)
 				.filter(isDefined)
-				.map(readPost),
+				.map((p) => readPost(p)),
 		);
 		return allPosts
 			.filter((p) => p?.upToDateSlug === slug || p.slug === slug)
@@ -145,7 +149,7 @@ export const getPostsByPerson = cache(
 					(locales) => locales.find((p) => p.locale === language) || locales[0],
 				)
 				.filter(isDefined)
-				.map(readPost),
+				.map((p) => readPost(p)),
 		);
 		return allPosts
 			.filter((p) => p.authors.includes(personId))
@@ -173,7 +177,7 @@ export const getCollectionsByLang = cache(
 					(locales) => locales.find((p) => p.locale === language) || locales[0],
 				)
 				.filter(isDefined)
-				.map(readCollection),
+				.map((c) => readCollection(c)),
 		);
 		return collectionsByLang.filter((p) => !p.noindex).sort(compareByPublished);
 	},
@@ -187,7 +191,7 @@ export const getCollectionsByPerson = cache(
 					(locales) => locales.find((p) => p.locale === language) || locales[0],
 				)
 				.filter(isDefined)
-				.map(readCollection),
+				.map((c) => readCollection(c)),
 		);
 		return collectionsByLang
 			.filter((c) => c.authors.includes(personId))

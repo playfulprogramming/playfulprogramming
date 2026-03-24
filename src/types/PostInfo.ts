@@ -1,3 +1,4 @@
+import { WarningInfo } from "#src/utils/markdown/types.ts";
 import type { Languages } from "#types/index";
 import type { LocalFile } from "#types/LocalFile";
 
@@ -9,6 +10,7 @@ export interface PostStub {
 	locale: Languages;
 	authors: string[];
 	collection?: string;
+	warnings: WarningInfo[];
 }
 
 export interface RawPostInfo {

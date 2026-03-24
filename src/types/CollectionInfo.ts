@@ -1,3 +1,4 @@
+import { WarningInfo } from "#src/utils/markdown/types.ts";
 import { Languages } from "#types/index";
 import { LocalFile } from "#types/LocalFile";
 
@@ -8,6 +9,7 @@ export interface CollectionStub {
 	locales: Languages[];
 	locale: Languages;
 	authors: string[];
+	warnings: WarningInfo[];
 }
 
 export interface FuturePost {

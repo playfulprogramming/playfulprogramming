@@ -1,18 +1,41 @@
 import type { PostInfo, PostStub, RawPostInfo } from "#types/PostInfo.ts";
-import * as fs from "fs/promises";
-import matter from "gray-matter";
 import { getExcerpt } from "#utils/markdown/get-excerpt.ts";
 import { resolveImageFile } from "./resolveImageFile.ts";
 import { contentDirectory } from "./common.ts";
 import * as path from "path";
 import dayjs from "dayjs";
+import { MarkdownVFile } from "../markdown/types.ts";
+import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
+import { parseFrontmatter } from "./parseFrontmatter.ts";
+import { ParseError, Value } from "typebox/value";
+import { PostInfoSchema } from "./schema/PostInfoSchema.ts";
+import { logError } from "../markdown/logger.ts";
 
-export async function readPost(stub: PostStub): Promise<PostInfo> {
-	const filePath = stub.file;
+export async function readPost(
+	stub: PostStub,
+	vfilePromise: Promise<MarkdownVFile> = getMarkdownVFile(stub),
+): Promise<PostInfo> {
+	const vfile = await vfilePromise;
+	const vfileContent = vfile.value as string;
 	const postPath = stub.file.split("/").slice(0, -1).join("/");
-	const fileContents = await fs.readFile(filePath, "utf-8");
-	const fileMatter = matter(fileContents);
-	const frontmatter = fileMatter.data as RawPostInfo;
+	const { frontmatter, frontmatterNode } =
+		await parseFrontmatter<RawPostInfo>(vfile);
+
+	try {
+		Value.Parse(PostInfoSchema, frontmatter);
+	} catch (e) {
+		if (e instanceof ParseError) {
+			for (const error of e.cause.errors) {
+				logError(
+					vfile,
+					frontmatterNode,
+					`${error.schemaPath}: ${error.message}`,
+				);
+			}
+		} else {
+			logError(vfile, frontmatterNode, String(e));
+		}
+	}
 
 	// Look... Okay? Just.. Look.
 	// Yes, we could use rehypeRetext and then XYZW but jeez there's so many edgecases.
@@ -39,10 +62,10 @@ export async function readPost(stub: PostStub): Promise<PostInfo> {
 	 * Please do let us know if you have strong thoughts/answers on the topic,
 	 * we're happy to hear them.
 	 */
-	const wordCount = fileMatter.content.split(/\s+/).length;
+	const wordCount = vfileContent.split(/\s+/).length;
 
 	// get an excerpt of the post markdown no longer than 150 chars
-	const excerpt = getExcerpt(fileMatter.content, 150);
+	const excerpt = getExcerpt(vfileContent, 150);
 
 	const coverImgMeta = frontmatter.coverImg
 		? await resolveImageFile(frontmatter.coverImg, postPath)

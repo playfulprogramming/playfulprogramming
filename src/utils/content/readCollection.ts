@@ -5,17 +5,33 @@ import type {
 } from "#types/CollectionInfo.ts";
 import * as path from "path";
 import * as fs from "fs/promises";
-import matter from "gray-matter";
 import { resolveImageFile } from "./resolveImageFile.ts";
 import { isNotJunk } from "./isNotJunk.ts";
+import { MarkdownVFile } from "../markdown/types.ts";
+import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
+import { Value } from "typebox/value";
+import { parseFrontmatter } from "./parseFrontmatter.ts";
+import { CollectionInfoSchema } from "./schema/CollectionInfoSchema.ts";
+import { logError } from "../markdown/logger.ts";
 
 export async function readCollection(
 	stub: CollectionStub,
+	vfilePromise: Promise<MarkdownVFile> = getMarkdownVFile(stub),
 ): Promise<CollectionInfo> {
+	const vfile = await vfilePromise;
 	const collectionPath = stub.file.split("/").slice(0, -1).join("/");
-	const filePath = stub.file;
-	const fileContents = await fs.readFile(filePath, "utf-8");
-	const frontmatter = matter(fileContents).data as RawCollectionInfo;
+	const { frontmatter, frontmatterNode } =
+		await parseFrontmatter<RawCollectionInfo>(vfile);
+
+	try {
+		Value.Parse(CollectionInfoSchema, frontmatter);
+	} catch (e) {
+		logError(
+			vfile,
+			frontmatterNode,
+			e instanceof Error ? e.message : String(e),
+		);
+	}
 
 	const coverImgMeta = await resolveImageFile(
 		frontmatter.coverImg,

@@ -8,6 +8,7 @@ export type MarkdownFileInfo = {
 	kind: MarkdownKind;
 	file: string;
 	slug?: string;
+	warnings: WarningInfo[];
 };
 
 export type WarningInfo = {
@@ -24,7 +25,6 @@ export interface MarkdownVFile extends VFile {
 		file: string;
 		slug?: string;
 		frontmatter?: MarkdownFileInfo;
-		frontmatterData?: object;
 		headingsWithIds: PostHeadingInfo[];
 		collectionLinks?: CollectionLinks[];
 		isKatexMathUsed?: boolean;

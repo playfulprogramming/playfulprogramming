@@ -94,6 +94,7 @@ async function indexPerson(personPath: string): Promise<PersonStub[]> {
 			file: filePath,
 			locale,
 			locales,
+			warnings: [],
 		});
 	}
 
@@ -126,6 +127,7 @@ async function indexCollection(
 			locale,
 			locales,
 			authors: fallbackInfo.authors,
+			warnings: [],
 		});
 	}
 
@@ -159,6 +161,7 @@ async function indexPost(
 			locales,
 			authors: fallbackInfo.authors,
 			collection: fallbackInfo.collection,
+			warnings: [],
 		});
 	}
 
