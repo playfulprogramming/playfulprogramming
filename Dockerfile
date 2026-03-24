@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7-labs
-FROM node:22-alpine3.22 AS builder
+FROM node:24-alpine3.23 AS builder
 
 # Create app directory
 WORKDIR /var/app
