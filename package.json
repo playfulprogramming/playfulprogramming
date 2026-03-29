@@ -139,7 +139,7 @@
 		"terser": "^5.44.1",
 		"tiny-async-pool": "^2.1.0",
 		"tinypool": "^2.1.0",
-		"typescript": "^6.0.2",
+		"typescript": "^5.8.3",
 		"typescript-eslint": "^8.52.0",
 		"unified": "^11.0.5",
 		"unist-util-find": "^3.0.0",
