@@ -1,8 +1,8 @@
 import style from "./license.module.scss";
 import { useState } from "preact/hooks";
-import { LargeIconOnlyButton } from "components/index";
-import { Dialog } from "components/dialog/dialog";
-import close from "src/icons/close.svg?raw";
+import { LargeIconOnlyButton } from "#components/index";
+import { Dialog } from "#components/dialog/dialog";
+import close from "#src/icons/close.svg?raw";
 import { createPortal } from "preact/compat";
 
 interface LicenseProps {

@@ -1,13 +1,13 @@
 import type { APIRoute } from "astro";
-import { getAllPosts, getPostBySlug } from "utils/api";
+import { getAllPosts, getPostBySlug } from "#utils/api";
 import path from "path";
-import { contentDirectory } from "utils/data";
+import { contentDirectory } from "#utils/data";
 import fs from "fs/promises";
 import { zip } from "fflate";
 
 export async function findProjectDir(slug: string): Promise<string> {
 	const [postSlug, projectId] = slug.split("_");
-	const post = getPostBySlug(postSlug, "en");
+	const post = await getPostBySlug(postSlug, "en");
 	if (!post) throw new Error(`Post ${postSlug} does not exist!`);
 
 	const postDir = path.join(contentDirectory, post.path);
@@ -51,7 +51,7 @@ export const GET: APIRoute = async ({ params }) => {
 export async function getStaticPaths() {
 	const projects = new Set<string>();
 
-	for (const post of getAllPosts()) {
+	for (const post of await getAllPosts()) {
 		const postDir = path.join(contentDirectory, post.path);
 		for (const entry of await fs.readdir(postDir, { withFileTypes: true })) {
 			if (entry.isDirectory()) {

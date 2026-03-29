@@ -1,5 +1,5 @@
 import { useMemo } from "preact/hooks";
-import info from "src/icons/info.svg?raw";
+import info from "#src/icons/info.svg?raw";
 import style from "./search-result-count.module.scss";
 import { forwardRef } from "preact/compat";
 

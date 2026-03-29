@@ -3,11 +3,11 @@ import { useLayoutEffect, useMemo } from "preact/hooks";
 import { useElementSize } from "../../hooks/use-element-size";
 import { LongWave } from "../events/components/long-wave/long-wave";
 import { EventBlock } from "../events/types";
-import { UrlMetadataResponse } from "utils/hoof";
+import { UrlMetadataResponse } from "#utils/hoof/index.ts";
 import { EventChip } from "../events/components/event-chip/event-chip";
-import { LargeButton } from "components/button/button";
+import { LargeButton } from "#components/button/button.tsx";
 import dayjs from "dayjs";
-import { getHrefContainerProps } from "utils/href-container-script";
+import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import style from "./book-club.module.scss";
 
 interface EventBlockWithMetadata extends EventBlock {

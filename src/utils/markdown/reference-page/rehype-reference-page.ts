@@ -1,11 +1,11 @@
-import { Root, Node } from "hast";
+import type { Root, Node } from "hast";
 import { Plugin } from "unified";
-import { PostInfo, RawPostInfo } from "types/PostInfo";
+import { PostInfo } from "#types/PostInfo.ts";
 import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
-import { SuperScriptLink } from "./link";
-import * as api from "utils/api";
-import { MarkdownVFile } from "../types";
+import { SuperScriptLink } from "./link.tsx";
+import * as api from "#utils/api.ts";
+import { isMarkdownVFile } from "../types.ts";
 
 export interface CollectionLinks {
 	node: Node;
@@ -33,24 +33,25 @@ export const rehypeReferencePage: Plugin<
 	[RehypeReferencePageOptions],
 	Root
 > = ({ referenceTitle }) => {
-	return (tree, vfile) => {
-		const post = (vfile as MarkdownVFile).data.frontmatter as PostInfo;
+	return async (tree, vfile) => {
+		if (!isMarkdownVFile(vfile))
+			throw new Error("Not a supported markdown vfile");
+
+		const post = vfile.data.frontmatter as PostInfo;
 		const collection = post.collection
-			? api.getCollectionBySlug(post.collection, "en")
+			? await api.getCollectionBySlug(post.collection, "en")
 			: undefined;
 		const collectionPosts = post.collection
-			? api.getPostsByCollection(post.collection, "en")
+			? await api.getPostsByCollection(post.collection, "en")
 			: [];
 		if (!collection || !collectionPosts.length) return;
 
 		const lastPost = collectionPosts[collectionPosts.length - 1];
 		const lastPostNumber = lastPost.order!;
 
-		const links: CollectionLinks[] =
-			(vfile as MarkdownVFile).data.collectionLinks ?? [];
-		(vfile as MarkdownVFile).data.collectionLinks = links;
+		const links: CollectionLinks[] = vfile.data.collectionLinks ?? [];
+		vfile.data.collectionLinks = links;
 
-		const rawPostInfo = vfile.data.frontmatterData as RawPostInfo;
 		visit(tree, "element", (node, index, parent) => {
 			if (node.tagName !== "a") {
 				return;
@@ -84,14 +85,14 @@ export const rehypeReferencePage: Plugin<
 			const countWithinCollection = links.length + 1;
 			links.push({
 				node,
-				associatedChapterOrder: rawPostInfo.order!,
+				associatedChapterOrder: post.order!,
 				countWithinCollection,
 				originalHref: href,
 				originalText: nodeText,
 			});
 
 			// This relies on the xhtml generation from `html-to-epub` to generate the correct href
-			const newHref = `${lastPostNumber + 1}_${referenceTitle.toLowerCase()}.xhtml#${collection.slug}-${rawPostInfo.order}`;
+			const newHref = `${lastPostNumber + 1}_${referenceTitle.toLowerCase()}.xhtml#${collection.slug}-${post.order}`;
 
 			if (parent?.children && index !== undefined) {
 				parent.children[index] = SuperScriptLink({

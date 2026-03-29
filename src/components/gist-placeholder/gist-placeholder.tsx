@@ -1,8 +1,8 @@
 import { ComponentChild } from "preact";
 import styles from "./gist-placeholder.module.scss";
-import { Button } from "components/button/button";
-import github from "src/icons/github.svg?raw";
-import { RawSvg } from "components/image/raw-svg";
+import { Button } from "#components/button/button";
+import github from "#src/icons/github.svg?raw";
+import { RawSvg } from "#components/image/raw-svg";
 
 export interface GistPlaceholderProps {
 	username: string;

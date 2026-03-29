@@ -1,5 +1,5 @@
 ---
-import { getPersonById } from "utils/api";
+import { getPersonById } from "#utils/api.ts";
 import ProminentQuote from "../components/prominent-quote.astro";
 import QuoteCard from "../components/quote-card.astro";
 import QuotesContainer from "../components/quotes-container.astro";
@@ -21,7 +21,7 @@ const peoplePicturesDir =
 		<ProminentQuote
 			personName={"Lars Gyrup Brink Nielsen"}
 			personLink="https://github.com/LayZeeDK"
-			avatarSrc={getPersonById("LayZee", "en")!.profileImgMeta
+			avatarSrc={(await getPersonById("LayZee", "en"))!.profileImgMeta
 				.relativeServerPath}
 			personTitle="GitHub Star, Microsoft MVP, Angular Hero of Education"
 			quote={`
@@ -59,7 +59,7 @@ I am really impressed with "The Framework Field Guide" by Corbin - not only does
 		<QuoteCard
 			personName={`Jessica Temporal`}
 			personLink={"https://twitter.com/jesstemporal"}
-			avatarSrc={getPersonById("jtemporal", "en")!.profileImgMeta
+			avatarSrc={(await getPersonById("jtemporal", "en"))!.profileImgMeta
 				.relativeServerPath}
 			personTitle={`PyLady • GitHub Star • Sr Developer Advocate @ Auth0 by Okta`}
 			quote={`
@@ -134,7 +134,7 @@ The Framework Field Guide does a wonderful job of comparing and contrasting thre
 		<QuoteCard
 			personName={`Enea Jahollari`}
 			personLink="https://eneajaho.me/"
-			avatarSrc={getPersonById("eneajahollari", "en")!.profileImgMeta
+			avatarSrc={(await getPersonById("eneajahollari", "en"))!.profileImgMeta
 				.relativeServerPath}
 			personTitle={`Angular Developer`}
 			quote={`
@@ -153,7 +153,7 @@ Corbin does an amazing job teaching fundamentals that simplify learning React, A
 		<QuoteCard
 			personName={`James Fenn`}
 			personLink="https://jfenn.me/"
-			avatarSrc={getPersonById("fennifith", "en")!.profileImgMeta
+			avatarSrc={(await getPersonById("fennifith", "en"))!.profileImgMeta
 				.relativeServerPath}
 			personTitle={`Miscellaneous Software Author, Bug Creator`}
 			quote={`
@@ -201,7 +201,7 @@ Corbin is great at giving new developers the keys to the kingdom. The pictures, 
 		<QuoteCard
 			personName={`Jahir Fiquitiva`}
 			personLink="https://jahir.dev/"
-			avatarSrc={getPersonById("jahirfiquitiva", "en")!.profileImgMeta
+			avatarSrc={(await getPersonById("jahirfiquitiva", "en"))!.profileImgMeta
 				.relativeServerPath}
 			personTitle={`Full Stack Engineer, Open Source Maintainer`}
 			quote={`

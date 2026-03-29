@@ -1,5 +1,17 @@
-import { Languages } from "types/index";
-import { LocalFile } from "types/LocalFile";
+import { WarningInfo } from "#src/utils/markdown/types.ts";
+import type { Languages } from "#types/index";
+import type { LocalFile } from "#types/LocalFile";
+
+export interface PostStub {
+	kind: "post";
+	slug: string;
+	file: string;
+	locales: Languages[];
+	locale: Languages;
+	authors: string[];
+	collection?: string;
+	warnings: WarningInfo[];
+}
 
 export interface RawPostInfo {
 	title: string;
@@ -19,17 +31,12 @@ export interface RawPostInfo {
 	coverImg?: string;
 }
 
-export interface PostInfo extends RawPostInfo {
-	kind: "post";
-	slug: string;
-	file: string;
+export interface PostInfo extends RawPostInfo, PostStub {
 	authors: string[];
 	tags: string[];
 	description: string;
 	excerpt: string;
 	path: string;
-	locales: Languages[];
-	locale: Languages;
 	publishedMeta: string;
 	editedMeta?: string;
 	wordCount: number;

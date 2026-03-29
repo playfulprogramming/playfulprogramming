@@ -1,13 +1,15 @@
-import env from "constants/env";
+import env from "#src/constants/env";
 import { createComponent } from "../components";
 import { RehypeFunctionComponent } from "../types";
-import { getPersonById } from "utils/api";
+import { getPersonById } from "#utils/api";
 
-export const transformUser: RehypeFunctionComponent = ({ attributes }) => {
+export const transformUser: RehypeFunctionComponent = async ({
+	attributes,
+}) => {
 	const user = attributes.id;
 	if (!user) return;
 
-	const author = getPersonById(user, "en");
+	const author = await getPersonById(user, "en");
 
 	// Prevent author count increasing from breaking e2e tests
 	if (env.MODE === "e2e" && author) {

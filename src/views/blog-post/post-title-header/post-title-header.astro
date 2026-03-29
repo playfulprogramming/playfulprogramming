@@ -1,11 +1,11 @@
 ---
 import style from "./post-title-header.module.scss";
-import { PostInfo, PersonInfo, PostVersion } from "types/index";
+import { PostInfo, PersonInfo, PostVersion } from "#types/index.ts";
 import { Icon } from "astro-icon/components";
-import { Chip } from "components/index";
+import { Chip } from "#components/index.ts";
 import dayjs from "dayjs";
 import { buildSearchQuery } from "../../search/search";
-import { translate } from "utils/translations";
+import { translate } from "#utils/translations.ts";
 import { ArticleRevisionDropdown } from "../article-revisions/article-revisions";
 
 export interface Props {

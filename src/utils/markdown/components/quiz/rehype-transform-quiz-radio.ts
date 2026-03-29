@@ -1,17 +1,17 @@
-import { QuizRadioOption } from "components/quiz-radio/quiz-radio";
-import { RehypeFunctionComponent } from "../types";
+import type { QuizRadioOption } from "#components/quiz-radio/quiz-radio.tsx";
+import type { RehypeFunctionComponent } from "../types.ts";
 import {
 	findLargestHeading,
 	isNodeHeading,
 	isNodeLargestHeading,
-} from "../utils/headings";
+} from "../utils/headings.ts";
 import { getHeaderNodeId } from "rehype-slug-custom-id";
-import { Element, ElementContent } from "hast";
+import type { Element, ElementContent } from "hast";
 import { toString } from "hast-util-to-string";
-import { createComponent, PlayfulNode } from "../components";
+import { createComponent, PlayfulNode } from "../components.ts";
 import { toHtml } from "hast-util-to-html";
-import { isElement } from "utils/markdown/unist-is-element";
-import { logError } from "utils/markdown/logger";
+import { isElement } from "#utils/markdown/unist-is-element.ts";
+import { logError } from "#utils/markdown/logger.ts";
 import { visit } from "unist-util-visit";
 
 const ALLOWED_OPTION_TAGS = new Set(["em", "strong", "code"]);

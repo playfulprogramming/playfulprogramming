@@ -1,4 +1,4 @@
-import { UrlMetadataResponse } from "utils/hoof";
+import type { UrlMetadataResponse } from "#utils/hoof";
 
 export interface RehypeEmbedTransformProps<
 	T extends NonNullable<UrlMetadataResponse["embed"]>["type"],

@@ -1,8 +1,8 @@
 ---
-import Barebones from "src/layouts/barebones.astro";
+import Barebones from "#src/layouts/barebones.astro";
 
-import SEO from "src/components/seo/seo.astro";
-import Header from "src/views/collections/framework-field-guide/segments/header.astro";
+import SEO from "#src/components/seo/seo.astro";
+import Header from "#src/views/collections/framework-field-guide/segments/header.astro";
 import Hero from "../../../views/collections/art-of-accessibility/segments/hero.astro";
 import { getPersonById } from "../../../utils/api";
 import { getCollectionBySlug, getPostsByCollection } from "../../../utils/api";
@@ -26,8 +26,8 @@ import TopContents from "../../../views/collections/art-of-accessibility/segment
 import BottomContents from "../../../views/collections/art-of-accessibility/segments/bottom-contents.astro";
 import CollectionTableOfContents from "../../../views/collections/framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
 
-const collection = getCollectionBySlug("art-of-accessibility", "en");
-const chapterList = getPostsByCollection("art-of-accessibility", "en");
+const collection = await getCollectionBySlug("art-of-accessibility", "en");
+const chapterList = await getPostsByCollection("art-of-accessibility", "en");
 const comingSoon = [
 	{
 		order: 5,
@@ -62,7 +62,7 @@ const comingSoon = [
 		slot="head"
 		title={"The Art of Accessibility"}
 		description={"Learn accessibility for modern web applications."}
-		peopleData={[getPersonById("crutchcorn", "en")!]}
+		peopleData={[(await getPersonById("crutchcorn", "en"))!]}
 		publishedTime={"2025-01-01T13:45:00.284Z"}
 		type={"book"}
 		shareImage={collection?.socialImgMeta?.relativeServerPath}
@@ -75,7 +75,7 @@ const comingSoon = [
 			<CollectionTableOfContents
 				title="Chapters*"
 				chaptersToShow={5}
-				chapterList={comingSoon}
+				chapterList={comingSoon as never}
 				posts={chapterList}
 				postPrefixToRemove="The Art of Accessibility: "
 			/>
@@ -84,7 +84,7 @@ const comingSoon = [
 	</main>
 </Barebones>
 <script>
-	import { enableSmoothScrollForAnchorsToCurrentPage } from "utils/smooth-scroll-for-anchors-to-current-page";
+	import { enableSmoothScrollForAnchorsToCurrentPage } from "#utils/smooth-scroll-for-anchors-to-current-page";
 	enableSmoothScrollForAnchorsToCurrentPage();
 </script>
 <script>

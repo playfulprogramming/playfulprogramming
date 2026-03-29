@@ -1,6 +1,6 @@
 import { MockPerson, MockPersonTwo } from "./mock-person";
 import { MockLicense } from "./mock-license";
-import { PostInfo } from "types/index";
+import { PostInfo } from "#types/index";
 
 export const MockPost: PostInfo = {
 	kind: "post",
@@ -32,6 +32,7 @@ export const MockPost: PostInfo = {
 		relativeServerPath: "",
 		width: 0,
 	},
+	warnings: [],
 };
 
 export const MockMultiAuthorPost: PostInfo = {
@@ -66,6 +67,7 @@ export const MockMultiAuthorPost: PostInfo = {
 		relativeServerPath: "",
 		width: 0,
 	},
+	warnings: [],
 };
 
 export const MockMuliLanguagePost: PostInfo = {
@@ -100,6 +102,7 @@ export const MockMuliLanguagePost: PostInfo = {
 		relativeServerPath: "",
 		width: 0,
 	},
+	warnings: [],
 };
 
 export const MockCanonicalPost: PostInfo = {
@@ -135,4 +138,5 @@ export const MockCanonicalPost: PostInfo = {
 		relativeServerPath: "",
 		width: 0,
 	},
+	warnings: [],
 };

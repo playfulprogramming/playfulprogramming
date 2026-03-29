@@ -6,7 +6,7 @@ import MailingList from "../../components/mailing-list/mailing-list.astro";
 import TranslationsHeader from "../base/translations/translations-header.astro";
 import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
-import BlockingTabsSignalScript from "components/tabs/blocking-tabs-signal-script.astro";
+import BlockingTabsSignalScript from "#components/tabs/blocking-tabs-signal-script.astro";
 import { Icon } from "astro-icon/components";
 
 import {
@@ -15,19 +15,19 @@ import {
 	PostInfo,
 	PersonInfo,
 	PostVersion,
-} from "types/index";
+} from "#types/index";
 
-import { siteMetadata } from "constants/site-config";
+import { siteMetadata } from "#src/constants/site-config";
 import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
 import SeriesToC from "./series/series-toc.astro";
 import { ArticleNav } from "./article-nav/article-nav";
-import RelatedPosts from "components/related-posts/related-posts.astro";
+import RelatedPosts from "#components/related-posts/related-posts.astro";
 import { LargeButton } from "../../components/button/button";
 
 import styles from "./blog-post.module.scss";
-import { MarkdownHtml } from "utils/markdown";
-import Content from "utils/markdown/components/content.astro";
+import { MarkdownHtml } from "#utils/markdown";
+import Content from "#utils/markdown/components/content.astro";
 import KatexCss from "./katex.astro";
 
 export interface Props {

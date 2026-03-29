@@ -3,7 +3,7 @@ import {
 	getPictureUrls,
 	GetPictureOptions,
 	GetPictureUrls,
-} from "utils/get-picture";
+} from "#utils/get-picture";
 import { HTMLAttributes } from "preact";
 
 interface PictureProps extends GetPictureOptions {

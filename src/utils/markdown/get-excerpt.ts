@@ -4,10 +4,20 @@ import remarkGfm from "remark-gfm";
 import { visit, SKIP, EXIT } from "unist-util-visit";
 import { is } from "unist-util-is";
 import { toString } from "hast-util-to-string";
-import { Nodes } from "hast";
+import type { Nodes } from "hast";
+import remarkFrontmatter from "remark-frontmatter";
+import {
+	remarkProcessFrontmatter,
+	TYPE_FRONTMATTER,
+} from "./remark-process-frontmatter";
 
 const unifiedChain = unified()
 	.use(remarkParse, { fragment: true } as never)
+	.use(remarkFrontmatter, {
+		type: TYPE_FRONTMATTER,
+		marker: "-",
+	} as never)
+	.use(remarkProcessFrontmatter)
 	.use(remarkGfm);
 
 function isTextOrCode(node: unknown): node is Nodes {

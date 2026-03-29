@@ -4,14 +4,14 @@ import {
 	SitemapStream,
 	streamToPromise,
 } from "sitemap";
-import * as api from "utils/api";
+import * as api from "#utils/api";
 import dayjs from "dayjs";
-import { PostInfo } from "types/PostInfo";
-import { CollectionInfo } from "types/CollectionInfo";
-import { Languages } from "types/index";
+import { PostInfo } from "#types/PostInfo";
+import { CollectionInfo } from "#types/CollectionInfo";
+import { Languages } from "#types/index";
 import { Readable } from "stream";
-import { siteUrl } from "constants/site-config";
-import { events } from "src/views/events/constants";
+import { siteUrl } from "#src/constants/site-config";
+import { events } from "#src/views/events/constants";
 
 const About = (await import("./[...locale]/about.astro")) as unknown as {
 	getStaticPaths: () => Promise<Array<{ params: { locale?: Languages } }>>;
@@ -68,7 +68,7 @@ export const GET = async () => {
 		});
 	}
 
-	for (const post of api.getAllPosts()) {
+	for (const post of await api.getAllPosts()) {
 		if (post.noindex) continue;
 
 		const links =
@@ -87,7 +87,7 @@ export const GET = async () => {
 		});
 	}
 
-	for (const collection of api.getAllCollections()) {
+	for (const collection of await api.getAllCollections()) {
 		if (collection.noindex) continue;
 
 		const links =
@@ -105,7 +105,7 @@ export const GET = async () => {
 		});
 	}
 
-	for (const person of api.getAllPeople()) {
+	for (const person of await api.getAllPeople()) {
 		entries.push({
 			...sitemapDefaults,
 			url: `/people/${person.id}`,

@@ -1,9 +1,9 @@
 import style from "./collection-card.module.scss";
-import { Button } from "components/index";
-import { CollectionInfo } from "types/CollectionInfo";
-import forward from "src/icons/arrow_right.svg?raw";
-import { Picture as UUPicture } from "components/image/picture";
-import { PersonInfo } from "types/PersonInfo";
+import { Button } from "#components/index";
+import { CollectionInfo } from "#types/CollectionInfo";
+import forward from "#src/icons/arrow_right.svg?raw";
+import { Picture as UUPicture } from "#components/image/picture";
+import { PersonInfo } from "#types/PersonInfo";
 
 interface CollectionCardProps {
 	collection: CollectionInfo;

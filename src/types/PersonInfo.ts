@@ -1,4 +1,15 @@
+import { WarningInfo } from "#src/utils/markdown/types.ts";
 import { Languages } from ".";
+
+export interface PersonStub {
+	kind: "person";
+	id: string;
+	slug: string;
+	file: string;
+	locale: Languages;
+	locales: Languages[];
+	warnings: WarningInfo[];
+}
 
 export interface RawPersonInfo {
 	name: string;
@@ -29,8 +40,7 @@ export interface RawPersonInfo {
 	boardRoles?: Array<string>;
 }
 
-export interface PersonInfo extends Required<RawPersonInfo> {
-	kind: "person";
+export interface PersonInfo extends Required<RawPersonInfo>, PersonStub {
 	id: string;
 	file: string;
 	locale: Languages;

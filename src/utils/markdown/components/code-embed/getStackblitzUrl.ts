@@ -1,5 +1,5 @@
-import env from "constants/env";
-import { siteMetadata } from "constants/site-config";
+import env from "#src/constants/env";
+import { siteMetadata } from "#src/constants/site-config";
 import GitBranch from "git-branch";
 
 type StackblitzOpts = {

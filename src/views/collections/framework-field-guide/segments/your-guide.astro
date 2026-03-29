@@ -1,7 +1,7 @@
 ---
-import { Picture } from "components/image/picture";
+import { Picture } from "#components/image/picture.tsx";
 import styles from "./your-guide.module.scss";
-import { getPersonById } from "utils/api";
+import { getPersonById } from "#utils/api.ts";
 import YourGuideMetrics from "../components/your-guide-metrics.astro";
 import YourGuideTextContainer from "../components/your-guide-text-container.astro";
 ---
@@ -13,7 +13,8 @@ import YourGuideTextContainer from "../components/your-guide-text-container.astr
 	<Picture
 		imgAttrs={{ class: styles.guidePicture }}
 		alt=""
-		src={getPersonById("crutchcorn", "en")!.profileImgMeta.relativeServerPath}
+		src={(await getPersonById("crutchcorn", "en"))!.profileImgMeta
+			.relativeServerPath}
 		width={96}
 		height={96}
 	/>

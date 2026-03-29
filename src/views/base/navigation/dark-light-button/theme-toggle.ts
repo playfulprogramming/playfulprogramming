@@ -2,7 +2,7 @@ import {
 	THEME_COLOR_DARK,
 	THEME_COLOR_LIGHT,
 	COLOR_MODE_STORAGE_KEY,
-} from "constants/theme";
+} from "#src/constants/theme";
 
 export const themeToggle = () => {
 	const themeToggleBtns = document.querySelectorAll<HTMLButtonElement>(

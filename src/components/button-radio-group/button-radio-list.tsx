@@ -9,7 +9,7 @@ import { useContext } from "preact/compat";
 import { useRef } from "preact/hooks";
 import style from "./button-radio-list.module.scss";
 import { RadioContext } from "./common";
-import { JSXNode } from "components/types";
+import { JSXNode } from "#components/types";
 
 interface RadioListButtonProps extends AriaRadioProps {
 	leftIcon?: JSXNode;

@@ -1,5 +1,5 @@
-import { RehypeEmbedTransformProps } from "./types";
-import { ComponentNode, createComponent } from "utils/markdown/components";
+import type { RehypeEmbedTransformProps } from "./types";
+import { type ComponentNode, createComponent } from "#utils/markdown/components";
 
 export function rehypeTransformVideo({
 	src,

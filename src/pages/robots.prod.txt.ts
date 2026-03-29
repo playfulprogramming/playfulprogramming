@@ -1,10 +1,10 @@
-import { siteUrl } from "constants/site-config";
-import { getAllPosts, getAllCollections } from "utils/api";
-import { PostInfo } from "types/PostInfo";
-import { CollectionInfo } from "types/CollectionInfo";
+import { siteUrl } from "#src/constants/site-config";
+import { getAllPosts, getAllCollections } from "#utils/api";
+import type { PostInfo } from "#types/PostInfo";
+import type { CollectionInfo } from "#types/CollectionInfo";
 
-const noIndexPosts = getAllPosts().filter((post) => post.noindex);
-const noIndexCollection = getAllCollections().filter(
+const noIndexPosts = (await getAllPosts()).filter((post) => post.noindex);
+const noIndexCollection = (await getAllCollections()).filter(
 	(collection) => collection.noindex && collection.pageLayout !== "none",
 );
 

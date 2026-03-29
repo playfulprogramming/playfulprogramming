@@ -1,10 +1,10 @@
-import { Element, Root } from "hast";
+import type { Element, Root } from "hast";
 import { visit } from "unist-util-visit";
-import { Plugin } from "unified";
-import { isMarkdownVFile } from "./types";
+import type { Plugin } from "unified";
+import { isMarkdownVFile } from "./types.ts";
 import { dirname, join, relative } from "path";
 import fs from "fs/promises";
-import { logError } from "./logger";
+import { logError } from "./logger.ts";
 
 /**
  * Transform links to relative files (e.g. [find the slides here](./slides.pptx)) that are placed

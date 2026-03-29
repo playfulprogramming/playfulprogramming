@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from "fastify";
-import type { UrlMetadataResponse } from "utils/hoof";
+import type { UrlMetadataResponse } from "#utils/hoof";
 import { createRequire } from "module";
 import { readFile } from "fs/promises";
 

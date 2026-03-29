@@ -1,5 +1,5 @@
 import { MockRole } from "./mock-role";
-import { PersonInfo } from "types/index";
+import { PersonInfo } from "#types/index";
 
 export const MockPerson: PersonInfo = {
 	kind: "person",
@@ -7,6 +7,7 @@ export const MockPerson: PersonInfo = {
 	firstName: "Joe",
 	lastName: "Other",
 	id: "joe",
+	slug: "joe",
 	file: "path/index.md",
 	locale: "en",
 	locales: ["en"],
@@ -35,6 +36,7 @@ export const MockPerson: PersonInfo = {
 		width: 200,
 	},
 	boardRoles: [],
+	warnings: [],
 };
 
 export const MockPersonTwo: PersonInfo = {
@@ -43,6 +45,7 @@ export const MockPersonTwo: PersonInfo = {
 	firstName: "Diane",
 	lastName: "",
 	id: "diane",
+	slug: "diane",
 	file: "path/index.md",
 	locale: "en",
 	locales: ["en"],
@@ -71,4 +74,5 @@ export const MockPersonTwo: PersonInfo = {
 		width: 200,
 	},
 	boardRoles: [],
+	warnings: [],
 };

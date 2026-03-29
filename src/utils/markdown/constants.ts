@@ -1,5 +1,5 @@
-import { mobile, tabletSmall } from "src/tokens/breakpoints";
-import { GetPictureSizes } from "utils/get-picture";
+import { mobile, tabletSmall } from "#src/tokens/breakpoints";
+import { GetPictureSizes } from "#utils/get-picture";
 
 // default sizing used for iframes (MarkdownRenderer/media.tsx)
 export const EMBED_SIZE = { w: "100%", h: 500 };

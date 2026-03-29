@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import { Button, IconOnlyButton } from "components/button/button";
-import discussion from "src/icons/discussion.svg?raw";
-import repost from "src/icons/repost.svg?raw";
-import heart from "src/icons/heart.svg?raw";
-import launch from "src/icons/launch.svg?raw";
+import { Button, IconOnlyButton } from "#components/button/button";
+import discussion from "#src/icons/discussion.svg?raw";
+import repost from "#src/icons/repost.svg?raw";
+import heart from "#src/icons/heart.svg?raw";
+import launch from "#src/icons/launch.svg?raw";
 import style from "./x-embed.module.scss";
-import { RawSvg } from "components/image/raw-svg";
+import { RawSvg } from "#components/image/raw-svg";
 
 dayjs.extend(advancedFormat);
 

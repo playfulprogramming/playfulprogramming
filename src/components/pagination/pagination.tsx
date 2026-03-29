@@ -1,11 +1,11 @@
 import styles from "./pagination.module.scss";
-import forward from "src/icons/arrow_right.svg?raw";
-import back from "src/icons/arrow_left.svg?raw";
-import { PaginationMenuAndPopover } from "components/pagination/pagination-popover";
+import forward from "#src/icons/arrow_right.svg?raw";
+import back from "#src/icons/arrow_left.svg?raw";
+import { PaginationMenuAndPopover } from "#components/pagination/pagination-popover";
 import {
 	PaginationButtonProps,
 	PaginationProps,
-} from "components/pagination/types";
+} from "#components/pagination/types";
 import { usePagination } from "./use-pagination";
 import { onSoftNavClick } from "./on-click-base";
 

@@ -1,4 +1,4 @@
-import { RawSvg } from "components/image/raw-svg";
+import { RawSvg } from "#components/image/raw-svg";
 import { getIcon } from "./file-tree-icons";
 import style from "./file-list.module.scss";
 

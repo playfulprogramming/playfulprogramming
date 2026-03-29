@@ -1,4 +1,4 @@
-import { PostInfo } from "types/index";
+import { PostInfo } from "#types/index.ts";
 
 interface ActivePostMeta extends PostInfo {
 	shouldShowInitially: boolean;

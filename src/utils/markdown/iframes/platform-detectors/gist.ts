@@ -1,6 +1,6 @@
-import { ComponentNode, createComponent } from "utils/markdown/components";
-import { GistCodeBlock } from "utils/markdown/iframes/hastscript-components/GistCodeBlock";
-import { RehypeEmbedTransformProps } from "./types";
+import { ComponentNode, createComponent } from "#utils/markdown/components";
+import { GistCodeBlock } from "#utils/markdown/iframes/hastscript-components/GistCodeBlock";
+import type { RehypeEmbedTransformProps } from "./types";
 
 export async function rehypeTransformGist({
 	src,

@@ -1,14 +1,18 @@
 import style from "./search-topbar.module.scss";
-import { SearchInput } from "components/input/input";
-import { Button, IconOnlyButton, LargeButton } from "components/button/button";
-import filter from "src/icons/filter.svg?raw";
-import forward from "src/icons/arrow_right.svg?raw";
-import { Item, Select } from "components/select/select";
+import { SearchInput } from "#components/input/input.tsx";
+import {
+	Button,
+	IconOnlyButton,
+	LargeButton,
+} from "#components/button/button.tsx";
+import filter from "#src/icons/filter.svg?raw";
+import forward from "#src/icons/arrow_right.svg?raw";
+import { Item, Select } from "#components/select/select.tsx";
 import {
 	RadioButton,
 	RadioButtonGroup,
-} from "components/button-radio-group/button-radio-group";
-import { DisplayContentType, SortType } from "src/views/search/search";
+} from "#components/button-radio-group/button-radio-group.tsx";
+import { DisplayContentType, SortType } from "#src/views/search/search";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useDebouncedCallback } from "../use-debounced-value";
 

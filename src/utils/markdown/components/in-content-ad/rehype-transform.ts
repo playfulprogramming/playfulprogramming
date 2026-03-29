@@ -1,5 +1,5 @@
-import { createComponent } from "../components";
-import { RehypeFunctionComponent } from "../types";
+import { createComponent } from "../components.ts";
+import type { RehypeFunctionComponent } from "../types.ts";
 
 export const transformInContentAd: RehypeFunctionComponent = ({
 	attributes,

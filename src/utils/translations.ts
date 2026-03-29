@@ -1,7 +1,7 @@
-import { Languages } from "types/index";
-import { languages } from "../constants/index";
+import type { Languages } from "#types/index.ts";
+import { languages } from "../constants/index.ts";
 import { basename } from "path";
-import { MDXInstance, MarkdownInstance } from "astro";
+import type { MDXInstance, MarkdownInstance } from "astro";
 
 function isLanguageKey(str: string | undefined): str is Languages {
 	return str !== undefined && Object.keys(languages).includes(str);

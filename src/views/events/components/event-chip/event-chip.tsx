@@ -1,6 +1,6 @@
-import location from "src/icons/location.svg?raw";
-import wifi from "src/icons/wifi.svg?raw";
-import repeat from "src/icons/repeat.svg?raw";
+import location from "#src/icons/location.svg?raw";
+import wifi from "#src/icons/wifi.svg?raw";
+import repeat from "#src/icons/repeat.svg?raw";
 import style from "./event-chip.module.scss";
 
 interface BaseEventChipProps {

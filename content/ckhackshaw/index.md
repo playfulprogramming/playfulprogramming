@@ -13,3 +13,4 @@
     profileImg: "./ckhackshaw.jpg",
     roles: ["author", "developer"]
 }
+---

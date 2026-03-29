@@ -1,5 +1,5 @@
 import { MockPerson } from "./mock-person";
-import { CollectionInfo } from "types/index";
+import { CollectionInfo } from "#types/index";
 
 export const MockCollection: CollectionInfo = {
 	kind: "collection",
@@ -22,4 +22,5 @@ export const MockCollection: CollectionInfo = {
 	coverImg: "img.png",
 	published: "10-10-2010T00:00:00.000Z",
 	buttons: [],
+	warnings: [],
 };

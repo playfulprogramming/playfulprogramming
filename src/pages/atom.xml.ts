@@ -1,9 +1,9 @@
 import { Feed } from "feed";
-import { siteUrl } from "constants/site-config";
-import { getPostsByLang, getPersonById } from "utils/api";
+import { siteUrl } from "#src/constants/site-config";
+import { getPostsByLang, getPersonById } from "#utils/api";
 import licenses from "../../content/data/licenses.json";
 
-export const GET = () => {
+export const GET = async () => {
 	const feed = new Feed({
 		title: "Playful Programming's Atom Feed",
 		description:
@@ -21,8 +21,18 @@ export const GET = () => {
 		},
 	});
 
-	getPostsByLang("en").forEach((post) => {
+	for (const post of await getPostsByLang("en")) {
 		const nodeUrl = `${siteUrl}/posts/${post.slug}`;
+		const author = (
+			await Promise.all(
+				post.authors.map((id) => getPersonById(id, post.locale)),
+			)
+		).map((author) => {
+			return {
+				name: author!.name,
+				link: `${siteUrl}/unicorns/${author!.id}`,
+			};
+		});
 
 		feed.addItem({
 			title: post.title,
@@ -30,19 +40,12 @@ export const GET = () => {
 			link: nodeUrl,
 			description: post.description,
 			content: post.excerpt,
-			author: post.authors
-				.map((id) => getPersonById(id, post.locale))
-				.map((author) => {
-					return {
-						name: author!.name,
-						link: `${siteUrl}/unicorns/${author!.id}`,
-					};
-				}),
+			author,
 			date: new Date(post.published),
 			copyright: licenses.find((l) => l.id === post.license)?.displayName,
 			extensions: [],
 		});
-	});
+	}
 
 	return new Response(feed.atom1());
 };

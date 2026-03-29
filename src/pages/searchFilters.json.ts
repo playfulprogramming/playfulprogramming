@@ -1,13 +1,13 @@
-import * as api from "utils/api";
+import * as api from "#utils/api";
 import tagsObj from "../../content/data/tags.json";
-import { SearchFiltersData, TagFilterInfo } from "src/views/search/search";
+import { SearchFiltersData, TagFilterInfo } from "#src/views/search/search";
 
 export const GET = async () => {
-	const people = api
-		.getPeopleByLang("en")
-		.filter((person) => person.totalPostCount > 0);
+	const people = (await api.getPeopleByLang("en")).filter(
+		(person) => person.totalPostCount > 0,
+	);
 
-	const posts = api.getPostsByLang("en");
+	const posts = await api.getPostsByLang("en");
 
 	const tags = Object.entries(tagsObj).map(([tag, value]) => {
 		return {

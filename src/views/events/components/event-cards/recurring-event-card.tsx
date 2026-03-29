@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
-import { Button } from "components/button/button";
+import { Button } from "#components/button/button.tsx";
 import { RecurringEventsCardProps } from "./types";
-import { getHrefContainerProps } from "utils/href-container-script";
-import date from "src/icons/date.svg?raw";
+import { getHrefContainerProps } from "#utils/href-container-script.ts";
+import date from "#src/icons/date.svg?raw";
 import style from "./recurring-event-card.module.scss";
 import { EventChip } from "../event-chip/event-chip";
 

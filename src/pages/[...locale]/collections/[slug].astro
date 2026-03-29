@@ -1,16 +1,17 @@
 ---
-import SEO from "src/components/seo/seo.astro";
-import Document from "src/layouts/document.astro";
-import * as api from "utils/api";
-import CollectionPage from "src/views/collections/collection-page.astro";
-import CollectionChapter from "src/views/collections/collection-chapter.astro";
-import { SubHeader } from "src/components/subheader/subheader";
-import { translate } from "utils/translations";
-import { CurrentPost, FuturePost, Languages } from "types/index";
-import { getMarkdownHtml } from "utils/markdown";
+import SEO from "#src/components/seo/seo.astro";
+import Document from "#src/layouts/document.astro";
+import * as api from "#utils/api";
+import CollectionPage from "#src/views/collections/collection-page.astro";
+import CollectionChapter from "#src/views/collections/collection-chapter.astro";
+import { SubHeader } from "#src/components/subheader/subheader";
+import { translate } from "#utils/translations";
+import { CurrentPost, FuturePost, Languages } from "#types/index";
+import { getMarkdownHtml } from "#utils/markdown";
+import { isDefined } from "#src/utils/is-defined.ts";
 
 export async function getStaticPaths() {
-	const collections = api.getAllCollections();
+	const collections = await api.getAllCollections();
 
 	return collections
 		.filter((collection) => collection.pageLayout !== "none")
@@ -31,11 +32,13 @@ const params = Astro.params as {
 };
 
 const locale = params.locale || "en";
-const collection = api.getCollectionBySlug(params.slug, locale)!;
-const collectionPosts = api.getPostsByCollection(params.slug, locale);
-const authors = collection.authors.map(
-	(authorId) => api.getPersonById(authorId, locale)!,
-);
+const collection = (await api.getCollectionBySlug(params.slug, locale))!;
+const collectionPosts = await api.getPostsByCollection(params.slug, locale);
+const authors = (
+	await Promise.all(
+		collection.authors.map((authorId) => api.getPersonById(authorId, locale)),
+	)
+).filter(isDefined);
 
 const collectionHtml = await getMarkdownHtml(collection);
 
@@ -48,13 +51,13 @@ const isCurrentPost = (
 let collectionData: Array<Parameters<typeof CollectionChapter>[0]> = [];
 
 if (collection?.chapterList?.length) {
-	collectionData = collection?.chapterList.map((post, i) => {
+	for (const [i, post] of Object.entries(collection.chapterList)) {
 		let title: string;
 		let href: string | undefined;
 		let description: string;
 		let externalLink = false;
 		if (isCurrentPost(post)) {
-			const postData = api.getPostBySlug(post.post, locale);
+			const postData = await api.getPostBySlug(post.post, locale);
 			title = postData?.title || "No title";
 			description = postData?.description || "No description";
 			href = post?.post ? `/posts/${post.post}` : undefined;
@@ -63,15 +66,15 @@ if (collection?.chapterList?.length) {
 			description = post.description || "";
 			externalLink = true;
 		}
-		return {
-			num: i + 1,
+		collectionData.push({
+			num: Number(i) + 1,
 			title,
 			description,
 			href,
 			externalLink,
 			collection,
-		};
-	});
+		});
+	}
 } else if (collectionPosts?.length) {
 	collectionData = collectionPosts.map(
 		({ order, title, description, slug }, i) => ({

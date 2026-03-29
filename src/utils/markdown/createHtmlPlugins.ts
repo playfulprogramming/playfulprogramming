@@ -3,22 +3,22 @@ import remarkFrontmatter from "remark-frontmatter";
 import {
 	TYPE_FRONTMATTER,
 	remarkProcessFrontmatter,
-} from "./remark-process-frontmatter";
+} from "./remark-process-frontmatter.ts";
 import remarkGfm from "remark-gfm";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkToRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
-import { rehypeAstroImageMd } from "./picture/rehype-transform";
-import { rehypePlayfulElementMap } from "./rehype-playful-element-map";
-import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
-import { rehypeHeaderText } from "./rehype-header-text";
-import { rehypeValidateHeadingLinks } from "./rehype-validate-heading-links";
-import { rehypeHeaderClass } from "./rehype-header-class";
+import { rehypeAstroImageMd } from "./picture/rehype-transform.ts";
+import { rehypePlayfulElementMap } from "./rehype-playful-element-map.ts";
+import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform.ts";
+import { rehypeHeaderText } from "./rehype-header-text.ts";
+import { rehypeValidateHeadingLinks } from "./rehype-validate-heading-links.ts";
+import { rehypeHeaderClass } from "./rehype-header-class.ts";
 import { Processor } from "unified";
-import { rehypeShikiUU } from "./shiki/rehype-transform";
-import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
-import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
+import { rehypeShikiUU } from "./shiki/rehype-transform.ts";
+import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta.ts";
+import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform.ts";
 import {
 	rehypeDetailsElement,
 	rehypeLinkPreview,
@@ -34,21 +34,21 @@ import {
 	transformNoop,
 	transformTabs,
 	transformVoid,
-} from "./components";
+} from "./components/index.ts";
 import {
 	rehypeCodeEmbed,
 	transformCodeEmbed,
-} from "./components/code-embed/rehype-transform";
-import { rehypeRelativePaths } from "./rehype-relative-paths";
+} from "./components/code-embed/rehype-transform.ts";
+import { rehypeRelativePaths } from "./rehype-relative-paths.ts";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import { setMathProperty } from "./katex-css";
+import { setMathProperty } from "./katex-css.ts";
 import {
 	rehypeQuizIndexes,
 	transformQuiz,
-} from "utils/markdown/components/quiz/rehype-transform";
-import { transformUser } from "utils/markdown/components/user/rehype-transform";
-import { transformQuizRadio } from "./components/quiz/rehype-transform-quiz-radio";
+} from "#utils/markdown/components/quiz/rehype-transform.ts";
+import { transformUser } from "#utils/markdown/components/user/rehype-transform.ts";
+import { transformQuizRadio } from "./components/quiz/rehype-transform-quiz-radio.ts";
 
 export function createHtmlPlugins(unified: Processor) {
 	return (

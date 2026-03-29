@@ -3,12 +3,12 @@ import { promises as fs } from "fs";
 import emojiRegexFn from "emoji-regex";
 import { EPub, defaultAllowedAttributes } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
-import { CollectionInfo, PostInfo } from "types/index";
-import { getPersonById } from "utils/api";
-import { createEpubPlugins } from "utils/markdown/createEpubPlugins";
-import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
-import { getUrlMetadata } from "utils/hoof/get-url-metadata";
-import { CollectionLinks } from "utils/markdown/reference-page/rehype-reference-page";
+import { CollectionInfo, PostInfo } from "#types/index";
+import { getPersonById } from "#utils/api";
+import { createEpubPlugins } from "#utils/markdown/createEpubPlugins";
+import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile";
+import { getUrlMetadata } from "#utils/hoof/get-url-metadata";
+import { CollectionLinks } from "#utils/markdown/reference-page/rehype-reference-page";
 import epubCss from "./epub.css?raw";
 import { tmpdir } from "os";
 import asyncPool from "tiny-async-pool";
@@ -141,8 +141,12 @@ export async function generateCollectionEPub(
 	const fileTmpDir = await fs.mkdtemp(`${tmpdir() + path.sep}pfp-collection-`);
 	const fileLocation = path.join(fileTmpDir, `${collection.slug}.epub`);
 
-	const authors = collection.authors
-		.map((id) => getPersonById(id, collection.locale)?.name)
+	const authors = (
+		await Promise.all(
+			collection.authors.map((id) => getPersonById(id, collection.locale)),
+		)
+	)
+		.map((author) => author?.name)
 		.filter((name): name is string => !!name);
 
 	const referenceTitle = "References";
