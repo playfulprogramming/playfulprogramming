@@ -1,12 +1,15 @@
---- 
+---
+
 { 
     title: "How AI Impacts Your Growth", 
     description: "AI can accelerate output while weakening skill development. Growth now requires intentional friction for individuals, teams, and organizations.", 
     published: "2026-05-21T00:00:00.000Z", 
     tags: ["ai", "software-engineering", "career", "leadership"], 
     license: "publicdomain-zero-1" 
-}
----
+
+## }
+
+# Introduction
 
 The research is clear: AI accelerates output but decouples it from skill development. Growth now requires intentionally trading some efficiency for learning. If you want to succeed instead of stagnate, get used to learning when to do things the hard way.
 
@@ -141,9 +144,10 @@ Use AI to go further. Just don’t let it rob you of the work that makes you wor
 
 # Sources
 
-- Anthropic. (2026, January 29). [*How AI assistance impacts the formation of coding skills*](https://www.anthropic.com/research/AI-assistance-coding-skills). Anthropic.
-- Crutchley, C. (2025, April 9). [*Scale your project with layered React structure*](https://playfulprogramming.com/posts/layered-react-structure/). Playful Programming.
-- Jain, S. (2026, April 16). [*Uber’s Anthropic AI push hits a wall—CTO says budget struggles despite $3.4B spend*](https://finance.yahoo.com/sectors/technology/articles/ubers-anthropic-ai-push-hits-223109852.html). Benzinga via Yahoo Finance.
-- Lee, H.-P. (Hank), Sarkar, A., Tankelevitch, L., Drosos, I., Rintel, S., Banks, R., & Wilson, N. (2025). [*The impact of generative AI on critical thinking: Self-reported reductions in cognitive effort and confidence effects from a survey of knowledge workers*](https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/lee_2025_ai_critical_thinking_survey.pdf). CHI Conference on Human Factors in Computing Systems (CHI ’25). Association for Computing Machinery.
-- Vorvoreanu, M., Passi, S., Dhanorkar, S., Heger, A., & Walker, K. (2025). [*Fostering appropriate reliance on GenAI: Lessons learned from early research*](https://www.microsoft.com/en-us/research/wp-content/uploads/2025/03/Appropriate-Reliance-Lessons-Learned-Published-2025-3-3.pdf). Microsoft Research.
-- Wu, S., Liu, Y., Ruan, M., Chen, S., & Xie, X.-Y. (2025). [*Human-generative AI collaboration enhances task performance but undermines human’s intrinsic motivation*](https://www.nature.com/articles/s41598-025-98385-2). *Scientific Reports, 15*, Article 15105.
+- Anthropic. (2026, January 29). *[How AI assistance impacts the formation of coding skills](https://www.anthropic.com/research/AI-assistance-coding-skills)*. Anthropic.
+- Crutchley, C. (2025, April 9). *[Scale your project with layered React structure](https://playfulprogramming.com/posts/layered-react-structure/)*. Playful Programming.
+- Jain, S. (2026, April 16). *[Uber’s Anthropic AI push hits a wall—CTO says budget struggles despite $3.4B spend](https://finance.yahoo.com/sectors/technology/articles/ubers-anthropic-ai-push-hits-223109852.html)*. Benzinga via Yahoo Finance.
+- Lee, H.-P. (Hank), Sarkar, A., Tankelevitch, L., Drosos, I., Rintel, S., Banks, R., & Wilson, N. (2025). *[The impact of generative AI on critical thinking: Self-reported reductions in cognitive effort and confidence effects from a survey of knowledge workers](https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/lee_2025_ai_critical_thinking_survey.pdf)*. CHI Conference on Human Factors in Computing Systems (CHI ’25). Association for Computing Machinery.
+- Vorvoreanu, M., Passi, S., Dhanorkar, S., Heger, A., & Walker, K. (2025). *[Fostering appropriate reliance on GenAI: Lessons learned from early research](https://www.microsoft.com/en-us/research/wp-content/uploads/2025/03/Appropriate-Reliance-Lessons-Learned-Published-2025-3-3.pdf)*. Microsoft Research.
+- Wu, S., Liu, Y., Ruan, M., Chen, S., & Xie, X.-Y. (2025). *[Human-generative AI collaboration enhances task performance but undermines human’s intrinsic motivation](https://www.nature.com/articles/s41598-025-98385-2)*. *Scientific Reports, 15*, Article 15105.
+
