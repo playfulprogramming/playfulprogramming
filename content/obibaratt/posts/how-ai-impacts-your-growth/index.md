@@ -1,13 +1,12 @@
 ---
-
 { 
     title: "How AI Impacts Your Growth", 
     description: "AI can accelerate output while weakening skill development. Growth now requires intentional friction for individuals, teams, and organizations.", 
     published: "2026-05-21T00:00:00.000Z", 
     tags: ["ai", "software-engineering", "career", "leadership"], 
     license: "publicdomain-zero-1" 
-
-## }
+}
+---
 
 # Introduction
 
