@@ -76,6 +76,7 @@ export default defineConfig([
 	// Astro files configuration
 	{
 		files: ["**/*.astro"],
+		processor: "astro/client-side-ts",
 		plugins: {
 			"@typescript-eslint": tseslint.plugin,
 			import: eslintPluginImport,
@@ -136,6 +137,16 @@ export default defineConfig([
 		files: ["**/*.astro/*.js", "*.astro/*.js"],
 		languageOptions: {
 			parser: tseslint.parser,
+		},
+	},
+	{
+		files: ["**/*.astro/*.ts", "*.astro/*.ts"],
+		languageOptions: {
+			parser: tseslint.parser,
+			parserOptions: {
+				project: null,
+				sourceType: "module",
+			},
 		},
 	},
 ]);
