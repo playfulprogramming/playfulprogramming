@@ -20,7 +20,7 @@ const content = Astro.props.content;
 			return <Fragment set:html={node.innerHtml} />;
 		} else if (isComponentNode(node)) {
 			const Component = components[node.component];
-			 
+
 			return <Component children={node.children} {...(node.props as any)} />;
 		} else if (isRoot(node)) {
 			return <Astro.self content={node.children} />;

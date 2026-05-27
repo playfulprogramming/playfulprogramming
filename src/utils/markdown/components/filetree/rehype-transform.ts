@@ -35,7 +35,6 @@ interface DirectoryMetadata {
 	open?: boolean;
 }
 
- 
 interface FileMetadata {}
 
 const isNodeElement = (node: unknown): node is Element =>
