@@ -7,7 +7,7 @@
 	socials: {
 		github: "obibaratt",
 		linkedIn: "obibaratt",
-		website: "www.obibaratt.com"
+		website: "https://www.obibaratt.com"
 	},
 	pronouns: "he/him",
 	profileImg: "./obibaratt.jpg",
