@@ -4,6 +4,7 @@ on:
   # Note: this pull_request_target usage is quite unsafe!
   # Be very careful about making changes to this file!
   # It has been the cause of multiple GHA-related exploits!
+  # zizmor: ignore[dangerous-triggers]
   pull_request_target:
     types: [opened, reopened, synchronize, closed]
   merge_group:
