@@ -27,11 +27,7 @@ export default tseslint.config(
 	// Base ignores
 	includeIgnoreFile(fileURLToPath(new URL(".gitignore", import.meta.url))),
 	{
-		ignores: [
-			"content/**/*",
-			"public/content/**/*",
-			"public/sw.js",
-		],
+		ignores: ["content/**/*", "public/content/**/*", "public/sw.js"],
 	},
 
 	// Base configs

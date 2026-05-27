@@ -3,18 +3,10 @@
 :root {
 	--quiz-results_question_height: var(--spc-2x);
 	--quiz-results_question_corner-radius: var(--spc-1x);
-	--quiz-results_question_background-color: var(
-		--surface_primary_emphasis-low
-	);
-	--quiz-results_question_answered_background-color: var(
-		--primary_default
-	);
-	--quiz-results_question_correct_background-color: var(
-		--positive_default
-	);
-	--quiz-results_question_incorrect_background-color: var(
-		--secondary_default
-	);
+	--quiz-results_question_background-color: var(--surface_primary_emphasis-low);
+	--quiz-results_question_answered_background-color: var(--primary_default);
+	--quiz-results_question_correct_background-color: var(--positive_default);
+	--quiz-results_question_incorrect_background-color: var(--secondary_default);
 
 	--quiz-results_summary_icon-color: var(--primary_default);
 	--quiz-results_summary_text-color: var(--foreground_emphasis-high);
