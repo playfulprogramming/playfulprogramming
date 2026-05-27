@@ -103,7 +103,7 @@
 		"hast-util-to-string": "^3.0.1",
 		"hastscript": "^9.0.1",
 		"husky": "^9.1.7",
-		"jest-location-mock": "^2.0.0",
+		"jest-location-mock": "^3.0.0",
 		"json5": "^2.2.3",
 		"junk": "^4.0.1",
 		"katex": "^0.16.47",
