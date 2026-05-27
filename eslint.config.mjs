@@ -25,7 +25,13 @@ const pfpTypeScriptRules = {
 export default defineConfig([
 	// Base ignores
 	includeIgnoreFile(fileURLToPath(new URL(".gitignore", import.meta.url))),
-	globalIgnores(["content/**/*", "public/content/**/*", "public/sw.js"]),
+	globalIgnores([
+		"content/**/*",
+		"public/content/**/*",
+		"public/mockServiceWorker.js",
+		"public/sw.js",
+		"public/uninstall-sw.js",
+	]),
 
 	// Base configs
 	eslint.configs.recommended,
