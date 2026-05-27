@@ -99,6 +99,7 @@ export function ResizeablePanels({
 	}
 
 	function handleKeyDown(e: KeyboardEvent) {
+		// eslint-disable-next-line no-useless-assignment
 		let change = 0;
 		if (e.key == "ArrowLeft" || e.key == "ArrowUp") {
 			change = -20;
