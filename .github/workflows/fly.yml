@@ -11,6 +11,8 @@ concurrency:
   group: main-deploy
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   build:
     name: Build image
@@ -53,6 +55,8 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: [build]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     environment:
       name: production
       url: https://playfulprogramming.com

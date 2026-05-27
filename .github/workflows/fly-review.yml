@@ -22,6 +22,8 @@ concurrency:
   group: pr-${{ github.event.pull_request.number || github.run_id }}-deploy
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   # If the PR is from a fork, and changes anything outside of the content folder, it needs to be manually reviewed
   check-pr:
@@ -46,6 +48,7 @@ jobs:
     if: ${{ needs.check-pr.outputs.unsafe != 'false' }}
     runs-on: ubuntu-latest
     environment: review-unsafe
+    permissions: {}
     steps:
       - name: Wait for approval
         run: echo 'Approved to build and deploy'
@@ -93,6 +96,8 @@ jobs:
     if: ${{ !cancelled() && github.event_name == 'pull_request_target' && needs.build.result != 'failure' }}
     needs: [build]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       url: ${{ steps.deploy.outputs.url }}
     environment:
