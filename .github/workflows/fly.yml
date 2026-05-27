@@ -19,6 +19,8 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -58,6 +60,8 @@ jobs:
       FLY_API_TOKEN: ${{ secrets.FLY_WEB_DEPLOY_TOKEN }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
       - uses: superfly/flyctl-actions/setup-flyctl@fc53c09e1bc3be6f54706524e3b82c4f462f77be #v1.5
       - name: Deploy app
         run: |
@@ -65,8 +69,9 @@ jobs:
       - name: Purge Fastly cache
         env:
           FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+          VARS_FASTLY_SERVICE_ID: ${{ vars.FASTLY_SERVICE_ID }}
         run: |
           # https://www.fastly.com/documentation/guides/full-site-delivery/purging/working-with-surrogate-keys/
-          curl -i -X POST 'https://api.fastly.com/service/${{ vars.FASTLY_SERVICE_ID }}/purge/purge-on-deploy' \
+          curl -i -X POST 'https://api.fastly.com/service/${VARS_FASTLY_SERVICE_ID}/purge/purge-on-deploy' \
             -H "Fastly-Key: $FASTLY_API_KEY" \
             -H 'fastly-soft-purge: 1'
