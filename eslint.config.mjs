@@ -1,5 +1,6 @@
 import eslint from "@eslint/js";
-import * as tseslint from "typescript-eslint";
+import { defineConfig, globalIgnores, includeIgnoreFile } from "eslint/config";
+import tseslint from "typescript-eslint";
 import globals from "globals";
 import astroParser from "astro-eslint-parser";
 import path from "node:path";
@@ -7,47 +8,45 @@ import { fileURLToPath } from "node:url";
 import eslintPluginAstro from "eslint-plugin-astro";
 import eslintPluginImport from "eslint-plugin-import";
 import preactConfig from "eslint-config-preact";
-import { includeIgnoreFile } from "@eslint/compat";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const pfpTypeScriptRules = {
-	"@typescript-eslint/ban-types": "off",
 	"@typescript-eslint/consistent-type-imports": [
 		"error",
 		{ disallowTypeAnnotations: false },
 	],
-	"@typescript-eslint/no-empty-interface": "off",
+	"@typescript-eslint/no-empty-object-type": "off",
 	"@typescript-eslint/no-unused-vars": "off",
 	"import/extensions": ["error", "always", { ignorePackages: true }],
 };
 
-export default tseslint.config(
+export default defineConfig([
 	// Base ignores
 	includeIgnoreFile(fileURLToPath(new URL(".gitignore", import.meta.url))),
-	{
-		ignores: [
-			"content/**/*",
-			"public/content/**/*",
-			"public/sw.js",
-		],
-	},
+	globalIgnores([
+		"content/**/*",
+		"public/content/**/*",
+		"public/mockServiceWorker.js",
+		"public/sw.js",
+		"public/uninstall-sw.js",
+	]),
 
 	// Base configs
 	eslint.configs.recommended,
-	...tseslint.configs.recommended,
 
 	// Astro config
 	...eslintPluginAstro.configs.recommended,
 
-	preactConfig.map((config) => ({
+	...preactConfig.map((config) => ({
 		...config,
-		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+		files: ["**/*.{jsx,ts,tsx}"],
 	})),
 
 	{
 		files: ["**/*.{ts,tsx}"],
+		extends: [tseslint.configs.recommended],
 		languageOptions: {
 			parser: tseslint.parser,
 			parserOptions: {
@@ -83,13 +82,15 @@ export default tseslint.config(
 	// Astro files configuration
 	{
 		files: ["**/*.astro"],
+		processor: "astro/client-side-ts",
 		plugins: {
+			"@typescript-eslint": tseslint.plugin,
 			import: eslintPluginImport,
 		},
 		languageOptions: {
 			parser: astroParser,
 			parserOptions: {
-				parser: "@typescript-eslint/parser",
+				parser: tseslint.parser,
 				extraFileExtensions: [".astro"],
 			},
 		},
@@ -100,6 +101,7 @@ export default tseslint.config(
 	{
 		files: ["**/*.ts", "**/*.tsx"],
 		plugins: {
+			"@typescript-eslint": tseslint.plugin,
 			import: eslintPluginImport,
 		},
 		languageOptions: {
@@ -143,4 +145,14 @@ export default tseslint.config(
 			parser: tseslint.parser,
 		},
 	},
-);
+	{
+		files: ["**/*.astro/*.ts", "*.astro/*.ts"],
+		languageOptions: {
+			parser: tseslint.parser,
+			parserOptions: {
+				project: null,
+				sourceType: "module",
+			},
+		},
+	},
+]);

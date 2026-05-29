@@ -282,13 +282,18 @@
 
 	&::before {
 		display: block;
-		content: ' ';
+		content: " ";
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		height: var(--quiz_corner-radius);
-		background: linear-gradient(var(--quiz_background-color), var(--quiz_background-color)), var(--background_primary);
+		background:
+			linear-gradient(
+				var(--quiz_background-color),
+				var(--quiz_background-color)
+			),
+			var(--background_primary);
 		border-bottom-left-radius: var(--quiz_corner-radius);
 		border-bottom-right-radius: var(--quiz_corner-radius);
 	}
