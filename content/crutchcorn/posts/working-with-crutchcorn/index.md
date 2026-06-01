@@ -199,3 +199,36 @@ That said, there are a few things I deeply appreciate from teammates:
 - Bring problems forward quickly, especially mistakes
 
 I do not need perfect packaging. I would rather hear about a real problem imperfectly than have everyone wait until the concern is polished enough to present.
+
+# Where am I likely to mess up?
+
+A good “working with me” document should not only describe the ways someone hopes to work. It should also describe where they are likely to be imperfect.
+
+Here are a few of mine:
+
+- I can over-explain when a shorter answer would do.
+- I may ask questions that sound more skeptical than I intend.
+- I can take ownership beyond my lane.
+- I can chase the “big fix” when a smaller experiment would teach us enough.
+- I sometimes over-index on systems, documentation, and structure when the immediate need is a conversation.
+- I may send too many links, articles, or references when I am excited about a topic.
+
+If any of these start getting in the way of our work, I want you to tell me.
+
+You do not need to turn feedback into a perfectly formatted performance review. “Hey, I think we’re over-structuring this” or “I’m looking for a shorter answer here” is useful signal.
+
+# Closing thoughts
+
+This document is not a substitute for building real working relationships.
+
+It is a shortcut for context, not trust.
+
+Trust still comes from doing the work together: following through, listening well, handling disagreement carefully, making good decisions, recovering from bad ones, and showing up consistently over time.
+
+So treat this document as a starting point.
+
+If it helps you understand me sooner, great. If something here does not match your experience working with me, I want to know. If something here conflicts with what you need from a manager, I want to talk about it.
+
+The goal is not for everyone to adapt perfectly to me.
+
+The goal is for us to build enough shared context that collaboration gets easier, healthier, and more effective.
