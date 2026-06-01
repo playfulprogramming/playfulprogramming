@@ -184,3 +184,18 @@ That last point is especially important to me.
 I do not want agreement to be confused with alignment. Some of the best teams I have worked on had regular disagreement, but they also had enough trust to disagree productively, make a decision, and move forward together.
 
 If you see something I am missing, I want to know.
+
+# What do I ask from teammates?
+
+I do not expect people to work exactly like I do. In fact, part of my job is to adapt my management style to the people and team I am working with.
+
+That said, there are a few things I deeply appreciate from teammates:
+
+- Be willing to learn new things and be willing to share these learnings to reduce insulation of knowledge
+- Hungrily take on ownership over things you're excited or passionate about
+- Treat teammates as humans first and be respectful of mental health and life constraints
+- Write things down when the decision or context needs to scale beyond one conversation.
+- Ask “why” when direction feels arbitrary
+- Bring problems forward quickly, especially mistakes
+
+I do not need perfect packaging. I would rather hear about a real problem imperfectly than have everyone wait until the concern is polished enough to present.
