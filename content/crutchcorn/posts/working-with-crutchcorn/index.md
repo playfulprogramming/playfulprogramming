@@ -10,27 +10,23 @@
 
 As I get further into [my engineering management career path](/collections/journey-into-leadership/), I've come to re-learn how many different personality types there in this space. Similarly, as I've gotten to grow my teams and interact with more and more people, I've grown a deeper appreciation and empathy for those that report to me on my teams.
 
-After all, when you first join a team you're at an unbalanced scenario of information loading compared to your colleagues. While they have to learn one person's name and quirks, the new team member has to understand:
+When you first start, the information load is uneven. Your new colleagues have to learn one person’s name, role, and quirks. You, meanwhile, are trying to understand:
 
 - The company culture
-- The immediate and broader teams' responsibilities
-- Business context
-- Tech stack decision-making
+- The immediate team’s responsibilities
+- The broader organization’s responsibilities
+- The business context
+- The technical stack and its history
+- How decisions are made
+- How to build rapport with your manager and teammates
 
-And more.
+That is a lot.
 
-Among that list of "new things to learn" is how to establish rapport with your manager. Likewise, when **I** join a new team as a manager, some of the most important early tasks are to:
+When I join a new team as a manager, I have a similar responsibility from the other direction. I need to understand what the team needs from me, where people are already thriving, what problems are unresolved, how the product can grow, and what kind of leadership will be useful in this specific context.
 
-- Ask questions to understand the wants and needs from the team
-- Figure out who I can delegate work out to and how to prioritize incoming work
-- Seek to understand how the product we're working is able to grow
-- Convey my values and what I historically have looked for in successful teams
+I also need to help the team understand me.
 
-And more.
-
-Just like before, I also need to establish rapport with my team(s).
-
-While some of these questions can only be answered with internal comms, I believe that:
+Some of that can only happen through time, conversation, and shared work. But I believe:
 
 - The first step to rapport building is trust
 - The first step to trust is understanding
@@ -92,7 +88,7 @@ While my values between these two overlap heavily, hopefully this helps you unde
 
 ## Interpersonal Values
 
-### I am verbose
+### Context beats assumptions
 
 [You know what they say about assuming things.](https://en.wiktionary.org/wiki/when_you_assume,_you_make_an_ass_out_of_you_and_me) Despite this, many engineering-focused minds will omit information during regular communication; assuming a shared baseline that may not be present. This can lead to confusion, misunderstandings, and even anger in the wrong contexts.
 
@@ -106,7 +102,7 @@ These might seem obtuse in some instances, but are meant to help keep comms clea
 
 > I will always do my best to attribute things properly. If I do, for example, reintroduce a problem you first outlined — I will try my best to credit you. After all, a large part of my job is to pass on successes to the team and take team failures as my own.
 
-### I like to ask questions first
+### Questions before conclusions
 
 Before you speak, it's important that you're speaking from a place of knowledge. What better way to gain knowledge about a problem-space or organization than to ask those who are actively working on it.
 
@@ -117,7 +113,7 @@ My first few weeks may be best resembled by a "question tour" of my own design. 
 - What are nuances in the problems?
 - What has been attempted to fix things?
 
-### I value transparency
+### Transparency should travel downward, not just upward
 
 I often find that managers expect their teammates to implicitly understand why an ask is being given or the context around a task.
 
@@ -127,7 +123,7 @@ As such, I think it's important to communicate as strongly downward as I might u
 
 ## Technical Values
 
-### Determinism > Unpredicability
+### Determinism is leverage
 
 AI has left many confused about the value of developer tooling. What is the value of, say, ESLint in the face of automated code reviews? Why have strict types when "good enough" gets the job done?
 
