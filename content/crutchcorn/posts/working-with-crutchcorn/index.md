@@ -152,3 +152,23 @@ It's easy for someone to say "I care about X" but not back that up with action. 
 For example, [Playful Programming](/) is a non-profit [with a focus on transparency and openness](https://github.com/playfulprogramming/playfulprogramming/blob/main/CORE_VALUES.md#transparency--surprise). To this end, we're working on developing our own CMS that uses Git as the source of truth to store blog posts out and in the open. This way, if an author ever wanted to leave our platform, they could do so without having to even request their data.
 
 In a more enterprise focused example, a company that cares deeply about security needs to scope their production database access very carefully. The more any set of engineers can access data arbitrarily, the more an attacker would be able to access in the wrong scenario. To mitigate that, a company might establish scoped permissions for specific engineering types.
+
+# How do I communicate?
+
+Communication is critical for a healthy workplace. It's important enough that [I wrote a whole blog post dedicated to how I prefer to communicate in remote gigs.](https://playfulprogramming.com/posts/how-to-communicate/)
+
+In short, my preferences are for:
+
+- Async communication, so people have more scheduling flexibility and fewer unnecessary interruptions
+- Glanceable communication, especially with “bottom line up front” summaries for longer docs or threads
+  - I may call this a “BLUF”
+  - I have probably sent you one about this article already
+- Public-first conversations for shared work, so context is easier to find and more people can weigh in
+- Dedicated private spaces for feedback, sensitive topics, and conversations that should not happen in a group channel
+
+While my door is always open, I strive to create a documentation-first environment where answers are able to be found without having to consult me. As a result, expect a knowledge-base to be formed fairly quickly if there isn't already one.
+
+That said, documentation should not become a wall between us. I want you to have plenty of ways to flag me down when something is unclear, blocked, frustrating, or going sideways.
+
+Expect regular 1:1s, with much of that time dedicated to me listening rather than talking. Status updates can often be written down; 1:1s are better used for context, feedback, growth, concerns, decision-making, and anything that would benefit from a real conversation.
+
