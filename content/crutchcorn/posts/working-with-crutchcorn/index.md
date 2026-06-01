@@ -168,3 +168,19 @@ That said, documentation should not become a wall between us. I want you to have
 
 Expect regular 1:1s, with much of that time dedicated to me listening rather than talking. Status updates can often be written down; 1:1s are better used for context, feedback, growth, concerns, decision-making, and anything that would benefit from a real conversation.
 
+# What can you expect from me?
+
+If we work together, I hope you can expect a few things from me:
+
+- I will do my best to tell you where you stand.
+- I will give credit publicly and as specifically as I can.
+- I will take responsibility when I make a mistake.
+- I will try to protect focus where I can.
+- I will encourage growth and provide opportunities for it.
+- I will not punish respectful disagreement.
+
+That last point is especially important to me.
+
+I do not want agreement to be confused with alignment. Some of the best teams I have worked on had regular disagreement, but they also had enough trust to disagree productively, make a decision, and move forward together.
+
+If you see something I am missing, I want to know.
