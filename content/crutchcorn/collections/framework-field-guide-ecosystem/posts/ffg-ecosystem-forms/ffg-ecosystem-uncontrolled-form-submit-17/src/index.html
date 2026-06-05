@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Uncontrolled Form Submit - Example #17 - FFG Ecosystem</title>
+</head>
+
+<body>
+	<form>
+		<p>What is your name?</p>
+		<label>
+			Name:
+			<input id="name" />
+		</label>
+		<div style="margin-top: 1em">
+			<button type="submit">Submit</button>
+		</div>
+	</form>
+	<script>
+		const form = document.querySelector("form");
+
+		const nameInput = document.querySelector("#name");
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			alert(`Hello, ${nameInput.value}!`);
+		});
+	</script>
+</body>
+
+</html>
