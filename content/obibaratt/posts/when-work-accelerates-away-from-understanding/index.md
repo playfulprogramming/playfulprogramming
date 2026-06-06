@@ -2,7 +2,7 @@
 { 
     title: "When Work Accelerates Away from Understanding", 
     description: "AI increases engineering speed, but it also increases the cost of poor context. The best teams will not be the ones that generate the most code; they will be the ones that preserve enough understanding to review, operate, and own what they ship. Context stewardship is what keeps AI-assisted work from accelerating away from human judgment.", 
-    published: "2026-06-01T00:00:00.000Z", 
+    published: "2026-06-06T00:00:00.000Z", 
     tags: ["ai", "software-engineering", "leadership", "opinion"], 
     license: "publicdomain-zero-1" 
 }
