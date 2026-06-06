@@ -59,11 +59,6 @@ export default defineConfig({
 		},
 		resolve: {
 			alias: {
-				// Forgive me, friends, for I have sinned
-				"@react-aria/calendar/dist/utils.mjs": path.resolve(
-					import.meta.dirname,
-					"./node_modules/@react-aria/calendar/dist/utils.mjs",
-				),
 				src: path.resolve(import.meta.dirname, "./src"),
 			},
 		},
