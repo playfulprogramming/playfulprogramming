@@ -38,14 +38,13 @@ import { type MutableRef, useContext, useMemo, useRef } from "preact/hooks";
 import {
 	type CalendarDate,
 	fromDate,
+	getLocalTimeZone,
 	isSameMonth,
 	isToday,
+	parseDate,
+	today,
 } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
-// @ts-expect-error This enables us to reach into the private API of react-aria-components
-// 	and access the hookData map. It only works when Vite aliases this, as otherwise the bundle
-// 	will differ from the lookup table of the server and cause runtime bugs due to the mismatch.
-import { hookData } from "@react-aria/calendar/dist/utils.mjs";
 import type { Event } from "../../types.ts";
 import dayjs from "dayjs";
 import { useIsOnClient } from "../../../../hooks/use-is-on-client.ts";
@@ -82,54 +81,23 @@ const CustomButton = forwardRef(
 );
 
 interface CustomCalendarCellProps extends CalendarCellProps {
-	events: Event[];
 	// It's a long story
 	monthDate: Date;
-	isSelected: boolean;
 	popupTriggerButtonProps: DOMProps;
 }
 
-// Note: This is a custom fork of the CalendarCell component from react-aria-components to
-// 	overwrite functionality for `value` to enable multiple dates being selected
+// This mirrors CalendarCell so popup trigger props can be merged into the interactive element.
 export const CustomCalendarCell = forwardRef(
 	(
 		{
 			date,
-			events,
 			monthDate,
-			isSelected,
 			popupTriggerButtonProps,
 			...otherProps
 		}: CustomCalendarCellProps,
 		ref: ForwardedRef<HTMLTableCellElement>,
 	) => {
-		const baseState: CalendarState = useContext(CalendarStateContext);
-		const state: CalendarState = useMemo(() => {
-			return {
-				...baseState,
-				isSelected(_date: CalendarDate): boolean {
-					return isSelected;
-				},
-			};
-		}, [baseState, isSelected]);
-
-		// Do our best to preserve the base state's hook data when it is requested
-		const proxy = new Proxy(
-			{},
-			{
-				// When "get", mirror the base state
-				get: (_target, prop) => {
-					const baseStateHookData = hookData.get(baseState) || {};
-					return baseStateHookData[prop as keyof typeof baseState];
-				},
-				// When "set", do nothing
-				set: () => false,
-			},
-		);
-
-		// This is required, since usually you're not supposed to mutate the base state
-		// as `hookData` is a WeakMap
-		hookData.set(state, proxy as never);
+		const state: CalendarState = useContext(CalendarStateContext);
 
 		const isOutsideMonth = !isSameMonth(
 			date,
@@ -196,7 +164,7 @@ export const CustomCalendarCell = forwardRef(
 						dataAttrs,
 						renderProps,
 						focusProps,
-						isSelected ? popupTriggerButtonProps : {},
+						states.isSelected ? popupTriggerButtonProps : {},
 					) as unknown as Record<string, never>)}
 					ref={buttonRef}
 				/>
@@ -360,16 +328,12 @@ function CustomCalendarCellWrapper({
 		);
 	}, [events, state, date]);
 
-	const isSelected = eventsForDate.length > 0;
-
 	return (
 		<CustomCalendarCell
 			{...props}
 			date={date}
-			isSelected={isSelected}
 			popupTriggerButtonProps={buttonProps}
 			ref={triggerRef}
-			events={events}
 			monthDate={monthDate}
 			className={style.calendarCell}
 		>
@@ -496,6 +460,19 @@ export function Calendar({ events }: CalendarProps) {
 		return { months: 3 };
 	}, [isMobile, isTablet]);
 
+	const selectedEventDates = useMemo(() => {
+		const selectedDates = new Map<string, CalendarDate>();
+
+		for (const event of events) {
+			for (const block of event.blocks) {
+				const dateString = dayjs(block.starts_at).format("YYYY-MM-DD");
+				selectedDates.set(dateString, parseDate(dateString));
+			}
+		}
+
+		return [...selectedDates.values()];
+	}, [events]);
+
 	// If we do an SSR pass on this component, the timezone may mismatch the client,
 	// and as a result, cause SSR errors and therefore break many assumptions about
 	// how the calendar should work.
@@ -506,6 +483,9 @@ export function Calendar({ events }: CalendarProps) {
 			className={style.calendar}
 			aria-label="Events calendar"
 			visibleDuration={visibleDuration}
+			selectionMode="multiple"
+			value={selectedEventDates}
+			defaultFocusedValue={today(getLocalTimeZone())}
 			isReadOnly
 		>
 			<header className={style.calendarHeader}>

@@ -1,12 +1,12 @@
 import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import icon from "astro-icon";
-import symlink from "symlink-dir";
+import { symlinkDir } from "symlink-dir";
 import * as path from "path";
 import type { AstroUserConfig } from "astro";
 import node from "@astrojs/node";
 
-await symlink(path.resolve("content"), path.resolve("public/content"));
+await symlinkDir(path.resolve("content"), path.resolve("public/content"));
 
 const isServerBuild = process.env.BUILD_OUTPUT === "server";
 
@@ -59,11 +59,6 @@ export default defineConfig({
 		},
 		resolve: {
 			alias: {
-				// Forgive me, friends, for I have sinned
-				"@react-aria/calendar/dist/utils.mjs": path.resolve(
-					import.meta.dirname,
-					"./node_modules/@react-aria/calendar/dist/utils.mjs",
-				),
 				src: path.resolve(import.meta.dirname, "./src"),
 			},
 		},
