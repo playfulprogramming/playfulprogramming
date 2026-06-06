@@ -10,7 +10,7 @@
 
 # Preface
 
-In my last piece, I wrote about how AI can make individuals temporarily more productive while quietly weakening the process that makes them better. This is the team version of that same problem.
+In my last piece, [*How AI Impacts Your Growth*](https://playfulprogramming.com/posts/how-ai-impacts-your-growth/), I wrote about how AI can make individuals temporarily more productive while quietly weakening the process that makes them better. This is the team version of that same problem.
 
 The risk is not just that one engineer ships code they do not understand. The larger risk is that an entire team starts producing change faster than it can preserve context, judgment, and ownership.
 
