@@ -20,9 +20,7 @@ interface UnicornPageProps {
 
 const { person, posts } = Astro.props as UnicornPageProps;
 
-const achievementsMeta: Achievement[] = [];
-for await (const achievement of getAchievements(person))
-	achievementsMeta.push(achievement);
+const achievementsMeta = await getAchievements(person);
 
 const postsToDisplay = posts.slice(0, 4);
 const numberOfAchievementsToShowAtStart = posts.length ? 3 : 6;
