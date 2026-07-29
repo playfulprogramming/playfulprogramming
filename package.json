@@ -143,7 +143,6 @@
 		"unist-util-is": "^6.0.1",
 		"unist-util-visit": "^5.1.0",
 		"vfile": "^6.0.3",
-		"vite-tsconfig-paths": "^6.1.1",
 		"vitest": "^4.1.7",
 		"vitest-browser-preact": "^1.0.0"
 	},
