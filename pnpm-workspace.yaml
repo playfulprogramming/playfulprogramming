@@ -4,7 +4,7 @@ packages:
   - .
 minimumReleaseAge: 10080
 overrides:
-  '@playwright/test': 1.60.0
+  "@playwright/test": 1.60.0
   playwright: 1.60.0
   playwright-core: 1.60.0
   react: "npm:@preact/compat@18.3.1"

@@ -56,8 +56,8 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.9",
-		"@astrojs/node": "^10.1.2",
-		"@astrojs/preact": "^5.1.4",
+		"@astrojs/node": "^11.0.0",
+		"@astrojs/preact": "^6.0.0",
 		"@eslint/compat": "^2.1.0",
 		"@eslint/eslintrc": "^3.3.5",
 		"@eslint/js": "^10.0.1",
@@ -80,7 +80,7 @@
 		"@types/unist": "^3.0.3",
 		"@vercel/node": "^5.8.8",
 		"@vitest/browser-playwright": "^4.1.7",
-		"astro": "^6.4.2",
+		"astro": "^7.0.0",
 		"astro-eslint-parser": "^1.4.0",
 		"astro-icon": "^1.1.5",
 		"autoprefixer": "^10.5.0",
@@ -146,7 +146,6 @@
 		"unist-util-is": "^6.0.1",
 		"unist-util-visit": "^5.1.0",
 		"vfile": "^6.0.3",
-		"vite-tsconfig-paths": "^6.1.1",
 		"vitest": "^4.1.7",
 		"vitest-browser-preact": "^1.0.0"
 	},
