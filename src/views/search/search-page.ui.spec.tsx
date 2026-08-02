@@ -40,7 +40,7 @@ import {
 	PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
 	PUBLIC_SEARCH_KEY,
 } from "./constants.ts";
-import Typesense from "typesense";
+import type Typesense from "typesense";
 import type Documents from "typesense/lib/Typesense/Documents";
 import type {
 	SearchResponse,
@@ -77,55 +77,41 @@ type MockSearchFn = (
 function mockTypeSenseClient(searchFn: MockSearchFn) {
 	const spyRecord = new Map<string, Mock<MockSearchFn>>();
 
-	class MockDocuments {
-		spy: Mock<MockSearchFn>;
-		collectionName: string;
-
-		constructor(collectionName: string) {
-			this.collectionName = collectionName;
-			if (spyRecord.has(collectionName)) {
-				this.spy = spyRecord.get(collectionName)!;
-			} else {
-				const mockSearchFn = vi.fn<MockSearchFn>().mockImplementation(searchFn);
-				spyRecord.set(collectionName, mockSearchFn);
-				this.spy = mockSearchFn;
-			}
-		}
-
-		async search(
-			searchParameters: DocumentSearchParams,
-			searchOptions: DocumentSearchOptions,
-		): Promise<SearchResponse<DocumentSchema>> {
-			return this.spy(this.collectionName, searchParameters, searchOptions);
-		}
+	function MockDocuments(collectionName: string) {
+		const spy =
+			spyRecord.get(collectionName) ??
+			vi.fn<MockSearchFn>().mockImplementation(searchFn);
+		spyRecord.set(collectionName, spy);
+		return {
+			search: (
+				searchParameters: DocumentSearchParams,
+				searchOptions: DocumentSearchOptions,
+			) => spy(collectionName, searchParameters, searchOptions),
+		};
 	}
 
-	class MockCollection {
-		name: string;
-
-		constructor(name: string) {
-			this.name = name;
-		}
-
-		documents(documentId?: string) {
-			if (!documentId) {
-				return new MockDocuments(this.name);
-			}
-		}
+	function MockCollection(name: string) {
+		return {
+			documents(documentId?: string) {
+				if (!documentId) {
+					return MockDocuments(name);
+				}
+			},
+		};
 	}
 
-	class MockClient extends Typesense.Client {
+	class MockClient {
 		collections(): never;
 		collections(collectionName?: string) {
-			if (collectionName === undefined) {
-				return super.collections();
-			}
-
-			return new MockCollection(collectionName);
+			if (collectionName === undefined) return undefined;
+			return MockCollection(collectionName);
 		}
 	}
 
-	return { ClientClass: MockClient, spyRecord };
+	return {
+		ClientClass: MockClient as never as typeof Typesense.Client,
+		spyRecord,
+	};
 }
 
 function mockClient(fn: (searchStr: string) => FnReply) {
