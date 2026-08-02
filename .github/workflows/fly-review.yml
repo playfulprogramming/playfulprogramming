@@ -85,7 +85,6 @@ jobs:
           push: ${{ github.event_name == 'pull_request_target' }}
           tags: ${{ env.DOCKER_TAG }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
           build-args: |
             "GIT_COMMIT_REF=${{ github.head_ref || github.ref_name }}"
             "SITE_URL=https://playfulprogramming.com"
