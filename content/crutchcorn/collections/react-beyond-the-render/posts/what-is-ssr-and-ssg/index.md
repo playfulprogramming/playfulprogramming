@@ -126,4 +126,4 @@ As mentioned previously, having SSR and SSG in your toolbox are incredibly usefu
 
 Now you have familiarity with what SSR and SSG are, maybe you want to take a stab at implementing it? [We took a look recently at creating a blog using an Angular SSG solution called Scully](/posts/making-an-angular-blog-with-scully/).
 
-As always, let us know what you think down in the comments below or [in our community Discord](https://discord.gg/FMcvc6T).
+As always, let us know what you think down in the comments below or [in our community Discord](https://discord.playfulprogramming.com).

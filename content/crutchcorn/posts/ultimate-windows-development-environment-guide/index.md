@@ -760,4 +760,4 @@ You'll notice that despite the raw power and capabilities that WSL2 will be brin
 
 I want to take a moment to stop and appreciate all of the hard work that the folks at Microsoft and everyone involved in the projects mentioned have done to enable the kind of work I do daily. Thank you.
 
-If you have any questions or comments, feel free to ring off in the comment box below. Otherwise, we have [our community Discord](https://discord.gg/FMcvc6T) where we talk not only talk Windows, but Linux, macOS, programming, and everything in between. We look forward to seeing you there!
+If you have any questions or comments, feel free to ring off in the comment box below. Otherwise, we have [our community Discord](https://discord.playfulprogramming.com) where we talk not only talk Windows, but Linux, macOS, programming, and everything in between. We look forward to seeing you there!

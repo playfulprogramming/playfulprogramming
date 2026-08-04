@@ -51,7 +51,7 @@ Playful Programming (originally called ["Unicorn Utterances"](https://playfulpro
 Since then, we as a community have:
 
 - [Had over 230 articles released on our site from over 60 contributors](https://playfulprogramming.com/search/?q=*)
-- [Ran a Discord community with 2700 members](https://discord.gg/FMcvc6T)
+- [Ran a Discord community with 2700 members](https://discord.playfulprogramming.com)
 
 - [Made a bespoke highly performant and accessible website](https://playfulprogramming.com) 
   - [The site was built along the timeline of 7000+ commits](https://github.com/playfulprogramming/playfulprogramming)

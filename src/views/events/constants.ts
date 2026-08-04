@@ -233,7 +233,7 @@ for (const _ of new Array(5).fill(0)) {
 		starts_at: starts_at.toDate(),
 		ends_at: dayjs(lastEvent.ends_at).add(1, "week").toDate(),
 		location_description: "Discord",
-		location_url: "https://discord.com/invite/FMcvc6T",
+		location_url: "https://discord.playfulprogramming.com",
 	});
 }
 
@@ -250,7 +250,7 @@ export const officeHoursBlocks = new Array(64).fill(0).map(
 				.tz("America/Los_Angeles", true)
 				.toDate(),
 			location_description: "Discord",
-			location_url: "https://discord.com/invite/FMcvc6T",
+			location_url: "https://discord.playfulprogramming.com",
 			presenters: [],
 			timezone: "America/Los_Angeles",
 		}) satisfies EventBlock,
@@ -278,7 +278,7 @@ export const events = [
 		description:
 			"In our book club, every Wednesday we hang out and chat about a topic or a specific article!",
 		location_description: "Join our Discord",
-		location_url: "https://discord.gg/FMcvc6T",
+		location_url: "https://discord.playfulprogramming.com",
 		blocks: bookClubBlocks,
 		organizers: [],
 		in_person: false,

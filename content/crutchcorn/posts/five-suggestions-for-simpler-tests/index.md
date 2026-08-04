@@ -339,4 +339,4 @@ When using large amounts of network data that you'd like to mock, be sure to [ha
 
 Using these methods, tests can be simplified, often made faster, and typically shorten the length of a testing file. While this may sound straightforward on a surface level, writing tests is a skill that's grown like any other. Practice encourages growth, so don't be discouraged if your tests aren't as straightforward as you'd like to first.
 
-If you have any questions about testing, or maybe have a test you're unsure how to simplify, be sure to join [our Discord Server](https://discord.gg/FMcvc6T). We engage in tons of engineering discussions there and even live pair-program solutions when able.
+If you have any questions about testing, or maybe have a test you're unsure how to simplify, be sure to join [our Discord Server](https://discord.playfulprogramming.com). We engage in tons of engineering discussions there and even live pair-program solutions when able.

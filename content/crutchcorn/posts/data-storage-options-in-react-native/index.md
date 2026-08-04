@@ -75,4 +75,4 @@ While you're more than able to cache database calls manually, sometimes it's con
 
 As with many things in engineering, where to store data is a broad-reaching and integral question to be asking yourself while developing. I've found myself mixing many of these options for a single application, depending on the context. Each has its strengths to draw from and weaknesses to consider.
 
-If you liked this article and want to see more React Native content, consider subscribing to our newsletter below. We have more React Native content on its way soon. We also have [a community Discord](https://discord.gg/FMcvc6T) if you have questions or comments that you'd like to discuss with us!
+If you liked this article and want to see more React Native content, consider subscribing to our newsletter below. We have more React Native content on its way soon. We also have [a community Discord](https://discord.playfulprogramming.com) if you have questions or comments that you'd like to discuss with us!

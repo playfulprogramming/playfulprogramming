@@ -8,7 +8,7 @@
 }
 ---
 
-[On our Discord channel](https://discord.gg/FMcvc6T) we have started "book club" where someone suggest article for that week, and then we have discussion around it.
+[On our Discord channel](https://discord.playfulprogramming.com) we have started "book club" where someone suggest article for that week, and then we have discussion around it.
 
 This week [article](https://www.freecodecamp.org/news/how-to-build-a-full-stack-application-from-start-to-finish/) was about how to architect a full-stack application from start to finish.
 

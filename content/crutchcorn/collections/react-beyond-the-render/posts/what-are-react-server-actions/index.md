@@ -408,4 +408,4 @@ React Server Actions make for a wonderful way of intermingling server and client
 
 But there's one more thing I still want to cover about React Server Components left... Let's look at `useFormState` and `useFormStatus` next time!
 
-Until then, [drop by our Discord server](https://discord.gg/FMcvc6T) and tell us what you think of React Server Actions - we'd love to hear your thoughts!
+Until then, [drop by our Discord server](https://discord.playfulprogramming.com) and tell us what you think of React Server Actions - we'd love to hear your thoughts!

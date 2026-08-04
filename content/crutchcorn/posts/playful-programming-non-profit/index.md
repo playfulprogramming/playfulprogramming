@@ -177,7 +177,7 @@ For interested parties, we're willing to:
 - Build out partnered content
 - Offer other bespoke benefits
 
-You can reach out [via email](mailto:contact@playfulprogramming.com), [our Discord](https://discord.gg/FMcvc6T), or donate via our [Open Collective](https://opencollective.com/playfulprogramming).
+You can reach out [via email](mailto:contact@playfulprogramming.com), [our Discord](https://discord.playfulprogramming.com), or donate via our [Open Collective](https://opencollective.com/playfulprogramming).
 
 ---
 

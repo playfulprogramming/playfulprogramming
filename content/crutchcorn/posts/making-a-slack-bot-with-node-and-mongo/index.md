@@ -609,4 +609,4 @@ Run that last `git commit` and `git push heroku master` and congrats! You should
 
 Slack provides a feature-rich, very useful chat application. Being able to add in your own functionality to said application only makes things more powerful for either your group or your end users. I know many businesses will use Slack bots as another experience for their business users. Now you've been able to see the power of their Node SDK and how easy it is to setup and deploy your very own Slack app using MongoDB and Heroku!
 
-Any questions or comments we didn't touch on here? Let us know down below or [in our Discord](https://discord.gg/FMcvc6T) where you can ask questions in real time with folks from our community!
+Any questions or comments we didn't touch on here? Let us know down below or [in our Discord](https://discord.playfulprogramming.com) where you can ask questions in real time with folks from our community!

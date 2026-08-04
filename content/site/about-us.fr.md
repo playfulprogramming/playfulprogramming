@@ -4,7 +4,7 @@ C’est quoi une boucle “for”? Comment créer des animations avec CSS? Comme
 
 Nous essayons de faire en sorte que tout le monde soit le bienvenu, quel que soit leur niveau. Le contenu couvre différents sujets, plusieurs niveaux de difficulté et (espérant) différentes perspectives.
 
-C'est certainement un objectif ambitieux, et il sera difficile de l'atteindre seul, donc si vous pensez pouvoir nous aider à atteindre plus de personnes, que ce soit en fournissant des traductions, [des correctifs sur le code du site](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) [ou bien des articles](https://github.com/playfulprogramming/playfulprogramming#blog-posts), [vous pouvez faire une “pull request”](https://github.com/playfulprogramming/playfulprogramming/pulls). Vous pouvez aussi [participer aux discussions et aidez les autres lecteurs sur notre Discord.](https://discord.gg/FMcvc6T).
+C'est certainement un objectif ambitieux, et il sera difficile de l'atteindre seul, donc si vous pensez pouvoir nous aider à atteindre plus de personnes, que ce soit en fournissant des traductions, [des correctifs sur le code du site](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) [ou bien des articles](https://github.com/playfulprogramming/playfulprogramming#blog-posts), [vous pouvez faire une “pull request”](https://github.com/playfulprogramming/playfulprogramming/pulls). Vous pouvez aussi [participer aux discussions et aidez les autres lecteurs sur notre Discord.](https://discord.playfulprogramming.com).
 
 ---
 

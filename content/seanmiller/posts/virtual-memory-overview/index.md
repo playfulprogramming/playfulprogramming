@@ -126,4 +126,4 @@ What happens is you get a segfault. This segfault occurs because you're trying t
 
 Operating systems protect physical memory by giving each process a seemingly infinite amount of virtual memory where they each have their own address space that doesn't affect any other processes. Understanding this and how the virtual memory is represented is a fundamental building block in becoming a better and more efficient programmer.
 
-Unclear about something regarding virtual memory? Maybe you'd like to expand on some of the subjects touched on here? Be sure to join us [in our Discord Server](https://discord.gg/FMcvc6T) and ask away! We like to chat, hang out, and enjoy talking CS-related subjects!
+Unclear about something regarding virtual memory? Maybe you'd like to expand on some of the subjects touched on here? Be sure to join us [in our Discord Server](https://discord.playfulprogramming.com) and ask away! We like to chat, hang out, and enjoy talking CS-related subjects!

@@ -8,7 +8,7 @@ Here are a few things to keep in mind while writing your post:
 - Aim to provide factual and relevant information - citing sources is encouraged!
 - Keep your content unbiased; i.e. don't advertise commercial products or services without reason.
 
-If at any point you get stuck or want to ask questions, feel free to [open an issue on GitHub](https://github.com/playfulprogramming/playfulprogramming/issues/new) or [reach out to us on Discord](https://discord.gg/FMcvc6T) for help!
+If at any point you get stuck or want to ask questions, feel free to [open an issue on GitHub](https://github.com/playfulprogramming/playfulprogramming/issues/new) or [reach out to us on Discord](https://discord.playfulprogramming.com) for help!
 
 ---
 

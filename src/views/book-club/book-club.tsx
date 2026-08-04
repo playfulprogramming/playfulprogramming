@@ -171,7 +171,7 @@ export default function BookClub({ eventBlocksWithMetadata }: BookClubProps) {
 						</p>
 					</div>
 					<LargeButton
-						href={"https://discord.gg/FMcvc6T"}
+						href={"https://discord.playfulprogramming.com"}
 						variant={"primary-emphasized"}
 					>
 						Join our Discord

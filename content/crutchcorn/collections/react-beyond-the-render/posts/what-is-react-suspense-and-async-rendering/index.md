@@ -292,4 +292,4 @@ in this area; I think most apps are going to end up utilizing these heavily.
 However, this is only half of the story for React's async support. Next up, we'll talk about React Server Actions, which enables the client to
 make RPC-like calls back to the server and execute server code for us.
 
-Can't wait to talk about what you learned about? [Join our Discord and tell us what you think about the Suspense API](https://discord.gg/FMcvc6T)!
+Can't wait to talk about what you learned about? [Join our Discord and tell us what you think about the Suspense API](https://discord.playfulprogramming.com)!
