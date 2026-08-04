@@ -131,7 +131,7 @@ For example, if you're new to React and ask the agent to build a component, the 
 
 Refactoring across many files is risky without a plan. Planning mode ensures the agent has thought through all the implications and will make consistent changes throughout the codebase.
 
-I used this extensively [when refactoring Easy Kit Utils](/blog/how-i-refactored-easy-kit-utils-with-ai-agents/), the planning phase showed exactly which files would be touched and how the changes would maintain consistency.
+I used this extensively [when refactoring Easy Kit Utils](/posts/how-i-refactored-easy-kit-utils-with-ai-agents/), the planning phase showed exactly which files would be touched and how the changes would maintain consistency.
 
 #### Collaborative Development
 
