@@ -111,7 +111,7 @@ returnedObject.test(); // This will not return an error but should 🙁
 returnedObject.objProperty; // This will also (correctly) not throw an error, but TS won't know it's a number ☹️
 ```
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # The Real Solution {#generics-intro}
 
