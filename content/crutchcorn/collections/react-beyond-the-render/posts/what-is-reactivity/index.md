@@ -303,4 +303,4 @@ This has been a look at what reactivity is and why you might want to use a moder
 
 Next time, we'll talk about what "Reconciliation" is and how it impacts most React and Vue frontend applications today.
 
-Want a place to ask questions as you're learning on your journey? [Join our Discord](https://discord.gg/FMcvc6T) and let us know what you thought of this article. We'd love to get to know you!
+Want a place to ask questions as you're learning on your journey? [Join our Discord](https://discord.playfulprogramming.com) and let us know what you thought of this article. We'd love to get to know you!

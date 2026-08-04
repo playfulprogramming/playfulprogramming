@@ -253,5 +253,5 @@ Keep in mind, simply because you have a new tool to manage releases doesn't mean
 
 While the outline we've provided should suffice for most usage, each of these tools includes many options that you're able to utilize customize the process to your liking.
 
-Find options you think we should cover in this article? Have questions about how to get `conventional-commit` and `standard-version` working? Let us know! We've got a comments section down below as well as [a Discord Community](https://discord.gg/FMcvc6T) that we use to chat.
+Find options you think we should cover in this article? Have questions about how to get `conventional-commit` and `standard-version` working? Let us know! We've got a comments section down below as well as [a Discord Community](https://discord.playfulprogramming.com) that we use to chat.
 

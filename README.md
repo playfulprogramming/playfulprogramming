@@ -6,7 +6,7 @@
 </h1>
 <div align="center">
 
-[![Join chat on Discord](https://badgen.net/badge/discord/join%20chat/7289DA?icon=discord)](https://discord.gg/FMcvc6T)
+[![Join chat on Discord](https://badgen.net/badge/discord/join%20chat/7289DA?icon=discord)](https://discord.playfulprogramming.com)
 [![Contributor Covenant v1.4 adopted](https://badgen.net/badge/Contributor%20Covenant/v1.4%20adopted/ff69b4)](CODE_OF_CONDUCT.md)
 [![Check Status](https://badgen.net/github/checks/playfulprogramming/playfulprogramming/?icon=github)](https://github.com/playfulprogramming/playfulprogramming/actions)
 
@@ -39,7 +39,7 @@ are going towards and what will be done in exchange.
 
 We highly encourage and celebrate others contributing to our site and our community! We've written [a comprehensive guide on how to do so here](./CONTRIBUTING.md). This guide includes instructions for how to add a new post to the site, how to edit our code, and what our deployment strategy is.
 
-Keep in mind that we request developers reach out [via our Discord](https://discord.gg/FMcvc6T) or [via GitHub issue](https://github.com/playfulprogramming/playfulprogramming/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
+Keep in mind that we request developers reach out [via our Discord](https://discord.playfulprogramming.com) or [via GitHub issue](https://github.com/playfulprogramming/playfulprogramming/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
 
 We extend this invitation to those who may be unfamiliar with our processes. Be sure to check out [our CONTRIBUTING.md](./CONTRIBUTING.md) file first, but don't be afraid to join in and ask questions if you're uncertain of anything
 

@@ -177,4 +177,4 @@ Both of these forced me to better refine my goals and what I was looking for. Th
 
 What do you think? Is "DDD" a good idea? Will you be using it for your next project?
 
-Let us know what you think, and [join our Discord](https://discord.gg/FMcvc6T) to talk to us more about it! 
+Let us know what you think, and [join our Discord](https://discord.playfulprogramming.com) to talk to us more about it! 

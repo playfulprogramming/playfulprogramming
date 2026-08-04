@@ -983,4 +983,4 @@ However, this comes at an offset cost of performance. Because you're causing a r
 
 # Conclusion
 
-As with most engineering work, knowing an API's limitations, strengths, and workarounds can increase performance, cause fewer bugs in production, and make the organization of code more readily available. Now that you know the whole story surrounding refs, what will you do with that knowledge? We'd love to hear from you! Drop a comment down below or [join us in our community Discord](https://discord.gg/FMcvc6T)!
+As with most engineering work, knowing an API's limitations, strengths, and workarounds can increase performance, cause fewer bugs in production, and make the organization of code more readily available. Now that you know the whole story surrounding refs, what will you do with that knowledge? We'd love to hear from you! Drop a comment down below or [join us in our community Discord](https://discord.playfulprogramming.com)!

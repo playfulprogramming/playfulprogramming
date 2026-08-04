@@ -300,7 +300,7 @@ Finally, you use communication to lead your team; building out trust, providing 
 
 Those that learn to master all three don't just solve technical problems; they become the leaders who guide their organizations.
 
-What are your favorite engineering communication tips? Let us know [in our Discord](https://discord.gg/FMcvc6T) and kickstart a new conversation on good team comms!
+What are your favorite engineering communication tips? Let us know [in our Discord](https://discord.playfulprogramming.com) and kickstart a new conversation on good team comms!
 
 
 

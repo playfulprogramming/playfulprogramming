@@ -474,4 +474,4 @@ While this blog site is far from ready from release, it's functional. It's missi
 
 All in all, Scully proves to be a powerful tool in any Angular developer's toolkit, and knowing how to make a blog with it is just one use case for such a tool.
 
-As always, I'd love to hear from you down below in our comments or even [in our community Discord](https://discord.gg/FMcvc6T). Also, don't forget to subscribe to our newsletter so you don't miss more content like this in the future!
+As always, I'd love to hear from you down below in our comments or even [in our community Discord](https://discord.playfulprogramming.com). Also, don't forget to subscribe to our newsletter so you don't miss more content like this in the future!

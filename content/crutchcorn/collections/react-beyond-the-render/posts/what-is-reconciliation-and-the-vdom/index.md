@@ -179,4 +179,4 @@ These two combined build the foundation for how React works behind the scenes. I
 
 Eventually, this series will show you how to use React Server Actions in-depth and how you can utilize your React knowledge to become a full-stack developer.
 
-Sound like fun? We hope so! [Join us in our Discord](https://discord.gg/FMcvc6T) and let us know what other topics you'd like to see on the site.
+Sound like fun? We hope so! [Join us in our Discord](https://discord.playfulprogramming.com) and let us know what other topics you'd like to see on the site.

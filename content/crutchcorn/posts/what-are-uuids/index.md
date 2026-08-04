@@ -188,7 +188,7 @@ framework-guide.playfulprogramming.com
 
 To host a preview of the [Framework Field Guide book](https://framework.guide) early access.
 
-> This isn't the real URL, just an example. Want to have the real early access link? [Join our Discord](https://discord.gg/FMcvc6T) and ask!
+> This isn't the real URL, just an example. Want to have the real early access link? [Join our Discord](https://discord.playfulprogramming.com) and ask!
 
 As a result of the early access site being a mirror of the main site, many of the URLs might be duplicated. We want to allow seperate comments from the preview site vs. the production site so that issues in preview can be resolved before going live.
 
