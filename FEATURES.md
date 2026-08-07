@@ -204,7 +204,7 @@ While not 1:1, the filetree component is inspired by the [Astro Starlight `file-
 We support showing ads in the content of the article. This is useful for promoting products, services, or donations.
 
 ```html
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 ```
 
 We support the following properties:

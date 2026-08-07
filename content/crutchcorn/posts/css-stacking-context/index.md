@@ -261,7 +261,7 @@ Notice how the purple box seemingly remains on "top" when we re-arrange the CSS 
 
 Well...
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Re-arrange HTML Elements to Change the Painting Order
 
