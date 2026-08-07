@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Uncontrolled Validation - Example #18 - FFG Ecosystem</title>
+</head>
+
+<body>
+	<form>
+		<p>Pretend that there is some legalese here.</p>
+		<label>
+			<span>Agree to the terms?</span>
+			<input id="agree" type="checkbox" />
+		</label>
+		<div style="margin-top: 1em">
+			<button type="submit">Submit</button>
+		</div>
+	</form>
+	<script>
+		const form = document.querySelector("form");
+		const agreeCheckbox = document.querySelector("#agree");
+
+		// Without this, the user will never be able to submit after a failed submission
+		agreeCheckbox.addEventListener('input', () => {
+			agreeCheckbox.setCustomValidity("");
+		})
+
+		form.addEventListener("submit", (event) => {
+			// Prevent the form from resetting the page
+			event.preventDefault();
+			if (!agreeCheckbox.checked) {
+				agreeCheckbox.setCustomValidity("You must agree to the terms.");
+				agreeCheckbox.reportValidity();
+			} else {
+				agreeCheckbox.setCustomValidity("");
+				alert("You have successfully signed up for our service, whatever that is")
+			}
+		});
+	</script>
+</body>
+
+</html>

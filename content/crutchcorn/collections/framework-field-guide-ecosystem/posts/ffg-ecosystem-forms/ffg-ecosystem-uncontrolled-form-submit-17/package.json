@@ -1,0 +1,9 @@
+{
+	"name": "@ffg-ecosystem/uncontrolled-form-submit-17",
+	"scripts": {
+		"start": "servor --reload src"
+	},
+	"devDependencies": {
+		"servor": "^4.0.2"
+	}
+}
