@@ -1,10 +1,11 @@
 @use "./breakpoints" as *;
 @use "./utils" as *;
 
-$plusJakartaSans: "Plus Jakarta Sans", "Plus Jakarta Sans-fallback",
+$plusJakartaSans:
+	"Plus Jakarta Sans", "Plus Jakarta Sans-fallback",
 	"Plus Jakarta Sans-fallback2", sans-serif;
-$changaOne: "Changa One", "Changa One-fallback", "Changa One-fallback2",
-	sans-serif;
+$changaOne:
+	"Changa One", "Changa One-fallback", "Changa One-fallback2", sans-serif;
 
 .text-style-display-1 {
 	font-size: 2.75rem;

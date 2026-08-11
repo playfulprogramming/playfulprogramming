@@ -1,4 +1,4 @@
-import { Languages, PersonInfo } from "../../types";
+import type { Languages, PersonInfo } from "../../types/index.ts";
 
 export interface SEOProps {
 	description?: string;

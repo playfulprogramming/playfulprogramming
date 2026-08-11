@@ -1,9 +1,19 @@
-import { Languages } from "types/index";
+import type { Languages } from "#types/index.ts";
+import type { LocalFile } from "#types/LocalFile.ts";
 
-export interface ChapterList {
+export interface FuturePost {
+	order: number;
 	title: string;
-	description: string;
-	order: string;
+	description?: string;
+}
+
+export interface CurrentPost {
+	post: string;
+}
+
+export interface CollectionButton {
+	text: string;
+	url: string;
 }
 
 export interface RawCollectionInfo {
@@ -20,8 +30,8 @@ export interface RawCollectionInfo {
 	noindex?: boolean;
 	version?: string;
 	upToDateSlug?: string;
-	buttons?: Array<{ text: string; url: string }>;
-	chapterList?: ChapterList[];
+	buttons?: CollectionButton[];
+	chapterList?: Array<CurrentPost | FuturePost>;
 }
 
 export interface CollectionInfo extends RawCollectionInfo {
@@ -33,14 +43,13 @@ export interface CollectionInfo extends RawCollectionInfo {
 	locales: Languages[];
 	locale: Languages;
 	postCount: number;
-	coverImgMeta: {
-		// Relative to "public/people"
-		relativePath: string;
-		// Relative to site root
-		relativeServerPath: string;
-		// This is not stored, it's generated at build time
-		absoluteFSPath: string;
-		height: number;
-		width: number;
-	};
+	coverImgMeta: LocalFile;
+	socialImgMeta?: LocalFile;
+}
+
+export interface SearchCollectionInfo extends CollectionInfo {
+	id: string;
+	excerpt: string;
+	searchMeta: string;
+	publishedTimestamp: number;
 }

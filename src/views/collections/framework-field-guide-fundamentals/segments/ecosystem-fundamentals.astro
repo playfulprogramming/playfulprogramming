@@ -1,8 +1,8 @@
 ---
 import "../../framework-field-guide/components/shared-section-styling.scss";
-import SignupForm from "../../framework-field-guide/components/signup-form.astro";
 import EcosystemBookCover from "../../framework-field-guide/segments/ecosystem-book-cover.astro";
 import styles from "./ecosystem-fundamentals.module.scss";
+import BigFilledButton from "../../framework-field-guide/components/big-filled-button.astro";
 ---
 
 <section data-change-color-to="ecos">
@@ -26,31 +26,12 @@ import styles from "./ecosystem-fundamentals.module.scss";
 					>Framework Field Guide</a
 				>.
 			</p>
+			<div>
+				<BigFilledButton href="/collections/framework-field-guide-ecosystem">
+					Read now
+				</BigFilledButton>
+			</div>
 		</div>
 	</div>
 	<EcosystemBookCover />
-	<div class="class-book-2">
-		<div class="book-section" style="background: var(--section-background);">
-			<p
-				class={`text-style-headline-4 ${styles.highEmphasis} ${styles.inDevelopment}`}
-			>
-				Ecosystem is still under development
-			</p>
-			<p
-				class={`text-style-headline-6 ${styles.mediumEmphasis} ${styles.inDevelopmentTwo}`}
-			>
-				A late 2025 release is expected. In the meantime, sign up to get updates
-				on the book!
-			</p>
-			<div class={styles.signUpContainer}>
-				<SignupForm />
-			</div>
-			<p
-				class={`text-style-body-medium ${styles.mediumEmphasis} ${styles.emailWarning}`}
-			>
-				All of the emails sent out will be strictly about important updates
-				regarding the progress of the books.
-			</p>
-		</div>
-	</div>
 </section>

@@ -4,13 +4,18 @@ const { tableOfContentsDefaultText } = Astro.props as {
 };
 ---
 
-<script define:vars={{ tableOfContentsDefaultText }}>
+<script is:inline define:vars={{ tableOfContentsDefaultText }}>
 	window.tableOfContentsDefaultText = tableOfContentsDefaultText;
 </script>
 
 <script>
+	declare global {
+		interface Window {
+			tableOfContentsDefaultText: string;
+		}
+	}
 	const postTitleHeader = document.getElementById("post-title-header");
-	const tableOfContentsDefaultText = (window as any).tableOfContentsDefaultText;
+	const tableOfContentsDefaultText = window.tableOfContentsDefaultText;
 
 	const mobileTableOfContentsMenuHeaderText =
 		document.querySelector<HTMLElement>(

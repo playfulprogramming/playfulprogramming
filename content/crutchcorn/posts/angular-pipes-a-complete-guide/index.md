@@ -352,7 +352,7 @@ We can add `pure: false` to the pipe and, voila, it works!
 
 # Using Services in Pipes
 
-Some folks have asked me how they can use [Angular's dependency injection](posts/ffg-fundamentals-dependency-injection) in pipes.
+Some folks have asked me how they can use [Angular's dependency injection](/posts/ffg-fundamentals-dependency-injection) in pipes.
 
 Well, luckily for us it's no different than using the `inject` function in a `@Component` or `@Directive`:
 

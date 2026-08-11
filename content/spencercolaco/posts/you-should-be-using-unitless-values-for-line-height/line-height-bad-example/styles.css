@@ -1,0 +1,16 @@
+html {
+  font-size: 16px; /* Simulated user agent style */
+}
+
+body {
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* computed height: 24px (1.5 * 16px) */
+}
+
+h1 {
+  font-size: 4rem; /* computed height: 24px (inherited) */
+}
+
+p {
+  font-size: 2rem; /* computed height: 24px (inherited) */
+}

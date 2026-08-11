@@ -135,7 +135,7 @@ For help, see: https://nodejs.org/en/docs/inspector
 
 At this point, _it will hang and not process the code or run it_. That's okay though, as we'll be running the inspector to get the code to run again in the next step.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # The Debugger {#the-debugger}
 
@@ -306,4 +306,4 @@ It's not just JavaScript files you're able to edit, though! You can click or use
 
 While we've covered a lot of functionality present within the Chrome debugger, there's still more to cover about it! If you'd like to read more about it, you may want to take a look at [the extensive blog series by the Chrome team](https://developers.google.com/web/tools/chrome-devtools/javascript) that offers a much deeper dive into all of the debugging tools present within Chrome. Luckily, the skills that you gain while debugging Node.JS applications carries over to debugging front-end JavaScript, so hopefully this article has helped introduce you to the myriad of tools that Chrome has to offer.
 
-Leave a comment down below if you have a question or comment, or feel free to join [our Discord](https://discord.gg/FMcvc6T) to have a direct line to us about the article (or just general tech questions).
+Leave a comment down below if you have a question or comment, or feel free to join [our Discord](https://discord.playfulprogramming.com) to have a direct line to us about the article (or just general tech questions).

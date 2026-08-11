@@ -1,0 +1,151 @@
+name: Fly PR Preview
+
+on:
+  # Note: this pull_request_target usage is quite unsafe!
+  # Be very careful about making changes to this file!
+  # It has been the cause of multiple GHA-related exploits!
+  # zizmor: ignore[dangerous-triggers]
+  pull_request_target:
+    types: [opened, reopened, synchronize, closed]
+  merge_group:
+    types:
+      - checks_requested
+
+env:
+  DOCKER_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}-review:pr-${{ github.event.pull_request.number }}
+  SCRIPT_PREFIX: |
+    function retry_loop() {
+      retries=$1; while ! bash -c "$2"; do ((--retries)) || return; sleep 10; done
+    }
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number || github.run_id }}-deploy
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  # If the PR is from a fork, and changes anything outside of the content folder, it needs to be manually reviewed
+  check-pr:
+    name: Check PR changes
+    if: ${{ github.event_name == 'pull_request_target' && github.event.action != 'closed' && github.event.pull_request.head.repo.full_name != github.repository }}
+    runs-on: ubuntu-latest
+    outputs:
+      unsafe: ${{ steps.changes.outputs.unsafe }}
+    permissions:
+      pull-requests: read
+    steps:
+      - id: changes
+        uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d # v4.0.1
+        with:
+          filters: |
+            unsafe:
+              - '!(content/**)'
+
+  review-unsafe:
+    name: Review for unsafe changes
+    needs: [check-pr]
+    if: ${{ needs.check-pr.outputs.unsafe != 'false' }}
+    runs-on: ubuntu-latest
+    environment: review-unsafe
+    permissions: {}
+    steps:
+      - name: Wait for approval
+        run: echo 'Approved to build and deploy'
+
+  build:
+    name: Build image
+    needs: [review-unsafe]
+    if: ${{ !cancelled() && github.event.action != 'closed' && (needs.review-unsafe.result == 'success' || needs.review-unsafe.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
+        with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          # This checks out the PR merge contents, which COULD CONTAIN UNSAFE CODE!
+          # It is very important that no secrets are provided to the docker build!
+          ref: "${{ github.event.pull_request.head.sha }}"
+          persist-credentials: false
+
+      - name: Build Docker image
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
+        with:
+          context: .
+          push: ${{ github.event_name == 'pull_request_target' }}
+          tags: ${{ env.DOCKER_TAG }}
+          cache-from: type=gha
+          build-args: |
+            "GIT_COMMIT_REF=${{ github.head_ref || github.ref_name }}"
+            "SITE_URL=https://playfulprogramming.com"
+            "MODE=preview"
+
+  deploy_for_review:
+    name: Deploy for review
+    if: ${{ !cancelled() && github.event_name == 'pull_request_target' && needs.build.result != 'failure' }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
+    environment:
+      name: review
+      url: ${{ steps.deploy.outputs.url }}
+    env:
+      APP_NAME: pr-${{ github.event.pull_request.number }}-playful-programming-preview-playfulprogramming
+      FLY_API_TOKEN: ${{ secrets.FLY_WEB_PR_REVIEW_TOKEN }}
+
+    steps:
+      # This checks out the main branch! So everything in this job can be trusted (except for the image being deployed)
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - uses: superfly/flyctl-actions/setup-flyctl@fc53c09e1bc3be6f54706524e3b82c4f462f77be # 1.5
+
+      - id: status
+        name: Retrieve app status
+        run: flyctl status --app "$APP_NAME"
+        continue-on-error: true
+
+      - name: Destroy app
+        if: ${{ github.event.action == 'closed' }}
+        run: |
+          ${{ env.SCRIPT_PREFIX }}
+          retry_loop 3 'flyctl apps destroy "$APP_NAME" -y' || true
+
+      - name: Configure app
+        if: ${{ github.event.action != 'closed' && steps.status.outcome == 'failure' }}
+        run: |
+          ${{ env.SCRIPT_PREFIX }}
+
+          # Backup the original config file since 'flyctl launch' messes up the [build.args] section
+          cp fly.toml fly.toml.bak
+
+          retry_loop 3 'flyctl status --app "$APP_NAME" || ( cp fly.toml.bak fly.toml; flyctl launch --no-deploy --copy-config --name "$APP_NAME" )'
+
+          # Restore the original config file
+          cp fly.toml.bak fly.toml
+
+      - id: deploy
+        name: Deploy app
+        if: ${{ github.event.action != 'closed' }}
+        run: |
+          ${{ env.SCRIPT_PREFIX }}
+          retry_loop 3 'flyctl deploy --config "fly.review.toml" --app "$APP_NAME" --image "$DOCKER_TAG" --ha=false'
+
+          # Make the deployment URL available to the GitHub workflow.
+          flyctl status --app "$APP_NAME" --json >status.json
+          hostname=$(jq -r .Hostname status.json)
+          echo "url=https://$hostname" >> $GITHUB_OUTPUT

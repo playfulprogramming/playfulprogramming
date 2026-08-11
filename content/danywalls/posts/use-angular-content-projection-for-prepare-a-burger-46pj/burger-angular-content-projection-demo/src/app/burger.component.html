@@ -1,0 +1,16 @@
+<div class="burger">
+  <top-bun></top-bun>
+  <ng-content select="[top]"></ng-content>
+  <ng-content select="[middle]"></ng-content>
+  <ng-content select="[bottom]"></ng-content>
+  <bottom-bun></bottom-bun>
+</div>
+
+<div class="price">
+  <ng-content select="[price]"></ng-content>
+</div>
+
+<div>
+  <p>Ingredients without a location</p>
+  <ng-content> </ng-content>
+</div>

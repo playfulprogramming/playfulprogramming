@@ -1,5 +1,5 @@
-import { PostInfo } from "types/PostInfo";
-import { CollectionInfo } from "types/CollectionInfo";
+import type { PostInfo } from "#types/PostInfo.ts";
+import type { CollectionInfo } from "#types/CollectionInfo.ts";
 
 export function getShortTitle(
 	post: Pick<PostInfo, "title" | "collection">,

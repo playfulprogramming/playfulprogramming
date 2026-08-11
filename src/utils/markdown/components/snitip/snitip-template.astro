@@ -1,0 +1,28 @@
+---
+import type { SnitipInfo } from "#types/SnitipInfo.ts";
+import { SnitipPopover } from "#components/snitip/snitip.tsx";
+import { SnitipDialog } from "#components/snitip/snitip-dialog.tsx";
+import "#src/views/base/scripts/snitip-trigger.scss";
+import "#components/inline-popup/inline-popup.scss";
+
+export interface Props {
+	snitip: SnitipInfo;
+	scopeId: string;
+}
+
+const { scopeId, snitip } = Astro.props;
+const supportId = `${scopeId}-${snitip.id}`;
+---
+
+<template id={`snitip-popover-template-${supportId}`}>
+	<SnitipPopover snitip={snitip} headingTag="h2" />
+</template>
+<SnitipDialog
+	id={`snitip-dialog-${supportId}`}
+	snitip={snitip}
+	headingTag="h2"
+/>
+
+<script>
+	import "#src/views/base/scripts/snitip-script-impl.ts";
+</script>

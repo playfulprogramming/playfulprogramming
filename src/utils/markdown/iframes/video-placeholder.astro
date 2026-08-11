@@ -1,0 +1,8 @@
+---
+import type { VideoPlaceholderProps } from "#components/video/video-placeholder.tsx";
+import { VideoPlaceholder as PreactVideoPlaceholder } from "#components/video/video-placeholder.tsx";
+
+export type Props = VideoPlaceholderProps;
+---
+
+<PreactVideoPlaceholder {...Astro.props} client:load />

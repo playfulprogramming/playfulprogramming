@@ -71,7 +71,7 @@ Then we can add in the required JavaScript to make the button functional:
 
 <iframe data-frame-title="Example #1 - StackBlitz" src="pfp-code:./step1-code?template=node&embed=1&file=index.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Adding a List
 
@@ -292,7 +292,7 @@ For example, here's what each of the frameworks utilize under-the-hood:
 | Framework | Reactivity Method                                            | Rendering Method                                             |
 | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | React     | [Explicit Function Calls](https://twitter.com/crutchcorn/status/1527059716907487232) | [VDOM](/posts/unraveling-the-magic-of-the-virtual-dom)       |
-| Angular   | [Zone.js](/posts/angular-internals-zonejs)                   | [Incremental DOM](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549) |
+| Angular   | [Zone.js](/posts/angular-internals-zonejs)                   | [Incremental DOM](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549) |
 | Vue       | [Proxies](https://vuejs.org/guide/extras/reactivity-in-depth.html) | [VDOM](/posts/unraveling-the-magic-of-the-virtual-dom)       |
 
 > This is real nerd hours, don't feel bad if this just looks like gibberish to you right now.
@@ -303,4 +303,4 @@ This has been a look at what reactivity is and why you might want to use a moder
 
 Next time, we'll talk about what "Reconciliation" is and how it impacts most React and Vue frontend applications today.
 
-Want a place to ask questions as you're learning on your journey? [Join our Discord](https://discord.gg/FMcvc6T) and let us know what you thought of this article. We'd love to get to know you!
+Want a place to ask questions as you're learning on your journey? [Join our Discord](https://discord.playfulprogramming.com) and let us know what you thought of this article. We'd love to get to know you!

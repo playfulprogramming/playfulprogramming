@@ -858,7 +858,7 @@ Yay, we did it! 🎉 (For real this time.)
 
 ## Angular
 
-<iframe data-frame-title="Angular Tab Component - StackBlitz" src="pfp-code:./art-of-a11y-angular-tab-comp-1?embed=1&file=src/app/main.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Angular Tab Component - StackBlitz" src="pfp-code:./art-of-a11y-angular-tab-comp-1?embed=1&file=src/main.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Vue
 

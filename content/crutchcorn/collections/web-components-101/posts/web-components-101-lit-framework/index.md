@@ -295,7 +295,7 @@ export class ChangeMessageElement extends LitElement {
 
 This reactivity comes with its own set of limitations. While numbers and strings are able to be set fairly trivially, objects (and by extension arrays) are a different story.
 
-This is because, in order for Lit to know what properties to update in render, an object must have a different reference value from one to another. [This is just how React and other frameworks detect changes in state as well.](https://www.coletiv.com/blog/dangers-of-using-objects-in-useState-and-useEffect-ReactJS-hooks/)
+This is because, in order for Lit to know what properties to update in render, an object must have a different reference value from one to another. [This is just how React and other frameworks detect changes in state as well.](http://web.archive.org/web/20220912101404/https://www.coletiv.com/blog/dangers-of-using-objects-in-useState-and-useEffect-ReactJS-hooks/)
 
 ```javascript
 export class FormElement extends LitElement {
@@ -490,7 +490,7 @@ class FormElement extends LitElement {
 
 Now that we have a form that contains an array, an important question arises: how do we iterate through an array in order to create individual elements for a list?
 
-Well, while [React has `Array.map](https://reactjs.org/docs/lists-and-keys.html)` and [Vue has `v-for`](https://v3.vuejs.org/guide/list.html#mapping-an-array-to-elements-with-v-for), Lit uses a `repeat` function. Here’s an example:
+Well, while [React has `Array.map](https://reactjs.org/docs/lists-and-keys.html)` and [Vue has `v-for`](https://vuejs.org/guide/essentials/list.html), Lit uses a `repeat` function. Here’s an example:
 
 ```javascript
 class TodoElement extends LitElement {

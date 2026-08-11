@@ -1,9 +1,10 @@
-import { Element, Root } from "hast";
-import { isURL } from "../url-paths";
+import type { Element, Root } from "hast";
+import { isURL } from "../url-paths.ts";
 import { visit } from "unist-util-visit";
 import { dirname, join } from "path";
-import { Plugin } from "unified";
-import { VFile } from "vfile";
+import type { Plugin } from "unified";
+import type { VFile } from "vfile";
+import type { MarkdownVFile } from "./types.ts";
 
 export const rehypeMakeImagePathsAbsolute: Plugin<[], Root> = () => {
 	return (tree: Root, file: VFile) => {
@@ -30,17 +31,31 @@ export const rehypeMakeImagePathsAbsolute: Plugin<[], Root> = () => {
 };
 
 export const rehypeMakeHrefPathsAbsolute: Plugin<[], Root> = () => {
-	return (tree) => {
+	return (tree, vfile) => {
+		const kind = (vfile as MarkdownVFile).data.kind;
+		const slug = (vfile as MarkdownVFile).data.slug;
 		function aVisitor(node: Element) {
 			if (node.tagName === "a") {
 				const href = node.properties!.href as string;
 				if (href.startsWith("#")) {
 					return;
 				}
-				node.properties!.href = new URL(
-					href,
-					"https://playfulprogramming.com",
-				).toString();
+				if (kind === "post") {
+					node.properties!.href = new URL(
+						href,
+						`https://playfulprogramming.com/posts/${slug}`,
+					).toString();
+				} else if (kind === "collection") {
+					node.properties!.href = new URL(
+						href,
+						`https://playfulprogramming.com/collections/${slug}`,
+					).toString();
+				} else {
+					node.properties!.href = new URL(
+						href,
+						"https://playfulprogramming.com",
+					).toString();
+				}
 			}
 		}
 		visit(tree, "element", aVisitor);

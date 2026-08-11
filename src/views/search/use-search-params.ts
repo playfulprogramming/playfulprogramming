@@ -1,13 +1,23 @@
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
-import { debounce } from "utils/debounce";
+import { debounce } from "#utils/debounce.ts";
+
+export type SetSearchParams<T> = (updater: (prev: T) => T) => void;
 
 export function useSearchParams<T>(
 	serialize: (params: T) => URLSearchParams,
 	deserialize: (params: URLSearchParams) => T,
-): [T, (newState: T) => void] {
+	getPageTitle?: (params: T) => string,
+): [T, SetSearchParams<T>] {
 	const [urlParams, setUrlParams] = useState<URLSearchParams>(
 		() => new URL(window.location.href).searchParams,
 	);
+
+	useEffect(() => {
+		if (getPageTitle) {
+			// Set the title from the initial params when the page is first loaded
+			document.title = getPageTitle(deserialize(urlParams));
+		}
+	});
 
 	const pushHistoryState = useMemo(() => {
 		// Debounce any calls to pushState to avoid spamming the history API
@@ -15,22 +25,26 @@ export function useSearchParams<T>(
 			(urlParams: URLSearchParams) => {
 				const currentUrl = new URL(window.location.href).toString();
 				const newUrl = new URL(
-					"?" + urlParams.toString(),
+					`?${urlParams.toString()}`,
 					window.location.href,
 				).toString();
 
 				if (currentUrl != newUrl) {
 					window.history.pushState({}, "", newUrl);
+					if (getPageTitle) {
+						// When a new history state is pushed, update tht title so that the new history entry is accurate
+						document.title = getPageTitle(deserialize(urlParams));
+					}
 				}
 			},
 			500,
 			false,
 		);
-	}, []);
+	}, [deserialize, getPageTitle]);
 
 	useEffect(() => {
 		pushHistoryState(urlParams);
-	}, [urlParams]);
+	}, [urlParams, pushHistoryState]);
 
 	useEffect(() => {
 		const onPopState = () => {
@@ -48,13 +62,21 @@ export function useSearchParams<T>(
 		};
 	}, [setUrlParams]);
 
-	const params = useMemo(() => deserialize(urlParams), [urlParams]);
+	const params = useMemo(
+		() => deserialize(urlParams),
+		[urlParams, deserialize],
+	);
 
-	const setParams = useCallback(
-		(params: T) => {
-			setUrlParams(serialize(params));
+	const setParams = useCallback<SetSearchParams<T>>(
+		(updater) => {
+			setUrlParams((prevParams) => {
+				const previous = deserialize(new URLSearchParams(prevParams));
+				const next = updater(previous);
+
+				return serialize(next);
+			});
 		},
-		[setUrlParams],
+		[deserialize, serialize],
 	);
 
 	return [params, setParams];

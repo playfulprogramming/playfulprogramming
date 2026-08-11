@@ -32,8 +32,8 @@ I have seen many applications that do not contain any unit tests. Let me clarify
 
 To make sure you can concentrate on the code that has to be tested, you must properly mock external dependencies. For instance, you should mock any services or other components that the component you are testing utilizes. It's not advised to import the real implementations (more on why below). Feel free to import pure components, though, if your component uses them as dependents. You may also import a shared module that contains all of its dependencies.
 
-- [Using individual components](https://angular.io/guide/testing-components-scenarios#nested-component-tests)
-- [Import a shared module](https://angular.io/guide/testing-components-scenarios#setup-with-module-imports)
+- [Using individual components](https://angular.dev/guide/testing/components-scenarios#nested-component-tests)
+- [Import a shared module](https://angular.dev/guide/testing/components-scenarios#setup-with-module-imports)
 
 ### Disadvantages of not mocking
 
@@ -346,7 +346,7 @@ expect(observerSpy.receivedComplete()).toBeTruthy();
 
 - [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/)
 - [Angular Testing Library Examples](https://github.com/testing-library/angular-testing-library/tree/main/apps/example-app/src/app/examples)
-- [Angular Testing Guide](https://angular.io/guide/testing)
+- [Angular Testing Guide](https://angular.dev/guide/testing)
 - [NgRx Testing](https://ngrx.io/guide/store/testing)
 - [A Guide to Robust Angular Applications](https://testing-angular.com/)
 - [Good testing practices with 🦔 Angular Testing Library](https://timdeschryver.dev/blog/good-testing-practices-with-angular-testing-library)

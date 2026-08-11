@@ -1,5 +1,5 @@
 /** @jsxRuntime automatic */
-import type { GetPictureResult } from "utils/get-picture";
+import type { GetPictureResult } from "#utils/get-picture/index.ts";
 import type { Element } from "hast";
 
 interface PictureProps {
@@ -15,13 +15,14 @@ export function Picture(props: PictureProps): Element {
 	return (
 		<picture>
 			{props.result.sources.map((s) => (
-				<source {...s} />
+				<source key={s.srcset} {...s} />
 			))}
 			<img
 				{...props.result.image}
 				alt={props.alt}
 				loading="lazy"
 				decoding="async"
+				crossorigin="anonymous"
 				data-zoom-src={props.zoomSrc}
 				data-nozoom={props.noZoom}
 				{...props.imgAttrs}

@@ -1,10 +1,8 @@
-import { tabletLarge } from "src/tokens/breakpoints";
+import { tabletLarge } from "#src/tokens/breakpoints.ts";
 
 const popoverBreakpoint = window.matchMedia(
 	`screen and (min-width: ${tabletLarge + 1}px)`,
 );
-
-const postBodyEl = document.querySelector<HTMLElement>(".post-body")!;
 
 interface SnitipElements {
 	triggerEl: HTMLElement;
@@ -17,7 +15,7 @@ interface SnitipElements {
 
 let snitip: SnitipElements | undefined;
 
-let scrollTimeout: NodeJS.Timeout;
+let scrollTimeout: ReturnType<typeof setTimeout>;
 function handleScroll() {
 	clearTimeout(scrollTimeout);
 	scrollTimeout = setTimeout(positionSnitip, 20);
@@ -27,14 +25,18 @@ function positionSnitip() {
 	if (!snitip) return;
 
 	const snitipTriggerRect = snitip.triggerEl.getBoundingClientRect();
-	const triggerCenter =
-		snitip.triggerEl.offsetLeft + snitip.triggerEl.offsetWidth / 2;
-
-	const postBodyRect = postBodyEl.getBoundingClientRect();
+	const triggerCenter = snitipTriggerRect.left + snitipTriggerRect.width / 2;
+	const contentRect = snitip.triggerEl
+		.closest<HTMLElement>(".post-body")
+		?.getBoundingClientRect();
 
 	const snitipRect = snitip.popoverEl.getBoundingClientRect();
-	const minLeft = 0;
-	const maxLeft = postBodyRect.right - snitipRect.width;
+	const minLeft = Math.max(0, contentRect?.left ?? 0);
+	const maxRight = Math.min(
+		window.innerWidth,
+		contentRect?.right ?? window.innerWidth,
+	);
+	const maxLeft = Math.max(minLeft, maxRight - snitipRect.width);
 
 	const left = Math.max(
 		minLeft,
@@ -44,8 +46,8 @@ function positionSnitip() {
 	const isCloseToBottom =
 		snitipTriggerRect.bottom + 20 + snitipRect.height > window.innerHeight;
 	const top = isCloseToBottom
-		? snitip.triggerEl.offsetTop - 20 - snitipRect.height
-		: snitip.triggerEl.offsetTop + snitip.triggerEl.offsetHeight + 20;
+		? Math.max(0, snitipTriggerRect.top - 20 - snitipRect.height)
+		: snitipTriggerRect.bottom + 20;
 
 	snitip.popoverEl.style.top = `${top}px`;
 	snitip.popoverEl.style.left = `${left}px`;
@@ -120,9 +122,9 @@ popoverBreakpoint.addEventListener("change", () => {
 		document
 			.querySelector<HTMLDialogElement>("dialog[open][id^=snitip-dialog]")
 			?.close();
-	} else {
+	} else if (snitip) {
 		// If there is a snitip popup visible, close it!
-		if (snitip) closeSnitip(snitip);
+		closeSnitip(snitip);
 	}
 });
 
@@ -223,33 +225,82 @@ function isInsideTrapezoid(
 }
 
 const triggerEls = Array.from(
-	document.querySelectorAll<HTMLButtonElement>("[data-snitip-trigger]"),
+	document.querySelectorAll<HTMLElement>("[data-snitip-trigger]"),
 );
 
-let mouseEnterTimeout: NodeJS.Timeout;
+let mouseEnterTimeout: ReturnType<typeof setTimeout>;
+const initializedDialogs = new WeakSet<HTMLDialogElement>();
+
+function initializeDialog(
+	dialogEl: HTMLDialogElement,
+	dialogFormEl: HTMLFormElement,
+) {
+	if (initializedDialogs.has(dialogEl)) return;
+	initializedDialogs.add(dialogEl);
+
+	// If the closedBy attribute isn't supported, manually handle light dismiss.
+	// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore Missing DOM types
+	if (typeof dialogEl.closedBy == "undefined") {
+		dialogEl.addEventListener("click", (e) => {
+			if (e.target == dialogEl) dialogEl.close();
+		});
+	}
+
+	// Show a border below the sticky heading once the dialog is scrolled.
+	function handleDialogScroll() {
+		dialogEl.dataset.scrolled = String(dialogFormEl.scrollTop > 0);
+	}
+
+	dialogFormEl.addEventListener("scroll", handleDialogScroll, {
+		passive: true,
+	});
+	window.addEventListener("resize", handleDialogScroll, { passive: true });
+}
 
 for (const triggerEl of triggerEls) {
+	if (triggerEl.dataset.snitipInitialized) continue;
+
 	const triggerButtonEl = triggerEl.querySelector<HTMLButtonElement>(
 		"button[popovertarget]",
-	)!;
+	);
+	const templateId = triggerEl.dataset.snitipTemplate;
+	const dialogId = triggerEl.dataset.snitipDialog;
+	const templateEl = templateId ? document.getElementById(templateId) : null;
+	const dialogEl = dialogId ? document.getElementById(dialogId) : null;
+	if (
+		!triggerButtonEl ||
+		!(templateEl instanceof HTMLTemplateElement) ||
+		!(dialogEl instanceof HTMLDialogElement)
+	)
+		continue;
 
 	// Immediately clone the popover template so that it follows the trigger element
-	const templateEl = document.querySelector<HTMLTemplateElement>(
-		"#snitip-popover-template-" + triggerEl.dataset.snitipTrigger,
-	)!;
 	const popoverEl = (
 		templateEl.content.cloneNode(true) as HTMLElement
-	).querySelector<HTMLElement>("[popover]")!;
+	).querySelector<HTMLElement>("[popover]");
+	if (!popoverEl) continue;
 	popoverEl.id = triggerButtonEl.getAttribute("popovertarget")!;
-	triggerEl.after(popoverEl);
+	// Keep the block-level interactive panel out of the inline markdown parent.
+	// Popovers enter the top layer, so a body-level portal also gives positioning
+	// a consistent viewport coordinate system across every markdown consumer.
+	document.body.append(popoverEl);
 
-	const popoverArrowEl = popoverEl.querySelector<HTMLElement>("#snitip-arrow")!;
-	const popoverCloseEl =
-		popoverEl.querySelector<HTMLButtonElement>("#snitip-close")!;
-	const dialogEl = document.querySelector<HTMLDialogElement>(
-		"#snitip-dialog-" + triggerEl.dataset.snitipTrigger,
-	)!;
-	const dialogFormEl = dialogEl.querySelector("form")!;
+	const popoverArrowEl = popoverEl.querySelector<HTMLElement>(
+		"[data-snitip-arrow]",
+	);
+	const popoverCloseEl = popoverEl.querySelector<HTMLButtonElement>(
+		"[data-snitip-close]",
+	);
+	const dialogFormEl = dialogEl.querySelector<HTMLFormElement>("form");
+	if (!popoverArrowEl || !popoverCloseEl || !dialogFormEl) {
+		popoverEl.remove();
+		continue;
+	}
+	triggerEl.dataset.snitipInitialized = "true";
+	initializeDialog(dialogEl, dialogFormEl);
+
 	const snitipElements: SnitipElements = {
 		triggerEl,
 		triggerButtonEl,
@@ -303,27 +354,4 @@ for (const triggerEl of triggerEls) {
 	});
 
 	popoverCloseEl.addEventListener("click", () => closeSnitip(snitipElements));
-
-	// If the closedBy attribute isn't supported, we need to manually handle a light dismiss action
-	// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	// @ts-ignore Missing DOM types
-	if (typeof dialogEl.closedBy == "undefined") {
-		dialogEl.addEventListener("click", (e) => {
-			// If the dialog backdrop is clicked, close it!
-			if (e.target == dialogEl) {
-				dialogEl.close();
-			}
-		});
-	}
-
-	// Set [data-scrolled=true] if the dialog is scrolled so that the sticky heading border can show
-	function handleDialogScroll() {
-		dialogEl.dataset.scrolled = String(dialogFormEl.scrollTop > 0);
-	}
-
-	dialogFormEl.addEventListener("scroll", handleDialogScroll, {
-		passive: true,
-	});
-	window.addEventListener("resize", handleDialogScroll, { passive: true });
 }

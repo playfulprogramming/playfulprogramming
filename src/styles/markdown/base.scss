@@ -1,6 +1,11 @@
 @use "src/tokens/index" as *;
 @use "../text-styles.scss";
 
+:root {
+	--page_header-height: calc(
+		var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px
+	);
+}
 
 html.dark,
 body.dark,
@@ -26,16 +31,12 @@ body.dark,
 		//
 		// - this prevents elements targeted by the URL hash (e.g. "/some-page#Heading-ID")
 		//   from being obscured by the header
-		scroll-margin-top: calc(
-			var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px +
-				var(--site-spacing)
-		);
+		scroll-margin-top: calc(var(--page_header-height) + var(--site-spacing));
 	}
 
 	* {
 		scroll-margin-top: inherit;
 	}
-
 	h1:not([class]) {
 		@extend .text-style-headline-1;
 	}
@@ -172,7 +173,8 @@ body.dark,
 		text-decoration: underline;
 	}
 
-	a:focus-visible:not([class]), .a:focus-visible {
+	a:focus-visible:not([class]),
+	.a:focus-visible {
 		// adding +0.5px to each value converted to rem to ensure that it is
 		// the expected size when aliasing rounds it down to a px value
 		outline: pxToRem(3.5) solid var(--focus-outline_primary);
@@ -206,7 +208,6 @@ body.dark,
 	h5,
 	h6 {
 		position: relative;
-
 		code {
 			display: inline-flex;
 			height: calc(1.2em + 0.15em);
@@ -242,10 +243,10 @@ body.dark,
 	}
 
 	[data-footnote-ref]::after {
-		content: ']';
+		content: "]";
 	}
 
 	[data-footnote-ref]::before {
-		content: '[';
+		content: "[";
 	}
 }

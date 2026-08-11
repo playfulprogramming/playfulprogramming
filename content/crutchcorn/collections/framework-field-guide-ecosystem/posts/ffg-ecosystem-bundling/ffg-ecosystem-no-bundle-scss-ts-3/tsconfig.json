@@ -1,0 +1,10 @@
+{
+	"// tsconfig.json": "",
+	"compilerOptions": {
+		"target": "es2016",
+		"lib": ["dom"],
+		"strict": true,
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*.ts"]
+}

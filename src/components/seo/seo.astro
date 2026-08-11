@@ -1,16 +1,18 @@
 ---
-import { siteMetadata, siteUrl } from "constants/site-config";
+import { siteMetadata, siteUrl } from "#src/constants/site-config.ts";
 import {
 	getPrefixLanguageFromPath,
 	removePrefixLanguageFromPath,
-} from "utils/translations";
+} from "#utils/translations.ts";
 import Article from "./article.astro";
 import Book from "./book.astro";
 import Locale from "./locale.astro";
 import OpenGraph from "./open-graph.astro";
 import Profile from "./profile.astro";
-import { SEOProps } from "./shared";
+import type { SEOProps } from "./shared.ts";
 import Twitter from "./twitter.astro";
+
+export type Props = SEOProps;
 
 const {
 	description = "",
@@ -25,14 +27,17 @@ const {
 	providedLangs,
 	shareImage,
 	noindex,
-} = Astro.props as SEOProps;
+} = Astro.props;
 
 const lang = getPrefixLanguageFromPath(Astro.url.pathname);
 const pathName = removePrefixLanguageFromPath(Astro.url.pathname);
 
 const metaDescription = description || siteMetadata.description;
 const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
-const metaImage = `${siteUrl}${shareImage ?? "/share-banner.png"}`;
+const metaImage = new URL(
+	shareImage ?? "/share-banner.png",
+	siteUrl,
+).toString();
 
 const ogType = type ?? "blog";
 

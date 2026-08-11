@@ -1,9 +1,9 @@
 ---
-import { SEOProps } from "./shared";
+import type { SEOProps } from "./shared.ts";
 
-type Props = Pick<SEOProps, "publishedTime" | "isbn" | "peopleData">;
+export type Props = Pick<SEOProps, "publishedTime" | "isbn" | "peopleData">;
 
-const { publishedTime, peopleData, isbn } = Astro.props as Props;
+const { publishedTime, peopleData, isbn } = Astro.props;
 
 const author = peopleData!.map((uni) => uni.name).join(",");
 ---

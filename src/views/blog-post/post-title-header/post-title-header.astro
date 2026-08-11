@@ -1,17 +1,19 @@
 ---
 import style from "./post-title-header.module.scss";
-import { PostInfo, PersonInfo } from "types/index";
+import type { PostInfo, PersonInfo, PostVersion } from "#types/index.ts";
 import { Icon } from "astro-icon/components";
-import { Chip } from "components/index";
+import { Chip } from "#components/index.ts";
 import dayjs from "dayjs";
-import { buildSearchQuery } from "../../search/search";
-import { translate } from "utils/translations";
+import { buildSearchQuery } from "../../search/search.ts";
+import { translate } from "#utils/translations.ts";
+import { ArticleRevisionDropdown } from "../article-revisions/article-revisions.tsx";
 
-interface PostTitleHeaderProps {
+export interface Props {
 	post: PostInfo;
+	versions: PostVersion[];
 	authors: PersonInfo[];
 }
-const { post, authors } = Astro.props as PostTitleHeaderProps;
+const { post, versions, authors } = Astro.props;
 const { title, tags } = post;
 
 const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
@@ -26,11 +28,31 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 			{title}
 		</h1>
 
+		{
+			post.coverImgMeta?.relativeServerPath ? (
+				<img
+					class={style.coverImg}
+					alt=""
+					src={post.coverImgMeta.relativeServerPath}
+				/>
+			) : null
+		}
+
 		<div class={style.details}>
 			<div class={style.date}>
 				<div class={style.date__published}>
 					<Icon width={24} height={24} name="date" aria-hidden="true" />
-					<p class="text-style-button-regular">{publishedStr}</p>
+					{
+						versions.length > 1 ? (
+							<ArticleRevisionDropdown
+								client:load
+								versions={versions}
+								post={post}
+							/>
+						) : (
+							<p class="text-style-button-regular">{publishedStr}</p>
+						)
+					}
 				</div>
 
 				{
@@ -76,6 +98,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 						<Icon width={24} height={24} name="website" aria-hidden="true" />
 						<p class="text-style-button-regular">
 							{translate(Astro, "desc.original_link")}
+							{" "}
 							<a
 								href={post.originalLink}
 								target="_blank"

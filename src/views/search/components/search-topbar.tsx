@@ -1,24 +1,28 @@
 import style from "./search-topbar.module.scss";
-import { SearchInput } from "components/input/input";
-import { Button, IconOnlyButton, LargeButton } from "components/button/button";
-import filter from "src/icons/filter.svg?raw";
-import forward from "src/icons/arrow_right.svg?raw";
-import { Item, Select } from "components/select/select";
+import { SearchInput } from "#components/input/input.tsx";
+import {
+	Button,
+	IconOnlyButton,
+	LargeButton,
+} from "#components/button/button.tsx";
+import filter from "#src/icons/filter.svg?raw";
+import forward from "#src/icons/arrow_right.svg?raw";
+import { Item, Select } from "#components/select/select.tsx";
 import {
 	RadioButton,
 	RadioButtonGroup,
-} from "components/button-radio-group/button-radio-group";
-import { SortType } from "src/views/search/search";
+} from "#components/button-radio-group/button-radio-group.tsx";
+import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { useDebouncedCallback } from "../use-debounced-value";
+import { useDebouncedCallback } from "../use-debounced-value.ts";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;
 	onBlur: (search: string) => void;
 	search: string;
 	setSearch: (search: string) => void;
-	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
-	contentToDisplay: "all" | "articles" | "collections";
+	setContentToDisplay: (content: DisplayContentType) => void;
+	contentToDisplay: DisplayContentType;
 	sort: SortType;
 	setSort: (sortBy: SortType) => void;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
@@ -49,7 +53,7 @@ export const SearchTopbar = ({
 	useEffect(() => {
 		setSearchInput(search);
 		cancelSetSearchDebounced();
-	}, [search]);
+	}, [search, cancelSetSearchDebounced]);
 
 	const handleBlur = useCallback(
 		(e: FocusEvent) => {
@@ -70,60 +74,60 @@ export const SearchTopbar = ({
 	);
 
 	return (
-		<section
-			className={style.topBar}
-			style={{
-				position: "sticky",
-				zIndex: 9,
-				marginTop: -2,
-				top: `${headerHeight - 2}px`,
-			}}
-		>
-			<form
-				role="search"
-				aria-label="Search our content"
-				className={style.searchbarRow}
-				onSubmit={(e) => {
-					e.preventDefault();
-					onSubmit(searchInput);
+		<>
+			<section
+				className={style.topBar}
+				style={{
+					"--topbar-header-height": `${headerHeight}px`,
 				}}
 			>
-				<SearchInput
-					id="search-bar"
-					data-testid="search-input"
-					aria-description={"Results will update as you type"}
-					class={style.searchbar}
-					usedInPreact={true}
-					value={searchInput}
-					onBlur={handleBlur}
-					onInput={handleInput}
-				/>
-				<LargeButton class={style.searchTextButton} tag="button" type="submit">
-					Search
-				</LargeButton>
-				<IconOnlyButton
-					class={style.searchIconButton}
-					tag="button"
-					type="submit"
-					aria-label="Search"
-					dangerouslySetInnerHTML={{ __html: forward }}
-					children={[]}
-				/>
-			</form>
-			<div className={style.bigScreenContainer} />
+				<form
+					role="search"
+					aria-label="Search our content"
+					className={style.searchbarRow}
+					onSubmit={(e) => {
+						e.preventDefault();
+						onSubmit(searchInput);
+					}}
+				>
+					<SearchInput
+						id="search-bar"
+						data-testid="search-input"
+						aria-description={"Results will update as you type"}
+						class={style.searchbar}
+						usedInPreact={true}
+						value={searchInput}
+						onBlur={handleBlur}
+						onInput={handleInput}
+					/>
+					<LargeButton
+						class={style.searchTextButton}
+						tag="button"
+						type="submit"
+					>
+						Search
+					</LargeButton>
+					<IconOnlyButton
+						class={style.searchIconButton}
+						tag="button"
+						type="submit"
+						aria-label="Search"
+						dangerouslySetInnerHTML={{ __html: forward }}
+						children={[]}
+					/>
+				</form>
+				<div className={style.bigScreenContainer} />
+			</section>
 			<div className={style.smallScreenContainer}>
-				<div class={`${style.divider} ${style.topDivider}`} />
+				<div className={`${style.divider} ${style.topDivider}`} />
 				<div className={`${style.divider} ${style.middleDivider}`} />
 				<RadioButtonGroup
 					className={style.contentToDisplayGroup}
 					testId={"content-to-display-group-topbar"}
 					value={contentToDisplay}
 					label={"Content to display"}
-					onChange={(val) => setContentToDisplay(val as "all")}
+					onChange={(val) => setContentToDisplay(val as DisplayContentType)}
 				>
-					<RadioButton aria-label={"All"} value={"all"}>
-						All
-					</RadioButton>
 					<RadioButton value={"articles"}>Articles</RadioButton>
 					<RadioButton value={"collections"}>Collections</RadioButton>
 				</RadioButtonGroup>
@@ -136,7 +140,7 @@ export const SearchTopbar = ({
 						<span
 							className={style.filterIconContainer}
 							dangerouslySetInnerHTML={{ __html: filter }}
-						></span>
+						/>
 					}
 				>
 					Filter
@@ -147,8 +151,8 @@ export const SearchTopbar = ({
 					label={"Post sort order"}
 					prefixSelected={"Sort by: "}
 					defaultValue={"Relevance"}
-					selectedKey={sort}
-					onSelectionChange={(v) => setSort(v as SortType)}
+					value={sort}
+					onChange={(v) => setSort(v as SortType)}
 				>
 					<Item key={"relevance"}>Relevance</Item>
 					<Item key={"newest"}>Newest</Item>
@@ -164,9 +168,9 @@ export const SearchTopbar = ({
 					<span
 						className={style.filterIconContainer}
 						dangerouslySetInnerHTML={{ __html: filter }}
-					></span>
+					/>
 				</IconOnlyButton>
 			</div>
-		</section>
+		</>
 	);
 };

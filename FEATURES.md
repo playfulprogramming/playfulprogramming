@@ -204,7 +204,7 @@ While not 1:1, the filetree component is inspired by the [Astro Starlight `file-
 We support showing ads in the content of the article. This is useful for promoting products, services, or donations.
 
 ```html
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 ```
 
 We support the following properties:
@@ -322,7 +322,7 @@ We support the following properties on a post:
   - Must match [one of these](./content/data/tags.json) tags.
 - `license`: A string of what license to attribute the post to
   - Must match [one of these](./content/data/licenses.json) license IDs.
-- `description`: The description of the article 
+- `description`: The description of the article
   - Without this present, one will auto-generate for you based on the first ~160 characters of the post
 - `edited`: When an article was edited last
   - Optional.
@@ -339,6 +339,7 @@ We support the following properties on a post:
 - `version`: The version of the article
   - IE: `v1`, `v3.5`, etc
   - Useful when combined with `upToDateSlug` and `noindex`
+- `socialImg`: The social image to use when sharing the article. If not present, we will generate one for you based on the title, authors, and a nice background.
 
 
 ### Collection Frontmatter
@@ -356,9 +357,9 @@ We support the following properties on a post:
 - `type`: The type of collection it is
   - `"book"` - Used for SEO
   - Nothing (defualt) - Unused
-- `pageLayout`: 
+- `pageLayout`:
   - `"none"` - Do not auto-generate a page for this collection
-    - Useful for custom pages like The Framework Field Guide 
+    - Useful for custom pages like The Framework Field Guide
   - Nothing (defualt) - auto-generate a page for the collection
 - `customChaptersText`: The custom text to be used in the "A part of a series" text
 - `tags`: A list of related tags
@@ -367,8 +368,8 @@ We support the following properties on a post:
   - Must be an ISO timestamp of `YYYY-MM-DD`
 - `buttons`: A list of buttons to show on the auto-generated page
   - Must be an array of `{text: string, url: string}`
-- `chapterList`: A list of extra chapters to include in addition to the auto-discovered ones
-  - Must be an array of `{title: string;description: string;order: string;}`
+- `chapterList`: A list of chapters to display on the collection
+  - Must be an array of `{title: string; url: string; description: string}` or `{post: string}`
 - `noindex`: Should the collection be hidden from the site's list view, `sitemap`, and search?
   - Useful for draft or archived content
 - `upToDateSlug`: The latest published version of the collection

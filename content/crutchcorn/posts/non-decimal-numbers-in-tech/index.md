@@ -1,6 +1,6 @@
 ---
 {
-  title: "How Binary and Hexadecimal Work: An introduction to non-decimal number systems",
+  title: "Binary & Hexadecimal: Intro to Non-Decimal Systems",
   description: "Learn how to convert decimal to binary and hexadecimal, how CSS colors are calculated, and how your computer interprets letters into binary.",
   published: "2019-11-07T05:12:03.284Z",
   tags: ["computer science"],
@@ -91,7 +91,7 @@ And voilà, you have the binary representation of `50`: **`0110010`**.
 >
 > While there are plenty of ways to find the binary representation of a decimal number, this example uses a "greedy" algorithm. I find this algorithm to flow the best with learning the binary number system, but it's not the only way (or even the best way, oftentimes).
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Hexadecimal {#hexadecimal}
 

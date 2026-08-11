@@ -752,7 +752,7 @@ function App() {
 <iframe data-frame-title="React useReducer Payload - StackBlitz" src="pfp-code:./ffg-fundamentals-react-use-reducer-payload-85?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 <!-- ::end:no-ebook -->
 
-> It's worth mentioning that [the reducer pattern is not unique to React](https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks.
+> It's worth mentioning that [the reducer pattern is not unique to React](http://web.archive.org/web/20231204131751/https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks.
 
 #### Reducer Patterns within Contexts {#reducer-patterns-within-contexts}
 
@@ -1239,8 +1239,6 @@ const App = () => {
 	);
 };
 ```
-
-> [This is actual source code pulled from one of my prior production React Native projects called GitShark](https://github.com/oceanbit/GitShark/blob/main/src/App.tsx#L156-L176).
 
 This code is colloquially called the "Provider Christmas Tree" because of its formatted structure.
 

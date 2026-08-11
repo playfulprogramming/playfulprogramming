@@ -1,0 +1,29 @@
+---
+import type { ComponentNode } from "#utils/markdown/components/components.ts";
+import {
+	components,
+	isHtmlNode,
+	isComponentNode,
+} from "#utils/markdown/components/components.ts";
+import { isRoot } from "../unist-is-element.ts";
+
+export interface Props {
+	content: ComponentNode["children"];
+}
+
+const content = Astro.props.content;
+---
+
+{
+	content?.map((node) => {
+		if (isHtmlNode(node)) {
+			return <Fragment set:html={node.innerHtml} />;
+		} else if (isComponentNode(node)) {
+			const Component = components[node.component];
+
+			return <Component children={node.children} {...(node.props as any)} />;
+		} else if (isRoot(node)) {
+			return <Astro.self content={node.children} />;
+		}
+	})
+}

@@ -7,7 +7,7 @@
 	--article-nav_item_padding-horizontal: var(--spc-4x);
 	--article-nav_item_padding-vertical: var(--spc-4x);
 	--article-nav_item_gap: var(--spc-2x);
-	--article-nav_item_arrow_size: var(--icon-size_dense);
+	--article-nav_item_arrow_size: var(--icon-size_default);
 	--article-nav_item_arrow_margin: var(--spc-2x);
 	--article-nav_item_corner-radius: var(--corner-radius_m);
 	--article-nav_item_border-width: var(--border-width_l);
@@ -126,7 +126,6 @@
 
 .icon {
 	display: inline-flex;
-	padding: var(--icon-size-dense-padding);
 
 	svg {
 		width: var(--article-nav_item_arrow_size);

@@ -1,14 +1,15 @@
-import {
+import type {
 	CollectionInfo,
 	PostInfo,
 	RolesInfo,
 	PersonInfo,
 	TagInfo,
 	SnitipInfo,
-} from "types/index";
-import { Languages } from "types/index";
-import { roles, people, posts, collections, tags, snitips } from "./data";
-import { isDefined } from "./is-defined";
+	PostVersion,
+	Languages,
+} from "#types/index.ts";
+import { roles, people, posts, collections, tags, snitips } from "./data.ts";
+import { isDefined } from "./is-defined.ts";
 
 function compareByDate(date1: string, date2: string): number {
 	return new Date(date1) > new Date(date2) ? -1 : 1;
@@ -27,6 +28,10 @@ export function getAllPosts(): PostInfo[] {
 
 export function getAllCollections(): CollectionInfo[] {
 	return [...collections.values()].flatMap((locales) => locales);
+}
+
+export function getAllPeople(): PersonInfo[] {
+	return [...people.values()].flatMap((locales) => locales);
 }
 
 export function getPersonById(
@@ -72,6 +77,21 @@ export function getPostsByCollection(
 		);
 }
 
+export function getPostVersionsBySlug(
+	slug: string,
+	language: Languages,
+): PostVersion[] {
+	return [...posts.values()]
+		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.filter((p) => p?.upToDateSlug === slug || p.slug === slug)
+		.sort(compareByPublished)
+		.map(({ locale, publishedMeta, slug, version }) => ({
+			href: locale === "en" ? `/posts/${slug}` : `/${locale}/posts/${slug}`,
+			publishedMeta,
+			version,
+		}));
+}
+
 export function getPostsByPerson(
 	personId: string,
 	language: Languages,
@@ -114,7 +134,7 @@ export function getCollectionsByPerson(
 
 export function getRoleById(
 	roleId: string,
-	language: Languages,
+	_language: Languages,
 ): RolesInfo | undefined {
 	// TODO: support role name translations
 	return roles.find((r) => r.id === roleId);

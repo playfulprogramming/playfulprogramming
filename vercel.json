@@ -1,4 +1,8 @@
 {
+	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"git": {
+		"deploymentEnabled": false
+	},
 	"cleanUrls": true,
 	"redirects": [
 		{
@@ -30,6 +34,11 @@
 			"source": "/posts/what-is-use-form-state-and-status",
 			"destination": "/posts/what-is-use-action-state-and-form-status",
 			"permanent": true
+		},
+		{
+			"source": "/page/:num",
+			"destination": "/search",
+			"permanent": true
 		}
 	],
 	"rewrites": [
@@ -49,6 +58,19 @@
 				{
 					"key": "Cache-Control",
 					"value": "public, max-age=31536000, immutable"
+				}
+			]
+		},
+		{
+			"source": "/(.*)",
+			"headers": [
+				{
+					"key": "Cross-Origin-Embedder-Policy",
+					"value": "require-corp"
+				},
+				{
+					"key": "Cross-Origin-Opener-Policy",
+					"value": "same-origin"
 				}
 			]
 		}

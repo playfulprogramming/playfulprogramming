@@ -1,6 +1,6 @@
-import { Root } from "mdast";
+import type { Root } from "mdast";
 import { visit } from "unist-util-visit";
-import { Plugin } from "unified";
+import type { Plugin } from "unified";
 import JSON5 from "json5";
 
 export const TYPE_FRONTMATTER = "frontmatter";
@@ -24,7 +24,7 @@ function isFrontMatterNode(node: any): node is FrontMatterNode {
  */
 export const remarkProcessFrontmatter: Plugin<[], Root> = () => {
 	return (tree, vfile) => {
-		visit(tree, { type: "frontmatter" }, (node, index, parent) => {
+		visit(tree, { type: "frontmatter" }, (_, index, parent) => {
 			if (index === undefined || !parent) return;
 			const frontmatter: unknown = parent.children.splice(index, 1)[0];
 			vfile.data = vfile.data || {};

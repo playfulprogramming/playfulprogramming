@@ -1,0 +1,9 @@
+{
+	"name": "@ffg-ecosystem/prettier-6",
+	"scripts": {
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"prettier": "^3.5.3"
+	}
+}

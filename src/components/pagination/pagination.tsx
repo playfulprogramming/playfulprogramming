@@ -1,14 +1,13 @@
 import styles from "./pagination.module.scss";
-import forward from "src/icons/arrow_right.svg?raw";
-import back from "src/icons/arrow_left.svg?raw";
-import { PaginationMenuAndPopover } from "components/pagination/pagination-popover";
-import { useEffect, useState } from "preact/hooks";
-import {
+import forward from "#src/icons/arrow_right.svg?raw";
+import back from "#src/icons/arrow_left.svg?raw";
+import { PaginationMenuAndPopover } from "#components/pagination/pagination-popover.tsx";
+import type {
 	PaginationButtonProps,
 	PaginationProps,
-} from "components/pagination/types";
-import { usePagination } from "./use-pagination";
-import { onSoftNavClick } from "./on-click-base";
+} from "#components/pagination/types.ts";
+import { usePagination } from "./use-pagination.ts";
+import { onSoftNavClick } from "./on-click-base.ts";
 
 function PaginationButton({
 	pageInfo,
@@ -40,7 +39,7 @@ function PaginationButton({
 				aria-label={`Go to page ${pageNum}`}
 				aria-current={selected || undefined}
 			>
-				{pageNum + ""}
+				{`${pageNum}`}
 			</a>
 		</li>
 	);
@@ -52,15 +51,11 @@ function PaginationButton({
 function PaginationMenuWrapper(
 	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">,
 ) {
-	const [shouldRender, setShouldRender] = useState(false);
-
-	useEffect(() => {
-		setShouldRender(true);
-	});
+	const shouldRender = typeof process === "undefined";
 
 	// if this is a static render, this still needs to return an <li> node so that
 	// it hydrates in the correct order
-	if (!shouldRender) return <li hidden></li>;
+	if (!shouldRender) return <li hidden />;
 
 	return <PaginationMenuAndPopover {...props} />;
 }
@@ -69,15 +64,16 @@ export const Pagination = ({
 	page,
 	rootURL = "./",
 	class: className = "",
+	divClass: divClassName,
 	id = "post-list-pagination",
 	getPageHref = (pageNum: number) => `${rootURL}${pageNum}`,
 	softNavigate,
 	testId,
 }: PaginationProps) => {
+	const { isPreviousEnabled, isNextEnabled, pages } = usePagination(page);
+
 	// if there's only one page, don't render anything
 	if (page.currentPage === 1 && page.lastPage < 2) return <></>;
-
-	const { isPreviousEnabled, isNextEnabled, pages } = usePagination(page);
 
 	return (
 		<>
@@ -85,6 +81,7 @@ export const Pagination = ({
 				role="navigation"
 				aria-label="Pagination Navigation"
 				data-testid={testId}
+				className={divClassName}
 			>
 				<ul id={id} className={`${styles.pagination} ${className}`}>
 					<li className={`${styles.paginationItem}`}>

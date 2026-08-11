@@ -1,4 +1,4 @@
-import { LicenseInfo } from "types/LicenseInfo";
+import type { LicenseInfo } from "#types/LicenseInfo.ts";
 
 export const MockLicense: LicenseInfo = {
 	id: "MIT",

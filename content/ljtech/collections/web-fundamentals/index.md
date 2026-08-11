@@ -3,9 +3,8 @@
     title: "Web Fundamentals",
     description:
     "A collection of posts designed for beginners who want to get into front-end development. We'll go over HTML, CSS and JavaScript and get you started on your programming journey.",
-    coverImg: "/custom-content/collections/web-fundamentals/cover.png",
-    socialImg:
-    "/custom-content/collections/web-fundamentals/web_fundamentals_social.png",
+    coverImg: "./cover.png",
+    socialImg: "./web_fundamentals_social.png",
     tags: ["css", "design", "html"],
     published: "2024-08-18T13:45:00.284Z",
     buttons: [{ text: "Read now", url: "/posts/web-fundamentals-html" }],

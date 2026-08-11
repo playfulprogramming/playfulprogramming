@@ -1,6 +1,6 @@
 ---
 import styles from "./what-do-i-get.module.scss";
-import { weightedRandom } from "../utils/weighted-random";
+import { weightedRandom } from "../utils/weighted-random.ts";
 
 const ghActivityLevels = [0, 1, 2, 3];
 
@@ -193,6 +193,7 @@ const professionalCalendar = generateCalendar(professionalActivityLevel);
 </section>
 
 <script
+	is:inline
 	define:vars={{ newcomerCalendar, midlevelCalendar, professionalCalendar }}
 >
 	const calendar = document.querySelector(`#contribution-graph`);

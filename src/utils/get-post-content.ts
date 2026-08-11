@@ -1,8 +1,8 @@
 import * as fs from "fs/promises";
 import matter from "gray-matter";
 import path from "path";
-import { PostInfo } from "types/PostInfo";
-import { contentDirectory } from "./data";
+import type { PostInfo } from "#types/PostInfo.ts";
+import { contentDirectory } from "./data.ts";
 
 /**
  * Returns the file content (excluding frontmatter) of the given post.

@@ -862,7 +862,7 @@ You'll notice that we're then displaying the return of `createPortal` - `portal`
 
 ## Angular
 
-While the other frameworks have something akin to a portal system built into their frameworks' core, Angular does not. Instead, the Angular team maintains a library called [the "Angular CDK"](https://cdk.angular.io) to have shared UI code for utilities such as portals.
+While the other frameworks have something akin to a portal system built into their frameworks' core, Angular does not. Instead, the Angular team maintains a library called [the "Angular CDK"](https://material.angular.dev/cdk/categories) to have shared UI code for utilities such as portals.
 
 To use the Angular CDK, you'll first need to install it into your project:
 
@@ -1370,7 +1370,7 @@ The code we wrote previously for this challenge worked well, but it had a major 
 ### Vue
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="Vue Portals Pre-Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-portals-pre-challenge-98?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="Vue Portals Pre-Challenge - StackBlitz" src="pfp-code:./ffg-fundamentals-vue-portals-pre-challenge-98?template=node&embed=1&file=src%2FApp.vue"></iframe>
 <!-- ::end:no-ebook -->
 
 <!-- ::end:tabs -->

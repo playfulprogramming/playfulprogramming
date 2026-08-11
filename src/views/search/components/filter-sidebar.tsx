@@ -1,50 +1,72 @@
 import styles from "./filter-sidebar.module.scss";
-import { LargeButton } from "components/button/button";
-import { CSSProperties } from "preact/compat";
-import { FilterSection } from "./filter-section";
-import { FilterSectionItem } from "./filter-section-item";
-import { Picture as UUPicture } from "components/image/picture";
-import { ExtendedTag, ExtendedUnicorn } from "./types";
-import { SortType } from "src/views/search/search";
-import { DEFAULT_TAG_EMOJI } from "./constants";
-import { FilterSidebarControls } from "./filter-sidebar-controls";
+import { LargeButton } from "#components/button/button.tsx";
+import type { CSSProperties } from "preact";
+import { FilterSection } from "./filter-section.tsx";
+import { FilterSectionItem } from "./filter-section-item.tsx";
+import { Picture as UUPicture } from "#components/image/picture.tsx";
+import type { ExtendedTag, ExtendedUnicorn } from "./types.ts";
+import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
+import { DEFAULT_TAG_EMOJI } from "./constants.ts";
+import { FilterSidebarControls } from "./filter-sidebar-controls.tsx";
+import type { FilterState } from "../use-filter-state.ts";
+import { useState, useMemo, useEffect } from "preact/hooks";
+import { SearchInput } from "#components/input/input.tsx";
 
-interface FilterSidebar {
+interface FilterSidebarProps {
 	desktopStyle?: CSSProperties;
-	selectedTags: string[];
-	setSelectedTags: (tags: string[]) => void;
-	selectedAuthorIds: string[];
-	setSelectedAuthorIds: (authors: string[]) => void;
 	sort: SortType;
 	setSort: (sortBy: SortType) => void;
 	tags: ExtendedTag[];
 	authors: ExtendedUnicorn[];
-	onSelectedAuthorChange: (authorId: string) => void;
-	onTagsChange: (tag: string) => void;
+	filterState: FilterState;
 	searchString: string;
-	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
-	contentToDisplay: "all" | "articles" | "collections";
+	setContentToDisplay: (content: DisplayContentType) => void;
+	contentToDisplay: DisplayContentType;
 	isHybridSearch: boolean;
+	numberOfPosts: number | null;
+	numberOfCollections: number | null;
 }
 
 export const FilterSidebar = ({
 	sort,
 	setSort,
-	selectedAuthorIds,
-	selectedTags,
-	setSelectedAuthorIds,
-	setSelectedTags,
 	desktopStyle,
-	onSelectedAuthorChange,
-	onTagsChange,
 	authors,
 	tags,
+	filterState,
 	searchString,
 	setContentToDisplay,
 	contentToDisplay,
 	isHybridSearch,
-}: FilterSidebar) => {
+	numberOfPosts,
+	numberOfCollections,
+}: FilterSidebarProps) => {
 	const hideSearchbar = !searchString;
+
+	const [tagQuery, setTagQuery] = useState("");
+	const [authorQuery, setAuthorQuery] = useState("");
+
+	useEffect(() => {
+		if (hideSearchbar) {
+			setTagQuery("");
+			setAuthorQuery("");
+		}
+	}, [hideSearchbar]);
+
+	const filteredTags = useMemo(() => {
+		const q = tagQuery.trim().toLowerCase();
+		if (!q) return tags;
+		return tags.filter((tag) =>
+			(tag.displayName ?? tag.tag).toLowerCase().includes(q),
+		);
+	}, [tags, tagQuery]);
+
+	const filteredAuthors = useMemo(() => {
+		const q = authorQuery.trim().toLowerCase();
+		if (!q) return authors;
+		return authors.filter((author) => author.name.toLowerCase().includes(q));
+	}, [authors, authorQuery]);
+
 	return (
 		<aside
 			className={`${styles.sidebarContainer}`}
@@ -70,16 +92,31 @@ export const FilterSidebar = ({
 				setSort={setSort}
 				setContentToDisplay={setContentToDisplay}
 				contentToDisplay={contentToDisplay}
+				numberOfPosts={numberOfPosts}
+				numberOfCollections={numberOfCollections}
 			/>
 			<FilterSection
 				title={"Tag"}
 				data-testid="tag-filter-section-sidebar"
-				selectedNumber={selectedTags.length}
-				onClear={() => setSelectedTags([])}
+				selectedNumber={filterState.tags.length}
+				onClear={() => filterState.setTags([])}
+				searchSlot={
+					<SearchInput
+						usedInPreact
+						variant="dense"
+						placeholder="Search tags..."
+						value={tagQuery}
+						onInput={(e) =>
+							setTagQuery((e.currentTarget as HTMLInputElement).value)
+						}
+						className={styles.sidebarSearch}
+					/>
+				}
 			>
-				{tags.map((tag, i) => {
+				{filteredTags.map((tag, i) => {
 					return (
 						<FilterSectionItem
+							key={tag.tag}
 							count={tag.numPosts}
 							icon={
 								tag.image ? (
@@ -93,8 +130,10 @@ export const FilterSidebar = ({
 								)
 							}
 							label={tag?.displayName ?? tag.tag}
-							selected={selectedTags.includes(tag.tag)}
-							onChange={() => onTagsChange(tag.tag)}
+							selected={filterState.tags.includes(tag.tag)}
+							onChange={(selected) =>
+								filterState.onTagChange(tag.tag, selected)
+							}
 							isHybridSearch={isHybridSearch}
 						/>
 					);
@@ -103,12 +142,25 @@ export const FilterSidebar = ({
 			<FilterSection
 				title={"Author"}
 				data-testid="author-filter-section-sidebar"
-				selectedNumber={selectedAuthorIds.length}
-				onClear={() => setSelectedAuthorIds([])}
+				selectedNumber={filterState.authors.length}
+				onClear={() => filterState.setAuthors([])}
+				searchSlot={
+					<SearchInput
+						usedInPreact
+						variant="dense"
+						placeholder="Search authors..."
+						value={authorQuery}
+						onInput={(e) =>
+							setAuthorQuery((e.currentTarget as HTMLInputElement).value)
+						}
+						className={styles.sidebarSearch}
+					/>
+				}
 			>
-				{authors.map((author) => {
+				{filteredAuthors.map((author) => {
 					return (
 						<FilterSectionItem
+							key={author.id}
 							count={author.numPosts}
 							icon={
 								<UUPicture
@@ -120,8 +172,10 @@ export const FilterSidebar = ({
 								/>
 							}
 							label={author.name}
-							selected={selectedAuthorIds.includes(author.id)}
-							onChange={() => onSelectedAuthorChange(author.id)}
+							selected={filterState.authors.includes(author.id)}
+							onChange={(selected) =>
+								filterState.onAuthorChange(author.id, selected)
+							}
 							isHybridSearch={isHybridSearch}
 						/>
 					);

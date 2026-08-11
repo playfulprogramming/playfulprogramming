@@ -126,14 +126,13 @@ export function getHrefContainerProps(href: string) {
 			onclick: "handleHrefContainerClick(event)",
 			"data-href": href,
 		};
-	} else {
-		// otherwise, need to return client-side functions
-		return {
-			onMouseDown: globalThis.handleHrefContainerMouseDown,
-			onMouseUp: globalThis.handleHrefContainerMouseUp,
-			onAuxClick: globalThis.handleHrefContainerAuxClick,
-			onClick: globalThis.handleHrefContainerClick,
-			"data-href": href,
-		};
 	}
+	// otherwise, need to return client-side functions
+	return {
+		onMouseDown: globalThis.handleHrefContainerMouseDown,
+		onMouseUp: globalThis.handleHrefContainerMouseUp,
+		onAuxClick: globalThis.handleHrefContainerAuxClick,
+		onClick: globalThis.handleHrefContainerClick,
+		"data-href": href,
+	};
 }

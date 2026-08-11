@@ -1,10 +1,9 @@
-import { PersonInfo } from "types/PersonInfo";
-import { SnitipInfo } from "types/SnitipInfo";
-import { TagInfo } from "types/TagInfo";
+import type { PersonInfo } from "#types/PersonInfo.ts";
+import type { SnitipInfo } from "#types/SnitipInfo.ts";
+import type { TagInfo } from "#types/TagInfo.ts";
 
 export const SEARCH_QUERY_KEY = "q";
-export const POSTS_PAGE_KEY = "postsPage";
-export const COLLECTIONS_PAGE_KEY = "collectionsPage";
+export const PAGE_KEY = "page";
 export const CONTENT_TO_DISPLAY_KEY = "display";
 export const FILTER_TAGS_KEY = "filterTags";
 export const FILTER_AUTHOR_KEY = "filterAuthors";
@@ -13,23 +12,24 @@ export const SEARCH_PAGE_KEY = "page";
 
 export type SortType = "relevance" | "newest" | "oldest";
 
-export type DisplayContentType = "all" | "articles" | "collections";
+export type DisplayContentType = "articles" | "collections";
 
 export interface TagFilterInfo extends TagInfo {
 	id: string;
 	totalPostCount: number;
 }
 
+export type SearchSnitipInfo = Omit<SnitipInfo, "tagsMeta">;
+
 export interface SearchFiltersData {
 	people: PersonInfo[];
 	tags: TagFilterInfo[];
-	snitips: SnitipInfo[];
+	snitips: SearchSnitipInfo[];
 }
 
 export interface SearchQuery {
 	searchQuery: string;
-	postsPage: number;
-	collectionsPage: number;
+	page: number;
 	filterTags: string[];
 	filterAuthors: string[];
 	display: DisplayContentType;
@@ -38,9 +38,8 @@ export interface SearchQuery {
 
 const defaultQuery: SearchQuery = {
 	searchQuery: "",
-	postsPage: 1,
-	collectionsPage: 1,
-	display: "all",
+	page: 1,
+	display: "articles",
 	filterTags: [],
 	filterAuthors: [],
 	sort: "relevance",
@@ -49,10 +48,7 @@ const defaultQuery: SearchQuery = {
 export function serializeParams(query: SearchQuery): URLSearchParams {
 	const obj: Record<string, string | undefined> = {
 		[SEARCH_QUERY_KEY]: query.searchQuery ? query.searchQuery : undefined,
-		[POSTS_PAGE_KEY]:
-			query.postsPage > 1 ? query.postsPage.toString() : undefined,
-		[COLLECTIONS_PAGE_KEY]:
-			query.collectionsPage > 1 ? query.collectionsPage.toString() : undefined,
+		[PAGE_KEY]: query.page > 1 ? query.page.toString() : undefined,
 		[CONTENT_TO_DISPLAY_KEY]:
 			query.display === defaultQuery.display ? undefined : query.display,
 		[FILTER_TAGS_KEY]: query.filterTags.length
@@ -74,8 +70,7 @@ export function serializeParams(query: SearchQuery): URLSearchParams {
 
 export function deserializeParams(params: URLSearchParams): SearchQuery {
 	const searchQuery = params.get(SEARCH_QUERY_KEY);
-	const postsPage = params.get(POSTS_PAGE_KEY);
-	const collectionsPage = params.get(COLLECTIONS_PAGE_KEY);
+	const page = params.get(PAGE_KEY);
 	const display = params.get(CONTENT_TO_DISPLAY_KEY);
 	const filterTags = params.get(FILTER_TAGS_KEY);
 	const filterAuthors = params.get(FILTER_AUTHOR_KEY);
@@ -87,8 +82,7 @@ export function deserializeParams(params: URLSearchParams): SearchQuery {
 
 	return {
 		searchQuery: searchQuery ?? "",
-		postsPage: postsPage ? Number(postsPage) : defaultPageNum,
-		collectionsPage: collectionsPage ? Number(collectionsPage) : defaultPageNum,
+		page: page ? Number(page) : defaultPageNum,
 		display:
 			display && ["all", "articles", "collections"].includes(display)
 				? (display as DisplayContentType)

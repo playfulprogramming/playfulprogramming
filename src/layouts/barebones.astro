@@ -1,6 +1,6 @@
 ---
-import { THEME_COLOR_DARK, THEME_COLOR_LIGHT } from "constants/theme";
-import { Languages } from "types/index";
+import { THEME_COLOR_DARK, THEME_COLOR_LIGHT } from "#src/constants/theme.ts";
+import type { Languages } from "#types/index.ts";
 
 /**
  * For our super custom pages that don't require the global styling of the rest of UU, such as FFG's pages.
@@ -16,6 +16,7 @@ lang ??= "en";
 
 <html lang={lang} class="light">
 	<head>
+		<slot name="first" />
 		<meta name="viewport" content="width=device-width" />
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.ico" />
@@ -72,6 +73,7 @@ lang ??= "en";
 		/>
 		<script defer src="/uninstall-sw.js" is:inline></script>
 		<script
+			is:inline
 			defer
 			data-domain="playfulprogramming.com"
 			src="/areyoumyuser/js/script.js"
@@ -79,8 +81,8 @@ lang ??= "en";
 		<script is:inline>
 			window.plausible =
 				window.plausible ||
-				function () {
-					(window.plausible.q = window.plausible.q || []).push(arguments);
+				function (...args) {
+					(window.plausible.q = window.plausible.q || []).push(args);
 				};
 		</script>
 		<slot name="head" />

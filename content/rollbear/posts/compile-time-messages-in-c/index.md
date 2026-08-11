@@ -14,7 +14,7 @@
 At times, it's desirable to give a message at compile time. Sounds cheesy, eh? Well, read on and find out.
 
 As an example of the cheesy kind, the compile-time quick sort shown
-here [**earlier**](./compile-time-quick-sort-using-c) contained an
+here [**earlier**](/posts/compile-time-quick-sort-using-c) contained an
 unnecessary run time element with a `main()` function, `for_each()` and a `print` template. It is possible to display
 all
 information at compile time by causing a compiler error, like this:

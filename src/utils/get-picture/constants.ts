@@ -1,0 +1,3 @@
+export const SUPPORTED_IMAGE_SIZES = [
+	24, 48, 72, 96, 160, 192, 480, 512, 896, 1080, 1200,
+];

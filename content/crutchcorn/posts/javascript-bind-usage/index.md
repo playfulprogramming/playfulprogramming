@@ -182,7 +182,7 @@ Such that you're not only able to `call` a function with the `this` value, but a
 fn.call(thisArg, arg1, arg2, arg3)
 ```
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Can we solve this without `.bind`? {#arrow-functions}
 
@@ -500,7 +500,7 @@ class MainButtonElement {
 
 Using the `this` keyword is nearly unavoidable when using class-based JavaScript. It enables you to mutate state within the class to reference for later usage.
 
-While some JavaScript is able to avoid this, it's particularly helpful to know when using frameworks such as [Angular](https://angular.io) which uses classes as the primary means for defining a component.
+While some JavaScript is able to avoid this, it's particularly helpful to know when using frameworks such as [Angular](https://angular.dev) which uses classes as the primary means for defining a component.
 
 Speaking of - want to learn how to use Angular? I'm writing [a free book series called "The Framework Field Guide" that teaches React, Angular, and Vue all at once](https://framework.guide). Click the link to learn more about the book and be notified when it launches!
 

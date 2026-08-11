@@ -1,15 +1,22 @@
-import { Root } from "hast";
+import type { Element } from "hast";
 import { SKIP, visit } from "unist-util-visit";
-import { Plugin } from "unified";
-import { Element } from "hast";
-import { SnitipLink } from "./SnitipLink";
-import { SnitipInfo } from "types/SnitipInfo";
-import { MarkdownVFile } from "../types";
-import { logError } from "../logger";
-import { getSnitipById } from "utils/api";
+import type { Plugin } from "unified";
+import { SnitipLink } from "./SnitipLink.tsx";
+import type { SnitipInfo } from "#types/SnitipInfo.ts";
+import type { MarkdownVFile } from "../types.ts";
+import { logError } from "../logger.ts";
+import { getSnitipById } from "#utils/api.ts";
+import { createComponent, type PlayfulRoot } from "../components/components.ts";
+import { v4 as uuidv4 } from "uuid";
 
-export const rehypeSnitipLinks: Plugin<[], Root> = () => {
+const SNITIP_PROTOCOL = "pfp-snitip:";
+
+export const rehypeSnitipLinks: Plugin<[], PlayfulRoot> = () => {
 	return (tree, vfile) => {
+		delete (vfile as MarkdownVFile).snitipScopeId;
+		const scopeId = uuidv4();
+		let transformedLinks = 0;
+
 		visit(
 			tree,
 			{ type: "element", tagName: "a" },
@@ -19,17 +26,20 @@ export const rehypeSnitipLinks: Plugin<[], Root> = () => {
 				}
 
 				const href = String(node.properties.href);
-				if (!href.startsWith("pfp-snitip:")) {
+				if (!href.startsWith(SNITIP_PROTOCOL)) {
 					return;
 				}
 
-				const snitipType = href[11];
-				const snitipId = href.substring(12);
-
-				let snitip: SnitipInfo | undefined;
-				if (snitipType === "#") {
-					snitip = (vfile as MarkdownVFile).data.snitips.get(snitipId);
+				const reference = href.slice(SNITIP_PROTOCOL.length);
+				const snitipId = reference.slice(1);
+				if (!reference.startsWith("#") || !snitipId) {
+					logError(vfile, node, `Invalid snitip link: ${href}`);
+					return;
 				}
+
+				let snitip: SnitipInfo | undefined = (
+					vfile as MarkdownVFile
+				).data.snitips.get(snitipId);
 
 				// If the snitip is not found in the document, try to resolve a global snitip
 				if (!snitip) {
@@ -51,12 +61,38 @@ export const rehypeSnitipLinks: Plugin<[], Root> = () => {
 
 				parent.children[index] = SnitipLink({
 					id: snitipId,
+					scopeId,
 					snitip,
 					children: node.children,
 				});
+				transformedLinks += 1;
 
 				return SKIP;
 			},
 		);
+
+		if (transformedLinks > 0) {
+			(vfile as MarkdownVFile).snitipScopeId = scopeId;
+		}
+	};
+};
+
+/**
+ * Add the interactive support islands after heading collection/styling so
+ * headings inside snitip bodies do not leak into the page table of contents.
+ */
+export const rehypeSnitipTemplates: Plugin<[], PlayfulRoot> = () => {
+	return (tree, vfile) => {
+		const { snitipScopeId: scopeId, data } = vfile as MarkdownVFile;
+		if (!scopeId) return;
+
+		// The component compiler uses an adjacent text node as the boundary
+		// between ordinary HAST and a root component island.
+		tree.children.push({ type: "text", value: "\n" });
+		for (const snitip of data.snitips.values()) {
+			tree.children.push(
+				createComponent("SnitipTemplate", { scopeId, snitip }),
+			);
+		}
 	};
 };

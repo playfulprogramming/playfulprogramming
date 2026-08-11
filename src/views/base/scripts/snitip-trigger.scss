@@ -32,9 +32,10 @@
 
 	&:focus-visible {
 		.snitip-trigger__icon {
-			outline: var(--snitip_focus-outline_width) solid var(--snitip_focus-outline_color);
+			outline: var(--snitip_focus-outline_width) solid
+				var(--snitip_focus-outline_color);
 			outline-offset: var(--snitip_trigger_gap);
-			border-radius: calc(var(--border-width_focus)/2);
+			border-radius: calc(var(--border-width_focus) / 2);
 		}
 	}
 }
@@ -46,12 +47,16 @@
 
 .snitip-trigger__popup {
 	position: absolute;
-	bottom: calc(100% + var(--snitip_focus-outline_width) + var(--snitip_trigger_gap)*2);
+	bottom: calc(
+		100% + var(--snitip_focus-outline_width) + var(--snitip_trigger_gap) * 2
+	);
 	left: 50%;
 	width: max-content;
 
 	transform: translate(-50%, 50%);
 	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
 }
 
 .snitip-trigger:not([data-snitip-trigger-state="open"]) {
@@ -59,6 +64,7 @@
 		.snitip-trigger__popup {
 			transform: translate(-50%, 0);
 			opacity: 1;
+			visibility: visible;
 		}
 	}
 }

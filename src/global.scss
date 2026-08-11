@@ -20,13 +20,19 @@
 :root {
 	scrollbar-gutter: stable;
 	scrollbar-color: var(--focus-outline_primary) transparent;
-	transition: scrollbar-color $animStyle $animSpeed;
+	@include transition(scrollbar-color);
 
 	box-sizing: border-box;
 }
 
 * {
 	box-sizing: inherit;
+}
+
+// <details> appears to invisibly reset the box-sizing to "content-box"
+// for all its descendants... so we set it back to border-box here.
+details > * {
+	box-sizing: border-box;
 }
 
 h1,
@@ -69,9 +75,7 @@ body {
 	margin: 0;
 	padding: 0;
 	color: var(--foreground_emphasis-high);
-	transition:
-		color $animStyle $animSpeed,
-		background-color $animStyle $animSpeed;
+	@include transition(color background-color);
 }
 
 .medium-zoom-overlay,

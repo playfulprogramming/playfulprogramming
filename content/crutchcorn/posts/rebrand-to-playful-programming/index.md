@@ -38,7 +38,7 @@ After hours and hours of searching — no joke! — we landed on something that 
 
 Not only is it more directly linked to programming and software engineering, but it keeps our long-standing obsession with alliteration; all while keeping things fun and delightful for newcomers to discover us and feel welcomed.
 
-Secondly, we're often mistaken for a for-profit group. We're not. While we haven't yet decided to be an official non-profit, we're a volunteer based collective. As of today, all of the funds from Playful Programming have been sponsored either by myself (Corbin) or by my own consulting agency, [OceanBit](https://oceanbit.dev/).
+Secondly, we're often mistaken for a for-profit group. We're not. While we haven't yet decided to be an official non-profit, we're a volunteer based collective. As of today, I have sponsored all the funds from Playful Programming myself (Corbin).
 
 The problem is that, when people assume we're a company, they miss out on the fact that we're actively and consistently looking for contributors.
 
@@ -57,7 +57,7 @@ But that's not all; I mentioned that all funding has come from me or my company,
 
 **We need sponsors** to continue supporting us as we grow. We currently offer in-banner content ads like this one:
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 We can also provide the following:
 
@@ -65,7 +65,7 @@ We can also provide the following:
 - Inclusion in our newsletter, Discord, and other social media announcements.
 - Partnered content — if we found the conditions acceptable.
 
-To support us, [we also accept donations through our Open Collective](https://opencollective.com/playfulprogramming). Any money donated will go directly to growing our project. We'd love to get to a point where we can even compensate our contributors.
+To support us, [we also accept donations through our Open Collective](https://donate.playfulprogramming.com). Any money donated will go directly to growing our project. We'd love to get to a point where we can even compensate our contributors.
 
 ---
 

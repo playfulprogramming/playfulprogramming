@@ -56,7 +56,7 @@ This will render the tag passed to under the `as` property, or default to the `b
 In JSX, we can pass properties through to a child by using an API like such:
 
 ```jsx
-const props = {href: "https://oceanbit.dev"};
+const props = {href: "https://playfulprogramming.com"};
 
 <a {...props}/>
 ```
@@ -65,7 +65,7 @@ In SFCs, however, the same effect is achieved using a different syntax:
 
 ``` vue
 <script setup>
-const props = {href: "https://oceanbit.dev"};
+const props = {href: "https://playfulprogramming.com"};
 </script>
 <template>
 	<a v-bind="props"></a>
@@ -120,7 +120,7 @@ Once this is done, we can use the `OurButton` component like so:
 
 ```vue
 <!-- Usage -->
-<OurButton as="a" href="https://oceanbit.dev">
+<OurButton as="a" href="https://playfulprogramming.com">
     This looks like a button, but is a link
 </OurButton>
 ```

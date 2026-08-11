@@ -30,7 +30,7 @@ There are three main methods you may use to install Carthage:
 
 Now that you have Carthage installed, you can start using it in your projects.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Usage
 
@@ -62,7 +62,7 @@ The `Carthage` folder, on the other hand, is similar to your `node_modules`. It'
 
 > You are not required to commit this folder to your repository, but you may wish to if you want to guarantee that the built versions of each dependency will always be accessible at a later date.
 
-For [my company](https://oceanbit.dev), we ultimately decided to follow the web's standard and not commit our `Carthage` folders. As such, we needed to add the following line to our project's `.gitignore` file:
+For my company, we ultimately decided to follow the web's standard and not commit our `Carthage` folders. As such, we needed to add the following line to our project's `.gitignore` file:
 
 ```
 ios/Carthage/Checkouts/
@@ -102,5 +102,5 @@ Please keep in mind that there may be additional steps that some dependencies wa
 
 As with any decision made in engineering, the choice to add Carthage as a secondary native dependency for your React Native projects is a high contextual one. However, I hope that with the information on utilizing it properly, it alleviates some of the stress in integrating it.
 
-If you run into any problems integrating Carthage, you can always ask for help in the comments down below or [join our Discord](https://discord.gg/FMcvc6T) and ask for help there as well.
+If you run into any problems integrating Carthage, you can always ask for help in the comments down below or [join our Discord](https://discord.playfulprogramming.com) and ask for help there as well.
 

@@ -6,7 +6,7 @@
 </h1>
 <div align="center">
 
-[![Unirse al chat Discord](https://badgen.net/badge/discord/Unirse%20al%20chat/7289DA?icon=discord)](https://discord.gg/FMcvc6T)
+[![Unirse al chat Discord](https://badgen.net/badge/discord/Unirse%20al%20chat/7289DA?icon=discord)](https://discord.playfulprogramming.com)
 [![Contributor Covenant v1.4 adopted](https://badgen.net/badge/Contributor%20Covenant/v1.4%20adopted/ff69b4)](CODE_OF_CONDUCT.md)
 [![Check Status](https://badgen.net/github/checks/playfulprogramming/playfulprogramming/?icon=github)](https://github.com/playfulprogramming/playfulprogramming/actions)
 
@@ -16,8 +16,9 @@ Este repository actúa como la ubicación del código fuente para el [blog de Pl
 
 ## Patrocinadores
 
-<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://playfulprogramming.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
-<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="https://playfulprogramming.com/sponsors/oceanbit.svg" width="300"/></a>
+<a href="https://www.fastly.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="Fastly" src="./public/sponsors/fastly.svg" width="300"/></a>
+<a href="https://coderabbit.link/pfp" target="_blank" rel="noopener noreferrer sponsored"><img alt="Fastly" src="./public/sponsors/coderabbit.svg" width="300"/></a>
+<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="./public/sponsors/the-polyglot-developer.svg" width="300"/></a>
 
 [Reconocemos todos los patrocinios que compartimos abiertamente en GitHub](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed)
 
@@ -40,7 +41,7 @@ comunidad! Hemos escrito una [guía completa sobre cómo hacerlo aquí](./CONTRI
 Esta guía incluye instrucciones sobre cómo agregar una nueva publicación al
 sitio, cómo editar nuestro código y cuál es nuestra estrategia de despliegues.
 
-Tén en cuenta que solicitamos a los desarrolladores que se comuniquen [a través de nuestro Discord](https://discord.gg/FMcvc6T)
+Tén en cuenta que solicitamos a los desarrolladores que se comuniquen [a través de nuestro Discord](https://discord.playfulprogramming.com)
 o [a través de un issue de GitHub](https://github.com/playfulprogramming/playfulprogramming/issues/new)
 antes de que se lleve a cabo un desarrollo extensivo. Si tienes en mente una
 funcionalidad que te gustaría agregar al sitio, ¡háznoslo saber! ¡Nos encantaría hacer una lluvia de ideas antes de que empiece su desarrollo!

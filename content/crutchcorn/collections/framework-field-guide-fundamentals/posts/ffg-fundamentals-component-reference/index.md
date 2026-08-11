@@ -386,7 +386,7 @@ const App = () => {
 
 Doing this will result in our `ref` callback not being called as expected, alongside two error messages explaining why:
 
-> Warning: Component: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)
+> Warning: Component: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/warnings/special-props)
 
 > Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use `forwardRef()`?
 
@@ -870,7 +870,7 @@ function App() {
 ```
 
 <!-- ::start:no-ebook -->
-<iframe data-frame-title="React Focused Comp Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-react-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.ts"></iframe>
+<iframe data-frame-title="React Focused Comp Ref - StackBlitz" src="pfp-code:./ffg-fundamentals-react-focused-comp-ref-68?template=node&embed=1&file=src%2Fmain.jsx"></iframe>
 <!-- ::end:no-ebook -->
 
 ## Angular

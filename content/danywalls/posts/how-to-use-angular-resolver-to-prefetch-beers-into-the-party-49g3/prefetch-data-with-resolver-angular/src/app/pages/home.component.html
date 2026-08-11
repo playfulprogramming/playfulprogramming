@@ -1,0 +1,17 @@
+<div class="container">
+  <p class="text-center">
+    Do you want to join to party and wait for the beers, or when you get in, the
+    beers are ready ?
+  </p>
+  <div class="btn-group btn-group-block">
+    <a [routerLink]="['/beer-room']" class="btn btn-primary">Component Room</a>
+    <a
+      [routerLink]="['/resolver-room']"
+      #resolver
+      (click)="resolver.classList.add('loading')"
+      ngClass=""
+      class="btn btn-secondary"
+      >Resolver Room</a
+    >
+  </div>
+</div>

@@ -1,33 +1,25 @@
-import rehypeShiki, { type RehypeShikiOptions } from "@shikijs/rehype";
-import type { Root } from "hast";
+import type { Element, Root } from "hast";
 import type { Plugin } from "unified";
-import {
-	transformerMetaHighlight,
-	transformerNotationHighlight,
-	transformerRemoveLineBreak,
-} from "@shikijs/transformers";
+import { visit } from "unist-util-visit";
+import { runShiki } from "./shiki-pool.ts";
 
-export const rehypeShikiUU: [
-	Plugin<[RehypeShikiOptions], Root, Root>,
-	RehypeShikiOptions,
-] = [
-	rehypeShiki as never,
-	{
-		themes: {
-			light: "github-light",
-			dark: "github-dark",
-		},
-		transformers: [
-			// supports "[!code highlight]" transforms to add a .highlight class
-			transformerNotationHighlight({
-				classActiveLine: "highlight",
-				matchAlgorithm: "v3",
-			}),
-			// supports "``` {1,3-4}" transforms to add a .highlight class
-			transformerMetaHighlight({
-				className: "highlight",
-			}),
-			transformerRemoveLineBreak(),
-		],
-	},
-];
+export const rehypeShikiUU: Plugin<[], Root, Root> = function () {
+	return async (tree) => {
+		async function visitor(
+			node: Element,
+			index: number,
+			parent: Root | Element,
+		) {
+			const replacement = await runShiki(node);
+			parent.children.splice(index, 1, replacement);
+		}
+
+		const promises: Array<Promise<void>> = [];
+		visit(tree, { type: "element", tagName: "pre" }, (node, index, parent) => {
+			if (index !== undefined && parent !== undefined) {
+				promises.push(visitor(node, index, parent));
+			}
+		});
+		await Promise.all(promises);
+	};
+};

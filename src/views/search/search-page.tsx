@@ -6,8 +6,8 @@ import {
 	useRef,
 	useState,
 } from "preact/hooks";
-import { Pagination } from "components/pagination/pagination";
-import { useSearchParams } from "./use-search-params";
+import { Pagination } from "#components/pagination/pagination.tsx";
+import { useSearchParams } from "./use-search-params.ts";
 import {
 	QueryClient,
 	QueryClientProvider,
@@ -15,39 +15,37 @@ import {
 } from "@tanstack/react-query";
 
 import style from "./search-page.module.scss";
-import { PostCardGrid } from "components/post-card/post-card-grid";
-import { SubHeader } from "components/subheader/subheader";
+import { PostCardGrid } from "#components/post-card/post-card-grid.tsx";
 import { Fragment } from "preact";
-import { CollectionCard } from "components/collection-card/collection-card";
-import { FilterDisplay } from "./components/filter-display";
-import { useElementSize } from "../../hooks/use-element-size";
-import { SearchTopbar } from "./components/search-topbar";
-import { SearchHero } from "./components/search-hero";
-import { LargeButton } from "components/button/button";
-import retry from "src/icons/refresh.svg?raw";
+import { CollectionCard } from "#components/collection-card/collection-card.tsx";
+import { FilterDisplay } from "./components/filter-display.tsx";
+import { useElementSize } from "../../hooks/use-element-size.tsx";
+import { SearchTopbar } from "./components/search-topbar.tsx";
+import { SearchHero } from "./components/search-hero.tsx";
+import { LargeButton } from "#components/button/button.tsx";
+import retry from "#src/icons/refresh.svg?raw";
 import sadUnicorn from "../../assets/unicorn_sad.svg";
 import happyUnicorn from "../../assets/unicorn_happy.svg";
 import scaredUnicorn from "../../assets/unicorn_scared.svg";
 import {
-	SearchQuery,
+	type SearchQuery,
+	type DisplayContentType,
+	type SortType,
+	type SearchFiltersData,
 	serializeParams,
 	deserializeParams,
-	DisplayContentType,
-	SortType,
-	SearchFiltersData,
-	COLLECTIONS_PAGE_KEY,
-	POSTS_PAGE_KEY,
-} from "./search";
-import { SearchResultCount } from "./components/search-result-count";
-import { isDefined } from "utils/is-defined";
-import { OramaClientProvider, useOramaSearch } from "./orama";
-import { SearchFooter } from "./components/search-footer";
+	PAGE_KEY,
+} from "./search.ts";
+import { SearchResultCount } from "./components/search-result-count.tsx";
+import { isDefined } from "#utils/is-defined.ts";
+import { SearchProvider, useSearch } from "./services.tsx";
 import {
 	MAX_COLLECTIONS_PER_PAGE,
 	MAX_POSTS_PER_PAGE,
-	ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
-} from "./constants";
-import { SnitipCardGrid } from "components/snitip/snitip-card";
+	// HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+} from "./constants.ts";
+import { useFilterState } from "./use-filter-state.ts";
+import { SnitipCardGrid } from "#components/snitip/snitip-card.tsx";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -55,56 +53,83 @@ function usePersistedEmptyRef<T extends object>(value: T) {
 		if (Object.entries(value).length) {
 			ref.current = value;
 			return value;
-		} else {
-			return ref.current ?? value;
 		}
+		return ref.current ?? value;
 	}, [value]);
 }
 
 const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
-	return fetch("/searchFilters.json", { signal, method: "GET" }).then((res) => {
-		if (!res.ok) {
-			return res.text().then((text) => Promise.reject(text));
-		}
-		return res.json() as Promise<SearchFiltersData>;
-	});
+	return fetch("/searchFilters.json", { signal, method: "GET" }).then(
+		async (res) => {
+			if (!res.ok) {
+				return Promise.reject(await res.text());
+			}
+			return res.json() as Promise<SearchFiltersData>;
+		},
+	);
 };
 
-export function SearchPageBase() {
+export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const [query, setQueryState] = useSearchParams<SearchQuery>(
 		serializeParams,
 		deserializeParams,
+		(query): string => {
+			if (query.searchQuery === "*") {
+				return `Search all | ${siteTitle}`;
+			} else if (query.searchQuery) {
+				return `${query.searchQuery} | ${siteTitle}`;
+			}
+			return `Search | ${siteTitle}`;
+		},
 	);
 
 	const setQuery = useCallback(
-		(newQuery: Partial<SearchQuery>) => {
-			const queryToSet = {
-				...query,
-				...newQuery,
-			};
+		(
+			updater: (prevQuery: SearchQuery) => Partial<SearchQuery> | SearchQuery,
+		) => {
+			setQueryState((prevQuery) => {
+				const queryUpdates = updater(prevQuery);
+				if (queryUpdates === prevQuery) {
+					return prevQuery;
+				}
 
-			if (queryToSet.searchQuery.length == 0) {
-				// Remove tags and authors when no value is present
-				queryToSet.filterTags = [];
-				queryToSet.filterAuthors = [];
-			}
+				const queryToSet: SearchQuery = {
+					...prevQuery,
+					...queryUpdates,
+				};
 
-			setQueryState(queryToSet);
+				if (queryToSet.searchQuery.length === 0) {
+					// Remove tags and authors when no value is present
+					queryToSet.filterTags = [];
+					queryToSet.filterAuthors = [];
+				}
+
+				return queryToSet;
+			});
 		},
-		[query, setQueryState],
+		[setQueryState],
 	);
 
 	const resultsHeading = useRef<HTMLDivElement | null>(null);
 
 	const setSearch = useCallback(
 		(str: string) =>
-			setQuery({ searchQuery: str, postsPage: 1, collectionsPage: 1 }),
+			setQuery((prevQuery) => {
+				if (prevQuery.searchQuery === str) {
+					return prevQuery;
+				}
+
+				return {
+					searchQuery: str,
+					page: 1,
+				};
+			}),
 		[setQuery],
 	);
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
-			setQuery({ searchQuery: str, postsPage: 1, collectionsPage: 1 });
+			setQuery(() => ({ searchQuery: str, page: 1 }));
 			resultsHeading.current?.focus();
 		},
 		[setQuery],
@@ -134,7 +159,7 @@ export function SearchPageBase() {
 		enabled,
 	});
 
-	const { searchForTerm } = useOramaSearch();
+	const { searchForTerm } = useSearch();
 	const fetchSearchQuery = useCallback(
 		({
 			signal,
@@ -144,8 +169,8 @@ export function SearchPageBase() {
 			queryKey: [string, SearchQuery];
 		}) => {
 			// Analytics go brr
-			if (plausible) {
-				plausible("search", { props: { searchVal: query.searchQuery } });
+			if (window.plausible) {
+				window.plausible("search", { props: { searchVal: query.searchQuery } });
 			}
 
 			return searchForTerm(query, signal);
@@ -170,7 +195,6 @@ export function SearchPageBase() {
 			totalCollections: 0,
 			tags: {},
 			authors: {},
-			duration: 0,
 		},
 		refetchOnWindowFocus: false,
 		retry: false,
@@ -180,27 +204,34 @@ export function SearchPageBase() {
 	const isWildcardSearch = query.searchQuery === "*";
 	// If the search is a wildcard, we want to use *every* tag/person filter (the search API returns a limited amount)
 	const tagCounts = usePersistedEmptyRef(
-		isWildcardSearch
-			? Object.fromEntries(
-					searchFilters.tags.map((tag) => [tag.id, tag.totalPostCount]),
-				)
-			: data.tags,
+		useMemo(() => {
+			const tags: Array<[string, number]> = isWildcardSearch
+				? searchFilters.tags.map((tag) => [tag.id, tag.totalPostCount])
+				: Object.entries(data.tags);
+			const filteredTags = tags.filter(([_, count]) => count >= 3);
+
+			return Object.fromEntries(filteredTags.length > 5 ? filteredTags : tags);
+		}, [isWildcardSearch, data.tags, searchFilters.tags]),
 	);
 	const authorCounts = usePersistedEmptyRef(
 		isWildcardSearch
 			? Object.fromEntries(
-					searchFilters.people.map((person) => [person.id, person.totalPostCount]),
+					searchFilters.people.map((person) => [
+						person.id,
+						person.totalPostCount,
+					]),
 				)
 			: data.authors,
 	);
 
-	// if searchh term has more than a certain number of words, then use hybrid mode Orama search for smart/AI searching capabilities
-	const isHybridSearch = useMemo(
-		() =>
-			query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
-			ORAMA_HYBRID_SEARCH_ACTIVATION_THRESHOLD,
-		[query.searchQuery],
-	);
+	// if search term has more than a certain number of words, then use hybrid mode search for smart/AI searching capabilities
+	// const isHybridSearch = useMemo(
+	// 	() =>
+	// 		query.searchQuery?.split(" ")?.filter((t) => t.trim() !== "")?.length >=
+	// 		HYBRID_SEARCH_ACTIVATION_THRESHOLD,
+	// 	[query.searchQuery],
+	// );
+	const isHybridSearch = useMemo(() => false, []);
 
 	const isError = isErrorFilters || isErrorData;
 
@@ -219,35 +250,45 @@ export function SearchPageBase() {
 	const isContentLoading =
 		isLoadingData || isFetchingData || isLoadingFilters || isFetchingFilters;
 
-	const setSelectedPeople = useCallback(
-		(authors: string[]) => {
-			setQuery({
-				filterAuthors: authors,
-				postsPage: 1,
-				collectionsPage: 1, // Reset both page counters when changing filters
-			});
-		},
-		[setQuery],
-	);
-
-	const setSelectedTags = useCallback(
-		(tags: string[]) => {
-			setQuery({
-				filterTags: tags,
-				postsPage: 1,
-				collectionsPage: 1, // Reset both page counters when changing filters
-			});
-		},
-		[setQuery],
-	);
+	const filterState = useFilterState({
+		tags: query.filterTags,
+		authors: query.filterAuthors,
+		setTags: useCallback(
+			(tags: string[]) => {
+				setQuery(() => ({
+					filterTags: tags,
+					page: 1, // Reset both page counters when changing filters
+				}));
+			},
+			[setQuery],
+		),
+		setAuthors: useCallback(
+			(authors: string[]) => {
+				setQuery(() => ({
+					filterAuthors: authors,
+					page: 1, // Reset both page counters when changing filters
+				}));
+			},
+			[setQuery],
+		),
+		setFilters: useCallback(
+			(filters: Record<"tags" | "authors", string[]>) => {
+				setQuery(() => ({
+					filterTags: filters.tags,
+					filterAuthors: filters.authors,
+					page: 1, // Reset both page counters when changing filters
+				}));
+			},
+			[setQuery],
+		),
+	});
 
 	const setContentToDisplay = useCallback(
 		(display: DisplayContentType) => {
-			setQuery({
-				display: display,
-				postsPage: 1,
-				collectionsPage: 1, // Reset both page counters when changing filters
-			});
+			setQuery(() => ({
+				display,
+				page: 1, // Reset both page counters when changing filters
+			}));
 		},
 		[setQuery],
 	);
@@ -256,18 +297,16 @@ export function SearchPageBase() {
 		return new Map(searchFilters.people.map((person) => [person.id, person]));
 	}, [searchFilters.people]);
 
-	const showArticles = query.display === "all" || query.display === "articles";
+	const showArticles = query.display === "articles";
 
-	const showCollections =
-		query.display === "all" || query.display === "collections";
+	const showCollections = query.display === "collections";
 
 	const setSort = useCallback(
 		(sort: SortType) => {
-			setQuery({
-				sort: sort,
-				postsPage: 1,
-				collectionsPage: 1, // Reset both page counters when changing filters
-			});
+			setQuery(() => ({
+				sort,
+				page: 1, // Reset both page counters when changing filters
+			}));
 		},
 		[setQuery],
 	);
@@ -276,15 +315,14 @@ export function SearchPageBase() {
 	 * Calculate the last page based on the number of posts.
 	 */
 	const lastPage = useMemo(
-		() => Math.ceil(data.totalPosts / MAX_POSTS_PER_PAGE),
-		[data.totalPosts],
-	);
-	/**
-	 * // Add separate pagination components for posts and collections
-	 */
-	const lastCollectionsPage = useMemo(
-		() => Math.ceil(data.totalCollections / MAX_COLLECTIONS_PER_PAGE),
-		[data.totalCollections],
+		() =>
+			Math.max(
+				showCollections
+					? Math.ceil(data.totalCollections / MAX_COLLECTIONS_PER_PAGE)
+					: 0,
+				showArticles ? Math.ceil(data.totalPosts / MAX_POSTS_PER_PAGE) : 0,
+			),
+		[showCollections, data.totalCollections, showArticles, data.totalPosts],
 	);
 
 	/**
@@ -295,7 +333,7 @@ export function SearchPageBase() {
 	useLayoutEffect(() => {
 		const header = document.querySelector("#header-bar") as HTMLElement;
 		setEl(header);
-	}, []);
+	}, [setEl]);
 
 	const headerHeight = size.height;
 
@@ -311,42 +349,38 @@ export function SearchPageBase() {
 				data.posts.length === 0 &&
 				data.collections.length === 0));
 
-	const numberOfCollections = showCollections ? data.totalCollections : 0;
-
-	const numberOfPosts = showArticles ? data.totalPosts : 0;
-
 	const snitips = useMemo(() => {
-		// Find all snitips that are selected by tags in the query
-		const snitips = searchFilters.snitips.filter((snitip) => query.filterTags.some((tag) => snitip.tags.includes(tag)));
-		// Get the snitip that has the most returned documents
-		let maxSnitip = null;
-		let maxCount = -1;
-		for (const snitip of snitips) {
-			const count = tagCounts[snitip.id] ?? 0;
-			if (count > maxCount) {
-				maxSnitip = snitip;
-				maxCount = count;
+		const matchingSnitips = searchFilters.snitips.filter((snitip) =>
+			query.filterTags.some((tag) => snitip.tags.includes(tag)),
+		);
+		let bestSnitip = matchingSnitips[0];
+		let bestScore = -1;
+
+		for (const snitip of matchingSnitips) {
+			const score = snitip.tags
+				.filter((tag) => query.filterTags.includes(tag))
+				.reduce((total, tag) => total + (data.tags[tag] ?? 0), 0);
+			if (score > bestScore) {
+				bestSnitip = snitip;
+				bestScore = score;
 			}
 		}
-		return maxSnitip ? [maxSnitip] : [];
-	}, [searchFilters.snitips, query.filterTags, tagCounts]);
+
+		return bestSnitip ? [{ ...bestSnitip, tagsMeta: new Map() }] : [];
+	}, [searchFilters.snitips, query.filterTags, data.tags]);
 
 	return (
-		<main
+		<div
 			className={style.fullPageContainer}
 			data-hide-sidebar={!query.searchQuery}
 		>
-			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
 				tagCounts={tagCounts}
 				authorCounts={authorCounts}
 				peopleMap={peopleMap}
-				selectedTags={query.filterTags}
-				setSelectedTags={setSelectedTags}
-				selectedAuthorIds={query.filterAuthors}
-				setSelectedAuthorIds={setSelectedPeople}
+				filterState={filterState}
 				sort={query.sort}
 				setSort={setSort}
 				setContentToDisplay={setContentToDisplay}
@@ -362,6 +396,8 @@ export function SearchPageBase() {
 				}}
 				searchString={query.searchQuery}
 				isHybridSearch={isHybridSearch}
+				numberOfPosts={isContentLoading ? null : data.totalPosts}
+				numberOfCollections={isContentLoading ? null : data.totalCollections}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar
@@ -379,19 +415,21 @@ export function SearchPageBase() {
 				<section className={style.mainContentsInner}>
 					{/* aria-live cannot be on an element that is programmatically removed
 				or added via JSX, instead it has to listen to changes in DOM somehow */}
-					<div
-						aria-live={"polite"}
-						aria-atomic="true"
-						className={style.passThru}
-					>
+					<div aria-live="polite" aria-atomic="true" className={style.passThru}>
 						{!isContentLoading &&
-							(!!numberOfCollections || !!numberOfPosts) && (
+							showCollections &&
+							data.totalCollections > 0 && (
 								<SearchResultCount
 									ref={resultsHeading}
-									numberOfCollections={numberOfCollections}
-									numberOfPosts={numberOfPosts}
+									numberOfCollections={data.totalCollections}
 								/>
 							)}
+						{!isContentLoading && showArticles && data.totalPosts > 0 && (
+							<SearchResultCount
+								ref={resultsHeading}
+								numberOfPosts={data.totalPosts}
+							/>
+						)}
 						{!isError && isContentLoading && (
 							<>
 								<div className={style.loadingAnimationContainer}>
@@ -449,11 +487,12 @@ export function SearchPageBase() {
 					{enabled &&
 						!isContentLoading &&
 						!noResults &&
-						query.collectionsPage == 1 &&
-						query.postsPage == 1 &&
+						query.page === 1 &&
 						Boolean(snitips.length) && (
-							<div class={style.snitipsContainer}>
-								<h2 id="snitips-header" class="visually-hidden">Tags</h2>
+							<div className={style.snitipsContainer}>
+								<h2 id="snitips-header" className="visually-hidden">
+									Tags
+								</h2>
 								<SnitipCardGrid
 									snitips={snitips}
 									headingTag="h3"
@@ -466,12 +505,13 @@ export function SearchPageBase() {
 						showCollections &&
 						Boolean(data.collections.length) && (
 							<Fragment>
-								<SubHeader
-									tag="h2"
-									text="Collections"
+								<h2
 									id="collections-header"
 									data-testid="collections-header"
-								/>
+									class="visually-hidden"
+								>
+									Collections
+								</h2>
 								<ul
 									aria-labelledby="collections-header"
 									role="list"
@@ -479,36 +519,15 @@ export function SearchPageBase() {
 								>
 									{data.collections.map((collection) => (
 										<CollectionCard
+											key={collection.slug}
 											collection={collection}
 											authors={collection.authors
-												.map((id) => peopleMap.get(id + ""))
+												.map((id) => peopleMap.get(`${id}`))
 												.filter(isDefined)}
 											headingTag="h3"
 										/>
 									))}
 								</ul>
-								{!isHybridSearch && (
-									<Pagination
-										testId="collections-pagination"
-										softNavigate={(_href, pageNum) => {
-											window.scrollTo(0, 0);
-											setQuery({
-												collectionsPage: pageNum,
-											});
-										}}
-										page={{
-											currentPage: query.collectionsPage,
-											lastPage: lastCollectionsPage,
-										}}
-										getPageHref={(pageNum) => {
-											const pageParams = new URLSearchParams(
-												window.location.search,
-											);
-											pageParams.set(COLLECTIONS_PAGE_KEY, pageNum.toString());
-											return `${window.location.pathname}?${pageParams.toString()}`;
-										}}
-									/>
-								)}
 							</Fragment>
 						)}
 
@@ -517,61 +536,65 @@ export function SearchPageBase() {
 						showArticles &&
 						Boolean(data.posts.length) && (
 							<Fragment>
-								<SubHeader
-									tag="h2"
-									text="Articles"
+								<h2
 									id="articles-header"
 									data-testid="articles-header"
-								/>
+									class="visually-hidden"
+								>
+									Articles
+								</h2>
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
 									postsToDisplay={data.posts}
 									postAuthors={peopleMap}
 									postHeadingTag="h3"
+									expanded
 								/>
-								{!isHybridSearch && (
-									<Pagination
-										testId="pagination"
-										softNavigate={(_href, pageNum) => {
-											window.scrollTo(0, 0);
-											setQuery({
-												postsPage: pageNum,
-											});
-										}}
-										page={{
-											currentPage: query.postsPage,
-											lastPage: lastPage,
-										}}
-										getPageHref={(pageNum) => {
-											const pageParams = new URLSearchParams(
-												window.location.search,
-											);
-											pageParams.set(POSTS_PAGE_KEY, pageNum.toString());
-											return `${
-												window.location.pathname
-											}?${pageParams.toString()}`;
-										}}
-									/>
-								)}
 							</Fragment>
 						)}
-					{enabled && !isContentLoading && !noResults && (
-						<SearchFooter duration={data.duration} />
-					)}
+					{enabled &&
+						!isContentLoading &&
+						(Boolean(data.posts.length) || Boolean(data.collections.length)) &&
+						!isHybridSearch && (
+							<Pagination
+								divClass={style.pagination}
+								testId="pagination"
+								softNavigate={(_href, pageNum) => {
+									window.scrollTo(0, 0);
+									setQuery(() => ({
+										page: pageNum,
+									}));
+								}}
+								page={{
+									currentPage: query.page,
+									lastPage,
+								}}
+								getPageHref={(pageNum) => {
+									const pageParams = new URLSearchParams(
+										window.location.search,
+									);
+									pageParams.set(PAGE_KEY, pageNum.toString());
+									return `${window.location.pathname}?${pageParams.toString()}`;
+								}}
+							/>
+						)}
 				</section>
 			</div>
-		</main>
+		</div>
 	);
 }
 
 const queryClient = new QueryClient();
 
-export default function SearchPage() {
+interface RootSearchPageProps {
+	siteTitle: string;
+}
+export default function SearchPage({ siteTitle }: RootSearchPageProps) {
 	return (
-		<OramaClientProvider>
+		<SearchProvider>
 			<QueryClientProvider client={queryClient}>
-				<SearchPageBase />
+				<SearchPageBase siteTitle={siteTitle} />
 			</QueryClientProvider>
-		</OramaClientProvider>
+		</SearchProvider>
 	);
 }

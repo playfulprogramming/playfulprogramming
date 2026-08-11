@@ -1,0 +1,54 @@
+/* Add application styles & imports to this file! */
+my-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  column-gap: 5rem;
+}
+.burger {
+  padding: 0 15px;
+  width: 150px;
+  border-bottom: 4px solid black;
+}
+
+.bun-bottom {
+  height: 15px;
+  background-color: burlywood;
+  border-radius: 0 0 8px 8px;
+}
+
+.topbun {
+  height: 15px;
+  background-color: burlywood;
+  border-radius: 8px 8px 0 0;
+}
+
+.cheese {
+  height: 10px;
+  background-color: orange;
+}
+
+.meat {
+  height: 12px;
+  background-color: maroon;
+}
+
+.onion {
+  height: 10px;
+  background-color: purple;
+}
+
+.tomato {
+  height: 10px;
+  background-color: red;
+}
+
+.price {
+  text-align: center;
+}

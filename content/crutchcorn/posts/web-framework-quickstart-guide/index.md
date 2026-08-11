@@ -20,7 +20,7 @@ Let's take a quick look at how we can scaffold a project for React, Angular, and
 
 While React used to have a dedicated tool called `create-react-app`, it's [no longer suggested to use for modern React apps.](https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741)
 
-Instead, we can use a tool built by the Vue maintainers (of all things!) that supports React and other frameworks as first-party integrations: [**Vite**](https://vitejs.dev/). 
+Instead, we can use a tool built by the Vue maintainers (of all things!) that supports React and other frameworks as first-party integrations: [**Vite**](https://vite.dev/). 
 
 ![The Vite logo: A "V" with a lightning strike in the middle](./vite_og.png)
 
@@ -151,7 +151,7 @@ Now when you modify any code in the project it will refresh the screen for you a
 
 # Vue
 
-While Vue used to have a CLI tool aptly named "Vue CLI" that let you scaffold projects, it's been replaced by a new tool made by the Vue team: [**Vite**](https://vitejs.dev/).
+While Vue used to have a CLI tool aptly named "Vue CLI" that let you scaffold projects, it's been replaced by a new tool made by the Vue team: [**Vite**](https://vite.dev/).
 
 ![The Vite logo: A "V" with a lightning strike in the middle](./vite_og.png)
 

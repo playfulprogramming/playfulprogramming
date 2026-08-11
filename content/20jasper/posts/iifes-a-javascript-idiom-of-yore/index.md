@@ -38,7 +38,7 @@ Prior to ES5/ES2015, variables would be function scoped with `var` or globally s
 
 This means that block scope effectively did not exist, and functions were the smallest scope[^tryCatchScope]
 
-[^tryCatchScope]: Catch blocks scope caught variables to the block as of ES3. They are smaller than the function scope mentioned, just not very useful to scope non-thrown variables. [Mozilla Scope Cheat Sheet](scopeCheatSheet)
+[^tryCatchScope]: Catch blocks scope caught variables to the block as of ES3. They are smaller than the function scope mentioned, just not very useful to scope non-thrown variables. [Mozilla Scope Cheat Sheet][scopeCheatSheet]
 
 [scopeCheatSheet]: https://web.archive.org/web/20121022212951/https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Scope_Cheatsheet
 

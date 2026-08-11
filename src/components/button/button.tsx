@@ -1,16 +1,20 @@
-import { JSXNode, PropsWithChildren } from "../types";
-import { JSX } from "preact";
-import { ForwardedRef, forwardRef, ReactElement, Ref } from "preact/compat";
+import type { JSXNode, PropsWithChildren } from "../types.ts";
+import type {
+	AnchorHTMLAttributes,
+	ButtonHTMLAttributes,
+	HTMLAttributes,
+} from "preact";
+import { type ReactElement, type Ref, forwardRef } from "preact/compat";
 
 export type AllowedTags = "a" | "button" | "span" | "div";
 
 type AllowedJSXElements<Tag extends AllowedTags> = Tag extends "a"
-	? JSX.AnchorHTMLAttributes
+	? AnchorHTMLAttributes
 	: Tag extends "div"
-		? JSX.HTMLAttributes<HTMLDivElement>
+		? HTMLAttributes<HTMLDivElement>
 		: Tag extends "span"
-			? JSX.HTMLAttributes<HTMLSpanElement>
-			: JSX.ButtonHTMLAttributes;
+			? HTMLAttributes<HTMLSpanElement>
+			: ButtonHTMLAttributes;
 
 type AllowedElements<Tag extends AllowedTags> = Tag extends "a"
 	? HTMLAnchorElement

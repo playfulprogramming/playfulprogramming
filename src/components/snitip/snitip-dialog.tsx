@@ -1,28 +1,44 @@
-import { Dialog } from "components/dialog/dialog";
-import { SnitipContent, SnitipProps } from "./snitip";
-import { IconOnlyButton } from "components/button/button";
-import iconClose from "src/icons/close.svg?raw";
+import { IconOnlyButton } from "#components/button/button.tsx";
+import { Dialog } from "#components/dialog/dialog.tsx";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+import iconClose from "#src/icons/close.svg?raw";
+import { SnitipContent, type SnitipProps } from "./snitip.tsx";
 import style from "./snitip.module.scss";
 
-export function SnitipDialog({ snitip, ...extra }: SnitipProps) {
+const ignoreDialogClose = () => {};
+
+type SnitipDialogProps = Omit<SnitipProps, "id"> & { id?: string };
+
+export function SnitipDialog({
+	snitip,
+	id,
+	headingTag,
+	includeSearchTags,
+}: SnitipDialogProps) {
 	return (
 		<Dialog
-			id={String(extra.id)}
+			id={id}
+			aria-label={`Tooltip: ${snitip.title}`}
 			dialogClass={style.dialog}
 			formClass={style.form}
 			open={false}
+			onClose={ignoreDialogClose}
 		>
 			<IconOnlyButton
-				id="snitip-close"
+				data-snitip-close
 				tag="button"
-				aria-label={"Close"}
+				aria-label="Close"
 				class={style.closeButton}
 				autofocus
 			>
-				<div dangerouslySetInnerHTML={{ __html: iconClose }}></div>
+				<RawSvg aria-hidden icon={iconClose} />
 			</IconOnlyButton>
 
-			<SnitipContent snitip={snitip} />
+			<SnitipContent
+				snitip={snitip}
+				headingTag={headingTag}
+				includeSearchTags={includeSearchTags}
+			/>
 		</Dialog>
 	);
 }

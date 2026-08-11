@@ -3,51 +3,57 @@ import remarkFrontmatter from "remark-frontmatter";
 import {
 	TYPE_FRONTMATTER,
 	remarkProcessFrontmatter,
-} from "./remark-process-frontmatter";
-import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
+} from "./remark-process-frontmatter.ts";
 import remarkGfm from "remark-gfm";
 import rehypeUnwrapImages from "rehype-unwrap-images";
-import { TwitchTransformer } from "./remark-embedder-twitch";
-import oembedTransformer from "@remark-embedder/transformer-oembed";
 import remarkToRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
-import { rehypeTooltips } from "./tooltips/rehype-transform";
-import { rehypeHints } from "./hints/rehype-transform";
-import { rehypeAstroImageMd } from "./picture/rehype-transform";
-import { rehypePlayfulElementMap } from "./rehype-playful-element-map";
-import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
-import { rehypeHeaderText } from "./rehype-header-text";
-import { rehypeHeaderClass } from "./rehype-header-class";
-import { Processor } from "unified";
-import { dirname, relative, resolve } from "path";
-import type { VFile } from "vfile";
-import { siteMetadata } from "../../constants/site-config";
-import branch from "git-branch";
-import { rehypeShikiUU } from "./shiki/rehype-transform";
-import rehypeStringify from "rehype-stringify";
-import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta";
-import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
+import { rehypeAstroImageMd } from "./picture/rehype-transform.ts";
+import { rehypePlayfulElementMap } from "./rehype-playful-element-map.ts";
+import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform.ts";
+import { rehypeHeaderText } from "./rehype-header-text.ts";
+import { rehypeValidateHeadingLinks } from "./rehype-validate-heading-links.ts";
+import { rehypeHeaderClass } from "./rehype-header-class.ts";
+import type { Processor } from "unified";
+import { rehypeShikiUU } from "./shiki/rehype-transform.ts";
+import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta.ts";
+import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform.ts";
 import {
+	rehypeDetailsElement,
+	rehypeLinkPreview,
+	rehypeTooltips,
+	rehypeParseComponents,
+	rehypePluginComponents,
 	rehypeTransformComponents,
+	rehypeValidateComponents,
+	transformDetails,
 	transformFileTree,
 	transformInContentAd,
 	transformSnitip,
 	transformLinkPreview,
+	transformNoop,
 	transformTabs,
-} from "./components";
-import { rehypeSnitipLinks } from "./snitip-link/rehype-transform";
-import { rehypeLinkPreview } from "./link-preview/rehype-transform";
-
-const currentBranch = process.env.VERCEL_GIT_COMMIT_REF ?? (await branch());
-
-const remarkEmbedderDefault =
-	(remarkEmbedder as never as { default: typeof remarkEmbedder }).default ??
-	remarkEmbedder;
-
-const oembedTransformerDefault =
-	(oembedTransformer as never as { default: typeof oembedTransformer })
-		.default ?? oembedTransformer;
+	transformVoid,
+} from "./components/index.ts";
+import {
+	rehypeSnitipLinks,
+	rehypeSnitipTemplates,
+} from "./snitip-link/rehype-transform.ts";
+import {
+	rehypeCodeEmbed,
+	transformCodeEmbed,
+} from "./components/code-embed/rehype-transform.ts";
+import { rehypeRelativePaths } from "./rehype-relative-paths.ts";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import { setMathProperty } from "./katex-css.ts";
+import {
+	rehypeQuizIndexes,
+	transformQuiz,
+} from "#utils/markdown/components/quiz/rehype-transform.ts";
+import { transformUser } from "#utils/markdown/components/user/rehype-transform.ts";
+import { transformQuizRadio } from "./components/quiz/rehype-transform-quiz-radio.ts";
 
 export function createHtmlPlugins(unified: Processor) {
 	return (
@@ -60,73 +66,64 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(remarkProcessFrontmatter)
 			.use(remarkGfm)
 			/* start remark plugins here */
-			.use(
-				remarkEmbedderDefault as never,
-				{
-					transformers: [oembedTransformerDefault, TwitchTransformer],
-				} as RemarkEmbedderOptions,
-			)
 			.use(remarkToRehype, { allowDangerousHtml: true })
 			// Remove complaining about "div cannot be in p element"
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] })
+			.use(rehypeRelativePaths)
+			.use(rehypeParseComponents)
 			// Do not add the tabs before the slug. We rely on some of the heading
 			// logic in order to do some of the subheading logic
-			.use(rehypeSlug as never, {
+			.use(rehypeSlug, {
 				maintainCase: true,
 				removeAccents: true,
 				enableCustomId: true,
 			})
+			.use(remarkMath)
+			.use(rehypeKatex)
+			.use(setMathProperty)
 			/**
 			 * Insert custom HTML generation code here
 			 */
-			.use(rehypeHints)
 			.use(rehypeTooltips)
 			.use(rehypeAstroImageMd)
 			.use(rehypeLinkPreview)
+			.use(rehypeDetailsElement)
+			.use(rehypeQuizIndexes)
+			.use(rehypeCodeEmbed)
 			.use(rehypeUnicornIFrameClickToRun, {
-				srcReplacements: [
-					(val: string, file: VFile) => {
-						const iFrameUrl = new URL(val);
-						if (!iFrameUrl.protocol.startsWith("pfp-code:")) return val;
-
-						const contentDir = dirname(file.path);
-						const fullPath = resolve(contentDir, iFrameUrl.pathname);
-
-						const fsRelativePath = relative(file.cwd, fullPath);
-
-						// Windows paths need to be converted to URLs
-						let urlRelativePath = fsRelativePath.replace(/\\/g, "/");
-
-						if (urlRelativePath.startsWith("/")) {
-							urlRelativePath = urlRelativePath.slice(1);
-						}
-
-						const q = iFrameUrl.search;
-						const repoPath = siteMetadata.repoPath;
-						const provider = `stackblitz.com/github`;
-						return `
-								https://${provider}/${repoPath}/tree/${currentBranch}/${urlRelativePath}${q}
-							`.trim();
-					},
-				],
+				srcReplacements: [],
 			})
+			.use(rehypePlayfulElementMap)
+			.use(rehypeValidateComponents)
+			// Shiki is the last plugin before stringify, to avoid performance issues
+			// with node traversal (shiki creates A LOT of element nodes)
+			.use(rehypeCodeblockMeta)
+			.use(rehypeShikiUU)
+			.use(rehypePostShikiTransform)
 			.use(rehypeTransformComponents, {
 				components: {
+					"code-embed": transformCodeEmbed,
 					filetree: transformFileTree,
-					["in-content-ad"]: transformInContentAd,
+					hint: transformDetails,
+					"in-content-ad": transformInContentAd,
+					"link-preview": transformLinkPreview,
+					"no-ebook": transformNoop,
+					"only-ebook": transformVoid,
 					snitip: transformSnitip,
-					["link-preview"]: transformLinkPreview,
-					["no-ebook"]: ({ children }) => children,
-					["only-ebook"]: () => [],
 					tabs: transformTabs,
+					"quiz-radio": transformQuizRadio,
+					quiz: transformQuiz,
+					user: transformUser,
 				},
 			})
+			// Resolve local definitions after component transforms have populated
+			// the VFile's snitip map, even when a link appears first in the document.
 			.use(rehypeSnitipLinks)
-			.use(rehypePlayfulElementMap)
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
+			.use(rehypeValidateHeadingLinks)
 			.use(rehypeHeaderClass, {
 				// the page starts at h3 (under {title} -> "Post content")
 				depth: 2,
@@ -134,11 +131,12 @@ export function createHtmlPlugins(unified: Processor) {
 				className: (depth: number) =>
 					`text-style-headline-${Math.min(depth + 1, 6)}`,
 			})
-			// Shiki is the last plugin before stringify, to avoid performance issues
-			// with node traversal (shiki creates A LOT of element nodes)
-			.use(rehypeCodeblockMeta)
-			.use(...rehypeShikiUU)
-			.use(rehypePostShikiTransform)
-			.use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
+			.use(rehypeSnitipTemplates)
+			.use(rehypePluginComponents, {
+				htmlOptions: {
+					allowDangerousHtml: true,
+					voids: [],
+				},
+			})
 	);
 }

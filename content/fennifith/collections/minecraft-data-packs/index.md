@@ -7,13 +7,6 @@
   coverImg: "./cover.png",
   published: "2022-06-14T20:54:00.284Z",
   buttons: [{ text: "Read now", url: "/posts/minecraft-data-packs-introduction" }, {text: "Download ePub", url: "/minecraft-data-packs.epub"} ],
-  chapterList: [
-    {
-      order: '?',
-      title: "Coming soon...",
-      description: "",
-    },
-  ],
 }
 ---
 

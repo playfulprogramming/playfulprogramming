@@ -43,7 +43,7 @@ class OurButton {}
 	imports: [OurButton],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<a our-button href="oceanbit.dev"
+		<a our-button href="playfulprogramming.com"
 			>This looks like a button, but is a link</a
 		>
 	`,

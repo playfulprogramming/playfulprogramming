@@ -1,15 +1,19 @@
 import { useCallback, useEffect, useState } from "preact/hooks";
 import styles from "./filter-dialog.module.scss";
-import { useWindowSize } from "src/hooks/use-window-size";
-import { mobile } from "src/tokens/breakpoints";
-import { Dialog } from "components/dialog/dialog";
-import { FilterSection } from "./filter-section";
-import { ExtendedTag, ExtendedUnicorn } from "./types";
-import { LargeButton, LargeIconOnlyButton } from "components/button/button";
-import { FilterSectionItem } from "./filter-section-item";
-import { Picture as UUPicture } from "components/image/picture";
-import { DEFAULT_TAG_EMOJI } from "./constants";
-import close from "src/icons/close.svg?raw";
+import { useWindowSize } from "#src/hooks/use-window-size.tsx";
+import { mobile } from "#src/tokens/breakpoints.ts";
+import { Dialog } from "#components/dialog/dialog.tsx";
+import { FilterSection } from "./filter-section.tsx";
+import type { ExtendedTag, ExtendedUnicorn } from "./types.ts";
+import {
+	LargeButton,
+	LargeIconOnlyButton,
+} from "#components/button/button.tsx";
+import { FilterSectionItem } from "./filter-section-item.tsx";
+import { Picture as UUPicture } from "#components/image/picture.tsx";
+import { DEFAULT_TAG_EMOJI } from "./constants.ts";
+import close from "#src/icons/close.svg?raw";
+import { type FilterState, useFilterState } from "../use-filter-state.ts";
 
 interface FilterDialogProps {
 	isOpen: boolean;
@@ -19,30 +23,16 @@ interface FilterDialogProps {
 	}) => void;
 	tags: ExtendedTag[];
 	authors: ExtendedUnicorn[];
-	selectedAuthorIds: string[];
-	selectedTags: string[];
+	filterState: FilterState;
 	isHybridSearch: boolean;
 }
 
-interface FilterDialogInner
-	extends Omit<FilterDialogProps, "isOpen" | "onClose"> {
-	selectedTags: string[];
-	selectedAuthorIds: string[];
-	onSelectedAuthorChange: (id: string) => void;
-	onTagsChange: (id: string) => void;
-	setSelectedTags: (tags: string[]) => void;
-	setSelectedAuthorIds: (authors: string[]) => void;
-}
+type FilterDialogInner = Omit<FilterDialogProps, "isOpen" | "onClose">;
 
 const FilterDialogMobile = ({
 	tags,
 	authors,
-	setSelectedTags,
-	setSelectedAuthorIds,
-	onSelectedAuthorChange,
-	onTagsChange,
-	selectedTags,
-	selectedAuthorIds,
+	filterState,
 	isHybridSearch,
 }: FilterDialogInner) => {
 	return (
@@ -52,12 +42,13 @@ const FilterDialogMobile = ({
 			</div>
 			<FilterSection
 				title={"Tag"}
-				selectedNumber={selectedTags.length}
-				onClear={() => setSelectedTags([])}
+				selectedNumber={filterState.tags.length}
+				onClear={() => filterState.setTags([])}
 			>
 				{tags.map((tag, i) => {
 					return (
 						<FilterSectionItem
+							key={tag.tag}
 							count={tag.numPosts}
 							icon={
 								tag.image ? (
@@ -71,8 +62,10 @@ const FilterDialogMobile = ({
 								)
 							}
 							label={tag?.displayName ?? tag.tag}
-							selected={selectedTags.includes(tag.tag)}
-							onChange={() => onTagsChange(tag.tag)}
+							selected={filterState.tags.includes(tag.tag)}
+							onChange={(selected) =>
+								filterState.onTagChange(tag.tag, selected)
+							}
 							isHybridSearch={isHybridSearch}
 						/>
 					);
@@ -81,12 +74,13 @@ const FilterDialogMobile = ({
 			<FilterSection
 				class={styles.mobileAuthorList}
 				title={"Author"}
-				selectedNumber={selectedAuthorIds.length}
-				onClear={() => setSelectedAuthorIds([])}
+				selectedNumber={filterState.authors.length}
+				onClear={() => filterState.setAuthors([])}
 			>
 				{authors.map((author) => {
 					return (
 						<FilterSectionItem
+							key={author.id}
 							count={author.numPosts}
 							icon={
 								<UUPicture
@@ -98,8 +92,10 @@ const FilterDialogMobile = ({
 								/>
 							}
 							label={author.name}
-							selected={selectedAuthorIds.includes(author.id)}
-							onChange={() => onSelectedAuthorChange(author.id)}
+							selected={filterState.authors.includes(author.id)}
+							onChange={(selected) =>
+								filterState.onAuthorChange(author.id, selected)
+							}
 							isHybridSearch={isHybridSearch}
 						/>
 					);
@@ -130,12 +126,7 @@ const FilterDialogMobile = ({
 const FilterDialogSmallTablet = ({
 	tags,
 	authors,
-	setSelectedTags,
-	setSelectedAuthorIds,
-	onSelectedAuthorChange,
-	onTagsChange,
-	selectedTags,
-	selectedAuthorIds,
+	filterState,
 	isHybridSearch,
 }: FilterDialogInner) => {
 	return (
@@ -161,12 +152,13 @@ const FilterDialogSmallTablet = ({
 				<div class={styles.filterSelection}>
 					<FilterSection
 						title={"Tag"}
-						selectedNumber={selectedTags.length}
-						onClear={() => setSelectedTags([])}
+						selectedNumber={filterState.tags.length}
+						onClear={() => filterState.setTags([])}
 					>
 						{tags.map((tag, i) => {
 							return (
 								<FilterSectionItem
+									key={tag.tag}
 									count={tag.numPosts}
 									icon={
 										tag.image ? (
@@ -180,8 +172,10 @@ const FilterDialogSmallTablet = ({
 										)
 									}
 									label={tag?.displayName ?? tag.tag}
-									selected={selectedTags.includes(tag.tag)}
-									onChange={() => onTagsChange(tag.tag)}
+									selected={filterState.tags.includes(tag.tag)}
+									onChange={(selected) =>
+										filterState.onTagChange(tag.tag, selected)
+									}
 									isHybridSearch={isHybridSearch}
 								/>
 							);
@@ -191,12 +185,13 @@ const FilterDialogSmallTablet = ({
 				<div class={styles.filterSelection}>
 					<FilterSection
 						title={"Author"}
-						selectedNumber={selectedAuthorIds.length}
-						onClear={() => setSelectedAuthorIds([])}
+						selectedNumber={filterState.authors.length}
+						onClear={() => filterState.setAuthors([])}
 					>
 						{authors.map((author) => {
 							return (
 								<FilterSectionItem
+									key={author.id}
 									count={author.numPosts}
 									icon={
 										<UUPicture
@@ -208,8 +203,10 @@ const FilterDialogSmallTablet = ({
 										/>
 									}
 									label={author.name}
-									selected={selectedAuthorIds.includes(author.id)}
-									onChange={() => onSelectedAuthorChange(author.id)}
+									selected={filterState.authors.includes(author.id)}
+									onChange={(selected) =>
+										filterState.onAuthorChange(author.id, selected)
+									}
 									isHybridSearch={isHybridSearch}
 								/>
 							);
@@ -226,44 +223,30 @@ export const FilterDialog = ({
 	onClose,
 	tags,
 	authors,
-	selectedAuthorIds: selectedParentAuthorIds,
-	selectedTags: selectedParentTags,
+	filterState: parentFilterState,
 	isHybridSearch,
 }: FilterDialogProps) => {
 	/**
 	 * Inner state
 	 */
-	const [selectedTags, setSelectedTags] =
-		useState<string[]>(selectedParentTags);
-	const [selectedAuthorIds, setSelectedAuthorIds] = useState<string[]>(
-		selectedParentAuthorIds,
+	const [selectedTags, setSelectedTags] = useState(parentFilterState.tags);
+	const [selectedAuthorIds, setSelectedAuthorIds] = useState(
+		parentFilterState.authors,
 	);
+	const filterState = useFilterState({
+		tags: selectedTags,
+		authors: selectedAuthorIds,
+		setTags: setSelectedTags,
+		setAuthors: setSelectedAuthorIds,
+	});
 
 	useEffect(() => {
 		// when the filter dialog is opened, reset its state to match the current search filters
 		if (isOpen) {
-			setSelectedTags(selectedParentTags);
-			setSelectedAuthorIds(selectedParentAuthorIds);
+			setSelectedTags(parentFilterState.tags);
+			setSelectedAuthorIds(parentFilterState.authors);
 		}
-	}, [isOpen]);
-
-	const onSelectedAuthorChange = (id: string) => {
-		const isPresent = selectedAuthorIds.includes(id);
-		if (isPresent) {
-			setSelectedAuthorIds(selectedAuthorIds.filter((author) => author !== id));
-		} else {
-			setSelectedAuthorIds([...selectedAuthorIds, id]);
-		}
-	};
-
-	const onTagsChange = (id: string) => {
-		const isPresent = selectedTags.includes(id);
-		if (isPresent) {
-			setSelectedTags(selectedTags.filter((tag) => tag !== id));
-		} else {
-			setSelectedTags([...selectedTags, id]);
-		}
-	};
+	}, [isOpen, parentFilterState.tags, parentFilterState.authors]);
 
 	const onFormConfirm = useCallback(
 		(returnValue?: string) => {
@@ -271,23 +254,24 @@ export const FilterDialog = ({
 			// close with the selected values
 			if (returnValue === "confirm") {
 				onClose({
-					selectedAuthorIds,
-					selectedTags,
+					selectedAuthorIds: filterState.authors,
+					selectedTags: filterState.tags,
 				});
 				return;
 			}
 
 			// otherwise, return the existing values with no changes
 			onClose({
-				selectedAuthorIds: selectedParentAuthorIds,
-				selectedTags: selectedParentTags,
+				selectedAuthorIds: parentFilterState.authors,
+				selectedTags: parentFilterState.tags,
 			});
 		},
 		[
-			selectedAuthorIds,
-			selectedTags,
-			selectedParentAuthorIds,
-			selectedParentTags,
+			onClose,
+			filterState.authors,
+			filterState.tags,
+			parentFilterState.authors,
+			parentFilterState.tags,
 		],
 	);
 
@@ -312,12 +296,7 @@ export const FilterDialog = ({
 			<Inner
 				tags={tags}
 				authors={authors}
-				selectedTags={selectedTags}
-				selectedAuthorIds={selectedAuthorIds}
-				setSelectedTags={setSelectedTags}
-				setSelectedAuthorIds={setSelectedAuthorIds}
-				onSelectedAuthorChange={onSelectedAuthorChange}
-				onTagsChange={onTagsChange}
+				filterState={filterState}
 				isHybridSearch={isHybridSearch}
 			/>
 		</Dialog>

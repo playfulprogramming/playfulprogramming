@@ -1,4 +1,4 @@
-import { TagInfo } from "./TagInfo";
+import type { TagInfo } from "./TagInfo.ts";
 
 export interface RawSnitipInfo {
 	icon?: string;

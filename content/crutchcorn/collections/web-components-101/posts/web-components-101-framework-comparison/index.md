@@ -196,7 +196,7 @@ Lit framework isn’t alone in being able to output to web components, however. 
 For example, the following frameworks have official support for creating web components without changing implementation code:
 
 - [Vue](https://v3.vuejs.org/guide/web-components.html#definecustomelement)
-- [Angular](https://angular.io/guide/elements)
+- [Angular](https://angular.dev/guide/elements)
 - [Preact](https://github.com/preactjs/preact-custom-element)
 
 Vue 3, in particular, has made massive strides in improving the web component development experience for their users.

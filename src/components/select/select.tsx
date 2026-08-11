@@ -1,27 +1,31 @@
-import { ListState, OverlayTriggerState, useSelectState } from "react-stately";
 import {
-	AriaSelectProps,
+	type ListState,
+	type OverlayTriggerState,
+	useSelectState,
+} from "react-stately";
+import {
+	type AriaSelectProps,
+	type AriaListBoxOptions,
+	type AriaPopoverProps,
 	HiddenSelect,
 	useListBox,
 	useOption,
 	useSelect,
-	AriaListBoxOptions,
 	DismissButton,
 	Overlay,
 	usePopover,
-	AriaPopoverProps,
 	useButton,
-	useFocusVisible,
 	useFocusRing,
 } from "react-aria";
-import { PropsWithChildren } from "preact/compat";
-import down from "src/icons/chevron_down.svg?raw";
-import { Button } from "components/button/button";
+import type { PropsWithChildren } from "preact/compat";
+import down from "#src/icons/chevron_down.svg?raw";
+import { Button } from "#components/button/button.tsx";
 import styles from "./select.module.scss";
-import checkmark from "src/icons/checkmark.svg?raw";
+import checkmark from "#src/icons/checkmark.svg?raw";
 import { useRef } from "preact/hooks";
-import { Node } from "@react-types/shared";
-import { useReactAriaScrollGutterHack } from "src/hooks/useReactAriaScrollGutterHack";
+import type { RefObject } from "preact";
+import type { Node } from "@react-types/shared";
+import { useReactAriaScrollGutterHack } from "#src/hooks/useReactAriaScrollGutterHack.ts";
 
 export { Item, Section } from "react-stately";
 
@@ -128,12 +132,12 @@ export function SelectWithLabel<T extends object>({
 						}}
 						className={styles.downSpan}
 						dangerouslySetInnerHTML={{ __html: down }}
-					></span>
+					/>
 				}
 			>
 				<span {...valueProps}>
 					{prefixSelected}
-					{state.selectedItem ? state.selectedItem.rendered : defaultValue}
+					{state.selectedItems[0]?.rendered ?? defaultValue}
 				</span>
 			</Button>
 
@@ -195,12 +199,12 @@ export function Select<T extends object>({
 						}}
 						className={styles.downSpan}
 						dangerouslySetInnerHTML={{ __html: down }}
-					></span>
+					/>
 				}
 			>
 				<span {...valueProps}>
 					{prefixSelected}
-					{state.selectedItem ? state.selectedItem.rendered : defaultValue}
+					{state.selectedItems[0]?.rendered ?? defaultValue}
 				</span>
 			</Button>
 
@@ -214,7 +218,7 @@ export function Select<T extends object>({
 }
 
 interface ListBoxProps extends AriaListBoxOptions<unknown> {
-	listBoxRef?: React.RefObject<HTMLUListElement>;
+	listBoxRef?: RefObject<HTMLUListElement>;
 	state: ListState<unknown>;
 }
 
@@ -226,8 +230,8 @@ function ListBox(props: ListBoxProps) {
 	// As this is inside a portal (within <Popover>), nothing from Preact's useId can be trusted
 	// ...but nothing should be using these IDs anyway.
 	Object.assign(listBoxProps, {
-		["id"]: undefined,
-		["aria-labelledby"]: undefined,
+		id: undefined,
+		"aria-labelledby": undefined,
 	});
 
 	return (
@@ -246,7 +250,7 @@ interface OptionProps {
 
 export function Option({ item, state }: OptionProps) {
 	const ref = useRef<HTMLLIElement>(null);
-	const { optionProps, isDisabled, isSelected, isFocusVisible } = useOption(
+	const { optionProps, isSelected, isFocusVisible } = useOption(
 		{
 			key: item.key,
 		},
@@ -257,15 +261,15 @@ export function Option({ item, state }: OptionProps) {
 	// As this is inside a portal (within <Popover>), nothing from Preact's useId can be trusted
 	// ...but nothing should be using these IDs anyway.
 	Object.assign(optionProps, {
-		["aria-labelledby"]: undefined,
-		["aria-describedby"]: undefined,
+		"aria-labelledby": undefined,
+		"aria-describedby": undefined,
 	});
 
 	return (
 		<li
 			{...optionProps}
 			ref={ref}
-			class={`${styles.option} ${isSelected ? styles.selected : ""}`}
+			class={`${styles.option} ${styles.padded} ${isSelected ? styles.selected : ""}`}
 			data-focus-visible={isFocusVisible}
 		>
 			<span className={`text-style-button-regular ${styles.optionText}`}>
@@ -275,7 +279,7 @@ export function Option({ item, state }: OptionProps) {
 				<span
 					className={styles.checkmark}
 					dangerouslySetInnerHTML={{ __html: checkmark }}
-				></span>
+				/>
 			)}
 		</li>
 	);

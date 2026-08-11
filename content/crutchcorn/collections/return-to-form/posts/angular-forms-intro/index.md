@@ -711,7 +711,7 @@ Just like text inputs, you can combine these input types with validation!
 
 While there are many other types of user input elements, let's focus on just one: Checkboxes.
 
-Since Angular uses the `input` element directly, it's trivial to implement a checkbox without much thought. In addition, our specific use-case of creating a terms and conditions toggle is something that [the built-in validator `requiredTrue`](https://angular.io/api/forms/Validators#requiredtrue) can make trivial.
+Since Angular uses the `input` element directly, it's trivial to implement a checkbox without much thought. In addition, our specific use-case of creating a terms and conditions toggle is something that [the built-in validator `requiredTrue`](https://angular.dev/api/forms/Validators#requiredTrue) can make trivial.
 
 ```angular-ts
 @Component({

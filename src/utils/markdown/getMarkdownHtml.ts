@@ -1,11 +1,11 @@
 import { unified } from "unified";
-import { getMarkdownVFile } from "./getMarkdownVFile";
-import { MarkdownFileInfo, MarkdownVFile } from "./types";
-import { createHtmlPlugins } from "./createHtmlPlugins";
+import { getMarkdownVFile } from "./getMarkdownVFile.ts";
+import type { MarkdownFileInfo, MarkdownVFile } from "./types.ts";
+import { createHtmlPlugins } from "./createHtmlPlugins.ts";
+import type * as components from "./components/index.ts";
 
-export type MarkdownHtml = {
-	data: MarkdownVFile["data"];
-	html: string;
+export type MarkdownHtml = MarkdownVFile["data"] & {
+	content: components.PlayfulNode[];
 };
 
 const unifiedChain = unified();
@@ -17,13 +17,10 @@ export async function getMarkdownHtml(
 ): Promise<MarkdownHtml> {
 	const vfile = await vfilePromise;
 
-	const result = await unifiedChain.process(vfile).catch((err) => {
-		console.error(`Failed to parse markdown file ${vfile.path}:\n`, err);
-		return err.toString();
-	});
+	const result = await unifiedChain.process(vfile);
 
 	return {
-		data: vfile.data,
-		html: result.toString(),
+		...vfile.data,
+		content: (await result.result) as components.PlayfulNode[],
 	};
 }

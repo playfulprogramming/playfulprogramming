@@ -138,7 +138,7 @@ This tree relationship also enables CSS selectors such as the [general sibling s
 
 HTML, as a specification, has tons of tags that are able to be used at one's disposal. These tags contain various pieces of metadata internally to provide information to the browser about how they should be rendered in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form).
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 Some of these tag defaults are part of the specification, while others are left up to the browser vendor to decide. This is why, in many instances, developers may choose to use something like [`normalize.css`](https://github.com/necolas/normalize.css/) to set all of the element CSS defaults to an explicit set of defaults. Doing so can avoid having the UI of a webpage look different from browser to browser thanks to deviations on default CSS styling on specific tags.
 
@@ -485,7 +485,7 @@ However, as you can see, we're running `stopPropagation` on the event in the blu
 
 You can see a running example of this here:
 
-<iframe data-frame-title="Example of stopPropagation" src="pfp-code:./event-bubbling-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Example of stopPropagation" src="pfp-code:./event-bubbling-demo?embed=1&file=src%2Fscript.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### Capturing {#event-capturing}
 
@@ -524,7 +524,7 @@ This means that when the user clicks on the red square, you'll see the following
 
 You won't see anything from the green square's `eventListener`, however.
 
-<iframe data-frame-title="Example of event capturing" src="pfp-code:./event-capture-demo?embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Example of event capturing" src="pfp-code:./event-capture-demo?embed=1&file=src%2Fscript.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 You'll also notice that if you click on the green square, you'll never see the `"A click handled on green using capture"` message. This is due to the `stopPropagation`, as mentioned before. The click is being registered on the red square first and then stopped on the blue square.
 

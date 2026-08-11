@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import { visit, SKIP, EXIT } from "unist-util-visit";
 import { is } from "unist-util-is";
 import { toString } from "hast-util-to-string";
-import { Nodes } from "hast";
+import type { Nodes } from "hast";
 
 const unifiedChain = unified()
 	.use(remarkParse, { fragment: true } as never)
@@ -42,12 +42,12 @@ export function getExcerpt(
 
 		if (typeof maxLength === "undefined" || excerptLength < maxLength)
 			return SKIP;
-		else return EXIT;
+		return EXIT;
 	});
 
 	const excerpt = excerptParts.map((s) => s.trim()).join(" ");
 
 	return typeof maxLength !== "undefined" && excerpt.length > maxLength
-		? excerpt.slice(0, maxLength - 3) + "..."
+		? `${excerpt.slice(0, maxLength - 3)}...`
 		: excerpt;
 }

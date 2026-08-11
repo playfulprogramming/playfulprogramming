@@ -1,16 +1,20 @@
-import { PropsWithChildren } from "../types";
+import type { PropsWithChildren } from "../types.ts";
 import style from "./chip.module.scss";
-import { JSX } from "preact";
+import type {
+	AnchorHTMLAttributes,
+	ButtonHTMLAttributes,
+	ComponentChildren,
+} from "preact";
 import { forwardRef } from "preact/compat";
 
 type ChipProps = PropsWithChildren<{
 	tag?: "a" | "button";
 	class?: string;
 	className?: string;
-	icon?: JSX.Element;
+	icon?: ComponentChildren;
 }> &
-	JSX.ButtonHTMLAttributes &
-	JSX.AnchorHTMLAttributes;
+	ButtonHTMLAttributes &
+	AnchorHTMLAttributes;
 
 export const Chip = forwardRef<HTMLElement, ChipProps>(
 	({ children, tag, icon, class: classClass, className, ...props }, ref) => {

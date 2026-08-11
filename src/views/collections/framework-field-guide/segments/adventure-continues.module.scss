@@ -22,11 +22,15 @@
 	padding: 0;
 	list-style: none;
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(1, 1fr);
 	gap: var(--grid-gap);
 
-	.gridItem:last-child {
-		grid-column: span 2;
+	@include from($tablet) {
+		grid-template-columns: repeat(2, 1fr);
+
+		.gridItem:last-child {
+			grid-column: span 2;
+		}
 	}
 
 	@include from($desktop) {

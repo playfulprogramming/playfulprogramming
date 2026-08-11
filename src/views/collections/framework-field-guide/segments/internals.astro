@@ -1,6 +1,7 @@
 ---
 import BigFilledButton from "../components/big-filled-button.astro";
-import ChipGroup, { TagList } from "../components/chip-group.astro";
+import type { TagList } from "../components/chip-group.astro";
+import ChipGroup from "../components/chip-group.astro";
 import SectionMetric from "../components/section-metric.astro";
 import "../components/shared-section-styling.scss";
 import InternalsBookCover from "./internals-book-cover.astro";
@@ -57,16 +58,13 @@ const tags: TagList = [
 				yourself?
 			</p>
 			<div class="book-ctas">
-				<BigFilledButton
-					href="#signup-form"
-					onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
-				>
+				<BigFilledButton href="#signup-form" data-scroll-block="start">
 					Sign up for updates
 				</BigFilledButton>
 				<!-- <BigOutlinedButton>Learn more</BigOutlinedButton> -->
 			</div>
 			<p class={`text-style-body-large-bold book-coming-soon`}>
-				Stay tuned — coming late 2025!
+				Stay tuned for further updates
 			</p>
 			<div class="section-metrics-main-container" data-no-horiz-pad>
 				<p class="srOnly">This book has:</p>

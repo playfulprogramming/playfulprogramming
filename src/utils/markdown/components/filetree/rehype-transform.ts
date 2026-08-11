@@ -19,19 +19,22 @@
  * <!-- filetree:end -->
  */
 import { toString } from "hast-util-to-string";
-import type { Child as HChild } from "hastscript";
-import { Element } from "hast";
+import type { Element, ElementContent } from "hast";
 import { visit } from "unist-util-visit";
 import JSON5 from "json5";
-import { FileList, Directory, File } from "./file-list";
-import { RehypeFunctionComponent } from "../types";
-import { logError } from "utils/markdown/logger";
+import type { RehypeFunctionComponent } from "../types.ts";
+import { logError } from "#utils/markdown/logger.ts";
+import type {
+	DirectoryProps,
+	FileProps,
+} from "#components/file-list/file-list.tsx";
+import { createComponent } from "../components.ts";
+import { toHtml } from "hast-util-to-html";
 
 interface DirectoryMetadata {
 	open?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface FileMetadata {}
 
 const isNodeElement = (node: unknown): node is Element =>
@@ -41,7 +44,10 @@ const isNodeElement = (node: unknown): node is Element =>
 		node["type"] === "element") ??
 	false;
 
-function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
+function traverseUl(
+	listNode: Element,
+	listItems: Array<DirectoryProps | FileProps>,
+) {
 	if (listNode.children.length === 0) return;
 
 	for (const listItem of listNode.children) {
@@ -74,11 +80,14 @@ function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
 			}
 		});
 
-		const comment: HChild[] = [];
+		const comment: ElementContent[] = [];
 		if (firstChild.type === "text") {
 			const [filename, ...fragments] = firstChild.value.split(" ");
 			firstChild.value = filename;
-			comment.push(fragments.join(" "));
+			comment.push({
+				type: "text",
+				value: fragments.join(" "),
+			});
 		}
 		const subTreeIndex = otherChildren.findIndex(
 			(child) => child.type === "element" && child.tagName === "ul",
@@ -118,7 +127,7 @@ function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
 				isDirectory: false,
 				name: toString(firstChild as never),
 				filetype: fileExtension,
-				comment,
+				commentHtml: toHtml(comment),
 				isHighlighted,
 				isPlaceholder,
 				...(metadata as object),
@@ -126,13 +135,13 @@ function traverseUl(listNode: Element, listItems: Array<Directory | File>) {
 			continue;
 		}
 
-		const dirItems: Array<File | Directory> = [];
+		const dirItems: Array<FileProps | DirectoryProps> = [];
 		listItems.push({
 			isDirectory: true,
 			name: toString(firstChild as never),
 			isHighlighted,
 			items: dirItems,
-			comment,
+			commentHtml: toHtml(comment),
 			// Overwritten by `metadata.openByDefault` if it exists
 			openByDefault: metadata?.open ?? hasContents,
 		});
@@ -159,7 +168,7 @@ export const transformFileTree: RehypeFunctionComponent = ({
 }) => {
 	if (children.length === 0) return;
 
-	const items: Array<Directory | File> = [];
+	const items: Array<DirectoryProps | FileProps> = [];
 
 	const list = children.find(
 		(node) => isNodeElement(node) && node.tagName === "ul",
@@ -172,5 +181,5 @@ export const transformFileTree: RehypeFunctionComponent = ({
 
 	traverseUl(list, items);
 
-	return FileList({ items });
+	return [createComponent("FileList", { items })];
 };

@@ -255,7 +255,7 @@ Besides that, arrow functions differ in one important area: The context of the `
 
 ### Calling functions as values
 
-> 📝 **[Functions, in and of themselves, are values.](./javascript-functions-are-values)**<br>
+> 📝 **[Functions, in and of themselves, are values.](/posts/javascript-functions-are-values)**<br>
 > We have an article that goes over this in much more detail. Please check it out to learn more.
 
 We can encapsulate functions and their returns in variables.

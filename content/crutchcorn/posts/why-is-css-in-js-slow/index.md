@@ -246,7 +246,7 @@ To the original problem space like this:
 >
 > Earlier I mentioned a list of CSS-in-JS libraries that were slow and ones that compiled to CSS. While this is _generally_ true, it's not always so black and white.
 >
-> After all, some libraries have plugins or [SSR](https://playfulprogramming.com/posts/what-is-ssr-and-ssg) compatibility to either reduce or solve the problems with CSS-in-JS as outlined.
+> After all, some libraries have plugins or [SSR](/posts/what-is-ssr-and-ssg) compatibility to either reduce or solve the problems with CSS-in-JS as outlined.
 
 # Conclusion
 

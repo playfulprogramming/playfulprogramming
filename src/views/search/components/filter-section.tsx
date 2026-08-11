@@ -1,10 +1,10 @@
-import { PropsWithChildren } from "components/types";
+import type { ComponentChildren } from "preact";
 import { useState, useRef } from "preact/hooks";
-import { useElementSize } from "../../../hooks/use-element-size";
+import { useElementSize } from "../../../hooks/use-element-size.tsx";
 import styles from "./filter-section.module.scss";
-import { Chip } from "components/chip/chip";
-import { HTMLAttributes } from "preact/compat";
-import { useRandomId } from "utils/preact/useId";
+import { Chip } from "#components/chip/chip.tsx";
+import type { HTMLAttributes } from "preact/compat";
+import { useRandomId } from "#utils/preact/useId.ts";
 
 interface FilterSectionProps extends HTMLAttributes<HTMLDivElement> {
 	title: string;
@@ -12,6 +12,8 @@ interface FilterSectionProps extends HTMLAttributes<HTMLDivElement> {
 	onClear: () => void;
 	class?: string;
 	className?: string;
+	searchSlot?: ComponentChildren;
+	children?: ComponentChildren;
 }
 
 export const FilterSection = ({
@@ -19,10 +21,11 @@ export const FilterSection = ({
 	children,
 	selectedNumber,
 	onClear,
+	searchSlot,
 	class: className = "",
 	className: classNameName = "",
 	...props
-}: PropsWithChildren<FilterSectionProps>) => {
+}: FilterSectionProps) => {
 	const id = useRandomId();
 
 	const [collapsed, setCollapsed] = useState(false);
@@ -105,23 +108,25 @@ export const FilterSection = ({
 				)}
 			</h3>
 			<div
-				role="group"
-				aria-labelledby={`${id}-title`}
-				id={`${id}-group`}
-				className={styles.passThru}
+				className={styles.sectionContent}
+				aria-hidden={collapsed}
+				inert={collapsed}
+				onScroll={onScroll}
 			>
-				<fieldset className={styles.passThru}>
-					<legend className="visually-hidden">{title}</legend>
-					<ul
-						role="list"
-						className={styles.sectionContent}
-						aria-hidden={collapsed}
-						onScroll={onScroll}
-						inert={collapsed}
-					>
-						{children}
-					</ul>
-				</fieldset>
+				{searchSlot}
+				<div
+					role="group"
+					aria-labelledby={`${id}-title`}
+					id={`${id}-group`}
+					className={styles.passThru}
+				>
+					<fieldset className={styles.passThru}>
+						<legend className="visually-hidden">{title}</legend>
+						<ul role="list" className={styles.sectionContentList}>
+							{children}
+						</ul>
+					</fieldset>
+				</div>
 			</div>
 		</div>
 	);

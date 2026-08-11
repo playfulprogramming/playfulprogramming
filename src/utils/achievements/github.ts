@@ -1,13 +1,13 @@
 import { Octokit } from "octokit";
-import { GraphqlResponseError } from "@octokit/graphql";
-import { getPeopleByLang } from "utils/api";
+import type { GraphqlResponseError } from "@octokit/graphql";
+import { getPeopleByLang } from "#utils/api.ts";
+import env from "#src/constants/env/index.ts";
 
-const octokit =
-	typeof process.env.GITHUB_TOKEN !== "undefined"
-		? new Octokit({
-				auth: process.env.GITHUB_TOKEN,
-			})
-		: undefined;
+const octokit = env.GITHUB_TOKEN
+	? new Octokit({
+			auth: env.GITHUB_TOKEN,
+		})
+	: undefined;
 
 if (!octokit)
 	console.warn("No GITHUB_TOKEN provided - skipping person achievements!");
@@ -44,10 +44,9 @@ const userResult: Record<string, { id: string }> = (await octokit
 		if (e.data && typeof e.data === "object") {
 			console.warn("Partial error from GitHub GraphQL:", e.errors);
 			return e.data;
-		} else {
-			console.error("Error fetching GitHub user ids:", e);
-			return {};
 		}
+		console.error("Error fetching GitHub user ids:", e);
+		return {};
 	})) as Record<string, { id: string }>;
 
 const userIds: Record<string, string> = {};

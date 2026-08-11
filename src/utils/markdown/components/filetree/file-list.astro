@@ -1,0 +1,13 @@
+---
+import type {
+	DirectoryProps,
+	FileProps,
+} from "#components/file-list/file-list.tsx";
+import { FileList as PreactFileList } from "#components/file-list/file-list.tsx";
+
+export interface Props {
+	items: Array<DirectoryProps | FileProps>;
+}
+---
+
+<PreactFileList items={Astro.props.items} />

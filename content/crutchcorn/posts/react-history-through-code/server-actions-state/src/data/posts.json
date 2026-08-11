@@ -1,0 +1,38 @@
+{
+	"posts": [
+		{
+			"id": "1",
+			"content": "I've been giving a talk to many people about how ideologically consistent React's endeavors have been for many years now",
+			"author": "Corbin Crutchley",
+			"username": "@crutchcorn",
+			"createdAt": "2025-06-22T10:30:00.000Z",
+			"likes": 25,
+			"likedBy": ["user1", "user2", "user3", "anonymous-user"]
+		},
+		{
+			"id": "2",
+			"content": ".@acemarke is one of the absolute best content creator for anything React or Redux related.",
+			"author": "Corbin Crutchley",
+			"username": "@crutchcorn",
+			"createdAt": "2025-06-23T14:15:00.000Z",
+			"likes": 88,
+			"likedBy": ["user4", "user5", "user6", "user7", "anonymous-user"]
+		},
+		{
+			"id": "3",
+			"content": "TIL that calling `root.render` more than once on a React `createRoot` API will not duplicate the API and not teardown/reconstruct the VDOM!",
+			"author": "Corbin Crutchley",
+			"username": "@crutchcorn",
+			"createdAt": "2025-06-24T09:45:00.000Z",
+			"likes": 12,
+			"likedBy": [
+				"user8",
+				"user9",
+				"user10",
+				"user11",
+				"user12",
+				"anonymous-user"
+			]
+		}
+	]
+}

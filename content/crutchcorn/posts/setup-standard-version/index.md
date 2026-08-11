@@ -1,6 +1,6 @@
 ---
 {
-	title: "Autogenerate Changelogs and Manage Releases using Conventional Commit",
+	title: "Conventional Commits for Changelogs & Releases",
 	description: "Whether creating changelogs or just keeping track of git tags, releases matter. Learn how to automate your release process with conventional-commits!",
 	published: '2020-06-23T05:12:03.284Z',
 	tags: ['npm', 'javascript'],
@@ -90,7 +90,7 @@ Just as you have many options regarding what linting ruleset you'd like to enfor
 
 Another similarity to their code syntax contemporaries is that your commit linter has [a myriad of configuration options available](https://commitlint.js.org/#/reference-rules?id=rules). These options allow you to overwrite the existing configuration you're utilizing or even create your configuration from scratch.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 ## Setup {#install-commit-lint}
 
@@ -253,5 +253,5 @@ Keep in mind, simply because you have a new tool to manage releases doesn't mean
 
 While the outline we've provided should suffice for most usage, each of these tools includes many options that you're able to utilize customize the process to your liking.
 
-Find options you think we should cover in this article? Have questions about how to get `conventional-commit` and `standard-version` working? Let us know! We've got a comments section down below as well as [a Discord Community](https://discord.gg/FMcvc6T) that we use to chat.
+Find options you think we should cover in this article? Have questions about how to get `conventional-commit` and `standard-version` working? Let us know! We've got a comments section down below as well as [a Discord Community](https://discord.playfulprogramming.com) that we use to chat.
 

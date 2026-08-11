@@ -161,7 +161,7 @@ Or anything else, [we'd love to have you on board.](/join-us)
 
 **Second**: We are consistently looking for partners, sponsors, and donations.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of our non-profit." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of our non-profit." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 Funding Playful Programming will help us:
 
@@ -177,7 +177,7 @@ For interested parties, we're willing to:
 - Build out partnered content
 - Offer other bespoke benefits
 
-You can reach out [via email](mailto:contact@playfulprogramming.com), [our Discord](https://discord.gg/FMcvc6T), or donate via our [Open Collective](https://opencollective.com/playfulprogramming).
+You can reach out [via email](mailto:contact@playfulprogramming.com), [our Discord](https://discord.playfulprogramming.com), or donate via our [Open Collective](https://donate.playfulprogramming.com).
 
 ---
 

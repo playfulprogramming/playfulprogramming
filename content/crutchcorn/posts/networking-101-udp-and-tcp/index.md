@@ -47,7 +47,7 @@ As mentioned previously, the Internet Engineering Task Force manages various spe
 
 Continuing with the mail analogy, just like an apartment complex can have a single mailbox for multiple apartments living within the same building, so too can a single machine have multiple landing sites for network packets.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 These separated landing sites are called "ports"; called as such because they operate very similarly to the seaside "ports" that are used to dock ships. You're able to "open" a port to start engaging in network activity through that port, or "close" it to stop communication from flowing through that port. A single machine may choose to open a myriad of ports ranging anywhere from `0` to `65,535`. Any one of these ports can receive a different stream of information in-bound and out-bound alike.
 
@@ -107,4 +107,4 @@ Because of this more robust delivery pattern, TCP is often used for most high-le
 
 This has been a brief overview of UDP and TCP! In this series, we're hoping to introduce the fundamentals of networking. While UDP/TCP is not often seen in higher-level coding directly, it's usage is integral to understand many other aspects of networking. In the next article in the series, we'll explain how IP addresses are assigned by using UDP thanks to DHCP.  Even further into the series, we'll walk through how the domain name URLs you type into your web browser are resolved into IP addresses through the domain name system (DNS).
 
-To make sure you don't miss any of these articles, you may want to subscribe to our newsletter. We promise not to spam you with unrelated stuff and keep emails to a minimum. Otherwise, [we also have a Discord](https://discord.gg/FMcvc6T) you can join to see announcements for new articles, ask questions of the posts' authors, and engage in general community chatter
+To make sure you don't miss any of these articles, you may want to subscribe to our newsletter. We promise not to spam you with unrelated stuff and keep emails to a minimum. Otherwise, [we also have a Discord](https://discord.playfulprogramming.com) you can join to see announcements for new articles, ask questions of the posts' authors, and engage in general community chatter

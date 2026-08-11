@@ -1,10 +1,10 @@
 ---
 import BannerStickersGroup from "../banner-stickers/banner-stickers-group.astro";
-import { LargeButton } from "../button/button";
+import { LargeButton } from "../button/button.tsx";
 import { Icon } from "astro-icon/components";
 import style from "./hero.module.scss";
-import { translate } from "../../utils";
-import * as data from "src/utils/data";
+import { translate } from "../../utils/index.ts";
+import * as data from "#utils/data.ts";
 ---
 
 <section class={`${style.header}`}>

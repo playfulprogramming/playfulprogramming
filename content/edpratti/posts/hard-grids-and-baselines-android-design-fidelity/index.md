@@ -1,6 +1,6 @@
 ---
 {
-    title: 'Hard grids & baselines: How I achieved 1:1 fidelity on Android',
+    title: 'Hard Grids & Baselines: Achieving 1:1 Android Fidelity',
     description: 'Testing the limits of `firstBaselineToTopHeight` and `lastBaselineToBottomHeight` to deliver a perfect result.',
     published: '2019-10-07T22:07:09.945Z',
     edited: '2020-02-02T22:07:09.945Z',

@@ -1,4 +1,5 @@
-import { Languages } from "types/index";
+import type { Languages } from "#types/index.ts";
+import type { LocalFile } from "#types/LocalFile.ts";
 
 export interface RawPostInfo {
 	title: string;
@@ -14,6 +15,8 @@ export interface RawPostInfo {
 	noindex?: boolean;
 	version?: string;
 	upToDateSlug?: string;
+	socialImg?: string;
+	coverImg?: string;
 }
 
 export interface PostInfo extends RawPostInfo {
@@ -29,9 +32,16 @@ export interface PostInfo extends RawPostInfo {
 	locale: Languages;
 	publishedMeta: string;
 	editedMeta?: string;
-	socialImg: string;
-	bannerImg?: string;
 	wordCount: number;
+	socialImgMeta?: LocalFile;
+	coverImgMeta?: LocalFile;
+}
+
+export interface SearchPostInfo extends PostInfo {
+	id: string;
+	banner?: string;
+	searchMeta: string;
+	publishedTimestamp: number;
 }
 
 export interface PostHeadingInfo {
@@ -40,4 +50,10 @@ export interface PostHeadingInfo {
 	// ID
 	slug: string;
 	depth: number;
+}
+
+export interface PostVersion {
+	href: string;
+	version: PostInfo["version"];
+	publishedMeta: PostInfo["publishedMeta"];
 }
