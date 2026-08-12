@@ -81,12 +81,12 @@
 }
 
 .arrow[data-placement="top"] {
-	top: 100%;
+	top: calc(100% - var(--snitip_border-width));
 	transform: translateX(-50%);
 }
 
 .arrow[data-placement="bottom"] {
-	bottom: 100%;
+	bottom: calc(100% - var(--snitip_border-width));
 	transform: translateX(-50%) rotate(180deg);
 }
 
