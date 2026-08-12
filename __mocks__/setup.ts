@@ -8,4 +8,7 @@ Object.defineProperties(window, {
 	plausible: { value: null },
 });
 
+window.scroll = () => {};
+window.scrollTo = () => {};
+
 afterEach(() => cleanup());

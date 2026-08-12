@@ -26,7 +26,11 @@ import {
 	MockPerson,
 	MockPersonTwo,
 } from "../../../__mocks__/data/mock-person.ts";
-import { buildSearchQuery } from "#src/views/search/search.ts";
+import {
+	buildSearchQuery,
+	type SearchFiltersData,
+	type SearchSnitipInfo,
+} from "#src/views/search/search.ts";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
@@ -200,7 +204,10 @@ function mockClient(fn: (searchStr: string) => FnReply) {
 	};
 }
 
-function mockPeopleIndex(people: PersonInfo[]) {
+function mockPeopleIndex(
+	people: PersonInfo[],
+	snitips: SearchSnitipInfo[] = [],
+) {
 	worker.use(
 		http.get(`*/searchFilters.json`, async () => {
 			return HttpResponse.json({
@@ -214,7 +221,8 @@ function mockPeopleIndex(people: PersonInfo[]) {
 						totalPostCount: 32,
 					},
 				],
-			});
+				snitips,
+			} satisfies SearchFiltersData);
 		}),
 	);
 }
@@ -410,6 +418,97 @@ describe("Search page", () => {
 		await user.click(tag);
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 		expect(queryByTestId("Two blog post")).not.toBeInTheDocument();
+	});
+
+	test("Shows the highest-scoring selected-tag snitip", async () => {
+		window.history.replaceState(
+			{},
+			"",
+			`?${buildSearchQuery({
+				searchQuery: "framework",
+				filterTags: ["angular", "typescript"],
+			})}`,
+		);
+
+		const angularSnitip: SearchSnitipInfo = {
+			id: "typescript",
+			title: "Angular snitip",
+			content: "<p>Angular description</p>",
+			links: [],
+			tags: ["angular"],
+		};
+		const typescriptSnitip: SearchSnitipInfo = {
+			id: "angular",
+			title: "TypeScript snitip",
+			content: "<p>TypeScript description</p>",
+			links: [],
+			tags: ["typescript"],
+		};
+
+		mockPeopleIndex([], [angularSnitip, typescriptSnitip]);
+		const client = mockClient(() => ({
+			posts: [MockPost],
+			totalPosts: 1,
+			collections: [],
+			totalCollections: 0,
+			// More than five high-count facets causes the filter UI to hide both
+			// selected low-count tags. Snitip scoring must still use raw facets.
+			tags: {
+				angular: 1,
+				typescript: 2,
+				react: 10,
+				vue: 10,
+				svelte: 10,
+				solid: 10,
+				qwik: 10,
+				astro: 10,
+			},
+		}));
+
+		const { getByText, queryByText } = render(
+			<SearchPage mockClient={client} />,
+		);
+
+		await waitFor(() =>
+			expect(getByText("TypeScript snitip")).toBeInTheDocument(),
+		);
+		expect(queryByText("Angular snitip")).not.toBeInTheDocument();
+	});
+
+	test("Does not show a selected-tag snitip after page one", async () => {
+		window.history.replaceState(
+			{},
+			"",
+			`?${buildSearchQuery({
+				searchQuery: "framework",
+				filterTags: ["typescript"],
+				page: 2,
+			})}`,
+		);
+
+		const snitip: SearchSnitipInfo = {
+			id: "typescript",
+			title: "TypeScript snitip",
+			content: "<p>TypeScript description</p>",
+			links: [],
+			tags: ["typescript"],
+		};
+
+		mockPeopleIndex([], [snitip]);
+		const client = mockClient(() => ({
+			posts: [MockPost],
+			totalPosts: 1,
+			collections: [],
+			totalCollections: 0,
+			tags: { typescript: 5 },
+		}));
+
+		const { getByText, queryByText } = render(
+			<SearchPage mockClient={client} />,
+		);
+
+		await waitFor(() => expect(getByText(MockPost.title)).toBeInTheDocument());
+		expect(queryByText("TypeScript snitip")).not.toBeInTheDocument();
 	});
 
 	test("Filter by author works on desktop sidebar", async () => {

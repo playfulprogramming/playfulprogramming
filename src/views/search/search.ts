@@ -1,4 +1,5 @@
 import type { PersonInfo } from "#types/PersonInfo.ts";
+import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import type { TagInfo } from "#types/TagInfo.ts";
 
 export const SEARCH_QUERY_KEY = "q";
@@ -18,9 +19,12 @@ export interface TagFilterInfo extends TagInfo {
 	totalPostCount: number;
 }
 
+export type SearchSnitipInfo = Omit<SnitipInfo, "tagsMeta">;
+
 export interface SearchFiltersData {
 	people: PersonInfo[];
 	tags: TagFilterInfo[];
+	snitips: SearchSnitipInfo[];
 }
 
 export interface SearchQuery {

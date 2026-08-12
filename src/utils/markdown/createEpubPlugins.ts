@@ -28,6 +28,7 @@ import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform.ts
 import { rehypeRemoveCollectionLinks } from "./rehype-remove-collection-links.ts";
 import { rehypeReferencePage } from "./reference-page/rehype-reference-page.ts";
 import { rehypeRelativePaths } from "./rehype-relative-paths.ts";
+import { rehypeEpubSnitipLinks } from "./snitip-link/rehype-transform-epub.ts";
 
 export function createEpubPlugins(unified: Processor) {
 	return (
@@ -44,6 +45,7 @@ export function createEpubPlugins(unified: Processor) {
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] } as never)
 			.use(rehypeRelativePaths)
+			.use(rehypeEpubSnitipLinks)
 			.use(rehypeParseComponents)
 			// When generating an epub, any relative paths need to be made absolute
 			.use(rehypeFixTwoSlashXHTML)
@@ -66,6 +68,7 @@ export function createEpubPlugins(unified: Processor) {
 					"link-preview": transformNoop,
 					"no-ebook": transformVoid,
 					"only-ebook": transformNoop,
+					snitip: transformNoop,
 					tabs: transformNoop,
 					user: transformNoop,
 				},

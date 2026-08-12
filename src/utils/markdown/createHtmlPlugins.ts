@@ -30,11 +30,16 @@ import {
 	transformDetails,
 	transformFileTree,
 	transformInContentAd,
+	transformSnitip,
 	transformLinkPreview,
 	transformNoop,
 	transformTabs,
 	transformVoid,
 } from "./components/index.ts";
+import {
+	rehypeSnitipLinks,
+	rehypeSnitipTemplates,
+} from "./snitip-link/rehype-transform.ts";
 import {
 	rehypeCodeEmbed,
 	transformCodeEmbed,
@@ -106,12 +111,16 @@ export function createHtmlPlugins(unified: Processor) {
 					"link-preview": transformLinkPreview,
 					"no-ebook": transformNoop,
 					"only-ebook": transformVoid,
+					snitip: transformSnitip,
 					tabs: transformTabs,
 					"quiz-radio": transformQuizRadio,
 					quiz: transformQuiz,
 					user: transformUser,
 				},
 			})
+			// Resolve local definitions after component transforms have populated
+			// the VFile's snitip map, even when a link appears first in the document.
+			.use(rehypeSnitipLinks)
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
 			.use(rehypeValidateHeadingLinks)
@@ -122,6 +131,7 @@ export function createHtmlPlugins(unified: Processor) {
 				className: (depth: number) =>
 					`text-style-headline-${Math.min(depth + 1, 6)}`,
 			})
+			.use(rehypeSnitipTemplates)
 			.use(rehypePluginComponents, {
 				htmlOptions: {
 					allowDangerousHtml: true,
