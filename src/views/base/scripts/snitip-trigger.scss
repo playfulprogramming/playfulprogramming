@@ -9,12 +9,7 @@
 }
 
 .snitip-trigger {
-	@extend .text-style-body-medium-bold;
-	display: inline-flex;
-	align-items: center;
-	gap: var(--snitip_trigger_gap);
-	color: var(--snitip_trigger_color);
-	cursor: pointer;
+	display: inline;
 }
 
 .snitip-trigger__text {
@@ -22,11 +17,17 @@
 }
 
 .snitip-trigger__button {
-	display: flex;
+	@extend .text-style-body-medium-bold;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--snitip_trigger_gap);
+	appearance: none;
 	border: none;
 	background: none;
 	padding: 0;
-	color: inherit;
+	color: var(--snitip_trigger_color);
+	cursor: pointer;
+	text-align: inherit;
 	outline: none !important;
 	position: relative;
 
@@ -59,8 +60,8 @@
 	pointer-events: none;
 }
 
-.snitip-trigger:not([data-snitip-trigger-state="open"]) {
-	.snitip-trigger__button:focus-visible {
+.snitip-trigger__button[aria-expanded="false"] {
+	&:focus-visible {
 		.snitip-trigger__popup {
 			transform: translate(-50%, 0);
 			opacity: 1;

@@ -29,24 +29,59 @@
 	--snitip_search-tag_margin-top: var(--spc-4x);
 	--snitip_search-tag_gap: var(--spc-2x);
 
-	--snitip-modal_corner-radius: var(--corner-radius_xl);
-	--snitip-modal_background: var(--background_primary);
 	--snitip-modal_max-width: var(--max-width_s);
 }
 
-.popover {
-	margin: 0;
-	padding: 0;
-	background: none;
-	border: none;
-	overflow: visible;
+:global(body):has(.dialog[open]) {
+	overflow: hidden;
+}
+
+.dialog {
 	position: fixed;
-	width: min(90%, var(--snitip_max-width));
-	outline: none;
+	inset: 0;
+	margin: auto;
+	padding: 0;
+	border: none;
+	background: none;
+	color: inherit;
+
+	width: calc(100% - var(--site-spacing) * 2);
+	max-width: var(--snitip-modal_max-width);
+	max-height: calc(100dvh - var(--site-spacing) * 2);
+	overflow: visible;
+}
+
+.dialog[open] {
+	display: flex;
+	animation: fade-in 0.2s ease-in;
+}
+
+.dialog::backdrop {
+	background-color: rgba(0, 0, 0, 0.32);
+	animation: fade-in-backdrop 0.2s ease-in forwards;
+
+	@include darkTheme {
+		background-color: rgba(0, 0, 0, 0.72);
+	}
+}
+
+.form {
+	position: relative;
+	width: 100%;
+	max-height: inherit;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+
+	background-color: var(--snitip_background-color);
+	border: var(--snitip_border-width) solid var(--snitip_border-color);
+	border-radius: var(--snitip_corner-radius);
+	box-shadow: var(--snitip_container-shadow);
 }
 
 .arrow {
+	display: none;
 	position: absolute;
+	z-index: 1;
 }
 
 .arrow[data-placement="top"] {
@@ -57,16 +92,6 @@
 .arrow[data-placement="bottom"] {
 	bottom: 100%;
 	transform: translateX(-50%) rotate(180deg);
-}
-
-.arrow[data-placement="left"] {
-	left: 100%;
-	transform: translateY(-50%) rotate(-90deg);
-}
-
-.arrow[data-placement="right"] {
-	right: 100%;
-	transform: translateY(-50%) rotate(90deg);
 }
 
 .closeButton {
@@ -83,8 +108,13 @@
 	flex-wrap: nowrap;
 	gap: var(--snitip_title_gap);
 
+	position: sticky;
+	top: 0;
 	padding: var(--snitip_padding);
 	padding-bottom: var(--snitip_title_padding-bottom);
+	background: var(--snitip_background-color);
+	border-bottom: 1px solid transparent;
+	transition: border-bottom 0.5s ease;
 
 	.icon {
 		width: var(--snitip_sticker_size);
@@ -97,6 +127,10 @@
 		color: var(--snitip_title_color);
 		margin: 0;
 	}
+}
+
+.dialog[data-scrolled="true"] .containerTitle {
+	border-bottom-color: var(--background_disabled);
 }
 
 .containerBody {
@@ -161,21 +195,25 @@
 	}
 }
 
-.popover {
-	animation: fade-out 0.2s ease-out;
-}
+@include from($tabletLarge) {
+	.dialog[data-presentation="anchored"] {
+		inset: auto;
+		margin: 0;
+		width: min(calc(100vw - var(--site-spacing) * 2), var(--snitip_max-width));
+		max-width: var(--snitip_max-width);
+	}
 
-.popover__content {
-	background-color: var(--snitip_background-color);
-	border-radius: var(--snitip_corner-radius);
-	box-shadow: var(--snitip_container-shadow);
+	.dialog[data-presentation="anchored"]::backdrop {
+		background-color: rgba(0, 0, 0, 0.12);
 
-	border: var(--snitip_border-width) solid var(--snitip_border-color);
-	margin: calc(-1 * var(--snitip_border-width));
-}
+		@include darkTheme {
+			background-color: rgba(0, 0, 0, 0.4);
+		}
+	}
 
-.popover:popover-open {
-	animation: fade-in 0.2s ease-in;
+	.dialog[data-presentation="anchored"] .arrow {
+		display: block;
+	}
 }
 
 @keyframes fade-in {
@@ -200,75 +238,9 @@
 	}
 }
 
-@keyframes fade-out {
-	0% {
-		opacity: 1;
-		transform: translateY(0);
-		/* display needed on the closing animation to keep the popover
-	  visible until the animation ends */
-		display: block;
-	}
-
-	100% {
-		opacity: 0;
-		transform: translateY(1rem);
-	}
-}
-
-.dialog {
-	background: var(--snitip-modal_background);
-	padding: 0;
-	border: var(--snitip_border-width) solid var(--snitip_border-color);
-	border-radius: var(--snitip-modal_corner-radius);
-	max-width: var(--snitip-modal_max-width);
-	width: calc(100% - var(--site-spacing) * 2);
-
-	flex-direction: column;
-	overflow: clip;
-
-	animation: fade-out 0.2s ease-out;
-
-	&[open] {
-		display: flex;
-		animation: fade-in 0.2s ease-in;
-	}
-
-	&[open]::backdrop {
-		animation: fade-in-backdrop 0.2s ease-in forwards;
-	}
-
-	.form {
-		overflow-y: auto;
-		overscroll-behavior: contain;
-	}
-
-	.containerTitle {
-		position: sticky;
-		top: 0;
-		background: var(--snitip-modal_background);
-		border-bottom: 1px solid transparent;
-		transition: border-bottom 0.5s ease;
-	}
-
-	&[data-scrolled="true"] .containerTitle {
-		border-bottom: 1px solid var(--background_disabled);
-	}
-
-	&::backdrop {
-		background-color: rgba(0, 0, 0, 0.32);
-
-		@include darkTheme {
-			background-color: rgba(0, 0, 0, 0.72);
-		}
-	}
-}
-
 @media (prefers-reduced-motion: reduce) {
-	.popover,
-	.popover:popover-open,
-	.dialog,
 	.dialog[open],
-	.dialog[open]::backdrop {
+	.dialog::backdrop {
 		animation: none;
 	}
 }

@@ -1,8 +1,6 @@
 import type { HTMLAttributes } from "preact/compat";
-import { IconOnlyButton } from "#components/button/button.tsx";
 import { Chip } from "#components/chip/chip.tsx";
 import { RawSvg } from "#components/image/raw-svg.tsx";
-import iconClose from "#src/icons/close.svg?raw";
 import iconLink from "#src/icons/link.svg?raw";
 import iconSearch from "#src/icons/search.svg?raw";
 import { buildSearchQuery } from "#src/views/search/search.ts";
@@ -12,12 +10,14 @@ import style from "./snitip.module.scss";
 export interface SnitipProps extends HTMLAttributes<HTMLDivElement> {
 	snitip: SnitipInfo;
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+	headingId?: string;
 	includeSearchTags?: boolean;
 }
 
 export function SnitipContent({
 	snitip,
 	headingTag: HeadingTag = "h1",
+	headingId,
 	includeSearchTags = true,
 }: SnitipProps) {
 	return (
@@ -33,7 +33,11 @@ export function SnitipContent({
 						data-nozoom
 					/>
 				) : null}
-				<HeadingTag class={`${style.title} text-style-headline-6`}>
+				<HeadingTag
+					id={headingId}
+					data-no-heading-link
+					class={`${style.title} text-style-headline-6`}
+				>
 					{snitip.title}
 				</HeadingTag>
 			</div>
@@ -104,58 +108,5 @@ export function SnitipContent({
 				) : null}
 			</div>
 		</>
-	);
-}
-
-export function SnitipPopover({
-	snitip,
-	headingTag,
-	includeSearchTags,
-	...extra
-}: SnitipProps) {
-	return (
-		<div
-			{...extra}
-			popover
-			role="dialog"
-			aria-label={`Tooltip: ${snitip.title}`}
-			class={style.popover}
-		>
-			<svg
-				data-snitip-arrow
-				aria-hidden
-				width="24"
-				height="14"
-				viewBox="0 0 24 14"
-				fill="none"
-				class={style.arrow}
-				data-placement="bottom"
-			>
-				<path
-					d="M 2 -1 L 11.2 11.6 C 11.6 12.1333 12.4 12.1333 12.8 11.6 L 22 -1 Z"
-					fill="var(--snitip_background-color)"
-				/>
-				<path
-					d="M 2 -1 L 11.2 11.6 C 11.6 12.1333 12.4 12.1333 12.8 11.6 L 22 -1"
-					stroke="var(--snitip_border-color)"
-					strokeWidth="var(--snitip_border-width)"
-				/>
-			</svg>
-			<div class={style.popover__content}>
-				<IconOnlyButton
-					data-snitip-close
-					tag="button"
-					aria-label="Close"
-					class={style.closeButton}
-				>
-					<RawSvg aria-hidden icon={iconClose} />
-				</IconOnlyButton>
-				<SnitipContent
-					snitip={snitip}
-					headingTag={headingTag}
-					includeSearchTags={includeSearchTags}
-				/>
-			</div>
-		</div>
 	);
 }
