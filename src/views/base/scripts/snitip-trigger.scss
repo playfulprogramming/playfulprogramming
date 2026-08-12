@@ -72,4 +72,12 @@
 			visibility: visible;
 		}
 	}
+
+	// The action hint is keyboard guidance, not a hover tooltip. Explicitly
+	// suppress it when the pointer is over a button that still has focus-visible.
+	&:hover .snitip-trigger__popup {
+		transform: translate(-50%, 50%);
+		opacity: 0;
+		visibility: hidden;
+	}
 }

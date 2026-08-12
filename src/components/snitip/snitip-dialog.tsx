@@ -20,6 +20,7 @@ export function SnitipDialog({
 		<dialog
 			id={id}
 			aria-label={`Tooltip: ${snitip.title}`}
+			tabIndex={-1}
 			class={style.dialog}
 			data-snitip-dialog
 			// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
@@ -56,7 +57,6 @@ export function SnitipDialog({
 					value="close"
 					aria-label="Close"
 					class={style.closeButton}
-					autofocus
 				>
 					<RawSvg aria-hidden icon={iconClose} />
 				</IconOnlyButton>

@@ -23,6 +23,7 @@ let activeSnitip: SnitipElements | undefined;
 let activeOpenSource: "activation" | "hover" | undefined;
 let positionFrame: number | undefined;
 let hoverOpenTimeout: ReturnType<typeof setTimeout> | undefined;
+let hoverPreviousFocus: HTMLElement | undefined;
 
 function setTriggerExpanded(elements: SnitipElements, expanded: boolean) {
 	elements.triggerButtonEl.setAttribute("aria-expanded", String(expanded));
@@ -97,6 +98,7 @@ function prepareSnitipClose(elements: SnitipElements) {
 function promoteHoverToActivation(elements: SnitipElements) {
 	activeOpenSource = "activation";
 	elements.dialogEl.dataset.openSource = "activation";
+	hoverPreviousFocus = undefined;
 	stopHoverTracking();
 	elements.dialogCloseEl.focus({ preventScroll: true });
 }
@@ -111,6 +113,8 @@ function stopHoverTracking() {
 
 function handleSnitipClosed(elements: SnitipElements) {
 	const shouldRestoreFocus = activeSnitip === elements;
+	const closedSource = shouldRestoreFocus ? activeOpenSource : undefined;
+	const previousFocus = shouldRestoreFocus ? hoverPreviousFocus : undefined;
 	prepareSnitipClose(elements);
 	resetDialogPosition(elements);
 	elements.dialogEl.removeAttribute("data-presentation");
@@ -120,6 +124,7 @@ function handleSnitipClosed(elements: SnitipElements) {
 	if (shouldRestoreFocus) {
 		activeSnitip = undefined;
 		activeOpenSource = undefined;
+		hoverPreviousFocus = undefined;
 		stopHoverTracking();
 		window.removeEventListener("resize", schedulePositionSnitip);
 		if (positionFrame !== undefined) {
@@ -128,12 +133,18 @@ function handleSnitipClosed(elements: SnitipElements) {
 		}
 	}
 
-	// Native dialogs normally restore focus to the invoking control. Explicitly
-	// doing so also covers older engines and makes the newly collapsed state the
-	// screen reader's next announcement.
 	if (shouldRestoreFocus) {
 		requestAnimationFrame(() => {
-			elements.triggerButtonEl.focus({ preventScroll: true });
+			if (closedSource === "activation") {
+				elements.triggerButtonEl.focus({ preventScroll: true });
+			} else if (
+				previousFocus?.isConnected &&
+				previousFocus !== elements.triggerButtonEl
+			) {
+				previousFocus.focus({ preventScroll: true });
+			} else if (document.activeElement === elements.triggerButtonEl) {
+				elements.triggerButtonEl.blur();
+			}
 		});
 	}
 }
@@ -153,6 +164,10 @@ function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
 	stopHoverTracking();
 	activeSnitip = elements;
 	activeOpenSource = source;
+	hoverPreviousFocus =
+		source === "hover" && document.activeElement instanceof HTMLElement
+			? document.activeElement
+			: undefined;
 	elements.dialogEl.dataset.openSource = source;
 	activeElementsByDialog.set(elements.dialogEl, elements);
 	setTriggerExpanded(elements, true);
@@ -168,11 +183,13 @@ function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
 
 	window.addEventListener("resize", schedulePositionSnitip, { passive: true });
 	if (anchoredDialogBreakpoint.matches) positionSnitip();
-	elements.dialogCloseEl.focus({ preventScroll: true });
 	if (source === "hover") {
+		elements.dialogEl.focus({ preventScroll: true });
 		document.addEventListener("pointermove", handleHoverPointerMove, {
 			passive: true,
 		});
+	} else {
+		elements.dialogCloseEl.focus({ preventScroll: true });
 	}
 }
 

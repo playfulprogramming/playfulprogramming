@@ -65,6 +65,45 @@ async function expectFocusContained(page: Page, dialog: Locator) {
 test.describe("snitip desktop hover dialog", () => {
 	test.use({ viewport: { width: 1200, height: 800 } });
 
+	test("shows the action hint for keyboard focus, not mouse hover", async ({
+		page,
+	}) => {
+		await page.goto("/posts/example", { waitUntil: "networkidle" });
+		const snitip = await getNodeSnitip(page);
+		const hint = snitip.button.locator(".snitip-trigger__popup");
+		const hintStyle = () =>
+			hint.evaluate((element) => ({
+				opacity: getComputedStyle(element).opacity,
+				visibility: getComputedStyle(element).visibility,
+			}));
+
+		await snitip.button.hover();
+		await expect.poll(hintStyle).toEqual({
+			opacity: "0",
+			visibility: "hidden",
+		});
+		await page.mouse.move(1, 1);
+
+		await page.locator("body").press("Tab");
+		await snitip.button.focus();
+		expect(
+			await snitip.button.evaluate((button) =>
+				button.matches(":focus-visible"),
+			),
+		).toBe(true);
+		await expect.poll(hintStyle).toEqual({
+			opacity: "1",
+			visibility: "visible",
+		});
+
+		await snitip.button.hover();
+		await expect.poll(hintStyle).toEqual({
+			opacity: "0",
+			visibility: "hidden",
+		});
+		await expect(snitip.dialog).toBeVisible({ timeout: 1000 });
+	});
+
 	test("opens the same modal without a scrim and closes after pointer exit", async ({
 		page,
 	}) => {
@@ -85,9 +124,15 @@ test.describe("snitip desktop hover dialog", () => {
 			"anchored",
 		);
 		await expect(snitip.button).toHaveAttribute("aria-expanded", "true");
+		await expect(snitip.dialog).toBeFocused();
 		await expect(
 			snitip.dialog.getByRole("button", { name: "Close" }),
-		).toBeFocused();
+		).not.toBeFocused();
+		expect(
+			await snitip.dialog
+				.getByRole("button", { name: "Close" })
+				.evaluate((button) => button.matches(":focus-visible")),
+		).toBe(false);
 		expect(
 			await snitip.dialog.evaluate((dialog) => dialog.matches(":modal")),
 		).toBe(true);
@@ -109,6 +154,9 @@ test.describe("snitip desktop hover dialog", () => {
 			"data-open-source",
 			"activation",
 		);
+		await expect(
+			snitip.dialog.getByRole("button", { name: "Close" }),
+		).toBeFocused();
 		await page.mouse.move(1, 1);
 		await expect(snitip.dialog).toBeVisible();
 		await page.keyboard.press("Escape");
@@ -116,6 +164,15 @@ test.describe("snitip desktop hover dialog", () => {
 
 		await snitip.button.hover();
 		await expect(snitip.dialog).toBeVisible({ timeout: 1000 });
+		await expect(snitip.dialog).toBeFocused();
+		await expect(
+			snitip.dialog.getByRole("button", { name: "Close" }),
+		).not.toBeFocused();
+		expect(
+			await snitip.dialog
+				.getByRole("button", { name: "Close" })
+				.evaluate((button) => button.matches(":focus-visible")),
+		).toBe(false);
 		const dialogRect = await snitip.dialog.locator("form").boundingBox();
 		if (!dialogRect) throw new Error("NodeJS snitip dialog has no bounds");
 		const gapY =
@@ -129,7 +186,19 @@ test.describe("snitip desktop hover dialog", () => {
 		await page.mouse.move(1, 1);
 		await expect(snitip.dialog).not.toBeVisible();
 		await expect(snitip.button).toHaveAttribute("aria-expanded", "false");
-		await expect(snitip.button).toBeFocused();
+		await expect(snitip.button).not.toBeFocused();
+		expect(
+			await snitip.button.evaluate((button) =>
+				button.matches(":focus-visible"),
+			),
+		).toBe(false);
+		await expect
+			.poll(() =>
+				snitip.button
+					.locator(".snitip-trigger__popup")
+					.evaluate((element) => getComputedStyle(element).visibility),
+			)
+			.toBe("hidden");
 	});
 
 	test("cancels a pending hover when leaving the desktop breakpoint", async ({

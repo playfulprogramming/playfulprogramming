@@ -49,6 +49,7 @@
 	max-width: var(--snitip-modal_max-width);
 	max-height: calc(100dvh - var(--site-spacing) * 2);
 	overflow: visible;
+	outline: none;
 }
 
 .dialog[open] {
