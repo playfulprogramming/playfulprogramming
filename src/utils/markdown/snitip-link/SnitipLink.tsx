@@ -1,12 +1,12 @@
 /** @jsxRuntime automatic */
 import type { Element, ElementContent } from "hast";
 import { fromHtml } from "hast-util-from-html";
+import { toString } from "hast-util-to-string";
 import fs from "fs/promises";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 
 interface LinkProps {
 	id: string;
-	label: string;
 	scopeId: string;
 	snitip: SnitipInfo;
 	children: ElementContent[];
@@ -22,6 +22,7 @@ InfoIcon.properties["class"] = "snitip-trigger__icon";
 export function SnitipLink(props: LinkProps): Element {
 	const supportId = `${props.scopeId}-${props.id}`;
 	const dialogId = `snitip-dialog-${supportId}`;
+	const label = toString({ type: "root", children: props.children });
 	return (
 		<span
 			class="snitip-trigger"
@@ -30,11 +31,11 @@ export function SnitipLink(props: LinkProps): Element {
 		>
 			<button
 				type="button"
-				class="snitip-trigger__button a"
+				class="snitip-trigger__button"
 				aria-controls={dialogId}
 				aria-expanded="false"
 				aria-haspopup="dialog"
-				aria-label={`${props.label}: Open tooltip for ${props.snitip.title}`}
+				aria-label={`${label}: Open tooltip for ${props.snitip.title}`}
 			>
 				<span class="snitip-trigger__text">{props.children}</span>
 				<span class="snitip-trigger__icon-container">

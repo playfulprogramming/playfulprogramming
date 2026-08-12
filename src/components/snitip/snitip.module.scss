@@ -29,49 +29,9 @@
 	--snitip_search-tag_margin-top: var(--spc-4x);
 	--snitip_search-tag_gap: var(--spc-2x);
 
+	--snitip-modal_corner-radius: var(--corner-radius_xl);
+	--snitip-modal_background: var(--background_primary);
 	--snitip-modal_max-width: var(--max-width_s);
-}
-
-:global(body):has(.dialog[open]) {
-	overflow: hidden;
-}
-
-.dialog {
-	position: fixed;
-	inset: 0;
-	margin: auto;
-	padding: 0;
-	border: none;
-	background: none;
-	color: inherit;
-
-	width: calc(100% - var(--site-spacing) * 2);
-	max-width: var(--snitip-modal_max-width);
-	max-height: calc(100dvh - var(--site-spacing) * 2);
-	overflow: visible;
-	outline: none;
-}
-
-.dialog[open] {
-	display: flex;
-	animation: fade-in 0.2s ease-in;
-}
-
-.dialog::backdrop {
-	background-color: transparent;
-}
-
-.form {
-	position: relative;
-	width: 100%;
-	max-height: inherit;
-	overflow-y: auto;
-	overscroll-behavior: contain;
-
-	background-color: var(--snitip_background-color);
-	border: var(--snitip_border-width) solid var(--snitip_border-color);
-	border-radius: var(--snitip_corner-radius);
-	box-shadow: var(--snitip_container-shadow);
 }
 
 .arrow {
@@ -104,13 +64,8 @@
 	flex-wrap: nowrap;
 	gap: var(--snitip_title_gap);
 
-	position: sticky;
-	top: 0;
 	padding: var(--snitip_padding);
 	padding-bottom: var(--snitip_title_padding-bottom);
-	background: var(--snitip_background-color);
-	border-bottom: 1px solid transparent;
-	transition: border-bottom 0.5s ease;
 
 	.icon {
 		width: var(--snitip_sticker_size);
@@ -123,10 +78,6 @@
 		color: var(--snitip_title_color);
 		margin: 0;
 	}
-}
-
-.dialog[data-scrolled="true"] .containerTitle {
-	border-bottom-color: var(--background_disabled);
 }
 
 .containerBody {
@@ -191,19 +142,6 @@
 	}
 }
 
-@include from($tabletLarge) {
-	.dialog[data-presentation="anchored"] {
-		inset: auto;
-		margin: 0;
-		width: min(calc(100vw - var(--site-spacing) * 2), var(--snitip_max-width));
-		max-width: var(--snitip_max-width);
-	}
-
-	.dialog[data-presentation="anchored"] .arrow {
-		display: block;
-	}
-}
-
 @keyframes fade-in {
 	0% {
 		opacity: 0;
@@ -213,6 +151,71 @@
 	100% {
 		opacity: 1;
 		transform: translateY(0);
+	}
+}
+
+:global(body):has(.dialog[open]) {
+	overflow: hidden;
+}
+
+.dialog {
+	position: fixed;
+	inset: 0;
+	margin: auto;
+	padding: 0;
+	border: none;
+	background: none;
+	color: inherit;
+	width: calc(100% - var(--site-spacing) * 2);
+	max-width: var(--snitip-modal_max-width);
+	max-height: calc(100dvh - var(--site-spacing) * 2);
+	overflow: visible;
+	outline: none;
+
+	&[open] {
+		display: flex;
+		animation: fade-in 0.2s ease-in;
+	}
+
+	.form {
+		position: relative;
+		width: 100%;
+		max-height: inherit;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		background-color: var(--snitip-modal_background);
+		border: var(--snitip_border-width) solid var(--snitip_border-color);
+		border-radius: var(--snitip-modal_corner-radius);
+		box-shadow: var(--snitip_container-shadow);
+	}
+
+	.containerTitle {
+		position: sticky;
+		top: 0;
+		background: var(--snitip-modal_background);
+		border-bottom: 1px solid transparent;
+		transition: border-bottom 0.5s ease;
+	}
+
+	&[data-scrolled="true"] .containerTitle {
+		border-bottom-color: var(--background_disabled);
+	}
+
+	&::backdrop {
+		background-color: transparent;
+	}
+}
+
+@include from($tabletLarge) {
+	.dialog {
+		inset: auto;
+		margin: 0;
+		width: min(calc(100vw - var(--site-spacing) * 2), var(--snitip_max-width));
+		max-width: var(--snitip_max-width);
+	}
+
+	.dialog .arrow {
+		display: block;
 	}
 }
 

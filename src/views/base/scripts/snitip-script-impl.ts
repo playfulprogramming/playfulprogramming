@@ -19,10 +19,9 @@ interface SnitipElements {
 	dialogCloseEl: HTMLButtonElement;
 }
 
-let activeSnitip: SnitipElements | undefined;
+let snitip: SnitipElements | undefined;
 let activeOpenSource: "activation" | "hover" | undefined;
-let positionFrame: number | undefined;
-let hoverOpenTimeout: ReturnType<typeof setTimeout> | undefined;
+let mouseEnterTimeout: ReturnType<typeof setTimeout> | undefined;
 let hoverPreviousFocus: HTMLElement | undefined;
 
 function setTriggerExpanded(elements: SnitipElements, expanded: boolean) {
@@ -37,10 +36,9 @@ function resetDialogPosition(elements: SnitipElements) {
 }
 
 function positionSnitip() {
-	positionFrame = undefined;
-	if (!activeSnitip || !anchoredDialogBreakpoint.matches) return;
+	if (!snitip || !anchoredDialogBreakpoint.matches) return;
 
-	const { dialogArrowEl, dialogEl, triggerEl } = activeSnitip;
+	const { dialogArrowEl, dialogEl, triggerEl } = snitip;
 	const triggerRect = triggerEl.getBoundingClientRect();
 	const triggerCenter = triggerRect.left + triggerRect.width / 2;
 	const contentRect = triggerEl
@@ -76,103 +74,73 @@ function positionSnitip() {
 	dialogArrowEl.dataset.placement = opensAbove ? "top" : "bottom";
 }
 
-function schedulePositionSnitip() {
-	if (positionFrame !== undefined) cancelAnimationFrame(positionFrame);
-	positionFrame = requestAnimationFrame(positionSnitip);
-}
-
-function updateDialogPresentation(elements: SnitipElements) {
-	if (anchoredDialogBreakpoint.matches) {
-		elements.dialogEl.dataset.presentation = "anchored";
-		schedulePositionSnitip();
-	} else {
-		elements.dialogEl.dataset.presentation = "centered";
-		resetDialogPosition(elements);
-	}
-}
-
-function prepareSnitipClose(elements: SnitipElements) {
-	setTriggerExpanded(elements, false);
-}
-
 function promoteHoverToActivation(elements: SnitipElements) {
 	activeOpenSource = "activation";
-	elements.dialogEl.dataset.openSource = "activation";
 	hoverPreviousFocus = undefined;
 	stopHoverTracking();
 	elements.dialogCloseEl.focus({ preventScroll: true });
 }
 
 function stopHoverTracking() {
-	if (hoverOpenTimeout !== undefined) {
-		clearTimeout(hoverOpenTimeout);
-		hoverOpenTimeout = undefined;
+	if (mouseEnterTimeout !== undefined) {
+		clearTimeout(mouseEnterTimeout);
+		mouseEnterTimeout = undefined;
 	}
-	document.removeEventListener("pointermove", handleHoverPointerMove);
+	document.removeEventListener("pointermove", handleMouseMove);
 }
 
 function handleSnitipClosed(elements: SnitipElements) {
-	const shouldRestoreFocus = activeSnitip === elements;
-	const closedSource = shouldRestoreFocus ? activeOpenSource : undefined;
-	const previousFocus = shouldRestoreFocus ? hoverPreviousFocus : undefined;
-	prepareSnitipClose(elements);
+	const shouldRestoreFocus = snitip === elements;
+	setTriggerExpanded(elements, false);
 	resetDialogPosition(elements);
-	elements.dialogEl.removeAttribute("data-presentation");
-	elements.dialogEl.removeAttribute("data-open-source");
 	elements.dialogEl.dataset.scrolled = "false";
+	if (!shouldRestoreFocus) return;
 
-	if (shouldRestoreFocus) {
-		activeSnitip = undefined;
-		activeOpenSource = undefined;
-		hoverPreviousFocus = undefined;
-		stopHoverTracking();
-		window.removeEventListener("resize", schedulePositionSnitip);
-		if (positionFrame !== undefined) {
-			cancelAnimationFrame(positionFrame);
-			positionFrame = undefined;
+	const closedSource = activeOpenSource;
+	const previousFocus = hoverPreviousFocus;
+	snitip = undefined;
+	activeOpenSource = undefined;
+	hoverPreviousFocus = undefined;
+	stopHoverTracking();
+	window.removeEventListener("resize", positionSnitip);
+
+	requestAnimationFrame(() => {
+		if (closedSource === "activation") {
+			elements.triggerButtonEl.focus({ preventScroll: true });
+		} else if (
+			previousFocus?.isConnected &&
+			previousFocus !== elements.triggerButtonEl
+		) {
+			previousFocus.focus({ preventScroll: true });
+		} else if (document.activeElement === elements.triggerButtonEl) {
+			elements.triggerButtonEl.blur();
 		}
-	}
-
-	if (shouldRestoreFocus) {
-		requestAnimationFrame(() => {
-			if (closedSource === "activation") {
-				elements.triggerButtonEl.focus({ preventScroll: true });
-			} else if (
-				previousFocus?.isConnected &&
-				previousFocus !== elements.triggerButtonEl
-			) {
-				previousFocus.focus({ preventScroll: true });
-			} else if (document.activeElement === elements.triggerButtonEl) {
-				elements.triggerButtonEl.blur();
-			}
-		});
-	}
+	});
 }
 
 function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
 	if (elements.dialogEl.open) {
-		if (activeSnitip === elements && source === "activation") {
+		if (snitip === elements && source === "activation") {
 			promoteHoverToActivation(elements);
 		}
 		return;
 	}
 
-	if (activeSnitip?.dialogEl.open) {
-		activeSnitip.dialogEl.close();
+	if (snitip?.dialogEl.open) {
+		snitip.dialogEl.close();
 	}
 
 	stopHoverTracking();
-	activeSnitip = elements;
+	snitip = elements;
 	activeOpenSource = source;
 	hoverPreviousFocus =
 		source === "hover" && document.activeElement instanceof HTMLElement
 			? document.activeElement
 			: undefined;
-	elements.dialogEl.dataset.openSource = source;
 	activeElementsByDialog.set(elements.dialogEl, elements);
 	setTriggerExpanded(elements, true);
 	elements.dialogEl.dataset.scrolled = "false";
-	updateDialogPresentation(elements);
+	if (!anchoredDialogBreakpoint.matches) resetDialogPosition(elements);
 
 	try {
 		elements.dialogEl.showModal();
@@ -181,11 +149,11 @@ function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
 		throw error;
 	}
 
-	window.addEventListener("resize", schedulePositionSnitip, { passive: true });
+	window.addEventListener("resize", positionSnitip, { passive: true });
 	if (anchoredDialogBreakpoint.matches) positionSnitip();
 	if (source === "hover") {
 		elements.dialogEl.focus({ preventScroll: true });
-		document.addEventListener("pointermove", handleHoverPointerMove, {
+		document.addEventListener("pointermove", handleMouseMove, {
 			passive: true,
 		});
 	} else {
@@ -194,15 +162,16 @@ function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
 }
 
 anchoredDialogBreakpoint.addEventListener("change", () => {
-	if (activeSnitip?.dialogEl.open) {
-		updateDialogPresentation(activeSnitip);
+	if (snitip?.dialogEl.open) {
+		if (anchoredDialogBreakpoint.matches) positionSnitip();
+		else resetDialogPosition(snitip);
 	}
 });
 
 hoverDialogPointer.addEventListener("change", () => {
 	if (hoverDialogPointer.matches) return;
 	stopHoverTracking();
-	if (activeOpenSource === "hover") activeSnitip?.dialogEl.close();
+	if (activeOpenSource === "hover") snitip?.dialogEl.close();
 });
 
 function isInsideRect(x: number, y: number, rect: DOMRect) {
@@ -229,7 +198,7 @@ function isInsideTrapezoid(
 	return x >= Math.min(left, right) && x <= Math.max(left, right);
 }
 
-function isInsideHoverArea(x: number, y: number, elements: SnitipElements) {
+function isInsideSnitip(x: number, y: number, elements: SnitipElements) {
 	const triggerRect = elements.triggerEl.getBoundingClientRect();
 	const dialogRectInitial = elements.dialogEl.getBoundingClientRect();
 	const dialogRect = new DOMRect(
@@ -267,16 +236,16 @@ function isInsideHoverArea(x: number, y: number, elements: SnitipElements) {
 	);
 }
 
-function handleHoverPointerMove(event: PointerEvent) {
+function handleMouseMove(event: PointerEvent) {
 	if (
 		activeOpenSource !== "hover" ||
-		!activeSnitip ||
-		isInsideHoverArea(event.clientX, event.clientY, activeSnitip)
+		!snitip ||
+		isInsideSnitip(event.clientX, event.clientY, snitip)
 	) {
 		return;
 	}
 
-	activeSnitip.dialogEl.close();
+	snitip.dialogEl.close();
 }
 
 const initializedDialogs = new WeakSet<HTMLDialogElement>();
@@ -318,17 +287,13 @@ function handleDialogTab(event: KeyboardEvent, dialogEl: HTMLDialogElement) {
 }
 
 function initializeDialog(elements: SnitipElements) {
-	const { dialogCloseEl, dialogEl, dialogFormEl } = elements;
-	activeElementsByDialog.set(dialogEl, elements);
+	const { dialogEl, dialogFormEl } = elements;
 	if (initializedDialogs.has(dialogEl)) return;
 	initializedDialogs.add(dialogEl);
 
 	// Native modal dialog backdrops make the invoking button inert. Handle the
 	// pointer sequence ourselves so clicking the still-hovered trigger can pin
 	// the dialog open instead of being mistaken for a light-dismiss gesture.
-	let pointerStartedOutside = false;
-	let pointerStartedOverTrigger = false;
-	let activePointerId: number | undefined;
 	const isOutsideDialogCard = (event: PointerEvent) => {
 		const rect = dialogFormEl.getBoundingClientRect();
 		return (
@@ -338,12 +303,11 @@ function initializeDialog(elements: SnitipElements) {
 			event.clientY > rect.bottom
 		);
 	};
-
-	dialogEl.addEventListener("pointerdown", (event) => {
-		pointerStartedOutside = isOutsideDialogCard(event);
-		activePointerId = event.pointerId;
-		const currentElements = activeElementsByDialog.get(dialogEl);
-		pointerStartedOverTrigger = Boolean(
+	const isOverTrigger = (
+		event: PointerEvent,
+		currentElements: SnitipElements | undefined,
+	) =>
+		Boolean(
 			currentElements &&
 			isInsideRect(
 				event.clientX,
@@ -351,52 +315,37 @@ function initializeDialog(elements: SnitipElements) {
 				currentElements.triggerEl.getBoundingClientRect(),
 			),
 		);
+	let pointerStart: { id: number; overTrigger: boolean } | undefined;
+
+	dialogEl.addEventListener("pointerdown", (event) => {
+		if (!isOutsideDialogCard(event)) {
+			pointerStart = undefined;
+			return;
+		}
+		const currentElements = activeElementsByDialog.get(dialogEl);
+		pointerStart = {
+			id: event.pointerId,
+			overTrigger: isOverTrigger(event, currentElements),
+		};
 	});
 	dialogEl.addEventListener("pointerup", (event) => {
-		if (
-			activePointerId === event.pointerId &&
-			pointerStartedOutside &&
-			isOutsideDialogCard(event)
-		) {
+		if (pointerStart?.id === event.pointerId && isOutsideDialogCard(event)) {
 			const currentElements = activeElementsByDialog.get(dialogEl);
-			const isOverTrigger = Boolean(
-				currentElements &&
-				isInsideRect(
-					event.clientX,
-					event.clientY,
-					currentElements.triggerEl.getBoundingClientRect(),
-				),
-			);
 			if (
 				activeOpenSource === "hover" &&
 				currentElements &&
-				pointerStartedOverTrigger &&
-				isOverTrigger
+				pointerStart.overTrigger &&
+				isOverTrigger(event, currentElements)
 			) {
 				promoteHoverToActivation(currentElements);
 			} else {
-				if (currentElements) prepareSnitipClose(currentElements);
 				dialogEl.close();
 			}
 		}
-		pointerStartedOutside = false;
-		pointerStartedOverTrigger = false;
-		activePointerId = undefined;
+		pointerStart = undefined;
 	});
-	dialogEl.addEventListener("pointercancel", () => {
-		pointerStartedOutside = false;
-		pointerStartedOverTrigger = false;
-		activePointerId = undefined;
-	});
+	dialogEl.addEventListener("pointercancel", () => (pointerStart = undefined));
 
-	dialogCloseEl.addEventListener("click", () => {
-		const currentElements = activeElementsByDialog.get(dialogEl);
-		if (currentElements) prepareSnitipClose(currentElements);
-	});
-	dialogEl.addEventListener("cancel", () => {
-		const currentElements = activeElementsByDialog.get(dialogEl);
-		if (currentElements) prepareSnitipClose(currentElements);
-	});
 	dialogEl.addEventListener("close", () => {
 		const currentElements = activeElementsByDialog.get(dialogEl);
 		if (currentElements) handleSnitipClosed(currentElements);
@@ -404,7 +353,6 @@ function initializeDialog(elements: SnitipElements) {
 	dialogEl.addEventListener("keydown", (event) =>
 		handleDialogTab(event, dialogEl),
 	);
-
 	dialogFormEl.addEventListener(
 		"scroll",
 		() => {
@@ -454,23 +402,23 @@ for (const triggerEl of triggerEls) {
 		if (
 			event.pointerType !== "mouse" ||
 			!hoverDialogPointer.matches ||
-			activeSnitip?.dialogEl.open
+			snitip?.dialogEl.open
 		) {
 			return;
 		}
 
-		if (hoverOpenTimeout !== undefined) clearTimeout(hoverOpenTimeout);
-		hoverOpenTimeout = setTimeout(() => {
-			hoverOpenTimeout = undefined;
+		if (mouseEnterTimeout !== undefined) clearTimeout(mouseEnterTimeout);
+		mouseEnterTimeout = setTimeout(() => {
+			mouseEnterTimeout = undefined;
 			if (hoverDialogPointer.matches && triggerEl.matches(":hover")) {
 				openSnitip(elements, "hover");
 			}
 		}, HOVER_OPEN_DELAY_MS);
 	});
 	triggerEl.addEventListener("pointerleave", () => {
-		if (hoverOpenTimeout !== undefined) {
-			clearTimeout(hoverOpenTimeout);
-			hoverOpenTimeout = undefined;
+		if (mouseEnterTimeout !== undefined) {
+			clearTimeout(mouseEnterTimeout);
+			mouseEnterTimeout = undefined;
 		}
 	});
 	triggerButtonEl.addEventListener("pointerdown", stopHoverTracking);
@@ -478,7 +426,6 @@ for (const triggerEl of triggerEls) {
 		if (event.key === "Enter" || event.key === " ") stopHoverTracking();
 	});
 	triggerButtonEl.addEventListener("click", () => {
-		stopHoverTracking();
 		openSnitip(elements, "activation");
 	});
 }

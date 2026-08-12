@@ -4,7 +4,7 @@ import iconClose from "#src/icons/close.svg?raw";
 import { SnitipContent, type SnitipProps } from "./snitip.tsx";
 import style from "./snitip.module.scss";
 
-type SnitipDialogProps = Omit<SnitipProps, "headingId" | "id"> & {
+type SnitipDialogProps = Omit<SnitipProps, "id"> & {
 	id: string;
 };
 
@@ -14,15 +14,12 @@ export function SnitipDialog({
 	headingTag,
 	includeSearchTags,
 }: SnitipDialogProps) {
-	const headingId = `${id}-title`;
-
 	return (
 		<dialog
 			id={id}
 			aria-label={`Tooltip: ${snitip.title}`}
 			tabIndex={-1}
 			class={style.dialog}
-			data-snitip-dialog
 			// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore This newer native attribute is not in every TS DOM release.
@@ -64,7 +61,6 @@ export function SnitipDialog({
 				<SnitipContent
 					snitip={snitip}
 					headingTag={headingTag}
-					headingId={headingId}
 					includeSearchTags={includeSearchTags}
 				/>
 			</form>
