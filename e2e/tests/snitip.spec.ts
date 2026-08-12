@@ -4,14 +4,16 @@ async function getNodeSnitip(page: Page) {
 	const trigger = page.locator('[data-snitip-trigger="nodejs"]').first();
 	const dialogId = await trigger.getAttribute("data-snitip-dialog");
 	if (!dialogId) throw new Error("NodeJS snitip is missing its dialog id");
+	const dialog = page.locator(`[id="${dialogId}"]`);
 
 	return {
 		button: trigger.getByRole("button", {
 			name: "Node: Open tooltip for NodeJS",
 			exact: true,
 		}),
-		dialog: page.locator(`[id="${dialogId}"]`),
+		dialog,
 		dialogId,
+		title: dialog.locator("[data-snitip-title]"),
 	};
 }
 
@@ -22,6 +24,22 @@ async function loadNodeSnitip(page: Page) {
 
 async function openNodeSnitip(page: Page, key = "Enter") {
 	const snitip = await loadNodeSnitip(page);
+	await snitip.title.evaluate((title) => {
+		title.addEventListener(
+			"focus",
+			() => {
+				const dialog = title.closest("dialog");
+				const trigger = dialog?.id
+					? document.querySelector<HTMLElement>(
+							`[aria-controls="${dialog.id}"]`,
+						)
+					: null;
+				title.dataset.triggerExpandedWhenFocused =
+					trigger?.getAttribute("aria-expanded") ?? "missing";
+			},
+			{ once: true },
+		);
+	});
 	await snitip.button.focus();
 	await snitip.button.press(key);
 	await expect(snitip.dialog).toBeVisible();
@@ -77,11 +95,13 @@ test.describe("snitip desktop hover dialog", () => {
 		});
 	});
 
-	test("opens on hover, supports pointer transit, and can be pinned", async ({
+	test("opens on hover and closes without synthesizing trigger focus", async ({
 		page,
 	}) => {
 		const snitip = await loadNodeSnitip(page);
-		const close = snitip.dialog.getByRole("button", { name: "Close" });
+		const close = snitip.dialog.getByRole("button", {
+			name: "Close tooltip",
+		});
 
 		await snitip.button.hover();
 		await page.waitForTimeout(250);
@@ -101,7 +121,7 @@ test.describe("snitip desktop hover dialog", () => {
 		expect(await snitip.dialog.evaluate((el) => el.matches(":modal"))).toBe(
 			true,
 		);
-		await expect(snitip.dialog).toBeFocused();
+		await expect(snitip.title).toBeFocused();
 		await expect(close).not.toBeFocused();
 		expect(await close.evaluate((el) => el.matches(":focus-visible"))).toBe(
 			false,
@@ -114,15 +134,6 @@ test.describe("snitip desktop hover dialog", () => {
 			x: triggerRect.x + triggerRect.width / 2,
 			y: triggerRect.y + triggerRect.height / 2,
 		};
-		await page.mouse.click(triggerCenter.x, triggerCenter.y);
-		await expect(close).toBeFocused();
-		await page.mouse.move(1, 1);
-		await expect(snitip.dialog).toBeVisible();
-		await page.keyboard.press("Escape");
-		await expectClosed(snitip.button, snitip.dialog);
-
-		await snitip.button.hover();
-		await expect(snitip.dialog).toBeVisible({ timeout: 1000 });
 		const dialogRect = await snitip.dialog.locator("form").boundingBox();
 		if (!dialogRect) throw new Error("NodeJS snitip dialog has no bounds");
 		const gapY =
@@ -139,6 +150,46 @@ test.describe("snitip desktop hover dialog", () => {
 		expect(
 			await snitip.button.evaluate((el) => el.matches(":focus-visible")),
 		).toBe(false);
+
+		await snitip.button.focus();
+		await snitip.button.hover();
+		await expect(snitip.dialog).toBeVisible({ timeout: 1000 });
+		await page.mouse.move(1, 1);
+		await expectClosed(snitip.button, snitip.dialog);
+	});
+
+	test("announces keyboard exit from a hovered dialog and supports pinning", async ({
+		page,
+	}) => {
+		const snitip = await loadNodeSnitip(page);
+		await snitip.button.hover();
+		await expect(snitip.dialog).toBeVisible({ timeout: 1000 });
+		await expect(snitip.title).toBeFocused();
+
+		await page.keyboard.press("Escape");
+		await expectClosed(snitip.button, snitip.dialog);
+
+		await page.mouse.move(1, 1);
+		await snitip.button.hover();
+		await expect(snitip.dialog).toBeVisible({ timeout: 1000 });
+		await page.keyboard.press("Tab");
+		await page.keyboard.press("Escape");
+		await expectClosed(snitip.button, snitip.dialog);
+
+		await page.mouse.move(1, 1);
+		await snitip.button.hover();
+		await expect(snitip.dialog).toBeVisible({ timeout: 1000 });
+		const triggerRect = await snitip.button.boundingBox();
+		if (!triggerRect) throw new Error("NodeJS snitip trigger has no bounds");
+		await page.mouse.click(
+			triggerRect.x + triggerRect.width / 2,
+			triggerRect.y + triggerRect.height / 2,
+		);
+		await expect(snitip.title).toBeFocused();
+		await page.mouse.move(1, 1);
+		await expect(snitip.dialog).toBeVisible();
+		await page.keyboard.press("Escape");
+		await expectClosed(snitip.button, snitip.dialog);
 	});
 
 	test("cancels pending hover across breakpoints and mouse activation", async ({
@@ -179,7 +230,9 @@ for (const { name, width, anchored } of [
 	test(`snitip ${name} is an accessible modal`, async ({ page }) => {
 		await page.setViewportSize({ width, height: 800 });
 		const snitip = await openNodeSnitip(page);
-		const close = snitip.dialog.getByRole("button", { name: "Close" });
+		const close = snitip.dialog.getByRole("button", {
+			name: "Close tooltip",
+		});
 
 		await expect(snitip.button).toHaveAttribute(
 			"aria-controls",
@@ -187,7 +240,15 @@ for (const { name, width, anchored } of [
 		);
 		await expect(snitip.button).toHaveAttribute("aria-haspopup", "dialog");
 		await expect(snitip.button).toHaveAttribute("aria-expanded", "true");
+		await expect(snitip.dialog).toHaveAttribute("aria-modal", "true");
+		const titleId = await snitip.title.getAttribute("id");
+		if (!titleId) throw new Error("NodeJS snitip title is missing its id");
+		await expect(snitip.dialog).toHaveAttribute("aria-labelledby", titleId);
 		await expect(snitip.dialog).toHaveAccessibleName("Tooltip: NodeJS");
+		await expect(snitip.title).toHaveAttribute(
+			"data-trigger-expanded-when-focused",
+			"true",
+		);
 		await expect
 			.poll(() =>
 				snitip.dialog.evaluate((el) => Boolean(el.style.left && el.style.top)),
@@ -197,20 +258,39 @@ for (const { name, width, anchored } of [
 			true,
 		);
 		await expectTransparentBackdrop(snitip.dialog);
-		await expect(close).toBeFocused();
+		await expect(snitip.title).toBeFocused();
 		await page.keyboard.press("Shift+Tab");
+		await expect(close).toBeFocused();
+		await page.keyboard.press("Tab");
 		expect(
 			await snitip.dialog.evaluate((el) => el.contains(document.activeElement)),
 		).toBe(true);
-		await page.keyboard.press("Tab");
+		await page.keyboard.press("Shift+Tab");
 		await expect(close).toBeFocused();
 
+		await snitip.button.evaluate((button) => {
+			button.addEventListener(
+				"focus",
+				() => {
+					button.dataset.expandedWhenFocused =
+						button.getAttribute("aria-expanded") ?? "missing";
+				},
+				{ once: true },
+			);
+		});
 		await page.keyboard.press("Escape");
 		await expectClosed(snitip.button, snitip.dialog);
+		await expect(snitip.button).toHaveAttribute(
+			"data-expanded-when-focused",
+			"false",
+		);
 		await snitip.button.press("Space");
+		await expect(snitip.title).toBeFocused();
+		await close.focus();
 		await close.press("Enter");
 		await expectClosed(snitip.button, snitip.dialog);
 		await snitip.button.press("Enter");
+		await expect(snitip.title).toBeFocused();
 		await page.mouse.click(1, 1);
 		await expectClosed(snitip.button, snitip.dialog);
 	});

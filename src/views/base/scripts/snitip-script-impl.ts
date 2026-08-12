@@ -17,6 +17,7 @@ interface SnitipElements {
 	dialogFormEl: HTMLFormElement;
 	dialogArrowEl: SVGElement;
 	dialogCloseEl: HTMLButtonElement;
+	dialogTitleEl: HTMLElement;
 }
 
 let snitip: SnitipElements | undefined;
@@ -74,11 +75,14 @@ function positionSnitip() {
 	dialogArrowEl.dataset.placement = opensAbove ? "top" : "bottom";
 }
 
-function promoteHoverToActivation(elements: SnitipElements) {
+function promoteHoverToActivation(
+	elements: SnitipElements,
+	{ focusTitle = false } = {},
+) {
 	activeOpenSource = "activation";
 	hoverPreviousFocus = undefined;
 	stopHoverTracking();
-	elements.dialogCloseEl.focus({ preventScroll: true });
+	if (focusTitle) elements.dialogTitleEl.focus({ preventScroll: true });
 }
 
 function stopHoverTracking() {
@@ -87,6 +91,15 @@ function stopHoverTracking() {
 		mouseEnterTimeout = undefined;
 	}
 	document.removeEventListener("pointermove", handleMouseMove);
+}
+
+function prepareSnitipClose(elements: SnitipElements) {
+	setTriggerExpanded(elements, false);
+}
+
+function closeSnitip(elements: SnitipElements) {
+	prepareSnitipClose(elements);
+	elements.dialogEl.close();
 }
 
 function handleSnitipClosed(elements: SnitipElements) {
@@ -107,10 +120,7 @@ function handleSnitipClosed(elements: SnitipElements) {
 	requestAnimationFrame(() => {
 		if (closedSource === "activation") {
 			elements.triggerButtonEl.focus({ preventScroll: true });
-		} else if (
-			previousFocus?.isConnected &&
-			previousFocus !== elements.triggerButtonEl
-		) {
+		} else if (previousFocus?.isConnected) {
 			previousFocus.focus({ preventScroll: true });
 		} else if (document.activeElement === elements.triggerButtonEl) {
 			elements.triggerButtonEl.blur();
@@ -121,20 +131,22 @@ function handleSnitipClosed(elements: SnitipElements) {
 function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
 	if (elements.dialogEl.open) {
 		if (snitip === elements && source === "activation") {
-			promoteHoverToActivation(elements);
+			promoteHoverToActivation(elements, { focusTitle: true });
 		}
 		return;
 	}
 
 	if (snitip?.dialogEl.open) {
-		snitip.dialogEl.close();
+		closeSnitip(snitip);
 	}
 
 	stopHoverTracking();
 	snitip = elements;
 	activeOpenSource = source;
 	hoverPreviousFocus =
-		source === "hover" && document.activeElement instanceof HTMLElement
+		source === "hover" &&
+		document.activeElement instanceof HTMLElement &&
+		document.activeElement !== document.body
 			? document.activeElement
 			: undefined;
 	activeElementsByDialog.set(elements.dialogEl, elements);
@@ -151,13 +163,11 @@ function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
 
 	window.addEventListener("resize", positionSnitip, { passive: true });
 	if (anchoredDialogBreakpoint.matches) positionSnitip();
+	elements.dialogTitleEl.focus({ preventScroll: true });
 	if (source === "hover") {
-		elements.dialogEl.focus({ preventScroll: true });
 		document.addEventListener("pointermove", handleMouseMove, {
 			passive: true,
 		});
-	} else {
-		elements.dialogCloseEl.focus({ preventScroll: true });
 	}
 }
 
@@ -171,7 +181,7 @@ anchoredDialogBreakpoint.addEventListener("change", () => {
 hoverDialogPointer.addEventListener("change", () => {
 	if (hoverDialogPointer.matches) return;
 	stopHoverTracking();
-	if (activeOpenSource === "hover") snitip?.dialogEl.close();
+	if (activeOpenSource === "hover" && snitip) closeSnitip(snitip);
 });
 
 function isInsideRect(x: number, y: number, rect: DOMRect) {
@@ -245,7 +255,7 @@ function handleMouseMove(event: PointerEvent) {
 		return;
 	}
 
-	snitip.dialogEl.close();
+	closeSnitip(snitip);
 }
 
 const initializedDialogs = new WeakSet<HTMLDialogElement>();
@@ -269,7 +279,7 @@ function handleDialogTab(event: KeyboardEvent, dialogEl: HTMLDialogElement) {
 	const lastFocusableEl = focusableEls.at(-1);
 	event.preventDefault();
 	if (!firstFocusableEl || !lastFocusableEl) {
-		dialogEl.focus();
+		dialogEl.querySelector<HTMLElement>("[data-snitip-title]")?.focus();
 		return;
 	}
 
@@ -337,9 +347,9 @@ function initializeDialog(elements: SnitipElements) {
 				pointerStart.overTrigger &&
 				isOverTrigger(event, currentElements)
 			) {
-				promoteHoverToActivation(currentElements);
-			} else {
-				dialogEl.close();
+				promoteHoverToActivation(currentElements, { focusTitle: true });
+			} else if (currentElements) {
+				closeSnitip(currentElements);
 			}
 		}
 		pointerStart = undefined;
@@ -350,9 +360,21 @@ function initializeDialog(elements: SnitipElements) {
 		const currentElements = activeElementsByDialog.get(dialogEl);
 		if (currentElements) handleSnitipClosed(currentElements);
 	});
-	dialogEl.addEventListener("keydown", (event) =>
-		handleDialogTab(event, dialogEl),
-	);
+	dialogEl.addEventListener("cancel", () => {
+		const currentElements = activeElementsByDialog.get(dialogEl);
+		if (currentElements) prepareSnitipClose(currentElements);
+	});
+	dialogEl.addEventListener("keydown", (event) => {
+		const currentElements = activeElementsByDialog.get(dialogEl);
+		if (activeOpenSource === "hover" && currentElements) {
+			promoteHoverToActivation(currentElements);
+		}
+		handleDialogTab(event, dialogEl);
+	});
+	dialogFormEl.addEventListener("submit", () => {
+		const currentElements = activeElementsByDialog.get(dialogEl);
+		if (currentElements) prepareSnitipClose(currentElements);
+	});
 	dialogFormEl.addEventListener(
 		"scroll",
 		() => {
@@ -383,7 +405,10 @@ for (const triggerEl of triggerEls) {
 	const dialogCloseEl = dialogEl.querySelector<HTMLButtonElement>(
 		"[data-snitip-close]",
 	);
-	if (!dialogFormEl || !dialogArrowEl || !dialogCloseEl) {
+	const dialogTitleEl = dialogEl.querySelector<HTMLElement>(
+		"[data-snitip-title]",
+	);
+	if (!dialogFormEl || !dialogArrowEl || !dialogCloseEl || !dialogTitleEl) {
 		continue;
 	}
 
@@ -394,6 +419,7 @@ for (const triggerEl of triggerEls) {
 		dialogFormEl,
 		dialogArrowEl,
 		dialogCloseEl,
+		dialogTitleEl,
 	};
 
 	triggerEl.dataset.snitipInitialized = "true";

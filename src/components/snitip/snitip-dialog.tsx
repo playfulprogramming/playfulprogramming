@@ -14,11 +14,13 @@ export function SnitipDialog({
 	headingTag,
 	includeSearchTags,
 }: SnitipDialogProps) {
+	const headingId = `${id}-title`;
+
 	return (
 		<dialog
 			id={id}
-			aria-label={`Tooltip: ${snitip.title}`}
-			tabIndex={-1}
+			aria-labelledby={headingId}
+			aria-modal="true"
 			class={style.dialog}
 			// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -46,23 +48,26 @@ export function SnitipDialog({
 				/>
 			</svg>
 			<form method="dialog" class={style.form}>
+				<SnitipContent
+					snitip={snitip}
+					headingTag={headingTag}
+					headingId={headingId}
+					headingLabelPrefix="Tooltip: "
+					headingTabIndex={-1}
+					includeSearchTags={includeSearchTags}
+				/>
+
 				<IconOnlyButton
 					data-snitip-close
 					tag="button"
 					type="submit"
 					formNoValidate
 					value="close"
-					aria-label="Close"
+					aria-label="Close tooltip"
 					class={style.closeButton}
 				>
 					<RawSvg aria-hidden icon={iconClose} />
 				</IconOnlyButton>
-
-				<SnitipContent
-					snitip={snitip}
-					headingTag={headingTag}
-					includeSearchTags={includeSearchTags}
-				/>
 			</form>
 		</dialog>
 	);

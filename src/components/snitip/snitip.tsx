@@ -10,12 +10,18 @@ import style from "./snitip.module.scss";
 export interface SnitipProps extends HTMLAttributes<HTMLDivElement> {
 	snitip: SnitipInfo;
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+	headingId?: string;
+	headingLabelPrefix?: string;
+	headingTabIndex?: -1;
 	includeSearchTags?: boolean;
 }
 
 export function SnitipContent({
 	snitip,
 	headingTag: HeadingTag = "h1",
+	headingId,
+	headingLabelPrefix,
+	headingTabIndex,
 	includeSearchTags = true,
 }: SnitipProps) {
 	return (
@@ -31,7 +37,16 @@ export function SnitipContent({
 						data-nozoom
 					/>
 				) : null}
-				<HeadingTag class={`${style.title} text-style-headline-6`}>
+				<HeadingTag
+					id={headingId}
+					tabIndex={headingTabIndex}
+					data-snitip-title={headingId ? "" : undefined}
+					data-no-heading-link={headingId ? "" : undefined}
+					class={`${style.title} text-style-headline-6`}
+				>
+					{headingLabelPrefix ? (
+						<span class="visually-hidden">{headingLabelPrefix}</span>
+					) : null}
 					{snitip.title}
 				</HeadingTag>
 			</div>

@@ -195,6 +195,10 @@
 		background: var(--snitip-modal_background);
 		border-bottom: 1px solid transparent;
 		transition: border-bottom 0.5s ease;
+
+		.title:focus:not(:focus-visible) {
+			outline: none;
+		}
 	}
 
 	&[data-scrolled="true"] .containerTitle {
