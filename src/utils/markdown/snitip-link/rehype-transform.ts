@@ -8,6 +8,7 @@ import { logError } from "../logger.ts";
 import { getSnitipById } from "#utils/api.ts";
 import { createComponent, type PlayfulRoot } from "../components/components.ts";
 import { v4 as uuidv4 } from "uuid";
+import { toString } from "hast-util-to-string";
 
 const SNITIP_PROTOCOL = "pfp-snitip:";
 
@@ -61,6 +62,7 @@ export const rehypeSnitipLinks: Plugin<[], PlayfulRoot> = () => {
 
 				parent.children[index] = SnitipLink({
 					id: snitipId,
+					label: toString(node),
 					scopeId,
 					snitip,
 					children: node.children,

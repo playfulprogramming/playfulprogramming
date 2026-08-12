@@ -25,7 +25,7 @@ export function SnitipDialog({
 			// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore This newer native attribute is not in every TS DOM release.
-			closedby="any"
+			closedby="closerequest"
 		>
 			<svg
 				data-snitip-arrow

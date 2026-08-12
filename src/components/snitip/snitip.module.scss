@@ -57,12 +57,7 @@
 }
 
 .dialog::backdrop {
-	background-color: rgba(0, 0, 0, 0.32);
-	animation: fade-in-backdrop 0.2s ease-in forwards;
-
-	@include darkTheme {
-		background-color: rgba(0, 0, 0, 0.72);
-	}
+	background-color: transparent;
 }
 
 .form {
@@ -203,14 +198,6 @@
 		max-width: var(--snitip_max-width);
 	}
 
-	.dialog[data-presentation="anchored"]::backdrop {
-		background-color: rgba(0, 0, 0, 0.12);
-
-		@include darkTheme {
-			background-color: rgba(0, 0, 0, 0.4);
-		}
-	}
-
 	.dialog[data-presentation="anchored"] .arrow {
 		display: block;
 	}
@@ -228,19 +215,8 @@
 	}
 }
 
-@keyframes fade-in-backdrop {
-	0% {
-		opacity: 0;
-	}
-
-	100% {
-		opacity: 1;
-	}
-}
-
 @media (prefers-reduced-motion: reduce) {
-	.dialog[open],
-	.dialog::backdrop {
+	.dialog[open] {
 		animation: none;
 	}
 }

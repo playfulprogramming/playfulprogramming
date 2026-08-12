@@ -6,6 +6,7 @@ import type { SnitipInfo } from "#types/SnitipInfo.ts";
 
 interface LinkProps {
 	id: string;
+	label: string;
 	scopeId: string;
 	snitip: SnitipInfo;
 	children: ElementContent[];
@@ -33,7 +34,7 @@ export function SnitipLink(props: LinkProps): Element {
 				aria-controls={dialogId}
 				aria-expanded="false"
 				aria-haspopup="dialog"
-				aria-label={`Open tooltip for "${props.snitip.title}"`}
+				aria-label={`${props.label}: Open tooltip for ${props.snitip.title}`}
 			>
 				<span class="snitip-trigger__text">{props.children}</span>
 				<span class="snitip-trigger__icon-container">
