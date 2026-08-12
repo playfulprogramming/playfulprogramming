@@ -29,7 +29,6 @@
 	cursor: pointer;
 	text-align: inherit;
 	outline: none !important;
-	position: relative;
 
 	&:focus-visible {
 		.snitip-trigger__icon {
@@ -39,6 +38,11 @@
 			border-radius: calc(var(--border-width_focus) / 2);
 		}
 	}
+}
+
+.snitip-trigger__icon-container {
+	display: inline-flex;
+	position: relative;
 }
 
 .snitip-trigger__icon {

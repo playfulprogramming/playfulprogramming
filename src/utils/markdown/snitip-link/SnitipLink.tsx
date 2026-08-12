@@ -36,10 +36,12 @@ export function SnitipLink(props: LinkProps): Element {
 				aria-label={`Open tooltip for "${props.snitip.title}"`}
 			>
 				<span class="snitip-trigger__text">{props.children}</span>
-				<span aria-hidden="true" class="snitip-trigger__popup inline-popup">
-					<span class="inline-popup__content">Open tooltip</span>
+				<span class="snitip-trigger__icon-container">
+					<span aria-hidden="true" class="snitip-trigger__popup inline-popup">
+						<span class="inline-popup__content">Open tooltip</span>
+					</span>
+					{InfoIcon}
 				</span>
-				{InfoIcon}
 			</button>
 		</span>
 	) as never;
