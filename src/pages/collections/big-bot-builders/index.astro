@@ -32,11 +32,15 @@ import CollectionTableOfContents from "../../../views/collections/framework-fiel
 const collection = getCollectionBySlug("big-bot-builders", "en");
 const chapterList = getPostsByCollection("big-bot-builders", "en");
 const comingSoon = [
-	{
-		order: 1,
-		title: "Coming soon",
-		description: "Coming soon...",
-	},
+	{order: 1, title: "AI Basics", description: "Coming soon..."},
+	{order: 2, title: "AI Products", description: "Coming soon..."},
+	{order: 3, title: "AI Usage", description: "Coming soon..."},
+	{order: 4, title: "Components of an LLM", description: "Coming soon..."},
+	{order: 5, title: "How Models Learn", description: "Coming soon..."},
+	{order: 6, title: "Coding with LLMs", description: "Coming soon..."},
+	{order: 7, title: "Inside a Transformer Layer", description: "Coming soon..."},
+	{order: 8, title: "Producing the Next Token", description: "Coming soon..."},
+	{order: 9, title: "Fine-tuning and RLHF", description: "Coming soon..."},
 ];
 ---
 
@@ -56,7 +60,7 @@ const comingSoon = [
 		<Rest>
 			<TopContents />
 			<CollectionTableOfContents
-				title="Chapters*"
+				title="Sections*"
 				chaptersToShow={5}
 				chapterList={comingSoon}
 				posts={chapterList}
