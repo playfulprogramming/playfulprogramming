@@ -9,12 +9,12 @@ body {
 :root {
 	--animSpeed: 200ms;
 	--animStyle: ease-in-out;
-	--darkPrimary: #153e67;
+	--darkPrimary: #42130d;
 	--cardRadius: 8px;
-	--cardActiveBackground: #ebf6fc;
+	--cardActiveBackground: #fff3df;
 	--cardActiveBoxShadow:
-		0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #ffffff;
-	--chip-group-pause-button-color: #001a42;
+		0px 2px 4px rgba(66, 19, 13, 0.27), inset 0px 1px 0px #ffffff;
+	--chip-group-pause-button-color: #42130d;
 }
 
 .baseBtn {
@@ -63,4 +63,8 @@ body {
 	overflow: hidden;
 	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
 	clip: rect(1px, 1px, 1px, 1px);
+}
+
+.chip-group-pause-button-container {
+	border-color: white;
 }

@@ -2,7 +2,7 @@
 {
   title: "The Big Bot Builders",
   description:
-    "Welcome to the AI build site.",
+    "A beginner-to-advanced series on how modern AI models are trained, generate responses, use tools, and remember information.",
   coverImg: "./cover.png",
   type: "book",
   tags: [ "ai" ],
