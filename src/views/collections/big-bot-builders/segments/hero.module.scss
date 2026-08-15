@@ -104,7 +104,7 @@
 	margin: 0;
 	color: var(--title);
 	background: var(--sky-light);
-	text-transform: uppercase;
+	text-transform: uppercase !important;
 	z-index: 1;
 	box-sizing: border-box;
 	padding: 1.25rem;
