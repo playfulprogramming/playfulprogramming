@@ -55,7 +55,7 @@ import { FirstLoop } from "../cover-layers/first-loop.tsx";
 		name="second"
 		class="background-repeat-layer"
 	>
-		<div slot="left"><SecondLoop client:load /></div>
+		<div slot="left"><SecondLoop side="left" client:load /></div>
 		<div
 			slot="center"
 			class="unclipped-center"
@@ -63,7 +63,7 @@ import { FirstLoop } from "../cover-layers/first-loop.tsx";
 		>
 			<SecondCenter />
 		</div>
-		<div slot="right"><SecondLoop client:load /></div>
+		<div slot="right"><SecondLoop side="right" client:load /></div>
 	</BookCoverLayer>
 	<BookCoverLayer name="first" class="background-repeat-layer">
 		<div slot="left"><FirstLoop client:load /></div>
