@@ -2,124 +2,123 @@
 @use "../../framework-field-guide/tokens/breakpoints.scss" as *;
 
 .heroContainer {
-	padding: 1rem;
-	padding-top: 2.75rem;
-
-	@include from($desktop) {
-		padding-top: 7rem;
-	}
-}
-
-.titleContainer {
-	max-width: 100%;
-	box-sizing: border-box;
-	border: 4px solid var(--title);
-	width: fit-content;
-	border-radius: var(--spc-3x);
-	position: relative;
-	padding-top: calc((2.75rem / 2) + var(--spc-1x));
-	padding-bottom: calc((2.75rem / 2) + var(--spc-1x));
-	padding-right: var(--spc-1x);
-	padding-left: var(--spc-1x);
-	margin: 0 auto;
-	margin-top: calc(2.75rem / 2);
-	margin-bottom: calc(2.75rem / 2);
-
-	@include from($desktop) {
-		padding-top: calc((5rem / 2) + var(--spc-3x));
-		padding-bottom: calc((5rem / 2) + var(--spc-3x));
-		padding-right: var(--spc-3x);
-		padding-left: var(--spc-3x);
-	}
-}
-
-.title {
-	color: var(--title);
-	text-transform: uppercase !important;
-	margin: 0;
-	display: contents;
-}
-
-.titleFirst {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	transform: translateY(-50%) translateX(-50%);
-	background: var(--sky);
-	padding-left: 1rem;
-	padding-right: 1rem;
-
-	@include from($desktop) {
-		padding-left: 2rem;
-		padding-right: 2rem;
-	}
-}
-
-.titleMiddle {
-	z-index: 1;
-	position: relative;
-	display: block;
-}
-
-.titleMiddleHidden {
-	opacity: 0;
-	padding-right: var(--spc-6x);
-	padding-left: var(--spc-6x);
-}
-
-.titleMiddleShown {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%) translateX(-50%);
-	left: 50%;
-	text-wrap: nowrap;
-}
-
-.titleLast {
-	position: absolute;
-	bottom: 0;
-	transform: translateY(50%) translateX(-50%);
-	left: 50%;
-	background: var(--sky);
-	padding-left: 1.5rem;
-	padding-right: 1.5rem;
-
-	@include from($desktop) {
-		padding-left: 3rem;
-		padding-right: 3rem;
-	}
-}
-
-.readNowContainer {
-	padding: var(--spc-1x) var(--section-hor-padding);
-	max-width: var(--max-width_small);
-	margin-left: auto;
-	margin-right: auto;
-
-	@include from($desktop) {
-		padding-top: var(--spc-3x);
-	}
-}
-
-.readNowText {
-	color: var(--title);
-	white-space: pre-line;
+	padding: var(--spc-6x) var(--section-hor-padding);
 	text-align: center;
+
+	// Font size + button vert padding * 2
+	--readNowButtonHeight: calc(
+		1.125rem + calc(var(--btn-ver-padding_large) * 2)
+	);
+	--outline-gap: var(--spc-2x);
+
+	@include from($desktop) {
+		--outline-gap: var(--spc-3x);
+	}
+}
+
+.bannerContainer {
+	max-width: var(--max-width_small);
+	margin: 0 auto;
+}
+
+.introducing {
+	letter-spacing: 0.25em !important;
+	text-transform: uppercase !important;
+	color: var(--title);
+	padding: 0 var(--section-hor-padding);
+	margin: 0;
+}
+
+.seriesTitle {
+	margin-top: var(--spc-1x);
+	margin-bottom: calc(var(--section-ver-padding) * 2);
+	color: var(--title);
+	padding: 0 var(--section-hor-padding);
+	line-height: 1.2 !important;
+}
+
+@include until($tablet) {
+	.seriesTitle {
+		margin-bottom: calc(var(--section-ver-padding) * 3);
+	}
+}
+
+.description {
+	color: var(--title);
 	margin: 0;
 }
 
 .ffgWord {
+	font-weight: bold;
 	color: black;
 	position: relative;
 	border-radius: var(--spc-1x);
 }
 
-.buttonContainer {
+.buttonReadNow {
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translateX(-50%) translateY(50%);
+	background: var(--sky);
+	padding: 0 var(--outline-gap);
+	white-space: nowrap;
+}
+
+.readNowContainer {
+	position: relative;
+	box-sizing: border-box;
+	padding-top: calc(var(--section-ver-padding) * 1.5);
+	padding-right: var(--section-hor-padding);
+	padding-left: var(--section-hor-padding);
+	padding-bottom: calc(
+		var(--section-ver-padding) + calc(var(--readNowButtonHeight) / 2)
+	);
+	border: 3px dotted var(--outline);
+	border-radius: var(--corner-radius-2x);
+}
+
+@include until($tablet) {
+	.readNowContainer {
+		padding-top: calc(var(--section-ver-padding) * 3);
+	}
+}
+
+.ribbonContainer {
+	position: absolute;
+	top: -1rem;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+}
+
+.leftRibbon {
+	width: 4.75rem;
+	position: absolute;
+	transform: scaleX(-1) translateX(100%);
+	left: 1.5rem;
+	top: 1.5rem;
+}
+
+.ribbonText {
+	margin: 0;
+	color: var(--title);
+	background: var(--sky-light);
+	text-transform: uppercase;
+	z-index: 1;
+	box-sizing: border-box;
+	padding: 1.25rem;
+	min-height: 4rem;
 	display: flex;
 	justify-content: center;
-	margin-top: var(--spc-2x);
+	align-items: center;
+	font-weight: 800 !important;
+}
 
-	@include from($desktop) {
-		margin-top: var(--spc-4x);
-	}
+.rightRibbon {
+	width: 4.75rem;
+	position: absolute;
+	transform: translateX(100%);
+	right: 1.5rem;
+	top: 1.5rem;
 }
