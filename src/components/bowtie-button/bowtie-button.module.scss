@@ -1,0 +1,63 @@
+.bowtie-button {
+  border: none;
+  background: none;
+  position: relative;
+  padding: 20px;
+  overflow: hidden;
+  color: white;
+  border-radius: 9999px;
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  user-select: none;
+}
+
+.staticBackground {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -2;
+  top: 0;
+  left: 0;
+  background: #00344d;
+  transition: background 300ms ease-in-out;
+}
+
+.bowtie-button:hover .staticBackground {
+  background: #004c6d;
+}
+
+.bowtie-button:active .staticBackground {
+  background: #006590;
+}
+
+.bowtie-visibility {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+.bowtie-button:hover .bowtie-visibility,
+.bowtie-button:active .bowtie-visibility {
+  opacity: 1;
+}
+
+.bowties {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-repeat: repeat;
+  background-size: 8px 8px;
+  background-image: url('/bowtie-button-demo/assets/bowtie-frames.svg#frame0');
+  transform-origin: center;
+  background-position: center;
+}
