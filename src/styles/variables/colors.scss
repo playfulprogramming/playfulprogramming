@@ -1,8 +1,5 @@
-// https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
-
-@use "src/tokens/index" as *;
-
 :root,
+// https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
 ::backdrop {
 
   --lightness-10: 22%;

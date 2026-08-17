@@ -1,9 +1,6 @@
-@use "src/tokens/index" as *;
-
-// https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
-
-/* Light theme */
+// Light theme
 :root,
+// https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
 ::backdrop {
 	--primary_default: var(--primary40);
 	--primary_on-default: var(--primary95);
