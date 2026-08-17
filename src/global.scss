@@ -24,6 +24,12 @@
 	@include transition(scrollbar-color);
 
 	box-sizing: border-box;
+	--sticker_bg: var(--primary50);
+	--sticker_flap: var(--neutral95);
+	--sticker_bowtie: var(--primary20);
+	--sticker_bowtie-dot: var(--primary50);
+	--sticker_back-ear: var(--primary90);
+	--sticker_unicorn-gradient: var(--primary95);
 }
 
 * {
