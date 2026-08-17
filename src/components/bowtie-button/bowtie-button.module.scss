@@ -1,5 +1,6 @@
 .bowtieButton {
 	position: relative;
+	isolation: isolate;
 	overflow: hidden;
 	color: var(--btn_primary_foreground-color_emphasized);
 }
