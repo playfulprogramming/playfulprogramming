@@ -1,7 +1,7 @@
 .bowtieButton {
 	position: relative;
 	overflow: hidden;
-    color: var(--btn_primary_foreground-color_emphasized);
+	color: var(--btn_primary_foreground-color_emphasized);
 }
 
 .staticBackground {
@@ -11,7 +11,7 @@
 	z-index: -2;
 	top: 0;
 	left: 0;
-    background-color: var(--btn_primary_background-color_emphasized);
+	background-color: var(--btn_primary_background-color_emphasized);
 	transition: background 300ms ease-in-out;
 }
 
