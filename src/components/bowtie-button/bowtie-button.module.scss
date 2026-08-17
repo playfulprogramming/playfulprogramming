@@ -29,7 +29,7 @@
 	background-color: var(--btn_primary_background-color_emphasized_pressed);
 }
 
-.bowtie-visibility {
+.bowtieVisibility {
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -40,8 +40,8 @@
 	transition: opacity 300ms ease-in-out;
 }
 
-.bowtieButton:hover .bowtie-visibility,
-.bowtieButton:active .bowtie-visibility {
+.bowtieButton:hover .bowtieVisibility,
+.bowtieButton:active .bowtieVisibility {
 	opacity: 1;
 }
 

@@ -17,11 +17,11 @@ const { className, href } = Astro.props;
 	<div aria-hidden="true" class="buttonIcon">
 		<slot name="leftIcon" />
 	</div>
-	<slot />
-	<div class="bowtie-visibility">
-		<div class="bowties"></div>
+	<span class="innerText"><slot /></span>
+	<div class={`${styles.bowtieVisibility}`}>
+		<div data-bowtie class={`${styles.bowties}`}></div>
 	</div>
-	<div class="staticBackground"></div>
+	<div class={`${styles.staticBackground}`}></div>
 </a>
 
 <script src="./bowtie-button-script.ts"></script>

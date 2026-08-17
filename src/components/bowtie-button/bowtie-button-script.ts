@@ -5,8 +5,8 @@ const frameIntervals = 9;
 const el = document.querySelector<HTMLLinkElement>("#bowtie-button");
 if (!el) throw new Error("Missing #bowtie-button element");
 
-const bowties = el.querySelector<HTMLElement>(".bowties")!;
-if (!bowties) throw new Error("Missing .bowties element");
+const bowties = el.querySelector<HTMLElement>("[data-bowtie]")!;
+if (!bowties) throw new Error("Missing [data-bowtie] element");
 
 // The scale is deliberately non-uniform: it tightens the vertical tile spacing, and each frame SVG
 // pre-stretches its artwork to match so the bowties stay un-squished. See assets/README.md.
