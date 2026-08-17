@@ -1,11 +1,27 @@
 ---
-interface Props {}
+import styles from "./bowtie-button.module.scss";
+
+interface Props {
+	className?: string;
+	href?: string;
+}
+
+const { className, href } = Astro.props;
 ---
 
-<button class="bowtie-button">
-	Join our Discord
+<a
+	id="bowtie-button"
+	class={`button large text-style-button-large ${styles.bowtieButton} ${className || ""}`}
+	href={href}
+>
+	<div aria-hidden="true" class="buttonIcon">
+		<slot name="leftIcon" />
+	</div>
+	<slot />
 	<div class="bowtie-visibility">
 		<div class="bowties"></div>
 	</div>
 	<div class="staticBackground"></div>
-</button>
+</a>
+
+<script src="./bowtie-button-script.ts"></script>

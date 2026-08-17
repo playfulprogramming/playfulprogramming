@@ -2,8 +2,11 @@ const animDurationMs = 300;
 // The final frame is frame9, so there are nine intervals between frame0 and frame9.
 const frameIntervals = 9;
 
-const el = document.querySelector(".bowtie-button");
-const bowties = el.querySelector(".bowties");
+const el = document.querySelector<HTMLLinkElement>("#bowtie-button");
+if (!el) throw new Error("Missing #bowtie-button element");
+
+const bowties = el.querySelector<HTMLElement>(".bowties")!;
+if (!bowties) throw new Error("Missing .bowties element");
 
 // The scale is deliberately non-uniform: it tightens the vertical tile spacing, and each frame SVG
 // pre-stretches its artwork to match so the bowties stay un-squished. See assets/README.md.
@@ -24,8 +27,8 @@ const press = new Animation(
 
 let progress = 0;
 let targetProgress = 0;
-let previousTimestamp = null;
-let rafId = null;
+let previousTimestamp: number | null = null;
+let rafId: number | null = null;
 let renderedFrame = 0;
 
 function render() {
@@ -38,10 +41,10 @@ function render() {
 	if (frameNum === renderedFrame) return;
 
 	renderedFrame = frameNum;
-	bowties.style.backgroundImage = `url("/bowtie-button-demo/assets/bowtie-frames.svg#frame${frameNum}")`;
+	bowties.style.backgroundImage = `url("/animations/bowtie-frames.svg#frame${frameNum}")`;
 }
 
-function advance(timestamp) {
+function advance(timestamp: number) {
 	if (previousTimestamp === null) return;
 
 	const elapsedProgress =
@@ -82,7 +85,7 @@ function tick() {
 	rafId = requestAnimationFrame(tick);
 }
 
-function setPressed(isPressed) {
+function setPressed(isPressed: boolean) {
 	const nextTarget = isPressed ? 1 : 0;
 	if (nextTarget === targetProgress) return;
 
@@ -102,8 +105,8 @@ function setPressed(isPressed) {
 	if (rafId === null) rafId = requestAnimationFrame(tick);
 }
 
-const activePointers = new Set();
-const activeKeys = new Set();
+const activePointers = new Set<number>();
+const activeKeys = new Set<string>();
 
 function syncPressedState() {
 	setPressed(activePointers.size > 0 || activeKeys.size > 0);
@@ -121,7 +124,7 @@ el.addEventListener("pointerdown", (event) => {
 	syncPressedState();
 });
 
-function releasePointer(event) {
+function releasePointer(event: PointerEvent) {
 	if (!activePointers.delete(event.pointerId)) return;
 	syncPressedState();
 }
@@ -130,11 +133,11 @@ document.addEventListener("pointerup", releasePointer, true);
 document.addEventListener("pointercancel", releasePointer, true);
 el.addEventListener("lostpointercapture", releasePointer);
 
-function isActivationKey(event) {
+function isActivationKey(event: KeyboardEvent) {
 	return event.key === "Enter" || event.key === " ";
 }
 
-function keyId(event) {
+function keyId(event: KeyboardEvent) {
 	return event.code || event.key;
 }
 
