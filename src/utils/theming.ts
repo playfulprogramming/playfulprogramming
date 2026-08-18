@@ -1,4 +1,4 @@
-const BRAND_THEME_STORAGE_KEY = "brandTheme";
+import { BRAND_THEME_STORAGE_KEY } from "../constants/theme.ts";
 
 export const saveBrandTheme = (
 	root: HTMLElement = document.documentElement,
@@ -37,6 +37,17 @@ export const loadBrandTheme = (
 	}
 };
 
+export const resetBrandTheme = (
+	root: HTMLElement = document.documentElement,
+) => {
+	root.style.removeProperty("--primary-hue");
+	root.style.removeProperty("--secondary-hue");
+	root.style.removeProperty("--positive-hue");
+	root.style.removeProperty("--error-hue");
+	root.style.removeProperty("--chroma");
+	localStorage.removeItem(BRAND_THEME_STORAGE_KEY);
+};
+
 export const harmonize = (hue: number, tint: number, strength = 0.15) => {
 	const offset = ((tint - hue + 540) % 360) - 180;
 	return (hue + offset * strength + 360) % 360;
@@ -44,7 +55,7 @@ export const harmonize = (hue: number, tint: number, strength = 0.15) => {
 
 export const randHue = () => Math.floor(Math.random() * 360);
 
-export const updateTheme = (
+export const updateBrandTheme = (
 	root: HTMLElement = document.documentElement,
 	randomizeChroma: boolean,
 ) => {
