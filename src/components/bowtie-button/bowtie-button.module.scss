@@ -1,0 +1,66 @@
+@use "src/tokens/index" as *;
+
+.bowtieButton {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	color: var(--btn_primary_foreground-color_emphasized);
+}
+
+.staticBackground {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: -2;
+	top: 0;
+	left: 0;
+	background-color: var(--btn_primary_background-color_emphasized);
+	transition: background 300ms ease-in-out;
+}
+
+.bowtieButton:focus-visible {
+	outline: var(--btn_primary_focus-outline_width) solid
+		var(--btn_primary_focus-outline_color);
+	outline-offset: var(--btn_primary_focus-outline_gap);
+}
+
+.bowtieButton:hover .staticBackground {
+	background-color: var(--btn_primary_background-color_emphasized_hovered);
+}
+
+.bowtieButton:active .staticBackground {
+	background-color: var(--btn_primary_background-color_emphasized_pressed);
+}
+
+.bowtieVisibility {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	transition: opacity 300ms ease-in-out;
+}
+
+.bowtieButton:hover .bowtieVisibility,
+.bowtieButton:active .bowtieVisibility {
+	opacity: 1;
+}
+
+.bowties {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-repeat: repeat;
+	background-size: 8px 8px;
+	background-image: url("/animations/bowtie-frames.svg#frame0");
+	transform-origin: center;
+	background-position: center;
+
+	@include darkTheme {
+		background-image: url("/animations/bowtie-frames.svg#dark-frame0");
+	}
+}
