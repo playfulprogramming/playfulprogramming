@@ -1,6 +1,7 @@
 :root,
 // https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
 ::backdrop {
+
 	--lightness-10: 22%;
 	--lightness-15: 27%;
 	--lightness-20: 32%;
@@ -14,18 +15,18 @@
 	--lightness-95: 96%;
 	--lightness-99: 98%;
 
-	--brand-chroma-10: 0.04;
-	--brand-chroma-15: 0.04;
-	--brand-chroma-20: 0.04;
-	--brand-chroma-30: 0.075;
-	--brand-chroma-40: 0.1;
-	--brand-chroma-50: 0.105;
-	--brand-chroma-60: 0.11;
-	--brand-chroma-70: 0.115;
-	--brand-chroma-80: 0.12;
-	--brand-chroma-90: 0.05;
-	--brand-chroma-95: 0.0285;
-	--brand-chroma-99: 0.0175;
+	--brand-chroma-10: calc(0.04 * var(--chroma));
+	--brand-chroma-15: calc(0.04 * var(--chroma));
+	--brand-chroma-20: calc(0.04 * var(--chroma));
+	--brand-chroma-30: calc(0.075 * var(--chroma));
+	--brand-chroma-40: calc(0.1 * var(--chroma));
+	--brand-chroma-50: calc(0.105 * var(--chroma));
+	--brand-chroma-60: calc(0.11 * var(--chroma));
+	--brand-chroma-70: calc(0.115 * var(--chroma));
+	--brand-chroma-80: calc(0.12 * var(--chroma));
+	--brand-chroma-90: calc(0.05 * var(--chroma));
+	--brand-chroma-95: calc(0.0285 * var(--chroma));
+	--brand-chroma-99: calc(0.0175 * var(--chroma));
 
 	--opacity-primary-medium: 0.64;
 	--opacity-primary-low: 0.32;
