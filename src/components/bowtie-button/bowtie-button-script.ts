@@ -30,6 +30,12 @@ let targetProgress = 0;
 let previousTimestamp: number | null = null;
 let rafId: number | null = null;
 let renderedFrame = 0;
+let renderedDarkMode = document.documentElement.classList.contains("dark");
+
+function frameUrl(frameNum: number, darkMode: boolean) {
+	const frameId = `${darkMode ? "dark-" : ""}frame${frameNum}`;
+	return `url("/animations/bowtie-frames.svg#${frameId}")`;
+}
 
 function render() {
 	press.currentTime = progress * animDurationMs;
@@ -38,11 +44,26 @@ function render() {
 		frameIntervals,
 		Math.floor(progress * frameIntervals),
 	);
-	if (frameNum === renderedFrame) return;
+	const darkMode = document.documentElement.classList.contains("dark");
+	if (frameNum === renderedFrame && darkMode === renderedDarkMode) return;
 
 	renderedFrame = frameNum;
-	bowties.style.backgroundImage = `url("/animations/bowtie-frames.svg#frame${frameNum}")`;
+	renderedDarkMode = darkMode;
+	bowties.style.backgroundImage = frameUrl(frameNum, darkMode);
 }
+
+// Theme toggles can happen while the animation is held on its final frame, after its RAF loop has
+// stopped. Watch the root class so the current frame (including frame0 at rest) swaps immediately.
+new MutationObserver(() => {
+	const darkMode = document.documentElement.classList.contains("dark");
+	if (darkMode === renderedDarkMode) return;
+
+	renderedDarkMode = darkMode;
+	bowties.style.backgroundImage = frameUrl(renderedFrame, darkMode);
+}).observe(document.documentElement, {
+	attributes: true,
+	attributeFilter: ["class"],
+});
 
 function advance(timestamp: number) {
 	if (previousTimestamp === null) return;
@@ -69,6 +90,7 @@ function finishAtTarget() {
 	press.cancel();
 	bowties.style.removeProperty("background-image");
 	renderedFrame = 0;
+	renderedDarkMode = document.documentElement.classList.contains("dark");
 }
 
 function tick() {

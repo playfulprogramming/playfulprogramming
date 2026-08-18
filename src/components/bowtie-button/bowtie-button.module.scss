@@ -1,3 +1,5 @@
+@use "src/tokens/index" as *;
+
 .bowtieButton {
 	position: relative;
 	isolation: isolate;
@@ -57,4 +59,8 @@
 	background-image: url("/animations/bowtie-frames.svg#frame0");
 	transform-origin: center;
 	background-position: center;
+
+	@include darkTheme {
+		background-image: url("/animations/bowtie-frames.svg#dark-frame0");
+	}
 }
