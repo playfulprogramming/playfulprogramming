@@ -6,11 +6,11 @@ export const saveBrandTheme = (
 	if (typeof window === "undefined") return;
 
 	const theme = {
-		"primary-hue": root.style.getPropertyValue("--primary-hue"),
-		"secondary-hue": root.style.getPropertyValue("--secondary-hue"),
-		"positive-hue": root.style.getPropertyValue("--positive-hue"),
-		"error-hue": root.style.getPropertyValue("--error-hue"),
-		chroma: root.style.getPropertyValue("--chroma"),
+		"hue-primary": root.style.getPropertyValue("--hue-primary"),
+		"hue-secondary": root.style.getPropertyValue("--hue-secondary"),
+		"hue-positive": root.style.getPropertyValue("--hue-positive"),
+		"hue-error": root.style.getPropertyValue("--hue-error"),
+		"chroma-factor": root.style.getPropertyValue("--chroma-factor"),
 	};
 
 	localStorage.setItem(BRAND_THEME_STORAGE_KEY, JSON.stringify(theme));
@@ -40,17 +40,29 @@ export const loadBrandTheme = (
 export const resetBrandTheme = (
 	root: HTMLElement = document.documentElement,
 ) => {
-	root.style.removeProperty("--primary-hue");
-	root.style.removeProperty("--secondary-hue");
-	root.style.removeProperty("--positive-hue");
-	root.style.removeProperty("--error-hue");
-	root.style.removeProperty("--chroma");
+	root.style.removeProperty("--hue-primary");
+	root.style.removeProperty("--hue-secondary");
+	root.style.removeProperty("--hue-positive");
+	root.style.removeProperty("--hue-error");
+	root.style.removeProperty("--chroma-factor");
 	localStorage.removeItem(BRAND_THEME_STORAGE_KEY);
 };
 
-export const harmonize = (hue: number, tint: number, strength = 0.15) => {
+export const harmonize = (
+	hue: number,
+	tint: number,
+	isSemantic: boolean = false,
+	strength = 0.15,
+) => {
+	const limit = 10;
 	const offset = ((tint - hue + 540) % 360) - 180;
-	return (hue + offset * strength + 360) % 360;
+	const result = hue + offset * strength;
+
+	return (
+		(isSemantic
+			? Math.min(Math.max(result, hue - limit), hue + limit)
+			: result + 360) % 360
+	);
 };
 
 export const randHue = () => Math.floor(Math.random() * 360);
@@ -61,28 +73,26 @@ export const updateBrandTheme = (
 ) => {
 	const styles = getComputedStyle(root);
 
-	const chroma = Number(styles.getPropertyValue("--chroma").trim() || 0);
-
 	const positive = Number(
-		styles.getPropertyValue("--positive-hue").trim() || 0,
+		styles.getPropertyValue("--pfp-hue-positive").trim() || 0,
 	);
 
-	const error = Number(styles.getPropertyValue("--error-hue").trim() || 0);
+	const error = Number(styles.getPropertyValue("--pfp-hue-error").trim() || 0);
 
 	const primary = randHue();
 	const secondary = harmonize((primary + 120) % 360, primary);
-	const harmonizedPositive = harmonize(positive, primary);
-	const harmonizedError = harmonize(error, primary);
+	const harmonizedPositive = harmonize(positive, primary, true);
+	const harmonizedError = harmonize(error, primary, true);
 
-	root.style.setProperty("--primary-hue", String(primary));
-	root.style.setProperty("--secondary-hue", String(secondary));
-	root.style.setProperty("--positive-hue", String(harmonizedPositive));
-	root.style.setProperty("--error-hue", String(harmonizedError));
+	root.style.setProperty("--hue-primary", String(primary));
+	root.style.setProperty("--hue-secondary", String(secondary));
+	root.style.setProperty("--hue-positive", String(harmonizedPositive));
+	root.style.setProperty("--hue-error", String(harmonizedError));
 	root.style.setProperty("--sticker_bowtie-dot", "var(--secondary70)");
 	root.style.setProperty("--sticker_bowtie", "var(--secondary30)");
 
 	if (randomizeChroma) {
-		root.style.setProperty("--chroma", String(Math.random() * 2));
+		root.style.setProperty("--chroma-factor", String(Math.random() * 2));
 	}
 
 	saveBrandTheme(root);

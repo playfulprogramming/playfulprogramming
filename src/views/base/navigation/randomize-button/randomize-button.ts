@@ -1,4 +1,4 @@
-import { updateBrandTheme, resetBrandTheme } from "src/utils/theming";
+import { updateBrandTheme, resetBrandTheme } from "#src/utils/theming.ts";
 
 export const randomizeButtonListener = () => {
 	const randomizeBtn = document.querySelector("#randomizebtn");

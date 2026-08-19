@@ -4,17 +4,21 @@
 ::backdrop {
 	--primary_default: var(--primary40);
 	--primary_on-default: var(--primary95);
+	--primary_default_semantic: var(--primary40_semantic);
 	--primary_variant: var(--primary80);
 	--primary_on-variant: var(--primary20);
+	--primary_variant_semantic: var(--primary80_semantic);
 
 	--primary_high-contrast: var(--primary20);
 	--primary_high-contrast_hovered: var(--primary30);
 	--primary_high-contrast_pressed: var(--primary40);
 
 	--secondary_default: var(--secondary40);
+	--secondary_default_semantic: var(--secondary40_semantic);
 	--secondary_on-default: var(--secondary95);
 	--secondary_variant: var(--secondary80);
 	--secondary_on-variant: var(--secondary20);
+	--secondary_variant_semantic: var(--secondary80_semantic);
 
 	--secondary_high-contrast: var(--secondary20);
 	--secondary_high-contrast_hovered: var(--secondary30);
@@ -77,10 +81,11 @@
 	--foreground_emphasis-medium: var(--neutral20_medium);
 	--foreground_disabled: var(--neutral20_low);
 
-	--focus-outline_primary: var(--primary40);
-	--focus-outline_secondary: var(--secondary40);
-	--focus-outline_positive: var(--positive40);
-	--focus-outline_error: var(--error40);
+	--focus-outline_primary: var(--primary40_semantic);
+	--focus-outline_secondary: var(--secondary40_semantic);
+	--focus-outline_positive: var(--positive40_semantic);
+	--focus-outline_error: var(--error40_semantic);
+
 }
 
 html.dark,
@@ -89,8 +94,10 @@ body.dark,
 	&,
 	& ::backdrop {
 		--primary_default: var(--primary80);
+		--primary_default_semantic: var(--primary80_semantic);
 		--primary_on-default: var(--primary20);
 		--primary_variant: var(--primary40);
+		--primary_variant_semantic: var(--primary40_semantic);
 		--primary_on-variant: var(--primary95);
 
 		--primary_high-contrast: var(--primary80);
@@ -98,8 +105,10 @@ body.dark,
 		--primary_high-contrast_pressed: var(--primary60);
 
 		--secondary_default: var(--secondary80);
+		--secondary_default_semantic: var(--secondary80_semantic);
 		--secondary_on-default: var(--secondary20);
 		--secondary_variant: var(--secondary40);
+		--secondary_variant_semantic: var(--secondary40_semantic);
 		--secondary_on-variant: var(--secondary95);
 
 		--secondary_high-contrast: var(--secondary80);
@@ -163,9 +172,9 @@ body.dark,
 		--foreground_emphasis-medium: var(--neutral90_medium);
 		--foreground_disabled: var(--neutral90_low);
 
-		--focus-outline_primary: var(--primary80);
-		--focus-outline_secondary: var(--secondary80);
-		--focus-outline_positive: var(--positive80);
-		--focus-outline_error: var(--error80);
+		--focus-outline_primary: var(--primary80_semantic);
+		--focus-outline_secondary: var(--secondary80_semantic);
+		--focus-outline_positive: var(--positive80_semantic);
+		--focus-outline_error: var(--error80_semantic);
 	}
 }
