@@ -88,8 +88,6 @@ export const updateBrandTheme = (
 	root.style.setProperty("--hue-secondary", String(secondary));
 	root.style.setProperty("--hue-positive", String(harmonizedPositive));
 	root.style.setProperty("--hue-error", String(harmonizedError));
-	root.style.setProperty("--sticker_bowtie-dot", "var(--secondary70)");
-	root.style.setProperty("--sticker_bowtie", "var(--secondary30)");
 
 	if (randomizeChroma) {
 		root.style.setProperty("--chroma-factor", String(Math.random() * 2));
