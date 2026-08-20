@@ -89,7 +89,11 @@ export const updateBrandTheme = (
 	root.style.setProperty("--hue-positive", String(harmonizedPositive));
 	root.style.setProperty("--hue-error", String(harmonizedError));
 
-	if (randomizeChroma) {
+	const prefersMoreContrast = window.matchMedia(
+		"(prefers-contrast: more)",
+	).matches;
+
+	if (randomizeChroma && !prefersMoreContrast) {
 		root.style.setProperty("--chroma-factor", String(Math.random() * 2));
 	}
 

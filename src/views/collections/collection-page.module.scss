@@ -12,9 +12,9 @@
 	--collection-page_title_padding-top: var(--site-spacing);
 	--collection-page_title_padding-bottom: var(--spc-2x);
 
-	--collection-page_title_color: var(--foreground_emphasis-high);
-	--collection-page_subtitle_color: var(--foreground_emphasis-medium);
-	--collection-page_description_color: var(--foreground_emphasis-high);
+	--collection-page_title_color: var(--foreground_high);
+	--collection-page_subtitle_color: var(--foreground_medium);
+	--collection-page_description_color: var(--foreground_high);
 
 	@include from($tabletSmall) {
 		--collection-page_banner_max-width: 240px;

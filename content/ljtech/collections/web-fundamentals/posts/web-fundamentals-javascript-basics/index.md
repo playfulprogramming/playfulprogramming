@@ -230,7 +230,7 @@ function isLarger(first, second) {
 
 Arrow functions are more succinct version of standard functions. 
 
-<img src="./js_arrow_diff.svg" style="border-radius: var(--corner-radius_l); background-color: var(--surface_primary_emphasis-none);" alt="Two examples of functions; one standard, and the other is an arrow function, showing the differences between them."></img>
+<img src="./js_arrow_diff.svg" style="border-radius: var(--corner-radius_l); background-color: var(--tint_primary_none);" alt="Two examples of functions; one standard, and the other is an arrow function, showing the differences between them."></img>
 
 ```js
 /* A function like the following: */
@@ -244,7 +244,7 @@ const isLarger = (first, second) => first > second;
 
 A much shorter syntax is achieved when there is only one `return` statement, as shown above, ignoring the need for the body brackets (`{}`).
 
-<img src="./js_arrow_args.svg" style="border-radius: var(--corner-radius_l); background-color: var(--surface_primary_emphasis-none);" alt="An example showing the more concise syntax of the arrow function with no need for parentheses or a return statement."></img>
+<img src="./js_arrow_args.svg" style="border-radius: var(--corner-radius_l); background-color: var(--tint_primary_none);" alt="An example showing the more concise syntax of the arrow function with no need for parentheses or a return statement."></img>
 
 Besides that, arrow functions differ in one important area: The context of the `this` keyword.
 

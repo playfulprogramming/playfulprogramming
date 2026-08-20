@@ -12,9 +12,9 @@
 	margin-top: var(--site-spacing);
 	margin-bottom: calc(var(--site-spacing) * 3);
 
-	color: var(--primary_on-variant);
+	color: var(--primary_on-low);
 	text-shadow:
-		0px 8px 0px var(--primary_variant),
+		0px 8px 0px var(--primary_low),
 		0px -8px 0px #fff;
 
 	@include until($tabletLarge) {
@@ -32,7 +32,7 @@
 	@include transition(text-shadow);
 	@include darkTheme {
 		text-shadow:
-			0px 8px 0px var(--primary_variant),
+			0px 8px 0px var(--primary_low),
 			0px -8px 0px #000;
 	}
 }

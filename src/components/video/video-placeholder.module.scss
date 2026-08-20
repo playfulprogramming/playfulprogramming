@@ -12,14 +12,14 @@
 	);
 	--embed-iframe_border-width: var(--border-width_s);
 
-	--embed_background-color: var(--surface_primary_emphasis-none);
+	--embed_background-color: var(--tint_primary_none);
 	--embed_favicon_container_size: var(--min-target-size_m);
 	--embed_favicon_container_background-color: var(
-		--surface_primary_emphasis-low
+		--tint_primary_low
 	);
 	--embed_favicon_icon-size: var(--icon-size_default);
-	--embed_favicon_icon_color: var(--primary_on-variant);
-	--embed_iframe_background-color: var(--surface_primary_emphasis-low);
+	--embed_favicon_icon_color: var(--primary_on-low);
+	--embed_iframe_background-color: var(--tint_primary_low);
 	--embed_iframe_border_color: var(--foreground_disabled);
 
 	@include from($desktopSmall) {
@@ -117,7 +117,7 @@
 
 	.placeholderButton {
 		background: var(--background_focus);
-		color: var(--primary_on-variant);
+		color: var(--primary_on-low);
 		height: 72px;
 		width: 72px;
 		position: absolute;
@@ -127,7 +127,7 @@
 	}
 
 	.placeholderButton:hover {
-		background: var(--primary_variant);
+		background: var(--primary_low);
 	}
 
 	.placeholderButton svg path {

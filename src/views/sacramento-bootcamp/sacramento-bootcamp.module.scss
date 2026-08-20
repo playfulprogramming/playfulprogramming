@@ -1,7 +1,7 @@
 @use "src/tokens/index" as *;
 
 .invitedText {
-	color: var(--primary_default);
+	color: var(--primary_medium);
 	margin: 0;
 	text-align: center;
 	margin-top: calc(var(--site-spacing) * 2);
@@ -76,7 +76,7 @@
 	align-items: center;
 	justify-content: center;
 	border-radius: var(--corner-radius_circular);
-	background: var(--surface_primary_emphasis-low);
+	background: var(--tint_primary_low);
 }
 
 .whenIcon > svg,
@@ -92,7 +92,7 @@
 .whereDescriptionContainer {
 	padding: var(--spc-6x);
 	border-radius: var(--corner-radius_xl);
-	background: var(--surface_primary_emphasis-none);
+	background: var(--tint_primary_none);
 }
 
 .outcomesContainer {
@@ -117,7 +117,7 @@
 }
 
 .welcomeText {
-	color: var(--primary_on-variant);
+	color: var(--primary_high);
 	margin: 0;
 }
 
@@ -134,7 +134,7 @@
 	display: flex;
 	align-items: center;
 	gap: 12px;
-	color: var(--primary_on-variant);
+	color: var(--primary_high);
 }
 
 .outcomesListContainer {
@@ -164,7 +164,7 @@
 }
 
 .classIsFullText {
-	color: var(--error_default);
+	color: var(--error_medium);
 }
 
 .eighteenWarningContainer {
@@ -172,7 +172,7 @@
 	align-items: center;
 	padding: var(--spc-3x) var(--spc-5x) var(--spc-3x) var(--spc-3x);
 	gap: var(--spc-3x);
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 	width: fit-content;
 }
 
@@ -212,7 +212,7 @@
 }
 
 .sponsorContainer {
-	background: var(--surface_primary_emphasis-none);
+	background: var(--tint_primary_none);
 	max-width: 100%;
 	padding: var(--spc-4x);
 	padding-left: var(--spc-6x);
@@ -256,7 +256,7 @@
 }
 
 .weekTitle {
-	color: var(--primary_default);
+	color: var(--primary_medium);
 }
 
 .moduleItemList {
@@ -265,11 +265,11 @@
 	display: flex;
 	flex-direction: column;
 	padding: 1rem var(--spc-2x);
-	background: var(--surface_primary_emphasis-none);
+	background: var(--tint_primary_none);
 	border-radius: var(--site-spacing);
 }
 
 .moduleItemListItem {
 	padding: 0.5rem 1rem;
-	color: var(--primary_default);
+	color: var(--primary_medium);
 }

@@ -7,16 +7,16 @@
 	--heading-link_padding-end: var(--spc-3x);
 	--heading-link_gap: var(--spc-1x);
 
-	--heading-link_border-color: var(--secondary_variant);
-	--heading-link_border-color_copied: var(--secondary_default);
+	--heading-link_border-color: var(--secondary_low);
+	--heading-link_border-color_copied: var(--secondary_medium);
 	--heading-link_border-width: 1px;
 
 	--heading-link_background: var(--background_secondary);
-	--heading-link_background_copied: var(--secondary_variant);
-	--heading-link_color: var(--secondary_on-variant);
+	--heading-link_background_copied: var(--secondary_low);
+	--heading-link_color: var(--secondary_on-low);
 
-	--heading-link_icon-color: var(--secondary_default);
-	--heading-link_icon-color_copied: var(--secondary_on-variant);
+	--heading-link_icon-color: var(--secondary_medium);
+	--heading-link_icon-color_copied: var(--secondary_on-low);
 
 	--heading-link_outline-color: var(--focus-outline_secondary);
 	--heading-link_outline-width: var(--border-width_focus);

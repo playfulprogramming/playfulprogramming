@@ -88,7 +88,7 @@
 	top: 0;
 	height: 100%;
 	width: 4px;
-	background: var(--primary_variant);
+	background: var(--primary_low);
 }
 
 .largeCardImage {
@@ -98,7 +98,7 @@
 }
 
 .largeCard {
-	background: var(--surface_primary_emphasis-none);
+	background: var(--tint_primary_none);
 	border-radius: var(--site-spacing);
 	padding: calc(var(--site-spacing) / 2);
 	display: flex;
@@ -107,11 +107,11 @@
 }
 
 .largeCard:hover {
-	background: var(--surface_primary_emphasis-low);
+	background: var(--tint_primary_low);
 }
 
 .largeCard:active {
-	background: var(--surface_primary_emphasis-medium);
+	background: var(--tint_primary_medium);
 }
 
 .largeCardContainer {
@@ -125,7 +125,7 @@
 }
 
 .largeEventBlockLocation {
-	color: var(--primary_default);
+	color: var(--primary_medium);
 	text-decoration: none;
 }
 
@@ -139,7 +139,7 @@
 	margin: 0;
 	padding-left: var(--spc-4x);
 	position: relative;
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 }
 
 .smallEventBlockDate::before {
@@ -192,10 +192,10 @@
 
 .smallEventBlockName {
 	margin: 0;
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 }
 
 .smallEventBlockLocation {
-	color: var(--primary_default);
+	color: var(--primary_medium);
 	text-decoration: none;
 }

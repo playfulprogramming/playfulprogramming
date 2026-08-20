@@ -5,9 +5,9 @@
 	--license_padding-vertical: var(--spc-3x);
 	--license_gap: var(--spc-4x);
 	--license_icon-size: var(--icon-size_default);
-	--license_background-color: var(--surface_primary_emphasis-none);
-	--license_background-color_hovered: var(--surface_primary_emphasis-low);
-	--license_background-color_pressed: var(--surface_primary_emphasis-medium);
+	--license_background-color: var(--tint_primary_none);
+	--license_background-color_hovered: var(--tint_primary_low);
+	--license_background-color_pressed: var(--tint_primary_medium);
 	--license-background-color_focused: var(--background_focus);
 	--license_corner-radius: var(--corner-radius_m);
 }
@@ -37,7 +37,7 @@
 
 	.viewButton {
 		all: unset;
-		color: var(--primary_default);
+		color: var(--primary_medium);
 	}
 
 	&:hover .viewButton,
@@ -48,7 +48,7 @@
 	@include transition(background-color outline);
 
 	&:hover {
-		background-color: var(--surface_primary_emphasis-low);
+		background-color: var(--tint_primary_low);
 	}
 
 	&:active {
@@ -131,12 +131,12 @@
 	}
 
 	.title {
-		color: var(--foreground_emphasis-high);
+		color: var(--foreground_high);
 		margin: 0;
 	}
 
 	.body {
-		color: var(--foreground_emphasis-high);
+		color: var(--foreground_high);
 		position: relative;
 	}
 

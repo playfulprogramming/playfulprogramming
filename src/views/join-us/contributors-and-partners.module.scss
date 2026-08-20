@@ -12,13 +12,13 @@
 }
 
 .becomeAPartnerTitle {
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	margin: 0;
 	margin-bottom: var(--spc-4x);
 }
 
 .becomeAPartnerBody {
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 	margin: 0;
 	margin-bottom: var(--site-spacing);
 }
@@ -56,5 +56,5 @@
 	margin-top: calc(var(--site-spacing) * 2);
 	margin-bottom: var(--site-spacing);
 	text-align: center;
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 }
