@@ -61,7 +61,13 @@ header {
 .logo {
 	text-decoration: none;
 
-	img {
+	.logoContainer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	svg {
 		width: var(--header_logo_size);
 		height: var(--header_logo_size);
 		filter: var(--shadow_sticker_drop_shadow);
@@ -72,7 +78,7 @@ header {
 		margin-right: var(--header_logo_padding-end);
 		line-height: 125%;
 
-		color: var(--primary_default);
+		color: var(--primary_medium);
 
 		display: none;
 

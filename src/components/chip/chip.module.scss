@@ -10,15 +10,15 @@
 	--chip_icon_size: var(--icon-size_default);
 
 	--chip_background-color: var(--transparent);
-	--chip_background-color_hovered: var(--surface_primary_emphasis-low);
-	--chip_background-color_pressed: var(--surface_primary_emphasis-high);
+	--chip_background-color_hovered: var(--tint_primary_low);
+	--chip_background-color_pressed: var(--tint_primary_high);
 	--chip_background-color_focused: var(--background_focus);
 	--chip_background-color_disabled: var(--transparent);
 
-	--chip_foreground-color: var(--foreground_emphasis-high);
+	--chip_foreground-color: var(--foreground_high);
 	--chip_foreground-color_disabled: var(--foreground_disabled);
 
-	--chip_outline_color: var(--primary_variant);
+	--chip_outline_color: var(--primary_low);
 	--chip_outline_color_disabled: var(--background_disabled);
 	--chip_outline_width: var(--border-width_m);
 	--chip_outline_offset: calc(0 - var(--chip_outline_width));

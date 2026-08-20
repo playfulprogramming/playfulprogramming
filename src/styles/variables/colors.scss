@@ -1,6 +1,10 @@
 :root,
 // https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
 ::backdrop {
+
+	--chroma-factor: 1.0;
+	--chroma-factor-semantic: 1.0;
+
 	--lightness-10: 22%;
 	--lightness-15: 27%;
 	--lightness-20: 32%;
@@ -11,289 +15,146 @@
 	--lightness-70: 75%;
 	--lightness-80: 83%;
 	--lightness-90: 92%;
-	--lightness-95: 96%;
+	--lightness-95: 97%;
 	--lightness-99: 98%;
 
-	--brand-chroma-10: 0.04;
-	--brand-chroma-15: 0.04;
-	--brand-chroma-20: 0.04;
-	--brand-chroma-30: 0.075;
-	--brand-chroma-40: 0.1;
-	--brand-chroma-50: 0.105;
-	--brand-chroma-60: 0.11;
-	--brand-chroma-70: 0.115;
-	--brand-chroma-80: 0.12;
-	--brand-chroma-90: 0.05;
-	--brand-chroma-95: 0.0285;
-	--brand-chroma-99: 0.0175;
+	--chroma-10: 0.04;
+	--chroma-15: 0.05;
+	--chroma-20: 0.06;
+	--chroma-30: 0.07;
+	--chroma-40: 0.08;
+	--chroma-50: 0.09;
+	--chroma-60: 0.1;
+	--chroma-70: 0.11;
+	--chroma-80: 0.12;
+	--chroma-90: 0.05;
+	--chroma-95: 0.0275;
+	--chroma-99: 0.0175;
 
-	--opacity-primary-high: 0.64;
-	--opacity-primary-medium: 0.32;
-	--opacity-primary-low: 0.16;
+	/* Dynamic chroma is used to control the theme saturation */
 
-	--opacity-against-primary-high: 0.72;
-	--opacity-against-primary-medium: 0.4;
-	--opacity-against-primary-low: 0.24;
+	--dynamic-chroma-10: calc(var(--chroma-10) * var(--chroma-factor));
+	--dynamic-chroma-15: calc(var(--chroma-15) * var(--chroma-factor));
+	--dynamic-chroma-20: calc(var(--chroma-20) * var(--chroma-factor));
+	--dynamic-chroma-30: calc(var(--chroma-30) * var(--chroma-factor));
+	--dynamic-chroma-40: calc(var(--chroma-40) * var(--chroma-factor));
+	--dynamic-chroma-50: calc(var(--chroma-50) * var(--chroma-factor));
+	--dynamic-chroma-60: calc(var(--chroma-60) * var(--chroma-factor));
+	--dynamic-chroma-70: calc(var(--chroma-70) * var(--chroma-factor));
+	--dynamic-chroma-80: calc(var(--chroma-80) * var(--chroma-factor));
+	--dynamic-chroma-90: calc(var(--chroma-90) * var(--chroma-factor));
+	--dynamic-chroma-95: calc(var(--chroma-95) * var(--chroma-factor));
+	--dynamic-chroma-99: calc(var(--chroma-99) * var(--chroma-factor));
 
-	/* primary */
-	--primary10: oklch(
-		var(--lightness-10) var(--brand-chroma-10) var(--primary-hue)
-	);
-	--primary15: oklch(
-		var(--lightness-15) var(--brand-chroma-15) var(--primary-hue)
-	);
-	--primary20: oklch(
-		var(--lightness-20) var(--brand-chroma-20) var(--primary-hue)
-	);
-	--primary30: oklch(
-		var(--lightness-30) var(--brand-chroma-30) var(--primary-hue)
-	);
-	--primary40: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--primary-hue)
-	);
-	--primary40_high: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--primary-hue) /
-			var(--opacity-primary-high)
-	);
-	--primary40_medium: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--primary-hue) /
-			var(--opacity-primary-medium)
-	);
-	--primary40_low: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--primary-hue) /
-			var(--opacity-primary-low)
-	);
-	--primary50: oklch(
-		var(--lightness-50) var(--brand-chroma-50) var(--primary-hue)
-	);
-	--primary60: oklch(
-		var(--lightness-60) var(--brand-chroma-60) var(--primary-hue)
-	);
-	--primary70: oklch(
-		var(--lightness-70) var(--brand-chroma-70) var(--primary-hue)
-	);
-	--primary80: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--primary-hue)
-	);
-	--primary80_high: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--primary-hue) /
-			var(--opacity-primary-high)
-	);
-	--primary80_medium: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--primary-hue) /
-			var(--opacity-primary-medium)
-	);
-	--primary80_low: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--primary-hue) /
-			var(--opacity-primary-low)
-	);
-	--primary90: oklch(
-		var(--lightness-90) var(--brand-chroma-90) var(--primary-hue)
-	);
-	--primary95: oklch(
-		var(--lightness-95) var(--brand-chroma-95) var(--primary-hue)
-	);
-	--primary99: oklch(
-		var(--lightness-99) var(--brand-chroma-99) var(--primary-hue)
-	);
+	/* Semantic chroma is used for colors that need to maintain their signature hue & saturation */
+	--semantic-chroma: max(var(--chroma-factor), var(--chroma-factor-semantic));
 
-	/* secondary */
-	--secondary10: oklch(
-		var(--lightness-10) var(--brand-chroma-10) var(--secondary-hue)
-	);
-	--secondary15: oklch(
-		var(--lightness-15) var(--brand-chroma-15) var(--secondary-hue)
-	);
-	--secondary20: oklch(
-		var(--lightness-20) var(--brand-chroma-20) var(--secondary-hue)
-	);
-	--secondary30: oklch(
-		var(--lightness-30) var(--brand-chroma-30) var(--secondary-hue)
-	);
-	--secondary40: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--secondary-hue)
-	);
-	--secondary40_high: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--secondary-hue) /
-			var(--opacity-against-primary-high)
-	);
-	--secondary40_medium: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--secondary-hue) /
-			var(--opacity-against-primary-medium)
-	);
-	--secondary40_low: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--secondary-hue) /
-			var(--opacity-against-primary-low)
-	);
-	--secondary50: oklch(
-		var(--lightness-50) var(--brand-chroma-50) var(--secondary-hue)
-	);
-	--secondary60: oklch(
-		var(--lightness-60) var(--brand-chroma-60) var(--secondary-hue)
-	);
-	--secondary70: oklch(
-		var(--lightness-70) var(--brand-chroma-70) var(--secondary-hue)
-	);
-	--secondary80: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--secondary-hue)
-	);
-	--secondary80_high: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--secondary-hue) /
-			var(--opacity-against-primary-high)
-	);
-	--secondary80_medium: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--secondary-hue) /
-			var(--opacity-against-primary-medium)
-	);
-	--secondary80_low: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--secondary-hue) /
-			var(--opacity-against-primary-low)
-	);
-	--secondary90: oklch(
-		var(--lightness-90) var(--brand-chroma-90) var(--secondary-hue)
-	);
-	--secondary95: oklch(
-		var(--lightness-95) var(--brand-chroma-95) var(--secondary-hue)
-	);
-	--secondary99: oklch(
-		var(--lightness-99) var(--brand-chroma-99) var(--secondary-hue)
-	);
+	--semantic-chroma-10: calc(var(--chroma-10) * var(--semantic-chroma));
+	--semantic-chroma-15: calc(var(--chroma-15) * var(--semantic-chroma));
+	--semantic-chroma-20: calc(var(--chroma-20) * var(--semantic-chroma));
+	--semantic-chroma-30: calc(var(--chroma-30) * var(--semantic-chroma));
+	--semantic-chroma-40: calc(var(--chroma-40) * var(--semantic-chroma));
+	--semantic-chroma-50: calc(var(--chroma-50) * var(--semantic-chroma));
+	--semantic-chroma-60: calc(var(--chroma-60) * var(--semantic-chroma));
+	--semantic-chroma-70: calc(var(--chroma-70) * var(--semantic-chroma));
+	--semantic-chroma-80: calc(var(--chroma-80) * var(--semantic-chroma));
+	--semantic-chroma-90: calc(var(--chroma-90) * var(--semantic-chroma));
+	--semantic-chroma-95: calc(var(--chroma-95) * var(--semantic-chroma));
+	--semantic-chroma-99: calc(var(--chroma-99) * var(--semantic-chroma));
 
-	/* positive */
-	--positive10: oklch(
-		var(--lightness-10) var(--brand-chroma-10) var(--positive-hue)
-	);
-	--positive15: oklch(
-		var(--lightness-15) var(--brand-chroma-15) var(--positive-hue)
-	);
-	--positive20: oklch(
-		var(--lightness-20) var(--brand-chroma-20) var(--positive-hue)
-	);
-	--positive30: oklch(
-		var(--lightness-30) var(--brand-chroma-30) var(--positive-hue)
-	);
-	--positive40: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--positive-hue)
-	);
-	--positive40_high: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--positive-hue) /
-			var(--opacity-against-primary-high)
-	);
-	--positive40_medium: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--positive-hue) /
-			var(--opacity-against-primary-medium)
-	);
-	--positive40_low: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--positive-hue) /
-			var(--opacity-against-primary-low)
-	);
-	--positive50: oklch(
-		var(--lightness-50) var(--brand-chroma-50) var(--positive-hue)
-	);
-	--positive60: oklch(
-		var(--lightness-60) var(--brand-chroma-60) var(--positive-hue)
-	);
-	--positive70: oklch(
-		var(--lightness-70) var(--brand-chroma-70) var(--positive-hue)
-	);
-	--positive80: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--positive-hue)
-	);
-	--positive80_high: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--positive-hue) /
-			var(--opacity-against-primary-high)
-	);
-	--positive80_medium: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--positive-hue) /
-			var(--opacity-against-primary-medium)
-	);
-	--positive80_low: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--positive-hue) /
-			var(--opacity-against-primary-low)
-	);
-	--positive90: oklch(
-		var(--lightness-90) var(--brand-chroma-90) var(--positive-hue)
-	);
-	--positive95: oklch(
-		var(--lightness-95) var(--brand-chroma-95) var(--positive-hue)
-	);
-	--positive99: oklch(
-		var(--lightness-99) var(--brand-chroma-99) var(--positive-hue)
-	);
 
-	/* error */
-	--error10: oklch(var(--lightness-10) var(--brand-chroma-10) var(--error-hue));
-	--error15: oklch(var(--lightness-15) var(--brand-chroma-15) var(--error-hue));
-	--error20: oklch(var(--lightness-20) var(--brand-chroma-20) var(--error-hue));
-	--error30: oklch(var(--lightness-30) var(--brand-chroma-30) var(--error-hue));
-	--error40: oklch(var(--lightness-40) var(--brand-chroma-40) var(--error-hue));
-	--error40_high: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--error-hue) /
-			var(--opacity-against-primary-high)
-	);
-	--error40_medium: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--error-hue) /
-			var(--opacity-against-primary-medium)
-	);
-	--error40_low: oklch(
-		var(--lightness-40) var(--brand-chroma-40) var(--error-hue) /
-			var(--opacity-against-primary-low)
-	);
-	--error50: oklch(var(--lightness-50) var(--brand-chroma-50) var(--error-hue));
-	--error60: oklch(var(--lightness-60) var(--brand-chroma-60) var(--error-hue));
-	--error70: oklch(var(--lightness-70) var(--brand-chroma-70) var(--error-hue));
-	--error80: oklch(var(--lightness-80) var(--brand-chroma-80) var(--error-hue));
-	--error80_high: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--error-hue) /
-			var(--opacity-against-primary-high)
-	);
-	--error80_medium: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--error-hue) /
-			var(--opacity-against-primary-medium)
-	);
-	--error80_low: oklch(
-		var(--lightness-80) var(--brand-chroma-80) var(--error-hue) /
-			var(--opacity-against-primary-low)
-	);
-	--error90: oklch(var(--lightness-90) var(--brand-chroma-90) var(--error-hue));
-	--error95: oklch(var(--lightness-95) var(--brand-chroma-95) var(--error-hue));
-	--error99: oklch(var(--lightness-99) var(--brand-chroma-99) var(--error-hue));
+	/* Primary, the most prominent brand color */
 
-	/* neutral: use shared brand lightness scale (chroma kept from source) */
-	--neutral10: oklch(var(--lightness-10) 0.04 var(--primary-hue));
-	--neutral20: oklch(var(--lightness-20) 0.03 var(--primary-hue));
-	--neutral20_high: oklch(
-		var(--lightness-20) 0.03 var(--primary-hue) /
-			var(--opacity-against-primary-high)
-	);
-	--neutral20_medium: oklch(
-		var(--lightness-20) 0.03 var(--primary-hue) /
-			var(--opacity-against-primary-medium)
-	);
-	--neutral20_low: oklch(
-		var(--lightness-20) 0.03 var(--primary-hue) /
-			var(--opacity-against-primary-low)
-	);
-	--neutral30: oklch(var(--lightness-30) 0.02 var(--primary-hue));
-	--neutral40: oklch(var(--lightness-40) 0.02 var(--primary-hue));
-	--neutral50: oklch(var(--lightness-50) 0.02 var(--primary-hue));
-	--neutral60: oklch(var(--lightness-60) 0.02 var(--primary-hue));
-	--neutral70: oklch(var(--lightness-70) 0.02 var(--primary-hue));
-	--neutral80: oklch(var(--lightness-80) 0.02 var(--primary-hue));
-	--neutral90: oklch(var(--lightness-90) 0.02 var(--primary-hue));
-	--neutral90_high: oklch(
-		var(--lightness-90) 0.02 var(--primary-hue) /
-			var(--opacity-against-primary-high)
-	);
-	--neutral90_medium: oklch(
-		var(--lightness-90) 0.02 var(--primary-hue) /
-			var(--opacity-against-primary-medium)
-	);
-	--neutral90_low: oklch(
-		var(--lightness-90) 0.02 var(--primary-hue) /
-			var(--opacity-against-primary-low)
-	);
-	--neutral95: oklch(var(--lightness-95) 0.02 var(--primary-hue));
+	--primary10: oklch(var(--lightness-10) var(--dynamic-chroma-10) var(--hue-primary));
+	--primary15: oklch(var(--lightness-15) var(--dynamic-chroma-15) var(--hue-primary));
+	--primary20: oklch(var(--lightness-20) var(--dynamic-chroma-20) var(--hue-primary));
+	--primary30: oklch(var(--lightness-30) var(--dynamic-chroma-30) var(--hue-primary));
+	--primary40: oklch(var(--lightness-40) var(--dynamic-chroma-40) var(--hue-primary));
+	--primary50: oklch(var(--lightness-50) var(--dynamic-chroma-50) var(--hue-primary));
+	--primary60: oklch(var(--lightness-60) var(--dynamic-chroma-60) var(--hue-primary));
+	--primary70: oklch(var(--lightness-70) var(--dynamic-chroma-70) var(--hue-primary));
+	--primary80: oklch(var(--lightness-80) var(--dynamic-chroma-80) var(--hue-primary));
+	--primary90: oklch(var(--lightness-90) var(--dynamic-chroma-90) var(--hue-primary));
+	--primary95: oklch(var(--lightness-95) var(--dynamic-chroma-95) var(--hue-primary));
+	--primary99: oklch(var(--lightness-99) var(--dynamic-chroma-99) var(--hue-primary));
+
+
+	/* Secondary color that is complementary to the primary color */
+
+	--secondary10: oklch(var(--lightness-10) var(--dynamic-chroma-10) var(--hue-secondary));
+	--secondary15: oklch(var(--lightness-15) var(--dynamic-chroma-15) var(--hue-secondary));
+	--secondary20: oklch(var(--lightness-20) var(--dynamic-chroma-20) var(--hue-secondary));
+	--secondary30: oklch(var(--lightness-30) var(--dynamic-chroma-30) var(--hue-secondary));
+	--secondary40: oklch(var(--lightness-40) var(--dynamic-chroma-40) var(--hue-secondary));
+	--secondary50: oklch(var(--lightness-50) var(--dynamic-chroma-50) var(--hue-secondary));
+	--secondary60: oklch(var(--lightness-60) var(--dynamic-chroma-60) var(--hue-secondary));
+	--secondary70: oklch(var(--lightness-70) var(--dynamic-chroma-70) var(--hue-secondary));
+	--secondary80: oklch(var(--lightness-80) var(--dynamic-chroma-80) var(--hue-secondary));
+	--secondary90: oklch(var(--lightness-90) var(--dynamic-chroma-90) var(--hue-secondary));
+	--secondary95: oklch(var(--lightness-95) var(--dynamic-chroma-95) var(--hue-secondary));
+	--secondary99: oklch(var(--lightness-99) var(--dynamic-chroma-99) var(--hue-secondary));
+
+
+	/* Positive color that indicates success or a favorable outcome */
+
+	--positive10: oklch(var(--lightness-10) var(--semantic-chroma-10) var(--hue-positive));
+	--positive15: oklch(var(--lightness-15) var(--semantic-chroma-15) var(--hue-positive));
+	--positive20: oklch(var(--lightness-20) var(--semantic-chroma-20) var(--hue-positive));
+	--positive30: oklch(var(--lightness-30) var(--semantic-chroma-30) var(--hue-positive));
+	--positive40: oklch(var(--lightness-40) var(--semantic-chroma-40) var(--hue-positive));
+	--positive50: oklch(var(--lightness-50) var(--semantic-chroma-50) var(--hue-positive));
+	--positive60: oklch(var(--lightness-60) var(--semantic-chroma-60) var(--hue-positive));
+	--positive70: oklch(var(--lightness-70) var(--semantic-chroma-70) var(--hue-positive));
+	--positive80: oklch(var(--lightness-80) var(--semantic-chroma-80) var(--hue-positive));
+	--positive90: oklch(var(--lightness-90) var(--semantic-chroma-90) var(--hue-positive));
+	--positive95: oklch(var(--lightness-95) var(--semantic-chroma-95) var(--hue-positive));
+	--positive99: oklch(var(--lightness-99) var(--semantic-chroma-99) var(--hue-positive));
+
+
+	/* Error color that indicates an error or a negative outcome */
+	--error10: oklch(var(--lightness-10) var(--semantic-chroma-10) var(--hue-error));
+	--error15: oklch(var(--lightness-15) var(--semantic-chroma-15) var(--hue-error));
+	--error20: oklch(var(--lightness-20) var(--semantic-chroma-20) var(--hue-error));
+	--error30: oklch(var(--lightness-30) var(--semantic-chroma-30) var(--hue-error));
+	--error40: oklch(var(--lightness-40) var(--semantic-chroma-40) var(--hue-error));
+	--error50: oklch(var(--lightness-50) var(--semantic-chroma-50) var(--hue-error));
+	--error60: oklch(var(--lightness-60) var(--semantic-chroma-60) var(--hue-error));
+	--error70: oklch(var(--lightness-70) var(--semantic-chroma-70) var(--hue-error));
+	--error80: oklch(var(--lightness-80) var(--semantic-chroma-80) var(--hue-error));
+	--error90: oklch(var(--lightness-90) var(--semantic-chroma-90) var(--hue-error));
+	--error95: oklch(var(--lightness-95) var(--semantic-chroma-95) var(--hue-error));
+	--error99: oklch(var(--lightness-99) var(--semantic-chroma-99) var(--hue-error));
+
+
+	/* Neutrals, used for text and disabled states */
+
+	--neutral10: oklch(var(--lightness-10) 0.05 var(--hue-primary));
+	--neutral20: oklch(var(--lightness-20) 0.04 var(--hue-primary));
+	--neutral30: oklch(var(--lightness-30) 0.03 var(--hue-primary));
+	--neutral40: oklch(var(--lightness-40) 0.02 var(--hue-primary));
+	--neutral50: oklch(var(--lightness-50) 0.02 var(--hue-primary));
+	--neutral60: oklch(var(--lightness-60) 0.02 var(--hue-primary));
+	--neutral70: oklch(var(--lightness-70) 0.02 var(--hue-primary));
+	--neutral80: oklch(var(--lightness-80) 0.02 var(--hue-primary));
+	--neutral90: oklch(var(--lightness-90) 0.02 var(--hue-primary));
+	--neutral95: oklch(var(--lightness-95) 0.02 var(--hue-primary));
+
+	--opacity-primary-medium: 0.64;
+	--opacity-primary-low: 0.32;
+	--opacity-primary-none: 0.16;
+
+	--opacity-against-primary-medium: 0.72;
+	--opacity-against-primary-low: 0.4;
+	--opacity-against-primary-none: 0.24;
+
+	--opacity-neutral-medium: 0.75;
+	--opacity-neutral-low: 0.5;
+	--opacity-neutral-none: 0.25;
+
+	@media (prefers-contrast: more) {
+		--opacity-neutral-medium: 1;
+		--opacity-neutral-low: 0.75;
+	}
 
 	--white: oklch(100% 0 0);
 	--black: oklch(0% 0 0);

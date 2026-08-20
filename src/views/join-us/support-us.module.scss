@@ -10,14 +10,14 @@
 }
 
 .supportUsTitle {
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	margin: 0;
 	margin-bottom: var(--spc-4x);
 	text-align: center;
 }
 
 .supportUsBody {
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 	margin: 0;
 	margin-bottom: var(--site-spacing);
 	text-align: center;
@@ -30,7 +30,7 @@
 }
 
 .supportedByBody {
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	margin: 0;
 	margin-bottom: var(--site-spacing);
 	text-align: center;
@@ -64,6 +64,6 @@
 }
 
 .sponsorName {
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 	margin: 0;
 }

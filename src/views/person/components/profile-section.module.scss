@@ -16,10 +16,10 @@
 
 	--profile_roles_gap: var(--chip-gap);
 
-	--profile_background-color: var(--surface_primary_emphasis-none);
-	--profile_name_color: var(--foreground_emphasis-high);
+	--profile_background-color: var(--tint_primary_none);
+	--profile_name_color: var(--foreground_high);
 	--profile_pronouns_color: var(--foreground_disabled);
-	--profile_bio_color: var(--foreground_emphasis-high);
+	--profile_bio_color: var(--foreground_high);
 
 	@include from($tabletSmall) {
 		--profile_avatar_size: 128px;
@@ -118,7 +118,7 @@
 .socialLink {
 	margin: 0;
 	// TODO: Make this match spec when token is added
-	color: var(--primary_default);
+	color: var(--primary_medium);
 	text-decoration: none;
 	display: flex;
 	align-items: center;
@@ -143,7 +143,7 @@
 /* Replace the below with specs */
 .role {
 	background: var(--background_primary);
-	border: 1px solid var(--surface_primary_emphasis-medium);
+	border: 1px solid var(--tint_primary_medium);
 	border-radius: var(--corner-radius_s);
 	display: flex;
 	align-items: center;
@@ -163,5 +163,5 @@
 }
 
 .roleName {
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 }

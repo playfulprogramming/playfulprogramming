@@ -2,10 +2,11 @@
 import * as Terser from "terser";
 
 import {
+	BRAND_THEME_STORAGE_KEY,
 	COLOR_MODE_STORAGE_KEY,
 	THEME_COLOR_DARK,
 	THEME_COLOR_LIGHT,
-} from "../../constants/index.ts";
+} from "../../constants/theme.ts";
 import { serializeInlineCall } from "#utils/serialize-inline-call.ts";
 
 /**
@@ -52,11 +53,36 @@ const setColorsByTheme = serializeInlineCall(
 	},
 );
 
-const inlineScript = setColorsByTheme({
-	storageKey: COLOR_MODE_STORAGE_KEY,
-	lightTheme: THEME_COLOR_LIGHT,
-	darkTheme: THEME_COLOR_DARK,
-});
+const setBrandColorsByTheme = serializeInlineCall(
+	({ storageKey }: { storageKey: string }): void => {
+		try {
+			const savedTheme = localStorage.getItem(storageKey);
+			if (!savedTheme) return;
+
+			const theme = JSON.parse(savedTheme) as Record<string, string>;
+			const root = document.documentElement;
+
+			Object.entries(theme).forEach(([key, value]) => {
+				if (typeof value === "string" && value) {
+					root.style.setProperty(`--${key}`, value);
+				}
+			});
+		} catch {
+			// Ignore malformed saved theme values.
+		}
+	},
+);
+
+const inlineScript = [
+	setColorsByTheme({
+		storageKey: COLOR_MODE_STORAGE_KEY,
+		lightTheme: THEME_COLOR_LIGHT,
+		darkTheme: THEME_COLOR_DARK,
+	}),
+	setBrandColorsByTheme({
+		storageKey: BRAND_THEME_STORAGE_KEY,
+	}),
+].join("");
 
 const calledFunction = (await Terser.minify(inlineScript)).code!;
 ---

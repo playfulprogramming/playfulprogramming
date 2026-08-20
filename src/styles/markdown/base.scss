@@ -17,11 +17,11 @@ body.dark,
 }
 
 :where(a) {
-	color: var(--primary_default);
+	color: var(--primary_medium_semantic);
 }
 
 :where(a:visited) {
-	color: var(--secondary_default);
+	color: var(--secondary_medium_semantic);
 }
 
 .post-body {
@@ -53,7 +53,7 @@ body.dark,
 		@extend .text-style-body-large;
 	}
 
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 
 	h1,
 	.text-style-headline-1,
@@ -69,7 +69,7 @@ body.dark,
 	.text-style-headline-6 {
 		margin-block-start: 0rem;
 		margin-block-end: 0rem;
-		color: var(--foreground_emphasis-high);
+		color: var(--foreground_high);
 	}
 
 	.text-style-headline-1 {
@@ -138,13 +138,13 @@ body.dark,
 		font-size: 0.8em;
 		font-weight: 500;
 
-		color: var(--secondary_on-variant);
+		color: var(--secondary_on-low);
 
 		background-color: var(--background_secondary);
 		padding-bottom: 0.15em;
 		padding-left: 0.15em;
 		padding-right: 0.15em;
-		border: 0.075em solid var(--secondary_variant);
+		border: 0.075em solid var(--secondary_low);
 		border-radius: 0.25em;
 
 		// the table header has a primary background...
@@ -221,7 +221,7 @@ body.dark,
 		margin-top: var(--site-spacing);
 		margin-bottom: var(--site-spacing);
 
-		color: var(--primary_variant);
+		color: var(--primary_low);
 		height: 20px;
 
 		background: linear-gradient(

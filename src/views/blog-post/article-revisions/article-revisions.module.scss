@@ -9,15 +9,15 @@
 
 	--date-dropdown_arrow-size: 1rem;
 
-	--date-dropdown_foreground-color: var(--secondary_on-variant);
-	--date-dropdown_tag-color: var(--secondary_default);
+	--date-dropdown_foreground-color: var(--secondary_on-low);
+	--date-dropdown_tag-color: var(--secondary_medium);
 	--date-dropdown_background-color: var(--background_secondary);
 	--date-dropdown_background-color_focused: var(--background_focus);
-	--date-dropdown_state_hovered: var(--surface_secondary_emphasis-low);
-	--date-dropdown_state_pressed: var(--surface_secondary_emphasis-high);
+	--date-dropdown_state_hovered: var(--tint_secondary_low);
+	--date-dropdown_state_pressed: var(--tint_secondary_high);
 
 	--date-dropdown_border-width: var(--border-width_s);
-	--date-dropdown_border-color: var(--secondary_variant);
+	--date-dropdown_border-color: var(--secondary_low);
 	--date-dropdown_border-color_hovered: var(--secondary);
 	--date-dropdown_border-color_pressed: var(--secondary);
 
@@ -25,7 +25,7 @@
 	--date-dropdown_focus-outline_color: var(--focus-outline_secondary);
 
 	--popup_item_version_color: var(--foreground_disabled);
-	--popup_item_version_selected_color: var(--foreground_emphasis-medium);
+	--popup_item_version_selected_color: var(--foreground_medium);
 
 	--popup_min-width: 240px;
 }

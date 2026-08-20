@@ -7,17 +7,17 @@
 	--radio-list-button_padding-vertical: var(--spc-2x);
 	--radio-list-button_gap: var(--spc-2x);
 
-	--radio-list-button_label_color: var(--foreground_emphasis-medium);
-	--radio-list-button_label_color_selected: var(--foreground_emphasis-high);
+	--radio-list-button_label_color: var(--foreground_medium);
+	--radio-list-button_label_color_selected: var(--foreground_high);
 
 	--radio-list-button_background-color_hovered: var(
-		--surface_primary_emphasis-medium
+		--tint_primary_medium
 	);
 	--radio-list-button_background-color_pressed: var(
-		--surface_primary_emphasis-high
+		--tint_primary_high
 	);
 	--radio-list-button_background-color_selected: var(
-		--surface_primary_emphasis-low
+		--tint_primary_low
 	);
 	--radio-list-button_background-color_focused: var(--background_focus);
 

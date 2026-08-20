@@ -22,7 +22,7 @@
 }
 
 .illustration {
-	background-color: var(--surface_primary_emphasis-low);
+	background-color: var(--tint_primary_low);
 	height: 144px;
 	width: 100%;
 	position: relative;
@@ -64,7 +64,7 @@
 	display: inline-block;
 	width: 1px;
 	flex-grow: 1;
-	color: var(--primary_default);
+	color: var(--primary_medium);
 	text-align: center;
 }
 

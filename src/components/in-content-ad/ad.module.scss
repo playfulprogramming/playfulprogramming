@@ -4,7 +4,7 @@
  * We cannot use the "A D" word in the markup, otherwise it will be blocked by ad blockers.
  */
 .inContentBannerContainer {
-	background: var(--surface_secondary_emphasis-low);
+	background: var(--tint_secondary_low);
 	border-radius: var(--corner-radius_l);
 	overflow: hidden;
 	display: grid;
@@ -101,12 +101,12 @@
 .title {
 	margin: 0 !important;
 	margin-bottom: var(--spc-1x) !important;
-	color: var(--foreground_emphasis-high) !important;
+	color: var(--foreground_high) !important;
 }
 
 .description {
 	margin: 0 !important;
-	color: var(--foreground_emphasis-medium) !important;
+	color: var(--foreground_medium) !important;
 	margin-bottom: var(--spc-6x) !important;
 }
 

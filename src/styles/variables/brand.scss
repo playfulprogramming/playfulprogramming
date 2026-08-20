@@ -1,10 +1,15 @@
 :root {
-	--primary-hue: 245;
-	--secondary-hue: 342;
-	--positive-hue: 155;
-	--error-hue: 20;
+	--pfp-hue-primary: 245;
+	--pfp-hue-secondary: 340;
+	--pfp-hue-positive: 155;
+	--pfp-hue-error: 20;
 
 	--pfp-font-family-brand: "Figtree", "Arial", "Roboto", sans-serif;
 	--pfp-font-family-body: "Figtree", "Arial", "Roboto", sans-serif;
 	--pfp-font-family-code: "Roboto Mono", monospace;
+
+	--hue-primary: var(--pfp-hue-primary);
+	--hue-secondary: var(--pfp-hue-secondary);
+	--hue-positive: var(--pfp-hue-positive);
+	--hue-error: var(--pfp-hue-error);
 }

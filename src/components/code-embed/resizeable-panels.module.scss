@@ -2,10 +2,10 @@
 
 :root {
 	--resizeable-panel_separator_background: var(
-		--surface_primary_emphasis-medium
+		--tint_primary_medium
 	);
 	--resizeable-panel_separator_background_hovered: var(
-		--surface_primary_emphasis-high
+		--tint_primary_high
 	);
 	--resizeable-panel_separator_background_focused: var(--background_focus);
 	--resizeable-panel_separator_outline_color_focused: var(
