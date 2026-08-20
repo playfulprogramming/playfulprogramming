@@ -16,10 +16,10 @@
 	--page-card_button-gap: var(--site-spacing);
 
 	--page-card_image_border_color: var(--background_primary);
-	--page-card_container_background-color: var(--surface_primary_emphasis-none);
+	--page-card_container_background-color: var(--tint_primary_none);
 
-	--page-card_title_color: var(--foreground_emphasis-high);
-	--page-card_supporting-text_color: var(--foreground_emphasis-medium);
+	--page-card_title_color: var(--foreground_high);
+	--page-card_supporting-text_color: var(--foreground_medium);
 
 	@include from($tabletSmall) {
 		--page-card_container_padding: var(--spc-6x);
@@ -130,7 +130,7 @@
 
 .title {
 	margin: 0;
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 
 	@include from($tabletSmall) {
 		display: flex;
@@ -159,7 +159,7 @@
 
 .description {
 	margin: 0;
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 
 	@include from($tabletSmall) {
 		grid-column: 1/3;

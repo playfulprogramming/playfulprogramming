@@ -1,7 +1,7 @@
 @use "src/tokens/index" as *;
 
 .embedContainer {
-	background: var(--surface_secondary_emphasis-none);
+	background: var(--tint_secondary_none);
 	border-radius: var(--corner-radius_xl);
 	padding: calc(var(--site-spacing) * 2);
 	overflow: hidden;
@@ -32,7 +32,7 @@
 .description {
 	margin: 0 !important;
 	margin-top: 8px !important;
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 }
 
 .button {

@@ -84,7 +84,7 @@ body {
 	background-color: var(--background_primary);
 	margin: 0;
 	padding: 0;
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	@include transition(color background-color);
 }
 

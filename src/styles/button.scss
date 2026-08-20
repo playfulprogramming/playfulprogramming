@@ -22,23 +22,23 @@
 	--btn_regular_label_padding-horizontal: var(--spc-1x);
 
 	// Colors: Primary buttons
-	--btn_primary_background-color_default: var(--surface_primary_emphasis-low);
+	--btn_primary_background-color_default: var(--primary_container);
 	--btn_primary_background-color_default_hovered: var(
-		--surface_primary_emphasis-medium
+		--primary_container_hover
 	);
 	--btn_primary_background-color_default_pressed: var(
-		--surface_primary_emphasis-high
+		--primary_container_pressed
 	);
-	--btn_primary_foreground-color_default: var(--primary_on-variant);
+	--btn_primary_foreground-color_default: var(--primary_on-container);
 
-	--btn_primary_background-color_emphasized: var(--primary_high-contrast);
+	--btn_primary_background-color_emphasized: var(--primary_high);
 	--btn_primary_background-color_emphasized_hovered: var(
-		--primary_high-contrast_hovered
+		--primary_high_hovered
 	);
 	--btn_primary_background-color_emphasized_pressed: var(
-		--primary_high-contrast_pressed
+		--primary_high_pressed
 	);
-	--btn_primary_foreground-color_emphasized: var(--background_primary);
+	--btn_primary_foreground-color_emphasized: var(--primary_on-high);
 
 	--btn_primary_focus-outline_width: var(--border-width_focus);
 	--btn_primary_focus-outline_gap: var(--border-width_focus);
@@ -46,24 +46,24 @@
 
 	// Colors: Secondary buttons
 	--btn_secondary_background-color_default: var(
-		--surface_secondary_emphasis-low
+		--secondary_container
 	);
 	--btn_secondary_background-color_default_hovered: var(
-		--surface_secondary_emphasis-medium
+		--secondary_container_hover
 	);
 	--btn_secondary_background-color_default_pressed: var(
-		--surface_secondary_emphasis-high
+		--secondary_container_pressed
 	);
-	--btn_secondary_foreground-color_default: var(--secondary_on-variant);
+	--btn_secondary_foreground-color_default: var(--secondary_on-container);
 
-	--btn_secondary_background-color_emphasized: var(--secondary_high-contrast);
+	--btn_secondary_background-color_emphasized: var(--secondary_high);
 	--btn_secondary_background-color_emphasized_hovered: var(
-		--secondary_high-contrast_hovered
+		--secondary_high_hovered
 	);
 	--btn_secondary_background-color_emphasized_pressed: var(
-		--secondary_high-contrast_pressed
+		--secondary_high_pressed
 	);
-	--btn_secondary_foreground-color_emphasized: var(--background_secondary);
+	--btn_secondary_foreground-color_emphasized: var(--secondary_on-high);
 
 	--btn_secondary_focus-outline_width: var(--border-width_focus);
 	--btn_secondary_focus-outline_gap: var(--border-width_focus);

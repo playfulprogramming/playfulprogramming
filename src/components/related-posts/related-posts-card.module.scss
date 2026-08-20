@@ -14,12 +14,12 @@
 }
 
 .container:hover {
-	background-color: var(--surface_primary_emphasis-low);
+	background-color: var(--tint_primary_low);
 }
 
 .container:active {
-	background-color: var(--surface_primary_emphasis-low);
-	outline: var(--spc-1x) solid var(--surface_primary_emphasis-high);
+	background-color: var(--tint_primary_low);
+	outline: var(--spc-1x) solid var(--tint_primary_high);
 }
 
 @supports selector(:has(*)) {
@@ -37,12 +37,12 @@
 }
 
 .articleTitle {
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	text-decoration: none;
 }
 
 .authorsList {
-	color: var(--primary_default);
+	color: var(--primary_medium);
 }
 
 .authorName {

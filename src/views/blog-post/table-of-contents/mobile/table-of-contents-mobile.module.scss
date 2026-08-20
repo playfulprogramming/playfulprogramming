@@ -24,21 +24,21 @@
 	--toc-mobile_sub-item_dot_margin-end: var(--spc-3x);
 	--toc-mobile_sub-item_dot_size: 1rem;
 
-	--toc-mobile_label_color: var(--foreground_emphasis-medium);
-	--toc-mobile_label_color_selected: var(--foreground_emphasis-high);
+	--toc-mobile_label_color: var(--foreground_medium);
+	--toc-mobile_label_color_selected: var(--foreground_high);
 
 	--toc-mobile_item_background-color_hovered: var(
-		--surface_primary_emphasis-medium
+		--tint_primary_medium
 	);
 	--toc-mobile_item_background-color_pressed: var(
-		--surface_primary_emphasis-high
+		--tint_primary_high
 	);
 	--toc-mobile_item_background-color_selected: var(
-		--surface_primary_emphasis-low
+		--tint_primary_low
 	);
 	--toc-mobile_item_background-color_focused: var(--background_focus);
 
-	--toc-mobile_subheading-dot_color: var(--primary_default);
+	--toc-mobile_subheading-dot_color: var(--primary_medium);
 
 	--toc-mobile_focus-outline_color: var(--focus-outline_primary);
 	--toc-mobile_focus-outline_width: var(--border-width_focus);
@@ -47,7 +47,7 @@
 	// --background_disabled applied to background
 	--toc-mobile_divider_color: #cddbe7;
 
-	--toc-mobile_arrow_color: var(--foreground_emphasis-high);
+	--toc-mobile_arrow_color: var(--foreground_high);
 	--toc-mobile_arrow_color_selected: var(--primary);
 
 	@include until($tabletLarge) {
@@ -179,13 +179,13 @@
 	}
 
 	.tableListItemLinkInner {
-		color: var(--foreground_emphasis-medium);
+		color: var(--foreground_medium);
 		pointer-events: none;
 	}
 
 	.tableListItem:hover > a > *,
 	:global(.toc-is-active) .tableListItemLinkInner {
-		color: var(--foreground_emphasis-high);
+		color: var(--foreground_high);
 	}
 
 	.depth1 {
@@ -312,6 +312,6 @@
 	}
 
 	:global(.toc-is-active) > a {
-		background: var(--surface_primary_emphasis-low);
+		background: var(--tint_primary_low);
 	}
 }
