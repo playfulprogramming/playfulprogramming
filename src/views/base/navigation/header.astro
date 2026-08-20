@@ -38,12 +38,12 @@ const props = Astro.props;
 		>
 			{!isHome && <BackButton class={style.backButton} />}
 
-			<a href="/" class={`d-flex ${style.logo}`}>
-				<div
-					aria-label={translate(Astro, "alt.playfulprogramming_logo")}
-					set:html={logo}
-					class={style.logoContainer}
-				/>
+			<a
+				href="/"
+				aria-label={translate(Astro, "alt.playfulprogramming_logo")}
+				class={`d-flex ${style.logo}`}
+			>
+				<div aria-hidden="true" set:html={logo} class={style.logoContainer} />
 
 				<span class="text-style-button-regular">
 					Playful<br />
