@@ -15,7 +15,9 @@ export function getStaticPaths() {
 }
 
 const localeParam = Astro.params.locale;
-const isLocaleRoute = localeParam === undefined || isLanguageKey(localeParam);
+const isLocaleRoute =
+	localeParam === undefined ||
+	(localeParam !== "en" && isLanguageKey(localeParam));
 if (!isLocaleRoute) {
 	Astro.response.status = 404;
 }

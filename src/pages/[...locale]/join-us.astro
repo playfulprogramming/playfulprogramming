@@ -20,7 +20,10 @@ export function getStaticPaths() {
 }
 
 const localeParam = Astro.params.locale;
-if (localeParam !== undefined && !isLanguageKey(localeParam)) {
+if (
+	localeParam !== undefined &&
+	(localeParam === "en" || !isLanguageKey(localeParam))
+) {
 	return Astro.rewrite("/404");
 }
 
