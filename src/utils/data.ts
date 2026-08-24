@@ -128,6 +128,7 @@ for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
 	const snitip: SnitipInfo = {
 		...(frontmatter as RawSnitipInfo),
 		id: snitipId,
+		links: frontmatter.links ?? [],
 		tagsMeta,
 		content: snitipHtml,
 	};
