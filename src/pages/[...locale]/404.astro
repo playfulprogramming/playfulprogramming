@@ -1,0 +1,15 @@
+---
+import NotFoundPage from "#src/views/not-found/not-found-page.astro";
+import { getStaticLocalePaths, isLanguageKey } from "#utils/translations.ts";
+
+export function getStaticPaths() {
+	return getStaticLocalePaths().filter(({ props }) => props.locale !== "en");
+}
+
+const localeParam = Astro.params.locale;
+if (localeParam === undefined || !isLanguageKey(localeParam)) {
+	return Astro.rewrite("/404");
+}
+---
+
+<NotFoundPage />

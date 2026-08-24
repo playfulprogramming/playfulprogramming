@@ -1,0 +1,50 @@
+---
+import Document from "#src/layouts/document.astro";
+import SEO from "#components/seo/seo.astro";
+import PageCard from "#components/page-card/page-card.astro";
+import sadUnicorn from "#src/assets/unicorn_sad.svg";
+import { LargeButton } from "#components/index.ts";
+import {
+	addPrefixLanguageToPath,
+	getPrefixLanguageFromPath,
+	translate,
+} from "#utils/translations.ts";
+
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
+---
+
+<Document>
+	<SEO slot="head" title={translate(Astro, "title.error_404")} noindex />
+	<main class="missingMain">
+		<PageCard
+			imageSrc={sadUnicorn.src}
+			imageAlt={translate(Astro, "alt.crying_unicorn")}
+			title={translate(Astro, "title.not_found")}
+			description={translate(Astro, "desc.not_found")}
+			numberOfButtons={2}
+		>
+			<LargeButton
+				href={addPrefixLanguageToPath("/", locale)}
+				slot="button"
+				variant="primary"
+			>
+				{translate(Astro, "action.go_back_home")}
+			</LargeButton>
+			<LargeButton
+				href="https://discord.playfulprogramming.com"
+				slot="second-button"
+				variant="secondary"
+			>
+				{translate(Astro, "action.report_issue")}
+			</LargeButton>
+		</PageCard>
+	</main>
+</Document>
+
+<style lang="scss">
+	.missingMain {
+		display: flex;
+		padding: var(--site-spacing);
+		justify-content: center;
+	}
+</style>
