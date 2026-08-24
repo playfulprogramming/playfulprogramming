@@ -16,7 +16,10 @@ export default function MermaidRenderer() {
 
 		const renderDiagrams = async () => {
 			const currentRender = ++renderVersion;
-			const { default: mermaid } = await import("mermaid");
+			const [{ default: mermaid }] = await Promise.all([
+				import("mermaid"),
+				document.fonts.ready,
+			]);
 
 			if (disposed || currentRender !== renderVersion) return;
 
@@ -34,6 +37,7 @@ export default function MermaidRenderer() {
 			mermaid.initialize({
 				startOnLoad: false,
 				theme: "base",
+				htmlLabels: false,
 				themeVariables: {
 					darkMode: isDarkTheme,
 					primaryColor,

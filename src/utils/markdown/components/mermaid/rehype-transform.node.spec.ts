@@ -96,4 +96,36 @@ describe("Mermaid markdown component", () => {
 		expect(vfile.data.isMermaidUsed).toBeUndefined();
 		expect(findComponent(tree.children, "Mermaid")).toBeUndefined();
 	});
+
+	it("rejects a wrapped fence with a non-Mermaid language", async () => {
+		const source = [
+			"<!-- ::start:mermaid -->",
+			"```text",
+			"flowchart TD",
+			"  A --> B",
+			"```",
+			"<!-- ::end:mermaid -->",
+		].join("\n");
+		const consoleError = vi
+			.spyOn(console, "error")
+			.mockImplementation(() => undefined);
+		const consoleLog = vi
+			.spyOn(console, "log")
+			.mockImplementation(() => undefined);
+
+		try {
+			const { tree, vfile } = await processMarkdown(source);
+
+			expect(vfile.data.isMermaidUsed).toBeUndefined();
+			expect(findComponent(tree.children, "Mermaid")).toBeUndefined();
+			expect(consoleError).toHaveBeenCalledWith(
+				expect.stringContaining(
+					"Mermaid must use a ```mermaid fenced code block.",
+				),
+			);
+		} finally {
+			consoleError.mockRestore();
+			consoleLog.mockRestore();
+		}
+	});
 });
