@@ -226,5 +226,7 @@
 	"label.social_media_links": "Social media links",
 	"alt.about_banner": "A smiling unicorn with a bowtie, surrounded by a circle of contributors to the project",
 	"role.board_member": "Board Member",
-	"desc.javascript_required": "JavaScript required"
+	"desc.javascript_required": "JavaScript required",
+	"fallback.no_title": "No title",
+	"fallback.no_description": "No description"
 }

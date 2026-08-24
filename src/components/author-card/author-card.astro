@@ -1,6 +1,6 @@
 ---
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
-import { translate } from "#utils/translations.ts";
+import { getPrefixLanguageFromPath, translate } from "#utils/translations.ts";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 import { Button } from "#components/button/button.tsx";
 import { Picture } from "#components/image/picture.tsx";
@@ -11,6 +11,7 @@ export interface Props {
 }
 
 const { author } = Astro.props as Props;
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 
 const href = `/people/${author.id}`;
 ---
@@ -34,7 +35,7 @@ const href = `/people/${author.id}`;
 					translate(
 						Astro,
 						"title.n_articles",
-						author.totalPostCount.toLocaleString("en"),
+						author.totalPostCount.toLocaleString(locale),
 					)
 				}
 			</span>
@@ -44,7 +45,7 @@ const href = `/people/${author.id}`;
 					translate(
 						Astro,
 						"title.n_words",
-						author.totalWordCount.toLocaleString("en"),
+						author.totalWordCount.toLocaleString(locale),
 					)
 				}
 			</span>

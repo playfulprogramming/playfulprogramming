@@ -55,8 +55,9 @@ if (collection?.chapterList?.length) {
 		let externalLink = false;
 		if (isCurrentPost(post)) {
 			const postData = api.getPostBySlug(post.post, locale);
-			title = postData?.title || "No title";
-			description = postData?.description || "No description";
+			title = postData?.title || translate(Astro, "fallback.no_title");
+			description =
+				postData?.description || translate(Astro, "fallback.no_description");
 			href = post?.post ? `/posts/${post.post}` : undefined;
 		} else {
 			title = post.title;
