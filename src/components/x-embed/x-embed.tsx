@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 import { Button, IconOnlyButton } from "#components/button/button.tsx";
 import discussion from "#src/icons/discussion.svg?raw";
 import repost from "#src/icons/repost.svg?raw";
@@ -7,6 +9,8 @@ import style from "./x-embed.module.scss";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import type { Languages } from "#types/index.ts";
 import { createTranslator } from "#utils/translations.ts";
+
+dayjs.extend(advancedFormat);
 
 interface XEmbedPicture {
 	src: string;
@@ -46,11 +50,13 @@ export function XEmbedPlaceholder({
 	const postDate = new Date(date);
 	const isValidDate = !Number.isNaN(postDate.valueOf());
 	const formattedDate = isValidDate
-		? new Intl.DateTimeFormat(locale, {
-				month: "short",
-				day: "numeric",
-				year: "numeric",
-			}).format(postDate)
+		? locale === "en"
+			? dayjs(postDate).format("MMM Do, YYYY")
+			: new Intl.DateTimeFormat(locale, {
+					month: "short",
+					day: "numeric",
+					year: "numeric",
+				}).format(postDate)
 		: date;
 	const formattedTime = isValidDate
 		? new Intl.DateTimeFormat(locale, {
