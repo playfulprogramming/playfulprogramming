@@ -223,6 +223,35 @@ test.describe("theme sidebar", () => {
 		expect(storedTheme.brandTheme).not.toHaveProperty("chroma-factor");
 	});
 
+	test("disables the bowtie animation for a custom primary color", async ({
+		page,
+	}) => {
+		await page.goto("/", { waitUntil: "networkidle" });
+		const bowtieButton = page.locator("#bowtie-button");
+
+		await expect(bowtieButton).not.toHaveAttribute(
+			"data-bowtie-animation-disabled",
+			"",
+		);
+
+		const { dialog } = await openThemeSidebar(page);
+		await choosePrimaryColor(dialog);
+		await dialog
+			.getByRole("button", { name: "Save changes", exact: true })
+			.click();
+
+		await expect(bowtieButton).toHaveAttribute(
+			"data-bowtie-animation-disabled",
+			"",
+		);
+
+		await page.reload({ waitUntil: "networkidle" });
+		await expect(page.locator("#bowtie-button")).toHaveAttribute(
+			"data-bowtie-animation-disabled",
+			"",
+		);
+	});
+
 	test("saving System removes the explicit color-mode preference", async ({
 		page,
 	}) => {
