@@ -15,6 +15,7 @@ export function SnitipDialog({
 	includeSearchTags,
 }: SnitipDialogProps) {
 	const headingId = `${id}-title`;
+	const formId = `${id}-form`;
 
 	return (
 		<dialog
@@ -47,7 +48,7 @@ export function SnitipDialog({
 					strokeWidth="var(--snitip_border-width)"
 				/>
 			</svg>
-			<form method="dialog" class={style.form}>
+			<form id={formId} method="dialog" class={style.form}>
 				<SnitipContent
 					snitip={snitip}
 					headingTag={headingTag}
@@ -56,19 +57,20 @@ export function SnitipDialog({
 					headingTabIndex={-1}
 					includeSearchTags={includeSearchTags}
 				/>
-
-				<IconOnlyButton
-					data-snitip-close
-					tag="button"
-					type="submit"
-					formNoValidate
-					value="close"
-					aria-label="Close tooltip"
-					class={style.closeButton}
-				>
-					<RawSvg aria-hidden icon={iconClose} />
-				</IconOnlyButton>
 			</form>
+
+			<IconOnlyButton
+				data-snitip-close
+				tag="button"
+				type="submit"
+				form={formId}
+				formNoValidate
+				value="close"
+				aria-label="Close tooltip"
+				class={style.closeButton}
+			>
+				<RawSvg aria-hidden icon={iconClose} />
+			</IconOnlyButton>
 		</dialog>
 	);
 }

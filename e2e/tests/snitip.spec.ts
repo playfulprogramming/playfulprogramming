@@ -364,6 +364,46 @@ test("keeps an open modal across responsive presentations", async ({
 	await expectClosed(snitip.button, snitip.dialog);
 });
 
+test("keeps the close button visible while the dialog scrolls", async ({
+	page,
+}) => {
+	await page.setViewportSize({ width: 600, height: 320 });
+	const snitip = await openNodeSnitip(page);
+	const form = snitip.dialog.locator("form");
+	const close = snitip.dialog.getByRole("button", {
+		name: "Close tooltip",
+	});
+	const closePosition = () =>
+		close.evaluate((button) => {
+			const form = button.closest("dialog")?.querySelector("form");
+			if (!form) throw new Error("Close tooltip button has no dialog form");
+			const buttonRect = button.getBoundingClientRect();
+			const formRect = form.getBoundingClientRect();
+			return {
+				top: Math.round(buttonRect.top - formRect.top),
+				right: Math.round(formRect.right - buttonRect.right),
+			};
+		});
+
+	await expect
+		.poll(() =>
+			form.evaluate((element) => element.scrollHeight > element.clientHeight),
+		)
+		.toBe(true);
+	await expect(close).toBeInViewport({ ratio: 1 });
+	const initialClosePosition = await closePosition();
+
+	await form.evaluate((element) => (element.scrollTop = element.scrollHeight));
+	await expect
+		.poll(() => form.evaluate((element) => element.scrollTop))
+		.toBeGreaterThan(1);
+	await expect(close).toBeInViewport({ ratio: 1 });
+	await expect.poll(closePosition).toEqual(initialClosePosition);
+
+	await close.click();
+	await expectClosed(snitip.button, snitip.dialog);
+});
+
 test("shows keyboard focus after a pointer click inside the dialog", async ({
 	page,
 }) => {
