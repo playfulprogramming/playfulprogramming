@@ -125,6 +125,8 @@ export const transformSnitip: RehypeFunctionComponent = ({
 		links,
 		tags: [...tagsMeta.keys()],
 		tagsMeta,
+		locale: "en",
+		locales: ["en"],
 	};
 
 	(vfile as MarkdownVFile).data.snitips.set(snitipId, snitip);

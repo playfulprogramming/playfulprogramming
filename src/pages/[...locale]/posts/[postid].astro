@@ -28,6 +28,7 @@ const params = Astro.params as {
 
 const locale = params.locale ?? "en";
 const post = api.getPostBySlug(params.postid, locale)!;
+const isFallback = post.locale !== locale;
 const authors = post.authors
 	.map((personId) => api.getPersonById(personId, locale))
 	.filter(isDefined);
@@ -69,7 +70,7 @@ const postImages = await getPostImages(post).catch((e) => {
 		providedLangs={locales}
 		shareImage={post.socialImgMeta?.relativeServerPath ??
 			postImages?.linkPreview}
-		noindex={post.noindex}
+		noindex={post.noindex || isFallback}
 	/>
 	<BlogPost
 		post={post}
@@ -78,5 +79,7 @@ const postImages = await getPostImages(post).catch((e) => {
 		versions={versions}
 		collection={collection}
 		collectionPosts={collectionPosts}
+		isFallback={isFallback}
+		locale={locale}
 	/>
 </Document>

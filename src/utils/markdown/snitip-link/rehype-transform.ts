@@ -9,17 +9,19 @@ import { getSnitipById } from "#utils/api.ts";
 import { createComponent, type PlayfulRoot } from "../components/components.ts";
 import { v4 as uuidv4 } from "uuid";
 import type { Translate } from "#utils/translations.ts";
+import type { Languages } from "#types/index.ts";
 
 const SNITIP_PROTOCOL = "pfp-snitip:";
 
 interface RehypeSnitipLinksOptions {
 	translate: Translate;
+	locale: Languages;
 }
 
 export const rehypeSnitipLinks: Plugin<
 	[RehypeSnitipLinksOptions],
 	PlayfulRoot
-> = ({ translate }) => {
+> = ({ translate, locale }) => {
 	return (tree, vfile) => {
 		delete (vfile as MarkdownVFile).snitipScopeId;
 		const scopeId = uuidv4();
@@ -51,7 +53,7 @@ export const rehypeSnitipLinks: Plugin<
 
 				// If the snitip is not found in the document, try to resolve a global snitip
 				if (!snitip) {
-					snitip = getSnitipById(snitipId);
+					snitip = getSnitipById(snitipId, locale);
 					if (snitip) {
 						(vfile as MarkdownVFile).data.snitips.set(snitipId, snitip);
 					}

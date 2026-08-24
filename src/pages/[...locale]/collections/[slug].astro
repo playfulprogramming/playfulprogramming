@@ -6,6 +6,7 @@ import CollectionPage from "#src/views/collections/collection-page.astro";
 import CollectionChapter from "#src/views/collections/collection-chapter.astro";
 import { SubHeader } from "#src/components/subheader/subheader.tsx";
 import { addPrefixLanguageToPath, translate } from "#utils/translations.ts";
+import FallbackWarning from "#src/views/base/fallback-warning/fallback-warning.astro";
 import type { CurrentPost, FuturePost, Languages } from "#types/index.ts";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
 
@@ -32,6 +33,7 @@ const params = Astro.params as {
 
 const locale = params.locale || "en";
 const collection = api.getCollectionBySlug(params.slug, locale)!;
+const isFallback = collection.locale !== locale;
 const collectionPosts = api.getPostsByCollection(params.slug, locale);
 const authors = collection.authors.map(
 	(authorId) => api.getPersonById(authorId, locale)!,
@@ -99,13 +101,20 @@ if (collection?.chapterList?.length) {
 		description={collection.description}
 		peopleData={authors}
 		publishedTime={collection.published}
-		noindex={collection.noindex}
+		noindex={collection.noindex || isFallback}
 		type={collection.type}
 		shareImage={collection.socialImgMeta?.relativeServerPath ||
 			collection.coverImgMeta.relativeServerPath}
 		providedLangs={collection.locales}
 	/>
 	<main>
+		{
+			isFallback && (
+				<div class="fallback-container">
+					<FallbackWarning requestedLocale={locale} />
+				</div>
+			)
+		}
 		<CollectionPage
 			collection={collection}
 			collectionHtml={collectionHtml}
@@ -145,5 +154,11 @@ if (collection?.chapterList?.length) {
 		list-style: none;
 		padding: 0;
 		margin: 0;
+	}
+
+	.fallback-container {
+		max-width: var(--max-width_m);
+		margin: 0 auto 24px;
+		padding: var(--site-spacing) var(--site-spacing) 0;
 	}
 </style>

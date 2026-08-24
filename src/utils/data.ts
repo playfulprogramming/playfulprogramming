@@ -8,6 +8,7 @@ import type {
 	RawPersonInfo,
 	SnitipInfo,
 	RawSnitipInfo,
+	Languages,
 } from "#types/index.ts";
 import * as fs from "fs/promises";
 import path, { join } from "path";
@@ -106,10 +107,31 @@ for (const [key, tag] of Object.entries(tagsRaw)) {
 	});
 }
 
-const snitips = new Map<string, SnitipInfo>();
+const snitips = new Map<string, SnitipInfo[]>();
 const snitipsDirectory = join(process.cwd(), "content/data/snitips");
-for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
-	const snitipId = file.split(".")[0];
+
+const snitipFiles = (await fs.readdir(snitipsDirectory)).filter(isNotJunk);
+const snitipIdToLocales = new Map<string, Languages[]>();
+for (const file of snitipFiles) {
+	const locale = getLanguageFromFilename(file);
+	const fileNameWithoutExt = file.replace(/\.md$/, "");
+	const snitipId =
+		locale !== "en"
+			? fileNameWithoutExt.slice(0, -(locale.length + 1))
+			: fileNameWithoutExt;
+
+	const existing = snitipIdToLocales.get(snitipId) || [];
+	existing.push(locale);
+	snitipIdToLocales.set(snitipId, existing);
+}
+
+for (const file of snitipFiles) {
+	const locale = getLanguageFromFilename(file);
+	const fileNameWithoutExt = file.replace(/\.md$/, "");
+	const snitipId =
+		locale !== "en"
+			? fileNameWithoutExt.slice(0, -(locale.length + 1))
+			: fileNameWithoutExt;
 	const filePath = join(snitipsDirectory, file);
 	const fileContents = await fs.readFile(filePath, "utf-8");
 	const { data: frontmatter, content } = matter(fileContents);
@@ -128,10 +150,15 @@ for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
 	const snitip: SnitipInfo = {
 		...(frontmatter as RawSnitipInfo),
 		id: snitipId,
+		locale,
+		locales: snitipIdToLocales.get(snitipId) || [],
 		tagsMeta,
 		content: snitipHtml,
 	};
-	snitips.set(snitipId, snitip);
+
+	const existing = snitips.get(snitipId) || [];
+	existing.push(snitip);
+	snitips.set(snitipId, existing);
 }
 
 async function readPerson(personPath: string): Promise<PersonInfo[]> {

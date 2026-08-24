@@ -146,9 +146,14 @@ export function getTagById(tagId: string): TagInfo | undefined {
 }
 
 export function getSnitips(): SnitipInfo[] {
-	return [...snitips.values()];
+	return [...snitips.values()].flatMap((locales) => locales);
 }
 
-export function getSnitipById(snitipId: string): SnitipInfo | undefined {
-	return snitips.get(snitipId);
+export function getSnitipById(
+	snitipId: string,
+	language: Languages = "en",
+): SnitipInfo | undefined {
+	const locales = snitips.get(snitipId);
+	if (!locales) return undefined;
+	return locales.find((s) => s.locale === language) || locales[0];
 }

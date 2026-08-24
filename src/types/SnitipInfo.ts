@@ -1,4 +1,5 @@
 import type { TagInfo } from "./TagInfo.ts";
+import type { Languages } from "./index.ts";
 
 export interface RawSnitipInfo {
 	icon?: string;
@@ -11,6 +12,8 @@ export interface SnitipInfo extends RawSnitipInfo {
 	id: string;
 	content: string;
 	tagsMeta: Map<string, TagInfo>;
+	locale: Languages;
+	locales: Languages[];
 }
 
 export interface SnitipLink {

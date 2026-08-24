@@ -234,3 +234,11 @@ export function translate(
 export function createTranslator(context: TranslationContext): Translate {
 	return (key, ...args) => translate(context, key, ...args);
 }
+
+export function getMissingI18nKeys(lang: Languages): string[] {
+	const enKeys = i18n.en;
+	if (!enKeys) return [];
+	const targetKeys = i18n[lang];
+	if (!targetKeys) return [...enKeys.keys()];
+	return [...enKeys.keys()].filter((key) => !targetKeys.has(key));
+}

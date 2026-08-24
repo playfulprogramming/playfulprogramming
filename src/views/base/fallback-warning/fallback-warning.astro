@@ -1,0 +1,56 @@
+---
+import { translate } from "#utils/translations.ts";
+import { languages } from "#src/constants/index.ts";
+import type { Languages } from "#types/index.ts";
+
+interface Props {
+	requestedLocale: Languages;
+}
+
+const { requestedLocale } = Astro.props as Props;
+const localeName = languages[requestedLocale] || requestedLocale;
+---
+
+<div class="fallback-warning">
+	<svg
+		aria-hidden="true"
+		xmlns="http://www.w3.org/2000/svg"
+		width="20"
+		height="20"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	>
+		<circle cx="12" cy="12" r="10"></circle>
+		<line x1="12" y1="8" x2="12" y2="12"></line>
+		<line x1="12" y1="16" x2="12.01" y2="16"></line>
+	</svg>
+	<span>
+		{translate(Astro, "fallback.content_not_translated", localeName)}
+	</span>
+</div>
+
+<style>
+	.fallback-warning {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 12px 16px;
+		margin-bottom: 24px;
+		background: var(--warning_surface, #fef3c7);
+		border: 1px solid var(--warning_default, #f59e0b);
+		border-left: 4px solid var(--warning_default, #f59e0b);
+		border-radius: 8px;
+		font-size: 14px;
+		line-height: 1.5;
+		color: var(--primary_default, #374151);
+	}
+
+	.fallback-warning svg {
+		flex-shrink: 0;
+		color: var(--warning_default, #f59e0b);
+	}
+</style>

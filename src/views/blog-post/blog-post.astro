@@ -30,6 +30,8 @@ import type { MarkdownHtml } from "#utils/markdown/index.ts";
 import Content from "#utils/markdown/components/content.astro";
 import KatexCss from "./katex.astro";
 import { createTranslator, translate } from "#utils/translations.ts";
+import FallbackWarning from "../base/fallback-warning/fallback-warning.astro";
+import type { Languages } from "#types/index.ts";
 
 export interface Props {
 	post: PostInfo;
@@ -39,6 +41,8 @@ export interface Props {
 	collectionPosts?: PostInfo[];
 	license?: LicenseInfo;
 	postHtml: MarkdownHtml;
+	isFallback?: boolean;
+	locale?: Languages;
 }
 // destructure versions below
 const {
@@ -49,6 +53,8 @@ const {
 	collection,
 	collectionPosts,
 	license,
+	isFallback,
+	locale,
 } = Astro.props;
 
 const postHeadings = postHtml.headingsWithIds;
@@ -78,6 +84,13 @@ const translateText = createTranslator(Astro);
 <HeadingLinkScript />
 
 <main>
+	{
+		isFallback && locale && (
+			<div class="fallback-container">
+				<FallbackWarning requestedLocale={locale} />
+			</div>
+		)
+	}
 	<BlogPostLayout hideLeftSidebar={!postHeadings.length}>
 		{
 			postHeadings?.length > 0 && (
@@ -184,3 +197,11 @@ const translateText = createTranslator(Astro);
 </main>
 
 <BlockingTabsSignalScript />
+
+<style>
+	.fallback-container {
+		max-width: var(--max-width_m);
+		margin: 0 auto;
+		padding: 0 var(--site-spacing);
+	}
+</style>

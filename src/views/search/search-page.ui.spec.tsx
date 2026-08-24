@@ -472,6 +472,8 @@ describe("Search page", () => {
 			content: "<p>Angular description</p>",
 			links: [],
 			tags: ["angular"],
+			locale: "en",
+			locales: ["en"],
 		};
 		const typescriptSnitip: SearchSnitipInfo = {
 			id: "angular",
@@ -479,6 +481,8 @@ describe("Search page", () => {
 			content: "<p>TypeScript description</p>",
 			links: [],
 			tags: ["typescript"],
+			locale: "en",
+			locales: ["en"],
 		};
 
 		mockPeopleIndex([], [angularSnitip, typescriptSnitip]);
@@ -528,6 +532,8 @@ describe("Search page", () => {
 			content: "<p>TypeScript description</p>",
 			links: [],
 			tags: ["typescript"],
+			locale: "en",
+			locales: ["en"],
 		};
 
 		mockPeopleIndex([], [snitip]);

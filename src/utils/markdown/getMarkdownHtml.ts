@@ -16,7 +16,7 @@ function getUnifiedChain(locale: Languages) {
 	let unifiedChain = unifiedChains.get(locale);
 	if (!unifiedChain) {
 		unifiedChain = unified();
-		createHtmlPlugins(unifiedChain, createTranslator(locale));
+		createHtmlPlugins(unifiedChain, createTranslator(locale), locale);
 		unifiedChains.set(locale, unifiedChain);
 	}
 	return unifiedChain;

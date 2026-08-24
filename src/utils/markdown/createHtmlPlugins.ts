@@ -55,8 +55,13 @@ import {
 import { transformUser } from "#utils/markdown/components/user/rehype-transform.ts";
 import { transformQuizRadio } from "./components/quiz/rehype-transform-quiz-radio.ts";
 import type { Translate } from "#utils/translations.ts";
+import type { Languages } from "#types/index.ts";
 
-export function createHtmlPlugins(unified: Processor, translate: Translate) {
+export function createHtmlPlugins(
+	unified: Processor,
+	translate: Translate,
+	locale: Languages,
+) {
 	return (
 		unified
 			.use(remarkParse, { fragment: true } as never)
@@ -121,7 +126,7 @@ export function createHtmlPlugins(unified: Processor, translate: Translate) {
 			})
 			// Resolve local definitions after component transforms have populated
 			// the VFile's snitip map, even when a link appears first in the document.
-			.use(rehypeSnitipLinks, { translate })
+			.use(rehypeSnitipLinks, { translate, locale })
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
 			.use(rehypeValidateHeadingLinks)

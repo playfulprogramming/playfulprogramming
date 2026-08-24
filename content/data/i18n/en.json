@@ -298,5 +298,8 @@
 	"date.ordinal.two": "%snd",
 	"date.ordinal.few": "%srd",
 	"date.ordinal.many": "%sth",
-	"date.ordinal.other": "%sth"
+	"date.ordinal.other": "%sth",
+	"label.switch_language": "Switch language",
+	"label.missing_translations": "Missing translations",
+	"fallback.content_not_translated": "This content has not yet been translated into %s. You are viewing the English version."
 }

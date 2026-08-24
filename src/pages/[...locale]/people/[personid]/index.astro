@@ -5,6 +5,7 @@ import PersonPage from "#src/views/person/person-page.astro";
 import NotFoundPage from "#src/views/not-found/not-found-page.astro";
 import * as api from "#utils/api.ts";
 import { isNonDefaultLanguageKey } from "#utils/translations.ts";
+import FallbackWarning from "#src/views/base/fallback-warning/fallback-warning.astro";
 
 export function getStaticPaths() {
 	return api.getAllPeople().map((person) => ({
@@ -21,31 +22,45 @@ const isLocaleRoute =
 const locale = isNonDefaultLanguageKey(localeParam) ? localeParam : "en";
 const personId = Astro.params.personid!;
 const person = isLocaleRoute ? api.getPersonById(personId, locale) : undefined;
-const validPerson = person?.locale === locale ? person : undefined;
 
-if (!validPerson) {
+if (!person) {
 	Astro.response.status = 404;
 }
 
-const posts = validPerson ? api.getPostsByPerson(validPerson.id, locale) : [];
+const isFallback = person ? person.locale !== locale : false;
+const posts = person ? api.getPostsByPerson(person.id, locale) : [];
 ---
 
 {
-	validPerson ? (
+	person ? (
 		<Document size="xl">
 			<SEO
 				slot="head"
-				title={validPerson.name}
-				description={validPerson.description}
-				peopleData={[validPerson]}
-				providedLangs={validPerson.locales}
+				title={person.name}
+				description={person.description}
+				peopleData={[person]}
+				providedLangs={person.locales}
 				type="profile"
+				noindex={isFallback}
 			/>
 			<main class="listViewContent">
-				<PersonPage person={validPerson} posts={posts} locale={locale} />
+				{isFallback && (
+					<div class="fallback-container">
+						<FallbackWarning requestedLocale={locale} />
+					</div>
+				)}
+				<PersonPage person={person} posts={posts} locale={locale} />
 			</main>
 		</Document>
 	) : (
 		<NotFoundPage />
 	)
 }
+
+<style>
+	.fallback-container {
+		max-width: var(--max-width_m);
+		margin: 0 auto;
+		padding: var(--site-spacing) var(--site-spacing) 0;
+	}
+</style>
