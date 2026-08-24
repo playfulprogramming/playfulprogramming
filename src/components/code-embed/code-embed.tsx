@@ -13,12 +13,14 @@ import type { TargetedEvent, ComponentChildren } from "preact";
 import { FilePicker } from "./file-picker.tsx";
 import type { FileEntry } from "./types.ts";
 import { ResizeablePanels } from "./resizeable-panels.tsx";
+import type { Translate } from "#utils/translations.ts";
 
 interface ContainerProps {
 	title?: string;
 	editUrl?: string;
 	codePanel: ComponentChildren;
 	previewPanel: ComponentChildren;
+	translate: Translate;
 }
 
 export function Container(props: ContainerProps) {
@@ -33,7 +35,7 @@ export function Container(props: ContainerProps) {
 						leftIcon={<RawSvg icon={EditIcon} />}
 						href={props.editUrl}
 					>
-						Edit
+						{props.translate("action.edit")}
 					</Button>
 				) : null}
 			</div>
@@ -51,6 +53,7 @@ interface AddressBarProps {
 	onChange(value: string): void;
 	onSubmit(value: string): void;
 	onReload(): void;
+	translate: Translate;
 }
 
 export function AddressBar({
@@ -58,6 +61,7 @@ export function AddressBar({
 	onChange,
 	onSubmit,
 	onReload,
+	translate,
 }: AddressBarProps) {
 	const id = useId();
 
@@ -86,7 +90,7 @@ export function AddressBar({
 				for={`code-embed-input-${id}`}
 				class={`text-style-body-medium ${style.address__input}`}
 			>
-				<span class="visually-hidden">Address</span>
+				<span class="visually-hidden">{translate("label.address")}</span>
 				<input
 					id={`code-embed-input-${id}`}
 					name="address"
@@ -99,7 +103,7 @@ export function AddressBar({
 			<IconOnlyButton
 				tag="button"
 				variant="primary"
-				aria-label="Reload"
+				aria-label={translate("action.reload")}
 				onClick={onReload}
 			>
 				<RawSvg icon={RefreshIcon} />
@@ -112,6 +116,7 @@ export interface CodeContainerProps extends PropsWithChildren {
 	file?: string;
 	onFileChange(file: string): void;
 	entries: Array<FileEntry>;
+	translate: Translate;
 }
 
 export function CodeContainer(props: CodeContainerProps) {
@@ -126,6 +131,7 @@ export function CodeContainer(props: CodeContainerProps) {
 					file={file}
 					entries={props.entries}
 					onFileChange={props.onFileChange}
+					translate={props.translate}
 				/>
 			</div>
 			<div class={style.content__code__snippet}>{props.children}</div>
@@ -139,6 +145,7 @@ export function PreviewContainer({ children }: PropsWithChildren) {
 
 interface PreviewPlaceholderProps {
 	onClick(): void;
+	translate: Translate;
 }
 
 export function PreviewPlaceholder(props: PreviewPlaceholderProps) {
@@ -151,7 +158,7 @@ export function PreviewPlaceholder(props: PreviewPlaceholderProps) {
 				leftIcon={<RawSvg icon={PlayIcon} />}
 				onClick={props.onClick}
 			>
-				Run
+				{props.translate("action.run")}
 			</Button>
 		</div>
 	);
@@ -170,6 +177,7 @@ interface LoadingPlaceholderProps {
 	loading?: "download" | "install" | "start";
 	consoleProcess?: string;
 	consoleOutput?: string;
+	translate: Translate;
 }
 
 export function LoadingPlaceholder(props: LoadingPlaceholderProps) {
@@ -182,17 +190,21 @@ export function LoadingPlaceholder(props: LoadingPlaceholderProps) {
 				<ol>
 					<li>
 						<LoadingStepIcon index={0} current={current} />
-						<span class="text-style-body-medium-bold">Downloading sources</span>
+						<span class="text-style-body-medium-bold">
+							{props.translate("code_embed.loading.download_sources")}
+						</span>
 					</li>
 					<li>
 						<LoadingStepIcon index={1} current={current} />
 						<span class="text-style-body-medium-bold">
-							Installing dependencies
+							{props.translate("code_embed.loading.install_dependencies")}
 						</span>
 					</li>
 					<li>
 						<LoadingStepIcon index={2} current={current} />
-						<span class="text-style-body-medium-bold">Starting up</span>
+						<span class="text-style-body-medium-bold">
+							{props.translate("code_embed.loading.starting_up")}
+						</span>
 					</li>
 				</ol>
 				<span class={`${style.loader__command} text-style-body-small-bold`}>
@@ -228,16 +240,18 @@ export function PreviewFrame(props: PreviewFrameProps) {
 	);
 }
 
-export function PreviewError() {
+export function PreviewError({ translate }: { translate: Translate }) {
 	return (
 		<div class={style.error}>
 			<div class={style.error__grid}>
 				<div class={style.error__background} />
-				<p class={`${style.error__heading} text-style-headline-3`}>Oh, no!</p>
+				<p class={`${style.error__heading} text-style-headline-3`}>
+					{translate("code_embed.error.title")}
+				</p>
 				<p class={`${style.error__message} text-style-body-large`}>
-					This project failed to load. Try using the Edit button, or switch to{" "}
+					{translate("code_embed.error.description_before_link")}{" "}
 					<a href="https://webcontainers.io/guides/browser-support">
-						a supported browser
+						{translate("code_embed.error.supported_browser")}
 					</a>
 					.
 				</p>
@@ -248,7 +262,7 @@ export function PreviewError() {
 						target="_blank"
 						variant="secondary"
 					>
-						Report an issue
+						{translate("action.report_issue")}
 					</Button>
 				</div>
 			</div>

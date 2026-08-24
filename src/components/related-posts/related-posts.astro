@@ -5,6 +5,7 @@ import RelatedPostsCard from "./related-posts-card.astro";
 import * as api from "#utils/api.ts";
 import { getSuggestedArticles } from "#utils/get-suggested-articles.ts";
 import { isDefined } from "#utils/is-defined.ts";
+import { translate } from "#utils/translations.ts";
 
 interface RelatedPostsProps {
 	post: PostInfo;
@@ -22,7 +23,7 @@ function getPostAuthors(post: PostInfo) {
 ---
 
 <h2 id={headingId} class={`text-style-headline-5 ${style.relatedPostsHeader}`}>
-	Related posts
+	{translate(Astro, "title.related_posts")}
 </h2>
 <ul class={style.suggestedPostList}>
 	{
@@ -31,6 +32,7 @@ function getPostAuthors(post: PostInfo) {
 				title={suggestedPost.title}
 				slug={suggestedPost.slug}
 				authors={getPostAuthors(suggestedPost)}
+				locale={suggestedPost.locale}
 			/>
 		))
 	}

@@ -2,20 +2,22 @@
 import style from "./related-posts-card.module.scss";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import type { PersonInfo } from "../../types/PersonInfo.ts";
+import type { Languages } from "#types/index.ts";
+import { addPrefixLanguageToPath } from "#utils/translations.ts";
 
 interface RelatedPostsCardProps {
 	title: string;
 	slug: string;
 	authors: PersonInfo[];
+	locale: Languages;
 }
 
-const { title, slug, authors } = Astro.props as RelatedPostsCardProps;
+const { title, slug, authors, locale } = Astro.props as RelatedPostsCardProps;
+const postHref = addPrefixLanguageToPath(`/posts/${slug}`, locale);
 ---
 
-<li {...getHrefContainerProps(`/posts/${slug}`)} class={style.container}>
-	<a
-		href={`/posts/${slug}`}
-		class={`text-style-body-medium-bold ${style.articleTitle}`}
+<li {...getHrefContainerProps(postHref)} class={style.container}>
+	<a href={postHref} class={`text-style-body-medium-bold ${style.articleTitle}`}
 		>{title}
 	</a>
 

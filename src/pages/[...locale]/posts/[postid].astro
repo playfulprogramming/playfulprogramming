@@ -48,7 +48,7 @@ const collectionPosts = post.collection
 
 const locales = post?.locales || [];
 
-const postHtml = await getMarkdownHtml(post);
+const postHtml = await getMarkdownHtml(post, undefined, locale);
 const postImages = await getPostImages(post).catch((e) => {
 	console.error(e);
 	return undefined;

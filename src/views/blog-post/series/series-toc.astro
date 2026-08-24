@@ -5,7 +5,11 @@ import type { PostInfo } from "#types/index.ts";
 import { Button } from "../../../components/index.ts";
 import { findActivePost } from "./base.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
-import { translate } from "#utils/index.ts";
+import {
+	addPrefixLanguageToPath,
+	getPrefixLanguageFromPath,
+	translate,
+} from "#utils/translations.ts";
 import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
 
 interface SeriesTocProps {
@@ -17,11 +21,12 @@ interface SeriesTocProps {
 const { post, postSeries, collection } = Astro.props as SeriesTocProps;
 
 const activePostsMeta = findActivePost(post, postSeries);
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 
 const showMoreText = translate(
 	Astro,
 	"action.view_all_chapters",
-	"" + activePostsMeta.length,
+	activePostsMeta.length.toLocaleString(locale),
 );
 const showLessText = translate(Astro, "action.view_less_chapters");
 ---
@@ -36,12 +41,15 @@ const showLessText = translate(Astro, "action.view_less_chapters");
 					data-no-heading-link
 				>
 					<span class={`text-style-body-medium-bold ${styles.partOfSeries}`}>
-						This article is part of a series:
+						{translate(Astro, "blog_post.series_intro")}
 					</span>
 					{collection ? (
 						<a
 							class={`text-style-headline-4 ${styles.articleTitle}`}
-							href={`/collections/${collection.upToDateSlug ?? collection.slug}`}
+							href={addPrefixLanguageToPath(
+								`/collections/${collection.upToDateSlug ?? collection.slug}`,
+								collection.locale,
+							)}
 						>
 							{collection.title}
 						</a>
@@ -69,12 +77,19 @@ const showLessText = translate(Astro, "action.view_less_chapters");
 								data-dont-show-initially={!seriesPost.shouldShowInitially}
 							>
 								<a
-									href={`/posts/${seriesPost.slug}`}
+									href={addPrefixLanguageToPath(
+										`/posts/${seriesPost.slug}`,
+										seriesPost.locale,
+									)}
 									class={`text-style-body-large-bold ${styles.navigationItem}`}
 									data-is-active={seriesPost.isActive}
 								>
-									Part {seriesPost.order}:{" "}
-									{getShortTitle(seriesPost, collection)}
+									{translate(
+										Astro,
+										"blog_post.series_part",
+										seriesPost.order?.toLocaleString(locale) ?? "",
+										getShortTitle(seriesPost, collection),
+									)}
 								</a>
 							</li>
 						))}

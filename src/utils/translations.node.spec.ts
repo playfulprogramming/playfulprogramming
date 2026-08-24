@@ -101,4 +101,37 @@ describe("utils/translations.ts", () => {
 			expect(actual).toEqual(`/${lang}/es/fr/something/hi`);
 		});
 	});
+
+	describe("addPrefixLanguageToPath", () => {
+		test("leaves English paths unprefixed", () => {
+			expect(translations.addPrefixLanguageToPath("/posts/test", "en")).toBe(
+				"/posts/test",
+			);
+		});
+
+		test("adds a non-English prefix to an absolute path", () => {
+			expect(translations.addPrefixLanguageToPath("/posts/test", "fr")).toBe(
+				"/fr/posts/test",
+			);
+		});
+
+		test("preserves a path without a leading slash", () => {
+			expect(translations.addPrefixLanguageToPath("posts/test", "fr")).toBe(
+				"fr/posts/test",
+			);
+		});
+	});
+
+	describe("translate", () => {
+		test("interpolates arguments without reprocessing authored placeholder text", () => {
+			expect(
+				translations.translate(
+					"en",
+					"search.meta.query",
+					"$& authored %s",
+					"Playful Programming",
+				),
+			).toBe("$& authored %s | Playful Programming");
+		});
+	});
 });

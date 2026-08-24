@@ -3,14 +3,25 @@ import Content from "../components/content.astro";
 import type { ComponentNode } from "#utils/markdown/components/index.ts";
 import type { GistPlaceholderProps } from "#components/gist-placeholder/gist-placeholder.tsx";
 import { GistPlaceholder as PreactGistPlaceholder } from "#components/gist-placeholder/gist-placeholder.tsx";
+import { getPrefixLanguageFromPath, translate } from "#utils/translations.ts";
 
-export interface Props extends GistPlaceholderProps {
+export interface Props extends Omit<
+	GistPlaceholderProps,
+	"locale" | "filename"
+> {
+	filename?: string;
 	children: ComponentNode["children"];
 }
 
 const { username, children, filename, href } = Astro.props;
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
-<PreactGistPlaceholder username={username} filename={filename} href={href}>
+<PreactGistPlaceholder
+	username={username}
+	filename={filename ?? translate(locale, "label.untitled")}
+	href={href}
+	locale={locale}
+>
 	<Content content={children} />
 </PreactGistPlaceholder>

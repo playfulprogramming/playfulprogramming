@@ -1,8 +1,11 @@
 ---
 import type { VideoPlaceholderProps } from "#components/video/video-placeholder.tsx";
 import { VideoPlaceholder as PreactVideoPlaceholder } from "#components/video/video-placeholder.tsx";
+import { getPrefixLanguageFromPath } from "#utils/translations.ts";
 
-export type Props = VideoPlaceholderProps;
+export type Props = Omit<VideoPlaceholderProps, "locale">;
+
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
-<PreactVideoPlaceholder {...Astro.props} client:load />
+<PreactVideoPlaceholder {...Astro.props} locale={locale} client:load />

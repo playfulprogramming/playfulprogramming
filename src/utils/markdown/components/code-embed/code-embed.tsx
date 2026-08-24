@@ -13,6 +13,8 @@ import { useStore } from "@nanostores/preact";
 import { $container, runEmbed } from "./webcontainer-script.ts";
 import type { FileEntry } from "#components/code-embed/types.tsx";
 import { CodeEmbedContent } from "./code-embed-content.tsx";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 // Given the base webcontainer URL, modify it with any changes made in the address bar
 function modifyProcessUrl(processUrl: string, addressUrl: string) {
@@ -41,9 +43,11 @@ export interface CodeEmbedProps {
 	fileHtml?: string;
 	files: Array<FileEntry>;
 	editUrl?: string;
+	locale: Languages;
 }
 
 export function CodeEmbed(props: CodeEmbedProps) {
+	const translate = createTranslator(props.locale);
 	const [addressUrl, setAddressUrl] = useState("http://localhost/");
 	const [frameUrl, setFrameUrl] = useState(addressUrl);
 	const container = useStore($container);
@@ -92,11 +96,13 @@ export function CodeEmbed(props: CodeEmbedProps) {
 		<Container
 			title={props.title}
 			editUrl={props.editUrl}
+			translate={translate}
 			codePanel={
 				<CodeContainer
 					entries={props.files}
 					file={selectedFile}
 					onFileChange={setSelectedFile}
+					translate={translate}
 				>
 					{selectedFileContent ? (
 						<CodeEmbedContent
@@ -116,10 +122,11 @@ export function CodeEmbed(props: CodeEmbedProps) {
 						onChange={handleAddressChange}
 						onSubmit={handleAddressSubmit}
 						onReload={handleAddressReset}
+						translate={translate}
 					/>
 					{isCurrent ? (
 						container.error ? (
-							<PreviewError />
+							<PreviewError translate={translate} />
 						) : container.processUrl && frameUrl != addressUrl ? (
 							<PreviewFrame src={frameUrl} onLoad={handleFrameLoad} />
 						) : (
@@ -127,10 +134,14 @@ export function CodeEmbed(props: CodeEmbedProps) {
 								loading={container.loading}
 								consoleProcess={container.consoleProcess}
 								consoleOutput={container.consoleOutput}
+								translate={translate}
 							/>
 						)
 					) : (
-						<PreviewPlaceholder onClick={handleRunEmbed} />
+						<PreviewPlaceholder
+							onClick={handleRunEmbed}
+							translate={translate}
+						/>
 					)}
 				</PreviewContainer>
 			}

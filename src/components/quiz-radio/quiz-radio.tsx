@@ -8,6 +8,8 @@ import RadioButtonSelectedIcon from "#src/icons/radio_button_selected.svg?raw";
 import RadioButtonCorrectIcon from "#src/icons/radio_button_correct_filled.svg?raw";
 import RadioButtonIncorrectIcon from "#src/icons/radio_button_incorrect_filled.svg?raw";
 import type { ComponentChildren } from "preact";
+import type { Translate } from "#utils/translations.ts";
+import type { Languages } from "#types/index.ts";
 
 export interface QuizRadioOption {
 	id: string;
@@ -28,6 +30,8 @@ export interface QuizRadioOption {
 }
 
 export interface QuizRadioProps {
+	translate: Translate;
+	locale: Languages;
 	id?: string;
 	title: string;
 	options: QuizRadioOption[];
@@ -69,15 +73,19 @@ export function QuizRadio(props: QuizRadioProps) {
 				isDisabled={isDisabled}
 			>
 				<span class={`${style.quizNum} text-style-body-medium`}>
-					<span class="text-style-body-medium-bold">{props.questionNum}</span>
-					{" of "}
-					<span class="text-style-body-medium-bold">{props.totalNum}</span>
+					<span class="text-style-body-medium-bold">
+						{props.questionNum.toLocaleString(props.locale)}
+					</span>{" "}
+					{props.translate("quiz.progress_separator")}{" "}
+					<span class="text-style-body-medium-bold">
+						{props.totalNum.toLocaleString(props.locale)}
+					</span>
 				</span>
 				<Label className={`${style.quizOptionTitle} text-style-headline-5`}>
 					{props.title}
 				</Label>
 				<span class={`${style.quizPrompt} text-style-body-medium-bold`}>
-					Select the correct answer.
+					{props.translate("quiz.select_correct_answer")}
 				</span>
 				<div class={style.quizOptionOptionsContainer}>
 					{props.options.map((option) => {
@@ -136,7 +144,7 @@ export function QuizRadio(props: QuizRadioProps) {
 							disabled={isDisabled || typeof props.value === "undefined"}
 							onClick={handleSubmit}
 						>
-							Submit
+							{props.translate("action.submit")}
 						</Button>
 					</div>
 				) : undefined}

@@ -2,13 +2,17 @@ import { useCallback, useMemo } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { $quizState } from "./atom.ts";
 import { type QuizQuestion, QuizResults } from "./quiz-results.tsx";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 export interface QuizResultsInlineProps {
+	locale: Languages;
 	quizId: string;
 	questionIds: string[];
 }
 
 export function QuizResultsInline(props: QuizResultsInlineProps) {
+	const translate = createTranslator(props.locale);
 	const quizState = useStore($quizState);
 
 	const isSubmitted = useMemo(() => {
@@ -38,6 +42,8 @@ export function QuizResultsInline(props: QuizResultsInlineProps) {
 
 	return (
 		<QuizResults
+			translate={translate}
+			locale={props.locale}
 			questions={questions}
 			isDisabled={isDisabled}
 			isSubmitted={isSubmitted}

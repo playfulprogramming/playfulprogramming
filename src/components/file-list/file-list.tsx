@@ -1,6 +1,7 @@
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import { getIcon } from "./file-tree-icons.ts";
 import style from "./file-list.module.scss";
+import type { Translate } from "#utils/translations.ts";
 
 const FolderIcon = `
 <svg viewBox="0 0 20 20">
@@ -63,7 +64,7 @@ export function File(props: FileProps) {
 	);
 }
 
-function Directory(props: DirectoryProps) {
+function Directory(props: DirectoryProps, translate: Translate) {
 	return (
 		<details open={props.openByDefault} class={style.directoryDetails}>
 			<summary class={style.directorySummary}>
@@ -71,7 +72,10 @@ function Directory(props: DirectoryProps) {
 					className={`${style.directoryNameAndIcon} text-style-body-small-bold`}
 					data-highlighted={props.isHighlighted}
 				>
-					<span class={style.directoryIcon} aria-label="Directory">
+					<span
+						class={style.directoryIcon}
+						aria-label={translate("label.directory")}
+					>
 						<RawSvg icon={FolderIcon} aria-hidden />
 					</span>
 					{props.name}
@@ -83,31 +87,32 @@ function Directory(props: DirectoryProps) {
 					/>
 				) : null}
 			</summary>
-			{FileListList({ items: props.items })}
+			{FileListList({ items: props.items, translate })}
 		</details>
 	);
 }
 
 interface FileListProps {
 	items: Array<DirectoryProps | FileProps>;
+	translate: Translate;
 }
 
-export function FileListList({ items }: FileListProps) {
+export function FileListList({ items, translate }: FileListProps) {
 	return (
 		<ul class={style.fileTreeList}>
 			{items.map((item) => (
 				<li key={item.name}>
-					{isDirectory(item) ? Directory(item) : File(item)}
+					{isDirectory(item) ? Directory(item, translate) : File(item)}
 				</li>
 			))}
 		</ul>
 	);
 }
 
-export function FileList({ items }: FileListProps) {
+export function FileList({ items, translate }: FileListProps) {
 	return (
 		<div class={`${style.fileTreeContainer} markdownCollapsePadding`}>
-			<div class={style.fileTree}>{FileListList({ items })}</div>
+			<div class={style.fileTree}>{FileListList({ items, translate })}</div>
 		</div>
 	);
 }

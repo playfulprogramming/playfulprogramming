@@ -3,11 +3,15 @@ import type { QuizResultsInlineProps } from "#components/quiz-radio/quiz-results
 import { QuizResultsInline as PreactQuizResults } from "#components/quiz-radio/quiz-results-inline.tsx";
 import Content from "../content.astro";
 import type { PlayfulNode } from "../components.ts";
+import { getPrefixLanguageFromPath } from "#utils/translations.ts";
 
-export type Props = QuizResultsInlineProps & { children: PlayfulNode[] };
+export type Props = Omit<QuizResultsInlineProps, "locale"> & {
+	children: PlayfulNode[];
+};
 
 const { children, ...props } = Astro.props;
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
 <Content content={children} />
-<PreactQuizResults {...props} client:load />
+<PreactQuizResults {...props} locale={locale} client:load />

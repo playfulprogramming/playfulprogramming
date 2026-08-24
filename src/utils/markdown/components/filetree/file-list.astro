@@ -4,10 +4,18 @@ import type {
 	FileProps,
 } from "#components/file-list/file-list.tsx";
 import { FileList as PreactFileList } from "#components/file-list/file-list.tsx";
+import {
+	createTranslator,
+	getPrefixLanguageFromPath,
+} from "#utils/translations.ts";
 
 export interface Props {
 	items: Array<DirectoryProps | FileProps>;
 }
+
+const translate = createTranslator(
+	getPrefixLanguageFromPath(Astro.url.pathname),
+);
 ---
 
-<PreactFileList items={Astro.props.items} />
+<PreactFileList items={Astro.props.items} translate={translate} />

@@ -4,11 +4,13 @@ import { fromHtml } from "hast-util-from-html";
 import { toString } from "hast-util-to-string";
 import fs from "fs/promises";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
+import type { Translate } from "#utils/translations.ts";
 
 interface LinkProps {
 	id: string;
 	scopeId: string;
 	snitip: SnitipInfo;
+	translate: Translate;
 	children: ElementContent[];
 }
 
@@ -35,12 +37,18 @@ export function SnitipLink(props: LinkProps): Element {
 				aria-controls={dialogId}
 				aria-expanded="false"
 				aria-haspopup="dialog"
-				aria-label={`${label}: Open tooltip for ${props.snitip.title}`}
+				aria-label={props.translate(
+					"label.open_tooltip_for",
+					label,
+					props.snitip.title,
+				)}
 			>
 				<span class="snitip-trigger__text">{props.children}</span>
 				<span class="snitip-trigger__icon-container">
 					<span aria-hidden="true" class="snitip-trigger__popup inline-popup">
-						<span class="inline-popup__content">Open tooltip</span>
+						<span class="inline-popup__content">
+							{props.translate("action.open_tooltip")}
+						</span>
 					</span>
 					{InfoIcon}
 				</span>

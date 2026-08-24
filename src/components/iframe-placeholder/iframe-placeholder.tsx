@@ -5,12 +5,15 @@ import { useState } from "preact/hooks";
 import LaunchIcon from "#src/icons/launch.svg?raw";
 import PlayIcon from "#src/icons/play.svg?raw";
 import FallbackPageIcon from "#src/icons/website.svg?raw";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 import style from "./iframe-placeholder.module.scss";
 
 const isCredentiallessSupported =
 	import.meta.env.SSR || "credentialless" in HTMLIFrameElement.prototype;
 
 export interface IFramePlaceholderProps {
+	locale: Languages;
 	width: string;
 	height: string;
 	src: string;
@@ -25,6 +28,7 @@ export function IFramePlaceholder({
 	iframeAttrs,
 	...props
 }: IFramePlaceholderProps) {
+	const translate = createTranslator(props.locale);
 	const [pageIconError, setPageIconError] = useState(false);
 	const [frameVisible, setFrameVisible] = useState(false);
 
@@ -57,7 +61,9 @@ export function IFramePlaceholder({
 				</div>
 				<div class={style.headerInfo}>
 					<p>
-						<span class="visually-hidden">An embedded webpage:</span>
+						<span class="visually-hidden">
+							{translate("label.embedded_webpage")}
+						</span>
 						{props.pageTitle}
 					</p>
 					<a
@@ -75,7 +81,7 @@ export function IFramePlaceholder({
 					target="_blank"
 					leftIcon={<RawSvg icon={LaunchIcon} />}
 				>
-					New tab
+					{translate("action.new_tab")}
 				</Button>
 			</div>
 			{isCredentiallessSupported &&
@@ -91,7 +97,7 @@ export function IFramePlaceholder({
 							leftIcon={<RawSvg icon={PlayIcon} />}
 							onClick={() => setFrameVisible(true)}
 						>
-							Run
+							{translate("action.run")}
 						</Button>
 					</div>
 				) : (

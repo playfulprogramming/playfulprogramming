@@ -5,7 +5,7 @@ import * as api from "#utils/api.ts";
 import CollectionPage from "#src/views/collections/collection-page.astro";
 import CollectionChapter from "#src/views/collections/collection-chapter.astro";
 import { SubHeader } from "#src/components/subheader/subheader.tsx";
-import { translate } from "#utils/translations.ts";
+import { addPrefixLanguageToPath, translate } from "#utils/translations.ts";
 import type { CurrentPost, FuturePost, Languages } from "#types/index.ts";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
 
@@ -37,7 +37,7 @@ const authors = collection.authors.map(
 	(authorId) => api.getPersonById(authorId, locale)!,
 );
 
-const collectionHtml = await getMarkdownHtml(collection);
+const collectionHtml = await getMarkdownHtml(collection, undefined, locale);
 
 const isCurrentPost = (
 	chapter: CurrentPost | FuturePost,
@@ -58,7 +58,12 @@ if (collection?.chapterList?.length) {
 			title = postData?.title || translate(Astro, "fallback.no_title");
 			description =
 				postData?.description || translate(Astro, "fallback.no_description");
-			href = post?.post ? `/posts/${post.post}` : undefined;
+			href = post?.post
+				? addPrefixLanguageToPath(
+						`/posts/${post.post}`,
+						postData?.locale ?? locale,
+					)
+				: undefined;
 		} else {
 			title = post.title;
 			description = post.description || "";
@@ -75,11 +80,11 @@ if (collection?.chapterList?.length) {
 	});
 } else if (collectionPosts?.length) {
 	collectionData = collectionPosts.map(
-		({ order, title, description, slug }, i) => ({
+		({ order, title, description, slug, locale: postLocale }, i) => ({
 			num: order || i + 1,
 			title,
 			description,
-			href: `/posts/${slug}`,
+			href: addPrefixLanguageToPath(`/posts/${slug}`, postLocale),
 			externalLink: false,
 			collection,
 		}),

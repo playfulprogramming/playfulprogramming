@@ -1,23 +1,26 @@
 ---
 import { Icon } from "astro-icon/components";
 import style from "./heading-link.module.scss";
+import { getPrefixLanguageFromPath, translate } from "#utils/translations.ts";
+
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
-<template id="heading-link-template">
+<template id="heading-link-template" data-locale={locale}>
 	<button class={style.headingLinkContainer} data-heading-anchor="copy">
 		<div class={style.headingLink}>
 			<span data-heading-link="copy">
 				<div class={style.icon} aria-hidden>
 					<Icon name="link" />
 				</div>
-				Copy link
+				{translate(Astro, "action.copy_link")}
 			</span>
 			<span aria-live="polite">
 				<span data-heading-link="copied" hidden>
 					<div class={style.icon} aria-hidden>
 						<Icon name="checkmark" />
 					</div>
-					Link copied!
+					{translate(Astro, "status.link_copied")}
 				</span>
 			</span>
 		</div>
@@ -25,10 +28,14 @@ import style from "./heading-link.module.scss";
 </template>
 
 <script>
+	import type { Languages } from "#types/index.ts";
+	import { createTranslator } from "#utils/translations.ts";
+
 	window.addEventListener("load", () => {
 		const template = document.querySelector(
 			"#heading-link-template",
 		) as HTMLTemplateElement;
+		const translate = createTranslator(template.dataset.locale as Languages);
 
 		function handleClick(e: Event) {
 			if ((e.target as HTMLElement).tagName === "A") {
@@ -87,7 +94,7 @@ import style from "./heading-link.module.scss";
 				anchorEl.setAttribute("data-heading-href", href.toString());
 				anchorEl.setAttribute(
 					"aria-label",
-					`Copy permalink for "${headingEl.innerText}"`,
+					translate("label.copy_permalink_for", headingEl.innerText),
 				);
 
 				headingEl.appendChild(templateClone);

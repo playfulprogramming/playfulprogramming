@@ -80,6 +80,15 @@ export function removePrefixLanguageFromPath(path: string) {
 }
 
 /**
+ * Add a non-English language prefix to a path while preserving whether the
+ * path starts with a slash. English paths remain unprefixed.
+ */
+export function addPrefixLanguageToPath(path: string, lang: Languages) {
+	if (lang === "en") return path;
+	return path.startsWith("/") ? `/${lang}${path}` : `${lang}/${path}`;
+}
+
+/**
  * Gets a translated markdown page from Astro, based on the current URL locale.
  *
  * @param astro the Astro global instance
@@ -181,11 +190,16 @@ export function translate(
 	}
 
 	if (value) {
-		// replace any instances of "%s" with the corresponding argument
-		//   ignoring double escapes (%%s)
-		for (const arg of args) {
-			value = value.replace(/(?<!%)%s/, arg).replace(/%%s/g, "%s");
-		}
+		let argIndex = 0;
+		value = value.replace(/%%s|%s/g, (placeholder) => {
+			if (placeholder === "%%s") return "%s";
+
+			const arg = args[argIndex];
+			if (arg === undefined) return placeholder;
+
+			argIndex += 1;
+			return arg;
+		});
 	}
 
 	if (!value) {

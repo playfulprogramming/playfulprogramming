@@ -5,6 +5,8 @@ import PlayIcon from "#src/icons/play.svg?raw";
 import YoutubeIcon from "#src/icons/youtube.svg?raw";
 import style from "./video-placeholder.module.scss";
 import type { HTMLAttributes } from "preact/compat";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 // This is hardcoded as 'false' because youtube does not support embedding within an iframe
 // in credentialless mode.
@@ -13,6 +15,7 @@ import type { HTMLAttributes } from "preact/compat";
 const isCredentiallessSupported = false;
 
 export interface VideoPlaceholderProps {
+	locale: Languages;
 	width: number;
 	height: number;
 	src: string;
@@ -33,6 +36,7 @@ export function VideoPlaceholder({
 	iframeAttrs,
 	...props
 }: VideoPlaceholderProps) {
+	const translate = createTranslator(props.locale);
 	const [pageIconError, setPageIconError] = useState(false);
 	const [frameVisible, setFrameVisible] = useState(false);
 
@@ -68,7 +72,9 @@ export function VideoPlaceholder({
 				</div>
 				<div class={style.headerInfo}>
 					<p>
-						<span class="visually-hidden">An embedded webpage:</span>
+						<span class="visually-hidden">
+							{translate("label.embedded_webpage")}
+						</span>
 						{props.pageTitle}
 					</p>
 				</div>
@@ -91,7 +97,7 @@ export function VideoPlaceholder({
 						class={style.placeholderButton}
 						tag={isCredentiallessSupported ? "button" : "a"}
 						variant="primary"
-						aria-label="Play video"
+						aria-label={translate("action.play_video")}
 						{...(isCredentiallessSupported
 							? {
 									onClick: () => setFrameVisible(true),

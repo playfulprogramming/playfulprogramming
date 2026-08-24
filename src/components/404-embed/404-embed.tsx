@@ -2,28 +2,32 @@ import style from "./404-embed.module.scss";
 import { LargeButton } from "#components/button/button.tsx";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import LaunchIcon from "#src/icons/launch.svg?raw";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 export interface FourOFourEmbedProps {
+	locale: Languages;
 	url: string;
 }
 
-export function FourOFourEmbed({ url }: FourOFourEmbedProps) {
+export function FourOFourEmbed({ locale, url }: FourOFourEmbedProps) {
+	const translate = createTranslator(locale);
 	return (
 		<aside class={style.embedContainer}>
 			<div class={style.embedContents}>
 				<img
 					src="/illustrations/404.svg"
-					alt="404 illustration"
+					alt={translate("alt.404_illustration")}
 					loading="lazy"
 					data-dont-round
 					data-nozoom
 					class={style.fourOFourIllustration}
 				/>
 				<h2 data-no-heading-link class={`${style.title} text-style-headline-5`}>
-					We couldn’t find what you were looking for.
+					{translate("title.embed_not_found")}
 				</h2>
 				<p class={`${style.description} text-style-body-large`}>
-					The webpage may no longer be available or the URL may be broken.
+					{translate("desc.embed_not_found")}
 				</p>
 				<LargeButton
 					class={style.button}
@@ -33,7 +37,7 @@ export function FourOFourEmbed({ url }: FourOFourEmbedProps) {
 					rel="nofollow noopener noreferrer"
 					leftIcon={<RawSvg icon={LaunchIcon} />}
 				>
-					Open URL
+					{translate("action.open_url")}
 				</LargeButton>
 			</div>
 			<div class={style.embedImageBg}>

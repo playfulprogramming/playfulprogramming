@@ -3,8 +3,11 @@ import { type QuizRadioOption, QuizRadio } from "./quiz-radio.tsx";
 import { useStore } from "@nanostores/preact";
 import { $quizState } from "./atom.ts";
 import type { ComponentChildren } from "preact";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 export interface QuizRadioInlineProps {
+	locale: Languages;
 	id: string;
 	quizId?: string;
 	title: string;
@@ -16,6 +19,7 @@ export interface QuizRadioInlineProps {
 }
 
 export function QuizRadioInline(props: QuizRadioInlineProps) {
+	const translate = createTranslator(props.locale);
 	// isQuestionSubmitted = true if the question was submitted individually (from the submit button within the component)
 	const [isQuestionSubmitted, setSubmitted] = useState(false);
 	const quizState = useStore($quizState);
@@ -61,17 +65,19 @@ export function QuizRadioInline(props: QuizRadioInlineProps) {
 			explanation: isSubmitted
 				? option.isCorrect
 					? option.id === questionState?.selectedAnswer
-						? "You got it!"
-						: "The correct answer"
+						? translate("quiz.feedback.correct_selected")
+						: translate("quiz.feedback.correct_answer")
 					: option.id === questionState?.selectedAnswer
-						? "You answered"
+						? translate("quiz.feedback.incorrect_selected")
 						: undefined
 				: undefined,
 		}));
-	}, [props.options, isSubmitted, questionState?.selectedAnswer]);
+	}, [props.options, isSubmitted, questionState?.selectedAnswer, translate]);
 
 	return (
 		<QuizRadio
+			translate={translate}
+			locale={props.locale}
 			id={props.id}
 			title={props.title}
 			options={options}

@@ -17,11 +17,13 @@ import style from "./file-picker.module.scss";
 import { IconOnlyButton } from "#components/button/button.tsx";
 import CloseIcon from "#src/icons/close.svg?raw";
 import { RawSvg } from "#components/image/raw-svg.tsx";
+import type { Translate } from "#utils/translations.ts";
 
 interface FilePickerProps {
 	entries: Array<FileEntry>;
 	file: string;
 	onFileChange?(file: string): void;
+	translate: Translate;
 }
 
 function sortFileItems(files: Array<DirectoryProps | FileProps>) {
@@ -39,7 +41,7 @@ function sortFileItems(files: Array<DirectoryProps | FileProps>) {
 }
 
 function buildFileItems(
-	props: FilePickerProps,
+	props: Omit<FilePickerProps, "translate">,
 ): Array<DirectoryProps | FileProps> {
 	const files: Array<DirectoryProps | FileProps> = [];
 
@@ -158,16 +160,18 @@ export function FilePicker(props: FilePickerProps) {
 				)}
 			>
 				<div class={style.header}>
-					<h1 class={`${style.title} text-style-headline-5`}>Files</h1>
+					<h1 class={`${style.title} text-style-headline-5`}>
+						{props.translate("title.files")}
+					</h1>
 					<IconOnlyButton
 						tag="button"
 						class={style.closeButton}
-						aria-label="Close"
+						aria-label={props.translate("action.close")}
 					>
 						<RawSvg icon={CloseIcon} />
 					</IconOnlyButton>
 				</div>
-				<FileListList items={listItems} />
+				<FileListList items={listItems} translate={props.translate} />
 			</Dialog>
 		</>
 	);

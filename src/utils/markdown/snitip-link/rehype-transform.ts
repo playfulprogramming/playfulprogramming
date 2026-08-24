@@ -8,10 +8,18 @@ import { logError } from "../logger.ts";
 import { getSnitipById } from "#utils/api.ts";
 import { createComponent, type PlayfulRoot } from "../components/components.ts";
 import { v4 as uuidv4 } from "uuid";
+import type { Translate } from "#utils/translations.ts";
 
 const SNITIP_PROTOCOL = "pfp-snitip:";
 
-export const rehypeSnitipLinks: Plugin<[], PlayfulRoot> = () => {
+interface RehypeSnitipLinksOptions {
+	translate: Translate;
+}
+
+export const rehypeSnitipLinks: Plugin<
+	[RehypeSnitipLinksOptions],
+	PlayfulRoot
+> = ({ translate }) => {
 	return (tree, vfile) => {
 		delete (vfile as MarkdownVFile).snitipScopeId;
 		const scopeId = uuidv4();
@@ -63,6 +71,7 @@ export const rehypeSnitipLinks: Plugin<[], PlayfulRoot> = () => {
 					id: snitipId,
 					scopeId,
 					snitip,
+					translate,
 					children: node.children,
 				});
 				transformedLinks += 1;

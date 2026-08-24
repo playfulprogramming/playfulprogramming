@@ -3,8 +3,11 @@ import {
 	FourOFourEmbed,
 	type FourOFourEmbedProps,
 } from "#components/404-embed/404-embed.js";
+import { getPrefixLanguageFromPath } from "#utils/translations.ts";
 
-export type Props = FourOFourEmbedProps;
+export type Props = Omit<FourOFourEmbedProps, "locale">;
+
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
-<FourOFourEmbed {...Astro.props} client:load />
+<FourOFourEmbed {...Astro.props} locale={locale} client:load />

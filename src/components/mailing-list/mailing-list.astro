@@ -2,6 +2,7 @@
 import { Input } from "../input/input.tsx";
 import { LargeButton } from "../button/button.tsx";
 import styles from "./mailing-list.module.scss";
+import { translate } from "#utils/translations.ts";
 ---
 
 <form
@@ -10,24 +11,22 @@ import styles from "./mailing-list.module.scss";
 	class={styles.container}
 >
 	<h2 class={`text-style-headline-5 ${styles.title}`}>
-		Subscribe to our newsletter!
+		{translate(Astro, "mailing_list.title")}
 	</h2>
 	<p class={`text-style-body-medium ${styles.description}`}>
-		Subscribe to our newsletter to get updates on new content we create, events
-		we have coming up, and more! We&apos;ll make sure not to spam you and
-		provide good insights to the content we have.
+		{translate(Astro, "mailing_list.description")}
 	</p>
 	<Input
-		label="First name"
-		aria-label="Your first name"
+		label={translate(Astro, "label.first_name")}
+		aria-label={translate(Astro, "label.your_first_name")}
 		name="fields[first_name]"
 		type="text"
 		containerClass={styles.firstName}
 	/>
 	<Input
-		label="Email address"
+		label={translate(Astro, "label.email_address")}
 		name="email_address"
-		aria-label="Your email address"
+		aria-label={translate(Astro, "label.your_email_address")}
 		required={true}
 		type="email"
 		containerClass={styles.emailAddress}
@@ -39,6 +38,6 @@ import styles from "./mailing-list.module.scss";
 		data-element="submit"
 		class={styles.button}
 	>
-		Subscribe
+		{translate(Astro, "action.subscribe")}
 	</LargeButton>
 </form>
