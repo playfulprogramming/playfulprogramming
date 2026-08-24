@@ -16,10 +16,7 @@ export default function MermaidRenderer() {
 
 		const renderDiagrams = async () => {
 			const currentRender = ++renderVersion;
-			const [{ default: mermaid }] = await Promise.all([
-				import("mermaid"),
-				import("./MermaidRenderer.css"),
-			]);
+			const { default: mermaid } = await import("mermaid");
 
 			if (disposed || currentRender !== renderVersion) return;
 
@@ -60,6 +57,8 @@ export default function MermaidRenderer() {
 			for (const el of elements) {
 				const graph = el.dataset.graph;
 				if (!graph) continue;
+
+				el.setAttribute("aria-busy", "true");
 
 				try {
 					const { svg, bindFunctions } = await mermaid.render(
