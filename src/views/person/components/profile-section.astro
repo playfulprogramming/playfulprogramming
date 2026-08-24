@@ -6,6 +6,7 @@ import { Icon } from "astro-icon/components";
 import * as api from "#utils/api.ts";
 import { isDefined } from "#utils/is-defined.ts";
 import { desktopSmall, tabletSmall } from "#src/tokens/breakpoints.ts";
+import { translate } from "#utils/translations.ts";
 
 interface ProfileSectionProps {
 	person: PersonInfo;
@@ -24,62 +25,62 @@ interface SocialInfo {
 const socials: SocialInfo[] = [
 	{
 		icon: "website",
-		name: "Website",
+		name: translate(Astro, "social.website"),
 		href: (s) => s.website,
 	},
 	{
 		icon: "github",
-		name: "GitHub",
+		name: translate(Astro, "social.github"),
 		href: (s) => s.github && `https://github.com/${s.github}`,
 	},
 	{
 		icon: "gitlab",
-		name: "GitLab",
+		name: translate(Astro, "social.gitlab"),
 		href: (s) => s.gitlab && `https://gitlab.com/${s.gitlab}`,
 	},
 	{
 		icon: "twitter",
-		name: "Twitter",
+		name: translate(Astro, "social.twitter"),
 		href: (s) => s.twitter && `https://twitter.com/${s.twitter}`,
 	},
 	{
 		icon: "twitch",
-		name: "Twitch",
+		name: translate(Astro, "social.twitch"),
 		href: (s) => s.twitch && `https://www.twitch.tv/${s.twitch}`,
 	},
 	{
 		icon: "dribbble",
-		name: "Dribbble",
+		name: translate(Astro, "social.dribbble"),
 		href: (s) => s.dribbble && `https://dribbble.com/${s.dribbble}`,
 	},
 	{
 		icon: "linkedin",
-		name: "LinkedIn",
+		name: translate(Astro, "social.linkedin"),
 		href: (s) => s.linkedIn && `https://www.linkedin.com/in/${s.linkedIn}`,
 	},
 	{
 		icon: "mastodon",
-		name: "Mastodon",
+		name: translate(Astro, "social.mastodon"),
 		href: (s) => s.mastodon,
 	},
 	{
 		icon: "threads",
-		name: "Threads",
+		name: translate(Astro, "social.threads"),
 		href: (s) => s.threads && `https://www.threads.net/${s.threads}`,
 	},
 	{
 		icon: "youtube",
-		name: "YouTube",
+		name: translate(Astro, "social.youtube"),
 		href: (s) => s.youtube && s.youtube,
 	},
 	{
 		icon: "cohost",
-		name: "Cohost",
+		name: translate(Astro, "social.cohost"),
 		href: (s) => s.cohost && `https://cohost.org/${s.cohost}`,
 	},
 	{
 		icon: "bluesky",
-		name: "Bluesky",
+		name: translate(Astro, "social.bluesky"),
 		href: (s) => s.bluesky,
 	},
 ];
@@ -122,7 +123,7 @@ const roles = person.roles
 		<ul
 			class={styles.socialLinkContainer}
 			role="list"
-			aria-label={`${person.name} social media links`}
+			aria-label={translate(Astro, "label.social_media_links_for", person.name)}
 		>
 			{
 				socials.map((social) => {
@@ -148,7 +149,11 @@ const roles = person.roles
 				})
 			}
 		</ul>
-		<ul class={styles.rolesList} role="list" aria-label="Contributor roles">
+		<ul
+			class={styles.rolesList}
+			role="list"
+			aria-label={translate(Astro, "label.contributor_roles")}
+		>
 			{
 				roles.map((role) => (
 					<li class={styles.role}>

@@ -2,14 +2,31 @@ import { getPostsByPerson } from "#src/utils/api.ts";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 import { contributorYears, fetchGitHubData } from "./github.ts";
 import * as api from "#utils/api.ts";
+import type { TranslationKey } from "#utils/translations.ts";
 
 export interface Achievement {
 	name: string;
 	body: string;
 }
 
+type Translate = (key: TranslationKey, ...args: string[]) => string;
+
+function createAchievement(
+	translate: Translate,
+	nameKey: TranslationKey,
+	bodyKey: TranslationKey,
+	nameArgs: string[] = [],
+	bodyArgs: string[] = [],
+): Achievement {
+	return {
+		name: translate(nameKey, ...nameArgs),
+		body: translate(bodyKey, ...bodyArgs),
+	};
+}
+
 export async function getAchievements(
 	person: PersonInfo,
+	translate: Translate,
 ): Promise<Achievement[]> {
 	const achievements: Achievement[] = [];
 
@@ -17,161 +34,238 @@ export async function getAchievements(
 		? await fetchGitHubData(person.socials.github)
 		: undefined;
 
-	const authoredPosts = getPostsByPerson(person.id, "en");
+	const authoredPosts = getPostsByPerson(person.id, person.locale);
 
 	if (person.achievements.includes("site-redesign")) {
-		achievements.push({
-			name: "Redesign Ruler",
-			body: "Led a site-wide redesign",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.site_redesign.name",
+				"achievement.site_redesign.body",
+			),
+		);
 	}
 
 	if (person.achievements.includes("site-logo")) {
-		achievements.push({
-			name: "Logo Legacy",
-			body: "Made our Unicorn logo!",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.site_logo.name",
+				"achievement.site_logo.body",
+			),
+		);
 	}
 
 	if (person.achievements.includes("code-challenge")) {
-		achievements.push({
-			name: "Code Challenger",
-			body: "Make a code challenge in our Discord",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.code_challenge.name",
+				"achievement.code_challenge.body",
+			),
+		);
 	}
 
 	if (person.roles.includes("translator")) {
-		achievements.push({
-			name: "Localizer 9000",
-			body: "Translate part of Playful Programming into another language!",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.translator.name",
+				"achievement.translator.body",
+			),
+		);
 	}
 
 	if (authoredPosts.some((post) => post.wordCount >= 6000)) {
-		achievements.push({
-			name: "It Keeps Going",
-			body: "Write a really long article",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.long_article.name",
+				"achievement.long_article.body",
+			),
+		);
 	}
 
-	if (api.getCollectionsByPerson(person.id, "en").length > 0) {
-		achievements.push({
-			name: "Collect 'em all",
-			body: "Author a collection of posts!",
-		});
+	if (api.getCollectionsByPerson(person.id, person.locale).length > 0) {
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.collection_author.name",
+				"achievement.collection_author.body",
+			),
+		);
 	}
 
 	if (authoredPosts.some((post) => post.authors.length > 1)) {
-		achievements.push({
-			name: "Team Player",
-			body: "Collaborate on an article with another author",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.article_collaboration.name",
+				"achievement.article_collaboration.body",
+			),
+		);
 	}
 
 	if (person.roles.includes("community")) {
-		achievements.push({
-			name: "Community crowned",
-			body: "Become a community leader",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.community_leader.name",
+				"achievement.community_leader.body",
+			),
+		);
 	}
 
 	if (person.achievements.includes("partner")) {
-		achievements.push({
-			name: "Proud partner",
-			body: "Become a Playful Programming Partner",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.partner.name",
+				"achievement.partner.body",
+			),
+		);
 	}
 
 	if (data && data.issueCount >= 25) {
-		achievements.push({
-			name: "Insect infestation!",
-			body: `Open 25 issues in our GitHub repo`,
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.issues_25.name",
+				"achievement.issues_25.body",
+			),
+		);
 	} else if (data && data.issueCount >= 10) {
-		achievements.push({
-			name: "Creepy crawlies!",
-			body: "Open 10 issues in our GitHub repo",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.issues_10.name",
+				"achievement.issues_10.body",
+			),
+		);
 	} else if (data && data.issueCount > 0) {
-		achievements.push({
-			name: "Bug!",
-			body: "Open an issue in our GitHub repo",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.issue_1.name",
+				"achievement.issue_1.body",
+			),
+		);
 	}
 
 	if (data && data.pullRequestCount >= 30) {
-		achievements.push({
-			name: "Rabid Requester",
-			body: `Open 30 pull requests in our GitHub repo`,
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.pull_requests_30.name",
+				"achievement.pull_requests_30.body",
+			),
+		);
 	} else if (data && data.pullRequestCount >= 10) {
-		achievements.push({
-			name: "Request Rampage",
-			body: "Open 10 pull requests in our GitHub repo",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.pull_requests_10.name",
+				"achievement.pull_requests_10.body",
+			),
+		);
 	} else if (data && data.pullRequestCount >= 5) {
-		achievements.push({
-			name: "Request Robot",
-			body: "Open 5 pull requests in our GitHub repo",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.pull_requests_5.name",
+				"achievement.pull_requests_5.body",
+			),
+		);
 	} else if (data && data.pullRequestCount >= 3) {
-		achievements.push({
-			name: "Request Racer",
-			body: "Open 3 pull requests in our GitHub repo",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.pull_requests_3.name",
+				"achievement.pull_requests_3.body",
+			),
+		);
 	} else if (data && data.pullRequestCount > 0) {
-		achievements.push({
-			name: "Request Ranger",
-			body: "Open a pull request in our GitHub repo",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.pull_request_1.name",
+				"achievement.pull_request_1.body",
+			),
+		);
 	}
 
 	if (person.achievements.includes("messages-1000")) {
-		achievements.push({
-			name: "Message Madness",
-			body: "Send 1000 messages in our Discord",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.messages_1000.name",
+				"achievement.messages_1000.body",
+			),
+		);
 	} else if (person.achievements.includes("messages-500")) {
-		achievements.push({
-			name: "Monstrous Messager",
-			body: "Send 500 messages in our Discord",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.messages_500.name",
+				"achievement.messages_500.body",
+			),
+		);
 	} else if (person.achievements.includes("messages-200")) {
-		achievements.push({
-			name: "Moderate Messager",
-			body: "Send 200 messages in our Discord",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.messages_200.name",
+				"achievement.messages_200.body",
+			),
+		);
 	}
 
 	for (const year of contributorYears) {
 		if (data && data.commitsInYear?.includes(year)) {
-			achievements.push({
-				name: `${year} Contributor`,
-				body: `Make a commit to the site in ${year}!`,
-			});
+			achievements.push(
+				createAchievement(
+					translate,
+					"achievement.yearly_contributor.name",
+					"achievement.yearly_contributor.body",
+					[String(year)],
+					[String(year)],
+				),
+			);
 		}
 	}
 
 	if (authoredPosts.length >= 30) {
-		achievements.push({
-			name: "Cream of the crop",
-			body: `Write 30 articles!`,
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.articles_30.name",
+				"achievement.articles_30.body",
+			),
+		);
 	} else if (authoredPosts.length >= 10) {
-		achievements.push({
-			name: "Post-palooza",
-			body: "Write 10 articles!",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.articles_10.name",
+				"achievement.articles_10.body",
+			),
+		);
 	} else if (authoredPosts.length >= 5) {
-		achievements.push({
-			name: "Profusely Posting",
-			body: "Write 5 articles!",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.articles_5.name",
+				"achievement.articles_5.body",
+			),
+		);
 	} else if (authoredPosts.length >= 3) {
-		achievements.push({
-			name: "Politely Posting",
-			body: "Write 3 articles!",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.articles_3.name",
+				"achievement.articles_3.body",
+			),
+		);
 	}
 
 	const wordCount = authoredPosts.reduce((acc, post) => {
@@ -179,22 +273,33 @@ export async function getAchievements(
 	}, 0);
 
 	if (wordCount > 0) {
-		achievements.push({
-			name: "Words words words",
-			body: `Wrote ${wordCount.toLocaleString("en")} words!`,
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.words_written.name",
+				"achievement.words_written.body",
+				[],
+				[wordCount.toLocaleString(person.locale)],
+			),
+		);
 	}
 
 	if (person.roles.length >= 3) {
-		achievements.push({
-			name: "Badge Collector",
-			body: "Have at least 3 role badges",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.role_badges_3.name",
+				"achievement.role_badges_3.body",
+			),
+		);
 	} else if (person.roles.length > 0) {
-		achievements.push({
-			name: "Hello, World!",
-			body: "Earn your first role badge",
-		});
+		achievements.push(
+			createAchievement(
+				translate,
+				"achievement.role_badge_1.name",
+				"achievement.role_badge_1.body",
+			),
+		);
 	}
 
 	return achievements;

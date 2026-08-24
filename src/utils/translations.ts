@@ -146,7 +146,8 @@ const i18n: Partial<Record<Languages, Map<string, string>>> =
 	}
 }*/
 
-type TranslationKey = keyof typeof import("../../content/data/i18n/en.json");
+export type TranslationKey =
+	keyof typeof import("../../content/data/i18n/en.json");
 
 /**
  * Translate a key into the associated value, according to /data/i18n

@@ -7,7 +7,6 @@ import { Button } from "#components/button/button.tsx";
 import styles from "./person-page.module.scss";
 import AchievementCard from "./components/achievement-card.astro";
 import { buildSearchQuery } from "../search/search.ts";
-import type { Achievement } from "#src/utils/achievements/index.ts";
 import { getAchievements } from "#src/utils/achievements/index.ts";
 import { translate } from "#utils/translations.ts";
 import * as api from "#utils/api.ts";
@@ -20,7 +19,9 @@ interface UnicornPageProps {
 
 const { person, posts } = Astro.props as UnicornPageProps;
 
-const achievementsMeta = await getAchievements(person);
+const achievementsMeta = await getAchievements(person, (key, ...args) =>
+	translate(Astro, key, ...args),
+);
 
 const postsToDisplay = posts.slice(0, 4);
 const numberOfAchievementsToShowAtStart = posts.length ? 3 : 6;
@@ -45,16 +46,21 @@ const postCardI18n = {
 <div class={styles.container}>
 	<ProfileSection person={person} />
 	<section class={styles.contentContainer}>
-		<!-- TODO: Translate -->
-		<SubHeader tag="h2" text="Achievements" id="achievements">
+		<SubHeader
+			tag="h2"
+			text={translate(Astro, "title.achievements")}
+			id="achievements"
+		>
 			{
 				showAchievementToggle && (
 					<Button
 						id="view-all-achievements"
 						tag="button"
 						type="button"
-						aria-label="View all achievements"
+						aria-label={translate(Astro, "label.view_all_achievements")}
 						aria-pressed="false"
+						data-view-all-text={translate(Astro, "action.view_all")}
+						data-view-less-text={translate(Astro, "action.view_less")}
 					>
 						{translate(Astro, "action.view_all")}
 					</Button>
@@ -85,7 +91,7 @@ const postCardI18n = {
 				? [
 						<SubHeader
 							tag="h2"
-							text="Recent articles"
+							text={translate(Astro, "title.recent_articles")}
 							id="recent-articles-header"
 						>
 							{showPostsToggle && (
@@ -140,7 +146,9 @@ const postCardI18n = {
 			// otherwise, "View less achievements, toggle button, pressed" is not clear about the state of the button
 			viewAllAchievementsButton.setAttribute("aria-pressed", String(expanded));
 
-			viewAllAchievementsText.innerText = expanded ? "View less" : "View all";
+			viewAllAchievementsText.innerText = expanded
+				? viewAllAchievementsButton.dataset.viewLessText!
+				: viewAllAchievementsButton.dataset.viewAllText!;
 		});
 	}
 </script>
