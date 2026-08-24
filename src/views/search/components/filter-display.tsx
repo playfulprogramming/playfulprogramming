@@ -1,5 +1,5 @@
 import { useMemo } from "preact/hooks";
-import type { PersonInfo, TagInfo } from "#types/index.ts";
+import type { Languages, PersonInfo, TagInfo } from "#types/index.ts";
 import type { CSSProperties } from "preact";
 import { useWindowSize } from "../../../hooks/use-window-size.tsx";
 import { tabletLarge } from "../../../tokens/breakpoints.ts";
@@ -9,6 +9,7 @@ import tagsObj from "../../../../content/data/tags.json";
 import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
 import type { ExtendedTag, ExtendedUnicorn } from "./types.ts";
 import type { FilterState } from "../use-filter-state.ts";
+import type { Translate } from "#utils/translations.ts";
 
 const tagsMap: Map<string, TagInfo> = new Map(Object.entries(tagsObj));
 
@@ -28,6 +29,8 @@ interface FilterDisplayProps {
 	contentToDisplay: DisplayContentType;
 	numberOfPosts: number | null;
 	numberOfCollections: number | null;
+	locale: Languages;
+	translate: Translate;
 }
 
 export const FilterDisplay = ({
@@ -46,6 +49,8 @@ export const FilterDisplay = ({
 	contentToDisplay,
 	numberOfPosts,
 	numberOfCollections,
+	locale,
+	translate,
 }: FilterDisplayProps) => {
 	const tags: ExtendedTag[] = useMemo(() => {
 		const totalEntries = {
@@ -105,6 +110,8 @@ export const FilterDisplay = ({
 				authors={authors}
 				filterState={filterState}
 				isHybridSearch={isHybridSearch}
+				locale={locale}
+				translate={translate}
 			/>
 		);
 	}
@@ -123,6 +130,8 @@ export const FilterDisplay = ({
 			isHybridSearch={isHybridSearch}
 			numberOfPosts={numberOfPosts}
 			numberOfCollections={numberOfCollections}
+			locale={locale}
+			translate={translate}
 		/>
 	);
 };

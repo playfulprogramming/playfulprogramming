@@ -1,3 +1,5 @@
+import type { Translate } from "#utils/translations.ts";
+
 export interface PageInfo {
 	currentPage: number;
 	lastPage: number;
@@ -9,10 +11,12 @@ export interface PaginationButtonProps {
 	selected: boolean;
 	href: string;
 	softNavigate?: (href: string, pageNum: number) => void;
+	translate: Translate;
 }
 
 export interface PaginationProps {
 	page: PageInfo;
+	translate: Translate;
 	class?: string;
 	divClass?: string;
 	id?: string;

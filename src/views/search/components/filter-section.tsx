@@ -5,25 +5,30 @@ import styles from "./filter-section.module.scss";
 import { Chip } from "#components/chip/chip.tsx";
 import type { HTMLAttributes } from "preact/compat";
 import { useRandomId } from "#utils/preact/useId.ts";
+import type { Translate } from "#utils/translations.ts";
 
-interface FilterSectionProps extends HTMLAttributes<HTMLDivElement> {
+type FilterSectionProps = Omit<HTMLAttributes<HTMLDivElement>, "translate"> & {
 	title: string;
+	selectedLabel: string;
 	selectedNumber: number;
 	onClear: () => void;
 	class?: string;
 	className?: string;
 	searchSlot?: ComponentChildren;
 	children?: ComponentChildren;
-}
+	translate: Translate;
+};
 
 export const FilterSection = ({
 	title,
+	selectedLabel,
 	children,
 	selectedNumber,
 	onClear,
 	searchSlot,
 	class: className = "",
 	className: classNameName = "",
+	translate,
 	...props
 }: FilterSectionProps) => {
 	const id = useRandomId();
@@ -88,7 +93,7 @@ export const FilterSection = ({
 						{selectedNumber ? (
 							<>
 								({selectedNumber}){" "}
-								<span className="visually-hidden">Selected {title}s</span>
+								<span className="visually-hidden">{selectedLabel}</span>
 							</>
 						) : null}
 					</span>
@@ -101,8 +106,8 @@ export const FilterSection = ({
 							className={styles.clearChip}
 							onClick={handleClear}
 						>
-							Clear
-							<span className="visually-hidden">selected {title}s</span>
+							{translate("action.clear")}{" "}
+							<span className="visually-hidden">{selectedLabel}</span>
 						</Chip>
 					</div>
 				)}

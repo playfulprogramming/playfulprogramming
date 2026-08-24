@@ -3,6 +3,10 @@ import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import { SnitipDialog } from "#components/snitip/snitip-dialog.tsx";
 import "#src/views/base/scripts/snitip-trigger.scss";
 import "#components/inline-popup/inline-popup.scss";
+import {
+	createTranslator,
+	getPrefixLanguageFromPath,
+} from "#utils/translations.ts";
 
 export interface Props {
 	snitip: SnitipInfo;
@@ -11,12 +15,16 @@ export interface Props {
 
 const { scopeId, snitip } = Astro.props;
 const supportId = `${scopeId}-${snitip.id}`;
+const translate = createTranslator(
+	getPrefixLanguageFromPath(Astro.url.pathname),
+);
 ---
 
 <SnitipDialog
 	id={`snitip-dialog-${supportId}`}
 	snitip={snitip}
 	headingTag="h2"
+	translate={translate}
 />
 
 <script>

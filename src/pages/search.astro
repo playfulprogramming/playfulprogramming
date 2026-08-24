@@ -4,22 +4,22 @@ import SearchPage from "../views/search/search-page.tsx";
 import Document from "../layouts/document.astro";
 import SEO from "../components/seo/seo.astro";
 import { siteMetadata } from "#src/constants/site-config.ts";
-import { getPrefixLanguageFromPath } from "#utils/translations.ts";
+import { getPrefixLanguageFromPath, translate } from "#utils/translations.ts";
 
 const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
-<Document lang={"en"} size="xl">
+<Document size="xl">
 	<SEO
-		title="Search"
-		description="Find your favorite articles and collections on Playful Programming easier than ever!"
+		title={translate(Astro, "title.search")}
+		description={translate(Astro, "desc.search")}
 		slot="head"
 	/>
 	<main>
-		<h1 class="visually-hidden">Search</h1>
+		<h1 class="visually-hidden">{translate(Astro, "title.search")}</h1>
 		<noscript>
 			<p class={`text-style-headline-3 ${style.centerHeader}`}>
-				JavaScript needs to be enabled to use this page
+				{translate(Astro, "search.noscript")}
 			</p>
 		</noscript>
 		<SearchPage

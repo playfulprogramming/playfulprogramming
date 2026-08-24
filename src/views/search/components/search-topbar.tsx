@@ -15,6 +15,8 @@ import {
 import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useDebouncedCallback } from "../use-debounced-value.ts";
+import type { Languages } from "#types/index.ts";
+import type { Translate } from "#utils/translations.ts";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;
@@ -27,6 +29,8 @@ interface SearchTopbarProps {
 	setSort: (sortBy: SortType) => void;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
 	headerHeight: number;
+	locale: Languages;
+	translate: Translate;
 }
 
 export const SearchTopbar = ({
@@ -40,6 +44,8 @@ export const SearchTopbar = ({
 	sort,
 	setFilterIsDialogOpen,
 	headerHeight,
+	locale,
+	translate,
 }: SearchTopbarProps) => {
 	// while search and setSearch reflect the current query values, they are debounced to prevent fetch spam
 	// - searchInput contains the current input value
@@ -83,7 +89,7 @@ export const SearchTopbar = ({
 			>
 				<form
 					role="search"
-					aria-label="Search our content"
+					aria-label={translate("label.search_content")}
 					className={style.searchbarRow}
 					onSubmit={(e) => {
 						e.preventDefault();
@@ -93,9 +99,10 @@ export const SearchTopbar = ({
 					<SearchInput
 						id="search-bar"
 						data-testid="search-input"
-						aria-description={"Results will update as you type"}
+						aria-description={translate("desc.search_live_results")}
 						class={style.searchbar}
 						usedInPreact={true}
+						locale={locale}
 						value={searchInput}
 						onBlur={handleBlur}
 						onInput={handleInput}
@@ -105,13 +112,13 @@ export const SearchTopbar = ({
 						tag="button"
 						type="submit"
 					>
-						Search
+						{translate("title.search")}
 					</LargeButton>
 					<IconOnlyButton
 						class={style.searchIconButton}
 						tag="button"
 						type="submit"
-						aria-label="Search"
+						aria-label={translate("title.search")}
 						dangerouslySetInnerHTML={{ __html: forward }}
 						children={[]}
 					/>
@@ -125,11 +132,15 @@ export const SearchTopbar = ({
 					className={style.contentToDisplayGroup}
 					testId={"content-to-display-group-topbar"}
 					value={contentToDisplay}
-					label={"Content to display"}
+					label={translate("label.content_to_display")}
 					onChange={(val) => setContentToDisplay(val as DisplayContentType)}
 				>
-					<RadioButton value={"articles"}>Articles</RadioButton>
-					<RadioButton value={"collections"}>Collections</RadioButton>
+					<RadioButton value={"articles"}>
+						{translate("title.articles")}
+					</RadioButton>
+					<RadioButton value={"collections"}>
+						{translate("title.collections")}
+					</RadioButton>
 				</RadioButtonGroup>
 				<Button
 					onClick={() => setFilterIsDialogOpen(true)}
@@ -143,27 +154,27 @@ export const SearchTopbar = ({
 						/>
 					}
 				>
-					Filter
+					{translate("action.filter")}
 				</Button>
 				<Select
 					className={style.sortOrderGroup}
 					testId={"sort-order-group-topbar"}
-					label={"Post sort order"}
-					prefixSelected={"Sort by: "}
-					defaultValue={"Relevance"}
+					label={translate("label.post_sort_order")}
+					prefixSelected={translate("label.sort_by")}
+					defaultValue={translate("search.sort.relevance")}
 					value={sort}
 					onChange={(v) => setSort(v as SortType)}
 				>
-					<Item key={"relevance"}>Relevance</Item>
-					<Item key={"newest"}>Newest</Item>
-					<Item key={"oldest"}>Oldest</Item>
+					<Item key={"relevance"}>{translate("search.sort.relevance")}</Item>
+					<Item key={"newest"}>{translate("search.sort.newest")}</Item>
+					<Item key={"oldest"}>{translate("search.sort.oldest")}</Item>
 				</Select>
 				<IconOnlyButton
 					class={style.filterIconButton}
 					tag="button"
 					type="button"
 					onClick={() => setFilterIsDialogOpen(true)}
-					aria-label="Filter"
+					aria-label={translate("action.filter")}
 				>
 					<span
 						className={style.filterIconContainer}

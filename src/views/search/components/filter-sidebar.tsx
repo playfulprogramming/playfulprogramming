@@ -11,6 +11,8 @@ import { FilterSidebarControls } from "./filter-sidebar-controls.tsx";
 import type { FilterState } from "../use-filter-state.ts";
 import { useState, useMemo, useEffect } from "preact/hooks";
 import { SearchInput } from "#components/input/input.tsx";
+import type { Languages } from "#types/index.ts";
+import type { Translate } from "#utils/translations.ts";
 
 interface FilterSidebarProps {
 	desktopStyle?: CSSProperties;
@@ -25,6 +27,8 @@ interface FilterSidebarProps {
 	isHybridSearch: boolean;
 	numberOfPosts: number | null;
 	numberOfCollections: number | null;
+	locale: Languages;
+	translate: Translate;
 }
 
 export const FilterSidebar = ({
@@ -40,6 +44,8 @@ export const FilterSidebar = ({
 	isHybridSearch,
 	numberOfPosts,
 	numberOfCollections,
+	locale,
+	translate,
 }: FilterSidebarProps) => {
 	const hideSearchbar = !searchString;
 
@@ -75,7 +81,7 @@ export const FilterSidebar = ({
 			}}
 			inert={hideSearchbar}
 		>
-			<h2 className="visually-hidden">Filters</h2>
+			<h2 className="visually-hidden">{translate("title.filters")}</h2>
 			<LargeButton
 				tag="button"
 				type="button"
@@ -84,7 +90,7 @@ export const FilterSidebar = ({
 					(document.querySelector("#search-bar") as HTMLInputElement).focus()
 				}
 			>
-				Jump to search bar
+				{translate("action.jump_to_search_bar")}
 			</LargeButton>
 
 			<FilterSidebarControls
@@ -94,18 +100,23 @@ export const FilterSidebar = ({
 				contentToDisplay={contentToDisplay}
 				numberOfPosts={numberOfPosts}
 				numberOfCollections={numberOfCollections}
+				locale={locale}
+				translate={translate}
 			/>
 			<FilterSection
-				title={"Tag"}
+				title={translate("title.tag")}
+				selectedLabel={translate("search.filter.selected_tags")}
 				data-testid="tag-filter-section-sidebar"
 				selectedNumber={filterState.tags.length}
 				onClear={() => filterState.setTags([])}
+				translate={translate}
 				searchSlot={
 					<SearchInput
 						usedInPreact
 						variant="dense"
-						placeholder="Search tags..."
+						placeholder={translate("search.placeholder.tags")}
 						value={tagQuery}
+						locale={locale}
 						onInput={(e) =>
 							setTagQuery((e.currentTarget as HTMLInputElement).value)
 						}
@@ -135,21 +146,26 @@ export const FilterSidebar = ({
 								filterState.onTagChange(tag.tag, selected)
 							}
 							isHybridSearch={isHybridSearch}
+							locale={locale}
+							translate={translate}
 						/>
 					);
 				})}
 			</FilterSection>
 			<FilterSection
-				title={"Author"}
+				title={translate("title.author")}
+				selectedLabel={translate("search.filter.selected_authors")}
 				data-testid="author-filter-section-sidebar"
 				selectedNumber={filterState.authors.length}
 				onClear={() => filterState.setAuthors([])}
+				translate={translate}
 				searchSlot={
 					<SearchInput
 						usedInPreact
 						variant="dense"
-						placeholder="Search authors..."
+						placeholder={translate("search.placeholder.authors")}
 						value={authorQuery}
+						locale={locale}
 						onInput={(e) =>
 							setAuthorQuery((e.currentTarget as HTMLInputElement).value)
 						}
@@ -177,6 +193,8 @@ export const FilterSidebar = ({
 								filterState.onAuthorChange(author.id, selected)
 							}
 							isHybridSearch={isHybridSearch}
+							locale={locale}
+							translate={translate}
 						/>
 					);
 				})}

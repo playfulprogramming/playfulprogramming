@@ -1,10 +1,14 @@
 import { vi, expect, test } from "#src/ui-test-utils/index.ts";
 import { render, waitFor } from "@testing-library/preact";
 import { PaginationMenuAndPopover } from "./pagination-popover.tsx";
+import { createTranslator } from "#utils/translations.ts";
+
+const translate = createTranslator("en");
 
 test("when the menu button is clicked, the menu popup is opened", async () => {
 	const { getByTestId, findAllByTestId } = render(
 		<PaginationMenuAndPopover
+			translate={translate}
 			page={{
 				currentPage: 2,
 				lastPage: 11,
@@ -24,6 +28,7 @@ test("when the menu button is clicked, the menu popup is opened", async () => {
 test("when '+' is clicked, the page number is incremented", async () => {
 	const { getByTestId } = render(
 		<PaginationMenuAndPopover
+			translate={translate}
 			page={{
 				currentPage: 2,
 				lastPage: 11,
@@ -51,6 +56,7 @@ test("when '+' is clicked, the page number is incremented", async () => {
 test("when '-' is clicked, the page number is decremented", async () => {
 	const { getByTestId } = render(
 		<PaginationMenuAndPopover
+			translate={translate}
 			page={{
 				currentPage: 2,
 				lastPage: 11,
@@ -79,6 +85,7 @@ test("when 'Go to page' is clicked, softNavigate is invoked with the input page 
 	const softNavigate = vi.fn();
 	const { getByTestId } = render(
 		<PaginationMenuAndPopover
+			translate={translate}
 			page={{
 				currentPage: 2,
 				lastPage: 11,

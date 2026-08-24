@@ -6,9 +6,14 @@ import iconSearch from "#src/icons/search.svg?raw";
 import { buildSearchQuery } from "#src/views/search/search.ts";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import style from "./snitip.module.scss";
+import type { Translate } from "#utils/translations.ts";
 
-export interface SnitipProps extends HTMLAttributes<HTMLDivElement> {
+export interface SnitipProps extends Omit<
+	HTMLAttributes<HTMLDivElement>,
+	"translate"
+> {
 	snitip: SnitipInfo;
+	translate: Translate;
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	headingId?: string;
 	headingLabelPrefix?: string;
@@ -23,6 +28,7 @@ export function SnitipContent({
 	headingLabelPrefix,
 	headingTabIndex,
 	includeSearchTags = true,
+	translate,
 }: SnitipProps) {
 	return (
 		<>
@@ -56,7 +62,11 @@ export function SnitipContent({
 					dangerouslySetInnerHTML={{ __html: snitip.content }}
 				/>
 				{snitip.links.length > 0 ? (
-					<ul class={style.links} aria-label="Links" role="list">
+					<ul
+						class={style.links}
+						aria-label={translate("label.links")}
+						role="list"
+					>
 						{snitip.links.map((link) => (
 							<li key={link.href}>
 								<a class={`${style.links__item} a`} href={link.href}>
@@ -72,7 +82,11 @@ export function SnitipContent({
 					</ul>
 				) : null}
 				{includeSearchTags ? (
-					<ul class={style.tags} aria-label="Tags" role="list">
+					<ul
+						class={style.tags}
+						aria-label={translate("title.tags")}
+						role="list"
+					>
 						{snitip.tagsMeta.size > 0 ? (
 							[...snitip.tagsMeta.entries()].map(([tag, tagInfo]) => (
 								<li key={tag}>
@@ -109,7 +123,7 @@ export function SnitipContent({
 										/>
 									}
 								>
-									Search for &lsquo;{snitip.title}&rsquo;
+									{translate("action.search_for_term", snitip.title)}
 								</Chip>
 							</li>
 						)}

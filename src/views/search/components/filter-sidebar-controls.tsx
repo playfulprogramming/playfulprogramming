@@ -7,6 +7,8 @@ import { RawSvg } from "#components/image/raw-svg.tsx";
 import ArticlesIcon from "#src/icons/articles.svg?raw";
 import NotebookIcon from "#src/icons/notebook.svg?raw";
 import { useMemo, useRef } from "preact/hooks";
+import type { Languages } from "#types/index.ts";
+import type { Translate } from "#utils/translations.ts";
 
 interface FilterSidebarControlsProps {
 	sort: SortType;
@@ -15,6 +17,8 @@ interface FilterSidebarControlsProps {
 	contentToDisplay: DisplayContentType;
 	numberOfPosts: number | null;
 	numberOfCollections: number | null;
+	locale: Languages;
+	translate: Translate;
 }
 
 function usePersistedRef<T>(value: T | undefined) {
@@ -35,16 +39,18 @@ export const FilterSidebarControls = ({
 	contentToDisplay,
 	numberOfPosts,
 	numberOfCollections,
+	locale,
+	translate,
 }: FilterSidebarControlsProps) => {
-	const postsLabel = usePersistedRef(numberOfPosts?.toLocaleString());
+	const postsLabel = usePersistedRef(numberOfPosts?.toLocaleString(locale));
 	const collectionsLabel = usePersistedRef(
-		numberOfCollections?.toLocaleString(),
+		numberOfCollections?.toLocaleString(locale),
 	);
 	return (
 		<>
 			<RadioButtonGroup
 				testId="show-group-sidebar"
-				label="Show:"
+				label={translate("label.show")}
 				defaultValue="articles"
 				value={contentToDisplay}
 				onChange={(v) => setContentToDisplay(v as DisplayContentType)}
@@ -54,28 +60,28 @@ export const FilterSidebarControls = ({
 					leftIcon={<RawSvg icon={ArticlesIcon} />}
 					rightIcon={postsLabel}
 				>
-					Articles
+					{translate("title.articles")}
 				</RadioListButton>
 				<RadioListButton
 					value="collections"
 					leftIcon={<RawSvg icon={NotebookIcon} />}
 					rightIcon={collectionsLabel}
 				>
-					Collections
+					{translate("title.collections")}
 				</RadioListButton>
 			</RadioButtonGroup>
 			<div className={style.container}>
 				<SelectWithLabel
 					testId={"sort-order-group-sidebar"}
-					label={"Sort:"}
+					label={translate("label.sort")}
 					prefixSelected={""}
-					defaultValue={"Relevance"}
+					defaultValue={translate("search.sort.relevance")}
 					value={sort}
 					onChange={(v) => setSort(v as SortType)}
 				>
-					<Item key={"relevance"}>Relevance</Item>
-					<Item key={"newest"}>Newest</Item>
-					<Item key={"oldest"}>Oldest</Item>
+					<Item key={"relevance"}>{translate("search.sort.relevance")}</Item>
+					<Item key={"newest"}>{translate("search.sort.newest")}</Item>
+					<Item key={"oldest"}>{translate("search.sort.oldest")}</Item>
 				</SelectWithLabel>
 			</div>
 		</>

@@ -11,14 +11,19 @@ export function SnitipCard(props: SnitipProps) {
 	);
 }
 
-export interface SnitipCardGridProps extends HTMLAttributes<HTMLUListElement> {
+export interface SnitipCardGridProps extends Omit<
+	HTMLAttributes<HTMLUListElement>,
+	"translate"
+> {
 	snitips: SnitipInfo[];
+	translate: SnitipProps["translate"];
 	headingTag?: SnitipProps["headingTag"];
 }
 
 export function SnitipCardGrid({
 	snitips,
 	headingTag,
+	translate,
 	...extra
 }: SnitipCardGridProps) {
 	return (
@@ -29,6 +34,7 @@ export function SnitipCardGrid({
 						snitip={snitip}
 						headingTag={headingTag}
 						includeSearchTags={false}
+						translate={translate}
 					/>
 				</li>
 			))}

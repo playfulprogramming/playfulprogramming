@@ -5,6 +5,8 @@ import style from "./filter-section-item.module.scss";
 import { useToggleState } from "react-stately";
 import { useEffect, useRef } from "preact/hooks";
 import { useRandomId } from "#utils/preact/useId.ts";
+import type { Languages } from "#types/index.ts";
+import type { Translate } from "#utils/translations.ts";
 
 interface FilterSectionItemProps {
 	icon: VNode<unknown>;
@@ -13,6 +15,8 @@ interface FilterSectionItemProps {
 	selected: boolean;
 	isHybridSearch: boolean;
 	onChange: (selected: boolean) => void;
+	locale: Languages;
+	translate: Translate;
 }
 
 export const FilterSectionItem = ({
@@ -22,6 +26,8 @@ export const FilterSectionItem = ({
 	selected,
 	isHybridSearch,
 	onChange,
+	locale,
+	translate,
 }: FilterSectionItemProps) => {
 	const id = useRandomId();
 	const props = {
@@ -39,6 +45,11 @@ export const FilterSectionItem = ({
 	const { inputProps, labelProps } = useCheckbox(props, state, ref);
 	const { isFocusVisible, focusProps } = useFocusRing();
 	const isSelected = state.isSelected;
+	const formattedCount = count.toLocaleString(locale);
+	const countLabel = translate(
+		count === 1 ? "search.count.post_one" : "search.count.post_other",
+		formattedCount,
+	);
 
 	useEffect(() => {
 		// this does not happen automatically, so we need to manually scroll to the focused item
@@ -79,11 +90,9 @@ export const FilterSectionItem = ({
 						{!isHybridSearch && (
 							<span
 								className={`text-style-body-small-bold ${style.count}`}
-								aria-label={`${count} post${count > 1 ? "s" : ""}`}
+								aria-label={countLabel}
 							>
-								<span className="visually-hidden"> - </span>
-								{count}
-								<span className="visually-hidden"> articles</span>
+								{formattedCount}
 							</span>
 						)}
 						{children}

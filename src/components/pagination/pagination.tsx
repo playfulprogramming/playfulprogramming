@@ -15,6 +15,7 @@ function PaginationButton({
 	href,
 	selected,
 	softNavigate,
+	translate,
 }: PaginationButtonProps) {
 	const pageOptionalMin = Math.min(
 		Math.max(1, pageInfo.currentPage - 1),
@@ -36,7 +37,7 @@ function PaginationButton({
 				onClick={
 					softNavigate ? onSoftNavClick(softNavigate, pageNum) : undefined
 				}
-				aria-label={`Go to page ${pageNum}`}
+				aria-label={translate("pagination.go_to_page_number", String(pageNum))}
 				aria-current={selected || undefined}
 			>
 				{`${pageNum}`}
@@ -49,7 +50,10 @@ function PaginationButton({
  * This prevents the pagination menu from rendering on SSR, which throws errors
  */
 function PaginationMenuWrapper(
-	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">,
+	props: Pick<
+		PaginationProps,
+		"page" | "getPageHref" | "softNavigate" | "translate"
+	>,
 ) {
 	const shouldRender = typeof process === "undefined";
 
@@ -69,6 +73,7 @@ export const Pagination = ({
 	getPageHref = (pageNum: number) => `${rootURL}${pageNum}`,
 	softNavigate,
 	testId,
+	translate,
 }: PaginationProps) => {
 	const { isPreviousEnabled, isNextEnabled, pages } = usePagination(page);
 
@@ -79,7 +84,7 @@ export const Pagination = ({
 		<>
 			<div
 				role="navigation"
-				aria-label="Pagination Navigation"
+				aria-label={translate("pagination.label")}
 				data-testid={testId}
 				className={divClassName}
 			>
@@ -88,7 +93,7 @@ export const Pagination = ({
 						<a
 							data-testid="pagination-previous"
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
-							aria-label="Previous page"
+							aria-label={translate("pagination.previous")}
 							href={
 								!isPreviousEnabled
 									? "javascript:void(0)"
@@ -113,6 +118,7 @@ export const Pagination = ({
 								selected={pageNum === page.currentPage}
 								href={getPageHref(pageNum)}
 								softNavigate={softNavigate}
+								translate={translate}
 							/>
 						) : (
 							<PaginationMenuWrapper
@@ -120,6 +126,7 @@ export const Pagination = ({
 								page={page}
 								getPageHref={getPageHref}
 								softNavigate={softNavigate}
+								translate={translate}
 							/>
 						);
 					})}
@@ -138,7 +145,7 @@ export const Pagination = ({
 									? onSoftNavClick(softNavigate, page.currentPage + 1)
 									: undefined
 							}
-							aria-label="Next page"
+							aria-label={translate("pagination.next")}
 							aria-disabled={!isNextEnabled}
 							dangerouslySetInnerHTML={{ __html: forward }}
 						/>

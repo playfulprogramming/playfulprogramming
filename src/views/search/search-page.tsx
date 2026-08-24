@@ -47,6 +47,7 @@ import {
 import { useFilterState } from "./use-filter-state.ts";
 import { SnitipCardGrid } from "#components/snitip/snitip-card.tsx";
 import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -71,16 +72,17 @@ const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
 };
 
 export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
+	const translate = createTranslator(locale);
 	const [query, setQueryState] = useSearchParams<SearchQuery>(
 		serializeParams,
 		deserializeParams,
 		(query): string => {
 			if (query.searchQuery === "*") {
-				return `Search all | ${siteTitle}`;
+				return translate("search.meta.all", siteTitle);
 			} else if (query.searchQuery) {
-				return `${query.searchQuery} | ${siteTitle}`;
+				return translate("search.meta.query", query.searchQuery, siteTitle);
 			}
-			return `Search | ${siteTitle}`;
+			return translate("search.meta.default", siteTitle);
 		},
 	);
 
@@ -399,6 +401,8 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 				isHybridSearch={isHybridSearch}
 				numberOfPosts={isContentLoading ? null : data.totalPosts}
 				numberOfCollections={isContentLoading ? null : data.totalCollections}
+				locale={locale}
+				translate={translate}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar
@@ -412,6 +416,8 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 					sort={query.sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 					headerHeight={headerHeight}
+					locale={locale}
+					translate={translate}
 				/>
 				<section className={style.mainContentsInner}>
 					{/* aria-live cannot be on an element that is programmatically removed
@@ -423,12 +429,16 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 								<SearchResultCount
 									ref={resultsHeading}
 									numberOfCollections={data.totalCollections}
+									locale={locale}
+									translate={translate}
 								/>
 							)}
 						{!isContentLoading && showArticles && data.totalPosts > 0 && (
 							<SearchResultCount
 								ref={resultsHeading}
 								numberOfPosts={data.totalPosts}
+								locale={locale}
+								translate={translate}
 							/>
 						)}
 						{!isError && isContentLoading && (
@@ -436,7 +446,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 								<div className={style.loadingAnimationContainer}>
 									<div className={style.loadingAnimation} />
 									<p className={`text-style-headline-4 ${style.loadingText}`}>
-										Fetching results...
+										{translate("search.state.loading")}
 									</p>
 								</div>
 							</>
@@ -451,16 +461,16 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 							<SearchHero
 								imageSrc={sadUnicorn.src}
 								imageAlt={""}
-								title={"No results found..."}
-								description={"Please adjust your query or your active filters!"}
+								title={translate("search.state.empty_title")}
+								description={translate("search.state.empty_description")}
 							/>
 						)}
 						{isError && (
 							<SearchHero
 								imageSrc={scaredUnicorn.src}
 								imageAlt={""}
-								title={"There was an error fetching your search results."}
-								description={"Please adjust your query or try again."}
+								title={translate("search.state.error_title")}
+								description={translate("search.state.error_description")}
 								buttons={
 									<LargeButton
 										onClick={() => refetch()}
@@ -468,7 +478,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 											<span dangerouslySetInnerHTML={{ __html: retry }} />
 										}
 									>
-										Retry
+										{translate("action.retry")}
 									</LargeButton>
 								}
 							/>
@@ -479,10 +489,8 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 						<SearchHero
 							imageSrc={happyUnicorn.src}
 							imageAlt={""}
-							title={"What would you like to find?"}
-							description={
-								"Search for your favorite framework or most loved language; we'll share what we know."
-							}
+							title={translate("search.state.initial_title")}
+							description={translate("desc.looking_for_more")}
 						/>
 					)}
 					{enabled &&
@@ -492,12 +500,13 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 						Boolean(snitips.length) && (
 							<div className={style.snitipsContainer}>
 								<h2 id="snitips-header" className="visually-hidden">
-									Tags
+									{translate("title.tags")}
 								</h2>
 								<SnitipCardGrid
 									snitips={snitips}
 									headingTag="h3"
 									aria-labelledby="snitips-header"
+									translate={translate}
 								/>
 							</div>
 						)}
@@ -511,7 +520,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 									data-testid="collections-header"
 									class="visually-hidden"
 								>
-									Collections
+									{translate("title.collections")}
 								</h2>
 								<ul
 									aria-labelledby="collections-header"
@@ -543,7 +552,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 									data-testid="articles-header"
 									class="visually-hidden"
 								>
-									Articles
+									{translate("title.articles")}
 								</h2>
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
@@ -562,6 +571,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 							<Pagination
 								divClass={style.pagination}
 								testId="pagination"
+								translate={translate}
 								softNavigate={(_href, pageNum) => {
 									window.scrollTo(0, 0);
 									setQuery(() => ({
