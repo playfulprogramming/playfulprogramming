@@ -218,7 +218,10 @@ body:has(.dialog[open]) {
 .paletteGroup {
 	display: flex;
 	flex-direction: column;
-	gap: var(--spc-3x);
+}
+
+.paletteGroup > .controlLabel {
+	margin-block-end: var(--spc-3x);
 }
 
 .palette {
