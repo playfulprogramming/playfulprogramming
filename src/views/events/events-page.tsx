@@ -11,13 +11,9 @@ import { Calendar } from "./components/calendar/calendar.tsx";
 import { LongWave } from "./components/long-wave/long-wave.tsx";
 import filter from "#src/icons/filter.svg?raw";
 import style from "./events-page.module.scss";
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat";
 import type { LatestEventBlockLocationMetadataType } from "./components/event-cards/types.ts";
 import { RecurringEventsCard } from "./components/event-cards/recurring-event-card.tsx";
 import { NonRecurringEventsCard } from "./components/event-cards/non-recurring-event-card.tsx";
-
-dayjs.extend(advancedFormat);
 
 type EventType = "all" | "online" | "in-person";
 

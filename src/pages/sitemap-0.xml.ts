@@ -5,7 +5,7 @@ import {
 	streamToPromise,
 } from "sitemap";
 import * as api from "#utils/api.ts";
-import dayjs from "dayjs";
+import { toDate } from "#utils/date.ts";
 import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
 import type { Languages } from "#types/index.ts";
@@ -21,7 +21,7 @@ const sitemapDefaults: Pick<
 	SitemapItemLoose,
 	"lastmod" | "changefreq" | "priority"
 > = {
-	lastmod: dayjs().toISOString(),
+	lastmod: new Date().toISOString(),
 	changefreq: EnumChangefreq.DAILY,
 	priority: 0.7,
 };
@@ -83,7 +83,7 @@ export const GET = async () => {
 			...sitemapDefaults,
 			url: createPostUrl(post.locale, post),
 			links,
-			lastmod: dayjs(post.edited ?? post.published).toISOString(),
+			lastmod: toDate(post.edited ?? post.published).toISOString(),
 		});
 	}
 

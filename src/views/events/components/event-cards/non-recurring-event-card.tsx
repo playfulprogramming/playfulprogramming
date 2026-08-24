@@ -1,10 +1,10 @@
-import dayjs from "dayjs";
 import type { NonRecurringEventsCardProps } from "./types.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import date from "#src/icons/date.svg?raw";
 import style from "./non-recurring-event-card.module.scss";
 import { useMemo } from "preact/hooks";
 import { EventChip } from "../event-chip/event-chip.tsx";
+import { formatEnglishOrdinalDate } from "#utils/date.ts";
 
 export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 	// Helps us get the event with the earliest start time
@@ -52,8 +52,15 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 							dangerouslySetInnerHTML={{ __html: date }}
 						/>
 						<span>
-							{dayjs(startsAt).format("MMMM Do")} —{" "}
-							{dayjs(endsAt).format("MMMM Do")}
+							{formatEnglishOrdinalDate(startsAt, {
+								month: "long",
+								day: "numeric",
+							})}{" "}
+							—{" "}
+							{formatEnglishOrdinalDate(endsAt, {
+								month: "long",
+								day: "numeric",
+							})}
 						</span>
 					</div>
 					<ul className={style.chipsContainer} aria-label="Event type">

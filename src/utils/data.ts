@@ -15,7 +15,7 @@ import { isNotJunk as baseIsNotJunk } from "junk";
 import { getImageSize } from "../utils/get-image-size.ts";
 import { resolvePath } from "./url-paths.ts";
 import matter from "gray-matter";
-import dayjs from "dayjs";
+import { formatDate } from "./date.ts";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -376,9 +376,18 @@ async function readPost(
 			excerpt,
 			publishedMeta:
 				frontmatter.published &&
-				dayjs(frontmatter.published).format("MMMM D, YYYY"),
+				formatDate(frontmatter.published, {
+					month: "long",
+					day: "numeric",
+					year: "numeric",
+				}),
 			editedMeta:
-				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
+				frontmatter.edited &&
+				formatDate(frontmatter.edited, {
+					month: "long",
+					day: "numeric",
+					year: "numeric",
+				}),
 			coverImgMeta,
 			socialImgMeta,
 		});

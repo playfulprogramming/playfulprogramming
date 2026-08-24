@@ -3,7 +3,7 @@ import style from "./post-title-header.module.scss";
 import type { PostInfo, PersonInfo, PostVersion } from "#types/index.ts";
 import { Icon } from "astro-icon/components";
 import { Chip } from "#components/index.ts";
-import dayjs from "dayjs";
+import { formatDate } from "#utils/date.ts";
 import { buildSearchQuery } from "../../search/search.ts";
 import { translate } from "#utils/translations.ts";
 import { ArticleRevisionDropdown } from "../article-revisions/article-revisions.tsx";
@@ -16,8 +16,13 @@ export interface Props {
 const { post, versions, authors } = Astro.props;
 const { title, tags } = post;
 
-const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
-const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
+const dateFormat = {
+	month: "long",
+	day: "numeric",
+	year: "numeric",
+} as const satisfies Intl.DateTimeFormatOptions;
+const publishedStr = formatDate(post.published, dateFormat);
+const editedStr = post.edited && formatDate(post.edited, dateFormat);
 
 const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 ---
