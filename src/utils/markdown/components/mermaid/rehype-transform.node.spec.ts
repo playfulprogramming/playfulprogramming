@@ -118,10 +118,8 @@ describe("Mermaid markdown component", () => {
 
 			expect(vfile.data.isMermaidUsed).toBeUndefined();
 			expect(findComponent(tree.children, "Mermaid")).toBeUndefined();
-			expect(consoleError).toHaveBeenCalledWith(
-				expect.stringContaining(
-					"Mermaid must use a ```mermaid fenced code block.",
-				),
+			expect(consoleError.mock.calls.flat().join(" ")).toContain(
+				"Mermaid must use a ```mermaid fenced code block.",
 			);
 		} finally {
 			consoleError.mockRestore();
