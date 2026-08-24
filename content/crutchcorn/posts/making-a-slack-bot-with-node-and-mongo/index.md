@@ -348,6 +348,14 @@ As you can see, we're able to add in the functionality for the score-keeping rel
 
 Even though the bot works well so far, it's not ideal to keep a score in memory. If your server crashes or if there's any other form of interruption in the process running, you'll lose all of your data. As such, we'll be replacing our local store with a database. As our data needs are simple and I want to keep this article relatively short, let's use a NoSQL database to avoid having to structure tables. We'll use [MongoDB](pfp-snitip:#mongodb) in order to keep our data stored.
 
+<!-- ::start:snitip id="mongodb" tags="mongodb" -->
+## <picture><img src="/stickers/mongodb.svg" alt=""></picture>MongoDB
+
+MongoDB is a document-oriented database that stores records as flexible, JSON-like BSON documents rather than rows in relational tables.
+
+- [MongoDB documentation](https://www.mongodb.com/docs/)
+<!-- ::end:snitip -->
+
 > This section will cover the setup of MongoDB Atlas, if you'd like to [skip ahead to the code section where we switch our in-memory store with a MongoDB database, you can click here](#mongodb-code)
 
 To remain consistent in keeping our app setup as trivial as possible, we'll be using MongoDB Atlas. Atlas enables us to have a serverless MongoDB service at our disposal. In order to use Atlas, you'll need to [sign up for an account](https://cloud.mongodb.com/user#/atlas/register/accountProfile). 

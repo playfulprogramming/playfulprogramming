@@ -21,6 +21,12 @@ To their surprise, however, despite reinforcing the planes, they were still bein
 
 This is a textbook example of [survivorship bias](pfp-snitip:#survivorship-bias): they were missing a crucial piece of information from their original analysis, the planes that didn't return. The engineers realized that they had only sampled planes that had actually made it back. The planes that were shot in the areas _without_ bullet holes were the ones that didn't make it back. The bullet holes were actually indicators of survivability, not vulnerability.
 
+<!-- ::start:snitip id="survivorship-bias" tags="leadership" -->
+## Survivorship Bias
+
+Survivorship bias is the tendency to draw conclusions from the people or things that passed a selection process while overlooking those that did not. Ignoring the missing cases can make successful outcomes appear more common or repeatable than they are.
+<!-- ::end:snitip -->
+
 ![The parts they thought they should reenforce were the opposite of the parts they needed to](./plane_compare.png)
 
 ------

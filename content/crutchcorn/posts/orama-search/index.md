@@ -160,6 +160,12 @@ After all, if I know that I want to search `"React Side Effect"`, looking for a 
 
 Ultimately, we're very happy with our decision to go with Orama for our [semantic search](pfp-snitip:#semantic-search) experience. They provided incredible support, a good product, and our users are happier as a result.
 
+<!-- ::start:snitip id="semantic-search" tags="ai,webdev" -->
+## Semantic Search
+
+Semantic search tries to retrieve results by the meaning and intent of a query instead of relying only on exact keyword matches. Many implementations compare vector representations called embeddings.
+<!-- ::end:snitip -->
+
 > **Story Time:**
 > True story, after our first call with Orama, they had a proof-of-concept up and running against our API in 5 minutes
 

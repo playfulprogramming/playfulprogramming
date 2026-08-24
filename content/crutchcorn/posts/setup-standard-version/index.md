@@ -33,6 +33,14 @@ body
 
 I'm glad you've asked! In [Conventional Commits](pfp-snitip:#conventional-commits) setups, there is an allowed array of terms that can be used for your _type_. For example, when following the Angular Style of commit messages, you'll have these options at your disposal:
 
+<!-- ::start:snitip id="conventional-commits" tags="git,tools" -->
+## Conventional Commits
+
+Conventional Commits is a structured commit-message convention built around a change type, optional scope, description, and markers for breaking changes. Tools can use that structure to generate changelogs and releases.
+
+- [Conventional Commits specification](https://www.conventionalcommits.org/)
+<!-- ::end:snitip -->
+
 ```javascript
 [
   'build',

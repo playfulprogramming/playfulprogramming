@@ -98,6 +98,12 @@ Why? Because if you only looked at my résumé on paper during this time, you'd 
 - Senior Engineer
 - Principal Engineer
 
+<!-- ::start:snitip id="devrel" tags="documentation,leadership" -->
+## Developer Relations
+
+Developer Relations, often shortened to DevRel, connects an organization with the developers who use or contribute to its technology. The work can include education, documentation, community programs, advocacy, and relaying developer feedback to product teams.
+<!-- ::end:snitip -->
+
 This alone is a major red flag to hiring managers and the sort; it indicates that there's something going on that doesn't fit the pattern for most employees. This isn't simply a promotion, it's a drastic increase in responsibility and expectation that usually only comes with time.
 
 Luckily for me, during a period of formalizing titles, the PDRT management realized the mistake they'd made in giving me such a prestigious title and reverted it later on to "Staff Engineer". While I complained to a few friends at the time, it ended up being a saving grace sent me way; the recruiter messages had returned.

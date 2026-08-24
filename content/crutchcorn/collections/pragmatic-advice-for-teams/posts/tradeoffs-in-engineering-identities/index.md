@@ -21,6 +21,12 @@ This answer from my then newly minted CTO reminded me of guidance on hiring I wa
 
 "We want to look for [T-shaped individuals](pfp-snitip:#t-shaped-professional). Not only do they have breadth in generalized topics of technology, but they have depth in a few key areas they've invested in previously."
 
+<!-- ::start:snitip id="t-shaped-professional" tags="leadership" -->
+## T-Shaped Professional
+
+A T-shaped professional combines broad working knowledge across many areas—the horizontal bar of the “T”—with deep expertise in one or more specialties—the vertical bar. The model emphasizes both collaboration across disciplines and focused skill.
+<!-- ::end:snitip -->
+
 > "What does a T-shaped individual look like?"
 
 Assume you\'re hiring for a frontend web development position. Yes, a T-shaped individual might excel at the day-to-day of CSS, TypeScript, and — say — React, but they'd also be able to articulate the reasoning for why you might want to use GraphQL over RESTful APIs and vice versa.

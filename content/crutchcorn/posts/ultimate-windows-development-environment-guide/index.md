@@ -496,6 +496,14 @@ git config --global core.autocrlf true
 
 Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. [Windows Subsystem for Linux (WSL)](pfp-snitip:#wsl) enables users to run commands on a Linux instance without having to dual-boot or run a virtual machine themselves.
 
+<!-- ::start:snitip id="wsl" tags="windows,linux" -->
+## Windows Subsystem for Linux (WSL)
+
+Windows Subsystem for Linux lets Windows users install Linux distributions, run Linux command-line tools and applications, and access Linux files alongside their Windows environment.
+
+- [How to install Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
+<!-- ::end:snitip -->
+
 > While the initial v1 worked by mapping system calls from Windows to Linux in a somewhat complex method, the new version (WSL2) works differently. WSL2 utilizes a Linux container in the background and enabling you to call into that container. 
 >
 > Because of the foundational differences, compatibility with programs should be better in WSL2. If you last tried WSL when it first launched and were underwhelmed, try it again today.

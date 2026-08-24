@@ -14,6 +14,14 @@ One area where ColdFusion has seen intense growth is in local developer experien
 
 Nowadays, you can setup a Visual Studio Code environment and run a ColdFusion server in [Docker](pfp-snitip:#docker) to easily manage a free and easy to configure programming environment.
 
+<!-- ::start:snitip id="docker" tags="tools" -->
+## Docker
+
+Docker is a platform for packaging applications and their dependencies into images and running them in isolated processes called containers.
+
+- [Docker - Get started](https://docs.docker.com/get-started/)
+<!-- ::end:snitip -->
+
 Let's explore how to set that up.
 
 # Docker
