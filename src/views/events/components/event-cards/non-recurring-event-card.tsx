@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import type { NonRecurringEventsCardProps } from "./types.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import date from "#src/icons/date.svg?raw";
@@ -6,7 +5,11 @@ import style from "./non-recurring-event-card.module.scss";
 import { useMemo } from "preact/hooks";
 import { EventChip } from "../event-chip/event-chip.tsx";
 
-export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
+export function NonRecurringEventsCard({
+	event,
+	locale,
+	translate,
+}: NonRecurringEventsCardProps) {
 	// Helps us get the event with the earliest start time
 	const startSortedEventBlocks = useMemo(
 		() =>
@@ -26,6 +29,15 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 
 	const startsAt = startSortedEventBlocks[0]?.starts_at;
 	const endsAt = endsSortedEventBlocks[0]?.ends_at;
+	const dateFormatter = useMemo(
+		() => new Intl.DateTimeFormat(locale, { month: "long", day: "numeric" }),
+		[locale],
+	);
+	const dateRange = translate(
+		"events.card.date_range",
+		dateFormatter.format(startsAt),
+		dateFormatter.format(endsAt),
+	);
 
 	return (
 		<li
@@ -51,20 +63,28 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 							className={style.eventIcon}
 							dangerouslySetInnerHTML={{ __html: date }}
 						/>
-						<span>
-							{dayjs(startsAt).format("MMMM Do")} —{" "}
-							{dayjs(endsAt).format("MMMM Do")}
-						</span>
+						<span>{dateRange}</span>
 					</div>
-					<ul className={style.chipsContainer} aria-label="Event type">
+					<ul
+						className={style.chipsContainer}
+						aria-label={translate("events.card.event_type")}
+					>
 						{event.in_person && (
 							<li>
-								<EventChip variant={"in-person"} size={"compact"} />
+								<EventChip
+									variant={"in-person"}
+									size={"compact"}
+									translate={translate}
+								/>
 							</li>
 						)}
 						{event.is_online && (
 							<li>
-								<EventChip variant={"online"} size={"compact"} />
+								<EventChip
+									variant={"online"}
+									size={"compact"}
+									translate={translate}
+								/>
 							</li>
 						)}
 					</ul>

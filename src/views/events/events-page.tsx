@@ -1,5 +1,4 @@
 import { useLayoutEffect, useMemo, useState } from "preact/hooks";
-import { events } from "./constants.ts";
 import {
 	RadioButton,
 	RadioButtonGroup,
@@ -11,23 +10,27 @@ import { Calendar } from "./components/calendar/calendar.tsx";
 import { LongWave } from "./components/long-wave/long-wave.tsx";
 import filter from "#src/icons/filter.svg?raw";
 import style from "./events-page.module.scss";
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat";
 import type { LatestEventBlockLocationMetadataType } from "./components/event-cards/types.ts";
 import { RecurringEventsCard } from "./components/event-cards/recurring-event-card.tsx";
 import { NonRecurringEventsCard } from "./components/event-cards/non-recurring-event-card.tsx";
-
-dayjs.extend(advancedFormat);
+import type { Event } from "./types.ts";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 type EventType = "all" | "online" | "in-person";
 
 interface EventsPageProps {
 	latestEventBlockLocationMetadata: LatestEventBlockLocationMetadataType;
+	events: Event[];
+	locale: Languages;
 }
 
 export default function EventsPage({
 	latestEventBlockLocationMetadata,
+	events,
+	locale,
 }: EventsPageProps) {
+	const translate = createTranslator(locale);
 	const [eventTypesToShow, setEventTypesToShow] = useState("all" as EventType);
 
 	const filteredEvents = useMemo(() => {
@@ -40,7 +43,7 @@ export default function EventsPage({
 		}
 
 		return events.filter((event) => event.in_person);
-	}, [eventTypesToShow]);
+	}, [eventTypesToShow, events]);
 
 	const recurringEvents = useMemo(() => {
 		return filteredEvents.filter((event) => event.is_recurring);
@@ -77,7 +80,7 @@ export default function EventsPage({
 			>
 				<div className={style.backgroundTop}>
 					<h1 className={`text-style-headline-1 ${style.eventsTitle}`}>
-						Events
+						{translate("title.events")}
 					</h1>
 					<div className={style.showButtonContainer}>
 						<div className={style.showTextContainer}>
@@ -85,34 +88,48 @@ export default function EventsPage({
 								className={style.filterIconContainer}
 								dangerouslySetInnerHTML={{ __html: filter }}
 							/>
-							<span className={`text-style-button-regular`}>Show:</span>
+							<span className={`text-style-button-regular`}>
+								{translate("events.filter.show")}
+							</span>
 						</div>
 						<RadioButtonGroup
 							className={style.eventTypesToShowGroup}
 							value={eventTypesToShow}
-							label={"Show:"}
+							label={translate("events.filter.show")}
 							onChange={(val) => setEventTypesToShow(val as EventType)}
 						>
-							<RadioButton value={"all"}>All Events</RadioButton>
-							<RadioButton value={"online"}>Online</RadioButton>
-							<RadioButton value={"in-person"}>In-person</RadioButton>
+							<RadioButton value={"all"}>
+								{translate("events.filter.all")}
+							</RadioButton>
+							<RadioButton value={"online"}>
+								{translate("events.type.online")}
+							</RadioButton>
+							<RadioButton value={"in-person"}>
+								{translate("events.type.in_person")}
+							</RadioButton>
 						</RadioButtonGroup>
 					</div>
 				</div>
 				<LongWave />
 			</div>
 			<div className={style.listsContainer}>
-				<Calendar events={filteredEvents} />
+				<Calendar
+					events={filteredEvents}
+					locale={locale}
+					translate={translate}
+				/>
 				{recurringEvents.length ? (
 					<div className={style.listContainer}>
 						<h2 className={`text-style-headline-5 ${style.listHeading}`}>
-							Recurring events
+							{translate("events.section.recurring")}
 						</h2>
 						<ul className={style.list} role={"list"}>
 							{recurringEvents.map((event) => (
 								<RecurringEventsCard
 									key={event.slug}
 									event={event}
+									locale={locale}
+									translate={translate}
 									latestEventBlockLocationMetadata={
 										latestEventBlockLocationMetadata
 									}
@@ -124,11 +141,16 @@ export default function EventsPage({
 				{nonRecurringEvents.length ? (
 					<div className={style.listContainer}>
 						<h2 className={`text-style-headline-5 ${style.listHeading}`}>
-							Special events
+							{translate("events.section.special")}
 						</h2>
 						<ul className={style.list}>
 							{nonRecurringEvents.map((event) => (
-								<NonRecurringEventsCard key={event.slug} event={event} />
+								<NonRecurringEventsCard
+									key={event.slug}
+									event={event}
+									locale={locale}
+									translate={translate}
+								/>
 							))}
 						</ul>
 					</div>

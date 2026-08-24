@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { Button } from "#components/button/button.tsx";
 import type { RecurringEventsCardProps } from "./types.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
@@ -9,12 +8,22 @@ import { EventChip } from "../event-chip/event-chip.tsx";
 export function RecurringEventsCard({
 	latestEventBlockLocationMetadata,
 	event,
+	locale,
+	translate,
 }: RecurringEventsCardProps) {
 	const latestEventBlockWithMetadata =
 		latestEventBlockLocationMetadata[event.slug];
 
 	const latestEventBannerSrc =
 		latestEventBlockWithMetadata?.location_metadata?.banner?.src;
+	const latestEventDate = latestEventBlockWithMetadata
+		? new Intl.DateTimeFormat(locale, {
+				month: "long",
+				day: "numeric",
+				hour: "numeric",
+				minute: "2-digit",
+			}).format(latestEventBlockWithMetadata.starts_at)
+		: undefined;
 
 	return (
 		<li
@@ -42,22 +51,32 @@ export function RecurringEventsCard({
 								dangerouslySetInnerHTML={{ __html: date }}
 							/>
 							<span>
-								{dayjs(latestEventBlockWithMetadata.starts_at).format(
-									"MMMM Do • h:mmA ",
-								)}
-								• <span className={style.nextEventText}>Next event</span>
+								<span className={style.nextEventText}>
+									{translate("events.card.next_event_date", latestEventDate!)}
+								</span>
 							</span>
 						</div>
 					) : null}
-					<ul className={style.chipsContainer} aria-label="Event type">
+					<ul
+						className={style.chipsContainer}
+						aria-label={translate("events.card.event_type")}
+					>
 						{event.in_person && (
 							<li>
-								<EventChip variant={"in-person"} size={"compact"} />
+								<EventChip
+									variant={"in-person"}
+									size={"compact"}
+									translate={translate}
+								/>
 							</li>
 						)}
 						{event.is_online && (
 							<li>
-								<EventChip variant={"online"} size={"compact"} />
+								<EventChip
+									variant={"online"}
+									size={"compact"}
+									translate={translate}
+								/>
 							</li>
 						)}
 					</ul>
@@ -67,7 +86,9 @@ export function RecurringEventsCard({
 				</div>
 				{latestEventBlockWithMetadata?.location_description ? (
 					<div className={style.eventRightContainer}>
-						<h3 className={`text-style-body-medium-bold`}>Next event's info</h3>
+						<h3 className={`text-style-body-medium-bold`}>
+							{translate("events.card.next_event_info")}
+						</h3>
 						<div className={style.nextEventInnerCard}>
 							{latestEventBannerSrc ? (
 								<img

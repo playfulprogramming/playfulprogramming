@@ -9,6 +9,8 @@ import { LargeButton } from "#components/button/button.tsx";
 import dayjs from "dayjs";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import style from "./book-club.module.scss";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 interface EventBlockWithMetadata extends EventBlock {
 	location_metadata?: UrlMetadataResponse;
@@ -97,9 +99,14 @@ function BookClubSmallCard({ eventBlock }: BookClubSmallCardProps) {
 
 interface BookClubProps {
 	eventBlocksWithMetadata: EventBlockWithMetadata[];
+	locale: Languages;
 }
 
-export default function BookClub({ eventBlocksWithMetadata }: BookClubProps) {
+export default function BookClub({
+	eventBlocksWithMetadata,
+	locale,
+}: BookClubProps) {
+	const translate = createTranslator(locale);
 	/**
 	 * Styles for header bar
 	 */
@@ -159,7 +166,11 @@ export default function BookClub({ eventBlocksWithMetadata }: BookClubProps) {
 						<h1 className={`text-style-headline-1 ${style.eventsTitle}`}>
 							Book Club
 							<span className={style.eventChipContainer}>
-								<EventChip size={"compact"} variant={"online"} />
+								<EventChip
+									size={"compact"}
+									variant={"online"}
+									translate={translate}
+								/>
 							</span>
 						</h1>
 						<p

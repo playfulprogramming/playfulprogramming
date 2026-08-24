@@ -2,10 +2,12 @@ import location from "#src/icons/location.svg?raw";
 import wifi from "#src/icons/wifi.svg?raw";
 import repeat from "#src/icons/repeat.svg?raw";
 import style from "./event-chip.module.scss";
+import type { Translate, TranslationKey } from "#utils/translations.ts";
 
 interface BaseEventChipProps {
 	// With icon or without
 	size: "default" | "compact";
+	translate: Translate;
 }
 
 interface InPersonChipProps extends BaseEventChipProps {
@@ -23,6 +25,13 @@ interface RecurringChipProps extends BaseEventChipProps {
 
 type EventChipProps = InPersonChipProps | OnlineChipProps | RecurringChipProps;
 
+const recurrenceKeys: Record<RecurringChipProps["every"], TranslationKey> = {
+	day: "events.recurrence.day",
+	week: "events.recurrence.week",
+	month: "events.recurrence.month",
+	year: "events.recurrence.year",
+};
+
 export function EventChip(props: EventChipProps) {
 	let icon: string;
 	let borderColor: string;
@@ -36,7 +45,7 @@ export function EventChip(props: EventChipProps) {
 			background = "var(--surface_positive_emphasis-low)";
 			borderColor = "var(--positive_variant)";
 			color = "var(--positive_on-variant)";
-			label = "In-person";
+			label = props.translate("events.type.in_person");
 			break;
 		}
 		case "recurring": {
@@ -44,7 +53,7 @@ export function EventChip(props: EventChipProps) {
 			background = "var(--surface_secondary_emphasis-low)";
 			borderColor = "var(--secondary_variant)";
 			color = "var(--secondary_on-variant)";
-			label = `Every ${props.every}`;
+			label = props.translate(recurrenceKeys[props.every]);
 			break;
 		}
 		case "online":
@@ -53,7 +62,7 @@ export function EventChip(props: EventChipProps) {
 			background = "var(--surface_primary_emphasis-low)";
 			borderColor = "var(--primary_variant)";
 			color = "var(--primary_on-variant)";
-			label = "Online";
+			label = props.translate("events.type.online");
 			break;
 		}
 	}
