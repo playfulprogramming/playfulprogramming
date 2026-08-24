@@ -23,7 +23,7 @@ const locale = localeParam ?? "en";
 const personId = Astro.params.personid!;
 const person = api.getPersonById(personId, locale);
 
-if (!person) {
+if (!person || person.locale !== locale) {
 	return Astro.rewrite(locale === "en" ? "/404" : `/${locale}/404`);
 }
 
