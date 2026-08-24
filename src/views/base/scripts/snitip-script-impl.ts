@@ -321,6 +321,12 @@ function initializeDialog(elements: SnitipElements) {
 	if (initializedDialogs.has(dialogEl)) return;
 	initializedDialogs.add(dialogEl);
 
+	// `showModal()` moves the dialog into the top layer visually, but it does
+	// not change its DOM or accessibility-tree ancestry. Keep the modal outside
+	// named content landmarks so assistive technology cannot navigate from the
+	// dialog into an otherwise inert ancestor region.
+	if (dialogEl.parentElement !== document.body) document.body.append(dialogEl);
+
 	// Native modal dialog backdrops make the invoking button inert. Handle the
 	// pointer sequence ourselves so clicking the still-hovered trigger can pin
 	// the dialog open instead of being mistaken for a light-dismiss gesture.

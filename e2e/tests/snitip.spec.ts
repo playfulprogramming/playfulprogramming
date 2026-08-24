@@ -251,6 +251,17 @@ for (const { name, width, anchored } of [
 		await expect(snitip.button).toHaveAttribute("aria-haspopup", "dialog");
 		await expect(snitip.button).toHaveAttribute("aria-expanded", "true");
 		await expect(snitip.dialog).toHaveAttribute("aria-modal", "true");
+		expect(
+			await snitip.dialog.evaluate(
+				(dialog) => dialog.parentElement === document.body,
+			),
+		).toBe(true);
+		expect(
+			await snitip.dialog.evaluate(
+				(dialog) =>
+					dialog.closest('[aria-labelledby="blog-post-contents"]') === null,
+			),
+		).toBe(true);
 		const titleId = await snitip.title.getAttribute("id");
 		if (!titleId) throw new Error("NodeJS snitip title is missing its id");
 		await expect(snitip.dialog).toHaveAttribute("aria-labelledby", titleId);

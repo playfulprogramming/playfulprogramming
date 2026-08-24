@@ -21,7 +21,7 @@ export function SnitipDialog({
 			id={id}
 			aria-labelledby={headingId}
 			aria-modal="true"
-			class={style.dialog}
+			class={`${style.dialog} post-body`}
 			// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore This newer native attribute is not in every TS DOM release.
