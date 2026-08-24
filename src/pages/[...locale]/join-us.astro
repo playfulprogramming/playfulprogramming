@@ -11,7 +11,7 @@ import ContributorsAndPartners from "#src/views/join-us/contributors-and-partner
 import Hr from "#src/views/join-us/hr.astro";
 import {
 	getStaticLocalePaths,
-	isLanguageKey,
+	isNonDefaultLanguageKey,
 	translate,
 } from "#utils/translations.ts";
 
@@ -20,10 +20,7 @@ export function getStaticPaths() {
 }
 
 const localeParam = Astro.params.locale;
-if (
-	localeParam !== undefined &&
-	(localeParam === "en" || !isLanguageKey(localeParam))
-) {
+if (localeParam !== undefined && !isNonDefaultLanguageKey(localeParam)) {
 	return Astro.rewrite("/404");
 }
 

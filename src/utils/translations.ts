@@ -6,6 +6,12 @@ export function isLanguageKey(str: string | undefined): str is Languages {
 	return str !== undefined && Object.keys(languages).includes(str);
 }
 
+export function isNonDefaultLanguageKey(
+	str: string | undefined,
+): str is Exclude<Languages, "en"> {
+	return str !== "en" && isLanguageKey(str);
+}
+
 /**
  * In our translations.json file, we choose to use a `eg-eg` format
  *

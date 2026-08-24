@@ -3,6 +3,19 @@ import type { Languages } from "#types/index.ts";
 import * as translations from "./translations.ts";
 
 describe("utils/translations.ts", () => {
+	describe("isNonDefaultLanguageKey", () => {
+		test("accepts configured prefixed languages", () => {
+			expect(translations.isNonDefaultLanguageKey("fr")).toBe(true);
+			expect(translations.isNonDefaultLanguageKey("pt-br")).toBe(true);
+		});
+
+		test("rejects English, missing, and unknown locale params", () => {
+			expect(translations.isNonDefaultLanguageKey("en")).toBe(false);
+			expect(translations.isNonDefaultLanguageKey(undefined)).toBe(false);
+			expect(translations.isNonDefaultLanguageKey("unknown")).toBe(false);
+		});
+	});
+
 	describe("fileToOpenGraphConverter", () => {
 		test("converts a lang without hyphen", () => {
 			const expected = "en";

@@ -6,7 +6,7 @@ import SEO from "#components/seo/seo.astro";
 import { siteMetadata } from "#src/constants/site-config.ts";
 import {
 	getStaticLocalePaths,
-	isLanguageKey,
+	isNonDefaultLanguageKey,
 	translate,
 } from "#utils/translations.ts";
 
@@ -15,10 +15,7 @@ export function getStaticPaths() {
 }
 
 const localeParam = Astro.params.locale;
-if (
-	localeParam !== undefined &&
-	(localeParam === "en" || !isLanguageKey(localeParam))
-) {
+if (localeParam !== undefined && !isNonDefaultLanguageKey(localeParam)) {
 	return Astro.rewrite("/404");
 }
 

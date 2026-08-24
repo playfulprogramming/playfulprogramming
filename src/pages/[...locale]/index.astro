@@ -7,6 +7,7 @@ import NotFoundPage from "#src/views/not-found/not-found-page.astro";
 import {
 	getStaticLocalePaths,
 	isLanguageKey,
+	isNonDefaultLanguageKey,
 	translate,
 } from "#utils/translations.ts";
 
@@ -16,8 +17,7 @@ export function getStaticPaths() {
 
 const localeParam = Astro.params.locale;
 const isLocaleRoute =
-	localeParam === undefined ||
-	(localeParam !== "en" && isLanguageKey(localeParam));
+	localeParam === undefined || isNonDefaultLanguageKey(localeParam);
 if (!isLocaleRoute) {
 	Astro.response.status = 404;
 }

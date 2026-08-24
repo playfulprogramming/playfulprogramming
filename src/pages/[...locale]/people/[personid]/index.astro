@@ -3,7 +3,7 @@ import Document from "#src/layouts/document.astro";
 import SEO from "#components/seo/seo.astro";
 import PersonPage from "#src/views/person/person-page.astro";
 import * as api from "#utils/api.ts";
-import { isLanguageKey } from "#utils/translations.ts";
+import { isNonDefaultLanguageKey } from "#utils/translations.ts";
 
 export function getStaticPaths() {
 	return api.getAllPeople().map((person) => ({
@@ -15,10 +15,7 @@ export function getStaticPaths() {
 }
 
 const localeParam = Astro.params.locale;
-if (
-	localeParam !== undefined &&
-	(localeParam === "en" || !isLanguageKey(localeParam))
-) {
+if (localeParam !== undefined && !isNonDefaultLanguageKey(localeParam)) {
 	return Astro.rewrite("/404");
 }
 
