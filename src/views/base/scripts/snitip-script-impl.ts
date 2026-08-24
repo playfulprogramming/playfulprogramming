@@ -77,12 +77,18 @@ function positionSnitip() {
 
 function promoteHoverToActivation(
 	elements: SnitipElements,
-	{ focusTitle = false } = {},
+	{ focusTitle = false, focusTitleVisible = false } = {},
 ) {
 	activeOpenSource = "activation";
 	hoverPreviousFocus = undefined;
 	stopHoverTracking();
-	if (focusTitle) elements.dialogTitleEl.focus({ preventScroll: true });
+	if (focusTitle) {
+		elements.dialogEl.dataset.titleFocusVisible = String(focusTitleVisible);
+		elements.dialogTitleEl.focus({
+			preventScroll: true,
+			focusVisible: focusTitleVisible,
+		});
+	}
 }
 
 function stopHoverTracking() {
@@ -107,6 +113,7 @@ function handleSnitipClosed(elements: SnitipElements) {
 	setTriggerExpanded(elements, false);
 	resetDialogPosition(elements);
 	elements.dialogEl.dataset.scrolled = "false";
+	delete elements.dialogEl.dataset.titleFocusVisible;
 	if (!shouldRestoreFocus) return;
 
 	const closedSource = activeOpenSource;
@@ -128,10 +135,17 @@ function handleSnitipClosed(elements: SnitipElements) {
 	});
 }
 
-function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
+function openSnitip(
+	elements: SnitipElements,
+	source: "activation" | "hover",
+	focusTitleVisible = false,
+) {
 	if (elements.dialogEl.open) {
 		if (snitip === elements && source === "activation") {
-			promoteHoverToActivation(elements, { focusTitle: true });
+			promoteHoverToActivation(elements, {
+				focusTitle: true,
+				focusTitleVisible,
+			});
 		}
 		return;
 	}
@@ -152,6 +166,7 @@ function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
 	activeElementsByDialog.set(elements.dialogEl, elements);
 	setTriggerExpanded(elements, true);
 	elements.dialogEl.dataset.scrolled = "false";
+	elements.dialogEl.dataset.titleFocusVisible = String(focusTitleVisible);
 	if (!anchoredDialogBreakpoint.matches) resetDialogPosition(elements);
 
 	try {
@@ -163,7 +178,10 @@ function openSnitip(elements: SnitipElements, source: "activation" | "hover") {
 
 	window.addEventListener("resize", positionSnitip, { passive: true });
 	if (anchoredDialogBreakpoint.matches) positionSnitip();
-	elements.dialogTitleEl.focus({ preventScroll: true });
+	elements.dialogTitleEl.focus({
+		preventScroll: true,
+		focusVisible: focusTitleVisible,
+	});
 	if (source === "hover") {
 		document.addEventListener("pointermove", handleMouseMove, {
 			passive: true,
@@ -453,7 +471,7 @@ for (const triggerEl of triggerEls) {
 	triggerButtonEl.addEventListener("keydown", (event) => {
 		if (event.key === "Enter" || event.key === " ") stopHoverTracking();
 	});
-	triggerButtonEl.addEventListener("click", () => {
-		openSnitip(elements, "activation");
+	triggerButtonEl.addEventListener("click", (event) => {
+		openSnitip(elements, "activation", event.detail === 0);
 	});
 }

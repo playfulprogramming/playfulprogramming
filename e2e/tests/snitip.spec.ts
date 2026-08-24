@@ -54,6 +54,15 @@ async function expectTransparentBackdrop(dialog: Locator) {
 	).toMatch(/(?:transparent|rgba\(0, 0, 0, 0\))/);
 }
 
+async function hasVisibleFocusOutline(element: Locator) {
+	return element.evaluate((focusedElement) => {
+		const style = getComputedStyle(focusedElement);
+		return (
+			style.outlineStyle !== "none" && Number.parseFloat(style.outlineWidth) > 0
+		);
+	});
+}
+
 async function expectClosed(button: Locator, dialog: Locator) {
 	await expect(dialog).not.toBeVisible();
 	await expect(button).toHaveAttribute("aria-expanded", "false");
@@ -122,6 +131,7 @@ test.describe("snitip desktop hover dialog", () => {
 			true,
 		);
 		await expect(snitip.title).toBeFocused();
+		expect(await hasVisibleFocusOutline(snitip.title)).toBe(false);
 		await expect(close).not.toBeFocused();
 		expect(await close.evaluate((el) => el.matches(":focus-visible"))).toBe(
 			false,
@@ -259,6 +269,7 @@ for (const { name, width, anchored } of [
 		);
 		await expectTransparentBackdrop(snitip.dialog);
 		await expect(snitip.title).toBeFocused();
+		expect(await hasVisibleFocusOutline(snitip.title)).toBe(true);
 		await page.keyboard.press("Shift+Tab");
 		await expect(close).toBeFocused();
 		await page.keyboard.press("Tab");
@@ -286,6 +297,7 @@ for (const { name, width, anchored } of [
 		);
 		await snitip.button.press("Space");
 		await expect(snitip.title).toBeFocused();
+		expect(await hasVisibleFocusOutline(snitip.title)).toBe(true);
 		await close.focus();
 		await close.press("Enter");
 		await expectClosed(snitip.button, snitip.dialog);
@@ -327,6 +339,8 @@ test("shows keyboard focus after a pointer click inside the dialog", async ({
 
 	await snitip.button.click();
 	await expect(snitip.dialog).toBeVisible();
+	await expect(snitip.title).toBeFocused();
+	expect(await hasVisibleFocusOutline(snitip.title)).toBe(false);
 	await snitip.dialog.locator("p").first().click();
 	await page.keyboard.press("Tab");
 
