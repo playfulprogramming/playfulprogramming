@@ -1,7 +1,7 @@
-import { Root } from "hast";
-import { Plugin } from "unified";
+import type { Root } from "hast";
+import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
-import { MarkdownVFile } from "./types";
+import type { MarkdownVFile } from "./types.ts";
 
 /**
  * Sets `isKatexMathUsed` on post data if any KaTeX nodes are found

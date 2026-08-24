@@ -1,9 +1,9 @@
 import {
-	DirectoryProps,
-	FileProps,
+	type DirectoryProps,
+	type FileProps,
 	File,
 	FileListList,
-} from "components/file-list/file-list";
+} from "#components/file-list/file-list.tsx";
 import {
 	useCallback,
 	useEffect,
@@ -11,12 +11,12 @@ import {
 	useRef,
 	useState,
 } from "preact/hooks";
-import { FileEntry } from "./types";
-import { Dialog } from "components/dialog/dialog";
+import type { FileEntry } from "./types.ts";
+import { Dialog } from "#components/dialog/dialog.tsx";
 import style from "./file-picker.module.scss";
-import { IconOnlyButton } from "components/button/button";
-import CloseIcon from "src/icons/close.svg?raw";
-import { RawSvg } from "components/image/raw-svg";
+import { IconOnlyButton } from "#components/button/button.tsx";
+import CloseIcon from "#src/icons/close.svg?raw";
+import { RawSvg } from "#components/image/raw-svg.tsx";
 
 interface FilePickerProps {
 	entries: Array<FileEntry>;
@@ -28,7 +28,7 @@ function sortFileItems(files: Array<DirectoryProps | FileProps>) {
 	files.sort((a, b) => {
 		if (a.isDirectory != b.isDirectory)
 			return Number(b.isDirectory) - Number(a.isDirectory);
-		else return a.name.localeCompare(b.name);
+		return a.name.localeCompare(b.name);
 	});
 
 	for (const file of files) {
@@ -97,7 +97,8 @@ export function FilePicker(props: FilePickerProps) {
 
 	const listItems = useMemo(() => {
 		return buildFileItems({
-			...props,
+			entries: props.entries,
+			file: props.file,
 			onFileChange: handleFileChange,
 		});
 	}, [props.entries, props.file, handleFileChange]);
@@ -109,7 +110,7 @@ export function FilePicker(props: FilePickerProps) {
 		width: 0,
 		height: 0,
 	});
-	function handleResize() {
+	const handleResize = useCallback(() => {
 		const fileRect = fileRef.current?.parentElement?.getBoundingClientRect();
 		if (!fileRect) return;
 		const height = Math.min(400, window.innerHeight * 0.5);
@@ -122,17 +123,17 @@ export function FilePicker(props: FilePickerProps) {
 			width: fileRect.width,
 			height,
 		});
-	}
+	}, []);
 
 	const handleOpenDialog = useCallback(() => {
 		handleResize();
 		setOpen(true);
-	}, []);
+	}, [handleResize]);
 
 	useEffect(() => {
 		window.addEventListener("resize", handleResize);
 		return () => window.removeEventListener("resize", handleResize);
-	});
+	}, [handleResize]);
 
 	return (
 		<>

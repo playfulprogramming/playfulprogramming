@@ -165,4 +165,4 @@ Ultimately, we're very happy with our decision to go with Orama for our semantic
 
 What do you think about our search page? We'd love to hear from you! 
 
-[Let us know in our Discord](https://discord.gg/FMcvc6T); we hope to see you soon!
+[Let us know in our Discord](https://discord.playfulprogramming.com); we hope to see you soon!

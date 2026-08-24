@@ -57,7 +57,7 @@ export default async function Page() {
 
 This is so cool to me. Notice we didn't need any `"use client"` API usage; these are all server components! But despite that, we're still using the previously client-only `<Suspense>` component to handle data loading!
 
-Not only do React's client and server APIs marry in this code sample, but even the ideas behind JSX-over-the-wire are on full display here: We're _[serializing](https://playfulprogramming.com/posts/intro-to-web-components-vanilla-js#Serializability) a promise to send over the wire_. **Conditionally**.
+Not only do React's client and server APIs marry in this code sample, but even the ideas behind JSX-over-the-wire are on full display here: We're _[serializing](/posts/intro-to-web-components-vanilla-js#Serializability) a promise to send over the wire_. **Conditionally**.
 
 This means that if the promise resolves in time, it will never ship the loading `<div>` to the client!
 

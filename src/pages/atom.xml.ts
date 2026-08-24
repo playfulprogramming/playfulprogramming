@@ -1,7 +1,7 @@
 import { Feed } from "feed";
-import { siteUrl } from "constants/site-config";
-import { getPostsByLang, getPersonById } from "utils/api";
-import licenses from "../../content/data/licenses.json";
+import { siteUrl } from "#src/constants/site-config.ts";
+import { getPostsByLang, getPersonById } from "#utils/api.ts";
+import licenses from "../../content/data/licenses.json" with { type: "json" };
 
 export const GET = () => {
 	const feed = new Feed({

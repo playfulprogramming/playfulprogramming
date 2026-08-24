@@ -11,6 +11,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# pnpm
+.pnpm-store
 
 # environment variables
 .env
@@ -26,3 +28,4 @@ pnpm-debug.log*
 .vercel
 .astro
 .vscode
+

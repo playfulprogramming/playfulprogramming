@@ -1,11 +1,11 @@
 ---
+import type { ComponentNode } from "#utils/markdown/components/components.ts";
 import {
 	components,
-	ComponentNode,
 	isHtmlNode,
 	isComponentNode,
-} from "utils/markdown/components/components";
-import { isRoot } from "../unist-is-element";
+} from "#utils/markdown/components/components.ts";
+import { isRoot } from "../unist-is-element.ts";
 
 export interface Props {
 	content: ComponentNode["children"];
@@ -20,7 +20,7 @@ const content = Astro.props.content;
 			return <Fragment set:html={node.innerHtml} />;
 		} else if (isComponentNode(node)) {
 			const Component = components[node.component];
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 			return <Component children={node.children} {...(node.props as any)} />;
 		} else if (isRoot(node)) {
 			return <Astro.self content={node.children} />;

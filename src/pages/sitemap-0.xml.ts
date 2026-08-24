@@ -1,16 +1,17 @@
 import {
+	type SitemapItemLoose,
 	EnumChangefreq,
-	SitemapItemLoose,
 	SitemapStream,
 	streamToPromise,
 } from "sitemap";
-import * as api from "utils/api";
+import * as api from "#utils/api.ts";
 import dayjs from "dayjs";
-import { PostInfo } from "types/PostInfo";
-import { CollectionInfo } from "types/CollectionInfo";
-import { Languages } from "types/index";
+import type { PostInfo } from "#types/PostInfo.ts";
+import type { CollectionInfo } from "#types/CollectionInfo.ts";
+import type { Languages } from "#types/index.ts";
 import { Readable } from "stream";
-import { siteUrl } from "constants/site-config";
+import { siteUrl } from "#src/constants/site-config.ts";
+import { events } from "#src/views/events/constants.ts";
 
 const About = (await import("./[...locale]/about.astro")) as unknown as {
 	getStaticPaths: () => Promise<Array<{ params: { locale?: Languages } }>>;
@@ -34,7 +35,7 @@ const createPostUrl = (locale: Languages, post: PostInfo) =>
 const createCollectionUrl = (locale: Languages, collection: CollectionInfo) =>
 	createLocaleUrl(locale, `/collections/${collection.slug}`);
 
-const includedRoutes = ["", "/join-us", "/search"];
+const includedRoutes = ["", "/join-us", "/search", "/events"];
 
 export const GET = async () => {
 	const entries: SitemapItemLoose[] = [];
@@ -43,6 +44,13 @@ export const GET = async () => {
 		entries.push({
 			...sitemapDefaults,
 			url: path,
+		});
+	}
+
+	for (const event of events) {
+		entries.push({
+			...sitemapDefaults,
+			url: `/events/${event.slug}`,
 		});
 	}
 

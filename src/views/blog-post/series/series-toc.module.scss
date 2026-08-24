@@ -16,7 +16,7 @@
 	--series-nav_chapter-item_padding-vertical: var(--spc-2x);
 	--series-nav_chapter-item_padding-horizontal: var(--spc-4x);
 	--series-nav_chapter-item_border_width: var(--border-width_l);
-	--series-nav_chapter-item_arrow_size: var(--icon-size_dense);
+	--series-nav_chapter-item_arrow_size: var(--icon-size_default);
 
 	--series-nav_header_overline_color: var(--foreground_emphasis-medium);
 	--series-nav_header_title_color: var(--foreground_emphasis-high);
@@ -138,7 +138,6 @@
 	color: var(--series-nav_chapter-item_title_color_selected);
 	padding-left: calc(
 		var(--series-nav_chapter-item_padding-horizontal) +
-			calc(var(--icon-size-dense-padding) * 2) +
 			var(--series-nav_chapter-item_arrow_size) + var(--spc-2x)
 	);
 }
@@ -163,7 +162,7 @@
 	position: absolute;
 	top: 0;
 	left: var(--series-nav_chapter-item_padding-horizontal);
-	width: var(--icon-size_dense);
+	width: var(--icon-size_default);
 	height: 100%;
 }
 

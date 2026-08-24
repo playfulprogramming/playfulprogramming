@@ -1,4 +1,4 @@
-import { resolvePath } from "./url-paths";
+import { resolvePath } from "./url-paths.ts";
 import sharp from "sharp";
 import { readFile } from "fs/promises";
 

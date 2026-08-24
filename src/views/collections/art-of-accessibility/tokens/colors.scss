@@ -12,4 +12,11 @@
 	--cta-background: var(--title);
 	--cta-background_hovered: #4583ed;
 	--cta-background_pressed: #4172c5;
+
+	--section-background: var(--floor);
+	--text-gradient: linear-gradient(180deg, white, #fefefe);
+	--chip-foreground: var(--title);
+	--chip-background: white;
+	--color-transition-time: 500ms;
+	--color-transition-ease: ease-in-out;
 }

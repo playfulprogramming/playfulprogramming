@@ -1,10 +1,10 @@
 ---
-import { PostInfo } from "../../types";
+import type { PostInfo } from "../../types/index.ts";
 import style from "./related-posts.module.scss";
 import RelatedPostsCard from "./related-posts-card.astro";
-import * as api from "utils/api";
-import { getSuggestedArticles } from "utils/get-suggested-articles";
-import { isDefined } from "utils/is-defined";
+import * as api from "#utils/api.ts";
+import { getSuggestedArticles } from "#utils/get-suggested-articles.ts";
+import { isDefined } from "#utils/is-defined.ts";
 
 interface RelatedPostsProps {
 	post: PostInfo;

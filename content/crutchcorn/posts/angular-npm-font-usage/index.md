@@ -122,7 +122,7 @@ Because we're planning on using Angular CLI, we'll want to set the `src` propert
 > @include foundry_sterling("/assets")
 > ```
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 ### Font Name Value Mapping {#font-val-mapping}
 
@@ -220,4 +220,4 @@ However, if you're not using `postcss` and have SCSS installed, you can use the 
 
 Once you've added the file to your CSS imports and `angular.json`, you should see your font loading as-expected. Because you've setup your fonts to use `npm` to distribute them, you can now reuse your fonts across multiple apps.
 
-If you'd like to learn more or have questions about this setup, feel free to leave a comment down below or join [our Discord](https://discord.gg/FMcvc6T) and ask questions there!
+If you'd like to learn more or have questions about this setup, feel free to leave a comment down below or join [our Discord](https://discord.playfulprogramming.com) and ask questions there!

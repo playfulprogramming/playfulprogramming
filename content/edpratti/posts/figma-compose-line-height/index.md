@@ -11,7 +11,7 @@
 > **This is an update to an existing article:**
 > If you haven't yet, check the original article below.
 >
-> **[Hard grids & baselines: How I achieved 1:1 fidelity on Android](/posts/hard-grids-and-baselines-android-design-fidelity)**
+> **[Hard Grids & Baselines: Achieving 1:1 Android Fidelity](/posts/hard-grids-and-baselines-android-design-fidelity)**
 
 For years, the difference between web and native line heights has been a problem for designers. Figma behaves similarly to the web, which ended up being an issue when designing for Android and iOS.
 

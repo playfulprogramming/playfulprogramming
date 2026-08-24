@@ -1,4 +1,4 @@
-import { JSXNode } from "components/types";
+import type { JSXNode } from "#components/types.ts";
 import styles from "./search-hero.module.scss";
 import tags from "../../../../content/data/tags.json";
 
@@ -45,6 +45,7 @@ export const SearchHero = ({
 		<div class={styles.container}>
 			{stickerTransforms.map((sticker) => (
 				<img
+					key={sticker.image}
 					aria-hidden="true"
 					src={sticker.image}
 					class={sticker.className}

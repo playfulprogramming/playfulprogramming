@@ -131,12 +131,14 @@ export interface paths {
 			};
 			requestBody?: {
 				content: {
-					/** @example {
+					/**
+					 * @example {
 					 *       "slug": "example",
 					 *       "author": "fennifith",
 					 *       "path": "content/fennifith/posts/example/index.md",
 					 *       "indexMd5": "6cd3556deb0da54bca060b4c39479839"
-					 *     } */
+					 *     }
+					 */
 					"application/json": {
 						slug: string;
 						author: string;
@@ -185,9 +187,11 @@ export interface paths {
 			};
 			requestBody: {
 				content: {
-					/** @example {
+					/**
+					 * @example {
 					 *       "url": "https://playfulprogramming.com"
-					 *     } */
+					 *     }
+					 */
 					"application/json": {
 						/** Format: uri */
 						url: string;
@@ -207,12 +211,63 @@ export interface paths {
 								src: string;
 								width?: number;
 								height?: number;
+								altText?: string;
 							};
 							banner?: {
 								src: string;
 								width?: number;
 								height?: number;
+								altText?: string;
 							};
+							embed?:
+								| {
+										/** @enum {string} */
+										type: "gist";
+										gist?: {
+											username: string;
+											description?: string;
+											files: {
+												filename: string;
+												contentUrl: string;
+												language: string;
+											}[];
+										};
+								  }
+								| {
+										/** @enum {string} */
+										type: "post";
+										post?: {
+											author: {
+												name: string;
+												handle: string;
+												avatar?: {
+													src: string;
+													width?: number;
+													height?: number;
+													altText?: string;
+												};
+											};
+											content: string;
+											url: string;
+											image?: {
+												src: string;
+												width?: number;
+												height?: number;
+												altText?: string;
+											};
+											numLikes?: number;
+											numReposts?: number;
+											numReplies?: number;
+											createdAt: string;
+										};
+								  }
+								| {
+										/** @enum {string} */
+										type: "video";
+										src?: string;
+										width?: number;
+										height?: number;
+								  };
 							error: boolean;
 						};
 					};

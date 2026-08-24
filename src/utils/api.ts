@@ -1,13 +1,13 @@
-import {
+import type {
 	CollectionInfo,
 	PostInfo,
 	RolesInfo,
 	PersonInfo,
 	PostVersion,
-} from "types/index";
-import { Languages } from "types/index";
-import { roles, people, posts, collections } from "./data";
-import { isDefined } from "./is-defined";
+	Languages,
+} from "#types/index.ts";
+import { roles, people, posts, collections } from "./data.ts";
+import { isDefined } from "./is-defined.ts";
 
 function compareByDate(date1: string, date2: string): number {
 	return new Date(date1) > new Date(date2) ? -1 : 1;

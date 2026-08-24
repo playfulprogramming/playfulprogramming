@@ -1,9 +1,9 @@
-import { Root } from "hast";
-import { Plugin } from "unified";
-import { PostInfo } from "types/PostInfo";
+import type { Root } from "hast";
+import type { Plugin } from "unified";
+import type { PostInfo } from "#types/PostInfo.ts";
 import { visit } from "unist-util-visit";
-import * as api from "utils/api";
-import { MarkdownVFile } from "./types";
+import * as api from "#utils/api.ts";
+import type { MarkdownVFile } from "./types.ts";
 
 function normalizeUrl(url: string) {
 	return url.endsWith("/") ? url.slice(0, -1) : url;

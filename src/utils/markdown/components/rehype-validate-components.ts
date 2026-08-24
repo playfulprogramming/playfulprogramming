@@ -1,9 +1,13 @@
-import * as hast from "hast";
-import { Plugin } from "unified";
-import { logError } from "../logger";
+import type * as hast from "hast";
+import type { Plugin } from "unified";
+import { logError } from "../logger.ts";
 import { visit } from "unist-util-visit";
-import { isComponentMarkup, isComponentNode, PlayfulRoot } from "./components";
-import { isRoot } from "../unist-is-element";
+import {
+	type PlayfulRoot,
+	isComponentMarkup,
+	isComponentNode,
+} from "./components.ts";
+import { isRoot } from "../unist-is-element.ts";
 
 export function isValidComponentParent(node: hast.Node | undefined) {
 	return isRoot(node) || isComponentNode(node) || isComponentMarkup(node);

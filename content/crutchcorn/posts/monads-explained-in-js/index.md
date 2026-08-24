@@ -30,7 +30,7 @@ If I may, allow me to try my hand at this.
 > I generally assume that you're familiar with JavaScript and Promises. If you're not, I might suggest the following resources:
 >
 > - [Our "Web Fundamentals" series introducing HTML, CSS, and JavaScript](https://playfulprogramming.com/collections/web-fundamentals).
-> - [My article on `async`, `await`, and Promises in general](https://playfulprogramming.com/posts/async-and-promises).
+> - [My article on `async`, `await`, and Promises in general](/posts/async-and-promises).
 
 # Introducing Monads in JavaScript
 
@@ -113,7 +113,7 @@ This means that the immutable operation of chaining is the `.then`, since each n
 
 > **Another ecosystem's example:**
 >
-> [In Rust, they have the `Option` API](https://playfulprogramming.com/posts/rust-enums-matching-options-api). This API also describes a monad, since it wraps data and adds an "existance" context.
+> [In Rust, they have the `Option` API](/posts/rust-enums-matching-options-api). This API also describes a monad, since it wraps data and adds an "existance" context.
 >
 > It's either `Some` or `None`:
 >
@@ -124,7 +124,7 @@ This means that the immutable operation of chaining is the `.then`, since each n
 > }
 > ```
 >
-> Which can be [chained together](https://playfulprogramming.com/posts/rust-enums-matching-options-api) and implements other monad laws.
+> Which can be [chained together](/posts/rust-enums-matching-options-api) and implements other monad laws.
 
 ----
 

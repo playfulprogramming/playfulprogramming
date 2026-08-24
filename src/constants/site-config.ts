@@ -1,4 +1,4 @@
-import env from "./env";
+import env from "./env/index.ts";
 
 export const siteUrl = env.SITE_URL;
 

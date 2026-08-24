@@ -1,8 +1,8 @@
 import type * as mdast from "mdast";
 import type * as hast from "hast";
-import { VFile } from "vfile";
+import type { VFile } from "vfile";
 import * as kleur from "kleur/colors";
-import env from "constants/env";
+import env from "#src/constants/env/index.ts";
 
 /**
  * A utility function for printing readable errors out of the hast/mdast nodes in a markdown file
@@ -26,22 +26,22 @@ export function logError(
 		console.log();
 		console.error(
 			"::error",
-			Object.entries(meta)
+			`${Object.entries(meta)
 				.filter(([_, v]) => !!v)
 				.map(([k, v]) => `${k}=${v}`)
-				.join(",") + "::",
+				.join(",")}::`,
 			...message,
 		);
 	} else {
 		// Otherwise, print something readable to the console
 		console.log();
-		console.error(kleur.red("[ERROR] " + message.join(" ")));
+		console.error(kleur.red(`[ERROR] ${message.join(" ")}`));
 
 		const startOffset = node.position?.start?.offset;
 		const endOffset = node.position?.end?.offset;
 		if (startOffset && endOffset) {
 			const str = vfile.value.slice(startOffset, endOffset);
-			console.log("\t" + str);
+			console.log(`\t${str}`);
 			console.log("\t^");
 		}
 

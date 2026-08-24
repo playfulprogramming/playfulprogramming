@@ -1,0 +1,21 @@
+.container {
+	border-radius: var(--corner-radius_circular);
+	padding: var(--spc-1x) var(--spc-2x);
+	border-width: 1px;
+	border-style: solid;
+	display: flex;
+	align-items: center;
+	width: fit-content;
+}
+
+.defaultVariantLabel {
+	padding: 0 var(--spc-1x);
+}
+
+.icon {
+	height: 20px;
+	width: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

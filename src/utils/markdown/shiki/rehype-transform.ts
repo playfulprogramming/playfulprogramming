@@ -1,7 +1,7 @@
 import type { Element, Root } from "hast";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
-import { runShiki } from "./shiki-pool";
+import { runShiki } from "./shiki-pool.ts";
 
 export const rehypeShikiUU: Plugin<[], Root, Root> = function () {
 	return async (tree) => {

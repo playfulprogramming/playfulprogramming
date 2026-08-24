@@ -8,7 +8,7 @@ Algunos puntos a tomar en cuenta cuando escribas tu artículo:
 - Busca proporcionar información relevante y verdadera - ¡Te recomendamos citar las fuentes de tu trabajo!
 - Mantén tu contenido imparcial; es decir, no hagas anuncios de productos o servicios sin ninguna razón.
 
-Si en algún momento te sientes bloqueado o tienes alguna duda que quieras resolver, no dudes en [abrir un reporte de problema en GitHub](https://github.com/playfulprogramming/playfulprogramming/issues/new) o bien [comunícate con nosotros en Discord](https://discord.gg/FMcvc6T). ¡Estaremos encantados de ayudarte!
+Si en algún momento te sientes bloqueado o tienes alguna duda que quieras resolver, no dudes en [abrir un reporte de problema en GitHub](https://github.com/playfulprogramming/playfulprogramming/issues/new) o bien [comunícate con nosotros en Discord](https://discord.playfulprogramming.com). ¡Estaremos encantados de ayudarte!
 
 ---
 

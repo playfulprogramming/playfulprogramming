@@ -1,0 +1,8 @@
+<div class="container">
+  <app-button (click)="changeTheme()" label="Change box theme"></app-button>
+  <app-button (click)="addDarkTheme()" label="Add App full dark mode"></app-button>
+  <app-button (click)="reset()" label="reset themes"></app-button>
+
+  <app-product [ngClass]="theme"></app-product>
+  <app-product [ngClass]="theme"></app-product>
+</div>

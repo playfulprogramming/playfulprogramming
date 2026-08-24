@@ -129,6 +129,10 @@
 		"image": "/stickers/jest.svg",
 		"shownWithBranding": false
 	},
+	"leadership": {
+		"displayName": "Leadership",
+		"emoji": "👔"
+	},
 	"linux": {
 		"displayName": "Linux",
 		"image": "/stickers/linux.svg",
@@ -200,6 +204,10 @@
 	"security": {
 		"displayName": "Security",
 		"emoji": "🔒"
+	},
+	"seo": {
+		"displayName": "Search Engine Optimization (SEO)",
+		"emoji": "🔎"
 	},
 	"slack": {
 		"displayName": "Slack",

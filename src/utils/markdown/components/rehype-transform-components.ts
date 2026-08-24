@@ -1,13 +1,13 @@
-import { Plugin } from "unified";
-import { RehypeFunctionComponent } from "./types";
-import { logError } from "../logger";
-import { VFile } from "vfile";
+import type { Plugin } from "unified";
+import type { RehypeFunctionComponent } from "./types.ts";
+import { logError } from "../logger.ts";
+import type { VFile } from "vfile";
 import {
+	type PlayfulNode,
+	type PlayfulRoot,
 	isComponentMarkup,
 	isComponentNode,
-	PlayfulNode,
-	PlayfulRoot,
-} from "./components";
+} from "./components.ts";
 
 type RehypeComponentsProps = {
 	components: Record<string, RehypeFunctionComponent>;

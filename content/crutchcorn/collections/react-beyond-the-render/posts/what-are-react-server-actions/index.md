@@ -101,7 +101,7 @@ In short; React Server Actions are a way to call server-side code in React's cli
 
 However, to pass a function from a server component down to the client we must designate our functions we want to pass with a special boundary string.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # What is `"use server"`?
 
@@ -408,4 +408,4 @@ React Server Actions make for a wonderful way of intermingling server and client
 
 But there's one more thing I still want to cover about React Server Components left... Let's look at `useFormState` and `useFormStatus` next time!
 
-Until then, [drop by our Discord server](https://discord.gg/FMcvc6T) and tell us what you think of React Server Actions - we'd love to hear your thoughts!
+Until then, [drop by our Discord server](https://discord.playfulprogramming.com) and tell us what you think of React Server Actions - we'd love to hear your thoughts!

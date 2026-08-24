@@ -1,21 +1,21 @@
 ---
 import style from "./about.module.scss";
 import "../../styles/shiki.scss";
-import * as data from "src/utils/data";
-import { translate } from "src/utils/translations";
-import TranslationsHeader from "src/views/base/translations/translations-header.astro";
+import * as data from "#utils/data.ts";
+import { translate } from "#src/utils/translations.ts";
+import TranslationsHeader from "#src/views/base/translations/translations-header.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
-import { License } from "./license";
+import { License } from "./license.tsx";
 import BannerSvg from "./banner-svg.astro";
-import * as api from "utils/api";
-import { Languages } from "types/index";
+import * as api from "#utils/api.ts";
+import type { Languages } from "#types/index.ts";
 import { VFile } from "vfile";
-import { getMarkdownHtml } from "utils/markdown";
-import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
-import { MarkdownFileInfo, MarkdownVFile } from "utils/markdown/types";
-import { Links } from "./components";
+import { getMarkdownHtml } from "#utils/markdown/index.ts";
+import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
+import type { MarkdownFileInfo, MarkdownVFile } from "#utils/markdown/types.ts";
+import { Links } from "./components.tsx";
 import ContributorCard from "../../components/contributor-card/contributor-card.astro";
-import Content from "utils/markdown/components/content.astro";
+import Content from "#utils/markdown/components/content.astro";
 
 interface Props {
 	locales: Languages[];
@@ -131,11 +131,9 @@ const tags = [
 					const a: HTMLAnchorElement =
 						document.querySelector("#email-licenses")!;
 					// This is base64 for UU's contact email, to prevent automated page crawlers from finding it
-					a.href =
-						"mailto:" +
-						(a.innerText = atob(
-							"bGljZW5zaW5nQHBsYXlmdWxwcm9ncmFtbWluZy5jb20=",
-						));
+					a.href = `mailto:${(a.innerText = atob(
+						"bGljZW5zaW5nQHBsYXlmdWxwcm9ncmFtbWluZy5jb20=",
+					))}`;
 				}
 			</script>
 		</p>

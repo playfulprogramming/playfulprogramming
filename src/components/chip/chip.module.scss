@@ -7,7 +7,7 @@
 	--chip_padding-vertical: var(--spc-1x);
 	--chip_padding-horizontal: var(--spc-2x);
 	--chip_label_padding-horizontal: var(--spc-1x);
-	--chip_icon_size: var(--icon-size_dense);
+	--chip_icon_size: var(--icon-size_default);
 
 	--chip_background-color: var(--transparent);
 	--chip_background-color_hovered: var(--surface_primary_emphasis-low);
@@ -81,7 +81,6 @@
 }
 
 .chip_content > svg {
-	padding: var(--icon-size-dense-padding);
 	height: var(--chip_icon_size);
 	width: var(--chip_icon_size);
 	margin: 0 calc(-1 * var(--chip_label_padding-horizontal));

@@ -1,0 +1,10 @@
+---
+import AuthorCard from "#components/author-card/author-card.astro";
+import type { PersonInfo } from "#types/PersonInfo.ts";
+
+export interface Props {
+	author: PersonInfo;
+}
+---
+
+<AuthorCard {...Astro.props} />

@@ -1,9 +1,9 @@
-import FullscreenIcon from "src/icons/fullscreen.svg?raw";
-import LaunchIcon from "src/icons/launch.svg?raw";
-import { AnchoredTooltip } from "./anchored-tooltip";
+import FullscreenIcon from "#src/icons/fullscreen.svg?raw";
+import LaunchIcon from "#src/icons/launch.svg?raw";
+import { AnchoredTooltip } from "./anchored-tooltip.tsx";
 import style from "./link-preview.module.scss";
-import { RawSvg } from "components/image/raw-svg";
-import { JSXNode } from "components/types";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+import type { JSXNode } from "#components/types.ts";
 
 interface LinkPreviewProps {
 	type: "zoom" | "link";

@@ -1,12 +1,12 @@
 ---
 import styles from "./series-toc.module.scss";
-import { PostInfo } from "types/index";
+import type { PostInfo } from "#types/index.ts";
 
-import { Button } from "../../../components";
-import { findActivePost } from "./base";
-import { CollectionInfo } from "types/CollectionInfo";
-import { translate } from "../../../utils";
-import { getShortTitle } from "../../../utils/remove-article-collection-prefix";
+import { Button } from "../../../components/index.ts";
+import { findActivePost } from "./base.ts";
+import type { CollectionInfo } from "#types/CollectionInfo.ts";
+import { translate } from "#utils/index.ts";
+import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
 
 interface SeriesTocProps {
 	post: PostInfo;

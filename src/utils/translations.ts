@@ -1,7 +1,7 @@
-import { Languages } from "types/index";
-import { languages } from "../constants/index";
+import type { Languages } from "#types/index.ts";
+import { languages } from "../constants/index.ts";
 import { basename } from "path";
-import { MDXInstance, MarkdownInstance } from "astro";
+import type { MDXInstance, MarkdownInstance } from "astro";
 
 function isLanguageKey(str: string | undefined): str is Languages {
 	return str !== undefined && Object.keys(languages).includes(str);
@@ -33,7 +33,7 @@ export function fileToOpenGraphConverter<T extends Languages>(
 export function getLanguageFromFilename(name: string): Languages {
 	const lang = name.split(".").at(-2);
 	if (isLanguageKey(lang)) return lang;
-	else return "en";
+	return "en";
 }
 
 /**
@@ -48,7 +48,7 @@ export function getPrefixLanguageFromPath(path: string): Languages {
 	const pathSegment = path.split("/").find((s) => !!s);
 
 	if (isLanguageKey(pathSegment)) return pathSegment;
-	else return "en";
+	return "en";
 }
 
 /**

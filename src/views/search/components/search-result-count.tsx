@@ -1,5 +1,5 @@
 import { useMemo } from "preact/hooks";
-import info from "src/icons/info.svg?raw";
+import info from "#src/icons/info.svg?raw";
 import style from "./search-result-count.module.scss";
 import { forwardRef } from "preact/compat";
 
@@ -38,7 +38,7 @@ export const SearchResultCount = forwardRef<
 				className={style.icon}
 				aria-hidden={true}
 				dangerouslySetInnerHTML={{ __html: info }}
-			></span>
+			/>
 			<h2 className={`text-style-body-large-bold ${style.text}`}>
 				We found {language} in your search
 			</h2>

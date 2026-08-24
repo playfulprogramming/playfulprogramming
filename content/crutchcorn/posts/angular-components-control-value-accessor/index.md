@@ -1,6 +1,6 @@
 ---
 {
-	title: "Better Angular Form Components with ngModel and formControl Implementation",
+	title: "Better Angular Forms with ngModel & formControl",
 	description: "Some components make controlling their state easier with 'formControl' and 'ngModel'. Let's see how we can build our own!",
 	published: '2020-06-09T13:45:00.284Z',
 	tags: ['angular', 'javascript'],
@@ -246,7 +246,7 @@ You'll want to call this `onTouched` method any time that your user "touches" (o
 />
 ```
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Consumption {#consume-demo}
 
@@ -416,4 +416,4 @@ Not only do you have [a wide range of Angular-built validators at your disposal]
 
 Enabling `formControl` and `ngModel` usage is an extremely powerful tool that enables you to have feature-rich and consistent APIs across your form components. Using them, you can ensure that your consumers are provided with the functionality they'd expect in a familiar API to native elements. Hopefully, this article has provided you with more in-depth insight that you're able to use with your own components.
 
-If you're interested in learning more about Angular, please sign up for our newsletter down below! We don't spam and will notify you when new Angular articles are live! Additionally, if you'd like to ask in-depth questions or chat about anything Angular related, don't forget to [join our Discord Server, where we talk code and more!](https://discord.gg/FMcvc6T)
+If you're interested in learning more about Angular, please sign up for our newsletter down below! We don't spam and will notify you when new Angular articles are live! Additionally, if you'd like to ask in-depth questions or chat about anything Angular related, don't forget to [join our Discord Server, where we talk code and more!](https://discord.playfulprogramming.com)

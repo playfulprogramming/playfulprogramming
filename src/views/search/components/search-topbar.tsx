@@ -1,16 +1,20 @@
 import style from "./search-topbar.module.scss";
-import { SearchInput } from "components/input/input";
-import { Button, IconOnlyButton, LargeButton } from "components/button/button";
-import filter from "src/icons/filter.svg?raw";
-import forward from "src/icons/arrow_right.svg?raw";
-import { Item, Select } from "components/select/select";
+import { SearchInput } from "#components/input/input.tsx";
+import {
+	Button,
+	IconOnlyButton,
+	LargeButton,
+} from "#components/button/button.tsx";
+import filter from "#src/icons/filter.svg?raw";
+import forward from "#src/icons/arrow_right.svg?raw";
+import { Item, Select } from "#components/select/select.tsx";
 import {
 	RadioButton,
 	RadioButtonGroup,
-} from "components/button-radio-group/button-radio-group";
-import { DisplayContentType, SortType } from "src/views/search/search";
+} from "#components/button-radio-group/button-radio-group.tsx";
+import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { useDebouncedCallback } from "../use-debounced-value";
+import { useDebouncedCallback } from "../use-debounced-value.ts";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;
@@ -49,7 +53,7 @@ export const SearchTopbar = ({
 	useEffect(() => {
 		setSearchInput(search);
 		cancelSetSearchDebounced();
-	}, [search]);
+	}, [search, cancelSetSearchDebounced]);
 
 	const handleBlur = useCallback(
 		(e: FocusEvent) => {
@@ -74,7 +78,7 @@ export const SearchTopbar = ({
 			<section
 				className={style.topBar}
 				style={{
-					["--topbar-header-height"]: `${headerHeight}px`,
+					"--topbar-header-height": `${headerHeight}px`,
 				}}
 			>
 				<form
@@ -136,7 +140,7 @@ export const SearchTopbar = ({
 						<span
 							className={style.filterIconContainer}
 							dangerouslySetInnerHTML={{ __html: filter }}
-						></span>
+						/>
 					}
 				>
 					Filter
@@ -147,8 +151,8 @@ export const SearchTopbar = ({
 					label={"Post sort order"}
 					prefixSelected={"Sort by: "}
 					defaultValue={"Relevance"}
-					selectedKey={sort}
-					onSelectionChange={(v) => setSort(v as SortType)}
+					value={sort}
+					onChange={(v) => setSort(v as SortType)}
 				>
 					<Item key={"relevance"}>Relevance</Item>
 					<Item key={"newest"}>Newest</Item>
@@ -164,7 +168,7 @@ export const SearchTopbar = ({
 					<span
 						className={style.filterIconContainer}
 						dangerouslySetInnerHTML={{ __html: filter }}
-					></span>
+					/>
 				</IconOnlyButton>
 			</div>
 		</>

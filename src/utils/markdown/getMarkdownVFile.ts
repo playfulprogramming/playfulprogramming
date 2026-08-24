@@ -1,10 +1,11 @@
 import * as fs from "fs/promises";
 import { VFile } from "vfile";
-import { MarkdownFileInfo, MarkdownVFile } from "./types";
+import type { MarkdownFileInfo, MarkdownVFile } from "./types.ts";
 
 export async function getMarkdownVFile(
 	data: MarkdownFileInfo,
 ): Promise<MarkdownVFile> {
+	// eslint-disable-next-line no-useless-assignment
 	let fileContent: string | null = null;
 	try {
 		// Using import() here enables hot-reloading, but fails during astro build

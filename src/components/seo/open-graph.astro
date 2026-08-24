@@ -1,8 +1,8 @@
 ---
-import { Languages } from "types/index";
-import { fileToOpenGraphConverter } from "utils/translations";
+import type { Languages } from "#types/index.ts";
+import { fileToOpenGraphConverter } from "#utils/translations.ts";
 
-import { SEOProps } from "./shared";
+import type { SEOProps } from "./shared.ts";
 
 export type Props = Pick<SEOProps, "title" | "providedLangs" | "peopleData"> & {
 	lang: Languages;

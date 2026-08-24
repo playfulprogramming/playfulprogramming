@@ -1,6 +1,6 @@
-import { VFile } from "vfile";
-import { PostHeadingInfo } from "types/PostInfo";
-import { CollectionLinks } from "./reference-page/rehype-reference-page";
+import type { VFile } from "vfile";
+import type { PostHeadingInfo } from "#types/PostInfo.ts";
+import type { CollectionLinks } from "./reference-page/rehype-reference-page.ts";
 
 export type MarkdownKind = "post" | "collection" | "unicorn" | "page";
 

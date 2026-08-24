@@ -22,7 +22,7 @@ export function useFilterState(params: FilterStateParams): FilterState {
 				params.setTags(params.tags.filter((tag) => tag !== id));
 			}
 		},
-		[params.tags, params.setTags],
+		[params],
 	);
 
 	const onAuthorChange = useCallback(
@@ -33,7 +33,7 @@ export function useFilterState(params: FilterStateParams): FilterState {
 				params.setAuthors(params.authors.filter((author) => author !== id));
 			}
 		},
-		[params.authors, params.setAuthors],
+		[params],
 	);
 
 	return useMemo<FilterState>(
@@ -46,6 +46,6 @@ export function useFilterState(params: FilterStateParams): FilterState {
 			onTagChange,
 			onAuthorChange,
 		}),
-		[params.setFilters, onTagChange, onAuthorChange],
+		[params, onTagChange, onAuthorChange],
 	);
 }

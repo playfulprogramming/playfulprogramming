@@ -77,7 +77,7 @@ Now React will treat the `result` as if it were not a promise, so that you can a
 > - Refetching with new inputs
 > - Abort signals to avoid timing issues
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # What is the `<Suspense>` component?
 
@@ -292,4 +292,4 @@ in this area; I think most apps are going to end up utilizing these heavily.
 However, this is only half of the story for React's async support. Next up, we'll talk about React Server Actions, which enables the client to
 make RPC-like calls back to the server and execute server code for us.
 
-Can't wait to talk about what you learned about? [Join our Discord and tell us what you think about the Suspense API](https://discord.gg/FMcvc6T)!
+Can't wait to talk about what you learned about? [Join our Discord and tell us what you think about the Suspense API](https://discord.playfulprogramming.com)!

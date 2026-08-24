@@ -1,10 +1,14 @@
 import { is } from "unist-util-is";
-import * as hast from "hast";
-import { unified, Plugin } from "unified";
+import type * as hast from "hast";
+import { type Plugin, unified } from "unified";
 import rehypeParse from "rehype-parse";
-import { logError } from "../logger";
-import { VFile } from "vfile";
-import { ComponentMarkupNode, PlayfulNode, PlayfulRoot } from "./components";
+import { logError } from "../logger.ts";
+import type { VFile } from "vfile";
+import type {
+	ComponentMarkupNode,
+	PlayfulNode,
+	PlayfulRoot,
+} from "./components.ts";
 
 const unifiedRehype = unified().use(rehypeParse, { fragment: true });
 

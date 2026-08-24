@@ -17,7 +17,7 @@ import { Icon } from "astro-icon/components";
 	<div class={layoutStyles.headerInsideContainer}>
 		<!-- We cannot put this in a conditional, a bug in Astro preventing us? -->
 		<script>
-			import { backButtonListener } from "../../../../components/layout/backbtn";
+			import { backButtonListener } from "../../../../components/layout/backbtn.ts";
 			backButtonListener();
 		</script>
 		<button
@@ -29,7 +29,7 @@ import { Icon } from "astro-icon/components";
 		</button>
 		<div class={layoutStyles.iconList}>
 			<a
-				href="https://discord.gg/FMcvc6T"
+				href="https://discord.playfulprogramming.com"
 				class={`${layoutStyles.discordBtn} baseBtn`}
 				aria-label="Join the Discord"
 			>

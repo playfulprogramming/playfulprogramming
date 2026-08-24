@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import style from "./article-revisions.module.scss";
-import listStyle from "components/select/select.module.scss";
-import down from "src/icons/chevron_down.svg?raw";
-import { debounce } from "utils/debounce";
-import { PostInfo, PostVersion } from "types/PostInfo";
-import { siteMetadata } from "constants/site-config";
-import { Option } from "components/select/basic-option";
+import listStyle from "#components/select/select.module.scss";
+import down from "#src/icons/chevron_down.svg?raw";
+import { debounce } from "#utils/debounce.ts";
+import type { PostInfo, PostVersion } from "#types/PostInfo.ts";
+import { siteMetadata } from "#src/constants/site-config.ts";
+import { Option } from "#components/select/basic-option.tsx";
 
 interface PopOverLocation {
 	x: number;
@@ -89,10 +89,7 @@ export function ArticleRevisionDropdown({
 				<span class={style.date}>{date}</span>
 				<span class={style.dot}>{buttonVersion ? "•" : ""}</span>
 				<span class={style.version}>{buttonVersion}</span>
-				<span
-					class={style.down}
-					dangerouslySetInnerHTML={{ __html: down }}
-				></span>
+				<span class={style.down} dangerouslySetInnerHTML={{ __html: down }} />
 			</button>
 			<ul
 				id="article-versions-list"
@@ -104,8 +101,8 @@ export function ArticleRevisionDropdown({
 						: { left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }
 				}
 			>
-				{versions.map(({ href, publishedMeta, version }, i) => (
-					<Option key={i} isSelected={href.endsWith(slug)}>
+				{versions.map(({ href, publishedMeta, version }) => (
+					<Option key={href} isSelected={href.endsWith(slug)}>
 						<a
 							class={style.item}
 							aria-current={href.endsWith(slug) ? "page" : undefined}
@@ -124,7 +121,7 @@ export function ArticleRevisionDropdown({
 				))}
 				<li class={style.changelog}>
 					<hr />
-					<a href={postHistory} target="_blank">
+					<a href={postHistory} target="_blank" rel="noreferrer">
 						<span class="text-style-button-regular">View Changelog</span>
 					</a>
 				</li>

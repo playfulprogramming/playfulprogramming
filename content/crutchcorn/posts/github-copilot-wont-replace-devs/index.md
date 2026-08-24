@@ -1,6 +1,6 @@
 ---
  {
-    title: "GitHub Copilot is Amazing - It Won't Replace Developers",
+    title: "GitHub Copilot: Helpful, But Not a Replacement",
     description: "GitHub Copilot is an amazing tool that I think will drastically improve the way that I code. But it won't replace me. Here's why.",
     published: '2021-10-04T22:12:03.284Z',
     tags: ['opinion', 'ai', 'copilot'],
@@ -161,8 +161,7 @@ Because Copilot can grok more complex implementation details, it's often able to
 
 This capability is so good at the "transparent tools that get out of your way" test that while [streaming on my Twitch](https://twitch.tv/crutchcorn), I was confident I didn't have Copilot enabled and had to check after a particularly clever suggestion, hours after starting work.
 
-https://clips.twitch.tv/TacitFitIcecreamTriHard-KgJCKYYIEPqxe4dQ
-
+<iframe src="https://clips.twitch.tv/TacitFitIcecreamTriHard-KgJCKYYIEPqxe4dQ"></iframe>
 
 It's this transparency that I feel is Copilot's _true_ strength. It's important to remember that even GitHub isn't poising Copilot as a replacement to developers of any kind - simply a tool that developers can utilize to make their jobs easier.
 
@@ -228,7 +227,7 @@ GCP, I love your work, but I don't think your suggestion that [humans need not a
 
 After all, GitHub’s tool is called “Copilot”, not “Autopilot”
 
-What do you think? Let us know [on Twitter](https://twitter.com/playful_program) or [join our Discord](https://discord.gg/FMcvc6T) and start a conversation with us! We're an open-source community ran project with no ads, no spam.
+What do you think? Let us know [on Twitter](https://twitter.com/playful_program) or [join our Discord](https://discord.playfulprogramming.com) and start a conversation with us! We're an open-source community ran project with no ads, no spam.
 
 We'd love to hear your thoughts!
 

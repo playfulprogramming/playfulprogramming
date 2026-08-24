@@ -1,6 +1,6 @@
 ---
 {
-    title: "Why is z-index not working?! - Explaining CSS Stacking Context",
+    title: "Why Z-Index Isn’t Working: CSS Stacking Contexts",
     description: "z-index is a CSS property that helps control the z-axis height of an element, but it often doesn't seem to work. Why is that? How does it REALLY work?",
     published: '2022-10-06T22:12:03.284Z',
     tags: ['webdev', 'css', 'html'],
@@ -261,7 +261,7 @@ Notice how the purple box seemingly remains on "top" when we re-arrange the CSS 
 
 Well...
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Re-arrange HTML Elements to Change the Painting Order
 

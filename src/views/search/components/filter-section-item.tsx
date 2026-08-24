@@ -1,9 +1,10 @@
-import { VNode } from "preact";
-import { CheckboxBox } from "components/checkbox-box/checkbox-box";
+import type { VNode } from "preact";
+import { CheckboxBox } from "#components/checkbox-box/checkbox-box.tsx";
 import { useCheckbox, useFocusRing, VisuallyHidden } from "react-aria";
 import style from "./filter-section-item.module.scss";
 import { useToggleState } from "react-stately";
 import { useEffect, useRef } from "preact/hooks";
+import { useRandomId } from "#utils/preact/useId.ts";
 
 interface FilterSectionItemProps {
 	icon: VNode<unknown>;
@@ -22,9 +23,11 @@ export const FilterSectionItem = ({
 	isHybridSearch,
 	onChange,
 }: FilterSectionItemProps) => {
+	const id = useRandomId();
 	const props = {
+		id,
 		isSelected: selected,
-		onChange: onChange,
+		onChange,
 		"aria-label": label,
 	};
 
@@ -54,6 +57,13 @@ export const FilterSectionItem = ({
 				wrapper={(children) => (
 					<label
 						{...labelProps}
+						for={id}
+						onClick={(e) => {
+							if (e.target === ref.current) return;
+
+							e.preventDefault();
+							state.toggle();
+						}}
 						ref={labelRef}
 						class={`${style.containerLabel} ${
 							isSelected ? style.selected : ""
@@ -78,7 +88,7 @@ export const FilterSectionItem = ({
 						)}
 						{children}
 						<VisuallyHidden>
-							<input {...inputProps} {...focusProps} ref={ref} />
+							<input {...inputProps} {...focusProps} id={id} ref={ref} />
 						</VisuallyHidden>
 					</label>
 				)}

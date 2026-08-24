@@ -1,5 +1,5 @@
-import { PostInfo } from "types/index";
-import { getPostsByLang } from "./api";
+import type { PostInfo } from "#types/index.ts";
+import { getPostsByLang } from "./api.ts";
 
 /**
  * Get 3 similar articles to suggest in sidebar.

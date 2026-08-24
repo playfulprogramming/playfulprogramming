@@ -1,9 +1,9 @@
 ---
-import { getPictureUrls } from "utils/get-picture";
-import { getPeopleByLang } from "../../utils/api";
+import { getPictureUrls } from "#utils/get-picture/index.ts";
+import { getPeopleByLang } from "#utils/api.ts";
 import style from "./get-involved-header.module.scss";
 import Hr from "./hr.astro";
-import { Button } from "components/index";
+import { Button } from "#components/index.ts";
 
 const people = getPeopleByLang("en").map((person) => {
 	const imageUrls = getPictureUrls({
@@ -65,7 +65,7 @@ const people = getPeopleByLang("en").map((person) => {
 
 <script>
 	// In a requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
-	import { calculatePosition } from "./get-involved-header";
+	import { calculatePosition } from "./get-involved-header.ts";
 
 	const NUMBER_OF_INNER_ITEMS = 22;
 	const NUMBER_OF_OUTER_ITEMS = 28;
@@ -108,7 +108,7 @@ const people = getPeopleByLang("en").map((person) => {
 	// Whether the mouse button is currently held down
 	let isMouseDown = false;
 
-	const isMouseEvent = (e: any): e is MouseEvent => {
+	const isMouseEvent = (e: MouseEvent | TouchEvent): e is MouseEvent => {
 		return "clientX" in e;
 	};
 	function onMouseMove(e: MouseEvent | TouchEvent) {
@@ -342,7 +342,7 @@ const people = getPeopleByLang("en").map((person) => {
 			if (selection?.toString()?.length) return;
 
 			if (e.type === "mousedown" && isMouseEvent(e)) {
-				const flags = e.buttons !== undefined ? e.buttons : e.which;
+				const flags = e.buttons;
 				const isPrimaryButton = (flags & 1) === 1;
 				if (!isPrimaryButton) return;
 

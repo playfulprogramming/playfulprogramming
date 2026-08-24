@@ -1,11 +1,11 @@
 import style from "./post-card.module.scss";
-import { PersonInfo } from "types/index";
-import { Chip } from "components/index";
-import date from "src/icons/date.svg?raw";
-import authorsSvg from "src/icons/authors.svg?raw";
-import { getHrefContainerProps } from "utils/href-container-script";
-import { buildSearchQuery } from "src/views/search/search";
-import { PostInfoWithBanner } from "./types";
+import type { PersonInfo } from "#types/index.ts";
+import { Chip } from "#components/index.ts";
+import date from "#src/icons/date.svg?raw";
+import authorsSvg from "#src/icons/authors.svg?raw";
+import { getHrefContainerProps } from "#utils/href-container-script.ts";
+import { buildSearchQuery } from "#src/views/search/search.ts";
+import type { PostInfoWithBanner } from "./types.ts";
 
 interface PostCardProps {
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -30,7 +30,7 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 						aria-label="Post authors"
 					>
 						{authors.map((author, i, arr) => (
-							<li class="text-style-body-small-bold">
+							<li key={author.id} class="text-style-body-small-bold">
 								<a
 									className={`${style.authorName}`}
 									href={`/people/${author.id}`}
@@ -66,11 +66,11 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 			<p
 				className={`text-style-body-medium ${style.description}`}
 				dangerouslySetInnerHTML={{ __html: post.description }}
-			></p>
-			<div className={style.spacer}></div>
+			/>
+			<div className={style.spacer} />
 			<ul className={style.cardList} aria-label={"Post tags"} role="list">
 				{post.tags.map((tag) => (
-					<li>
+					<li key={tag}>
 						<Chip
 							href={`/search?${buildSearchQuery({ searchQuery: "*", filterTags: [tag] })}`}
 						>

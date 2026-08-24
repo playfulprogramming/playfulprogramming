@@ -8,7 +8,7 @@
 }
 ---
 
-I talk to engineers; I talk to a lot of engineers. I've spoken to engineers from various backgrounds and various skillsets. We all have had to face the same thing at some point: "What tools do you pick for the job?". It's a question that was phrased perfectly by [Lindsay Campbell](https://www.linkedin.com/in/lindsaycampbelldeveloper/) on [the public Playful Programming Discord server our community use to chat](https://discord.gg/FMcvc6T):
+I talk to engineers; I talk to a lot of engineers. I've spoken to engineers from various backgrounds and various skillsets. We all have had to face the same thing at some point: "What tools do you pick for the job?". It's a question that was phrased perfectly by [Lindsay Campbell](https://www.linkedin.com/in/lindsaycampbelldeveloper/) on [the public Playful Programming Discord server our community use to chat](https://discord.playfulprogramming.com):
 
 _"When you start a new project, how do you go about planning it? How do you know what features you want? How do you even start do you figure out frameworks, libraries you will use for those different features? What do you do to also make sure that all the different technologies you will be using will work together nicely in your application? Thanks!"_
 
@@ -158,4 +158,4 @@ To recap, it's a mixture of:
 
 That's by **no** means an easy feat to do, despite reading as if they were. Don't worry if you're not able to execute these skills flawlessly - goodness knows I can't! I'm sure a lot of the decisions I made here, even with the group I spoke to, could have been better guided in different ways. These are the skills that I think I value the most in seniors developer, especially communication. _Communication becomes critical when working with medium/larger teams (or really, groups of any size) since reasonable minds may differ on toolsets that they might see strengths/weaknesses in_.
 
-Have a similar question to the one Lindsey asked? Like conversations like this? Have something to add? [Join us in our Discord server](https://discord.gg/FMcvc6T) to jump into the community and engage in conversations like this! We wouldn't have the quality of our content without our community! 
+Have a similar question to the one Lindsey asked? Like conversations like this? Have something to add? [Join us in our Discord server](https://discord.playfulprogramming.com) to jump into the community and engage in conversations like this! We wouldn't have the quality of our content without our community! 

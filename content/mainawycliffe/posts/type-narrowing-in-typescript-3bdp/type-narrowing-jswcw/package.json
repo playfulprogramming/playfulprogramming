@@ -1,0 +1,12 @@
+{
+  "version": "0.0.0",
+  "name": "type-narrowing",
+  "description": "TypeScript playground exported Sandbox",
+  "scripts": {
+    "start": ""
+  },
+  "dependencies": {
+    "typescript": "4.3.5"
+  },
+  "keywords": []
+}

@@ -1,9 +1,9 @@
-export * from "./LicenseInfo";
-export * from "./CollectionInfo";
-export * from "./PostInfo";
-export * from "./RolesInfo";
-export * from "./TagInfo";
-export * from "./PersonInfo";
-import { languages } from "constants/index";
+export * from "./LicenseInfo.ts";
+export * from "./CollectionInfo.ts";
+export * from "./PostInfo.ts";
+export * from "./RolesInfo.ts";
+export * from "./TagInfo.ts";
+export * from "./PersonInfo.ts";
+import type { languages } from "#src/constants/index.ts";
 
 export type Languages = keyof typeof languages;

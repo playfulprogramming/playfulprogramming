@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
-import { IconOnlyButton } from "components/index";
-import { translate } from "utils/translations";
+import { IconOnlyButton } from "#components/index.ts";
+import { translate } from "#utils/translations.ts";
 
 const { class: className } = Astro.props as { class?: string };
 ---
@@ -16,6 +16,6 @@ const { class: className } = Astro.props as { class?: string };
 </IconOnlyButton>
 
 <script>
-	import { backButtonListener } from "./back-button";
+	import { backButtonListener } from "./back-button.ts";
 	backButtonListener();
 </script>

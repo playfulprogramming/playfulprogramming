@@ -118,11 +118,7 @@
 	overflow: auto;
 	height: 1px;
 	flex-grow: 1;
-	list-style: none;
-	margin: 0;
-	padding: 0;
 	border-top: var(--search-page_filter_list_divider_width) solid transparent;
-
 	opacity: 1;
 	@include transition(opacity border-top);
 
@@ -133,4 +129,10 @@
 
 .sectionContent:global(.scrolled) {
 	border-color: var(--search-page_filter_list_divider_color);
+}
+
+.sectionContentList {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }

@@ -1,9 +1,9 @@
 ---
-import { Languages } from "types/index";
+import type { Languages } from "#types/index.ts";
 import {
 	removePrefixLanguageFromPath,
 	fileToOpenGraphConverter,
-} from "utils/translations";
+} from "#utils/translations.ts";
 
 export type Props = {
 	providedLangs?: Languages[];

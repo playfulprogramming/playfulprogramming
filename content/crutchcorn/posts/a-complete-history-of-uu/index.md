@@ -87,7 +87,7 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 
 - July 11th, 2019: [The inaugural programming blog post is written about Angular templates](/posts/angular-templates-start-to-source)
 
-- August 8th, 2019: [The Unicorn Utterances Discord server](https://discord.gg/FMcvc6T) is launched.
+- August 8th, 2019: [The Unicorn Utterances Discord server](https://discord.playfulprogramming.com) is launched.
 
   > Fun fact: Corbin initially proposed for Slack, but James Fenn (correctly) suggested Discord for the shared social aspects.
 

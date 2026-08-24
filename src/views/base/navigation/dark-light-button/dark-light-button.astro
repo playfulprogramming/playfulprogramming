@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
-import { Button, IconOnlyButton } from "components/index";
-import { translate } from "utils/translations";
+import { Button, IconOnlyButton } from "#components/index.ts";
+import { translate } from "#utils/translations.ts";
 
 const props = Astro.props as {
 	variant: "iconOnly" | "large";
@@ -56,6 +56,6 @@ const props = Astro.props as {
 	)
 }
 <script>
-	import { themeToggle } from "./theme-toggle";
+	import { themeToggle } from "./theme-toggle.ts";
 	themeToggle();
 </script>

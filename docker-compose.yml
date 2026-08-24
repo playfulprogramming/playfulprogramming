@@ -7,9 +7,9 @@ services:
       context: .
       args:
         SITE_URL: http://localhost:8080
-        ENABLE_DISCOVERABILITY: false
         GIT_COMMIT_REF: main
         PUBLIC_CLOUDINARY_CLOUD_NAME: $PUBLIC_CLOUDINARY_CLOUD_NAME
+        MODE: preview
       secrets:
         - GITHUB_TOKEN
         - HOOF_AUTH_TOKEN

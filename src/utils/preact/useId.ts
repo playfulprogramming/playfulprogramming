@@ -9,7 +9,7 @@ import { useMemo } from "preact/hooks";
  * https://github.com/preactjs/preact/issues/3781
  */
 export function useRandomId() {
-	return "U" + useUUID().replace(/\-/g, "");
+	return `U${useUUID().replace(/\-/g, "")}`;
 }
 
 /**

@@ -2,9 +2,9 @@ import { WebContainer, type WebContainerProcess } from "@webcontainer/api";
 import { unzip, type Unzipped } from "fflate";
 import { atom } from "nanostores";
 
-let webContainerInstance: WebContainer | undefined = undefined;
+let webContainerInstance: WebContainer | undefined;
 let isInitialized = false;
-let currentProcess: WebContainerProcess | undefined = undefined;
+let currentProcess: WebContainerProcess | undefined;
 
 export const isSupported =
 	import.meta.env.SSR ||

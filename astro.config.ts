@@ -1,11 +1,14 @@
 import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import icon from "astro-icon";
-import symlink from "symlink-dir";
+import { symlinkDir } from "symlink-dir";
 import * as path from "path";
-import { AstroUserConfig } from "astro";
+import type { AstroUserConfig } from "astro";
+import node from "@astrojs/node";
 
-await symlink(path.resolve("content"), path.resolve("public/content"));
+await symlinkDir(path.resolve("content"), path.resolve("public/content"));
+
+const isServerBuild = process.env.BUILD_OUTPUT === "server";
 
 export default defineConfig({
 	// import.meta.env does not resolve to env variables in the config script!
@@ -16,7 +19,12 @@ export default defineConfig({
 			? `https://${process.env.VERCEL_URL}`
 			: undefined) ??
 		"https://playfulprogramming.com",
-	output: "static",
+	output: isServerBuild ? "server" : "static",
+	adapter: isServerBuild
+		? node({
+				mode: "standalone",
+			})
+		: undefined,
 	image: {
 		service: {
 			entrypoint: "astro/assets/services/sharp",
@@ -25,16 +33,34 @@ export default defineConfig({
 			},
 		},
 	},
-	integrations: [icon(), preact({ compat: true })],
+	integrations: [
+		icon(),
+		preact({
+			compat: true,
+			babel: {
+				generatorOpts: {
+					importAttributesKeyword: "with",
+				},
+			},
+		}),
+	],
 	server: {
 		headers: {
-			["Cross-Origin-Embedder-Policy"]: "require-corp",
-			["Cross-Origin-Opener-Policy"]: "same-origin",
+			"Cross-Origin-Embedder-Policy": "require-corp",
+			"Cross-Origin-Opener-Policy": "same-origin",
 		},
 	},
 	vite: {
+		server: {
+			allowedHosts: ["localhost", "web"],
+		},
 		optimizeDeps: {
 			exclude: ["msw", "msw/node", "sharp"],
+		},
+		resolve: {
+			alias: {
+				src: path.resolve(import.meta.dirname, "./src"),
+			},
 		},
 		ssr: {
 			external: ["svgo"],
@@ -45,13 +71,6 @@ export default defineConfig({
 				/@react-stately/,
 				/@react-types/,
 			],
-		},
-		css: {
-			preprocessorOptions: {
-				scss: {
-					api: "modern",
-				},
-			},
 		},
 	},
 	markdown: {} as AstroUserConfig["markdown"] as never,

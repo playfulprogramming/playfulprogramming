@@ -1,9 +1,9 @@
 import style from "./post-card-grid.module.scss";
-import { PostCard, PostCardExpanded } from "./post-card";
-import { PersonInfo } from "types/index";
-import { HTMLAttributes } from "preact/compat";
-import { isDefined } from "utils/is-defined";
-import { PostInfoWithBanner } from "./types";
+import { PostCard, PostCardExpanded } from "./post-card.tsx";
+import type { PersonInfo } from "#types/index.ts";
+import type { HTMLAttributes } from "preact/compat";
+import { isDefined } from "#utils/is-defined.ts";
+import type { PostInfoWithBanner } from "./types.ts";
 
 export interface PostGridProps extends HTMLAttributes<HTMLUListElement> {
 	postsToDisplay: PostInfoWithBanner[];

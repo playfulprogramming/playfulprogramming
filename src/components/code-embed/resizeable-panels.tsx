@@ -1,8 +1,8 @@
-import { ComponentChildren } from "preact";
+import type { ComponentChildren } from "preact";
 import style from "./resizeable-panels.module.scss";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { HTMLAttributes } from "preact/compat";
-import { tabletSmall } from "src/tokens/breakpoints";
+import type { HTMLAttributes } from "preact/compat";
+import { tabletSmall } from "#src/tokens/breakpoints.ts";
 
 interface ResizeablePanelsProps extends HTMLAttributes<HTMLDivElement> {
 	panelHeight: number;
@@ -99,6 +99,7 @@ export function ResizeablePanels({
 	}
 
 	function handleKeyDown(e: KeyboardEvent) {
+		// eslint-disable-next-line no-useless-assignment
 		let change = 0;
 		if (e.key == "ArrowLeft" || e.key == "ArrowUp") {
 			change = -20;

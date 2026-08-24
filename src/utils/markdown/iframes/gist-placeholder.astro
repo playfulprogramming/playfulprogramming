@@ -1,0 +1,16 @@
+---
+import Content from "../components/content.astro";
+import type { ComponentNode } from "#utils/markdown/components/index.ts";
+import type { GistPlaceholderProps } from "#components/gist-placeholder/gist-placeholder.tsx";
+import { GistPlaceholder as PreactGistPlaceholder } from "#components/gist-placeholder/gist-placeholder.tsx";
+
+export interface Props extends GistPlaceholderProps {
+	children: ComponentNode["children"];
+}
+
+const { username, children, filename, href } = Astro.props;
+---
+
+<PreactGistPlaceholder username={username} filename={filename} href={href}>
+	<Content content={children} />
+</PreactGistPlaceholder>

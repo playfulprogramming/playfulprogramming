@@ -1,5 +1,5 @@
-import { RawSvg } from "components/image/raw-svg";
-import { getIcon } from "./file-tree-icons";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+import { getIcon } from "./file-tree-icons.ts";
 import style from "./file-list.module.scss";
 
 const FolderIcon = `
@@ -96,7 +96,9 @@ export function FileListList({ items }: FileListProps) {
 	return (
 		<ul class={style.fileTreeList}>
 			{items.map((item) => (
-				<li>{isDirectory(item) ? Directory(item) : File(item)}</li>
+				<li key={item.name}>
+					{isDirectory(item) ? Directory(item) : File(item)}
+				</li>
 			))}
 		</ul>
 	);

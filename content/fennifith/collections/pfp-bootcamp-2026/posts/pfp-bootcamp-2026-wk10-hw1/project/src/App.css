@@ -1,0 +1,14 @@
+.app {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.shopping-cart {
+  border: 1px solid white;
+  padding: 20px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

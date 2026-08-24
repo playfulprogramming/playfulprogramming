@@ -1,13 +1,13 @@
 ---
-import { getMarkdownHtml } from "../../../../utils/markdown";
+import { getMarkdownHtml } from "#utils/markdown/index.ts";
 import "../../../../styles/shiki.scss";
 import "./code-block.scss";
 import styles from "./code-block.module.scss";
 import index from "../code-block/index.md?raw";
 import indexPath from "../code-block/index.md?url";
 import { VFile } from "vfile";
-import { MarkdownVFile } from "utils/markdown/types";
-import Content from "utils/markdown/components/content.astro";
+import type { MarkdownVFile } from "#utils/markdown/types.ts";
+import Content from "#utils/markdown/components/content.astro";
 
 const vfileData: MarkdownVFile["data"] = {
 	kind: "page",
@@ -30,7 +30,10 @@ const { content } = await getMarkdownHtml(
 );
 ---
 
-<section class={`${styles.blockContainer} ffg-code-block-container`} aria-labelledby="code-block">
+<section
+	class={`${styles.blockContainer} ffg-code-block-container`}
+	aria-labelledby="code-block"
+>
 	<h2 id="code-block" class={`text-style-headline-4 ${styles.sectionTitle}`}>
 		Don't want to learn all three? No problem!
 	</h2>

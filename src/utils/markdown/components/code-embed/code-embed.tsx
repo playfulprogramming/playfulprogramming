@@ -7,12 +7,12 @@ import {
 	PreviewError,
 	PreviewFrame,
 	PreviewPlaceholder,
-} from "components/code-embed/code-embed";
+} from "#components/code-embed/code-embed.tsx";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
-import { $container, runEmbed } from "./webcontainer-script";
-import { FileEntry } from "components/code-embed/types";
-import { CodeEmbedContent } from "./code-embed-content";
+import { $container, runEmbed } from "./webcontainer-script.ts";
+import type { FileEntry } from "#components/code-embed/types.tsx";
+import { CodeEmbedContent } from "./code-embed-content.tsx";
 
 // Given the base webcontainer URL, modify it with any changes made in the address bar
 function modifyProcessUrl(processUrl: string, addressUrl: string) {
@@ -51,7 +51,7 @@ export function CodeEmbed(props: CodeEmbedProps) {
 
 	const handleRunEmbed = useCallback(() => {
 		runEmbed(props.projectId, props.projectZipUrl);
-	}, [props.projectId]);
+	}, [props.projectId, props.projectZipUrl]);
 
 	useEffect(() => {
 		if (container.processUrl != null) {
@@ -59,7 +59,7 @@ export function CodeEmbed(props: CodeEmbedProps) {
 			setAddressUrl(shortenProcessUrl(newFrameUrl));
 			setFrameUrl(newFrameUrl);
 		}
-	}, [container.processUrl]);
+	}, [container.processUrl, addressUrl]);
 
 	const handleAddressChange = useCallback(
 		(value: string) => setAddressUrl(value),

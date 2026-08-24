@@ -1,17 +1,21 @@
-import { Root, Element } from "hast";
-import { Plugin } from "unified";
+import type { Root, Element } from "hast";
+import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import path from "path";
 
 /**
  * They need to be the same `getImage` with the same `globalThis` instance, thanks to the "hack" workaround.
  */
-import { getPicture } from "utils/get-picture";
-import { getImageSize } from "../../get-image-size";
-import { resolvePath } from "../../url-paths";
-import { Picture } from "./picture";
-import { logError } from "../logger";
-import { IMAGE_MAX_HEIGHT, IMAGE_MAX_WIDTH, IMAGE_SIZES } from "../constants";
+import { getPicture } from "#utils/get-picture/index.ts";
+import { getImageSize } from "../../get-image-size.ts";
+import { resolvePath } from "../../url-paths.ts";
+import { Picture } from "./picture.tsx";
+import { logError } from "../logger.ts";
+import {
+	IMAGE_MAX_HEIGHT,
+	IMAGE_MAX_WIDTH,
+	IMAGE_SIZES,
+} from "../constants.ts";
 
 /**
  * parse a height/width attribute value (e.g. "20px" or "20") and
@@ -19,7 +23,7 @@ import { IMAGE_MAX_HEIGHT, IMAGE_MAX_WIDTH, IMAGE_SIZES } from "../constants";
  * parsed.
  */
 function getPixelValue(attr: unknown): number | undefined {
-	const [, pxValue] = /^([0-9]+)(px)?$/.exec(attr + "") || [];
+	const [, pxValue] = /^([0-9]+)(px)?$/.exec(`${attr}`) || [];
 	return typeof pxValue !== "undefined" ? Number(pxValue) : undefined;
 }
 
@@ -97,7 +101,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				}
 
 				const pictureResult = getPicture({
-					src: src,
+					src,
 					width: dimensions.width,
 					height: dimensions.height,
 					sizes: IMAGE_SIZES,
@@ -109,7 +113,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					width: _width,
 					src: _src,
 					alt: _alt,
-					["data-zoom-src"]: _dataZoomSrc,
+					"data-zoom-src": _dataZoomSrc,
 					...rest
 				} = node.properties;
 

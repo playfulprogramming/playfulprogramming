@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
-import { useCSSPropertyValue } from "../../hooks/use-css-property-value";
-import { RepeatBackground } from "../shared/repeat-background";
+import { useCSSPropertyValue } from "../../hooks/use-css-property-value.ts";
+import { RepeatBackground } from "../shared/repeat-background.tsx";
 
 export const Trees = () => {
 	const treeBackgroundColor = useCSSPropertyValue("--inter-500", "#8154A3");

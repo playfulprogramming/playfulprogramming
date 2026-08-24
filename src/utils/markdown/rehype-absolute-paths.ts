@@ -1,10 +1,10 @@
-import { Element, Root } from "hast";
-import { isURL } from "../url-paths";
+import type { Element, Root } from "hast";
+import { isURL } from "../url-paths.ts";
 import { visit } from "unist-util-visit";
 import { dirname, join } from "path";
-import { Plugin } from "unified";
-import { VFile } from "vfile";
-import { MarkdownVFile } from "./types";
+import type { Plugin } from "unified";
+import type { VFile } from "vfile";
+import type { MarkdownVFile } from "./types.ts";
 
 export const rehypeMakeImagePathsAbsolute: Plugin<[], Root> = () => {
 	return (tree: Root, file: VFile) => {

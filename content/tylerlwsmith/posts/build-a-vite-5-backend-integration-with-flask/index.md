@@ -90,7 +90,7 @@ Compiling the Sass file to JS allows it to be included in JS files using `import
 
 I wouldn't be surprised if this behavior evolves in future Vite releases, but it's useful to understand when debugging a backend integration.
 
-### The Vite Bundler
+### The Vite Bundler {#the-vite-bundler}
 
 Vite's Bundler wraps Rollup.js and adds a few Vite-specific capabilities. Unlike Vite's DevServer, Vite's Bundler bundles imported script files together instead of linking between them via ES Modules (which are fast on `localhost` but slow over the Internet). The build step will also create hashed asset filenames that help with cache-busting. Vite will optionally generate a manifest file of all bundled files, enabling an application to look up an asset's hashed filename using the asset's unprocessed filename.
 

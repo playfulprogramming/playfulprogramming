@@ -84,7 +84,7 @@ The compiler isn't the only trick Angular has up its sleeve to get things workin
 
 Here, a `View Container` represents any place where elements can be dynamically added or removed.
 
-> [You can learn more about Views, View Containers, and templates in this article I wrote a while back](https://playfulprogramming.com/posts/angular-templates-start-to-source).
+> [You can learn more about Views, View Containers, and templates in this article I wrote a while back](/posts/angular-templates-start-to-source).
 
 These View Containers are often represented in the DOM by using an anchor node (typically a [`Comment` node](https://developer.mozilla.org/en-US/docs/Web/API/Comment)) and help facilitate Angular's instruction set to manipulate surrounding elements.
 
@@ -111,7 +111,7 @@ In order for there to be some kind of `as` casting API akin to an imaginary API 
 
 While Angular doesn't have a one-to-one API with React and Vue's `as` type cast, it does have the ability to attach component behavior onto different elements.
 
-Because [Angular uses host elements instead of transparent elements](https://playfulprogramming.com/posts/angular-templates-dont-work-how-you-think), we can tell Angular's selector to use an attribute to lookup rather than a new HTML tag:
+Because [Angular uses host elements instead of transparent elements](/posts/angular-templates-dont-work-how-you-think), we can tell Angular's selector to use an attribute to lookup rather than a new HTML tag:
 
 ```angular-ts
 @Component({

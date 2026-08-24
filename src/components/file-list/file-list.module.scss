@@ -25,7 +25,7 @@
 	--filesystem_item_container_padding-vertical: var(--spc-1x);
 	--filesystem_item_container_title_margin-start: var(--spc-1x);
 	--filesystem_item_container_min-height: var(--min-target-size_s);
-	--filesystem_item_icon_size: var(--icon-size_dense);
+	--filesystem_item_icon_size: var(--icon-size_default);
 
 	--filesystem_item_annotation_padding-horizontal: var(--spc-2x);
 	--filesystem_item_annotation_label_color: var(--foreground_emphasis-medium);
@@ -192,10 +192,6 @@
 	height: var(--filesystem_item_icon_size);
 	width: var(--filesystem_item_icon_size);
 	margin-right: var(--filesystem_item_container_title_margin-start);
-}
-
-.directoryIcon {
-	padding: var(--icon-size-dense-padding);
 }
 
 .fileIcon > svg,

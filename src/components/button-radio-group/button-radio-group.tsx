@@ -1,16 +1,16 @@
 import {
-	AriaRadioProps,
+	type AriaRadioProps,
 	mergeProps,
 	useFocusRing,
 	useRadio,
 	useRadioGroup,
 	VisuallyHidden,
 } from "react-aria";
-import { Button } from "components/button/button";
-import { PropsWithChildren, useContext } from "preact/compat";
+import { Button } from "#components/button/button.tsx";
+import { type PropsWithChildren, useContext } from "preact/compat";
 import { useRef } from "preact/hooks";
-import { RadioGroupProps, useRadioGroupState } from "react-stately";
-import { RadioContext } from "./common";
+import { type RadioGroupProps, useRadioGroupState } from "react-stately";
+import { RadioContext } from "./common.ts";
 
 interface RadioButtonGroupProps extends PropsWithChildren<RadioGroupProps> {
 	class?: string;

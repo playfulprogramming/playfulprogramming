@@ -40,7 +40,7 @@
 	display: flex;
 	gap: var(--date-dropdown_gap);
 	align-items: center;
-	font-family: var(--pfp-font-family);
+	font-family: var(--pfp-font-family-brand);
 	font-weight: var(--weight_semibold);
 	font-size: var(--button_regular_font-size);
 	line-height: var(--button_regular_line-height);
@@ -102,10 +102,12 @@
 	}
 
 	.item {
+		align-self: stretch;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
+		padding: var(--popup_item_padding);
 		text-decoration: none;
 		min-width: var(--popup_min-width);
 

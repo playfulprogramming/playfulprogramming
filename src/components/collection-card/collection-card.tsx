@@ -1,9 +1,9 @@
 import style from "./collection-card.module.scss";
-import { Button } from "components/index";
-import { CollectionInfo } from "types/CollectionInfo";
-import forward from "src/icons/arrow_right.svg?raw";
-import { Picture as UUPicture } from "components/image/picture";
-import { PersonInfo } from "types/PersonInfo";
+import { Button } from "#components/index.ts";
+import type { CollectionInfo } from "#types/CollectionInfo.ts";
+import forward from "#src/icons/arrow_right.svg?raw";
+import { Picture as UUPicture } from "#components/image/picture.tsx";
+import type { PersonInfo } from "#types/PersonInfo.ts";
 
 interface CollectionCardProps {
 	collection: CollectionInfo;
@@ -47,7 +47,7 @@ export const CollectionCard = ({
 					aria-label="Collection authors"
 				>
 					{authors?.map((author) => (
-						<li>
+						<li key={author.id}>
 							<a
 								href={`/people/${author.id}`}
 								className={`text-style-button-regular ${style.authorListItem}`}

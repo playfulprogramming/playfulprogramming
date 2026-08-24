@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
-import { useCSSPropertyValue } from "../../hooks/use-css-property-value";
-import { RepeatBackground } from "../shared/repeat-background";
+import { useCSSPropertyValue } from "../../hooks/use-css-property-value.ts";
+import { RepeatBackground } from "../shared/repeat-background.tsx";
 
 export const CloudsSecondLayer = () => {
 	const cloudSecondColor = useCSSPropertyValue("--inter-500", "#38154A3");

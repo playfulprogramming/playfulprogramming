@@ -49,7 +49,7 @@ Enabling IOMMU on a Gigabyte AMD motherboard is much easier than enabling SVM mo
 
 Once changed, tab over to "Save & Exit" and select "Exit and save changes".
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Windows Features Setup {#windows-features}
 
@@ -148,4 +148,4 @@ Finally, once you've selected **"Finish"**, it should save the emulator's settin
 
 I've had incredible success with my Ryzen powered desktop during my Android development. Not only is it cost-efficient for my usage compared to the Intel option, but it's able to run the emulator quickly. Hopefully, this article has been able to help you set up your machine as well. 
 
-Let us know what your thoughts on this article were! We not only have our comments down below, but we have [a Discord community](https://discord.gg/FMcvc6T) as well that we invite you to join! We chat about all kinds of programming and CS related topics there!
+Let us know what your thoughts on this article were! We not only have our comments down below, but we have [a Discord community](https://discord.playfulprogramming.com) as well that we invite you to join! We chat about all kinds of programming and CS related topics there!

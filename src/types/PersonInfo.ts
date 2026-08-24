@@ -1,4 +1,4 @@
-import { Languages } from ".";
+import type { Languages } from ".";
 
 export interface RawPersonInfo {
 	name: string;

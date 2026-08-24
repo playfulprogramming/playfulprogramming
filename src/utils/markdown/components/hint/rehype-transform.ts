@@ -1,15 +1,15 @@
-import * as hast from "hast";
-import { Plugin } from "unified";
+import type * as hast from "hast";
+import type { Plugin } from "unified";
 import { find } from "unist-util-find";
 import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
-import { RehypeFunctionComponent } from "../types";
+import type { RehypeFunctionComponent } from "../types.ts";
 import {
-	ComponentMarkupNode,
+	type ComponentMarkupNode,
+	type PlayfulRoot,
 	createComponent,
-	PlayfulRoot,
-} from "../components";
-import { isValidComponentParent } from "../rehype-validate-components";
+} from "../components.ts";
+import { isValidComponentParent } from "../rehype-validate-components.ts";
 
 export const rehypeDetailsElement: Plugin<[], PlayfulRoot> = () => {
 	return (tree, _) => {

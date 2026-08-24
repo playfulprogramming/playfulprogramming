@@ -6,3 +6,7 @@ package-lock.json
 pnpm-lock.yaml
 content/*/posts/**
 content/*/collections/**
+public/mockServiceWorker.js
+public/sw.js
+public/uninstall-sw.js
+e2e/.playwright

@@ -6,28 +6,28 @@ import MailingList from "../../components/mailing-list/mailing-list.astro";
 import TranslationsHeader from "../base/translations/translations-header.astro";
 import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
-import BlockingTabsSignalScript from "components/tabs/blocking-tabs-signal-script.astro";
+import BlockingTabsSignalScript from "#components/tabs/blocking-tabs-signal-script.astro";
 import { Icon } from "astro-icon/components";
 
-import {
+import type {
 	CollectionInfo,
 	LicenseInfo,
 	PostInfo,
 	PersonInfo,
 	PostVersion,
-} from "types/index";
+} from "#types/index.ts";
 
-import { siteMetadata } from "constants/site-config";
+import { siteMetadata } from "#src/constants/site-config.ts";
 import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
 import SeriesToC from "./series/series-toc.astro";
-import { ArticleNav } from "./article-nav/article-nav";
-import RelatedPosts from "components/related-posts/related-posts.astro";
-import { LargeButton } from "../../components/button/button";
+import { ArticleNav } from "./article-nav/article-nav.tsx";
+import RelatedPosts from "#components/related-posts/related-posts.astro";
+import { LargeButton } from "../../components/button/button.tsx";
 
 import styles from "./blog-post.module.scss";
-import { MarkdownHtml } from "utils/markdown";
-import Content from "utils/markdown/components/content.astro";
+import type { MarkdownHtml } from "#utils/markdown/index.ts";
+import Content from "#utils/markdown/components/content.astro";
 import KatexCss from "./katex.astro";
 import MermaidRenderer from "components/MermaidRenderer";
 
@@ -63,12 +63,16 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 	mediumZoom(".post-body img:not([data-nozoom])");
 </script>
 <script>
-	import { enableStickyScrollListener } from "../../utils/sticky-scroll-script";
+	import { enableStickyScrollListener } from "../../utils/sticky-scroll-script.ts";
 	enableStickyScrollListener();
 </script>
 <script>
-	import { enableSmoothScrollForAnchorsToCurrentPage } from "../../utils/smooth-scroll-for-anchors-to-current-page";
+	import { enableSmoothScrollForAnchorsToCurrentPage } from "../../utils/smooth-scroll-for-anchors-to-current-page.ts";
 	enableSmoothScrollForAnchorsToCurrentPage();
+</script>
+<script>
+	import { enableStickyTableHeaderListener } from "../../utils/sticky-table-header-script.ts";
+	enableStickyTableHeaderListener();
 </script>
 <HeadingLinkScript />
 
@@ -159,7 +163,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 				</LargeButton>
 				<LargeButton
 					tag="a"
-					href="https://discord.gg/FMcvc6T"
+					href="https://discord.playfulprogramming.com"
 					variant="primary-emphasized"
 				>
 					<Icon

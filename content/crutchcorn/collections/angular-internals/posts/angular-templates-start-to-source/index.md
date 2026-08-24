@@ -41,7 +41,7 @@ Sound like a fun time? Let's goooo! 🏃🌈
 
 > The contents of this post was also presented in a talk under the same name. You can [find the slides here](./slides.pptx) or a live recording of that talk given by the post's author [on our YouTube channel](https://www.youtube.com/watch?v=7AilTMFPxqQ).
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Introduction To Templates {#intro}
 

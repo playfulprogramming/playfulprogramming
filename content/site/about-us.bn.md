@@ -4,7 +4,7 @@
 
 আমাদের বিষয়বস্তুর বিস্তৃত পরিসর থাকবে। আমরা অভিজ্ঞ ফুল-টাইম ডেভেলপারের জন্য সম্পদ তৈরি করতে চাই যেমন আমরা একজন নবাগত সাথী এবং উভয়ের মধ্যে প্রত্যেকের জন্য করব।.
 
-যদিও আমরা জানি এটি একটি উচ্চ লক্ষ্য, এবং আমরা এটি একা করতে চাই না. আপনি যদি সাহায্য করতে আগ্রহী হন,[open a pull request](https://github.com/playfulprogramming/playfulprogramming/pulls) এবং অনুবাদ প্রদান করে আমাদের অন্যদের কাছে পৌঁছাতে সাহায্য করুন, [এই সাইটে কোড রক্ষণাবেক্ষণে সহায়তা করুন](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [আমাদের জন্য একটি পোস্ট লিখুন](https://github.com/playfulprogramming/playfulprogramming#blog-posts), বা [আলোচনায় ঝাঁপিয়ে পড়ুন এবং আমাদের ডিসকর্ডে অন্যান্য পাঠকদের সাহায্য করুন](https://discord.gg/FMcvc6T).
+যদিও আমরা জানি এটি একটি উচ্চ লক্ষ্য, এবং আমরা এটি একা করতে চাই না. আপনি যদি সাহায্য করতে আগ্রহী হন,[open a pull request](https://github.com/playfulprogramming/playfulprogramming/pulls) এবং অনুবাদ প্রদান করে আমাদের অন্যদের কাছে পৌঁছাতে সাহায্য করুন, [এই সাইটে কোড রক্ষণাবেক্ষণে সহায়তা করুন](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [আমাদের জন্য একটি পোস্ট লিখুন](https://github.com/playfulprogramming/playfulprogramming#blog-posts), বা [আলোচনায় ঝাঁপিয়ে পড়ুন এবং আমাদের ডিসকর্ডে অন্যান্য পাঠকদের সাহায্য করুন](https://discord.playfulprogramming.com).
 
 ---
 

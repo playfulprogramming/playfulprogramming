@@ -283,4 +283,6 @@ Want to now learn how to _leverage_ React's Hooks effectively in your applicatio
 
 Well, I've written a free book series teaching React, Angular, and Vue all at once that goes from newcomer at the start to framework author by the end of it. Take a look:
 
-[![The Framework Field Guide](/custom-content/collections/framework-field-guide/framework_field_guide_social.png)](https://framework.guide)
+<!-- ::start:link-preview -->
+[The Framework Field Guide](/collections/framework-field-guide/)
+<!-- ::end:link-preview -->

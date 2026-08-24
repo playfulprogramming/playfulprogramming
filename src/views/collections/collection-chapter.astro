@@ -1,8 +1,8 @@
 ---
 import styles from "./collection-chapter.module.scss";
-import { getHrefContainerProps } from "utils/href-container-script";
-import { CollectionInfo } from "../../types";
-import { getShortTitle } from "../../utils/remove-article-collection-prefix";
+import { getHrefContainerProps } from "#utils/href-container-script.ts";
+import type { CollectionInfo } from "#types/index.ts";
+import { getShortTitle } from "../../utils/remove-article-collection-prefix.ts";
 
 export interface Props {
 	collection: CollectionInfo;

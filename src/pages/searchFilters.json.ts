@@ -1,6 +1,9 @@
-import * as api from "utils/api";
-import tagsObj from "../../content/data/tags.json";
-import { SearchFiltersData, TagFilterInfo } from "src/views/search/search";
+import * as api from "#utils/api.ts";
+import tagsObj from "../../content/data/tags.json" with { type: "json" };
+import type {
+	SearchFiltersData,
+	TagFilterInfo,
+} from "#src/views/search/search.ts";
 
 export const GET = async () => {
 	const people = api

@@ -3,12 +3,12 @@ import { promises as fs } from "fs";
 import emojiRegexFn from "emoji-regex";
 import { EPub, defaultAllowedAttributes } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
-import { CollectionInfo, PostInfo } from "types/index";
-import { getPersonById } from "utils/api";
-import { createEpubPlugins } from "utils/markdown/createEpubPlugins";
-import { getMarkdownVFile } from "utils/markdown/getMarkdownVFile";
-import { getUrlMetadata } from "utils/hoof/get-url-metadata";
-import { CollectionLinks } from "utils/markdown/reference-page/rehype-reference-page";
+import type { CollectionInfo, PostInfo } from "#types/index.ts";
+import { getPersonById } from "#utils/api.ts";
+import { createEpubPlugins } from "#utils/markdown/createEpubPlugins.ts";
+import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
+import { getUrlMetadata } from "#utils/hoof/get-url-metadata.ts";
+import type { CollectionLinks } from "#utils/markdown/reference-page/rehype-reference-page.ts";
 import epubCss from "./epub.css?raw";
 import { tmpdir } from "os";
 import asyncPool from "tiny-async-pool";
@@ -138,7 +138,7 @@ export async function generateCollectionEPub(
 	collection: CollectionInfo,
 	collectionPosts: PostInfo[],
 ): Promise<Buffer> {
-	const fileTmpDir = await fs.mkdtemp(tmpdir() + path.sep + "pfp-collection-");
+	const fileTmpDir = await fs.mkdtemp(`${tmpdir() + path.sep}pfp-collection-`);
 	const fileLocation = path.join(fileTmpDir, `${collection.slug}.epub`);
 
 	const authors = collection.authors

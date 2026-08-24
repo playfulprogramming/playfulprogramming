@@ -5,7 +5,8 @@
 	published: '1999-09-18',
 	tags: [],
 	license: 'cc-by-nc-sa-4',
-	noindex: true
+	noindex: true,
+    coverImg: "share-banner.png"
 }
 ---
 
@@ -202,7 +203,7 @@ Pretend this is something very thought provoking[^1][^2]
 ## Link to another post
 
 <!-- ::start:link-preview -->
-[Writing Modern JavaScript without a Bundler](https://playfulprogramming.com/posts/modern-js-bundleless)
+[Writing Modern JavaScript without a Bundler](/posts/modern-js-bundleless)
 <!-- ::end:link-preview -->
 
 ## Link to an external site
@@ -226,7 +227,117 @@ I found a trend line of $$\left(x\log_{10} x \cdot 16\right) + 101$$ was reasona
 
 Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\times10^{17}$$ MB, or 315 ZB
 
+# Users
+
+<!-- ::user id="crutchcorn" -->
+
+# YouTube and Videos Embeds
+
+A normal YouTube video
+
+<iframe src="https://www.youtube.com/watch?v=_licnRxAVk0"></iframe>
+
+A YouTube short
+
+<iframe src="https://www.youtube.com/shorts/Fdbha07mFzo"></iframe>
+
+A Vimeo video
+
+<iframe src="https://vimeo.com/750377602"></iframe>
+
+A Twitch clip
+
+<iframe src="https://clips.twitch.tv/TacitFitIcecreamTriHard-KgJCKYYIEPqxe4dQ"></iframe>
+
+> We can't get a ton of data from Twitch without using their API (and therefore a token), so this is just a simple embed
+
+# X Embeds
+
+With text:
+
+<iframe src="https://x.com/playful_program/status/1917675879695552789"></iframe>
+
+With picture:
+
+<iframe src="https://x.com/playful_program/status/1917675872854614490"></iframe>
+
+404 embed:
+
+<iframe src="https://x.com/playful_program/status/123"></iframe>
+
+# GitHub Gist Embeds
+
+<iframe src="https://gist.github.com/crutchcorn/36fe5553219c05ea38bacf1c7396085b"></iframe>
+
 # Thanks for taking the trip down here
 
 <a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>
+
+# Quiz Components
+
+Here are the rules—get the answer right or else 😈
+
+<!-- ::start:quiz -->
+
+<!-- ::start:quiz-radio -->
+## Based on what you’ve seen: Why does JS? {#why-does-js}
+- ( ) Option 1 {#1}
+- (x) Option 2 {#2}
+- ( ) Option 3 {#3}
+- ( ) Option 4 {#4}
+<!-- ::end:quiz-radio -->
+
+Cool text between the section I love teaching yipee
+
+[link](#why-does-js)
+
+<!-- ::start:quiz-radio -->
+## Why did you do that
+- ( ) I'm sorry
+- ( ) it was a continuous lapse of judgement
+- ( ) I didn't mean it
+- (x) I didn't do it
+- (x) You'll have to talk to my lawyer
+<!-- ::end:quiz-radio -->
+
+<!-- ::end:quiz -->
+
+## Standalone question
+
+<!-- ::start:quiz-radio -->
+## don't touch me!
+- (x) *adds vertical padding so questions don't touch*
+- ( ) `code`
+- ( ) **bold**
+- ( ) rreally long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long really long eally long really long
+<!-- ::end:quiz-radio -->
+
+<!-- ::start:quiz-radio -->
+## Question with an explanation
+- (x) Confusing answer
+- ( ) Confusing answer
+- ( ) Confusing answer
+- ( ) Confusing answer
+
+This is why the question is because of the way it is.
+
+Look at [this link](https://example.com).
+<!-- ::end:quiz-radio -->
+
+<!-- ::start:quiz-radio -->
+## Never
+
+- ( ) Gonna
+
+- ( ) Give
+
+- (x) You
+
+- ( ) Up
+
+Try running this code in your browser:
+```js
+location.href = atob("aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==");
+```
+<!-- ::end:quiz-radio -->
 

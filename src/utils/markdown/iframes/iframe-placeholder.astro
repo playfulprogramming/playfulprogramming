@@ -1,10 +1,8 @@
 ---
-import {
-	IFramePlaceholder as PreactIFramePlaceholder,
-	IFramePlaceholderProps,
-} from "components/iframe-placeholder/iframe-placeholder";
+import type { IFramePlaceholderProps } from "#components/iframe-placeholder/iframe-placeholder.tsx";
+import { IFramePlaceholder as PreactIFramePlaceholder } from "#components/iframe-placeholder/iframe-placeholder.tsx";
 
 export type Props = IFramePlaceholderProps;
 ---
 
-<PreactIFramePlaceholder {...Astro.props} client:visible />
+<PreactIFramePlaceholder {...Astro.props} client:load />

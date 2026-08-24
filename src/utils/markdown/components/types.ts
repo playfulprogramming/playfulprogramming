@@ -1,6 +1,6 @@
 import type * as hast from "hast";
-import { VFile } from "vfile";
-import * as components from "./components";
+import type { VFile } from "vfile";
+import type * as components from "./components.ts";
 
 type MaybePromise<T> = Promise<T> | T;
 

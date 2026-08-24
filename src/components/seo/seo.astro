@@ -1,15 +1,15 @@
 ---
-import { siteMetadata, siteUrl } from "constants/site-config";
+import { siteMetadata, siteUrl } from "#src/constants/site-config.ts";
 import {
 	getPrefixLanguageFromPath,
 	removePrefixLanguageFromPath,
-} from "utils/translations";
+} from "#utils/translations.ts";
 import Article from "./article.astro";
 import Book from "./book.astro";
 import Locale from "./locale.astro";
 import OpenGraph from "./open-graph.astro";
 import Profile from "./profile.astro";
-import { SEOProps } from "./shared";
+import type { SEOProps } from "./shared.ts";
 import Twitter from "./twitter.astro";
 
 export type Props = SEOProps;

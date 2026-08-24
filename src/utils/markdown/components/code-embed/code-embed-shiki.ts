@@ -1,6 +1,6 @@
 import { createHighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
-import { BundledLanguage, bundledLanguages } from "shiki/langs";
+import { type BundledLanguage, bundledLanguages } from "shiki/langs";
 import { transformerRemoveLineBreak } from "@shikijs/transformers";
 import githubLight from "@shikijs/themes/github-light";
 import githubDark from "@shikijs/themes/github-dark";

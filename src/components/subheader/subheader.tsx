@@ -1,6 +1,6 @@
-import { PropsWithOptionalChildren } from "components/types";
+import type { PropsWithOptionalChildren } from "#components/types.ts";
 import styles from "./subheader.module.scss";
-import { HTMLAttributes } from "preact/compat";
+import type { HTMLAttributes } from "preact/compat";
 
 type SubHeaderProps = PropsWithOptionalChildren<{
 	tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";

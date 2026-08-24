@@ -1,12 +1,12 @@
 ---
 import style from "./contributor-card.module.scss";
-import { PersonInfo } from "../../types";
-import { Picture } from "../image/picture";
-import { Button } from "../index";
-import { translate } from "../../utils/translations";
-import { getHrefContainerProps } from "../../utils/href-container-script";
-import allRoles from "../../../content/data/roles.json";
-import { tabletSmall } from "../../tokens/breakpoints";
+import type { PersonInfo } from "../../types/index.ts";
+import { Picture } from "../image/picture.tsx";
+import { Button } from "../index.ts";
+import { translate } from "../../utils/translations.ts";
+import { getHrefContainerProps } from "../../utils/href-container-script.ts";
+import allRoles from "../../../content/data/roles.json" with { type: "json" };
+import { tabletSmall } from "../../tokens/breakpoints.ts";
 
 interface CardProps {
 	person: PersonInfo;

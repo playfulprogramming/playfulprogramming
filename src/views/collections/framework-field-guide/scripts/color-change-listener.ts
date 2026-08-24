@@ -7,7 +7,7 @@ function throttle<A extends unknown[]>(
 		if (!waiting) {
 			callback.apply(this, props);
 			waiting = true;
-			setTimeout(function () {
+			setTimeout(() => {
 				waiting = false;
 			}, limit);
 		}

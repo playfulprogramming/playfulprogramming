@@ -10,7 +10,7 @@
 	@each $prop in $properties {
 		$transitions: list.append(
 			$transitions,
-			$prop vars.$animStyle vars.$animSpeed,
+			$prop var(--animation_style) var(--animation_speed),
 			comma
 		);
 	}

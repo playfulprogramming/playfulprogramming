@@ -827,7 +827,7 @@ This doesn't mean that authoring your own custom hooks is a free-for-all, howeve
 - [Dynamic usage of hooks is not allowed](https://react.dev/reference/rules/react-calls-components-and-hooks#dont-dynamically-use-hooks)
 - [Properties passed to hooks must not be mutated](https://react.dev/reference/rules/components-and-hooks-must-be-pure#return-values-and-arguments-to-hooks-are-immutable)
 
-Regardless of if a hook is custom or imported from React, regardless of when a hook was introduced, whether from the start with `useState` or much later with [the `useActionState` hook](https://playfulprogramming.com/posts/what-is-use-action-state-and-form-status), these rules are to be followed.
+Regardless of if a hook is custom or imported from React, regardless of when a hook was introduced, whether from the start with `useState` or much later with [the `useActionState` hook](/posts/what-is-use-action-state-and-form-status), these rules are to be followed.
 
 ```jsx
 // ✅ Allowed usages
@@ -1879,5 +1879,7 @@ Still hungry for more React learning?
 
 Well, I've written a free book series teaching React, Angular, and Vue all at once that might spark your interest:
 
-[![The Framework Field Guide](/custom-content/collections/framework-field-guide/framework_field_guide_social.png)](https://framework.guide)
+<!-- ::start:link-preview -->
+[The Framework Field Guide](/collections/framework-field-guide/)
+<!-- ::end:link-preview -->
 

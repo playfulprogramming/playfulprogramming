@@ -1,8 +1,8 @@
 import { unified } from "unified";
-import { getMarkdownVFile } from "./getMarkdownVFile";
-import { MarkdownFileInfo, MarkdownVFile } from "./types";
-import { createHtmlPlugins } from "./createHtmlPlugins";
-import * as components from "./components";
+import { getMarkdownVFile } from "./getMarkdownVFile.ts";
+import type { MarkdownFileInfo, MarkdownVFile } from "./types.ts";
+import { createHtmlPlugins } from "./createHtmlPlugins.ts";
+import type * as components from "./components/index.ts";
 
 export type MarkdownHtml = MarkdownVFile["data"] & {
 	content: components.PlayfulNode[];

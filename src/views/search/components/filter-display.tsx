@@ -1,14 +1,14 @@
 import { useMemo } from "preact/hooks";
-import { PersonInfo, TagInfo } from "types/index";
-import { CSSProperties } from "preact/compat";
-import { useWindowSize } from "../../../hooks/use-window-size";
-import { tabletLarge } from "../../../tokens/breakpoints";
-import { FilterDialog } from "./filter-dialog";
-import { FilterSidebar } from "./filter-sidebar";
+import type { PersonInfo, TagInfo } from "#types/index.ts";
+import type { CSSProperties } from "preact";
+import { useWindowSize } from "../../../hooks/use-window-size.tsx";
+import { tabletLarge } from "../../../tokens/breakpoints.ts";
+import { FilterDialog } from "./filter-dialog.tsx";
+import { FilterSidebar } from "./filter-sidebar.tsx";
 import tagsObj from "../../../../content/data/tags.json";
-import { DisplayContentType, SortType } from "src/views/search/search";
-import { ExtendedTag, ExtendedUnicorn } from "./types";
-import { FilterState } from "../use-filter-state";
+import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
+import type { ExtendedTag, ExtendedUnicorn } from "./types.ts";
+import type { FilterState } from "../use-filter-state.ts";
 
 const tagsMap: Map<string, TagInfo> = new Map(Object.entries(tagsObj));
 
@@ -65,7 +65,7 @@ export const FilterDisplay = ({
 					}) satisfies Partial<ExtendedTag>,
 			)
 			.filter((a): a is ExtendedTag => !!a.displayName);
-	}, [tagCounts]);
+	}, [tagCounts, filterState.tags]);
 
 	const authors: ExtendedUnicorn[] = useMemo(() => {
 		const totalEntries = {
@@ -84,7 +84,7 @@ export const FilterDisplay = ({
 			)
 			.filter((a): a is ExtendedUnicorn => !!a.name)
 			.sort((a, b) => a.name.localeCompare(b.name));
-	}, [authorCounts, peopleMap]);
+	}, [authorCounts, peopleMap, filterState.authors]);
 
 	const windowSize = useWindowSize();
 

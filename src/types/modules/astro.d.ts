@@ -1,3 +1,3 @@
 declare module "*.astro" {
-	export default (_props: object) => any;
+	export default (_props: object) => unknown;
 }

@@ -1,9 +1,9 @@
 import { SitemapIndexStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
-import { siteUrl } from "constants/site-config";
+import { siteUrl } from "#src/constants/site-config.ts";
 
 export const GET = async () => {
-	const entries = [{ url: siteUrl + "/sitemap-0.xml" }];
+	const entries = [{ url: `${siteUrl}/sitemap-0.xml` }];
 
 	const stream = new SitemapIndexStream();
 

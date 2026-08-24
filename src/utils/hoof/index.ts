@@ -1,2 +1,2 @@
-export * from "./get-post-images";
-export * from "./get-url-metadata";
+export * from "./get-post-images.ts";
+export * from "./get-url-metadata.ts";

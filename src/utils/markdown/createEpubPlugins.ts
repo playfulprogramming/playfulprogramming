@@ -3,7 +3,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import {
 	TYPE_FRONTMATTER,
 	remarkProcessFrontmatter,
-} from "./remark-process-frontmatter";
+} from "./remark-process-frontmatter.ts";
 import remarkGfm from "remark-gfm";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkToRehype from "remark-rehype";
@@ -12,22 +12,22 @@ import rehypeRaw from "rehype-raw";
 import {
 	rehypeMakeHrefPathsAbsolute,
 	rehypeMakeImagePathsAbsolute,
-} from "./rehype-absolute-paths";
-import { rehypeFixTwoSlashXHTML } from "./rehype-fix-twoslash-xhtml";
-import { Processor } from "unified";
+} from "./rehype-absolute-paths.ts";
+import { rehypeFixTwoSlashXHTML } from "./rehype-fix-twoslash-xhtml.ts";
+import type { Processor } from "unified";
 import rehypeStringify from "rehype-stringify";
-import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary";
-import { rehypeShikiUU } from "./shiki/rehype-transform";
+import { rehypeExpandDetailsAndSummary } from "./rehype-expand-details-summary.ts";
+import { rehypeShikiUU } from "./shiki/rehype-transform.ts";
 import {
 	rehypeTransformComponents,
 	transformNoop,
 	transformVoid,
 	rehypeParseComponents,
-} from "./components";
-import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform";
-import { rehypeRemoveCollectionLinks } from "./rehype-remove-collection-links";
-import { rehypeReferencePage } from "./reference-page/rehype-reference-page";
-import { rehypeRelativePaths } from "./rehype-relative-paths";
+} from "./components/index.ts";
+import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform.ts";
+import { rehypeRemoveCollectionLinks } from "./rehype-remove-collection-links.ts";
+import { rehypeReferencePage } from "./reference-page/rehype-reference-page.ts";
+import { rehypeRelativePaths } from "./rehype-relative-paths.ts";
 
 export function createEpubPlugins(unified: Processor) {
 	return (
@@ -62,11 +62,12 @@ export function createEpubPlugins(unified: Processor) {
 			.use(rehypeTransformComponents, {
 				components: {
 					filetree: transformNoop,
-					["in-content-ad"]: transformNoop,
-					["link-preview"]: transformNoop,
-					["no-ebook"]: transformVoid,
-					["only-ebook"]: transformNoop,
+					"in-content-ad": transformNoop,
+					"link-preview": transformNoop,
+					"no-ebook": transformVoid,
+					"only-ebook": transformNoop,
 					tabs: transformNoop,
+					user: transformNoop,
 				},
 			})
 			.use(rehypeStringify)

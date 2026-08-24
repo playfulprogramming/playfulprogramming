@@ -13,7 +13,7 @@ export const enableSmoothScrollForAnchorsToCurrentPage = () => {
 			const block =
 				((e.target as HTMLAnchorElement | null)?.getAttribute(
 					"data-scroll-block",
-				) as ScrollLogicalPosition) ?? "center";
+				) as ScrollLogicalPosition | undefined) ?? "center";
 
 			e.preventDefault();
 			target.scrollIntoView({

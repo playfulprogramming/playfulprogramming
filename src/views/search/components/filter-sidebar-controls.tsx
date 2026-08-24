@@ -1,11 +1,11 @@
 import style from "./filter-sidebar-controls.module.scss";
-import { DisplayContentType, SortType } from "src/views/search/search";
-import { Item, SelectWithLabel } from "components/select/select";
-import { RadioButtonGroup } from "components/button-radio-group/button-radio-group";
-import { RadioListButton } from "components/button-radio-group/button-radio-list";
-import { RawSvg } from "components/image/raw-svg";
-import ArticlesIcon from "src/icons/articles.svg?raw";
-import NotebookIcon from "src/icons/notebook.svg?raw";
+import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
+import { Item, SelectWithLabel } from "#components/select/select.tsx";
+import { RadioButtonGroup } from "#components/button-radio-group/button-radio-group.tsx";
+import { RadioListButton } from "#components/button-radio-group/button-radio-list.tsx";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+import ArticlesIcon from "#src/icons/articles.svg?raw";
+import NotebookIcon from "#src/icons/notebook.svg?raw";
 import { useMemo, useRef } from "preact/hooks";
 
 interface FilterSidebarControlsProps {
@@ -23,9 +23,8 @@ function usePersistedRef<T>(value: T | undefined) {
 		if (value !== undefined) {
 			ref.current = value;
 			return value;
-		} else {
-			return ref.current ?? value;
 		}
+		return ref.current ?? value;
 	}, [value]);
 }
 
@@ -71,8 +70,8 @@ export const FilterSidebarControls = ({
 					label={"Sort:"}
 					prefixSelected={""}
 					defaultValue={"Relevance"}
-					selectedKey={sort}
-					onSelectionChange={(v) => setSort(v as SortType)}
+					value={sort}
+					onChange={(v) => setSort(v as SortType)}
 				>
 					<Item key={"relevance"}>Relevance</Item>
 					<Item key={"newest"}>Newest</Item>

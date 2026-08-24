@@ -1,11 +1,11 @@
 ---
-import { Languages } from "types/index";
-import { languages } from "constants/index";
+import type { Languages } from "#types/index.ts";
+import { languages } from "#src/constants/index.ts";
 import {
 	getPrefixLanguageFromPath,
 	removePrefixLanguageFromPath,
 	translate,
-} from "utils/translations";
+} from "#utils/translations.ts";
 import style from "./translations-header.module.scss";
 import { Icon } from "astro-icon/components";
 

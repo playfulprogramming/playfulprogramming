@@ -1,17 +1,17 @@
-import { RehypeFunctionComponent } from "../types";
+import type { RehypeFunctionComponent } from "../types.ts";
 import path from "path";
 import fs from "fs/promises";
-import { getStackblitzUrl } from "./getStackblitzUrl";
-import { logError } from "utils/markdown/logger";
-import { Plugin } from "unified";
+import { getStackblitzUrl } from "./getStackblitzUrl.ts";
+import { logError } from "#utils/markdown/logger.ts";
+import type { Plugin } from "unified";
 import {
-	ComponentMarkupNode,
+	type ComponentMarkupNode,
+	type PlayfulRoot,
 	createComponent,
-	PlayfulRoot,
-} from "../components";
+} from "../components.ts";
 import { visit } from "unist-util-visit";
-import { FileEntry } from "components/code-embed/types";
-import { codeToHtml } from "./code-embed-shiki";
+import type { FileEntry } from "#components/code-embed/types.tsx";
+import { codeToHtml } from "./code-embed-shiki.ts";
 
 /**
  * Transforms pfp-code iframes into a "code-embed" component

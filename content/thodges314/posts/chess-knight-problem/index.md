@@ -1,6 +1,6 @@
 ---
 {
-  title: "Chess Knight Problem: a quick and dirty solution in JavaScript",
+  title: "Chess Knight Problem: A Quick & Dirty JS Solution",
   description: "I present a quick and dirty solution to a common interview question where the solution is not nearly as complex as it may first appear.",
   published: "2020-04-29T12:27:06.284Z",
   tags: ["javascript", "computer science", "interviewing"],

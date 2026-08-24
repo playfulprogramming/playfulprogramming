@@ -1,15 +1,16 @@
 @use "sass:math";
 @use "./tokens/index" as *;
-@use "./styles/variables/border_widths";
+@use "./styles/variables/brand";
 @use "./styles/variables/colors";
-@use "./styles/variables/corner_radius";
+@use "./styles/variables/themes";
 @use "./styles/variables/fonts";
+@use "./styles/variables/corner_radius";
+@use "./styles/variables/border_widths";
 @use "./styles/variables/icons";
-@use "./styles/variables/max_widths";
 @use "./styles/variables/shadows";
 @use "./styles/variables/spacing";
 @use "./styles/variables/target_sizes";
-@use "./styles/variables/themes";
+@use "./styles/variables/max_widths";
 
 @use "./styles/text-styles";
 @use "./styles/button";
@@ -20,7 +21,7 @@
 :root {
 	scrollbar-gutter: stable;
 	scrollbar-color: var(--focus-outline_primary) transparent;
-	transition: scrollbar-color $animStyle $animSpeed;
+	@include transition(scrollbar-color);
 
 	box-sizing: border-box;
 }
@@ -75,9 +76,7 @@ body {
 	margin: 0;
 	padding: 0;
 	color: var(--foreground_emphasis-high);
-	transition:
-		color $animStyle $animSpeed,
-		background-color $animStyle $animSpeed;
+	@include transition(color background-color);
 }
 
 .medium-zoom-overlay,

@@ -1,4 +1,4 @@
-import {
+import type {
 	RawCollectionInfo,
 	PersonInfo,
 	RawPostInfo,
@@ -6,12 +6,12 @@ import {
 	CollectionInfo,
 	TagInfo,
 	RawPersonInfo,
-} from "types/index";
+} from "#types/index.ts";
 import * as fs from "fs/promises";
 import path, { join } from "path";
 import { isNotJunk as baseIsNotJunk } from "junk";
-import { getImageSize } from "../utils/get-image-size";
-import { resolvePath } from "./url-paths";
+import { getImageSize } from "../utils/get-image-size.ts";
+import { resolvePath } from "./url-paths.ts";
 import matter from "gray-matter";
 import dayjs from "dayjs";
 
@@ -19,17 +19,40 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
-import { rehypePlayfulElementMap } from "./markdown/rehype-playful-element-map";
-import { getExcerpt } from "./markdown/get-excerpt";
-import { getLanguageFromFilename } from "./translations";
-import aboutRaw from "../../content/data/about.json";
-import rolesRaw from "../../content/data/roles.json";
-import licensesRaw from "../../content/data/licenses.json";
-import tagsRaw from "../../content/data/tags.json";
+import { rehypePlayfulElementMap } from "./markdown/rehype-playful-element-map.ts";
+import { getExcerpt } from "./markdown/get-excerpt.ts";
+import { getLanguageFromFilename } from "./translations.ts";
+import aboutRaw from "../../content/data/about.json" with { type: "json" };
+import rolesRaw from "../../content/data/roles.json" with { type: "json" };
+import licensesRaw from "../../content/data/licenses.json" with { type: "json" };
+import tagsRaw from "../../content/data/tags.json" with { type: "json" };
+import type { LocalFile } from "#types/LocalFile.ts";
 
 function isNotJunk(name: string): boolean {
 	// Ignore VSCode and JetBrains project files
 	return baseIsNotJunk(name) && name !== ".idea" && name !== ".vscode";
+}
+
+async function resolveImageFile(
+	imgPath: string,
+	basePath: string,
+): Promise<LocalFile> {
+	if (imgPath.replace(/^\.\//, "").indexOf("/") !== -1) {
+		throw new Error(
+			`${basePath}: Image ${imgPath} must be stored adjacent to its md file.`,
+		);
+	}
+
+	const coverImgSize = await getImageSize(imgPath, basePath);
+	if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
+		throw new Error(`${basePath}: Unable to parse ${imgPath} image size`);
+	}
+
+	return {
+		height: coverImgSize.height,
+		width: coverImgSize.width,
+		...resolvePath(imgPath, basePath)!,
+	};
 }
 
 export const contentDirectory = join(process.cwd(), "content");
@@ -46,17 +69,17 @@ const tagExplainerParser = unified()
 	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
 
 for (const [key, tag] of Object.entries(tagsRaw)) {
-	let explainer = undefined;
-	let explainerType: TagInfo["explainerType"] | undefined = undefined;
+	let explainer;
+	let explainerType: TagInfo["explainerType"] | undefined;
 
 	if ("image" in tag && tag.image.endsWith(".svg")) {
 		const license = await fs
-			.readFile("public" + tag.image.replace(".svg", "-LICENSE.md"), "utf-8")
+			.readFile(`public${tag.image.replace(".svg", "-LICENSE.md")}`, "utf-8")
 			.catch((_) => undefined);
 
 		const attribution = await fs
 			.readFile(
-				"public" + tag.image.replace(".svg", "-ATTRIBUTION.md"),
+				`public${tag.image.replace(".svg", "-ATTRIBUTION.md")}`,
 				"utf-8",
 			)
 			.catch((_) => undefined);
@@ -197,29 +220,22 @@ async function readCollection(
 		const fileContents = await fs.readFile(filePath, "utf-8");
 		const frontmatter = matter(fileContents).data as RawCollectionInfo;
 
-		const coverImgSize = await getImageSize(
+		const coverImgMeta = await resolveImageFile(
 			frontmatter.coverImg,
 			collectionPath,
 		);
-		if (!coverImgSize || !coverImgSize.width || !coverImgSize.height) {
-			throw new Error(`${collectionPath}: Unable to parse cover image size`);
-		}
-
-		const coverImgMeta = {
-			height: coverImgSize.height,
-			width: coverImgSize.width,
-			...resolvePath(frontmatter.coverImg, collectionPath)!,
-		};
+		const socialImgMeta = frontmatter.socialImg
+			? await resolveImageFile(frontmatter.socialImg, collectionPath)
+			: undefined;
 
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
 				return true;
-			} else {
-				console.warn(
-					`${collectionPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
-				);
-				return false;
 			}
+			console.warn(
+				`${collectionPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
+			);
+			return false;
 		});
 
 		// count the number of posts in the collection
@@ -238,6 +254,7 @@ async function readCollection(
 			postCount,
 			tags: frontmatterTags,
 			coverImgMeta,
+			socialImgMeta,
 		});
 	}
 
@@ -296,15 +313,21 @@ async function readPost(
 		// get an excerpt of the post markdown no longer than 150 chars
 		const excerpt = getExcerpt(fileMatter.content, 150);
 
+		const coverImgMeta = frontmatter.coverImg
+			? await resolveImageFile(frontmatter.coverImg, postPath)
+			: undefined;
+		const socialImgMeta = frontmatter.socialImg
+			? await resolveImageFile(frontmatter.socialImg, postPath)
+			: undefined;
+
 		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
 				return true;
-			} else {
-				console.warn(
-					`${postPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
-				);
-				return false;
 			}
+			console.warn(
+				`${postPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
+			);
+			return false;
 		});
 
 		postObjects.push({
@@ -317,7 +340,7 @@ async function readPost(
 			locale,
 			locales,
 			tags: frontmatterTags,
-			wordCount: wordCount,
+			wordCount,
 			description: frontmatter.description || excerpt,
 			excerpt,
 			publishedMeta:
@@ -325,6 +348,8 @@ async function readPost(
 				dayjs(frontmatter.published).format("MMMM D, YYYY"),
 			editedMeta:
 				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
+			coverImgMeta,
+			socialImgMeta,
 		});
 	}
 
@@ -335,7 +360,10 @@ const people = new Map<string, PersonInfo[]>();
 for (const personId of await fs.readdir(contentDirectory)) {
 	if (!isNotJunk(personId)) continue;
 	const personPath = join(contentDirectory, personId);
-	people.set(personId, await readPerson(personPath));
+	const personEntries = await readPerson(personPath);
+	if (personEntries.length) {
+		people.set(personId, personEntries);
+	}
 }
 
 const collections = new Map<string, CollectionInfo[]>();
@@ -348,12 +376,12 @@ for (const personId of [...people.keys()]) {
 
 	for (const slug of slugs) {
 		const collectionPath = join(collectionsDirectory, slug);
-		collections.set(
-			slug,
-			await readCollection(collectionPath, {
-				authors: [personId],
-			}),
-		);
+		const collectionEntries = await readCollection(collectionPath, {
+			authors: [personId],
+		});
+		if (collectionEntries.length) {
+			collections.set(slug, collectionEntries);
+		}
 	}
 }
 
@@ -375,13 +403,13 @@ await Promise.all(
 		await Promise.all(
 			slugs.map(async (slug) => {
 				const postPath = join(postsDirectory, slug);
-				posts.set(
-					slug,
-					await readPost(postPath, {
-						authors: collection[0].authors,
-						collection: collection[0].slug,
-					}),
-				);
+				const postEntries = await readPost(postPath, {
+					authors: collection[0].authors,
+					collection: collection[0].slug,
+				});
+				if (postEntries.length) {
+					posts.set(slug, postEntries);
+				}
 			}),
 		);
 	}),
@@ -397,12 +425,12 @@ await Promise.all(
 		await Promise.all(
 			slugs.map(async (slug) => {
 				const postPath = join(postsDirectory, slug);
-				posts.set(
-					slug,
-					await readPost(postPath, {
-						authors: [personId],
-					}),
-				);
+				const postEntries = await readPost(postPath, {
+					authors: [personId],
+				});
+				if (postEntries.length) {
+					posts.set(slug, postEntries);
+				}
 			}),
 		);
 	}),

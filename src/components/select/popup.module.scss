@@ -12,7 +12,7 @@
 	--popup_item_corner-radius: calc(
 		var(--popup_corner-radius) - var(--popup_padding)
 	);
-	--popup_item_icon-size: var(--icon-size_dense);
+	--popup_item_icon-size: var(--icon-size_default);
 
 	--popup_item_background-color_hovered: var(--surface_primary_emphasis-medium);
 	--popup_item_background-color_pressed: var(--surface_primary_emphasis-high);

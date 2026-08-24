@@ -1,17 +1,19 @@
-import { Element } from "hast";
+import type { Element } from "hast";
 import { find } from "unist-util-find";
 import { toString } from "hast-util-to-string";
 import { URL } from "url";
-import { RehypeFunctionComponent } from "../types";
-import { isElement } from "utils/markdown/unist-is-element";
+import type { RehypeFunctionComponent } from "../types.ts";
+import { isElement } from "#utils/markdown/unist-is-element.ts";
 import {
-	ComponentMarkupNode,
+	type ComponentMarkupNode,
+	type PlayfulRoot,
 	createComponent,
-	PlayfulRoot,
-} from "../components";
-import { Plugin } from "unified";
-import { getUrlMetadata } from "utils/hoof";
-import { logError } from "utils/markdown/logger";
+} from "../components.ts";
+import type { Plugin } from "unified";
+import { type UrlMetadataResponse, getUrlMetadata } from "#utils/hoof/index.ts";
+import { logError } from "#utils/markdown/logger.ts";
+import { siteUrl } from "#src/constants/site-config.ts";
+import * as api from "#utils/api.ts";
 
 /**
  * Transform image-wrapped links into a link preview component
@@ -43,6 +45,35 @@ export const rehypeLinkPreview: Plugin<[], PlayfulRoot> = () => {
 	};
 };
 
+function getPlayfulUrlBanner(url: URL): UrlMetadataResponse["banner"] {
+	const [, postSlug] = /^\/posts\/([^\/]+)/.exec(url.pathname) ?? [];
+	if (postSlug) {
+		const post = api.getPostBySlug(postSlug, "en");
+		if (post?.socialImgMeta) {
+			return {
+				src: post.socialImgMeta.relativeServerPath,
+				width: post.socialImgMeta.width,
+				height: post.socialImgMeta.height,
+			};
+		}
+	}
+
+	const [, collectionSlug] =
+		/^\/collections\/([^\/]+)/.exec(url.pathname) ?? [];
+	if (collectionSlug) {
+		const collection = api.getCollectionBySlug(collectionSlug, "en");
+		if (collection?.socialImgMeta) {
+			return {
+				src: collection.socialImgMeta.relativeServerPath,
+				width: collection.socialImgMeta.width,
+				height: collection.socialImgMeta.height,
+			};
+		}
+	}
+
+	return { src: "/share-banner.png" };
+}
+
 export const transformLinkPreview: RehypeFunctionComponent = async ({
 	vfile,
 	children,
@@ -64,7 +95,7 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 
 	let url: URL;
 	try {
-		url = new URL(anchorNode.properties.href + "");
+		url = new URL(`${anchorNode.properties.href}`, siteUrl);
 	} catch (e) {
 		logError(vfile, anchorNode, "Malformatted URL");
 		return;
@@ -74,9 +105,14 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 		type: "element",
 		tagName: "picture",
 	});
+
+	const isPlayfulDomain = new URL(siteUrl).hostname === url.hostname;
+
 	const result = pictureNode
 		? undefined
-		: (await getUrlMetadata(url.toString()))?.banner;
+		: isPlayfulDomain
+			? getPlayfulUrlBanner(url)
+			: (await getUrlMetadata(url.toString()).catch(() => undefined))?.banner;
 	if (!pictureNode && !result) {
 		logError(vfile, anchorNode, "Link preview could not find a banner image.");
 		return;

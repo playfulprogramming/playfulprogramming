@@ -1,11 +1,11 @@
 import { headingRank } from "hast-util-heading-rank";
 import { hasProperty } from "hast-util-has-property";
 import { toString } from "hast-util-to-string";
-import { Root, Parent } from "hast";
-import { PostHeadingInfo } from "src/types/index";
-import { Plugin } from "unified";
+import type { Root, Parent } from "hast";
+import type { PostHeadingInfo } from "#src/types/index.ts";
+import type { Plugin } from "unified";
 import { visit, SKIP } from "unist-util-visit";
-import { isMarkdownVFile } from "./types";
+import { isMarkdownVFile } from "./types.ts";
 
 /**
  * Plugin to add `data-header-text`s to headings.

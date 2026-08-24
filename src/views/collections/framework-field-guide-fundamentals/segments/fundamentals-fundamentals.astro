@@ -4,7 +4,7 @@ import FundamentalsBookCover from "../../framework-field-guide/segments/fundamen
 import WhatYouNeed from "../components/what-you-need.astro";
 import WhatYoullLearn from "../components/what-youll-learn.astro";
 import CollectionTableOfContents from "../components/collection-table-of-contents-fundamentals.astro";
-import { getPostsByCollection } from "../../../../utils/api";
+import { getPostsByCollection } from "#utils/api.ts";
 
 const chapterList = getPostsByCollection(
 	"framework-field-guide-fundamentals",

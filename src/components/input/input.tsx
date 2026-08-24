@@ -1,16 +1,16 @@
 import style from "./input.module.scss";
-import { Fragment, JSX } from "preact";
+import { type InputHTMLAttributes, type JSX, Fragment } from "preact";
 import search from "../../icons/search.svg?raw";
 import close from "../../icons/close.svg?raw";
 import {
+	type ButtonProps,
+	type AllowedTags,
 	IconOnlyButton,
-	ButtonProps,
-	AllowedTags,
-} from "components/button/button";
-import { useRandomId } from "utils/preact/useId";
-import { ReactElement, Ref } from "preact/compat";
+} from "#components/button/button.tsx";
+import { useRandomId } from "#utils/preact/useId.ts";
+import type { ReactElement, Ref } from "preact/compat";
 
-interface InputProps extends JSX.InputHTMLAttributes {
+interface InputProps extends InputHTMLAttributes {
 	label?: string;
 	containerClass?: string;
 }
@@ -100,7 +100,7 @@ export function SearchInput({
 					aria-hidden
 					class={style.searchIconContainer}
 					dangerouslySetInnerHTML={{ __html: search }}
-				></div>
+				/>
 			)}
 			<input
 				aria-label="Search"
@@ -124,7 +124,7 @@ export function SearchInput({
 					<div
 						class={style.closeButtonContainer}
 						dangerouslySetInnerHTML={{ __html: close }}
-					></div>
+					/>
 				</IconOnlyButtonButOnClick>
 			</div>
 		</div>

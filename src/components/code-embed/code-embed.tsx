@@ -1,19 +1,18 @@
-import PlayIcon from "src/icons/play.svg?raw";
-import EditIcon from "src/icons/edit.svg?raw";
-import RefreshIcon from "src/icons/refresh.svg?raw";
-import DotIcon from "src/icons/dot.svg?raw";
-import LoadingIcon from "src/icons/loading.svg?raw";
-import CheckmarkIcon from "src/icons/checkmark.svg?raw";
-import { PropsWithChildren } from "components/types";
-import { RawSvg } from "components/image/raw-svg";
-import { Button, IconOnlyButton } from "components/button/button";
+import PlayIcon from "#src/icons/play.svg?raw";
+import EditIcon from "#src/icons/edit.svg?raw";
+import RefreshIcon from "#src/icons/refresh.svg?raw";
+import DotIcon from "#src/icons/dot.svg?raw";
+import LoadingIcon from "#src/icons/loading.svg?raw";
+import CheckmarkIcon from "#src/icons/checkmark.svg?raw";
+import type { PropsWithChildren } from "#components/types.ts";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+import { Button, IconOnlyButton } from "#components/button/button.tsx";
 import style from "./code-embed.module.scss";
 import { useCallback, useId, useMemo } from "preact/hooks";
-import { ChangeEvent, TargetedEvent } from "preact/compat";
-import { FilePicker } from "./file-picker";
-import { FileEntry } from "./types";
-import { ComponentChildren } from "preact";
-import { ResizeablePanels } from "./resizeable-panels";
+import type { TargetedEvent, ComponentChildren } from "preact";
+import { FilePicker } from "./file-picker.tsx";
+import type { FileEntry } from "./types.ts";
+import { ResizeablePanels } from "./resizeable-panels.tsx";
 
 interface ContainerProps {
 	title?: string;
@@ -24,7 +23,7 @@ interface ContainerProps {
 
 export function Container(props: ContainerProps) {
 	return (
-		<div class={style.container}>
+		<div class={`${style.container} markdownCollapsePadding`}>
 			<div class={style.title}>
 				<p class="text-style-body-medium-bold">{props.title}</p>
 				{props.editUrl ? (
@@ -54,26 +53,31 @@ interface AddressBarProps {
 	onReload(): void;
 }
 
-export function AddressBar(props: AddressBarProps) {
+export function AddressBar({
+	value,
+	onChange,
+	onSubmit,
+	onReload,
+}: AddressBarProps) {
 	const id = useId();
 
 	const handleSubmit = useCallback(
 		(e: Event) => {
 			e.preventDefault();
-			props.onSubmit(props.value);
+			onSubmit(value);
 		},
-		[props.value, props.onSubmit],
+		[value, onSubmit],
 	);
 
 	const handleBlur = useCallback(() => {
-		props.onSubmit(props.value);
-	}, [props.value, props.onSubmit]);
+		onSubmit(value);
+	}, [value, onSubmit]);
 
 	const handleChange = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			props.onChange(e.currentTarget.value);
+		(e: TargetedEvent<HTMLInputElement, Event>) => {
+			onChange(e.currentTarget.value);
 		},
-		[props.onChange],
+		[onChange],
 	);
 
 	return (
@@ -87,7 +91,7 @@ export function AddressBar(props: AddressBarProps) {
 					id={`code-embed-input-${id}`}
 					name="address"
 					type="text"
-					value={props.value}
+					value={value}
 					onChange={handleChange}
 					onBlur={handleBlur}
 				/>
@@ -96,7 +100,7 @@ export function AddressBar(props: AddressBarProps) {
 				tag="button"
 				variant="primary"
 				aria-label="Reload"
-				onClick={props.onReload}
+				onClick={onReload}
 			>
 				<RawSvg icon={RefreshIcon} />
 			</IconOnlyButton>
@@ -158,9 +162,8 @@ function LoadingStepIcon(props: { index: number; current: number }) {
 		return <RawSvg class={style.loader__icon__pending} icon={DotIcon} />;
 	} else if (props.index == props.current) {
 		return <RawSvg class={style.loader__icon__loading} icon={LoadingIcon} />;
-	} else {
-		return <RawSvg class={style.loader__icon__done} icon={CheckmarkIcon} />;
 	}
+	return <RawSvg class={style.loader__icon__done} icon={CheckmarkIcon} />;
 }
 
 interface LoadingPlaceholderProps {
@@ -209,17 +212,18 @@ interface PreviewFrameProps {
 }
 
 export function PreviewFrame(props: PreviewFrameProps) {
+	const { src, onLoad } = props;
 	const handleLoad = useCallback(
 		(e: TargetedEvent<HTMLIFrameElement>) => {
 			const src = e.currentTarget.src;
-			if (src) props.onLoad(src);
+			if (src) onLoad(src);
 		},
-		[props.onLoad],
+		[onLoad],
 	);
 
 	return (
 		<div class={style.preview}>
-			<iframe src={props.src} onLoad={handleLoad} />
+			<iframe src={src} onLoad={handleLoad} />
 		</div>
 	);
 }
@@ -228,7 +232,7 @@ export function PreviewError() {
 	return (
 		<div class={style.error}>
 			<div class={style.error__grid}>
-				<div class={style.error__background}></div>
+				<div class={style.error__background} />
 				<p class={`${style.error__heading} text-style-headline-3`}>Oh, no!</p>
 				<p class={`${style.error__message} text-style-body-large`}>
 					This project failed to load. Try using the Edit button, or switch to{" "}

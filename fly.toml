@@ -6,15 +6,6 @@
 app = 'playful-web'
 primary_region = 'sjc'
 
-[build]
-  dockerfile = 'Dockerfile'
-
-  [build.args]
-    ENABLE_DISCOVERABILITY = 'false'
-    GIT_COMMIT_REF = 'main'
-    PUBLIC_CLOUDINARY_CLOUD_NAME = 'dssjarn7f'
-    SITE_URL = 'https://playfulprogramming.com'
-
 [deploy]
   strategy = 'bluegreen'
 

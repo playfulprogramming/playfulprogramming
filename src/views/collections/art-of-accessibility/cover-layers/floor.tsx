@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
-import { useCSSPropertyValue } from "../../framework-field-guide/hooks/use-css-property-value";
-import { RepeatBackground } from "../../framework-field-guide/cover-layers/shared/repeat-background";
+import { useCSSPropertyValue } from "../../framework-field-guide/hooks/use-css-property-value.ts";
+import { RepeatBackground } from "../../framework-field-guide/cover-layers/shared/repeat-background.tsx";
 
 export const Floor = () => {
 	const floorBackground = useCSSPropertyValue("--floor", "#2D5CAC");

@@ -450,4 +450,4 @@ That's all for today! There's so much more to learn about promises that we'll ex
 
 And more!
 
-In the meantime if this article caught your attention, consider [joining our Discord](https://discord.gg/FMcvc6T) to ask more questions and hang out with like-minded engineers ready to help with any engineering problems you might have.
+In the meantime if this article caught your attention, consider [joining our Discord](https://discord.playfulprogramming.com) to ask more questions and hang out with like-minded engineers ready to help with any engineering problems you might have.
