@@ -279,7 +279,9 @@ function handleDialogTab(event: KeyboardEvent, dialogEl: HTMLDialogElement) {
 	const lastFocusableEl = focusableEls.at(-1);
 	event.preventDefault();
 	if (!firstFocusableEl || !lastFocusableEl) {
-		dialogEl.querySelector<HTMLElement>("[data-snitip-title]")?.focus();
+		dialogEl
+			.querySelector<HTMLElement>("[data-snitip-title]")
+			?.focus({ focusVisible: true });
 		return;
 	}
 
@@ -293,7 +295,7 @@ function handleDialogTab(event: KeyboardEvent, dialogEl: HTMLDialogElement) {
 		: activeIndex < 0 || activeIndex === focusableEls.length - 1
 			? 0
 			: activeIndex + 1;
-	focusableEls[nextIndex].focus();
+	focusableEls[nextIndex].focus({ focusVisible: true });
 }
 
 function initializeDialog(elements: SnitipElements) {

@@ -314,3 +314,31 @@ test("keeps an open modal across responsive presentations", async ({
 	await page.keyboard.press("Escape");
 	await expectClosed(snitip.button, snitip.dialog);
 });
+
+test("shows keyboard focus after a pointer click inside the dialog", async ({
+	page,
+}) => {
+	await page.setViewportSize({ width: 1200, height: 800 });
+	const snitip = await loadNodeSnitip(page);
+	const firstLink = snitip.dialog.locator("a[href]").first();
+	const close = snitip.dialog.getByRole("button", {
+		name: "Close tooltip",
+	});
+
+	await snitip.button.click();
+	await expect(snitip.dialog).toBeVisible();
+	await snitip.dialog.locator("p").first().click();
+	await page.keyboard.press("Tab");
+
+	await expect(firstLink).toBeFocused();
+	expect(
+		await firstLink.evaluate((link) => link.matches(":focus-visible")),
+	).toBe(true);
+
+	await snitip.dialog.locator("p").first().click();
+	await page.keyboard.press("Shift+Tab");
+	await expect(close).toBeFocused();
+	expect(
+		await close.evaluate((button) => button.matches(":focus-visible")),
+	).toBe(true);
+});
