@@ -15,6 +15,7 @@ const GIT_THEME_CSS = GIT_THEME_TOKENS.map(([color, onColor], index) => {
 		`:is(${indexes
 			.flatMap((value) => prefixes.map((prefix) => `.${prefix}${value}`))
 			.join(",")})`;
+	const branchLabelSelector = select("branch-label");
 
 	return `
 			${select("branch", "arrow", "commit-cherry-pick")} {
@@ -28,7 +29,9 @@ const GIT_THEME_CSS = GIT_THEME_TOKENS.map(([color, onColor], index) => {
 				fill: var(--background_primary);
 				stroke: var(--background_primary);
 			}
-			${select("branch-label")} {
+			${branchLabelSelector},
+			${branchLabelSelector} text,
+			${branchLabelSelector} tspan {
 				fill: var(${onColor});
 				color: var(${onColor});
 			}
