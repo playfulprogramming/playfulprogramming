@@ -2,8 +2,15 @@
 import { Icon } from "astro-icon/components";
 import { Button, IconOnlyButton } from "#components/index.ts";
 import StyledSelect from "#components/styled-select/styled-select.astro";
+import { THEME_FONT_FAMILIES } from "#utils/theming.ts";
 import { translate } from "#utils/translations.ts";
 import styles from "./theme-sidebar.module.scss";
+
+const openDyslexicFont = {
+	id: "open-dyslexic",
+	label: "OpenDyslexic",
+	family: THEME_FONT_FAMILIES.openDyslexic,
+} as const;
 
 const headingFonts = [
 	{
@@ -21,6 +28,7 @@ const headingFonts = [
 		label: "Playpen Sans",
 		family: '"Playpen Sans", "Arial", sans-serif',
 	},
+	openDyslexicFont,
 	{
 		id: "changa-one",
 		label: "Changa One",
@@ -32,6 +40,7 @@ const bodyFonts = [
 	headingFonts[0],
 	headingFonts[1],
 	headingFonts[2],
+	openDyslexicFont,
 	{
 		id: "system-ui",
 		label: "System UI",

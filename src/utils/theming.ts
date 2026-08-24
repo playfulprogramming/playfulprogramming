@@ -14,6 +14,7 @@ export const THEME_FONT_FAMILIES = {
 	figtree: '"Figtree", "Arial", "Roboto", sans-serif',
 	plusJakartaSans: '"Plus Jakarta Sans", "Arial", sans-serif',
 	playpenSans: '"Playpen Sans", "Arial", sans-serif',
+	openDyslexic: '"OpenDyslexic", "Arial", sans-serif',
 	changaOne: '"Changa One", "Arial", sans-serif',
 	system:
 		'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',

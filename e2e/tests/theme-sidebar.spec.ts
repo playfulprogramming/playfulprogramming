@@ -1,8 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
-const HEADING_FONT = '"Playpen Sans", "Arial", sans-serif';
-const BODY_FONT =
-	'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+const OPEN_DYSLEXIC_FONT = '"OpenDyslexic", "Arial", sans-serif';
 
 async function openThemeSidebar(page: Page) {
 	const trigger = page.getByRole("button", {
@@ -168,8 +166,21 @@ test.describe("theme sidebar", () => {
 		await chooseMode(dialog, "Dark");
 		await dialog
 			.locator('[data-theme-font="brand"]')
-			.selectOption("playpen-sans");
-		await dialog.locator('[data-theme-font="body"]').selectOption("system-ui");
+			.selectOption("open-dyslexic");
+		await dialog
+			.locator('[data-theme-font="body"]')
+			.selectOption("open-dyslexic");
+		expect(
+			await page.evaluate(async () => {
+				const faces = await Promise.all([
+					document.fonts.load('400 16px "OpenDyslexic"'),
+					document.fonts.load('700 16px "OpenDyslexic"'),
+					document.fonts.load('italic 400 16px "OpenDyslexic"'),
+					document.fonts.load('italic 700 16px "OpenDyslexic"'),
+				]);
+				return faces.every((matches) => matches.length > 0);
+			}),
+		).toBe(true);
 		await choosePrimaryColor(dialog);
 		await dialog
 			.getByRole("button", { name: "Save changes", exact: true })
@@ -178,8 +189,8 @@ test.describe("theme sidebar", () => {
 		await expect(dialog).toBeHidden();
 		let rootTheme = await readRootTheme(page);
 		expect(rootTheme).toMatchObject({
-			bodyFont: BODY_FONT,
-			headingFont: HEADING_FONT,
+			bodyFont: OPEN_DYSLEXIC_FONT,
+			headingFont: OPEN_DYSLEXIC_FONT,
 			isDark: true,
 			isLight: false,
 			primaryHue: "90",
@@ -188,16 +199,16 @@ test.describe("theme sidebar", () => {
 		expect(storedTheme.currentTheme).toBe("dark");
 		expect(storedTheme.brandTheme).toMatchObject({
 			"hue-primary": "90",
-			"pfp-font-family-body": BODY_FONT,
-			"pfp-font-family-brand": HEADING_FONT,
+			"pfp-font-family-body": OPEN_DYSLEXIC_FONT,
+			"pfp-font-family-brand": OPEN_DYSLEXIC_FONT,
 		});
 
 		await page.reload({ waitUntil: "networkidle" });
 
 		rootTheme = await readRootTheme(page);
 		expect(rootTheme).toMatchObject({
-			bodyFont: BODY_FONT,
-			headingFont: HEADING_FONT,
+			bodyFont: OPEN_DYSLEXIC_FONT,
+			headingFont: OPEN_DYSLEXIC_FONT,
 			isDark: true,
 			isLight: false,
 			primaryHue: "90",
@@ -206,8 +217,8 @@ test.describe("theme sidebar", () => {
 		expect(storedTheme.currentTheme).toBe("dark");
 		expect(storedTheme.brandTheme).toMatchObject({
 			"hue-primary": "90",
-			"pfp-font-family-body": BODY_FONT,
-			"pfp-font-family-brand": HEADING_FONT,
+			"pfp-font-family-body": OPEN_DYSLEXIC_FONT,
+			"pfp-font-family-brand": OPEN_DYSLEXIC_FONT,
 		});
 	});
 
