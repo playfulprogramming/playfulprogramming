@@ -18,7 +18,7 @@ import { siteMetadata } from "#src/constants/site-config.ts";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 const locale = getPrefixLanguageFromPath(Astro.url.pathname);
-const isHome = path === "/";
+const isHome = path === "/" || path === "";
 const isAbout = /^\/about\/?/.test(path);
 const isJoinUs = /^\/join-us\/?/.test(path);
 const isSearch = /^\/search\/?/.test(path);
