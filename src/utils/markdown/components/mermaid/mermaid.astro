@@ -1,0 +1,9 @@
+---
+export interface Props {
+	graph: string;
+}
+
+const { graph } = Astro.props;
+---
+
+<pre class="mermaid" data-graph={graph} aria-busy="true">{graph}</pre>

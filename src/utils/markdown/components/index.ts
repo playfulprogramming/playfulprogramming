@@ -8,6 +8,7 @@ export * from "./in-content-ad/rehype-transform.ts";
 export * from "./link-preview/rehype-transform.ts";
 export * from "./tabs/rehype-transform.ts";
 export * from "./tooltip/rehype-transform.ts";
+export * from "./mermaid/rehype-transform.ts";
 export * from "./components.ts";
 export * from "./transformNoop.ts";
 export * from "./transformVoid.ts";

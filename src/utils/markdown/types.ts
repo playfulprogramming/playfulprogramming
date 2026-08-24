@@ -20,6 +20,7 @@ export interface MarkdownVFile extends VFile {
 		headingsWithIds: PostHeadingInfo[];
 		collectionLinks?: CollectionLinks[];
 		isKatexMathUsed?: boolean;
+		isMermaidUsed?: boolean;
 	};
 }
 

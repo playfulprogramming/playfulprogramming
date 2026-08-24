@@ -1,0 +1,17 @@
+pre.mermaid {
+	margin: var(--site-spacing) 0;
+	padding: var(--spc-4x);
+	overflow-x: auto;
+	text-align: center;
+
+	background-color: var(--background_primary);
+	border: var(--border-width_l) solid var(--primary_variant);
+	border-radius: var(--corner-radius_l);
+}
+
+pre.mermaid > svg {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin: 0 auto;
+}

@@ -29,7 +29,7 @@ import styles from "./blog-post.module.scss";
 import type { MarkdownHtml } from "#utils/markdown/index.ts";
 import Content from "#utils/markdown/components/content.astro";
 import KatexCss from "./katex.astro";
-import MermaidRenderer from "components/MermaidRenderer";
+import MermaidRenderer from "#components/MermaidRenderer.tsx";
 
 export interface Props {
 	post: PostInfo;
@@ -56,6 +56,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 ---
 
 {postHtml.isKatexMathUsed && <KatexCss />}
+{postHtml.isMermaidUsed && <MermaidRenderer client:load />}
 
 <script>
 	import mediumZoom from "medium-zoom";
@@ -121,7 +122,6 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 				Post contents
 			</h2>
 			<Content content={postHtml.content} />
-			<MermaidRenderer client:load />
 			{
 				collectionPosts?.length ? (
 					<ArticleNav

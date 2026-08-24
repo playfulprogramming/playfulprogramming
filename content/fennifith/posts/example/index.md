@@ -227,6 +227,16 @@ I found a trend line of $$\left(x\log_{10} x \cdot 16\right) + 101$$ was reasona
 
 Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\times10^{17}$$ MB, or 315 ZB
 
+# Mermaid Diagrams
+
+<!-- ::start:mermaid -->
+```mermaid
+flowchart LR
+    Markdown["Markdown source"] --> Transform["Mermaid component"]
+    Transform --> Diagram["Rendered diagram"]
+```
+<!-- ::end:mermaid -->
+
 # Users
 
 <!-- ::user id="crutchcorn" -->
@@ -340,4 +350,3 @@ Try running this code in your browser:
 location.href = atob("aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==");
 ```
 <!-- ::end:quiz-radio -->
-

@@ -172,7 +172,6 @@
 		"react-aria": "^3.49.0",
 		"react-aria-components": "^1.18.0",
 		"react-stately": "^3.47.0",
-		"rehype-mermaid": "^3.0.0",
 		"typesense": "^3.0.6",
 		"uuid": "^14.0.0"
 	},

@@ -32,6 +32,7 @@ import {
 	transformInContentAd,
 	transformLinkPreview,
 	transformNoop,
+	transformMermaid,
 	transformTabs,
 	transformVoid,
 } from "./components/index.ts";
@@ -49,8 +50,6 @@ import {
 } from "#utils/markdown/components/quiz/rehype-transform.ts";
 import { transformUser } from "#utils/markdown/components/user/rehype-transform.ts";
 import { transformQuizRadio } from "./components/quiz/rehype-transform-quiz-radio.ts";
-import rehypeMermaid from "rehype-mermaid";
-import { rehypeMermaidDataAttribute } from "./rehypeMermaidDataAttribute";
 
 export function createHtmlPlugins(unified: Processor) {
 	return (
@@ -80,10 +79,6 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(remarkMath)
 			.use(rehypeKatex)
 			.use(setMathProperty)
-			.use(rehypeMermaid, {
-				strategy: "pre-mermaid",
-			})
-			.use(rehypeMermaidDataAttribute)
 			/**
 			 * Insert custom HTML generation code here
 			 */
@@ -98,11 +93,6 @@ export function createHtmlPlugins(unified: Processor) {
 			})
 			.use(rehypePlayfulElementMap)
 			.use(rehypeValidateComponents)
-			// Shiki is the last plugin before stringify, to avoid performance issues
-			// with node traversal (shiki creates A LOT of element nodes)
-			.use(rehypeCodeblockMeta)
-			.use(rehypeShikiUU)
-			.use(rehypePostShikiTransform)
 			.use(rehypeTransformComponents, {
 				components: {
 					"code-embed": transformCodeEmbed,
@@ -110,6 +100,7 @@ export function createHtmlPlugins(unified: Processor) {
 					hint: transformDetails,
 					"in-content-ad": transformInContentAd,
 					"link-preview": transformLinkPreview,
+					mermaid: transformMermaid,
 					"no-ebook": transformNoop,
 					"only-ebook": transformVoid,
 					tabs: transformTabs,
@@ -118,6 +109,11 @@ export function createHtmlPlugins(unified: Processor) {
 					user: transformUser,
 				},
 			})
+			// Shiki is the last plugin before stringify, to avoid performance issues
+			// with node traversal (shiki creates A LOT of element nodes)
+			.use(rehypeCodeblockMeta)
+			.use(rehypeShikiUU)
+			.use(rehypePostShikiTransform)
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
 			.use(rehypeValidateHeadingLinks)

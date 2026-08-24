@@ -14,6 +14,7 @@ import Tooltip from "./tooltip/tooltip.astro";
 import QuizRadio from "./quiz/quiz-radio.astro";
 import User from "./user/user.astro";
 import QuizResults from "./quiz/quiz-results.astro";
+import Mermaid from "./mermaid/mermaid.astro";
 
 export interface PlayfulRoot {
 	type: "root";
@@ -88,6 +89,7 @@ export const components = {
 	QuizRadio,
 	QuizResults,
 	User,
+	Mermaid,
 } as const;
 
 export function createComponent<Key extends keyof typeof components>(
