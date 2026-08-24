@@ -1,53 +1,20 @@
 ---
-import * as fs from "fs/promises";
 import Document from "#src/layouts/document.astro";
 import SEO from "#components/seo/seo.astro";
 import AboutView from "#src/views/about/about.astro";
 import NotFoundPage from "#src/views/not-found/not-found-page.astro";
 import {
-	getLanguageFromFilename,
 	getStaticLocalePaths,
 	isLanguageKey,
+	isNonDefaultLanguageKey,
 	translate,
 } from "#utils/translations.ts";
-import { join } from "path";
-import { contentDirectory } from "#utils/data.ts";
 import type { Languages } from "#types/index.ts";
-
-interface Props {
-	file: string;
-	isFallback: boolean;
-	locales: Languages[];
-	locale: Languages;
-}
-
-async function getAboutFiles() {
-	return (await fs.readdir(join(contentDirectory, "site")))
-		.filter((filename) => filename.startsWith("about-us"))
-		.map((filename) => ({
-			file: join(contentDirectory, "site", filename),
-			locale: getLanguageFromFilename(filename),
-		}));
-}
-
-function createAboutProps(
-	files: Awaited<ReturnType<typeof getAboutFiles>>,
-	locale: Languages,
-): Props {
-	const englishFile = files.find((file) => file.locale === "en");
-	if (!englishFile) {
-		throw new Error("Missing English about page content");
-	}
-
-	const data = files.find((file) => file.locale === locale) ?? englishFile;
-
-	return {
-		file: data.file,
-		isFallback: data.locale !== locale,
-		locales: files.map((file) => file.locale),
-		locale,
-	};
-}
+import {
+	createAboutProps,
+	getAboutFiles,
+	type AboutPageProps,
+} from "#src/views/about/route-data.ts";
 
 export async function getStaticPaths() {
 	const files = await getAboutFiles();
@@ -60,14 +27,13 @@ export async function getStaticPaths() {
 
 const localeParam = Astro.params.locale;
 const isLocaleRoute =
-	localeParam === undefined ||
-	(localeParam !== "en" && isLanguageKey(localeParam));
+	localeParam === undefined || isNonDefaultLanguageKey(localeParam);
 if (!isLocaleRoute) {
 	Astro.response.status = 404;
 }
 
 const locale: Languages = isLanguageKey(localeParam) ? localeParam : "en";
-const generatedProps = Astro.props as Partial<Props>;
+const generatedProps = Astro.props as Partial<AboutPageProps>;
 const hasGeneratedProps =
 	typeof generatedProps.file === "string" &&
 	typeof generatedProps.isFallback === "boolean" &&
@@ -75,7 +41,7 @@ const hasGeneratedProps =
 const pageProps = !isLocaleRoute
 	? undefined
 	: hasGeneratedProps
-		? ({ ...generatedProps, locale } as Props)
+		? ({ ...generatedProps, locale } as AboutPageProps)
 		: createAboutProps(await getAboutFiles(), locale);
 ---
 
