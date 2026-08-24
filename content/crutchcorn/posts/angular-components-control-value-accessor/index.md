@@ -8,7 +8,7 @@
 }
 ---
 
-One of Angular's greatest strengths over its contemporaries like React or Vue is that it's a framework. What does this mean in the practical sense? Well, because you're providing the defaults for everything right out-of-the-box, you have a set of guard rails to follow when architecting new things. A set of baseline rules for things to follow, so to speak.
+One of [Angular](pfp-snitip:#angular)'s greatest strengths over its contemporaries like React or Vue is that it's a framework. What does this mean in the practical sense? Well, because you're providing the defaults for everything right out-of-the-box, you have a set of guard rails to follow when architecting new things. A set of baseline rules for things to follow, so to speak.
 
 One such guard rail comes in the form of the `@angular/forms` package. If you've used Angular for long, you're doubtlessly familiar with [the `[(ngModel)]` method of two-way data binding in the UI](https://angular.dev/guide/forms#setup-in-template-driven-forms). Seemingly all native elements have support for this feature (so long as you have `FormsModule` imported in your module).
 
@@ -323,7 +323,7 @@ They reflect states so that you can update the visuals in CSS to reflect them. W
 
 Something you'll notice that wasn't implemented in the `ControlValueAccessor` implementation is support for checking whether validators are applied. If you're a well-versed Angular Form-ite, you'll recall the ability to [validate forms using validators appended to `FormControl`s](https://angular.dev/guide/forms/form-validation#built-in-validator-functions). Although a niche situation — since most validation happens at the page level, not the component level — wouldn't it be nice to check when a form is valid or not directly from the component to which the form is attached?
 
-Well, thanks to Angular's DI system, we can do just that!
+Well, thanks to Angular's [DI system](pfp-snitip:#dependency-injection), we can do just that!
 
 However, we'll need to make a few changes to the form input [we made before](#forwardRef). While we previously implemented a provider for form controls, we now need to manually assign the provider ourselves in the constructor:
 

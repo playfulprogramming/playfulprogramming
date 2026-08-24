@@ -8,7 +8,7 @@
 }
 ---
 
-Signals are seemingly everywhere today. Among others, there's some flavor of signals in:
+[Signals](pfp-snitip:#signals) are seemingly everywhere today. Among others, there's some flavor of signals in:
 
 - [Angular](https://angular.dev/guide/signals)
 - [Vue](https://vuejs.org/guide/extras/reactivity-in-depth.html#connection-to-signals)
@@ -639,4 +639,4 @@ It might look something like this:
 >
 > Compare and contrast to, say, a `Subject` that extends an observable with the capabilities of being able to emit your own events. A good example of this might be emitting your own [`CustomEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) on the `document` object.
 
-Here, we can see that signals are a powerful primitive that takes ownership over multiple areas of the reactivity story.
+Here, we can see that signals are a powerful primitive that takes ownership over multiple areas of the [reactivity](pfp-snitip:#reactivity) story.

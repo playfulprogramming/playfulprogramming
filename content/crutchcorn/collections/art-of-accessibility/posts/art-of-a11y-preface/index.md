@@ -78,13 +78,13 @@ One area which many developers have work to do is "Accessibility".
 
 # What is accessibility?
 
-Put simply, accessibility is the idea that your apps should be usable and enjoyable to as many people as possible. Your app should be easy to understand. For example, there shouldn't be three buttons that all have the same icon and do different things.
+Put simply, [accessibility](pfp-snitip:#accessibility) is the idea that your apps should be usable and enjoyable to as many people as possible. Your app should be easy to understand. For example, there shouldn't be three buttons that all have the same icon and do different things.
 
 However, for others, they may not be able to use a mouse and need your app to support keyboard-only usage, they may be blind and need screen-readers support, or they may need your app to enable them to use other forms of assistive tech.
 
 > What's a screen-reader? What's "assistive tech"?
 
-A screen reader is a form of assistive technology that allows visually impaired users to use their computers.
+A [screen reader](pfp-snitip:#screen-reader) is a form of assistive technology that allows visually impaired users to use their computers.
 
 Consider: If you can't see your screen to read your emails, how else could you read them?
 
@@ -238,7 +238,7 @@ Luckily for all of us, there's a standards body that aims to bring much of this 
 
 You may know the work of the W3C as the stewards of the HTML and CSS standards through the HTML Working Group (HTMLWG) and CSS Working Group (CSSWG) respectively.
 
-However, you may not be familiar with their work in the accessibility space which is conducted through the WIA group. WIA is comprised of accessibility experts and professionals, organizations representing people with disabilities, policy makers, and more. Together, they publish the **"Web Content Accessibility Guidelines" (WCAG)**, which acts as the de-facto guidelines for what makes a project more or less accessible.
+However, you may not be familiar with their work in the accessibility space which is conducted through the WIA group. WIA is comprised of accessibility experts and professionals, organizations representing people with disabilities, policy makers, and more. Together, they publish the **"Web Content Accessibility Guidelines" ([WCAG](pfp-snitip:#wcag))**, which acts as the de-facto guidelines for what makes a project more or less accessible.
 
 The WCAG guidelines may see revisions and improvements through different version numbers; for example, this book aims to conform to the guidance of WCAG 2.2, but the general goal remains consistent: Help developers and organizations figure out what the best practices are for their apps' UX.
 

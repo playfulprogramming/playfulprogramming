@@ -8,7 +8,7 @@
 }
 ---
 
-TypeScript's popularity cannot be understated. Either you likely know someone who works with it, you've heard of it, or possibly you've been using it. As the language continues to grow and evolve, it can be helpful to jump into the language and play with it. Other times, however, having a reference for what the language is, what the language is not, and how it can be helpful can be of great resource. We're hoping that this page can be a good starting point for that resource.
+[TypeScript](pfp-snitip:#typescript)'s popularity cannot be understated. Either you likely know someone who works with it, you've heard of it, or possibly you've been using it. As the language continues to grow and evolve, it can be helpful to jump into the language and play with it. Other times, however, having a reference for what the language is, what the language is not, and how it can be helpful can be of great resource. We're hoping that this page can be a good starting point for that resource.
 
 > If you're more of an auditory learner, there's also a podcast episode that was done on this exact subject matter with the author of this post.
 >

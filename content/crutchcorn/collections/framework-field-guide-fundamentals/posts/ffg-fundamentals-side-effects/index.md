@@ -38,7 +38,7 @@ Let's answer these questions one by one, starting with:
 
 # What Is a Side Effect? {#whats-a-side-effect}
 
-A side effect is when a piece of code changes or relies on state outside its local environment. When a piece of code does not contain a side effect, it is considered "pure."
+A [side effect](pfp-snitip:#side-effect) is when a piece of code changes or relies on state outside its local environment. When a piece of code does not contain a side effect, it is considered "pure."
 
 ![A pure function is allowed to mutate state from within its local environment, while a side effect changes data outside its own environment](./pure-vs-side-effect.png)
 

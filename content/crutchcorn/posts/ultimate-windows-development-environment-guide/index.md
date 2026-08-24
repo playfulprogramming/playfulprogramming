@@ -494,7 +494,7 @@ git config --global core.autocrlf true
 
 ## WSL {#wsl}
 
-Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subsystem for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual machine themselves. 
+Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. [Windows Subsystem for Linux (WSL)](pfp-snitip:#wsl) enables users to run commands on a Linux instance without having to dual-boot or run a virtual machine themselves.
 
 > While the initial v1 worked by mapping system calls from Windows to Linux in a somewhat complex method, the new version (WSL2) works differently. WSL2 utilizes a Linux container in the background and enabling you to call into that container. 
 >

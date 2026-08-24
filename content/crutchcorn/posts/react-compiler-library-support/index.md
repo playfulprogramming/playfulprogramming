@@ -10,7 +10,7 @@
 
 Being the lead maintainer of TanStack Form, I wanted to make sure that we supported the then-upcoming release of React Compiler properly.
 
-While it required us to [rethink some strategies we were relying on for internal code authoring](https://github.com/TanStack/form/pull/1035), it seemed to me that we were successful in that endeavor after some testing and user feedback.
+While it required us to [rethink some strategies we were relying on for internal code authoring](https://github.com/TanStack/form/pull/1035), it seemed to me that we were successful in that endeavor after some [testing](pfp-snitip:#testing) and user feedback.
 
 After all, we could test against our examples and didn't see any issues present. It wasn't until much later when [we got a report of an issue with ternaries and compiler issues](https://github.com/TanStack/form/issues/1832) that we took a second look at things to revalidate our Compiler support.
 
@@ -124,7 +124,7 @@ export default function ScrollPosition() {
 }
 ```
 
-We can see that `t0` is defined as a memoized `<ShowScroll>` element that is not updated until `position`'s [referential stability](/posts/object-mutation#mutation) has changed.
+We can see that `t0` is defined as a [memoized](pfp-snitip:#memoization) `<ShowScroll>` element that is not updated until `position`'s [referential stability](/posts/object-mutation#mutation) has changed.
 
 Compare and contrast to the code generated when we have:
 

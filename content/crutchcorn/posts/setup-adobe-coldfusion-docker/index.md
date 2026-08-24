@@ -8,11 +8,11 @@
 }
 ---
 
-[Adobe ColdFusion](https://www.adobe.com/products/coldfusion-family.html) just saw it's newest release hit the scene: [ColdFusion 2025](https://helpx.adobe.com/coldfusion/using/whats-new.html). This release continues a trend that's been occuring for the past few years; encouraging growth and continual improvements.
+[Adobe ColdFusion](pfp-snitip:#coldfusion) just saw it's newest release hit the scene: [ColdFusion 2025](https://helpx.adobe.com/coldfusion/using/whats-new.html). This release continues a trend that's been occuring for the past few years; encouraging growth and continual improvements.
 
 One area where ColdFusion has seen intense growth is in local developer experience.
 
-Nowadays, you can setup a Visual Studio Code environment and run a ColdFusion server in Docker to easily manage a free and easy to configure programming environment.
+Nowadays, you can setup a Visual Studio Code environment and run a ColdFusion server in [Docker](pfp-snitip:#docker) to easily manage a free and easy to configure programming environment.
 
 Let's explore how to set that up.
 

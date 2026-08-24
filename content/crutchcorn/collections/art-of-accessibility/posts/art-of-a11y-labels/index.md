@@ -355,7 +355,7 @@ Well, we can add an error message to indicate that there's a problem:
 
 But once again, we run into the problem where a user utilizing a screen reader won't know that the error is present when focused on the `input` element.
 
-To solve this, we can:
+To solve this, we can use [ARIA](pfp-snitip:#aria):
 
 - Add in a `aria-invalid="true"` attribute to the `input` when the user's input is invalid
 - Link the error message `span` using `aria-errormessage` and a unique ID for the error `span`

@@ -12,7 +12,7 @@
 
 Recently we talked about [what web components are and how you can build a web app utilizing them with only vanilla JavaScript](https://coderpad.io/blog/intro-to-web-components-vanilla-js/).
 
-While web components are absolutely usable with only vanilla JavaScript, more complex usage, especially pertaining to value binding, can easily become unwieldy.
+While [web components](pfp-snitip:#web-components) are absolutely usable with only vanilla JavaScript, more complex usage, especially pertaining to value binding, can easily become unwieldy.
 
 One potential solution might be using a web component framework such as VueJS or React. However, web-standard components can still be a massive boon to development.
 
@@ -42,7 +42,7 @@ customElements.define('hello-component', MyComponent);
 <hello-component></hello-component>
 ```
 
-This initial example looks fairly similar to what the Lit counterpart of that code looks like:
+This initial example looks fairly similar to what the [Lit](pfp-snitip:#lit) counterpart of that code looks like:
 
 ```html
 <script type="module">
@@ -337,7 +337,7 @@ You may also notice that we’re binding both the user’s input and output to s
 
 HTML attributes are not the only way to pass data to a web component. Properties on the element class are a way to pass more than just a string to an element.
 
-While the `type` field can help solve this problem as well, you’re still limited by serializability, meaning that things like functions won’t be able to be passed by attributes.
+While the `type` field can help solve this problem as well, you’re still limited by [serializability](pfp-snitip:#serializability), meaning that things like functions won’t be able to be passed by attributes.
 
 While properties are a more robust method of data passing to web components, they’re seldomly used in vanilla JavaScript due to their complexity in coding.
 

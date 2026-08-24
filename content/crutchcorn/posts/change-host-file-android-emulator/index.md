@@ -9,7 +9,7 @@
 }
 ---
 
-While working on a bug in one of my projects recently, I found an  issue that I could only recreate on an Android device. However, due to  some cross-origin resource sharing (CORS) issues on my server, I had to  serve my development environment from a changed hostfile that had a  specific subdomain of my project.
+While working on a bug in one of my projects recently, I found an  issue that I could only recreate on an [Android](pfp-snitip:#android) device. However, due to  some cross-origin resource sharing (CORS) issues on my server, I had to  serve my development environment from a changed hostfile that had a  specific subdomain of my project.
 
 With the ability to use a remote Chrome debugger from your desktop to a mobile device, you can use an  emulator and still have your full Chrome debugging capabilities. The  only problem then, is how to get the host file to match your desktop  environment. Following these steps will allow you to do just that!
 
@@ -90,7 +90,7 @@ Once you’re done with running the emulator, open a new tab and run the  follow
 
 ![A screenshot of the above commands running](./7.png)
 
-Upon running these commands, you’ll find a **hosts** file. *This file is the file that tells your OS what path a given domain has.* You can, for example, map `example.com` to go to a specific IP address, similar to how DNS works for most domains.
+Upon running these commands, you’ll find a **hosts** file. *This file is the file that tells your OS what path a given domain has.* You can, for example, map `example.com` to go to a specific [IP address](pfp-snitip:#ip-address), similar to how DNS works for most domains.
 
 Inside the emulator, the IP address `10.0.2.2` refers to the *host* OS. For example, if you’re running a local server on your Windows/MacOS/Linux machine on `localhost:3000`, you can access it using `10.0.2.2:3000` from the Android emulator.
 

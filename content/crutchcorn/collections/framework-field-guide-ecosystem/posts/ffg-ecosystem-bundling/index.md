@@ -10,7 +10,7 @@
 
 <details>
     <summary>What tools are we learning in this chapter?</summary>
-There are many good options out there for bundling today:
+There are many good options out there for [bundling](pfp-snitip:#bundling) today:
 
 - [Parcel](https://parceljs.org/)
 - [Rspack](https://www.rspack.dev/)
@@ -23,7 +23,7 @@ While each comes with their own pros and cons, we're instead going to be focusin
 - Vite is widely adopted by modern React applications
 - The configurability of the other tools _can_ be more complex in many instances
 - Due to Vite's popularity, there are a lot of learning resources out there and plugins available to you immediately
-- There is an ongoing effort to migrate Vite's core ([Rollup](https://rollupjs.org/)) to Rust (under the name [Rolldown](https://rolldown.rs/)), meaning that your Vite apps will get much faster to bundle in the future
+- There is an ongoing effort to migrate Vite's core ([Rollup](https://rollupjs.org/)) to [Rust](pfp-snitip:#rust) (under the name [Rolldown](https://rolldown.rs/)), meaning that your Vite apps will get much faster to bundle in the future
 
 Without further ado, let's get to the meat of the chapter.
 
@@ -812,4 +812,3 @@ This should spit out a URL you can access to see the preview:
 <iframe data-frame-title="Vue Build - StackBlitz" src="pfp-code:./ffg-ecosystem-vue-build-5?template=node&embed=1&file=src%2Fmain.js" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 <!-- ::end:tabs -->
-

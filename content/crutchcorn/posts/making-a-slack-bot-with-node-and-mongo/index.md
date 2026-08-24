@@ -346,7 +346,7 @@ As you can see, we're able to add in the functionality for the score-keeping rel
 
 # Adding a Database {#mongodb}
 
-Even though the bot works well so far, it's not ideal to keep a score in memory. If your server crashes or if there's any other form of interruption in the process running, you'll lose all of your data. As such, we'll be replacing our local store with a database. As our data needs are simple and I want to keep this article relatively short, let's use a NoSQL database to avoid having to structure tables. We'll use MongoDB in order to keep our data stored.
+Even though the bot works well so far, it's not ideal to keep a score in memory. If your server crashes or if there's any other form of interruption in the process running, you'll lose all of your data. As such, we'll be replacing our local store with a database. As our data needs are simple and I want to keep this article relatively short, let's use a NoSQL database to avoid having to structure tables. We'll use [MongoDB](pfp-snitip:#mongodb) in order to keep our data stored.
 
 > This section will cover the setup of MongoDB Atlas, if you'd like to [skip ahead to the code section where we switch our in-memory store with a MongoDB database, you can click here](#mongodb-code)
 

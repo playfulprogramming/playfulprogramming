@@ -65,7 +65,7 @@ UUIDv2 is almost identical to [UUIDv1](/posts/what-are-uuids#UUIDv1). It contain
 
 However, there are a few small differences. Namely:
 
-- The "Clock Sequence" from UUIDv1 is changed from 3 characters to 1 as the last 2 characters are replaced with a new "Local Domain" enum value.
+- The "Clock Sequence" from UUIDv1 is changed from 3 characters to 1 as the last 2 characters are replaced with a new "Local Domain" [enum](pfp-snitip:#enum) value.
 
 - The "Low Time" is replaced with a "Local Domain Number."
 

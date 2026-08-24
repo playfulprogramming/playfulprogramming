@@ -12,7 +12,7 @@
 
 Oftentimes, in computer programming, you'll find yourself needing a way to give a unique identifier to a digital asset. For example, items such as books in your "to read" digital bookshelf, computers on your network, or rows in your database need a quick and easy way to access them. This is typically done with a distinct ID for each item.
 
-If you've done much research on this problem, you'll likely have heard of a "universally unique identifier" (UUID) or "globally unique identifier" (GUID); a way to generate IDs for these assets quickly. After all, UUID usage is wide-reaching in the software industry.
+If you've done much research on this problem, you'll likely have heard of a "[universally unique identifier (UUID)](pfp-snitip:#uuid)" or "globally unique identifier" (GUID); a way to generate IDs for these assets quickly. After all, UUID usage is wide-reaching in the software industry.
 
 While it's good to recognize popular technologies, a few questions remain:
 

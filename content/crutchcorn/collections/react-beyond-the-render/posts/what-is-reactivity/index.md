@@ -20,7 +20,7 @@ While [I have a whole (free) book on the topic](https://framework.guide), my sho
 
 > "What is reactivity?"
 
-In short, **Reactivity is the ability to reflect what's in your JavaScript application's memory on the DOM as HTML**.
+In short, **[Reactivity](pfp-snitip:#reactivity) is the ability to reflect what's in your JavaScript application's memory on the [DOM](pfp-snitip:#dom) as HTML**.
 
 See, when you're building a website using only static HTML, the output to the DOM is straightforward.
 

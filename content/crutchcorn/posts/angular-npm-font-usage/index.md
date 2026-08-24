@@ -12,13 +12,13 @@ While working on my company's shared component system, I got a request from our 
 
 While we're prepping our shared component system for an open-source release to the public, we quickly acknowledged that we couldn't possibly ship this font with the package we intend for public publishing [due to it's licensing and cost](https://www.fonts.com/font/the-foundry/foundry-sterling).
 
-However, we have multiple teams that rely on our shared component system, and we don't want to have to copy+paste the relevant `@font-face` definition or font files. What was our solution? Ship a second `npm` package (in our internal `npm` registry) that contained all of our private assets - including font files.
+However, we have multiple teams that rely on our shared component system, and we don't want to have to copy+paste the relevant `@font-face` definition or font files. What was our solution? Ship a second [`npm`](pfp-snitip:#npm) package (in our internal `npm` registry) that contained all of our private assets - including font files.
 
 Let's walk through how we did that.
 
 # Setup Assets Package {#assets-package}
 
-As we're wanting to ship our packages separately, we opted for two Git repositories for the component system and private assets. In a new repository, I have the following for the `package.json`:
+As we're wanting to ship our packages separately, we opted for two [Git](pfp-snitip:#git) repositories for the component system and private assets. In a new repository, I have the following for the `package.json`:
 
 ```json
 {

@@ -56,7 +56,7 @@ Uh oh. It's not toggling anymore! 😱
 
 > Why did that code break? We made such a simple refactor?!
 
-This migration of code broke our theme switching thanks to the underlying properties of "object mutation".
+This migration of code broke our theme switching thanks to the underlying properties of "[object mutation](pfp-snitip:#mutation)".
 
 > What's "object mutation"?
 

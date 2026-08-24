@@ -10,7 +10,7 @@
 }
 ---
 
-In the last article in the series, we outlined what a packet architected network was, what the OSI layers represent, and demonstrated how we could use physical mail as an analogy for how packet-based networks function. Since we've gone to a hundred-mile view in the last series, I figured we'd take a look at what we deliver in an HTTP network. You see, the internet, as you know it, is merely a large scale HTTP network; it's built upon the packet architecture. There are two common types of packets that are delivered in the HTTP network: UDP and TCP.
+In the last article in the series, we outlined what a packet architected network was, what the OSI layers represent, and demonstrated how we could use physical mail as an analogy for how packet-based networks function. Since we've gone to a hundred-mile view in the last series, I figured we'd take a look at what we deliver in an HTTP network. You see, the internet, as you know it, is merely a large scale HTTP network; it's built upon the packet architecture. There are two common types of packets that are delivered in the HTTP network: [UDP](pfp-snitip:#udp) and [TCP](pfp-snitip:#tcp).
 
 # Commonalities {#udp-and-tcp-both}
 
@@ -20,7 +20,7 @@ Since they're both packet-based, they both require an "address" of sorts to infe
 
 ## IP Addresses {#ip-address}
 
-The "address" used to identify the "to" and "from" metadata about a packet is an "IP Address." When you send a packet of data out, you label it with an IP address to go to; then, through a process of various other utilities processing that data, it's sent! An IP address might look something like this: `127.0.0.0`, or something like this: `0:0:0:0:0:0:0:1`
+The "address" used to identify the "to" and "from" metadata about a packet is an "[IP Address](pfp-snitip:#ip-address)." When you send a packet of data out, you label it with an IP address to go to; then, through a process of various other utilities processing that data, it's sent! An IP address might look something like this: `127.0.0.0`, or something like this: `0:0:0:0:0:0:0:1`
 
 This IP address is then stored in a packet's header ([if you recall, that's where the metadata about the packet lives](/posts/basic-overview-of-packets-and-osi/#packet-metadata)), and that's then used to direct the packet to its correct recipient.
 

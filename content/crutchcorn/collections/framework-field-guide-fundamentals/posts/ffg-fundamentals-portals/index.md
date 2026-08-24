@@ -820,7 +820,7 @@ Let's take a look at how we can build these portals ourselves.
 
 # Using Local Portals {#using-local-portals}
 
-While it's not the most useful example of using a portal, let's see how we can use a portal to teleport part of a UI to another part of the same component:
+While it's not the most useful example of using a portal, let's see how we can use a [portal](pfp-snitip:#portal) to teleport part of a UI to another part of the same component:
 
 <!-- ::start:tabs -->
 
@@ -1049,7 +1049,7 @@ Now that we know how to apply portals within a component, let's see how we can a
 
 In local portals, we were able to see that implementations of portals rely on an [element reference](/posts/ffg-fundamentals-element-reference) to be set to a variable. This tells us where we should render our portal's contents.
 
-While this worked, it didn't do much to solve the original issue that portals were set out to solve; overlapping stacking contexts.
+While this worked, it didn't do much to solve the original issue that portals were set out to solve; overlapping [stacking contexts](pfp-snitip:#stacking-context).
 
 If there was a way that we could provide a variable to all the application's components, then we could have a way to solve the stacking context problem within our apps...
 

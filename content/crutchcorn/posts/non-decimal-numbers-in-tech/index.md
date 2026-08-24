@@ -8,7 +8,7 @@
 }
 ---
 
-Computers, on a very low level, are built upon binary (ones and zeros). Think about that — all of the text you're reading on your screen started life as either a one or a zero in some form. That's incredible! How can it turn something so simple into a sprawling sheet of characters that you can read on your device? Let's find out together!
+Computers, on a very low level, are built upon [binary](pfp-snitip:#binary) (ones and zeros). Think about that — all of the text you're reading on your screen started life as either a one or a zero in some form. That's incredible! How can it turn something so simple into a sprawling sheet of characters that you can read on your device? Let's find out together!
 
 # Decimal {#decimal}
 
@@ -95,7 +95,7 @@ And voilà, you have the binary representation of `50`: **`0110010`**.
 
 # Hexadecimal {#hexadecimal}
 
-Binary isn't the only non-decimal system. You're able to use any number as your base as long as you have enough symbols to represent the digits. Let's look at another example of a non-decimal system: _hexadecimal_.
+Binary isn't the only non-decimal system. You're able to use any number as your base as long as you have enough symbols to represent the digits. Let's look at another example of a non-decimal system: _[hexadecimal](pfp-snitip:#hexadecimal)_.
 
 Hexadecimal is the base 16 number system.
 

@@ -26,7 +26,7 @@ Combined together and even a small team can maintain multiple React Native appli
 
 <img src="./rn_monorepo.png" alt="Two apps: One customer portal and one admin panel extending from shared code. Each portal has a Windows, macOS, Android, and iOS app" data-dont-round/>
 
-Unfortunately, it can be rather challenging to build out a monorepo that properly supports React Native. While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://web.archive.org/web/20230321191807/https://docs.expo.dev/introduction/why-not-expo/#expo-go).
+Unfortunately, it can be rather challenging to build out a [monorepo](pfp-snitip:#monorepo) that properly supports React Native. While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://web.archive.org/web/20230321191807/https://docs.expo.dev/introduction/why-not-expo/#expo-go).
 
 To further exacerbate the issue, React Native comes with many uncommon edgecases that make monorepos particularly challenging to create. Many of the tutorials I've found outlining how to build a monorepo for this purpose use outdated tools to work around this.
 
@@ -383,7 +383,7 @@ You should now not see any errors in your IDE!
 
 While our IDE isn't showing any errors, if we attempt to consume our library in our apps right now we'll run into various issues, because we're trying to import `.tsx` files without turning them into `.js` files first.
 
-To transform these source files, we need to configure a "Bundler" to take our source code files and turn them into compiled files to be used by our apps.
+To [bundle](pfp-snitip:#bundling) these source files, we need to configure a bundler to take our source code files and turn them into compiled files to be used by our apps.
 
 While we could theoretically use any other bundler, I find that [Vite](https://vite.dev/) is the easiest to configure and provides the nicest developer experience out-of-the-box.
 
@@ -844,7 +844,7 @@ module.exports = {
 };
 ```
 
-Which acts similarly to Vite or Webpack's `alias` field, telling Jest that "whenever one of these regexes is matched, resolve the following package instead".
+Which acts similarly to Vite or Webpack's `alias` field, telling [Jest](pfp-snitip:#jest) that "whenever one of these [regexes](pfp-snitip:#regex) is matched, resolve the following package instead".
 
 This `moduleNameMapper` allows us to make sure that each React dependency/subdependency is resolved to a singleton, rather than at the per-package path. This is less important right now with our base `shared-elements` package, and more relevant when talking about Jest usage in our apps.
 

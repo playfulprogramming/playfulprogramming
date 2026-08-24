@@ -303,7 +303,7 @@ In fact, many J.I.T languages - like Python - contain a way to optimize your cod
 
 While we've talked about compiled languages (A.O.T. and J.I.T. alike), we haven't yet talked about how computers can convert high-level language source code into assembly. How does it know what commands to map to which instructions?
 
-I'm glad you asked! Inside of **every compiler** is a piece of software that **turns your source code into something called an "Abstract Syntax Tree" (AST)**. An AST takes the human-readable text and turns it into machine-understandable data using a rigid set of rules. Once in this state, an AST is easier to map and match to the related instructions.
+I'm glad you asked! Inside of **every compiler** is a piece of software that **turns your source code into something called an [Abstract Syntax Tree (AST)](pfp-snitip:#abstract-syntax-tree)**. An AST takes the human-readable text and turns it into machine-understandable data using a rigid set of rules. Once in this state, an AST is easier to map and match to the related instructions.
 
 Let's take the following JavaScript variable assignment:
 

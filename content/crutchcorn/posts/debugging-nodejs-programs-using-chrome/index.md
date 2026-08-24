@@ -8,7 +8,7 @@
 }
 ---
 
-Debugging is one of the most difficult aspects of development. Regardless of skill level, experience, or general knowledge, every developer finds themselves in an instance where they need to drop down and start walking through the process. Many, especially those who are in complex environments or just starting on their developmental path, may utilize `console.log`s to help debug JavaScript applications. However, there is a tool for developers using Node.JS that makes debugging significantly easier in many instances.
+Debugging is one of the most difficult aspects of development. Regardless of skill level, experience, or general knowledge, every developer finds themselves in an instance where they need to drop down and start walking through the process. Many, especially those who are in complex environments or just starting on their developmental path, may utilize `console.log`s to help debug JavaScript applications. However, there is a tool for developers using [Node.JS](pfp-snitip:#nodejs) that makes debugging significantly easier in many instances.
 
 The tool I'm referring to is [the Node Debugger utility](https://nodejs.org/api/debugger.html). While this utility is powerful and helpful all on its own, _it can be made even more powerful by utilizing the power of the Chrome debugger_ to attach to a Node debuggable process in order to _provide you a GUI for a debugging mode_ in your Node.JS applications.
 
