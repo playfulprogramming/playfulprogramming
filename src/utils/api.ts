@@ -3,10 +3,12 @@ import type {
 	PostInfo,
 	RolesInfo,
 	PersonInfo,
+	TagInfo,
+	SnitipInfo,
 	PostVersion,
 	Languages,
 } from "#types/index.ts";
-import { roles, people, posts, collections } from "./data.ts";
+import { roles, people, posts, collections, tags, snitips } from "./data.ts";
 import { isDefined } from "./is-defined.ts";
 
 function compareByDate(date1: string, date2: string): number {
@@ -136,4 +138,16 @@ export function getRoleById(
 ): RolesInfo | undefined {
 	// TODO: support role name translations
 	return roles.find((r) => r.id === roleId);
+}
+
+export function getTagById(tagId: string): TagInfo | undefined {
+	return tags.get(tagId);
+}
+
+export function getSnitips(): SnitipInfo[] {
+	return [...snitips.values()];
+}
+
+export function getSnitipById(snitipId: string): SnitipInfo | undefined {
+	return snitips.get(snitipId);
 }

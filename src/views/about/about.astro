@@ -34,7 +34,15 @@ const [content1, content2, content3] = await Promise.all(
 		.map((value) =>
 			getMarkdownHtml(
 				fileInfo,
-				new VFile({ ...vfile, value }) as MarkdownVFile,
+				new VFile({
+					...vfile,
+					value,
+					data: {
+						...vfile.data,
+						headingsWithIds: [],
+						snitips: new Map(),
+					},
+				}) as MarkdownVFile,
 			),
 		),
 );

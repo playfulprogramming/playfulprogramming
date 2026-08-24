@@ -20,6 +20,10 @@ export const GET = async () => {
 		} satisfies TagFilterInfo;
 	});
 
-	const response = { people, tags } satisfies SearchFiltersData;
+	// Maps do not have a JSON representation, and search cards do not render
+	// the tag metadata. Keep the endpoint's wire shape honest by omitting it.
+	const snitips = api.getSnitips().map(({ tagsMeta: _, ...snitip }) => snitip);
+
+	const response = { people, tags, snitips } satisfies SearchFiltersData;
 	return new Response(JSON.stringify(response));
 };

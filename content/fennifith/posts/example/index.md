@@ -221,6 +221,30 @@ Pretend this is something very thought provoking[^1][^2]
 [Example Title ![](/share-banner.png)](https://example.com)
 # Heading [with a link](https://example.com) inside of it
 
+# Snitip
+
+Here's a cool sentence that talks about [Node](pfp-snitip:#nodejs)!
+
+<!-- ::start:snitip id="nodejs" -->
+## NodeJS
+
+I'd like to inform you that what you're referring to as _NodeJS_ is actually _ECMAScript + NodeJS_, or "ECMA Node" for short.
+
+NodeJS is not a **programming language** unto itself, but rather another component of a fully functioning [JavaScript](https://javascript.info) system made useful by the ECMA standards, ecosystem, and vital components comprising a full JavaScript runtime as defined by the OpenJS Foundation.
+
+- [Node.js - Run JavaScript Everywhere](https://nodejs.org/en)
+<!-- ::end:snitip -->
+
+This snitip contains [references to multiple tags](pfp-snitip:#programming).
+
+<!-- ::start:snitip id="programming" tags="java,nodejs,testing" -->
+## Programming
+
+Computers are bad
+<!-- ::end:snitip -->
+
+This is a referece to [a global tag](pfp-snitip:#javascript)!
+
 # Katex is cool $$3\times3$$
 
 I found a trend line of $$\left(x\log_{10} x \cdot 16\right) + 101$$ was reasonable. A file containing a union of size 1 is 101 bytes
@@ -340,4 +364,3 @@ Try running this code in your browser:
 location.href = atob("aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==");
 ```
 <!-- ::end:quiz-radio -->
-
