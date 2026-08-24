@@ -1,8 +1,8 @@
 ---
 title: Vice President of Engineering
 links:
-  - name: Navigating the Risks in Leadership
-    href: /posts/navigating-leadership-risks
+  - name: How a Promotion Can Kill a Career
+    href: /posts/how-a-promotion-can-kill-a-career#career-tracks
 tags:
   - leadership
 ---
