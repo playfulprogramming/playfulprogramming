@@ -1,9 +1,6 @@
 ---
 import type { Languages } from "#types/index.ts";
-import {
-	removePrefixLanguageFromPath,
-	fileToOpenGraphConverter,
-} from "#utils/translations.ts";
+import { removePrefixLanguageFromPath } from "#utils/translations.ts";
 
 export type Props = {
 	providedLangs?: Languages[];
@@ -37,7 +34,7 @@ const removeTrailingSlash = (str: string) =>
 								(locale === defaultLocale ? "" : `/${locale}`) +
 								removePrefixLanguageFromPath(pathName || ""),
 						)}
-						hreflang={fileToOpenGraphConverter(locale)}
+						hreflang={new Intl.Locale(locale).toString()}
 					/>
 				))
 			: null
