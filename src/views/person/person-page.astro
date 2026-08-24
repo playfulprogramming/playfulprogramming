@@ -34,6 +34,12 @@ const postAuthors = new Map(
 		.filter(isDefined)
 		.map((u) => [u.id, u]),
 );
+
+const postCardI18n = {
+	authorsLabel: translate(Astro, "label.post_authors"),
+	tagsLabel: translate(Astro, "label.post_tags"),
+	wordCountLabel: translate(Astro, "title.n_words"),
+};
 ---
 
 <div class={styles.container}>
@@ -100,6 +106,7 @@ const postAuthors = new Map(
 							postsToDisplay={postsToDisplay}
 							postAuthors={postAuthors}
 							postHeadingTag="h3"
+							i18n={postCardI18n}
 						/>,
 					]
 				: undefined

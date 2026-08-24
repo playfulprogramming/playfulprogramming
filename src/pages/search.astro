@@ -4,6 +4,7 @@ import SearchPage from "../views/search/search-page.tsx";
 import Document from "../layouts/document.astro";
 import SEO from "../components/seo/seo.astro";
 import { siteMetadata } from "#src/constants/site-config.ts";
+import { translate } from "#utils/translations.ts";
 ---
 
 <Document lang={"en"} size="xl">
@@ -19,6 +20,18 @@ import { siteMetadata } from "#src/constants/site-config.ts";
 				JavaScript needs to be enabled to use this page
 			</p>
 		</noscript>
-		<SearchPage client:only="preact" siteTitle={siteMetadata.title} />
+		<SearchPage
+			client:only="preact"
+			siteTitle={siteMetadata.title}
+			postCardI18n={{
+				authorsLabel: translate(Astro, "label.post_authors"),
+				tagsLabel: translate(Astro, "label.post_tags"),
+				wordCountLabel: translate(Astro, "title.n_words"),
+			}}
+			collectionCardI18n={{
+				authorsLabel: translate(Astro, "label.collection_authors"),
+				chapterCountLabel: translate(Astro, "title.n_chapters"),
+			}}
+		/>
 	</main>
 </Document>

@@ -9,12 +9,19 @@ interface CollectionCardProps {
 	collection: CollectionInfo;
 	authors: PersonInfo[];
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+	i18n: CollectionCardI18n;
+}
+
+export interface CollectionCardI18n {
+	authorsLabel: string;
+	chapterCountLabel: string;
 }
 
 export const CollectionCard = ({
 	collection,
 	authors,
 	headingTag: HeadingTag = "h2",
+	i18n,
 }: CollectionCardProps) => {
 	const coverImgAspectRatio =
 		collection.coverImgMeta.width / collection.coverImgMeta.height;
@@ -44,7 +51,7 @@ export const CollectionCard = ({
 				<ul
 					className={`unlist-inline ${style.authorList}`}
 					role="list"
-					aria-label="Collection authors"
+					aria-label={i18n.authorsLabel}
 				>
 					{authors?.map((author) => (
 						<li key={author.id}>
@@ -75,7 +82,12 @@ export const CollectionCard = ({
 					}
 				>
 					{collection.customChaptersText ?? (
-						<>{String(collection.postCount)} chapters</>
+						<>
+							{i18n.chapterCountLabel.replace(
+								"%s",
+								collection.postCount.toLocaleString(collection.locale),
+							)}
+						</>
 					)}
 				</Button>
 			</div>

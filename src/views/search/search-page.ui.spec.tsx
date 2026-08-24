@@ -232,7 +232,18 @@ function SearchPage(props: { mockClient: SearchContext }) {
 	return (
 		<SearchClient.Provider value={props.mockClient}>
 			<QueryClientProvider client={queryClient}>
-				<SearchPageBase siteTitle="Site Title" />
+				<SearchPageBase
+					siteTitle="Site Title"
+					postCardI18n={{
+						authorsLabel: "Post authors",
+						tagsLabel: "Post tags",
+						wordCountLabel: "%s words",
+					}}
+					collectionCardI18n={{
+						authorsLabel: "Collection authors",
+						chapterCountLabel: "%s chapters",
+					}}
+				/>
 			</QueryClientProvider>
 		</SearchClient.Provider>
 	);

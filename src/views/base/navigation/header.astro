@@ -80,7 +80,12 @@ const props = Astro.props;
 				{
 					!isSearch && [
 						<form method="get" action="/search" class={style.searchLarge}>
-							<SearchInput name={SEARCH_QUERY_KEY} variant="dense" />
+							<SearchInput
+								name={SEARCH_QUERY_KEY}
+								variant="dense"
+								searchLabel={translate(Astro, "title.search")}
+								clearLabel={translate(Astro, "action.clear_search")}
+							/>
 						</form>,
 
 						<IconOnlyButton

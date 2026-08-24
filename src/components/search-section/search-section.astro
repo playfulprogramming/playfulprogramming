@@ -25,7 +25,12 @@ const tagsToDisplay = [...data.tags.entries()]
 	</p>
 
 	<form class={style.searchbarRow} method="get" action="/search">
-		<SearchInput name={SEARCH_QUERY_KEY} class={style.searchbar} />
+		<SearchInput
+			name={SEARCH_QUERY_KEY}
+			class={style.searchbar}
+			searchLabel={translate(Astro, "title.search")}
+			clearLabel={translate(Astro, "action.clear_search")}
+		/>
 		<IconOnlyButton
 			tag="button"
 			type="submit"
@@ -38,7 +43,7 @@ const tagsToDisplay = [...data.tags.entries()]
 
 	<ul
 		class="unlist-inline gap-2 text-center"
-		aria-label="Post tags"
+		aria-label={translate(Astro, "label.post_tags")}
 		role="list"
 	>
 		{

@@ -1,5 +1,5 @@
 import style from "./post-card-grid.module.scss";
-import { PostCard, PostCardExpanded } from "./post-card.tsx";
+import { PostCard, PostCardExpanded, type PostCardI18n } from "./post-card.tsx";
 import type { PersonInfo } from "#types/index.ts";
 import type { HTMLAttributes } from "preact/compat";
 import { isDefined } from "#utils/is-defined.ts";
@@ -10,6 +10,7 @@ export interface PostGridProps extends HTMLAttributes<HTMLUListElement> {
 	postAuthors: Map<string, PersonInfo>;
 	postHeadingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	expanded?: boolean;
+	i18n: PostCardI18n;
 }
 
 export function PostCardGrid({
@@ -17,6 +18,7 @@ export function PostCardGrid({
 	postAuthors,
 	postHeadingTag,
 	expanded,
+	i18n,
 	...props
 }: PostGridProps) {
 	return (
@@ -34,11 +36,17 @@ export function PostCardGrid({
 						post={post}
 						authors={authors}
 						headingTag={postHeadingTag}
+						i18n={i18n}
 						// images should be loaded eagerly when presented above-the-fold
 						imageLoading={i < 4 ? "eager" : "lazy"}
 					/>
 				) : (
-					<PostCard post={post} authors={authors} headingTag={postHeadingTag} />
+					<PostCard
+						post={post}
+						authors={authors}
+						headingTag={postHeadingTag}
+						i18n={i18n}
+					/>
 				);
 			})}
 		</ul>

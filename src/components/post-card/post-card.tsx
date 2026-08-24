@@ -12,9 +12,16 @@ interface PostCardProps {
 	post: PostInfoWithBanner;
 	authors: Pick<PersonInfo, "id" | "name">[];
 	class?: string;
+	i18n: PostCardI18n;
 }
 
-function PostCardMeta({ post, authors }: PostCardProps) {
+export interface PostCardI18n {
+	authorsLabel: string;
+	tagsLabel: string;
+	wordCountLabel: string;
+}
+
+function PostCardMeta({ post, authors, i18n }: PostCardProps) {
 	return (
 		<>
 			<div className={style.postDataContainer}>
@@ -27,7 +34,7 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 					<ul
 						className={style.authorList}
 						role="list"
-						aria-label="Post authors"
+						aria-label={i18n.authorsLabel}
 					>
 						{authors.map((author, i, arr) => (
 							<li key={author.id} class="text-style-body-small-bold">
@@ -58,7 +65,10 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 							•
 						</span>
 						<span className={`text-style-body-small ${style.wordCount}`}>
-							{post.wordCount.toLocaleString("en")} words
+							{i18n.wordCountLabel.replace(
+								"%s",
+								post.wordCount.toLocaleString(post.locale),
+							)}
 						</span>
 					</span>
 				</p>
@@ -68,7 +78,7 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 				dangerouslySetInnerHTML={{ __html: post.description }}
 			/>
 			<div className={style.spacer} />
-			<ul className={style.cardList} aria-label={"Post tags"} role="list">
+			<ul className={style.cardList} aria-label={i18n.tagsLabel} role="list">
 				{post.tags.map((tag) => (
 					<li key={tag}>
 						<Chip
@@ -89,6 +99,7 @@ export const PostCardExpanded = ({
 	headingTag: HeadingTag = "h2",
 	class: className = "",
 	imageLoading = "lazy",
+	i18n,
 }: PostCardProps & { imageLoading?: "eager" | "lazy" }) => {
 	return (
 		<li
@@ -110,7 +121,7 @@ export const PostCardExpanded = ({
 						{post.title}
 					</HeadingTag>
 				</a>
-				<PostCardMeta post={post} authors={authors} />
+				<PostCardMeta post={post} authors={authors} i18n={i18n} />
 			</div>
 		</li>
 	);
@@ -121,6 +132,7 @@ export const PostCard = ({
 	authors,
 	headingTag: HeadingTag = "h2",
 	class: className = "",
+	i18n,
 }: PostCardProps) => {
 	return (
 		<li
@@ -132,7 +144,7 @@ export const PostCard = ({
 					{post.title}
 				</HeadingTag>
 			</a>
-			<PostCardMeta post={post} authors={authors} />
+			<PostCardMeta post={post} authors={authors} i18n={i18n} />
 		</li>
 	);
 };

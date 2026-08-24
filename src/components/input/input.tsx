@@ -58,6 +58,8 @@ interface SearchInputProps {
 	variant?: "default" | "dense";
 	usedInPreact?: boolean;
 	hideSearchButton?: boolean;
+	searchLabel?: string;
+	clearLabel?: string;
 }
 
 export function SearchInput({
@@ -66,6 +68,8 @@ export function SearchInput({
 	variant = "default",
 	usedInPreact,
 	hideSearchButton,
+	searchLabel = "Search",
+	clearLabel = "Clear search",
 	id: propsId,
 	type = "search",
 	...props
@@ -103,7 +107,7 @@ export function SearchInput({
 				/>
 			)}
 			<input
-				aria-label="Search"
+				aria-label={searchLabel}
 				{...props}
 				id={id}
 				type={type}
@@ -118,7 +122,7 @@ export function SearchInput({
 					tag="button"
 					type="button"
 					tabIndex={-1}
-					aria-label="Clear search"
+					aria-label={clearLabel}
 					{...clearButtonOnClickProps}
 				>
 					<div

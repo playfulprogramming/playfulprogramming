@@ -26,11 +26,26 @@ const postAuthors = new Map(
 		.filter(isDefined)
 		.map((u) => [u.id, u]),
 );
+
+const postCardI18n = {
+	authorsLabel: translate(Astro, "label.post_authors"),
+	tagsLabel: translate(Astro, "label.post_tags"),
+	wordCountLabel: translate(Astro, "title.n_words"),
+};
+
+const collectionCardI18n = {
+	authorsLabel: translate(Astro, "label.collection_authors"),
+	chapterCountLabel: translate(Astro, "title.n_chapters"),
+};
 ---
 
 <Hero />
 <section>
-	<SubHeader tag="h2" text="Recent articles" id="posts-header">
+	<SubHeader
+		tag="h2"
+		text={translate(Astro, "title.recent_articles")}
+		id="posts-header"
+	>
 		<Button
 			href={`/search?${buildSearchQuery({ searchQuery: "*", display: "articles" })}`}
 			aria-labelledby="posts-header"
@@ -44,11 +59,16 @@ const postAuthors = new Map(
 		postsToDisplay={posts}
 		postAuthors={postAuthors}
 		postHeadingTag="h3"
+		i18n={postCardI18n}
 	/>
 </section>
 
 <section>
-	<SubHeader tag="h2" text="Collections" id="collections-header">
+	<SubHeader
+		tag="h2"
+		text={translate(Astro, "title.collections")}
+		id="collections-header"
+	>
 		<Button
 			href={`/search?${buildSearchQuery({
 				searchQuery: "*",
@@ -73,6 +93,7 @@ const postAuthors = new Map(
 						.map((id) => api.getPersonById(id, collection.locale))
 						.filter(isDefined)}
 					headingTag="h3"
+					i18n={collectionCardI18n}
 				/>
 			))
 		}
