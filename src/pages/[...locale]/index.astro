@@ -1,0 +1,43 @@
+---
+import Document from "#src/layouts/document.astro";
+import { getCollectionsByLang, getPostsByLang } from "#utils/api.ts";
+import SEO from "#components/seo/seo.astro";
+import Homepage from "#src/views/explore/homepage.astro";
+import {
+	getStaticLocalePaths,
+	isLanguageKey,
+	translate,
+} from "#utils/translations.ts";
+
+export function getStaticPaths() {
+	return getStaticLocalePaths();
+}
+
+const localeParam = Astro.params.locale;
+if (localeParam !== undefined && !isLanguageKey(localeParam)) {
+	return Astro.rewrite("/404");
+}
+
+const locale = localeParam ?? "en";
+const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
+
+const posts = getPostsByLang(locale);
+const postsToDisplay = posts.slice(0, 4);
+
+const collectionsToDisplay = getCollectionsByLang(locale).slice(0, 4);
+---
+
+<Document>
+	<SEO
+		slot="head"
+		title={translate(Astro, "title.home")}
+		providedLangs={providedLangs}
+	/>
+	<main class="container">
+		<Homepage
+			posts={postsToDisplay}
+			collections={collectionsToDisplay}
+			locale={locale}
+		/>
+	</main>
+</Document>

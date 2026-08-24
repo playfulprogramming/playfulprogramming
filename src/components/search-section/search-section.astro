@@ -1,6 +1,10 @@
 ---
 import { Chip } from "../chip/chip.tsx";
-import { getPrefixLanguageFromPath, translate } from "#utils/translations.ts";
+import {
+	addPrefixLanguageToPath,
+	getPrefixLanguageFromPath,
+	translate,
+} from "#utils/translations.ts";
 import style from "./search-section.module.scss";
 import * as data from "#utils/data.ts";
 import { SearchInput } from "../input/input.tsx";
@@ -15,6 +19,7 @@ const tagsToDisplay = [...data.tags.entries()]
 	.sort(() => 0.5 - Math.random())
 	.slice(0, 8);
 const locale = getPrefixLanguageFromPath(Astro.url.pathname);
+const searchPath = addPrefixLanguageToPath("/search", locale);
 ---
 
 <section class={style.container}>
@@ -25,7 +30,7 @@ const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 		{translate(Astro, "desc.looking_for_more")}
 	</p>
 
-	<form class={style.searchbarRow} method="get" action="/search">
+	<form class={style.searchbarRow} method="get" action={searchPath}>
 		<SearchInput
 			name={SEARCH_QUERY_KEY}
 			class={style.searchbar}
@@ -50,7 +55,7 @@ const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 			tagsToDisplay.map((tag) => (
 				<li>
 					<Chip
-						href={`/search?${buildSearchQuery({
+						href={`${searchPath}?${buildSearchQuery({
 							searchQuery: "*",
 							filterTags: [tag[0]],
 						})}`}

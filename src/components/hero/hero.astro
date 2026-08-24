@@ -4,8 +4,14 @@ import BowtieButton from "../bowtie-button/bowtie-button.astro";
 import { LargeButton } from "../button/button.tsx";
 import { Icon } from "astro-icon/components";
 import style from "./hero.module.scss";
-import { translate } from "../../utils/index.ts";
+import {
+	addPrefixLanguageToPath,
+	getPrefixLanguageFromPath,
+	translate,
+} from "../../utils/index.ts";
 import * as data from "#utils/data.ts";
+
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
 <section class={`${style.header}`}>
@@ -26,7 +32,10 @@ import * as data from "#utils/data.ts";
 				/>
 				{translate(Astro, "action.join_discord")}
 			</BowtieButton>
-			<LargeButton variant="primary" href="/about">
+			<LargeButton
+				variant="primary"
+				href={addPrefixLanguageToPath("/about", locale)}
+			>
 				{translate(Astro, "action.learn_more")}
 				<Icon
 					slot="rightIcon"

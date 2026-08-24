@@ -2,7 +2,7 @@
 import { PostCardGrid } from "#src/components/post-card/post-card-grid.tsx";
 import { Button } from "#components/button/button.tsx";
 import type { Languages, PostInfo, CollectionInfo } from "#types/index.ts";
-import { translate } from "#utils/translations.ts";
+import { addPrefixLanguageToPath, translate } from "#utils/translations.ts";
 import { CollectionCard } from "#components/collection-card/collection-card.tsx";
 import { SubHeader } from "../../components/subheader/subheader.tsx";
 import Hero from "../../components/hero/hero.astro";
@@ -36,7 +36,10 @@ const postAuthors = new Map(
 		id="posts-header"
 	>
 		<Button
-			href={`/search?${buildSearchQuery({ searchQuery: "*", display: "articles" })}`}
+			href={addPrefixLanguageToPath(
+				`/search?${buildSearchQuery({ searchQuery: "*", display: "articles" })}`,
+				locale,
+			)}
 			aria-labelledby="posts-header"
 		>
 			{translate(Astro, "action.view_all")}
@@ -59,10 +62,13 @@ const postAuthors = new Map(
 		id="collections-header"
 	>
 		<Button
-			href={`/search?${buildSearchQuery({
-				searchQuery: "*",
-				display: "collections",
-			})}`}
+			href={addPrefixLanguageToPath(
+				`/search?${buildSearchQuery({
+					searchQuery: "*",
+					display: "collections",
+				})}`,
+				locale,
+			)}
 			aria-labelledby="collections-header"
 		>
 			{translate(Astro, "action.view_all")}
