@@ -292,5 +292,11 @@
 	"seo.atom_feed_title": "%s | Atom Feed",
 	"seo.rss_feed_title": "%s | RSS Feed",
 	"seo.json_feed_title": "%s | JSON Feed",
-	"seo.article_section": "Technology"
+	"seo.article_section": "Technology",
+	"date.ordinal.zero": "%sth",
+	"date.ordinal.one": "%sst",
+	"date.ordinal.two": "%snd",
+	"date.ordinal.few": "%srd",
+	"date.ordinal.many": "%sth",
+	"date.ordinal.other": "%sth"
 }
