@@ -27,7 +27,7 @@ I told Obi I'd be up for talking with them more, but that I was more interested 
 
 I remember the initial hiring conversation with their CTO vividly. He reiterated their joys with my work and that Obi had recommended having me on full-time. To my surprise, they were ready to offer a healthy pay increase from what I was currently making.
 
-I was nervous when I made my tentative proposal; "I think that's a number that would work for me, but for that much money you'd want to have someone join you as a VP, not just an IC."
+I was nervous when I made my tentative proposal; "I think that's a number that would work for me, but for that much money you'd want to have someone join you as a VP, not just an [IC](pfp-snitip:#individual-contributor)."
 
 "I'm glad you think so; I've been looking for someone to join me as my right-hand man with a more technical focus." He went on to explain that while he had worked at major tech firms, that he himself leaned more towards project management and business solutions; less towards the code or architecture itself. It's a common refrain I've heard from many CTOs who join their respective companies early on; they're often technical enough to find the right solutions and people, but may not be technical enough to scale the code beyond initial implementations.
 
@@ -35,7 +35,7 @@ And with that, I was officially in the races for a VP role.
 
 # Interviewing for the Role
 
-Leadership interviews are _weird_. They focus less on raw technical chops and more on how you'd handle given scenarios. It's a far cry from the kind of invasive leetcode questions that you either fervently love or hate. Maybe it's because I had already demonstrated many of my technical skills during the contracting phase, but I've heard similar from many of my leadership peers since.
+[Leadership](pfp-snitip:#leadership) interviews are _weird_. They focus less on raw technical chops and more on how you'd handle given scenarios. It's a far cry from the kind of invasive leetcode questions that you either fervently love or hate. Maybe it's because I had already demonstrated many of my technical skills during the contracting phase, but I've heard similar from many of my leadership peers since.
 
 A majority of my time in the interviews was spent through a conversation with their CTO. Two hours of back-n-forth, answering a question only to ask a clarification on the business itself. I have a habit of going for walks around my neighborhood during meetings where I can afford to be away from the screen. I must've looped the park nearby my house half a dozen times during that call.
 

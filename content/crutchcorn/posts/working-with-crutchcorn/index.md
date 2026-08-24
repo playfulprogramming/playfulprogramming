@@ -157,7 +157,7 @@ In short, my preferences are for:
 
 - Async communication, so people have more scheduling flexibility and fewer unnecessary interruptions
 - Glanceable communication, especially with "bottom line up front" summaries for longer docs or threads
-  - I may call this a "BLUF"
+  - I may call this a ["BLUF"](pfp-snitip:#bluf)
   - I have probably sent you one about this article already
 - Public-first conversations for shared work, so context is easier to find and more people can weigh in
 - Dedicated private spaces for feedback, sensitive topics, and conversations that should not happen in a group channel
@@ -181,7 +181,7 @@ If we work together, I hope you can expect a few things from me:
 
 That last point is especially important to me.
 
-I do not want agreement to be confused with alignment. Some of the best teams I have worked on had regular disagreement, but they also had enough trust to disagree productively, make a decision, and move forward together.
+I do not want agreement to be confused with alignment. Some of the best teams I have worked on had regular disagreement, but they also had enough [psychological safety](pfp-snitip:#psychological-safety) to disagree productively, make a decision, and move forward together.
 
 If you see something I am missing, I want to know.
 

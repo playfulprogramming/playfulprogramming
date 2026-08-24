@@ -8,7 +8,7 @@
 }
 ---
 
-In the past, Android Studio did not support AMD's CPUs for hardware emulation of an Android device. [That all changed in 2018 when Google added Hyper-V support to the Android Emulator](https://android-developers.googleblog.com/2018/07/android-emulator-amd-processor-hyper-v.html).
+In the past, Android Studio did not support AMD's CPUs for hardware emulation of an [Android](pfp-snitip:#android) device. [That all changed in 2018 when Google added Hyper-V support to the Android Emulator](https://android-developers.googleblog.com/2018/07/android-emulator-amd-processor-hyper-v.html).
 
 However, while working on my Ryzen CPU powered desktop, I had difficulties getting the program working on my machine. 
 

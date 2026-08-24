@@ -17,7 +17,7 @@ While we’ve discussed [5 tips for tech recruiting](https://coderpad.io/blog/5-
 
 Whether you’re using a JavaScript framework or simply adding logic to a vanilla JS website, good frontend candidates need to know some basics of JavaScript in order to create business logic.
 
-Some codebases may follow OOP principles while others will heavily utilize functional programming paradigms. Make sure you ask frontend candidates questions that are relevant to your project. If your app extensively utilizes classes in JavaScript, you might ask about prototype inheritance or focus on the `this` keyword. Likewise, if you’re primarily using functional coding, you might check if they’re familiar with functions-as-values - asking them to make generic functions that utilize callbacks or returned functions.
+Some codebases may follow OOP principles while others will heavily utilize [functional programming](pfp-snitip:#functional-programming) paradigms. Make sure you ask frontend candidates questions that are relevant to your project. If your app extensively utilizes classes in JavaScript, you might ask about prototype inheritance or focus on the `this` keyword. Likewise, if you’re primarily using functional coding, you might check if they’re familiar with functions-as-values - asking them to make generic functions that utilize callbacks or returned functions.
 
 Regardless of the code style you utilize, you may want to ask about JavaScript basics like variable scoping between `var`, `let`, or `const` and when each is appropriate. That said, try to avoid asking questions about niche specifics in a language. Unless you’re hiring for engineering work on a JavaScript runtime, your candidate doesn’t need to know the engine level specifics of things like “[Temporal Dead Zone](https://2ality.com/2015/10/why-tdz.html)”. 
 
@@ -60,7 +60,7 @@ A major part of collaborating within a team effectively is a candidate’s empat
 
 Part of a front-end engineer’s role is to make sure that the application they’re building is usable by all users. Making sure that users with screen-readers, color blindness, or other impairments are able to use your application as easily as other users is important. 
 
-This could mean bringing up problems with color contrasts in a provided design, making sure that the candidate is using semantic HTML, or even that they’re utilizing the right `aria` attributes. Don’t forget that CSS can impact screen-reader support through properties like flexbox’s “[order](https://developer.mozilla.org/en-US/docs/Web/CSS/order)”
+This could mean bringing up problems with color contrasts in a provided design, making sure that the candidate is using [semantic HTML](pfp-snitip:#semantic-html), or even that they’re utilizing the right `aria` attributes. Don’t forget that CSS can impact screen-reader support through properties like flexbox’s “[order](https://developer.mozilla.org/en-US/docs/Web/CSS/order)”
 
 ## Documentation
 

@@ -10,7 +10,7 @@
 
 As with anything in engineering, picking the right package manager for a project can be highly situational. Even in the webdev space: we have the mainstream appeal of [`npm`](https://www.npmjs.com/), the feature-rich [`yarn`](https://yarnpkg.com/), and others. Even moderately sized web applications need to face this question at some point in their development — The answer isn't always straightforward. However, React Native applications have the added complexity of needing to manage native dependencies as well as web dependencies.
 
-For iOS dependency management, there are two major players: [Cocoapods](https://cocoapods.org/) and [Carthage](https://github.com/Carthage/Carthage/).
+For [iOS](pfp-snitip:#ios) dependency management, there are two major players: [Cocoapods](https://cocoapods.org/) and [Carthage](https://github.com/Carthage/Carthage/).
 
 While React Native ships with Cocoapods support out-of-the-box, it's not immediately clear how to add Carthage packages to your project.
 
@@ -103,4 +103,3 @@ Please keep in mind that there may be additional steps that some dependencies wa
 As with any decision made in engineering, the choice to add Carthage as a secondary native dependency for your React Native projects is a high contextual one. However, I hope that with the information on utilizing it properly, it alleviates some of the stress in integrating it.
 
 If you run into any problems integrating Carthage, you can always ask for help in the comments down below or [join our Discord](https://discord.playfulprogramming.com) and ask for help there as well.
-

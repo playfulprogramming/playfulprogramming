@@ -285,7 +285,7 @@ export function Todo({ todos, addTodo }) {
 
 ## `useActionState` usage without client-side JavaScript
 
-Because `useActionState` utilizes the `<form>` element's native `action` attribute under-the-hood, it works even without JavaScript enabled.
+Because `useActionState` utilizes the `<form>` element's native `action` attribute under-the-hood, it follows [progressive enhancement](pfp-snitip:#progressive-enhancement) and works even without JavaScript enabled.
 
 Assume you have the above sample code, but you have JavaScript disabled. When you click the submit button, the form will submit to the `action` attribute, and the page will refresh with the new information for the user.
 

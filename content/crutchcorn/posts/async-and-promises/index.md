@@ -8,7 +8,7 @@
 }
 ---
 
-When using JavaScript, you'll likely to've run into a function like `fetch` that doesn't pass you a value immediately.
+When using [JavaScript](pfp-snitip:#javascript), you'll likely to've run into a function like `fetch` that doesn't pass you a value immediately.
 
 ```javascript
 const res = fetch("example.com/something");

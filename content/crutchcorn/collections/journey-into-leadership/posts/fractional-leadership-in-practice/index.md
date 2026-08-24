@@ -11,17 +11,23 @@
 
 [My friend Obi introduced me to his CTO to help them solve some issues with their 3D code.](/posts/the-power-of-showing-up)
 
-I spoke with their CTO. I listened to their business needs. I pitched my vision of a potential solution. I won the contract.
+I spoke with their [CTO](pfp-snitip:#cto). I listened to their business needs. I pitched my vision of a potential solution. I won the contract.
 
 What ultimately swayed them wasn't the short-term gains, but the ability to have a stable environment in which they could quickly iterate and experiment in order to scale their software in the long run. They had a lot of plans for their software, and their current codebase was complex, hard to debug or extend, and relied on niche software. As a result, the 3D project had many bugs present.
 
-In the end, we found ourselves looking at a 30-hour timebox to experiment with a version of their 3D software rebuilt into Unity. What's more, they wanted a gut check on the rest of their frontend codebase to understand the pros and cons of their decision-making. In many ways, this was less of a purely technical contract and more of a leadership contract. I was being asked to lead the technical direction of their 3D software, while also providing guidance on how to improve their frontend codebase.
+In the end, we found ourselves looking at a 30-hour timebox to experiment with a version of their 3D software rebuilt into Unity. What's more, they wanted a gut check on the rest of their frontend codebase to understand the pros and cons of their decision-making. In many ways, this was less of a purely technical contract and more of a [fractional leadership contract](pfp-snitip:#fractional-leadership). I was being asked to lead the technical direction of their 3D software, while also providing guidance on how to improve their frontend codebase.
+
+<!-- ::start:snitip id="fractional-leadership" tags="leadership" -->
+## Fractional Leadership
+
+Fractional leadership is an arrangement in which an experienced leader serves an organization for only part of their working time or for a limited engagement. It gives a team access to senior guidance without hiring that role full-time.
+<!-- ::end:snitip -->
 
 It felt like someone had fired a gun in the air to instigate a race: The clock was ticking. Luckily for me, I had done contracts in the past; this wasn't a new feeling for me.
 
 Many of my early hours were spent researching different solutions; while we knew that Unity was the right pick for web support, we didn't know yet where to ingest data from or how to process the data in the most efficient way once it got into the engine.
 
-About three hours in, I had researched and played with a few of the choices and even made a few tiny prototypes to feel out the main differences. By hour seven, I had the minimum viable product (MVP) ready with some minor hiccups along the way. Hours eight and nine were spent pair-coding with Obi to refine the MVP to demo.
+About three hours in, I had researched and played with a few of the choices and even made a few tiny prototypes to feel out the main differences. By hour seven, I had the [minimum viable product (MVP)](pfp-snitip:#minimum-viable-product) ready with some minor hiccups along the way. Hours eight and nine were spent pair-coding with Obi to refine the MVP to demo.
 
 And that was a wrap! A 30-hour contract wrapped up in 9 hours.
 

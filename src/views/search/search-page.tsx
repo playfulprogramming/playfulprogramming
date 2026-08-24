@@ -45,6 +45,7 @@ import {
 	// HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 } from "./constants.ts";
 import { useFilterState } from "./use-filter-state.ts";
+import { SnitipCardGrid } from "#components/snitip/snitip-card.tsx";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -140,17 +141,18 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const enabled = !!query.searchQuery;
 
 	const {
-		isLoading: isLoadingPeople,
-		isFetching: isFetchingPeople,
-		isError: isErrorPeople,
-		error: errorPeople,
-		data: people,
+		isLoading: isLoadingFilters,
+		isFetching: isFetchingFilters,
+		isError: isErrorFilters,
+		error: errorFilters,
+		data: searchFilters,
 	} = useQuery({
 		queryFn: fetchSearchFilters,
 		queryKey: ["people"],
 		initialData: {
 			people: [],
 			tags: [],
+			snitips: [],
 		} as SearchFiltersData,
 		refetchOnWindowFocus: false,
 		retry: false,
@@ -204,17 +206,20 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const tagCounts = usePersistedEmptyRef(
 		useMemo(() => {
 			const tags: Array<[string, number]> = isWildcardSearch
-				? people.tags.map((tag) => [tag.id, tag.totalPostCount])
+				? searchFilters.tags.map((tag) => [tag.id, tag.totalPostCount])
 				: Object.entries(data.tags);
 			const filteredTags = tags.filter(([_, count]) => count >= 3);
 
 			return Object.fromEntries(filteredTags.length > 5 ? filteredTags : tags);
-		}, [isWildcardSearch, data.tags, people.tags]),
+		}, [isWildcardSearch, data.tags, searchFilters.tags]),
 	);
 	const authorCounts = usePersistedEmptyRef(
 		isWildcardSearch
 			? Object.fromEntries(
-					people.people.map((person) => [person.id, person.totalPostCount]),
+					searchFilters.people.map((person) => [
+						person.id,
+						person.totalPostCount,
+					]),
 				)
 			: data.authors,
 	);
@@ -228,13 +233,13 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	// );
 	const isHybridSearch = useMemo(() => false, []);
 
-	const isError = isErrorPeople || isErrorData;
+	const isError = isErrorFilters || isErrorData;
 
 	useEffect(() => {
-		if (errorPeople) {
-			console.error("There was an error", { error: errorPeople });
+		if (errorFilters) {
+			console.error("There was an error", { error: errorFilters });
 		}
-	}, [errorPeople]);
+	}, [errorFilters]);
 
 	useEffect(() => {
 		if (errorData) {
@@ -243,7 +248,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	}, [errorData]);
 
 	const isContentLoading =
-		isLoadingData || isFetchingData || isLoadingPeople || isFetchingPeople;
+		isLoadingData || isFetchingData || isLoadingFilters || isFetchingFilters;
 
 	const filterState = useFilterState({
 		tags: query.filterTags,
@@ -289,8 +294,8 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	);
 
 	const peopleMap = useMemo(() => {
-		return new Map(people.people.map((person) => [person.id, person]));
-	}, [people.people]);
+		return new Map(searchFilters.people.map((person) => [person.id, person]));
+	}, [searchFilters.people]);
 
 	const showArticles = query.display === "articles";
 
@@ -343,6 +348,26 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 				showArticles &&
 				data.posts.length === 0 &&
 				data.collections.length === 0));
+
+	const snitips = useMemo(() => {
+		const matchingSnitips = searchFilters.snitips.filter((snitip) =>
+			query.filterTags.some((tag) => snitip.tags.includes(tag)),
+		);
+		let bestSnitip = matchingSnitips[0];
+		let bestScore = -1;
+
+		for (const snitip of matchingSnitips) {
+			const score = snitip.tags
+				.filter((tag) => query.filterTags.includes(tag))
+				.reduce((total, tag) => total + (data.tags[tag] ?? 0), 0);
+			if (score > bestScore) {
+				bestSnitip = snitip;
+				bestScore = score;
+			}
+		}
+
+		return bestSnitip ? [{ ...bestSnitip, tagsMeta: new Map() }] : [];
+	}, [searchFilters.snitips, query.filterTags, data.tags]);
 
 	return (
 		<div
@@ -459,6 +484,22 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 							}
 						/>
 					)}
+					{enabled &&
+						!isContentLoading &&
+						!noResults &&
+						query.page === 1 &&
+						Boolean(snitips.length) && (
+							<div className={style.snitipsContainer}>
+								<h2 id="snitips-header" className="visually-hidden">
+									Tags
+								</h2>
+								<SnitipCardGrid
+									snitips={snitips}
+									headingTag="h3"
+									aria-labelledby="snitips-header"
+								/>
+							</div>
+						)}
 					{enabled &&
 						!isContentLoading &&
 						showCollections &&

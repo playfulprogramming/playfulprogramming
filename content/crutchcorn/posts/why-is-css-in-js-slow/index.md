@@ -8,7 +8,7 @@
 }
 ---
 
-If you've worked with frameworks like React, Angular, or Vue in the past you'll likely have used (or heard of) a CSS-in-JS solution like [Styled Components](https://styled-components.com/), [Emotion CSS](https://emotion.sh/docs/introduction), or [JSS](https://cssinjs.org/).
+If you've worked with frameworks like React, Angular, or Vue in the past you'll likely have used (or heard of) a [CSS-in-JS](pfp-snitip:#css-in-js) solution like [Styled Components](https://styled-components.com/), [Emotion CSS](https://emotion.sh/docs/introduction), or [JSS](https://cssinjs.org/).
 
 While these frameworks have the superpower of being able to reuse existing knowledge of JavaScript to generate complex stylesheets, they come with their fair share of downsides.
 
@@ -24,7 +24,7 @@ Let's explore why that is, what some libraries have done to sidestep the problem
 
 # How CSS is parsed
 
-Like any other high-level language, CSS is written in plain text. While we have special syntax highlighting in our IDEs for CSS, there's no reason you couldn't write CSS in `Notepad.exe` and have it function the same.
+Like any other high-level language, [CSS](pfp-snitip:#css) is written in plain text. While we have special syntax highlighting in our IDEs for CSS, there's no reason you couldn't write CSS in `Notepad.exe` and have it function the same.
 
 For example:
 

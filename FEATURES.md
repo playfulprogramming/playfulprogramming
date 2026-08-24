@@ -246,6 +246,60 @@ These can also be created manually by wrapping an image inside a link, optionall
 [Example Title ![](./link-preview.png)](https://example.com)
 ```
 
+### Snitips
+
+![](./assets/snitip.png)
+
+Snitips add supplemental definitions or context to an inline phrase without interrupting the article. Reference a snitip by linking to its ID with the `pfp-snitip:` protocol:
+
+```markdown
+Learn more about [Node](pfp-snitip:#nodejs).
+```
+
+A post can define that snitip locally with a component block:
+
+```markdown
+<!-- ::start:snitip id="nodejs" tags="javascript,nodejs" -->
+## NodeJS
+
+NodeJS is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+
+- [Node.js documentation](https://nodejs.org/en/docs)
+<!-- ::end:snitip -->
+```
+
+Local snitips support the following:
+
+- `id`: The required ID used by `pfp-snitip:#id` references.
+- `tags`: An optional comma-separated list of tag IDs.
+- The first heading supplies the snitip title.
+- A final unordered list containing only links is displayed as the snitip's related links.
+- Other Markdown between the heading and related links becomes the description.
+
+Reusable global snitips live in [`content/data/snitips`](./content/data/snitips). Their ID is the filename without `.md`, and they use frontmatter for their metadata:
+
+```markdown
+---
+title: JavaScript
+icon: /stickers/javascript.svg
+links:
+  - name: Documentation - MDN Web Docs
+    href: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+tags:
+  - javascript
+---
+
+JavaScript is a programming language and core technology of the Web.
+```
+
+This global snitip can be referenced in a post with:
+
+```markdown
+Learn more about [JavaScript](pfp-snitip:#javascript).
+```
+
+Local definitions take precedence over global snitips with the same ID. On the website, a reference opens an accessible dialog and can also preview on hover-capable devices. In EPUB output, the reference remains as plain inline text because the interactive dialog is unavailable.
+
 ### Tabs
 
 Tabs are a way to organize content in a tabbed interface. They are useful for organizing content that is related but not necessarily sequential.

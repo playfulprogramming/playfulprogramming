@@ -11,7 +11,7 @@
 }
 ---
 
-Alright alright, I know for a lot of the last article seemed like a big ad for Lit. That said, I promise I’m not unable to see the advantages of other frameworks. Lit is a tool in a web developer’s toolbox. Like any tool, it has its pros and cons: times when it’s the right tool for the job, and other times when it’s less so.
+Alright alright, I know for a lot of the last article seemed like a big ad for [Lit](pfp-snitip:#lit). That said, I promise I’m not unable to see the advantages of other frameworks. Lit is a tool in a web developer’s toolbox. Like any tool, it has its pros and cons: times when it’s the right tool for the job, and other times when it’s less so.
 
 That said, I’d argue that using an existing framework is more often the better tool for the job than vanilla web components. 
 

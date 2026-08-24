@@ -221,7 +221,7 @@ function ThemePreviewRow({ type, themeColor }) {
 }
 ```
 
-This allows us to avoid passing down the entire theme for each `ThemePreviewRow` components, instead relying on `cache`'s memoization to allow multiple components to access the values each.
+This allows us to avoid passing down the entire theme for each `ThemePreviewRow` components, instead relying on `cache`'s [memoization](pfp-snitip:#memoization) to allow multiple components to access the values each.
 
 <iframe data-frame-title="React Theme Cache - StackBlitz" src="pfp-code:./react-theme-cache?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 

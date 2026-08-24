@@ -9,9 +9,15 @@
 }
 ---
 
-Python list comprehensions allow for powerful and readable list mutations. In this article, we'll learn many different ways in how they can be used and where they're most useful. 
+Python [list comprehensions](pfp-snitip:#list-comprehension) allow for powerful and readable list mutations. In this article, we'll learn many different ways in how they can be used and where they're most useful.
 
-Python is an incredibly powerful language that’s widely adopted across a wide range of applications. As with any language of sufficient complexity, Python enables multiple ways of doing things. However, the community at large has agreed that code should follow a specific pattern: be “Pythonic”. While “Pythonic” is a community term, the official language defines what they call [“The Zen of Python” in PEP 20](https://www.python.org/dev/peps/pep-0020/). To quote just a small bit of it:
+<!-- ::start:snitip id="list-comprehension" tags="python" -->
+## Python List Comprehension
+
+A list comprehension is compact Python syntax for constructing a list by evaluating an expression for each item in an iterable, optionally filtering which items are included.
+<!-- ::end:snitip -->
+
+[Python](pfp-snitip:#python) is an incredibly powerful language that’s widely adopted across a wide range of applications. As with any language of sufficient complexity, Python enables multiple ways of doing things. However, the community at large has agreed that code should follow a specific pattern: be “Pythonic”. While “Pythonic” is a community term, the official language defines what they call [“The Zen of Python” in PEP 20](https://www.python.org/dev/peps/pep-0020/). To quote just a small bit of it:
 
 > Explicit is better than implicit.
 >

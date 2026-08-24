@@ -32,7 +32,7 @@ Test(); // 1
 Test(); // 1
 ```
 
-See, to make the magic of a function remembering state to work, Hooks don't just _work alongside_ the VDOM, the method of persisting data in a component from a function **requires** the VDOM.
+See, to make the magic of a function remembering state to work, [Hooks](pfp-snitip:#react-hooks) don't just _work alongside_ the VDOM, the method of persisting data in a component from a function **requires** the VDOM.
 
 Here's one way we could persist state using a naïve implementation of hooks storage using an array:
 

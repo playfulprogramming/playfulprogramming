@@ -109,7 +109,7 @@ Finally, I look at the data requirements and features and start thinking about w
 
 - I am going to be focusing on per-user UI (achievements, dashboards, etc.)
 
-	As such, my use of something like [Gatsby](https://www.gatsbyjs.com/) for static site generation (SSG) isn't realistically beneficial. We could go with server-side rendering (SSR) with something like [Next.JS](https://nextjs.org/), but due to using a lot of media (video/picture), I'd argue there's not much of a return-on-investment (ROI) by building SSR-first since the content has to be loaded by the DOM regardless.
+	As such, my use of something like [Gatsby](https://www.gatsbyjs.com/) for [static site generation (SSG)](pfp-snitip:#ssg) isn't realistically beneficial. We could go with [server-side rendering (SSR)](pfp-snitip:#ssr) with something like [Next.JS](https://nextjs.org/), but due to using a lot of media (video/picture), I'd argue there's not much of a return-on-investment (ROI) by building SSR-first since the content has to be loaded by the DOM regardless.
 
 - I'm not likely to have many forms in my application - primarily focusing on viewing rather than form creation
 

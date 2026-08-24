@@ -14,7 +14,7 @@ This article tracked well in my mind, but led to some confusion towards the end.
 
 > Hopefully you have now gained at least a little sympathy for the Haskell purist who laments JavaScript’s lack of 1st class support for monads.
 
-Not having much Haskell experience, this made me wonder "What does first-class support for monads _even look like_?"
+Not having much Haskell experience, this made me wonder "What does first-class support for [monads](pfp-snitip:#monad) _even look like_?"
 
 # Exploring Haskell and Scala Monad support
 

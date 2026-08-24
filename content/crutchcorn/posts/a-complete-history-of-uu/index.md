@@ -120,7 +120,7 @@ While Unicorn Utterances has always been a volunteer-ran platform, let's a look 
 
 - November 8th, 2022: [The new landing page for "The Framework Field Guide" starts development.](https://github.com/playfulprogramming/playfulprogramming/pull/436)
 
-- December 3rd, 2022: The site's migration to Astro is finalized, original design in place. The lighthouse score on every page is improved; on some pages it is even doubled.
+- December 3rd, 2022: The site's migration to [Astro](pfp-snitip:#astro) is finalized, original design in place. The lighthouse score on every page is improved; on some pages it is even doubled.
 
 - December 6th, 2022: The new landing page for "The Framework Field Guide" launches
 

@@ -12,7 +12,7 @@ Dimensions are weird. While most web apps seem to focus on the `x` and `y` axis,
 
 ![A view of Google in Microsoft Edge's 3D View debugger mode](./google_3d_view.png)
 
-While this is cool, by introducing a third dimension to our web pages, we introduce the ability for elements to overlap with one another. Managing overlapping issues using CSS is _tricky_. 
+While this is cool, by introducing a third dimension to our web pages, we introduce the ability for elements to overlap with one another. Managing overlapping issues using [CSS](pfp-snitip:#css) is _tricky_.
 
 Sure, you have a [`z-index`](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index), which many claim is an easy way to manage an element's `z` axis, but it seems so brittle and inconsistent!
 
@@ -463,7 +463,7 @@ Unfortunately, it does.
 
 ----
 
-At its heart, a stacking context is a group that you can move multiple items up or down the `z`-axis at the same time.
+At its heart, a [stacking context](pfp-snitip:#stacking-context) is a group that you can move multiple items up or down the `z`-axis at the same time.
 
 Take the following HTML:
 
@@ -838,7 +838,7 @@ function openDialog() {
 
 In this instance, [without moving the state out of dialog](/posts/master-react-unidirectional-data-flow), how would you render the contents of `Dialog` after the `Footer` component?
 
-The answer? JavaScript Portals.
+The answer? JavaScript [Portals](pfp-snitip:#portal).
 
 [React has `createPortal`](https://reactjs.org/docs/portals.html), [Angular has the CDK Portal API](https://material.angular.dev/cdk/portal/overview), and [Vue has their `<Teleport>` component](https://vuejs.org/guide/built-ins/teleport.html).
 

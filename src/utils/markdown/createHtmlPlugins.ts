@@ -30,12 +30,17 @@ import {
 	transformDetails,
 	transformFileTree,
 	transformInContentAd,
+	transformSnitip,
 	transformLinkPreview,
 	transformNoop,
 	transformMermaid,
 	transformTabs,
 	transformVoid,
 } from "./components/index.ts";
+import {
+	rehypeSnitipLinks,
+	rehypeSnitipTemplates,
+} from "./snitip-link/rehype-transform.ts";
 import {
 	rehypeCodeEmbed,
 	transformCodeEmbed,
@@ -103,14 +108,18 @@ export function createHtmlPlugins(unified: Processor) {
 					mermaid: transformMermaid,
 					"no-ebook": transformNoop,
 					"only-ebook": transformVoid,
+					snitip: transformSnitip,
 					tabs: transformTabs,
 					"quiz-radio": transformQuizRadio,
 					quiz: transformQuiz,
 					user: transformUser,
 				},
 			})
-			// Shiki is the last plugin before stringify, to avoid performance issues
-			// with node traversal (shiki creates A LOT of element nodes)
+			// Resolve local definitions after component transforms have populated
+			// the VFile's snitip map, even when a link appears first in the document.
+			.use(rehypeSnitipLinks)
+			// Shiki must run after component transforms so Mermaid receives the
+			// original fenced code block rather than Shiki-generated spans.
 			.use(rehypeCodeblockMeta)
 			.use(rehypeShikiUU)
 			.use(rehypePostShikiTransform)
@@ -124,6 +133,7 @@ export function createHtmlPlugins(unified: Processor) {
 				className: (depth: number) =>
 					`text-style-headline-${Math.min(depth + 1, 6)}`,
 			})
+			.use(rehypeSnitipTemplates)
 			.use(rehypePluginComponents, {
 				htmlOptions: {
 					allowDangerousHtml: true,

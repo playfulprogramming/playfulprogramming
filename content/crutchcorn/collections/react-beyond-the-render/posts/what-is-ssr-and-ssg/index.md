@@ -10,7 +10,7 @@
 }
 ---
 
-In recent years, projects like [Vercel's NextJS](https://nextjs.org/) and [Gatsby](https://www.gatsbyjs.com/) have garnered acclaim and higher and higher usage numbers. Not only that, but their core concepts of Server Side Rendering (SSR) and Static Site Generation (SSG) have been seen in other projects and frameworks such as [Angular Universal](https://angular.dev/guide/ssr), [ScullyIO](https://scully.io/), and [NuxtJS](https://nuxtjs.org/). Why is that? What _is_ SSR and SSG? How can I use these concepts in my applications?
+In recent years, projects like [Vercel's NextJS](https://nextjs.org/) and [Gatsby](https://www.gatsbyjs.com/) have garnered acclaim and higher and higher usage numbers. Not only that, but their core concepts of [Server Side Rendering (SSR)](pfp-snitip:#ssr) and [Static Site Generation (SSG)](pfp-snitip:#ssg) have been seen in other projects and frameworks such as [Angular Universal](https://angular.dev/guide/ssr), [ScullyIO](https://scully.io/), and [NuxtJS](https://nuxtjs.org/). Why is that? What _is_ SSR and SSG? How can I use these concepts in my applications?
 
 We'll walk through all of these questions and provide answers for each. First, we have to have an understanding of how a typical HTML site is able to serve content to your user.
 
@@ -29,7 +29,7 @@ This is a reasonably straightforward flow once you get the hang of it. Let's tak
 
 # Client Side Rendering {#csr}
 
-While you may not be familiar with this term, you're more than likely familiar with how you'd implement one of these; After all, this is the default when building an Angular, React, or Vue site. Let's use a React site as an example. When you build a typical React SPA without utilizing a framework like NextJS or Gatsby, you'd:
+While you may not be familiar with [client-side rendering (CSR)](pfp-snitip:#csr), you're more than likely familiar with how you'd implement it; after all, this is the default when building an Angular, React, or Vue site. Let's use a React site as an example. When you build a typical React SPA without utilizing a framework like NextJS or Gatsby, you'd:
 
 1) You build the React code
 2) You put it on a server
@@ -80,7 +80,7 @@ While the industry widely recognizes the term "Static Site Generation," I prefer
 
 This simply extends the existing build process that many front-end frameworks have. After [Babel's done with its transpilation](https://babeljs.io/), it merely executes code to compile your initial screen into static HTML and CSS. This isn't entirely dissimilar from how SSR hydrates your initial screen, but it's done at compile-time, not at request time. 
 
-Since you're only hosting HTML and CSS again, you're able to host your site as you would a client-side rendered app: Using a CDN. This means that you can geo-sparse your hosting much more trivially but comes with the caveat that you're no longer to do rapid network queries to generate the UI as you could with SSR.
+Since you're only hosting HTML and CSS again, you're able to host your site as you would a client-side rendered app: Using a [CDN](pfp-snitip:#cdn). This means that you can geo-sparse your hosting much more trivially but comes with the caveat that you're no longer to do rapid network queries to generate the UI as you could with SSR.
 
 # Pros and Cons {#pros-and-cons}
 

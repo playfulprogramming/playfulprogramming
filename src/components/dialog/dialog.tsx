@@ -4,6 +4,7 @@ import { useRef, useEffect, useCallback } from "preact/hooks";
 import style from "./dialog.module.scss";
 
 type DialogProps = PropsWithChildren<{
+	id?: string;
 	open: boolean;
 	dialogClass?: string;
 	formClass?: string;
@@ -40,10 +41,18 @@ export function Dialog({
 	}, [open]);
 
 	// When the dialog backdrop is clicked (target == <dialog>),
-	// call `props.onClose(undefined)`
+	// call `props.onClose(undefined)` to handle a light dismiss action
+	// (only needed if the closedBy attribute is unsupported)
 	const handleClick = useCallback(
 		(e: Event) => {
-			if (e.target === dialogRef.current) onClose();
+			// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore Missing DOM types
+			if (typeof dialogRef.current?.closedBy == "undefined") {
+				if (e.target === dialogRef.current) {
+					onClose();
+				}
+			}
 		},
 		[onClose],
 	);
@@ -59,6 +68,10 @@ export function Dialog({
 			onClose={handleClose}
 			onClick={handleClick}
 			class={`${style.dialog} ${dialogClass ?? ""}`}
+			// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore Yes, this exists. It's fine.
+			closedby="any"
 			ref={dialogRef}
 			{...props}
 		>

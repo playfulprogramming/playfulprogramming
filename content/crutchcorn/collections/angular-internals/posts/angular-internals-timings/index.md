@@ -27,7 +27,7 @@ And in older Angular projects, this comes via lifecycle methods:
 - `ngAfterViewInit`
 - `ngAfterViewChecked`
 
-However, both of these methods of effect handling come with one major similarity; they both integrate into a component's lifecycle in one way or another.
+However, both of these methods of effect handling come with one major similarity; they both integrate into a [component's](pfp-snitip:#component) lifecycle in one way or another.
 
 When does `ngOnChanges` run in comparison to `afterRenderEffect`? Why does `ngDoCheck` seem to run more often than `ngOnInit`?
 

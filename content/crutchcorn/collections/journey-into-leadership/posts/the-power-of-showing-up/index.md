@@ -37,7 +37,7 @@ Without too much thought behind it, I posed a question: "Why not use Unity? It r
 
 This simple question led to a conversation around their team's pipelines, the challenges they were facing, and that — while they were not using Unreal on the web — they were investigating using Unity for their web needs.
 
-The next thing I knew, Obi had sent an email introducing me and their CTO to kickoff conversations. Those conversations would ultimately yield me being hired as VP of their org.
+The next thing I knew, Obi had sent an email introducing me and their [CTO](pfp-snitip:#cto) to kickoff conversations. Those conversations would ultimately yield me being hired as VP of their org.
 
 -----
 

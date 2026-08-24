@@ -6,6 +6,7 @@ export * from "./hint/rehype-transform.ts";
 export * from "./filetree/rehype-transform.ts";
 export * from "./in-content-ad/rehype-transform.ts";
 export * from "./link-preview/rehype-transform.ts";
+export * from "./snitip/rehype-transform.ts";
 export * from "./tabs/rehype-transform.ts";
 export * from "./tooltip/rehype-transform.ts";
 export * from "./mermaid/rehype-transform.ts";
