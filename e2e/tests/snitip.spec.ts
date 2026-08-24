@@ -54,6 +54,16 @@ async function expectTransparentBackdrop(dialog: Locator) {
 	).toMatch(/(?:transparent|rgba\(0, 0, 0, 0\))/);
 }
 
+async function expectBackdropColor(dialog: Locator, color: string) {
+	await expect
+		.poll(() =>
+			dialog.evaluate(
+				(element) => getComputedStyle(element, "::backdrop").backgroundColor,
+			),
+		)
+		.toBe(color);
+}
+
 async function hasVisibleFocusOutline(element: Locator) {
 	return element.evaluate((focusedElement) => {
 		const style = getComputedStyle(focusedElement);
@@ -234,7 +244,7 @@ test.describe("snitip desktop hover dialog", () => {
 });
 
 for (const { name, width, anchored } of [
-	{ name: "anchored desktop", width: 1200, anchored: true },
+	{ name: "anchored desktop", width: 1400, anchored: true },
 	{ name: "centered mobile", width: 600, anchored: false },
 ]) {
 	test(`snitip ${name} is an accessible modal`, async ({ page }) => {
@@ -278,7 +288,23 @@ for (const { name, width, anchored } of [
 		expect(await snitip.dialog.evaluate((el) => el.matches(":modal"))).toBe(
 			true,
 		);
-		await expectTransparentBackdrop(snitip.dialog);
+		if (anchored) {
+			await expectTransparentBackdrop(snitip.dialog);
+		} else {
+			await page.evaluate(() =>
+				document.documentElement.classList.remove("dark"),
+			);
+			await expectBackdropColor(snitip.dialog, "rgba(0, 0, 0, 0.32)");
+			await page.evaluate(() => document.documentElement.classList.add("dark"));
+			await expectBackdropColor(snitip.dialog, "rgba(0, 0, 0, 0.72)");
+			await page.evaluate(() =>
+				document.documentElement.classList.remove("dark"),
+			);
+		}
+		await expect(snitip.dialog.locator("p").first()).toHaveCSS(
+			"font-size",
+			"16px",
+		);
 		await expect(snitip.title).toBeFocused();
 		expect(await hasVisibleFocusOutline(snitip.title)).toBe(true);
 		await page.keyboard.press("Shift+Tab");

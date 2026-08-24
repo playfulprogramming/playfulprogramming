@@ -210,6 +210,16 @@
 	}
 }
 
+@include until($tabletLarge) {
+	.dialog::backdrop {
+		background-color: rgba(0, 0, 0, 0.32);
+
+		@include darkTheme {
+			background-color: rgba(0, 0, 0, 0.72);
+		}
+	}
+}
+
 @include from($tabletLarge) {
 	.dialog {
 		inset: auto;
