@@ -227,13 +227,162 @@ I found a trend line of $$\left(x\log_{10} x \cdot 16\right) + 101$$ was reasona
 
 Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\times10^{17}$$ MB, or 315 ZB
 
-# Mermaid Diagrams
+# Mermaid Charts
+
+## Flowchart
 
 <!-- ::start:mermaid -->
 ```mermaid
 flowchart LR
-    Markdown["Markdown source"] --> Transform["Mermaid component"]
-    Transform --> Diagram["Rendered diagram"]
+
+A[Hard] -->|Text| B(Round)
+B --> C{Decision}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
+```
+<!-- ::end:mermaid -->
+
+## Sequence
+
+<!-- ::start:mermaid -->
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+    Client->>Server: Request
+    Server->>Database: Query
+    Database-->>Server: Results
+    Server-->>Client: Response
+    Client->>Server: Update
+    Server->>Database: Write
+    Database-->>Server: Confirm
+    Server-->>Client: Success
+```
+<!-- ::end:mermaid -->
+
+<!-- ::start:mermaid -->
+```mermaid
+sequenceDiagram
+  participant Client
+  participant API
+  participant DB
+
+  Client->>API: Request
+  activate API
+  API->>DB: Query
+  activate DB
+  DB-->>API: Rows
+  deactivate DB
+  alt success
+    API-->>Client: 200 OK
+  else failure
+    API-->>Client: 500 Error
+  end
+  deactivate API
+```
+<!-- ::end:mermaid -->
+
+## Pie
+
+<!-- ::start:mermaid -->
+```mermaid
+pie showData
+  title Pets
+  "Dogs" : 10
+  "Cats" : 5
+```
+<!-- ::end:mermaid -->
+
+## Git Graph
+
+<!-- ::start:mermaid -->
+```mermaid
+gitGraph
+  commit id:"C0"
+  branch feature
+  checkout feature
+  commit id:"F1"
+  commit id:"F2"
+  checkout main
+  commit id:"C1"
+  merge feature
+```
+<!-- ::end:mermaid -->
+
+<!-- ::start:mermaid -->
+```mermaid
+      gitGraph
+        commit
+        branch hotfix
+        checkout hotfix
+        commit
+        branch develop
+        checkout develop
+        commit id:"ash" tag:"abc"
+        branch featureB
+        checkout featureB
+        commit type:HIGHLIGHT
+        checkout main
+        checkout hotfix
+        commit type:NORMAL
+        checkout develop
+        commit type:REVERSE
+        checkout featureB
+        commit
+        checkout main
+        merge hotfix
+        checkout featureB
+        commit
+        checkout develop
+        branch featureA
+        commit
+        checkout develop
+        merge hotfix
+        checkout featureA
+        commit
+        checkout featureB
+        commit
+        checkout develop
+        merge featureA
+        branch release
+        checkout release
+        commit
+        checkout main
+        commit
+        checkout release
+        merge main
+        checkout develop
+        merge release
+```
+<!-- ::end:mermaid -->
+
+## Entity Relationship
+
+<!-- ::start:mermaid -->
+```mermaid
+erDiagram
+CUSTOMER ||--o{ ORDER : places
+CUSTOMER {
+string id
+string name
+}
+ORDER {
+string id
+date created_at
+}
+```
+<!-- ::end:mermaid -->
+
+## State Diagram
+
+<!-- ::start:mermaid -->
+```mermaid
+stateDiagram-v2
+[*] --> Idle
+Idle --> Active : start
+state "Waiting" as Wait
+Wait --> Active
 ```
 <!-- ::end:mermaid -->
 
