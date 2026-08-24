@@ -1,6 +1,5 @@
 import { useEffect } from "preact/hooks";
-
-const THEME_CHANGED_EVENT = "themeChanged";
+import { MERMAID_THEME_CSS } from "./mermaid-theme.ts";
 
 let diagramId = 0;
 
@@ -11,48 +10,24 @@ function createDiagramId() {
 
 export default function MermaidRenderer() {
 	useEffect(() => {
-		let renderVersion = 0;
 		let disposed = false;
 
 		const renderDiagrams = async () => {
-			const currentRender = ++renderVersion;
 			const [{ default: mermaid }] = await Promise.all([
 				import("mermaid"),
 				document.fonts.ready,
 			]);
 
-			if (disposed || currentRender !== renderVersion) return;
-
-			const isDarkTheme = document.documentElement.classList.contains("dark");
-			let primaryColor = "rgba(229, 242, 255, 1)";
-			let secondaryColor = "rgba(33, 51, 63, 1)";
-			let primaryTextColor = "rgba(210, 229, 244, 1)";
-
-			if (!isDarkTheme) {
-				primaryColor = "rgba(0, 52, 77, 1)";
-				primaryTextColor = "rgba(33, 51, 63, 1)";
-				secondaryColor = "rgba(229, 242, 255, 1)";
-			}
+			if (disposed) return;
 
 			mermaid.initialize({
 				startOnLoad: false,
 				theme: "base",
 				htmlLabels: false,
+				themeCSS: MERMAID_THEME_CSS,
 				themeVariables: {
-					darkMode: isDarkTheme,
-					primaryColor,
 					fontFamily: "Figtree, Arial, Roboto, sans-serif",
-					primaryTextColor: secondaryColor,
-					textColor: primaryTextColor,
-					loopTextColor: primaryTextColor,
-					noteBkgColor: "rgba(135, 206, 255, 0.32)",
-					noteTextColor: primaryTextColor,
-					edgeLabelBackground: "rgba(135, 206, 255, 0.32)",
-					lineColor: primaryColor,
-					classText: secondaryColor,
-					titleColor: primaryTextColor,
-					fillType0: secondaryColor,
-					fillType1: "rgba(135, 206, 255, 0.32)",
+					fontSize: "14px",
 				},
 			});
 
@@ -69,7 +44,7 @@ export default function MermaidRenderer() {
 						createDiagramId(),
 						graph,
 					);
-					if (disposed || currentRender !== renderVersion) return;
+					if (disposed) return;
 
 					el.innerHTML = svg;
 					el.removeAttribute("aria-busy");
@@ -83,12 +58,9 @@ export default function MermaidRenderer() {
 		};
 
 		void renderDiagrams();
-		window.addEventListener(THEME_CHANGED_EVENT, renderDiagrams);
 
 		return () => {
 			disposed = true;
-			renderVersion += 1;
-			window.removeEventListener(THEME_CHANGED_EVENT, renderDiagrams);
 		};
 	}, []);
 
