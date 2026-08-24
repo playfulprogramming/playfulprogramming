@@ -3,60 +3,13 @@ import EventsPage from "#src/views/events/events-page.tsx";
 import Document from "#src/layouts/document.astro";
 import SEO from "#components/seo/seo.astro";
 import { events } from "#src/views/events/constants.ts";
-import { getUrlMetadata } from "#utils/hoof/index.ts";
-import type { EventBlock } from "#src/views/events/types.ts";
+import { getLatestEventBlockLocationMetadata } from "#src/views/events/get-latest-event-block-location-metadata.ts";
 import type { LatestEventBlockLocationMetadataType } from "#src/views/events/components/event-cards/types.ts";
 import {
 	getStaticLocalePaths,
-	isLanguageKey,
+	isNonDefaultLanguageKey,
 	translate,
 } from "#utils/translations.ts";
-
-async function getLatestEventBlockLocationMetadata() {
-	// We only need the latest event block location metadata to show on the list view
-	// Record<EventSlug, EventBlockWithMetadata>
-	const metadata: LatestEventBlockLocationMetadataType = {};
-
-	// Do not use `Promise.all`, as the getUrlMetadata retry logic may break builds when parallelism is enabled
-	for (const event of events) {
-		let nearestButNotPastEvent: EventBlock | null = null;
-		// Find the nearest but not past event for each event
-		for (const block of event.blocks) {
-			// If the block is in the past, skip it
-			if (block.starts_at < new Date()) {
-				continue;
-			}
-
-			// If there is no nearest but not past event, set it to the current block
-			if (!nearestButNotPastEvent) {
-				nearestButNotPastEvent = block;
-				continue;
-			}
-
-			// Otherwise, if there is a "nearest but not past" event, check if the current block is closer
-			if (nearestButNotPastEvent.starts_at > block.starts_at) {
-				nearestButNotPastEvent = block;
-				continue;
-			}
-		}
-
-		if (!nearestButNotPastEvent?.location_url) {
-			continue;
-		}
-
-		const location_metadata = await getUrlMetadata(
-			nearestButNotPastEvent.location_url,
-		).catch(() => undefined);
-
-		metadata[event.slug] = {
-			...nearestButNotPastEvent,
-			location_metadata,
-		};
-	}
-
-	return metadata;
-}
-
 export async function getStaticPaths() {
 	const latestEventBlockLocationMetadata =
 		await getLatestEventBlockLocationMetadata();
@@ -72,10 +25,7 @@ interface Props {
 }
 
 const localeParam = Astro.params.locale;
-if (
-	localeParam !== undefined &&
-	(localeParam === "en" || !isLanguageKey(localeParam))
-) {
+if (localeParam !== undefined && !isNonDefaultLanguageKey(localeParam)) {
 	return Astro.rewrite("/404");
 }
 
