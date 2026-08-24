@@ -12,6 +12,15 @@ interface DocumentProps {
 
 let { lang } = Astro.props as DocumentProps;
 lang ??= "en";
+
+const enableAnalytics = import.meta.env.MODE === "production";
+const analyticsSetupScript = `
+	window.plausible =
+		window.plausible ||
+		function (...args) {
+			(window.plausible.q = window.plausible.q || []).push(args);
+		};
+`;
 ---
 
 <html lang={lang} class="light">
@@ -72,19 +81,22 @@ lang ??= "en";
 			href="/icons/icon-512x512.png?v=2a"
 		/>
 		<script defer src="/uninstall-sw.js" is:inline></script>
-		<script
-			is:inline
-			defer
-			data-domain="playfulprogramming.com"
-			src="/areyoumyuser/js/script.js"
-			data-api="/areyoumyuser/api/event"></script>
-		<script is:inline>
-			window.plausible =
-				window.plausible ||
-				function (...args) {
-					(window.plausible.q = window.plausible.q || []).push(args);
-				};
-		</script>
+		{
+			enableAnalytics && (
+				<script
+					is:inline
+					async
+					data-domain="playfulprogramming.com"
+					src="/areyoumyuser/js/script.js"
+					data-api="/areyoumyuser/api/event"
+				/>
+			)
+		}
+		{
+			enableAnalytics && (
+				<script is:inline set:html={analyticsSetupScript} />
+			)
+		}
 		<slot name="head" />
 	</head>
 	<body>
