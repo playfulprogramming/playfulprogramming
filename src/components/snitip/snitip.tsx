@@ -56,7 +56,7 @@ export function SnitipContent({
 					dangerouslySetInnerHTML={{ __html: snitip.content }}
 				/>
 				{snitip.links.length > 0 ? (
-					<ul class={style.links}>
+					<ul class={style.links} aria-label="Links" role="list">
 						{snitip.links.map((link) => (
 							<li key={link.href}>
 								<a class={`${style.links__item} a`} href={link.href}>
@@ -72,7 +72,7 @@ export function SnitipContent({
 					</ul>
 				) : null}
 				{includeSearchTags ? (
-					<ul class={style.tags}>
+					<ul class={style.tags} aria-label="Tags" role="list">
 						{snitip.tagsMeta.size > 0 ? (
 							[...snitip.tagsMeta.entries()].map(([tag, tagInfo]) => (
 								<li key={tag}>
