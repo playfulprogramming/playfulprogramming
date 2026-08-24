@@ -43,5 +43,11 @@
 	"label.post_authors": "Post authors",
 	"label.post_tags": "Post tags",
 	"label.collection_authors": "Collection authors",
-	"action.clear_search": "Clear search"
+	"action.clear_search": "Clear search",
+	"title.error_404": "404: Not Found",
+	"alt.crying_unicorn": "A crying Unicorn",
+	"title.not_found": "We couldn’t find what you were looking for...",
+	"desc.not_found": "We don't quite understand where you're trying to go! We're really sorry about this! Maybe the URL has a typo in it or we've configured something wrong!",
+	"action.go_back_home": "Go back home",
+	"action.report_issue": "Report an issue"
 }

@@ -5,29 +5,28 @@ import PageCard from "#components/page-card/page-card.astro";
 
 import sadUnicorn from "../assets/unicorn_sad.svg";
 import { LargeButton } from "../components/index.ts";
-
-const locale = "en";
+import { translate } from "#utils/translations.ts";
 ---
 
-<Document lang={locale}>
-	<SEO slot="head" title="404: Not Found" />
+<Document>
+	<SEO slot="head" title={translate(Astro, "title.error_404")} />
 	<main class="missingMain">
 		<PageCard
 			imageSrc={sadUnicorn.src}
-			imageAlt="A crying Unicorn"
-			title="We couldn’t find what you were looking for..."
-			description="We don't quite understand where you're trying to go! We're really sorry about this! Maybe the URL has a typo in it or we've configured something wrong!"
+			imageAlt={translate(Astro, "alt.crying_unicorn")}
+			title={translate(Astro, "title.not_found")}
+			description={translate(Astro, "desc.not_found")}
 			numberOfButtons={2}
 		>
 			<LargeButton href="/" slot="button" variant="primary">
-				Go back home
+				{translate(Astro, "action.go_back_home")}
 			</LargeButton>
 			<LargeButton
 				href="https://discord.playfulprogramming.com"
 				slot="second-button"
 				variant="secondary"
 			>
-				Report an issue
+				{translate(Astro, "action.report_issue")}
 			</LargeButton>
 		</PageCard>
 	</main>
