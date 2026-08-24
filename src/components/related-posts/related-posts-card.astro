@@ -24,7 +24,10 @@ const postHref = addPrefixLanguageToPath(`/posts/${slug}`, locale);
 	<span class={`text-style-body-small-bold ${style.authorsList}`}>
 		{
 			authors.map((author, i) => (
-				<a href={`/people/${author.id}`} class={style.authorName}>
+				<a
+					href={addPrefixLanguageToPath(`/people/${author.id}`, author.locale)}
+					class={style.authorName}
+				>
 					{[author.name, i + 1 < authors.length ? "," : ""]}
 				</a>
 			))

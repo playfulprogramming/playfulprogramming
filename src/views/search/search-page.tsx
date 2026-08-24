@@ -507,6 +507,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 									headingTag="h3"
 									aria-labelledby="snitips-header"
 									translate={translate}
+									locale={locale}
 								/>
 							</div>
 						)}

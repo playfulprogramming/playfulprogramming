@@ -4,7 +4,11 @@ import type { PostInfo, PersonInfo, PostVersion } from "#types/index.ts";
 import { Icon } from "astro-icon/components";
 import { Chip } from "#components/index.ts";
 import { buildSearchQuery } from "../../search/search.ts";
-import { getPrefixLanguageFromPath, translate } from "#utils/translations.ts";
+import {
+	addPrefixLanguageToPath,
+	getPrefixLanguageFromPath,
+	translate,
+} from "#utils/translations.ts";
 import { ArticleRevisionDropdown } from "../article-revisions/article-revisions.tsx";
 
 export interface Props {
@@ -79,7 +83,12 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 					{
 						authors.map((author, i) => (
 							<li class="text-style-button-regular">
-								<a href={`/people/${author.id}`}>
+								<a
+									href={addPrefixLanguageToPath(
+										`/people/${author.id}`,
+										author.locale,
+									)}
+								>
 									{[author.name, i + 1 < authors.length ? "," : ""]}
 								</a>
 							</li>
@@ -129,10 +138,13 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 				tags?.map((tag) => (
 					<li>
 						<Chip
-							href={`/search?${buildSearchQuery({
-								searchQuery: "*",
-								filterTags: [tag],
-							})}`}
+							href={addPrefixLanguageToPath(
+								`/search?${buildSearchQuery({
+									searchQuery: "*",
+									filterTags: [tag],
+								})}`,
+								locale,
+							)}
 						>
 							{tag}
 						</Chip>

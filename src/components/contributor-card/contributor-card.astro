@@ -3,7 +3,10 @@ import style from "./contributor-card.module.scss";
 import type { PersonInfo } from "../../types/index.ts";
 import { Picture } from "../image/picture.tsx";
 import { Button } from "../index.ts";
-import { translate } from "../../utils/translations.ts";
+import {
+	addPrefixLanguageToPath,
+	translate,
+} from "../../utils/translations.ts";
 import { getHrefContainerProps } from "../../utils/href-container-script.ts";
 import allRoles from "../../../content/data/roles.json" with { type: "json" };
 import { tabletSmall } from "../../tokens/breakpoints.ts";
@@ -17,7 +20,10 @@ interface CardProps {
 }
 
 const { person, overrides } = Astro.props as CardProps;
-const personHref = `/people/${person.id}`;
+const personHref = addPrefixLanguageToPath(
+	`/people/${person.id}`,
+	person.locale,
+);
 
 const roles =
 	overrides?.roles === undefined

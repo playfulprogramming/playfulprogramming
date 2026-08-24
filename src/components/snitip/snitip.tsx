@@ -6,7 +6,11 @@ import iconSearch from "#src/icons/search.svg?raw";
 import { buildSearchQuery } from "#src/views/search/search.ts";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import style from "./snitip.module.scss";
-import type { Translate } from "#utils/translations.ts";
+import type { Languages } from "#types/index.ts";
+import {
+	addPrefixLanguageToPath,
+	type Translate,
+} from "#utils/translations.ts";
 
 export interface SnitipProps extends Omit<
 	HTMLAttributes<HTMLDivElement>,
@@ -14,6 +18,7 @@ export interface SnitipProps extends Omit<
 > {
 	snitip: SnitipInfo;
 	translate: Translate;
+	locale: Languages;
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	headingId?: string;
 	headingLabelPrefix?: string;
@@ -29,7 +34,10 @@ export function SnitipContent({
 	headingTabIndex,
 	includeSearchTags = true,
 	translate,
+	locale,
 }: SnitipProps) {
+	const searchHref = addPrefixLanguageToPath("/search", locale);
+
 	return (
 		<>
 			<div class={style.containerTitle}>
@@ -92,7 +100,7 @@ export function SnitipContent({
 								<li key={tag}>
 									<Chip
 										tag="a"
-										href={`/search?${buildSearchQuery({
+										href={`${searchHref}?${buildSearchQuery({
 											searchQuery: "*",
 											filterTags: [tag],
 										})}`}
@@ -112,7 +120,7 @@ export function SnitipContent({
 							<li>
 								<Chip
 									tag="a"
-									href={`/search?${buildSearchQuery({
+									href={`${searchHref}?${buildSearchQuery({
 										searchQuery: snitip.title,
 									})}`}
 									icon={

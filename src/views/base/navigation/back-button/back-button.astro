@@ -1,14 +1,23 @@
 ---
 import { Icon } from "astro-icon/components";
 import { IconOnlyButton } from "#components/index.ts";
-import { translate } from "#utils/translations.ts";
+import {
+	addPrefixLanguageToPath,
+	getPrefixLanguageFromPath,
+	translate,
+} from "#utils/translations.ts";
 
 const { class: className } = Astro.props as { class?: string };
+const homeHref = addPrefixLanguageToPath(
+	"/",
+	getPrefixLanguageFromPath(Astro.url.pathname),
+);
 ---
 
 <IconOnlyButton
 	tag="button"
 	id="backbtn"
+	data-home-href={homeHref}
 	class={`${className}`}
 	aria-label={translate(Astro, "action.go_back")}
 >

@@ -5,7 +5,10 @@ import forward from "#src/icons/arrow_right.svg?raw";
 import { Picture as UUPicture } from "#components/image/picture.tsx";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 import type { Languages } from "#types/index.ts";
-import { createTranslator } from "#utils/translations.ts";
+import {
+	addPrefixLanguageToPath,
+	createTranslator,
+} from "#utils/translations.ts";
 
 interface CollectionCardProps {
 	collection: CollectionInfo;
@@ -54,7 +57,10 @@ export const CollectionCard = ({
 					{authors?.map((author) => (
 						<li key={author.id}>
 							<a
-								href={`/people/${author.id}`}
+								href={addPrefixLanguageToPath(
+									`/people/${author.id}`,
+									author.locale,
+								)}
 								className={`text-style-button-regular ${style.authorListItem}`}
 							>
 								<UUPicture
@@ -71,7 +77,10 @@ export const CollectionCard = ({
 				</ul>
 
 				<Button
-					href={`/collections/${collection.slug}`}
+					href={addPrefixLanguageToPath(
+						`/collections/${collection.slug}`,
+						collection.locale,
+					)}
 					rightIcon={
 						<span
 							className={style.forwardIcon}

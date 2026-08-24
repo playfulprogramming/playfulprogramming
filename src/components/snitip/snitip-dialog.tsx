@@ -14,6 +14,7 @@ export function SnitipDialog({
 	headingTag,
 	includeSearchTags,
 	translate,
+	locale,
 }: SnitipDialogProps) {
 	const headingId = `${id}-title`;
 	const formId = `${id}-form`;
@@ -58,6 +59,7 @@ export function SnitipDialog({
 					headingTabIndex={-1}
 					includeSearchTags={includeSearchTags}
 					translate={translate}
+					locale={locale}
 				/>
 			</form>
 

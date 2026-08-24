@@ -1,6 +1,10 @@
 ---
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
-import { getPrefixLanguageFromPath, translate } from "#utils/translations.ts";
+import {
+	addPrefixLanguageToPath,
+	getPrefixLanguageFromPath,
+	translate,
+} from "#utils/translations.ts";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 import { Button } from "#components/button/button.tsx";
 import { Picture } from "#components/image/picture.tsx";
@@ -13,7 +17,7 @@ export interface Props {
 const { author } = Astro.props as Props;
 const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 
-const href = `/people/${author.id}`;
+const href = addPrefixLanguageToPath(`/people/${author.id}`, author.locale);
 ---
 
 <div class={styles.authorContainer} {...getHrefContainerProps(href)}>

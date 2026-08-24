@@ -3,7 +3,11 @@ import * as fs from "fs/promises";
 import Document from "#src/layouts/document.astro";
 import SEO from "#components/seo/seo.astro";
 import AboutView from "#src/views/about/about.astro";
-import { getLanguageFromFilename, translate } from "#utils/translations.ts";
+import {
+	getLanguageFromFilename,
+	getStaticLocalePaths,
+	translate,
+} from "#utils/translations.ts";
 import { join } from "path";
 import { contentDirectory } from "#utils/data.ts";
 import type { Languages } from "#types/index.ts";
@@ -16,15 +20,19 @@ export async function getStaticPaths() {
 			locale: getLanguageFromFilename(filename),
 		}));
 
-	return files.map((data) => {
+	const englishFile = files.find(({ locale }) => locale === "en")!;
+
+	return getStaticLocalePaths().map(({ params, props }) => {
+		const data =
+			files.find(({ locale }) => locale === props.locale) ?? englishFile;
+
 		return {
-			params: {
-				locale: data.locale !== "en" ? data.locale : undefined,
-			},
+			params,
 			props: {
 				file: data.file,
+				isFallback: data.locale !== props.locale,
 				locales: files.map((d) => d.locale),
-				locale: data.locale,
+				locale: props.locale,
 			},
 		};
 	});
@@ -32,11 +40,12 @@ export async function getStaticPaths() {
 
 interface Props {
 	file: string;
+	isFallback: boolean;
 	locales: Languages[];
 	locale: Languages;
 }
 
-const { file, locales, locale } = Astro.props as Props;
+const { file, isFallback, locales, locale } = Astro.props as Props;
 ---
 
 <Document>
@@ -44,6 +53,7 @@ const { file, locales, locale } = Astro.props as Props;
 		title={translate(Astro, "title.about_us")}
 		description={translate(Astro, "desc.about_us")}
 		providedLangs={locales}
+		noindex={isFallback}
 		slot="head"
 	/>
 	<AboutView locales={locales} locale={locale} file={file} />

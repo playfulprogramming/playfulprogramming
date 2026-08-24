@@ -17,6 +17,7 @@ export interface SnitipCardGridProps extends Omit<
 > {
 	snitips: SnitipInfo[];
 	translate: SnitipProps["translate"];
+	locale: SnitipProps["locale"];
 	headingTag?: SnitipProps["headingTag"];
 }
 
@@ -24,6 +25,7 @@ export function SnitipCardGrid({
 	snitips,
 	headingTag,
 	translate,
+	locale,
 	...extra
 }: SnitipCardGridProps) {
 	return (
@@ -35,6 +37,7 @@ export function SnitipCardGrid({
 						headingTag={headingTag}
 						includeSearchTags={false}
 						translate={translate}
+						locale={locale}
 					/>
 				</li>
 			))}

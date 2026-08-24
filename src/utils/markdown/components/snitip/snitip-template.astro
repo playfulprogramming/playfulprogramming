@@ -15,9 +15,8 @@ export interface Props {
 
 const { scopeId, snitip } = Astro.props;
 const supportId = `${scopeId}-${snitip.id}`;
-const translate = createTranslator(
-	getPrefixLanguageFromPath(Astro.url.pathname),
-);
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
+const translate = createTranslator(locale);
 ---
 
 <SnitipDialog
@@ -25,6 +24,7 @@ const translate = createTranslator(
 	snitip={snitip}
 	headingTag="h2"
 	translate={translate}
+	locale={locale}
 />
 
 <script>

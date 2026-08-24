@@ -6,18 +6,22 @@ import authorsSvg from "#src/icons/authors.svg?raw";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import { buildSearchQuery } from "#src/views/search/search.ts";
 import type { PostInfoWithBanner } from "./types.ts";
-import { createTranslator } from "#utils/translations.ts";
+import {
+	addPrefixLanguageToPath,
+	createTranslator,
+} from "#utils/translations.ts";
 
 interface PostCardProps {
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	post: PostInfoWithBanner;
-	authors: Pick<PersonInfo, "id" | "name">[];
+	authors: Pick<PersonInfo, "id" | "name" | "locale">[];
 	class?: string;
 	locale: Languages;
 }
 
 function PostCardMeta({ post, authors, locale }: PostCardProps) {
 	const translate = createTranslator(locale);
+	const searchHref = addPrefixLanguageToPath("/search", locale);
 
 	return (
 		<>
@@ -37,7 +41,10 @@ function PostCardMeta({ post, authors, locale }: PostCardProps) {
 							<li key={author.id} class="text-style-body-small-bold">
 								<a
 									className={`${style.authorName}`}
-									href={`/people/${author.id}`}
+									href={addPrefixLanguageToPath(
+										`/people/${author.id}`,
+										author.locale,
+									)}
 								>
 									{author.name}
 									{i !== arr.length - 1 && <span aria-hidden="true">, </span>}
@@ -83,7 +90,7 @@ function PostCardMeta({ post, authors, locale }: PostCardProps) {
 				{post.tags.map((tag) => (
 					<li key={tag}>
 						<Chip
-							href={`/search?${buildSearchQuery({ searchQuery: "*", filterTags: [tag] })}`}
+							href={`${searchHref}?${buildSearchQuery({ searchQuery: "*", filterTags: [tag] })}`}
 						>
 							{tag}
 						</Chip>
@@ -102,9 +109,11 @@ export const PostCardExpanded = ({
 	imageLoading = "lazy",
 	locale,
 }: PostCardProps & { imageLoading?: "eager" | "lazy" }) => {
+	const postHref = addPrefixLanguageToPath(`/posts/${post.slug}`, post.locale);
+
 	return (
 		<li
-			{...getHrefContainerProps(`/posts/${post.slug}`)}
+			{...getHrefContainerProps(postHref)}
 			className={`${className} ${style.postBase} ${style.extendedPostContainer}`}
 		>
 			<div className={style.extendedPostImageContainer}>
@@ -117,7 +126,7 @@ export const PostCardExpanded = ({
 				/>
 			</div>
 			<div className={style.postContainer}>
-				<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
+				<a href={postHref} className={`${style.postHeaderBase}`}>
 					<HeadingTag className={`text-style-headline-2`}>
 						{post.title}
 					</HeadingTag>
@@ -135,12 +144,14 @@ export const PostCard = ({
 	class: className = "",
 	locale,
 }: PostCardProps) => {
+	const postHref = addPrefixLanguageToPath(`/posts/${post.slug}`, post.locale);
+
 	return (
 		<li
-			{...getHrefContainerProps(`/posts/${post.slug}`)}
+			{...getHrefContainerProps(postHref)}
 			className={`${className} ${style.postContainer} ${style.postBase} ${style.regularPostContainer}`}
 		>
-			<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
+			<a href={postHref} className={`${style.postHeaderBase}`}>
 				<HeadingTag className={`text-style-headline-5`}>
 					{post.title}
 				</HeadingTag>
