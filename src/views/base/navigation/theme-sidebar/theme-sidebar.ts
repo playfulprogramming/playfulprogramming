@@ -28,6 +28,18 @@ const normalizeFontFamily = (family: string) =>
 		.replace(/\s*,\s*/g, ",")
 		.replace(/\s+/g, " ");
 
+const setSelectFontPreview = (
+	select: HTMLSelectElement,
+	fontFamily: string | undefined,
+) => {
+	if (fontFamily) {
+		select.style.setProperty("--styled-select_font-family", fontFamily);
+		return;
+	}
+
+	select.style.removeProperty("--styled-select_font-family");
+};
+
 const getEffectiveNumber = (
 	root: HTMLElement,
 	property: string,
@@ -190,6 +202,11 @@ export const initializeThemeSidebar = () => {
 			);
 
 			select.value = matchingOption?.value ?? select.options[0]?.value ?? "";
+			setSelectFontPreview(
+				select,
+				matchingOption?.dataset.fontFamily ??
+					select.selectedOptions[0]?.dataset.fontFamily,
+			);
 		});
 	};
 
@@ -272,6 +289,7 @@ export const initializeThemeSidebar = () => {
 			const target = select.dataset.themeFont;
 			const family = select.selectedOptions[0]?.dataset.fontFamily;
 			if ((target !== "brand" && target !== "body") || !family) return;
+			setSelectFontPreview(select, family);
 			root.style.setProperty(`--pfp-font-family-${target}`, family);
 		});
 	});

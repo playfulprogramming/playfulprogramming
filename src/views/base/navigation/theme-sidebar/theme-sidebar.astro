@@ -118,7 +118,11 @@ const colorOptions = Array.from({ length: 12 });
 						>
 							{
 								headingFonts.map((font) => (
-									<option value={font.id} data-font-family={font.family}>
+									<option
+										value={font.id}
+										data-font-family={font.family}
+										style={`--styled-select_option-font-family: ${font.family}`}
+									>
 										{font.label}
 									</option>
 								))
@@ -137,7 +141,11 @@ const colorOptions = Array.from({ length: 12 });
 						>
 							{
 								bodyFonts.map((font) => (
-									<option value={font.id} data-font-family={font.family}>
+									<option
+										value={font.id}
+										data-font-family={font.family}
+										style={`--styled-select_option-font-family: ${font.family}`}
+									>
 										{font.label}
 									</option>
 								))

@@ -48,10 +48,14 @@
 	border-radius: inherit;
 	outline: 0;
 	cursor: pointer;
-	font-family: var(--pfp-font-family-brand);
+	font-family: var(--styled-select_font-family, var(--pfp-font-family-brand));
 	font-size: var(--button_regular_font-size);
 	font-weight: var(--weight_semibold);
 	line-height: var(--button_regular_line-height);
+}
+
+.select option {
+	font-family: var(--styled-select_option-font-family, inherit);
 }
 
 .select:focus-visible {
@@ -144,6 +148,7 @@
 		outline: none;
 		cursor: pointer;
 		font: inherit;
+		font-family: var(--styled-select_option-font-family, inherit);
 		white-space: nowrap;
 		@include transition(background-color);
 	}
