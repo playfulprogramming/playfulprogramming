@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { Button, IconOnlyButton } from "#components/index.ts";
+import StyledSelect from "#components/styled-select/styled-select.astro";
 import { translate } from "#utils/translations.ts";
 import styles from "./theme-sidebar.module.scss";
 
@@ -101,36 +102,38 @@ const colorOptions = Array.from({ length: 12 });
 						<label class={styles.controlLabel} for="theme-heading-font">
 							{translate(Astro, "label.headings")}
 						</label>
-						<div class={styles.selectWrapper}>
-							<select id="theme-heading-font" data-theme-font="brand">
-								{
-									headingFonts.map((font) => (
-										<option value={font.id} data-font-family={font.family}>
-											{font.label}
-										</option>
-									))
-								}
-							</select>
-							<Icon name="chevron_down" />
-						</div>
+						<StyledSelect
+							class={styles.fontSelect}
+							id="theme-heading-font"
+							data-theme-font="brand"
+						>
+							{
+								headingFonts.map((font) => (
+									<option value={font.id} data-font-family={font.family}>
+										{font.label}
+									</option>
+								))
+							}
+						</StyledSelect>
 					</div>
 
 					<div class={styles.fontRow}>
 						<label class={styles.controlLabel} for="theme-body-font">
 							{translate(Astro, "label.body")}
 						</label>
-						<div class={styles.selectWrapper}>
-							<select id="theme-body-font" data-theme-font="body">
-								{
-									bodyFonts.map((font) => (
-										<option value={font.id} data-font-family={font.family}>
-											{font.label}
-										</option>
-									))
-								}
-							</select>
-							<Icon name="chevron_down" />
-						</div>
+						<StyledSelect
+							class={styles.fontSelect}
+							id="theme-body-font"
+							data-theme-font="body"
+						>
+							{
+								bodyFonts.map((font) => (
+									<option value={font.id} data-font-family={font.family}>
+										{font.label}
+									</option>
+								))
+							}
+						</StyledSelect>
 					</div>
 				</div>
 			</fieldset>

@@ -203,53 +203,9 @@ body:has(.dialog[open]) {
 	line-height: var(--button_regular_line-height);
 }
 
-.selectWrapper {
-	position: relative;
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) var(--icon-size_default);
-	align-items: center;
-	min-height: var(--min-target-size_m);
-	max-width: 230px;
-	color: var(--primary_on-variant);
-	background: var(--surface_primary_emphasis-low);
-	border-radius: var(--corner-radius_circular);
-
-	select {
-		position: relative;
-		z-index: 1;
-		grid-column: 1 / -1;
-		grid-row: 1;
-		width: 100%;
-		min-height: var(--min-target-size_m);
-		padding: var(--spc-2x) calc(var(--spc-8x) + var(--icon-size_default))
-			var(--spc-2x) var(--spc-5x);
-		appearance: none;
-		color: inherit;
-		background: transparent;
-		border: 0;
-		border-radius: inherit;
-		outline: 0;
-		cursor: pointer;
-		font-family: var(--pfp-font-family-brand);
-		font-size: var(--button_regular_font-size);
-		font-weight: var(--weight_semibold);
-		line-height: var(--button_regular_line-height);
-	}
-
-	select:focus-visible {
-		outline: var(--border-width_focus) solid var(--focus-outline_primary);
-		outline-offset: var(--border-width_focus);
-	}
-
-	> svg {
-		z-index: 0;
-		grid-column: 2;
-		grid-row: 1;
-		width: var(--icon-size_default);
-		height: var(--icon-size_default);
-		margin-right: var(--spc-3x);
-		pointer-events: none;
-	}
+.fontSelect {
+	width: 230px;
+	max-width: 100%;
 }
 
 .colorOptions {
