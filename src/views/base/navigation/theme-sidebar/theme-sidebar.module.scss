@@ -151,34 +151,9 @@ body:has(.dialog[open]) {
 	border: 0;
 }
 
-.modeOption {
-	display: inline-flex;
-	min-height: var(--min-target-size_m);
-	align-items: center;
-	justify-content: center;
-	gap: var(--spc-2x);
-	padding: var(--spc-2x) var(--spc-5x);
-	color: var(--primary_on-variant);
-	background: var(--surface_primary_emphasis-low);
-	border-radius: var(--corner-radius_circular);
-	cursor: pointer;
-	font-family: var(--pfp-font-family-brand);
-	font-size: var(--button_regular_font-size);
-	font-weight: var(--weight_semibold);
-	line-height: var(--button_regular_line-height);
-	letter-spacing: 0.01em;
-	@include transition(color background-color);
-}
-
-.choiceInput:focus-visible + .modeOption,
 .choiceInput:focus-visible + .swatch {
 	outline: var(--border-width_focus) solid var(--focus-outline_primary);
 	outline-offset: var(--border-width_focus);
-}
-
-.choiceInput:checked + .modeOption {
-	color: var(--primary_on-default);
-	background: var(--primary_high-contrast);
 }
 
 .fontOptions {

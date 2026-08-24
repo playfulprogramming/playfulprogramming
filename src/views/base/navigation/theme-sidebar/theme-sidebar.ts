@@ -178,6 +178,10 @@ export const initializeThemeSidebar = () => {
 	const syncModeInputs = () => {
 		modeInputs.forEach((input) => {
 			input.checked = input.value === previewColorMode;
+
+			const button = input.labels?.item(0);
+			button?.classList.toggle("primary", !input.checked);
+			button?.classList.toggle("primary-emphasized", input.checked);
 		});
 	};
 
@@ -273,9 +277,23 @@ export const initializeThemeSidebar = () => {
 	});
 
 	modeInputs.forEach((input) => {
+		const button = input.labels?.item(0);
+
+		input.addEventListener("focus", () => {
+			button?.setAttribute(
+				"data-focus-visible",
+				String(input.matches(":focus-visible")),
+			);
+		});
+
+		input.addEventListener("blur", () => {
+			button?.removeAttribute("data-focus-visible");
+		});
+
 		input.addEventListener("change", () => {
 			if (!input.checked) return;
 			previewColorMode = input.value as ColorModePreference;
+			syncModeInputs();
 			applyColorMode(previewColorMode, { persist: false });
 			syncTriggerIcons(root);
 		});

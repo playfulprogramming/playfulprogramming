@@ -101,9 +101,18 @@ const colorOptions = Array.from({ length: 12 });
 									value={mode}
 									data-theme-mode
 								/>
-								<label class={styles.modeOption} for={`theme-mode-${mode}`}>
-									{icon && <Icon name={icon} />}
-									{translate(Astro, `label.${mode}`)}
+								<label
+									class="button text-style-button-regular regular primary"
+									for={`theme-mode-${mode}`}
+								>
+									{icon && (
+										<span class="buttonIcon" aria-hidden="true">
+											<Icon name={icon} />
+										</span>
+									)}
+									<span class="innerText">
+										{translate(Astro, `label.${mode}`)}
+									</span>
 								</label>
 							</>
 						))
