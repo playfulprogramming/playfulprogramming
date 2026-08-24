@@ -9,12 +9,13 @@ import ReadyToLevelUp from "../views/join-us/ready-to-level-up.astro";
 import SupportUs from "../views/join-us/support-us.astro";
 import ContributorsAndPartners from "../views/join-us/contributors-and-partners.astro";
 import Hr from "../views/join-us/hr.astro";
+import { translate } from "#utils/translations.ts";
 ---
 
 <Document>
 	<SEO
-		title={"Join Us"}
-		description={`Get involved with the community and help us make learning programming more accessible.`}
+		title={translate(Astro, "title.join_us")}
+		description={translate(Astro, "desc.join_us")}
 		slot="head"
 	/>
 	<GetInvolvedHeader />

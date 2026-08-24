@@ -1,11 +1,12 @@
 ---
 import style from "./ready-to-level-up.module.scss";
 import { Button } from "#components/index.ts";
+import { translate } from "#utils/translations.ts";
 ---
 
 <section class={style.container}>
 	<h2 class={`text-style-headline-1 ${style.header}`}>
-		Ready to level-up as a contributor and gain access to private channels?
+		{translate(Astro, "join_us.ready.title")}
 	</h2>
 	<div class={style.typesContainer}>
 		<section class={style.typeContainer}>
@@ -15,16 +16,15 @@ import { Button } from "#components/index.ts";
 				<img class={style.sticker} src="/stickers/role_translator.svg" alt="" />
 			</div>
 			<h3 class={`text-style-headline-3 ${style.typeTitle}`}>
-				Publish content
+				{translate(Astro, "join_us.publish.title")}
 			</h3>
 			<p class={`text-style-body-large ${style.typeBody}`}>
-				Write articles tackling computer science topics and help others learn
-				from your insights. Reposting content is welcomed & encouraged!
+				{translate(Astro, "join_us.publish.description")}
 			</p>
 			<Button
 				tag="a"
 				href="https://github.com/playfulprogramming/playfulprogramming/blob/main/CONTRIBUTING.md#writing-a-new-post"
-				>Submit an article</Button
+				>{translate(Astro, "action.submit_article")}</Button
 			>
 		</section>
 		<section class={style.typeContainer}>
@@ -34,16 +34,15 @@ import { Button } from "#components/index.ts";
 				<img class={style.sticker} src="/stickers/role_designer.svg" alt="" />
 			</div>
 			<h3 class={`text-style-headline-3 ${style.typeTitle}`}>
-				Improve the site
+				{translate(Astro, "join_us.improve.title")}
 			</h3>
 			<p class={`text-style-body-large ${style.typeBody}`}>
-				Help us develop and improve the website for everyone. Design new
-				sections, help fix bugs, and anything in-between. Mentoring provided.
+				{translate(Astro, "join_us.improve.description")}
 			</p>
 			<Button
 				tag="a"
 				href="https://github.com/playfulprogramming/playfulprogramming"
-				>View repository</Button
+				>{translate(Astro, "action.view_repository")}</Button
 			>
 		</section>
 	</div>

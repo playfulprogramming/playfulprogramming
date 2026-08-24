@@ -3,24 +3,28 @@ import style from "./support-us.module.scss";
 import { LargeButton } from "#components/button/button.tsx";
 
 import * as data from "#utils/data.ts";
+import { translate } from "#utils/translations.ts";
 ---
 
 <section>
 	<div class={style.supportUsTextContainer}>
-		<h2 class={`text-style-headline-1 ${style.supportUsTitle}`}>Support us</h2>
+		<h2 class={`text-style-headline-1 ${style.supportUsTitle}`}>
+			{translate(Astro, "join_us.support.title")}
+		</h2>
 		<p class={`text-style-body-large ${style.supportUsBody}`}>
-			Playful Programming is completely community-driven, and all maintenance
-			and upkeep costs are spent out-of-pocket. All contributions go towards the
-			project’s goals, and are <a
+			{translate(Astro, "join_us.support.description_before_link")}
+			{" "}
+			<a
 				href="https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed"
 			>
-				disclosed publicly.</a
+				{translate(Astro, "action.disclosed_publicly")}</a
 			>
 		</p>
 		<LargeButton
 			tag="a"
 			href="https://donate.playfulprogramming.com"
-			variant="primary-emphasized">Donate</LargeButton
+			variant="primary-emphasized"
+			>{translate(Astro, "action.donate")}</LargeButton
 		>
 	</div>
 	<div class={style.restContainer}>
@@ -28,7 +32,7 @@ import * as data from "#utils/data.ts";
 			id="our-sponsors"
 			class={`text-style-body-large-bold ${style.supportedByBody}`}
 		>
-			We are currently sponsored by the following organizations:
+			{translate(Astro, "join_us.support.sponsors_intro")}
 		</h3>
 		<div>
 			<ul
