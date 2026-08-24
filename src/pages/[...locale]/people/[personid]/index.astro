@@ -1,0 +1,48 @@
+---
+import Document from "#src/layouts/document.astro";
+import SEO from "#components/seo/seo.astro";
+import PersonPage from "#src/views/person/person-page.astro";
+import * as api from "#utils/api.ts";
+import { getStaticLocalePaths, isLanguageKey } from "#utils/translations.ts";
+
+export function getStaticPaths() {
+	const people = api.getPeopleByLang("en");
+
+	return getStaticLocalePaths().flatMap(({ params, props }) =>
+		people.map((person) => ({
+			params: { ...params, personid: person.id },
+			props,
+		})),
+	);
+}
+
+const localeParam = Astro.params.locale;
+if (localeParam !== undefined && !isLanguageKey(localeParam)) {
+	return Astro.rewrite("/404");
+}
+
+const locale = localeParam ?? "en";
+const personId = Astro.params.personid!;
+const person = api.getPersonById(personId, locale);
+
+if (!person) {
+	return Astro.rewrite(locale === "en" ? "/404" : `/${locale}/404`);
+}
+
+const posts = api.getPostsByPerson(person.id, locale);
+const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
+---
+
+<Document size="xl">
+	<SEO
+		slot="head"
+		title={person.name}
+		description={person.description}
+		peopleData={[person]}
+		providedLangs={providedLangs}
+		type="profile"
+	/>
+	<main class="listViewContent">
+		<PersonPage person={person} posts={posts} locale={locale} />
+	</main>
+</Document>
