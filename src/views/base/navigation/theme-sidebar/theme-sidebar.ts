@@ -134,7 +134,7 @@ const syncTriggerIcons = (root: HTMLElement) => {
 		.forEach((icon) => (icon.hidden = !isDark));
 };
 
-export const initializeThemeSidebar = () => {
+export const initializeThemeSidebar = (initialTrigger?: HTMLButtonElement) => {
 	const dialog = document.querySelector<HTMLDialogElement>(
 		"[data-theme-sidebar]",
 	);
@@ -362,4 +362,5 @@ export const initializeThemeSidebar = () => {
 	});
 
 	syncTriggerIcons(root);
+	if (initialTrigger) open(initialTrigger);
 };

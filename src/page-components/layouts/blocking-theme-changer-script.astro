@@ -37,36 +37,45 @@ const setColorsByTheme = serializeInlineCall(
 		darkTheme: string;
 		colorSchemeMediaQuery: string;
 	}): void => {
-		let savedPreference: string | null = null;
+		let mediaQuery: MediaQueryList | undefined;
 		try {
-			savedPreference = localStorage.getItem(storageKey);
-		} catch {
-			// Storage can be unavailable. Fall back to the system preference.
-		}
-
-		const preference =
-			savedPreference === "light" || savedPreference === "dark"
-				? savedPreference
-				: "system";
-		let prefersDark = false;
-		try {
-			prefersDark = window.matchMedia(colorSchemeMediaQuery).matches;
+			mediaQuery = window.matchMedia(colorSchemeMediaQuery);
 		} catch {
 			// Browsers without matchMedia fall back to light mode.
 		}
 
-		const colorMode =
-			preference === "system" ? (prefersDark ? "dark" : "light") : preference;
-		const root = document.documentElement;
-		root.classList.toggle("light", colorMode === "light");
-		root.classList.toggle("dark", colorMode === "dark");
+		const applyTheme = () => {
+			let savedPreference: string | null = null;
+			try {
+				savedPreference = localStorage.getItem(storageKey);
+			} catch {
+				// Storage can be unavailable. Fall back to the system preference.
+			}
 
-		// update the meta theme-color attribute(s) based on the user preference
-		const bgColor = colorMode === "light" ? lightTheme : darkTheme;
-		// this needs to update both meta tags so that it applies regardless of prefers-color-scheme
-		document
-			.querySelectorAll("meta[name='theme-color']")
-			.forEach((el) => el.setAttribute("content", bgColor));
+			const preference =
+				savedPreference === "light" || savedPreference === "dark"
+					? savedPreference
+					: "system";
+			const colorMode =
+				preference === "system"
+					? mediaQuery?.matches
+						? "dark"
+						: "light"
+					: preference;
+			const root = document.documentElement;
+			root.classList.toggle("light", colorMode === "light");
+			root.classList.toggle("dark", colorMode === "dark");
+
+			// update the meta theme-color attribute(s) based on the user preference
+			const bgColor = colorMode === "light" ? lightTheme : darkTheme;
+			// this needs to update both meta tags so that it applies regardless of prefers-color-scheme
+			document
+				.querySelectorAll("meta[name='theme-color']")
+				.forEach((el) => el.setAttribute("content", bgColor));
+		};
+
+		applyTheme();
+		mediaQuery?.addEventListener("change", applyTheme);
 	},
 );
 

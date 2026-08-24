@@ -271,6 +271,53 @@ const colorOptions = Array.from({ length: 12 });
 </dialog>
 
 <script>
-	import { initializeThemeSidebar } from "./theme-sidebar.ts";
-	initializeThemeSidebar();
+	const triggers = document.querySelectorAll<HTMLButtonElement>(
+		"[data-theme-sidebar-trigger]",
+	);
+	let initialization: Promise<void> | undefined;
+
+	const syncTriggerIcons = () => {
+		const isDark = document.documentElement.classList.contains("dark");
+		document
+			.querySelectorAll<HTMLElement>("[data-theme-sidebar-trigger-icon='dark']")
+			.forEach((icon) => (icon.hidden = isDark));
+		document
+			.querySelectorAll<HTMLElement>(
+				"[data-theme-sidebar-trigger-icon='light']",
+			)
+			.forEach((icon) => (icon.hidden = !isDark));
+	};
+
+	const colorSchemeMediaQuery = window.matchMedia(
+		"(prefers-color-scheme: dark)",
+	);
+	const handleColorSchemeChange = () => syncTriggerIcons();
+
+	const loadThemeSidebar = (initialTrigger?: HTMLButtonElement) => {
+		initialization ??= import("./theme-sidebar.ts")
+			.then(({ initializeThemeSidebar: initialize }) => {
+				triggers.forEach((trigger) => {
+					trigger.removeEventListener("click", handleTriggerClick);
+				});
+				colorSchemeMediaQuery.removeEventListener(
+					"change",
+					handleColorSchemeChange,
+				);
+				initialize(initialTrigger);
+			})
+			.catch((error: unknown) => {
+				initialization = undefined;
+				console.error("Unable to load the theme customizer", error);
+			});
+	};
+
+	function handleTriggerClick(event: MouseEvent) {
+		loadThemeSidebar(event.currentTarget as HTMLButtonElement);
+	}
+
+	triggers.forEach((trigger) => {
+		trigger.addEventListener("click", handleTriggerClick);
+	});
+	colorSchemeMediaQuery.addEventListener("change", handleColorSchemeChange);
+	syncTriggerIcons();
 </script>
