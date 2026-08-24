@@ -18,7 +18,7 @@ const GIT_THEME_CSS = GIT_THEME_TOKENS.map(([color, onColor], index) => {
 	const branchLabelSelector = select("branch-label");
 
 	return `
-			${select("branch", "arrow", "commit-cherry-pick")} {
+			${select("branch", "arrow")} {
 				stroke: var(${color});
 			}
 			${select("commit", "label")} {
@@ -26,8 +26,8 @@ const GIT_THEME_CSS = GIT_THEME_TOKENS.map(([color, onColor], index) => {
 				stroke: var(${color});
 			}
 			${select("commit-highlight")} {
-				fill: var(--background_primary);
-				stroke: var(--background_primary);
+				fill: var(${color});
+				stroke: var(${color});
 			}
 			${branchLabelSelector},
 			${branchLabelSelector} text,
@@ -193,6 +193,19 @@ export const MERMAID_THEME_CSS = `
 
 	/* Git graphs */
 	${GIT_THEME_CSS}
+	.commit.commit-highlight-inner {
+		fill: var(--background_primary);
+		stroke: var(--background_primary);
+	}
+	.commit.commit-merge {
+		fill: var(--mermaid-primary-color);
+		stroke: var(--mermaid-primary-color);
+	}
+	.commit.commit-reverse {
+		fill: none;
+		stroke: var(--mermaid-primary-color);
+		stroke-width: 3px;
+	}
 	.commit-label,
 	.tag-label,
 	.gitTitleText {
@@ -203,10 +216,6 @@ export const MERMAID_THEME_CSS = `
 		fill: var(--mermaid-label-background);
 		stroke: var(--mermaid-border-color);
 		opacity: 1;
-	}
-	.commit-highlight-inner {
-		fill: var(--background_primary);
-		stroke: var(--background_primary);
 	}
 
 	/* Entity relationship diagrams */
