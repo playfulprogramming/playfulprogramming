@@ -123,10 +123,6 @@ header {
 		min-width: 0;
 	}
 
-	.themeToggleLarge {
-		display: none;
-	}
-
 	@include from($tabletLarge) {
 		.searchSmall {
 			display: none;
@@ -154,14 +150,6 @@ header {
 
 		.discordLarge {
 			display: flex;
-		}
-
-		.themeToggleLarge {
-			display: flex;
-		}
-
-		.themeToggleLarge ~ .themeToggleSmall {
-			display: none;
 		}
 	}
 }

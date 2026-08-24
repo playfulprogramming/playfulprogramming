@@ -1,51 +1,333 @@
-import { BRAND_THEME_STORAGE_KEY } from "../constants/theme.ts";
+import {
+	BRAND_THEME_STORAGE_KEY,
+	COLOR_MODE_STORAGE_KEY,
+	THEME_COLOR_DARK,
+	THEME_COLOR_LIGHT,
+} from "../constants/theme.ts";
 
-export const saveBrandTheme = (
-	root: HTMLElement = document.documentElement,
-) => {
-	if (typeof window === "undefined") return;
+export type ColorModePreference = "light" | "dark" | "system";
+export type ResolvedColorMode = Exclude<ColorModePreference, "system">;
 
-	const theme = {
-		"hue-primary": root.style.getPropertyValue("--hue-primary"),
-		"hue-secondary": root.style.getPropertyValue("--hue-secondary"),
-		"hue-positive": root.style.getPropertyValue("--hue-positive"),
-		"hue-error": root.style.getPropertyValue("--hue-error"),
-		"chroma-factor": root.style.getPropertyValue("--chroma-factor"),
-	};
+export const COLOR_SCHEME_MEDIA_QUERY = "(prefers-color-scheme: dark)";
 
-	localStorage.setItem(BRAND_THEME_STORAGE_KEY, JSON.stringify(theme));
-};
+export const THEME_FONT_FAMILIES = {
+	figtree: '"Figtree", "Arial", "Roboto", sans-serif',
+	plusJakartaSans: '"Plus Jakarta Sans", "Arial", sans-serif',
+	playpenSans: '"Playpen Sans", "Arial", sans-serif',
+	changaOne: '"Changa One", "Arial", sans-serif',
+	system:
+		'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+} as const;
 
-export const loadBrandTheme = (
-	root: HTMLElement = document.documentElement,
-) => {
-	if (typeof window === "undefined") return;
+export type ThemeFontFamily =
+	(typeof THEME_FONT_FAMILIES)[keyof typeof THEME_FONT_FAMILIES];
 
-	const saved = localStorage.getItem(BRAND_THEME_STORAGE_KEY);
-	if (!saved) return;
+export const ALLOWED_THEME_FONT_FAMILIES = Object.values(
+	THEME_FONT_FAMILIES,
+) as ThemeFontFamily[];
+
+export const BRAND_THEME_PROPERTIES = [
+	"--hue-primary",
+	"--hue-secondary",
+	"--hue-positive",
+	"--hue-error",
+	"--chroma-factor",
+	"--pfp-font-family-brand",
+	"--pfp-font-family-body",
+] as const;
+
+export type BrandThemeProperty = (typeof BRAND_THEME_PROPERTIES)[number];
+export type BrandTheme = Record<BrandThemeProperty, string>;
+export type BrandThemeUpdate = Partial<BrandTheme>;
+
+type MatchMedia = (
+	query: string,
+) => Pick<MediaQueryList, "matches"> | undefined;
+
+export interface ApplyColorModeOptions {
+	root?: HTMLElement | null;
+	targetDocument?: Document | null;
+	matchMedia?: MatchMedia;
+	persist?: boolean;
+}
+
+const BRAND_THEME_PROPERTY_SET = new Set<string>(BRAND_THEME_PROPERTIES);
+const HUE_PROPERTIES = new Set<BrandThemeProperty>([
+	"--hue-primary",
+	"--hue-secondary",
+	"--hue-positive",
+	"--hue-error",
+]);
+const FONT_PROPERTIES = new Set<BrandThemeProperty>([
+	"--pfp-font-family-brand",
+	"--pfp-font-family-body",
+]);
+const ALLOWED_THEME_FONT_FAMILY_SET = new Set<string>(
+	ALLOWED_THEME_FONT_FAMILIES,
+);
+const NUMBER_PATTERN = /^-?(?:\d+(?:\.\d*)?|\.\d+)$/;
+
+const getDocument = () =>
+	typeof document === "undefined" ? undefined : document;
+
+const getDocumentRoot = () => getDocument()?.documentElement;
+
+const getStorage = () => {
+	if (typeof window === "undefined") return undefined;
 
 	try {
-		const theme = JSON.parse(saved) as Record<string, string>;
-
-		Object.entries(theme).forEach(([key, value]) => {
-			if (value) {
-				root.style.setProperty(`--${key}`, String(value));
-			}
-		});
+		return window.localStorage;
 	} catch {
-		// ignore malformed
+		return undefined;
 	}
 };
 
-export const resetBrandTheme = (
-	root: HTMLElement = document.documentElement,
+const getStoredValue = (key: string) => {
+	try {
+		return getStorage()?.getItem(key) ?? null;
+	} catch {
+		return null;
+	}
+};
+
+const setStoredValue = (key: string, value: string) => {
+	try {
+		getStorage()?.setItem(key, value);
+	} catch {
+		// Storage can be unavailable or full. The applied theme still works.
+	}
+};
+
+const removeStoredValue = (key: string) => {
+	try {
+		getStorage()?.removeItem(key);
+	} catch {
+		// Storage can be unavailable. The applied theme still works.
+	}
+};
+
+export const isColorModePreference = (
+	value: unknown,
+): value is ColorModePreference =>
+	value === "light" || value === "dark" || value === "system";
+
+export const readColorModePreference = (): ColorModePreference => {
+	const savedPreference = getStoredValue(COLOR_MODE_STORAGE_KEY);
+	return isColorModePreference(savedPreference) ? savedPreference : "system";
+};
+
+export const saveColorModePreference = (preference: ColorModePreference) => {
+	if (preference === "system") {
+		removeStoredValue(COLOR_MODE_STORAGE_KEY);
+		return;
+	}
+
+	setStoredValue(COLOR_MODE_STORAGE_KEY, preference);
+};
+
+export const resolveColorMode = (
+	preference: ColorModePreference,
+	matchMedia?: MatchMedia,
+): ResolvedColorMode => {
+	if (preference === "light" || preference === "dark") return preference;
+
+	const mediaMatcher =
+		matchMedia ??
+		(typeof window === "undefined"
+			? undefined
+			: window.matchMedia.bind(window));
+
+	try {
+		return mediaMatcher?.(COLOR_SCHEME_MEDIA_QUERY)?.matches ? "dark" : "light";
+	} catch {
+		return "light";
+	}
+};
+
+export const syncThemeColorMeta = (
+	colorMode: ResolvedColorMode,
+	targetDocument: Document | undefined = getDocument(),
 ) => {
-	root.style.removeProperty("--hue-primary");
-	root.style.removeProperty("--hue-secondary");
-	root.style.removeProperty("--hue-positive");
-	root.style.removeProperty("--hue-error");
-	root.style.removeProperty("--chroma-factor");
-	localStorage.removeItem(BRAND_THEME_STORAGE_KEY);
+	if (!targetDocument) return;
+
+	const color = colorMode === "light" ? THEME_COLOR_LIGHT : THEME_COLOR_DARK;
+	targetDocument
+		.querySelectorAll("meta[name='theme-color']")
+		.forEach((element) => element.setAttribute("content", color));
+};
+
+export const applyColorMode = (
+	preference: ColorModePreference,
+	options: ApplyColorModeOptions = {},
+): ResolvedColorMode => {
+	const normalizedPreference = isColorModePreference(preference)
+		? preference
+		: "system";
+	const colorMode = resolveColorMode(normalizedPreference, options.matchMedia);
+	const root =
+		options.root === undefined
+			? getDocumentRoot()
+			: (options.root ?? undefined);
+
+	root?.classList.toggle("light", colorMode === "light");
+	root?.classList.toggle("dark", colorMode === "dark");
+
+	const targetDocument =
+		options.targetDocument === undefined
+			? (root?.ownerDocument ?? getDocument())
+			: (options.targetDocument ?? undefined);
+	syncThemeColorMeta(colorMode, targetDocument);
+
+	if (options.persist !== false) {
+		saveColorModePreference(normalizedPreference);
+	}
+
+	return colorMode;
+};
+
+export const loadColorMode = (
+	options: Omit<ApplyColorModeOptions, "persist"> = {},
+) =>
+	applyColorMode(readColorModePreference(), {
+		...options,
+		persist: false,
+	});
+
+const normalizeBrandThemeProperty = (
+	property: string,
+): BrandThemeProperty | undefined => {
+	const cssProperty = property.startsWith("--") ? property : `--${property}`;
+	return BRAND_THEME_PROPERTY_SET.has(cssProperty)
+		? (cssProperty as BrandThemeProperty)
+		: undefined;
+};
+
+export const isValidBrandThemeValue = (
+	property: BrandThemeProperty,
+	value: unknown,
+): value is string => {
+	if (typeof value !== "string") return false;
+
+	const normalizedValue = value.trim();
+	if (!normalizedValue) return true;
+
+	if (FONT_PROPERTIES.has(property)) {
+		return ALLOWED_THEME_FONT_FAMILY_SET.has(normalizedValue);
+	}
+
+	if (!NUMBER_PATTERN.test(normalizedValue)) return false;
+	const number = Number(normalizedValue);
+	if (!Number.isFinite(number)) return false;
+
+	if (HUE_PROPERTIES.has(property)) return number >= 0 && number <= 360;
+	if (property === "--chroma-factor") return number >= 0 && number <= 2;
+	return false;
+};
+
+export const sanitizeBrandTheme = (value: unknown): BrandThemeUpdate => {
+	if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+
+	const theme: BrandThemeUpdate = {};
+	for (const [storedProperty, storedValue] of Object.entries(value)) {
+		const property = normalizeBrandThemeProperty(storedProperty);
+		if (!property || !isValidBrandThemeValue(property, storedValue)) continue;
+		theme[property] = storedValue.trim();
+	}
+
+	return theme;
+};
+
+export const readBrandTheme = (
+	root: HTMLElement | undefined = getDocumentRoot(),
+): BrandTheme =>
+	Object.fromEntries(
+		BRAND_THEME_PROPERTIES.map((property) => [
+			property,
+			root?.style.getPropertyValue(property).trim() ?? "",
+		]),
+	) as BrandTheme;
+
+export const readSavedBrandTheme = (): BrandThemeUpdate | undefined => {
+	const savedTheme = getStoredValue(BRAND_THEME_STORAGE_KEY);
+	if (!savedTheme) return undefined;
+
+	try {
+		const parsedTheme: unknown = JSON.parse(savedTheme);
+		if (
+			!parsedTheme ||
+			typeof parsedTheme !== "object" ||
+			Array.isArray(parsedTheme)
+		) {
+			return undefined;
+		}
+		return sanitizeBrandTheme(parsedTheme);
+	} catch {
+		return undefined;
+	}
+};
+
+export const applyBrandTheme = (
+	theme: unknown,
+	root: HTMLElement | undefined = getDocumentRoot(),
+): BrandThemeUpdate => {
+	const sanitizedTheme = sanitizeBrandTheme(theme);
+	if (!root) return sanitizedTheme;
+
+	for (const [property, value] of Object.entries(sanitizedTheme) as [
+		BrandThemeProperty,
+		string,
+	][]) {
+		if (value) root.style.setProperty(property, value);
+		else root.style.removeProperty(property);
+	}
+
+	return sanitizedTheme;
+};
+
+export const saveBrandTheme = (
+	root: HTMLElement | undefined = getDocumentRoot(),
+) => {
+	if (!root) return;
+
+	const currentTheme = readBrandTheme(root);
+	const theme = Object.fromEntries(
+		BRAND_THEME_PROPERTIES.map((property) => [
+			property,
+			isValidBrandThemeValue(property, currentTheme[property])
+				? currentTheme[property]
+				: "",
+		]),
+	) as BrandTheme;
+	if (BRAND_THEME_PROPERTIES.every((property) => !theme[property])) {
+		removeStoredValue(BRAND_THEME_STORAGE_KEY);
+		return theme;
+	}
+
+	const storedTheme = Object.fromEntries(
+		BRAND_THEME_PROPERTIES.map((property) => [
+			property.slice(2),
+			theme[property],
+		]),
+	);
+	setStoredValue(BRAND_THEME_STORAGE_KEY, JSON.stringify(storedTheme));
+	return theme;
+};
+
+export const loadBrandTheme = (
+	root: HTMLElement | undefined = getDocumentRoot(),
+) => {
+	const savedTheme = readSavedBrandTheme();
+	if (!savedTheme) return;
+	return applyBrandTheme(savedTheme, root);
+};
+
+export const resetBrandTheme = (
+	root: HTMLElement | undefined = getDocumentRoot(),
+) => {
+	for (const property of BRAND_THEME_PROPERTIES) {
+		root?.style.removeProperty(property);
+	}
+	removeStoredValue(BRAND_THEME_STORAGE_KEY);
 };
 
 export const harmonize = (
@@ -68,9 +350,12 @@ export const harmonize = (
 export const randHue = () => Math.floor(Math.random() * 360);
 
 export const updateBrandTheme = (
-	root: HTMLElement = document.documentElement,
+	root: HTMLElement | undefined = getDocumentRoot(),
 	randomizeChroma: boolean,
+	persist = true,
 ) => {
+	if (!root || typeof getComputedStyle === "undefined") return;
+
 	const styles = getComputedStyle(root);
 
 	const positive = Number(
@@ -93,5 +378,5 @@ export const updateBrandTheme = (
 		root.style.setProperty("--chroma-factor", String(Math.random() * 2));
 	}
 
-	saveBrandTheme(root);
+	if (persist) saveBrandTheme(root);
 };

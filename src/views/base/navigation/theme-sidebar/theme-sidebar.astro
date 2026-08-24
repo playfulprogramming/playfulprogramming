@@ -1,0 +1,254 @@
+---
+import { Icon } from "astro-icon/components";
+import { Button, IconOnlyButton } from "#components/index.ts";
+import { translate } from "#utils/translations.ts";
+import styles from "./theme-sidebar.module.scss";
+
+const headingFonts = [
+	{
+		id: "figtree",
+		label: "Figtree",
+		family: '"Figtree", "Arial", "Roboto", sans-serif',
+	},
+	{
+		id: "plus-jakarta-sans",
+		label: "Plus Jakarta Sans",
+		family: '"Plus Jakarta Sans", "Arial", sans-serif',
+	},
+	{
+		id: "playpen-sans",
+		label: "Playpen Sans",
+		family: '"Playpen Sans", "Arial", sans-serif',
+	},
+	{
+		id: "changa-one",
+		label: "Changa One",
+		family: '"Changa One", "Arial", sans-serif',
+	},
+] as const;
+
+const bodyFonts = [
+	headingFonts[0],
+	headingFonts[1],
+	headingFonts[2],
+	{
+		id: "system-ui",
+		label: "System UI",
+		family:
+			'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+	},
+] as const;
+
+const colorOptions = Array.from({ length: 12 });
+---
+
+<dialog
+	id="theme-sidebar"
+	class={styles.dialog}
+	aria-labelledby="theme-sidebar-title"
+	data-theme-sidebar
+>
+	<form class={styles.form} method="dialog" data-theme-sidebar-form>
+		<div class={styles.header}>
+			<IconOnlyButton
+				tag="button"
+				type="button"
+				aria-label={translate(Astro, "action.close_theme_customizer")}
+				data-theme-sidebar-close
+			>
+				<Icon name="close" />
+			</IconOnlyButton>
+			<h2
+				id="theme-sidebar-title"
+				class={`text-style-headline-6 ${styles.title}`}
+			>
+				{translate(Astro, "action.customize_theme")}
+			</h2>
+		</div>
+
+		<div class={styles.content}>
+			<fieldset class={styles.section}>
+				<legend class={styles.sectionTitle}>
+					{translate(Astro, "label.theme")}
+				</legend>
+				<div class={styles.modeOptions}>
+					{
+						(["light", "dark", "system"] as const).map((mode) => (
+							<>
+								<input
+									class={styles.choiceInput}
+									type="radio"
+									id={`theme-mode-${mode}`}
+									name="theme-mode"
+									value={mode}
+									data-theme-mode
+								/>
+								<label class={styles.modeOption} for={`theme-mode-${mode}`}>
+									{translate(Astro, `label.${mode}`)}
+								</label>
+							</>
+						))
+					}
+				</div>
+			</fieldset>
+
+			<fieldset class={styles.section}>
+				<legend class={styles.sectionTitle}>
+					{translate(Astro, "label.font")}
+				</legend>
+				<div class={styles.fontOptions}>
+					<div class={styles.fontRow}>
+						<label class={styles.controlLabel} for="theme-heading-font">
+							{translate(Astro, "label.headings")}
+						</label>
+						<div class={styles.selectWrapper}>
+							<select id="theme-heading-font" data-theme-font="brand">
+								{
+									headingFonts.map((font) => (
+										<option value={font.id} data-font-family={font.family}>
+											{font.label}
+										</option>
+									))
+								}
+							</select>
+							<Icon name="chevron_down" />
+						</div>
+					</div>
+
+					<div class={styles.fontRow}>
+						<label class={styles.controlLabel} for="theme-body-font">
+							{translate(Astro, "label.body")}
+						</label>
+						<div class={styles.selectWrapper}>
+							<select id="theme-body-font" data-theme-font="body">
+								{
+									bodyFonts.map((font) => (
+										<option value={font.id} data-font-family={font.family}>
+											{font.label}
+										</option>
+									))
+								}
+							</select>
+							<Icon name="chevron_down" />
+						</div>
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset class={styles.section}>
+				<legend class={styles.sectionTitle}>
+					{translate(Astro, "label.color")}
+				</legend>
+				<div class={styles.colorOptions}>
+					<fieldset class={styles.paletteGroup} data-theme-palette="primary">
+						<legend class={styles.controlLabel}>
+							{translate(Astro, "label.primary")}
+						</legend>
+						<div class={styles.palette}>
+							{
+								colorOptions.map((_, index) => (
+									<span class={styles.swatchOption}>
+										<input
+											class={styles.choiceInput}
+											type="radio"
+											id={`theme-primary-color-${index}`}
+											name="theme-primary-color"
+											value={String(index * 30)}
+											aria-label={translate(
+												Astro,
+												"label.primary_color_option",
+												String(index + 1),
+											)}
+											data-theme-color-option
+										/>
+										<label
+											class={styles.swatch}
+											for={`theme-primary-color-${index}`}
+											style={`--swatch-hue: ${index * 30}`}
+										/>
+									</span>
+								))
+							}
+						</div>
+					</fieldset>
+
+					<fieldset class={styles.paletteGroup} data-theme-palette="secondary">
+						<legend class={styles.controlLabel}>
+							{translate(Astro, "label.secondary")}
+						</legend>
+						<div class={styles.palette}>
+							{
+								colorOptions.map((_, index) => (
+									<span class={styles.swatchOption}>
+										<input
+											class={styles.choiceInput}
+											type="radio"
+											id={`theme-secondary-color-${index}`}
+											name="theme-secondary-color"
+											value={String(index * 30)}
+											aria-label={translate(
+												Astro,
+												"label.secondary_color_option",
+												String(index + 1),
+											)}
+											data-theme-color-option
+										/>
+										<label
+											class={styles.swatch}
+											for={`theme-secondary-color-${index}`}
+											style={`--swatch-hue: ${index * 30}`}
+										/>
+									</span>
+								))
+							}
+						</div>
+					</fieldset>
+
+					<div class={styles.surpriseGroup}>
+						<p class={styles.controlLabel}>
+							{translate(Astro, "label.surprise_me")}
+						</p>
+						<div class={styles.surpriseActions}>
+							<Button
+								tag="button"
+								type="button"
+								class={styles.shuffleButton}
+								data-theme-shuffle
+							>
+								<Icon slot="leftIcon" name="dice" />
+								{translate(Astro, "action.shuffle")}
+							</Button>
+							<IconOnlyButton
+								tag="button"
+								type="button"
+								aria-label={translate(Astro, "action.refresh_color_choices")}
+								data-theme-refresh-colors
+							>
+								<Icon name="refresh" />
+							</IconOnlyButton>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class={styles.footer}>
+			<Button
+				tag="button"
+				type="submit"
+				variant="primary-emphasized"
+				data-theme-save
+			>
+				{translate(Astro, "action.save_changes")}
+			</Button>
+			<Button tag="button" type="button" variant="secondary" data-theme-reset>
+				{translate(Astro, "action.reset")}
+			</Button>
+		</div>
+	</form>
+</dialog>
+
+<script>
+	import { initializeThemeSidebar } from "./theme-sidebar.ts";
+	initializeThemeSidebar();
+</script>

@@ -8,6 +8,11 @@ import {
 	THEME_COLOR_LIGHT,
 } from "../../constants/theme.ts";
 import { serializeInlineCall } from "#utils/serialize-inline-call.ts";
+import {
+	ALLOWED_THEME_FONT_FAMILIES,
+	BRAND_THEME_PROPERTIES,
+	COLOR_SCHEME_MEDIA_QUERY,
+} from "#utils/theming.ts";
 
 /**
  * Much of this code deals with dark mode. It's ripped straight from:
@@ -25,24 +30,36 @@ const setColorsByTheme = serializeInlineCall(
 		storageKey,
 		lightTheme,
 		darkTheme,
+		colorSchemeMediaQuery,
 	}: {
 		storageKey: string;
 		lightTheme: string;
 		darkTheme: string;
+		colorSchemeMediaQuery: string;
 	}): void => {
-		const mql = window.matchMedia("(prefers-color-scheme: dark)");
-		const prefersDarkFromMQ = mql.matches;
-		const prefersDarkFromLocalStorage = localStorage.getItem(storageKey);
-		const hasUsedToggle = typeof prefersDarkFromLocalStorage === "string";
+		let savedPreference: string | null = null;
+		try {
+			savedPreference = localStorage.getItem(storageKey);
+		} catch {
+			// Storage can be unavailable. Fall back to the system preference.
+		}
 
-		const colorMode = hasUsedToggle
-			? prefersDarkFromLocalStorage
-			: prefersDarkFromMQ
-				? "dark"
-				: "light";
+		const preference =
+			savedPreference === "light" || savedPreference === "dark"
+				? savedPreference
+				: "system";
+		let prefersDark = false;
+		try {
+			prefersDark = window.matchMedia(colorSchemeMediaQuery).matches;
+		} catch {
+			// Browsers without matchMedia fall back to light mode.
+		}
 
-		// TODO: migrate to `classList`
-		document.documentElement.className = colorMode;
+		const colorMode =
+			preference === "system" ? (prefersDark ? "dark" : "light") : preference;
+		const root = document.documentElement;
+		root.classList.toggle("light", colorMode === "light");
+		root.classList.toggle("dark", colorMode === "dark");
 
 		// update the meta theme-color attribute(s) based on the user preference
 		const bgColor = colorMode === "light" ? lightTheme : darkTheme;
@@ -54,18 +71,64 @@ const setColorsByTheme = serializeInlineCall(
 );
 
 const setBrandColorsByTheme = serializeInlineCall(
-	({ storageKey }: { storageKey: string }): void => {
+	({
+		storageKey,
+		properties,
+		fontFamilies,
+	}: {
+		storageKey: string;
+		properties: readonly string[];
+		fontFamilies: readonly string[];
+	}): void => {
 		try {
 			const savedTheme = localStorage.getItem(storageKey);
 			if (!savedTheme) return;
 
-			const theme = JSON.parse(savedTheme) as Record<string, string>;
-			const root = document.documentElement;
+			const theme: unknown = JSON.parse(savedTheme);
+			if (!theme || typeof theme !== "object" || Array.isArray(theme)) return;
 
-			Object.entries(theme).forEach(([key, value]) => {
-				if (typeof value === "string" && value) {
-					root.style.setProperty(`--${key}`, value);
+			const root = document.documentElement;
+			const allowedProperties = new Set(properties);
+			const hueProperties = new Set([
+				"--hue-primary",
+				"--hue-secondary",
+				"--hue-positive",
+				"--hue-error",
+			]);
+			const fontProperties = new Set([
+				"--pfp-font-family-brand",
+				"--pfp-font-family-body",
+			]);
+			const allowedFontFamilies = new Set(fontFamilies);
+			const numberPattern = /^-?(?:\d+(?:\.\d*)?|\.\d+)$/;
+
+			Object.entries(theme).forEach(([storedProperty, storedValue]) => {
+				const property = storedProperty.startsWith("--")
+					? storedProperty
+					: `--${storedProperty}`;
+				if (
+					!allowedProperties.has(property) ||
+					typeof storedValue !== "string"
+				) {
+					return;
 				}
+
+				const value = storedValue.trim();
+				let isValid = value === "";
+				if (fontProperties.has(property)) {
+					isValid ||= allowedFontFamilies.has(value);
+				} else if (numberPattern.test(value)) {
+					const number = Number(value);
+					isValid ||=
+						Number.isFinite(number) &&
+						(hueProperties.has(property)
+							? number >= 0 && number <= 360
+							: property === "--chroma-factor" && number >= 0 && number <= 2);
+				}
+
+				if (!isValid) return;
+				if (value) root.style.setProperty(property, value);
+				else root.style.removeProperty(property);
 			});
 		} catch {
 			// Ignore malformed saved theme values.
@@ -78,9 +141,12 @@ const inlineScript = [
 		storageKey: COLOR_MODE_STORAGE_KEY,
 		lightTheme: THEME_COLOR_LIGHT,
 		darkTheme: THEME_COLOR_DARK,
+		colorSchemeMediaQuery: COLOR_SCHEME_MEDIA_QUERY,
 	}),
 	setBrandColorsByTheme({
 		storageKey: BRAND_THEME_STORAGE_KEY,
+		properties: BRAND_THEME_PROPERTIES,
+		fontFamilies: ALLOWED_THEME_FONT_FAMILIES,
 	}),
 ].join("");
 

@@ -1,0 +1,27 @@
+---
+import { Icon } from "astro-icon/components";
+import { IconOnlyButton } from "#components/index.ts";
+import { translate } from "#utils/translations.ts";
+import styles from "./theme-sidebar.module.scss";
+---
+
+<IconOnlyButton
+	tag="button"
+	type="button"
+	aria-controls="theme-sidebar"
+	aria-expanded="false"
+	aria-haspopup="dialog"
+	aria-label={translate(Astro, "action.customize_theme")}
+	data-theme-sidebar-trigger="true"
+>
+	<span class={styles.triggerIcon} data-theme-sidebar-trigger-icon="dark">
+		<Icon name="dark_mode" />
+	</span>
+	<span
+		class={styles.triggerIcon}
+		data-theme-sidebar-trigger-icon="light"
+		hidden
+	>
+		<Icon name="light_mode" />
+	</span>
+</IconOnlyButton>

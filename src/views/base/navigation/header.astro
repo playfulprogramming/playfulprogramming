@@ -2,9 +2,9 @@
 import { Icon } from "astro-icon/components";
 import * as data from "#utils/data.ts";
 import { Button, IconOnlyButton } from "#components/index.ts";
-import DarkLightButton from "./dark-light-button/dark-light-button.astro";
-import RandomizeButton from "./randomize-button/randomize-button.astro";
 import BackButton from "./back-button/back-button.astro";
+import ThemeSidebar from "./theme-sidebar/theme-sidebar.astro";
+import ThemeSidebarTrigger from "./theme-sidebar/theme-sidebar-trigger.astro";
 import style from "./header.module.scss";
 import logo from "#src/assets/playfulprogramming_sticker.svg?raw";
 import {
@@ -122,15 +122,10 @@ const props = Astro.props;
 						]
 				}
 
-				{
-					isHome ? (
-						<DarkLightButton variant="large" class={style.themeToggleLarge} />
-					) : undefined
-				}
-
-				<DarkLightButton variant="iconOnly" class={style.themeToggleSmall} />
-				<RandomizeButton />
+				<ThemeSidebarTrigger />
 			</div>
 		</nav>
 	</div>
 </header>
+
+<ThemeSidebar />
