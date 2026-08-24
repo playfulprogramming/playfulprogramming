@@ -4,12 +4,10 @@ export const randomizeButtonListener = () => {
 	const randomizeBtn = document.querySelector("#randomizebtn");
 	if (!randomizeBtn) return;
 
-	const randomizeChroma = true;
-
 	let clicks = 0;
 	randomizeBtn.addEventListener("click", () => {
 		if (clicks < 10) {
-			updateBrandTheme(document.documentElement, randomizeChroma);
+			updateBrandTheme(document.documentElement);
 			clicks++;
 		} else {
 			clicks = 0;

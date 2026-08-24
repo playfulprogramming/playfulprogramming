@@ -2,37 +2,37 @@
 import { Icon } from "astro-icon/components";
 import { Button, IconOnlyButton } from "#components/index.ts";
 import StyledSelect from "#components/styled-select/styled-select.astro";
-import { THEME_FONT_FAMILIES } from "#utils/theming.ts";
+import { THEME_FONT, THEME_FONT_FAMILIES } from "#utils/theming.ts";
 import { translate } from "#utils/translations.ts";
 import styles from "./theme-sidebar.module.scss";
 
 const openDyslexicFont = {
-	id: "open-dyslexic",
+	id: THEME_FONT.OpenDyslexic,
 	label: "OpenDyslexic",
-	family: THEME_FONT_FAMILIES.openDyslexic,
+	family: THEME_FONT_FAMILIES[THEME_FONT.OpenDyslexic],
 } as const;
 
 const robotoMonoFont = {
-	id: "roboto-mono",
+	id: THEME_FONT.RobotoMono,
 	label: "Roboto Mono",
-	family: THEME_FONT_FAMILIES.robotoMono,
+	family: THEME_FONT_FAMILIES[THEME_FONT.RobotoMono],
 } as const;
 
 const headingFonts = [
 	{
-		id: "figtree",
+		id: THEME_FONT.Figtree,
 		label: "Figtree",
-		family: '"Figtree", "Arial", "Roboto", sans-serif',
+		family: THEME_FONT_FAMILIES[THEME_FONT.Figtree],
 	},
 	{
-		id: "plus-jakarta-sans",
+		id: THEME_FONT.PlusJakartaSans,
 		label: "Plus Jakarta Sans",
-		family: '"Plus Jakarta Sans", "Arial", sans-serif',
+		family: THEME_FONT_FAMILIES[THEME_FONT.PlusJakartaSans],
 	},
 	{
-		id: "playpen-sans",
+		id: THEME_FONT.PlaypenSans,
 		label: "Playpen Sans",
-		family: '"Playpen Sans", "Arial", sans-serif',
+		family: THEME_FONT_FAMILIES[THEME_FONT.PlaypenSans],
 	},
 	openDyslexicFont,
 	robotoMonoFont,
@@ -45,10 +45,9 @@ const bodyFonts = [
 	openDyslexicFont,
 	robotoMonoFont,
 	{
-		id: "system-ui",
+		id: THEME_FONT.System,
 		label: "System UI",
-		family:
-			'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+		family: THEME_FONT_FAMILIES[THEME_FONT.System],
 	},
 ] as const;
 

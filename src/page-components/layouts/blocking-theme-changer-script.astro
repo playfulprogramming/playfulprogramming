@@ -9,9 +9,9 @@ import {
 } from "../../constants/theme.ts";
 import { serializeInlineCall } from "#utils/serialize-inline-call.ts";
 import {
-	ALLOWED_THEME_FONT_FAMILIES,
 	BRAND_THEME_PROPERTIES,
 	COLOR_SCHEME_MEDIA_QUERY,
+	THEME_FONT_FAMILIES,
 } from "#utils/theming.ts";
 
 /**
@@ -78,7 +78,7 @@ const setBrandColorsByTheme = serializeInlineCall(
 	}: {
 		storageKey: string;
 		properties: readonly string[];
-		fontFamilies: readonly string[];
+		fontFamilies: Readonly<Record<string, string>>;
 	}): void => {
 		try {
 			const savedTheme = localStorage.getItem(storageKey);
@@ -99,7 +99,6 @@ const setBrandColorsByTheme = serializeInlineCall(
 				"--pfp-font-family-brand",
 				"--pfp-font-family-body",
 			]);
-			const allowedFontFamilies = new Set(fontFamilies);
 			const numberPattern = /^-?(?:\d+(?:\.\d*)?|\.\d+)$/;
 
 			Object.entries(theme).forEach(([storedProperty, storedValue]) => {
@@ -114,20 +113,29 @@ const setBrandColorsByTheme = serializeInlineCall(
 				}
 
 				const value = storedValue.trim();
-				let isValid = value === "";
+				let cssValue = value;
 				if (fontProperties.has(property)) {
-					isValid ||= allowedFontFamilies.has(value);
-				} else if (numberPattern.test(value)) {
+					if (
+						value &&
+						!Object.prototype.hasOwnProperty.call(fontFamilies, value)
+					) {
+						return;
+					}
+					cssValue = value ? fontFamilies[value] : "";
+				} else if (value) {
+					if (!numberPattern.test(value)) return;
 					const number = Number(value);
-					isValid ||=
-						Number.isFinite(number) &&
-						(hueProperties.has(property)
-							? number >= 0 && number <= 360
-							: property === "--chroma-factor" && number >= 0 && number <= 2);
+					if (
+						!Number.isFinite(number) ||
+						!hueProperties.has(property) ||
+						number < 0 ||
+						number > 360
+					) {
+						return;
+					}
 				}
 
-				if (!isValid) return;
-				if (value) root.style.setProperty(property, value);
+				if (cssValue) root.style.setProperty(property, cssValue);
 				else root.style.removeProperty(property);
 			});
 		} catch {
@@ -146,7 +154,7 @@ const inlineScript = [
 	setBrandColorsByTheme({
 		storageKey: BRAND_THEME_STORAGE_KEY,
 		properties: BRAND_THEME_PROPERTIES,
-		fontFamilies: ALLOWED_THEME_FONT_FAMILIES,
+		fontFamilies: THEME_FONT_FAMILIES,
 	}),
 ].join("");
 

@@ -52,7 +52,6 @@ async function readRootTheme(page: Page) {
 			secondaryHue: property("--hue-secondary"),
 			positiveHue: property("--hue-positive"),
 			errorHue: property("--hue-error"),
-			chromaFactor: property("--chroma-factor"),
 			headingFont: property("--pfp-font-family-brand"),
 			bodyFont: property("--pfp-font-family-body"),
 		};
@@ -199,9 +198,10 @@ test.describe("theme sidebar", () => {
 		expect(storedTheme.currentTheme).toBe("dark");
 		expect(storedTheme.brandTheme).toMatchObject({
 			"hue-primary": "90",
-			"pfp-font-family-body": OPEN_DYSLEXIC_FONT,
-			"pfp-font-family-brand": OPEN_DYSLEXIC_FONT,
+			"pfp-font-family-body": "open-dyslexic",
+			"pfp-font-family-brand": "open-dyslexic",
 		});
+		expect(storedTheme.brandTheme).not.toHaveProperty("chroma-factor");
 
 		await page.reload({ waitUntil: "networkidle" });
 
@@ -217,9 +217,10 @@ test.describe("theme sidebar", () => {
 		expect(storedTheme.currentTheme).toBe("dark");
 		expect(storedTheme.brandTheme).toMatchObject({
 			"hue-primary": "90",
-			"pfp-font-family-body": OPEN_DYSLEXIC_FONT,
-			"pfp-font-family-brand": OPEN_DYSLEXIC_FONT,
+			"pfp-font-family-body": "open-dyslexic",
+			"pfp-font-family-brand": "open-dyslexic",
 		});
+		expect(storedTheme.brandTheme).not.toHaveProperty("chroma-factor");
 	});
 
 	test("saving System removes the explicit color-mode preference", async ({
@@ -274,7 +275,6 @@ test.describe("theme sidebar", () => {
 		).toHaveValue("figtree");
 		expect(await readRootTheme(page)).toEqual({
 			bodyFont: "",
-			chromaFactor: "",
 			errorHue: "",
 			headingFont: "",
 			isDark: false,
@@ -296,7 +296,6 @@ test.describe("theme sidebar", () => {
 		await page.reload({ waitUntil: "networkidle" });
 		expect(await readRootTheme(page)).toEqual({
 			bodyFont: "",
-			chromaFactor: "",
 			errorHue: "",
 			headingFont: "",
 			isDark: false,

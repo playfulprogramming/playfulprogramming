@@ -312,7 +312,7 @@ export const initializeThemeSidebar = () => {
 		});
 
 	shuffleButton?.addEventListener("click", () => {
-		updateBrandTheme(root, true, false);
+		updateBrandTheme(root, { persist: false });
 		populatePalettes(true);
 	});
 

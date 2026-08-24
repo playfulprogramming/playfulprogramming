@@ -10,29 +10,34 @@ export type ResolvedColorMode = Exclude<ColorModePreference, "system">;
 
 export const COLOR_SCHEME_MEDIA_QUERY = "(prefers-color-scheme: dark)";
 
-export const THEME_FONT_FAMILIES = {
-	figtree: '"Figtree", "Arial", "Roboto", sans-serif',
-	plusJakartaSans: '"Plus Jakarta Sans", "Arial", sans-serif',
-	playpenSans: '"Playpen Sans", "Arial", sans-serif',
-	openDyslexic: '"OpenDyslexic", "Arial", sans-serif',
-	robotoMono: '"Roboto Mono", monospace',
-	system:
-		'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+export const THEME_FONT = {
+	Figtree: "figtree",
+	OpenDyslexic: "open-dyslexic",
+	PlaypenSans: "playpen-sans",
+	PlusJakartaSans: "plus-jakarta-sans",
+	RobotoMono: "roboto-mono",
+	System: "system-ui",
 } as const;
 
-export type ThemeFontFamily =
-	(typeof THEME_FONT_FAMILIES)[keyof typeof THEME_FONT_FAMILIES];
+export type ThemeFont = (typeof THEME_FONT)[keyof typeof THEME_FONT];
 
-export const ALLOWED_THEME_FONT_FAMILIES = Object.values(
-	THEME_FONT_FAMILIES,
-) as ThemeFontFamily[];
+export const THEME_FONT_FAMILIES = {
+	[THEME_FONT.Figtree]: '"Figtree", "Arial", "Roboto", sans-serif',
+	[THEME_FONT.OpenDyslexic]: '"OpenDyslexic", "Arial", sans-serif',
+	[THEME_FONT.PlaypenSans]: '"Playpen Sans", "Arial", sans-serif',
+	[THEME_FONT.PlusJakartaSans]: '"Plus Jakarta Sans", "Arial", sans-serif',
+	[THEME_FONT.RobotoMono]: '"Roboto Mono", monospace',
+	[THEME_FONT.System]:
+		'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+} as const satisfies Record<ThemeFont, string>;
+
+export const ALLOWED_THEME_FONTS = Object.values(THEME_FONT) as ThemeFont[];
 
 export const BRAND_THEME_PROPERTIES = [
 	"--hue-primary",
 	"--hue-secondary",
 	"--hue-positive",
 	"--hue-error",
-	"--chroma-factor",
 	"--pfp-font-family-brand",
 	"--pfp-font-family-body",
 ] as const;
@@ -52,6 +57,10 @@ export interface ApplyColorModeOptions {
 	persist?: boolean;
 }
 
+export interface UpdateBrandThemeOptions {
+	persist?: boolean;
+}
+
 const BRAND_THEME_PROPERTY_SET = new Set<string>(BRAND_THEME_PROPERTIES);
 const HUE_PROPERTIES = new Set<BrandThemeProperty>([
 	"--hue-primary",
@@ -63,10 +72,21 @@ const FONT_PROPERTIES = new Set<BrandThemeProperty>([
 	"--pfp-font-family-brand",
 	"--pfp-font-family-body",
 ]);
-const ALLOWED_THEME_FONT_FAMILY_SET = new Set<string>(
-	ALLOWED_THEME_FONT_FAMILIES,
-);
+const THEME_FONT_SET = new Set<string>(ALLOWED_THEME_FONTS);
+const THEME_FONT_FAMILY_ENTRIES = Object.entries(THEME_FONT_FAMILIES) as [
+	ThemeFont,
+	string,
+][];
 const NUMBER_PATTERN = /^-?(?:\d+(?:\.\d*)?|\.\d+)$/;
+
+const getThemeFontFamily = (value: string) => {
+	if (THEME_FONT_SET.has(value)) {
+		return THEME_FONT_FAMILIES[value as ThemeFont];
+	}
+};
+
+const getThemeFont = (family: string) =>
+	THEME_FONT_FAMILY_ENTRIES.find(([, value]) => value === family)?.[0];
 
 const getDocument = () =>
 	typeof document === "undefined" ? undefined : document;
@@ -213,16 +233,14 @@ export const isValidBrandThemeValue = (
 	if (!normalizedValue) return true;
 
 	if (FONT_PROPERTIES.has(property)) {
-		return ALLOWED_THEME_FONT_FAMILY_SET.has(normalizedValue);
+		return getThemeFontFamily(normalizedValue) !== undefined;
 	}
 
 	if (!NUMBER_PATTERN.test(normalizedValue)) return false;
 	const number = Number(normalizedValue);
 	if (!Number.isFinite(number)) return false;
 
-	if (HUE_PROPERTIES.has(property)) return number >= 0 && number <= 360;
-	if (property === "--chroma-factor") return number >= 0 && number <= 2;
-	return false;
+	return HUE_PROPERTIES.has(property) && number >= 0 && number <= 360;
 };
 
 export const sanitizeBrandTheme = (value: unknown): BrandThemeUpdate => {
@@ -242,10 +260,15 @@ export const readBrandTheme = (
 	root: HTMLElement | undefined = getDocumentRoot(),
 ): BrandTheme =>
 	Object.fromEntries(
-		BRAND_THEME_PROPERTIES.map((property) => [
-			property,
-			root?.style.getPropertyValue(property).trim() ?? "",
-		]),
+		BRAND_THEME_PROPERTIES.map((property) => {
+			const value = root?.style.getPropertyValue(property).trim() ?? "";
+			return [
+				property,
+				FONT_PROPERTIES.has(property) && value
+					? (getThemeFont(value) ?? "")
+					: value,
+			];
+		}),
 	) as BrandTheme;
 
 export const readSavedBrandTheme = (): BrandThemeUpdate | undefined => {
@@ -278,7 +301,11 @@ export const applyBrandTheme = (
 		BrandThemeProperty,
 		string,
 	][]) {
-		if (value) root.style.setProperty(property, value);
+		const cssValue =
+			FONT_PROPERTIES.has(property) && value
+				? THEME_FONT_FAMILIES[value as ThemeFont]
+				: value;
+		if (cssValue) root.style.setProperty(property, cssValue);
 		else root.style.removeProperty(property);
 	}
 
@@ -352,8 +379,7 @@ export const randHue = () => Math.floor(Math.random() * 360);
 
 export const updateBrandTheme = (
 	root: HTMLElement | undefined = getDocumentRoot(),
-	randomizeChroma: boolean,
-	persist = true,
+	options: UpdateBrandThemeOptions = {},
 ) => {
 	if (!root || typeof getComputedStyle === "undefined") return;
 
@@ -375,9 +401,5 @@ export const updateBrandTheme = (
 	root.style.setProperty("--hue-positive", String(harmonizedPositive));
 	root.style.setProperty("--hue-error", String(harmonizedError));
 
-	if (randomizeChroma) {
-		root.style.setProperty("--chroma-factor", String(Math.random() * 2));
-	}
-
-	if (persist) saveBrandTheme(root);
+	if (options.persist !== false) saveBrandTheme(root);
 };

@@ -7,7 +7,7 @@ import {
 	THEME_COLOR_LIGHT,
 } from "../constants/theme.ts";
 import {
-	ALLOWED_THEME_FONT_FAMILIES,
+	ALLOWED_THEME_FONTS,
 	applyBrandTheme,
 	applyColorMode,
 	BRAND_THEME_PROPERTIES,
@@ -21,6 +21,7 @@ import {
 	resolveColorMode,
 	sanitizeBrandTheme,
 	saveBrandTheme,
+	THEME_FONT,
 	THEME_FONT_FAMILIES,
 	updateBrandTheme,
 } from "./theming.ts";
@@ -211,7 +212,6 @@ describe("brand theme validation", () => {
 				"--pfp-font-family-body": "url(https://example.com/font)",
 			}),
 		).toEqual({
-			"--chroma-factor": "2",
 			"--hue-positive": "0",
 			"--hue-primary": "360",
 			"--hue-secondary": ".5",
@@ -228,22 +228,22 @@ describe("brand theme validation", () => {
 		).toEqual({});
 	});
 
-	test("accepts every allowlisted font family and rejects arbitrary CSS", () => {
-		for (const fontFamily of ALLOWED_THEME_FONT_FAMILIES) {
+	test("accepts every font enum while rejecting raw stacks and arbitrary CSS", () => {
+		for (const font of ALLOWED_THEME_FONTS) {
 			expect(
 				sanitizeBrandTheme({
-					"pfp-font-family-body": ` ${fontFamily} `,
-					"--pfp-font-family-brand": fontFamily,
+					"pfp-font-family-body": ` ${font} `,
+					"--pfp-font-family-brand": font,
 				}),
 			).toEqual({
-				"--pfp-font-family-body": fontFamily,
-				"--pfp-font-family-brand": fontFamily,
+				"--pfp-font-family-body": font,
+				"--pfp-font-family-brand": font,
 			});
 		}
 
 		expect(
 			sanitizeBrandTheme({
-				"pfp-font-family-body": '"Figtree", serif',
+				"pfp-font-family-body": THEME_FONT_FAMILIES[THEME_FONT.Figtree],
 				"pfp-font-family-brand": "var(--user-controlled-font)",
 			}),
 		).toEqual({});
@@ -273,25 +273,23 @@ describe("brand theme persistence", () => {
 		const { root } = createRoot({
 			"--chroma-factor": " 0.75 ",
 			"--hue-primary": " 210 ",
-			"--pfp-font-family-body": THEME_FONT_FAMILIES.figtree,
+			"--pfp-font-family-body": THEME_FONT_FAMILIES[THEME_FONT.Figtree],
 		});
 
 		expect(saveBrandTheme(root)).toEqual({
-			"--chroma-factor": "0.75",
 			"--hue-error": "",
 			"--hue-positive": "",
 			"--hue-primary": "210",
 			"--hue-secondary": "",
-			"--pfp-font-family-body": THEME_FONT_FAMILIES.figtree,
+			"--pfp-font-family-body": THEME_FONT.Figtree,
 			"--pfp-font-family-brand": "",
 		});
 		expect(JSON.parse(storage.getItem(BRAND_THEME_STORAGE_KEY) ?? "")).toEqual({
-			"chroma-factor": "0.75",
 			"hue-error": "",
 			"hue-positive": "",
 			"hue-primary": "210",
 			"hue-secondary": "",
-			"pfp-font-family-body": THEME_FONT_FAMILIES.figtree,
+			"pfp-font-family-body": THEME_FONT.Figtree,
 			"pfp-font-family-brand": "",
 		});
 	});
@@ -325,20 +323,21 @@ describe("brand theme persistence", () => {
 	test("loads a saved snapshot after sanitizing it", () => {
 		useStorage({
 			[BRAND_THEME_STORAGE_KEY]: JSON.stringify({
+				"chroma-factor": "0.1",
 				"hue-primary": "42",
 				"hue-secondary": "expression(alert(1))",
-				"pfp-font-family-brand": THEME_FONT_FAMILIES.robotoMono,
+				"pfp-font-family-brand": THEME_FONT.RobotoMono,
 			}),
 		});
 		const { root, values } = createRoot();
 
 		expect(loadBrandTheme(root)).toEqual({
 			"--hue-primary": "42",
-			"--pfp-font-family-brand": THEME_FONT_FAMILIES.robotoMono,
+			"--pfp-font-family-brand": THEME_FONT.RobotoMono,
 		});
 		expect(Object.fromEntries(values)).toEqual({
 			"--hue-primary": "42",
-			"--pfp-font-family-brand": THEME_FONT_FAMILIES.robotoMono,
+			"--pfp-font-family-brand": THEME_FONT_FAMILIES[THEME_FONT.RobotoMono],
 		});
 	});
 
@@ -387,12 +386,11 @@ describe("brand theme persistence", () => {
 			getPropertyValue: (property: string) =>
 				property === "--pfp-hue-positive" ? "120" : "10",
 		}));
-		vi.spyOn(Math, "random").mockReturnValueOnce(0.5).mockReturnValueOnce(0.25);
+		vi.spyOn(Math, "random").mockReturnValue(0.5);
 
-		updateBrandTheme(root, true, false);
+		updateBrandTheme(root, { persist: false });
 
 		expect(Object.fromEntries(values)).toEqual({
-			"--chroma-factor": "0.5",
 			"--hue-error": "20",
 			"--hue-positive": "129",
 			"--hue-primary": "180",
