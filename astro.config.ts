@@ -52,6 +52,7 @@ export default defineConfig({
 	},
 	vite: {
 		build: {
+			// `is:inline` skips Astro/Vite processing, so inline this entry after bundling.
 			assetsInlineLimit: (filePath) =>
 				filePath.includes("theme-sidebar.astro_astro_type_script")
 					? true
