@@ -2,7 +2,7 @@ import type { Languages } from "#types/index.ts";
 import { languages } from "../constants/index.ts";
 import type { MDXInstance, MarkdownInstance } from "astro";
 
-function isLanguageKey(str: string | undefined): str is Languages {
+export function isLanguageKey(str: string | undefined): str is Languages {
 	return str !== undefined && Object.keys(languages).includes(str);
 }
 
@@ -86,6 +86,22 @@ export function removePrefixLanguageFromPath(path: string) {
 export function addPrefixLanguageToPath(path: string, lang: Languages) {
 	if (lang === "en") return path;
 	return path.startsWith("/") ? `/${lang}${path}` : `${lang}/${path}`;
+}
+
+export interface StaticLocalePath {
+	params: { locale: Languages | undefined };
+	props: { locale: Languages };
+}
+
+/**
+ * Builds Astro static paths for every configured language. English uses the
+ * unprefixed route while every other language uses its language code.
+ */
+export function getStaticLocalePaths(): StaticLocalePath[] {
+	return (Object.keys(languages) as Languages[]).map((locale) => ({
+		params: { locale: locale === "en" ? undefined : locale },
+		props: { locale },
+	}));
 }
 
 /**

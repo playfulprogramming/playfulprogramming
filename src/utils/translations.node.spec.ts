@@ -64,6 +64,12 @@ describe("utils/translations.ts", () => {
 
 			expect(actual).toEqual(expected);
 		});
+
+		test("recognizes a language code containing a hyphen", () => {
+			expect(translations.getPrefixLanguageFromPath("/pt-br/about")).toBe(
+				"pt-br",
+			);
+		});
 	});
 
 	describe("removePrefixLanguageFromPath", () => {
@@ -119,6 +125,29 @@ describe("utils/translations.ts", () => {
 			expect(translations.addPrefixLanguageToPath("posts/test", "fr")).toBe(
 				"fr/posts/test",
 			);
+		});
+	});
+
+	describe("getStaticLocalePaths", () => {
+		test("uses an unprefixed English route and prefixes other languages", () => {
+			const paths = translations.getStaticLocalePaths();
+
+			expect(paths).toContainEqual({
+				params: { locale: undefined },
+				props: { locale: "en" },
+			});
+			expect(paths).toContainEqual({
+				params: { locale: "fr" },
+				props: { locale: "fr" },
+			});
+			expect(paths.map(({ props }) => props.locale)).toEqual([
+				"en",
+				"es",
+				"fr",
+				"pt",
+				"pt-br",
+				"bn",
+			]);
 		});
 	});
 
