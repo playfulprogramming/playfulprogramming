@@ -8,7 +8,7 @@
 }
 ---
 
-Writing changelogs for a project can be tedious. Usually, this lengthy process would start with your project manager, organizing your tickets in the sprint (depending on how your project is organized), and taking time out of the day to write the changelog itself. This process becomes even more complicated when working on developer-centric projects. Remembering what is and isn't a breaking change (to keep a sensible [SEMVER](https://www.geeksforgeeks.org/introduction-semantic-versioning/)), what technical changes were made, and what you should do to migrate to newer versions might be a challenge in itself, on top of the typical release patterns.
+Writing changelogs for a project can be tedious. Usually, this lengthy process would start with your project manager, organizing your tickets in the sprint (depending on how your project is organized), and taking time out of the day to write the changelog itself. This process becomes even more complicated when working on developer-centric projects. Remembering what is and isn't a breaking change (to keep sensible [Semantic Versioning](pfp-snitip:#semantic-versioning)), what technical changes were made, and what you should do to migrate to newer versions might be a challenge in itself, on top of the typical release patterns.
 
 This versioning complexity birthed _a set of tools that allows you to generate changelogs automatically_. Now, this may sound too good to be true: "How can it generate something without any metadata?" Well, dear reader, that's the trick of it: You **do** provide the metadata in the form of commit messages.
 
@@ -31,7 +31,15 @@ body
 
 "Now, by 'type', what exactly do you mean?"
 
-I'm glad you've asked! In Conventional Commits setups, there is an allowed array of terms that can be used for your _type_. For example, when following the Angular Style of commit messages, you'll have these options at your disposal:
+I'm glad you've asked! In [Conventional Commits](pfp-snitip:#conventional-commits) setups, there is an allowed array of terms that can be used for your _type_. For example, when following the Angular Style of commit messages, you'll have these options at your disposal:
+
+<!-- ::start:snitip id="conventional-commits" tags="git,tools" -->
+## Conventional Commits
+
+Conventional Commits is a structured commit-message convention built around a change type, optional scope, description, and markers for breaking changes. Tools can use that structure to generate changelogs and releases.
+
+- [Conventional Commits specification](https://www.conventionalcommits.org/)
+<!-- ::end:snitip -->
 
 ```javascript
 [
@@ -84,7 +92,7 @@ An immediate question that might be asked is, "why would I put the scope of chan
 
 # Step 1: Commit Message Enforcement {#commit-lint}
 
-Any suitable set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a linter helps keeps your codebase syntactically consistent, _Conventional Commit setups often have a linter setup of their own_. This linter isn't concerned about your code syntax, but rather your commit message syntax. 
+Any suitable set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a [linter](pfp-snitip:#linter) helps keeps your codebase syntactically consistent, _Conventional Commit setups often have a linter setup of their own_. This linter isn't concerned about your code syntax, but rather your commit message syntax.
 
 Just as you have many options regarding what linting ruleset you'd like to enforce on your codebase, you have a few options provided to you for your commit messages. You can utilize [the default linting rules out-of-the-box](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional), follow [the Angular Team's guidelines](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-angular), or even [utilize the format that Jira has set out](https://github.com/Gherciu/commitlint-jira).
 
@@ -116,7 +124,7 @@ It should either validate or fail, depending on whether the last commit message 
 
 ### Husky Setup {#husky}
 
-While you _could_ set up a CI system with something like the `commitlint` command from above, it wouldn't be very effective at making sure you and your team remain vigilant with your commit schema. You're _able to enforce your commit messages directly from your development machine_ at the time of commit. To do so, we'll hookup git hooks to validate our commit messages before they finalize (and prevent a commit when they don't pass the linting rules). While there _are_ ways to do this manually, the easiest (and most sharable) method to do so using `package.json` is by installing a dependency called `husky`.
+While you _could_ set up a CI system with something like the `commitlint` command from above, it wouldn't be very effective at making sure you and your team remain vigilant with your commit schema. You're _able to enforce your commit messages directly from your development machine_ at the time of commit. To do so, we'll hookup [Git](pfp-snitip:#git) hooks to validate our commit messages before they finalize (and prevent a commit when they don't pass the linting rules). While there _are_ ways to do this manually, the easiest (and most sharable) method to do so using `package.json` is by installing a dependency called `husky`.
 
 ```
 npm install --save-dev husky
@@ -254,4 +262,3 @@ Keep in mind, simply because you have a new tool to manage releases doesn't mean
 While the outline we've provided should suffice for most usage, each of these tools includes many options that you're able to utilize customize the process to your liking.
 
 Find options you think we should cover in this article? Have questions about how to get `conventional-commit` and `standard-version` working? Let us know! We've got a comments section down below as well as [a Discord Community](https://discord.playfulprogramming.com) that we use to chat.
-

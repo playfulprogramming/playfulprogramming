@@ -78,7 +78,7 @@ This is why I suggest adding as much context as you can in your initial message.
 
 ## Bottom Line Up Front (BLUF)
 
-> **BLUF:**
+> **[BLUF](pfp-snitip:#bluf):**
 >
 > For longer messages, you should include your ask and any short but immediate context up at the top of the message and include context later.
 
@@ -244,7 +244,7 @@ I urge you, however, to avoid this temptation. Instead, **give important meeting
 - Acknowledging emotions that are brought up during calls.
 - Paraphrasing what you've been told to ensure that you're on the right track.  
 
-Remember, if you're leading a team, those team members are often looking to you for not only technical guidance but psychological safety. By forcing yourself to be maximally attentive, you're reassuring that you're on their side and willing and able to help out.
+Remember, if you're leading a team, those team members are often looking to you for not only technical guidance but [psychological safety](pfp-snitip:#psychological-safety). By forcing yourself to be maximally attentive, you're reassuring that you're on their side and willing and able to help out.
 
 And paraphrasing might sound silly, but it helps! Not only does this form of active listening help the other party feel like they're being heard, but it can help lead to clarify mistakes in comprehension. I've had a number of instances where I misheard what was being said, and summarizing what they said was able to help me catch mistakes in my comprehension.
 
@@ -301,6 +301,4 @@ Finally, you use communication to lead your team; building out trust, providing 
 Those that learn to master all three don't just solve technical problems; they become the leaders who guide their organizations.
 
 What are your favorite engineering communication tips? Let us know [in our Discord](https://discord.playfulprogramming.com) and kickstart a new conversation on good team comms!
-
-
 

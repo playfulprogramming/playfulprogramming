@@ -9,7 +9,7 @@
 }
 ---
 
-If you’ve come across this article but haven't heard about web accessibility (often shortened to "A11Y") before, that's okay. We're all learning at different speeds and come across new things all the time. That said, accessibility is a critical component of any frontend engineer's responsibilities. We implore you to explore what that means, not just in this blog post but beyond with your teams and communities.
+If you’ve come across this article but haven't heard about web [accessibility](pfp-snitip:#accessibility) (often shortened to "A11Y") before, that's okay. We're all learning at different speeds and come across new things all the time. That said, accessibility is a critical component of any frontend engineer's responsibilities. We implore you to explore what that means, not just in this blog post but beyond with your teams and communities.
 
 First, let's define what "accessibility" is. Accessibility in engineering is ["the process of creating products that are usable by people with the widest possible range of abilities."](https://dl.acm.org/doi/10.1145/2596695.2596719)
 
@@ -74,7 +74,7 @@ Interested in reading the full list? [Read the quick reference to WCAG 2.1](http
 
 # Smartly using Semantic HTML Tags {#html-semantic-tags}
 
-One of the easiest things you can do for your application's accessibility is to use semantic HTML tags. 
+One of the easiest things you can do for your application's accessibility is to use semantic [HTML](pfp-snitip:#html) tags.
 
 Let's say we have HTML to display fruits in a list:
 

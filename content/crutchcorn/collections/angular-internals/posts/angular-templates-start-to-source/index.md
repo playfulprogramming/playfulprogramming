@@ -295,7 +295,7 @@ It might be a good idea to gain familiarity of doing this as the Angular docs gi
 
 Author's note:
 
-> This section of the article assumes that you know what the `ng-content` tag is. While I could do an in-depth dive on what `ng-content` and content projection is, it's somewhat outside of the scope of this current article. Let me know if this is something that interests you; I might do another deep, deep dive into how Angular parses tags like `ng-content` and how it's handled by Angular's AST and template parsing/etc.
+> This section of the article assumes that you know what the `ng-content` tag is. While I could do an in-depth dive on what `ng-content` and content projection is, it's somewhat outside of the scope of this current article. Let me know if this is something that interests you; I might do another deep, deep dive into how Angular parses tags like `ng-content` and how it's handled by Angular's [AST](pfp-snitip:#abstract-syntax-tree) and template parsing/etc.
 >
 > If you're less familiar with `ng-content`, you can probably get by with just knowing how parent/child relationships elements work and just reading through carefully. Never be afraid to ask questions!
 >
@@ -323,7 +323,7 @@ action-card {
 }
 ```
 
-But this is often not the case. _[Angular's `ViewEncapsulation`](https://angular.dev/api/core/ViewEncapsulation) prevents styles from one component from affecting the styling of another_. This is especially true if you're using a configuration that allows the native browser to handle the components under the browser's shadow DOM APIs, which restricts stylesheet sharing on a browser-level. This is why the [Angular-specific CSS selector `::ng-deep`](https://angular.dev/guide/components/styling#ng-deep) is considered an anti-pattern from the Angular core team.
+But this is often not the case. _[Angular's `ViewEncapsulation`](https://angular.dev/api/core/ViewEncapsulation) prevents styles from one component from affecting the styling of another_. This is especially true if you're using a configuration that allows the native browser to handle the components under the browser's [shadow DOM](pfp-snitip:#shadow-dom) APIs, which restricts stylesheet sharing on a browser-level. This is why the [Angular-specific CSS selector `::ng-deep`](https://angular.dev/guide/components/styling#ng-deep) is considered an anti-pattern from the Angular core team.
 
 It's no matter, though. We have the power of `ViewChildren` on our side! Corbin already showed us how to get a reference to an element of a rendered component! Let's spin up an example:
 
@@ -531,7 +531,7 @@ Little has changed, yet there's something new! A _view container_ is just what i
 
 
 
-_It is because Angular's view containers being able to be attached to views, templates, and elements that enable the dependency injection system to get a `ViewContainerRef` regardless of what you're requested the `ViewContainerRef` on_.
+_It is because Angular's view containers being able to be attached to views, templates, and elements that enable the [dependency injection](pfp-snitip:#dependency-injection) system to get a `ViewContainerRef` regardless of what you're requested the `ViewContainerRef` on_.
 
 ## Host Views {#components-are-directives}
 

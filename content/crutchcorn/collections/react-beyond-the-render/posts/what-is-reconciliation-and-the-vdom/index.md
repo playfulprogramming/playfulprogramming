@@ -14,7 +14,7 @@
 
 Towards the end of that post, I touched on how each of these frameworks' mechanisms for reactivity work under-the-hood through external links.
 
-One of those mechanisms used by frameworks like React and Vue is called the "Virtual DOM" (Also known as the "VDOM") and use a process called "Reconciliation" to reflect the changes made to this "VDOM" to the real DOM.
+One of those mechanisms used by frameworks like React and Vue is called the "[Virtual DOM](pfp-snitip:#virtual-dom)" (Also known as the "VDOM") and use a process called "Reconciliation" to reflect the changes made to this "VDOM" to the real DOM.
 
 Let's take a look at how this works in practical terms.
 

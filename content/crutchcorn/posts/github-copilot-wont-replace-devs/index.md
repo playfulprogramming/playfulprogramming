@@ -24,9 +24,9 @@ We all know the meme: The junior engineer asks a question and the senior mentor 
 
 But there's a reason for this "joke" having such prevalence: it's true. A lot of software engineering requires a lot of context be kept in mind.
 
-Knowing this, can an AI take on the required nuance and act an additional engineer to the team?
+Knowing this, can [artificial intelligence](pfp-snitip:#ai) handle the required nuance well enough to act like an additional engineer on the team?
 
-On first glance, GitHub Copilot may appear to walk the "I'm an Engineer replacement" walk, and it may even talk the talk from time-to-time: but it falters in some key areas.
+On first glance, [GitHub Copilot](pfp-snitip:#github-copilot) may appear to walk the "I'm an Engineer replacement" walk, and it may even talk the talk from time-to-time: but it falters in some key areas.
 
 ## Architecture
 
@@ -230,4 +230,3 @@ After all, GitHub’s tool is called “Copilot”, not “Autopilot”
 What do you think? Let us know [on Twitter](https://twitter.com/playful_program) or [join our Discord](https://discord.playfulprogramming.com) and start a conversation with us! We're an open-source community ran project with no ads, no spam.
 
 We'd love to hear your thoughts!
-

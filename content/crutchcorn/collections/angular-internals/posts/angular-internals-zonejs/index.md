@@ -405,7 +405,7 @@ detectChanges(): void {
 
 ##  Calling Change Detection Manually {#manual-cd}
 
-Let's use [Angular's `NgZone`'s `runOutsideOfAngular`](https://angular.dev/api/core/NgZone#runOutsideAngular) to run some code outside of Angular's typical change detection:
+Let's use [Angular's `NgZone`'s `runOutsideOfAngular`](https://angular.dev/api/core/NgZone#runOutsideAngular) to run some code outside of Angular's typical [change detection](pfp-snitip:#change-detection):
 
 ```typescript
 import { ApplicationRef, Component, NgZone } from '@angular/core';

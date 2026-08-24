@@ -10,9 +10,9 @@
 }
 ---
 
-Many modern web apps today are built using components. While frameworks like React exist to add an implementation, web components seek to make those practices standardized and part of your browser.
+Many modern web apps today are built using components. While frameworks like React exist to add an implementation, [web components](pfp-snitip:#web-components) seek to make those practices standardized and part of your browser.
 
-In this article, we’ll touch on what web components are, how we can build them without a framework, and some limitations to keep in mind during development. Later, in a follow-up article, we’ll show how a lightweight framework (such as Lit) can provide quality-of-life improvements for those looking to build larger scale applications.
+In this article, we’ll touch on what web components are, how we can build them without a framework using [JavaScript](pfp-snitip:#javascript), and some limitations to keep in mind during development. Later, in a follow-up article, we’ll show how a lightweight framework (such as Lit) can provide quality-of-life improvements for those looking to build larger scale applications.
 
 ## What are Web Components?
 
@@ -21,7 +21,7 @@ There are a lot of misconceptions about what web components even are. While some
 Web components are a mix of 3 different web standards that, when utilized together, can offer a viable alternative to using a framework like React which offers similar functionality. These web standards consist of:
 
 1. [Custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) - the ability to create new elements that will provide unique UI and app logic when the related HTML tag is added
-2. [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) - the ability to keep specific elements segmented off from your main document DOM, allowing you to avoid document collision issues
+2. [Shadow DOM](pfp-snitip:#shadow-dom) - the ability to keep specific elements segmented off from your main document DOM, allowing you to avoid document collision issues
 3. [HTML templates](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots) - elements that allow you to write HTML that is not drawn to the page, but can be used as a template for markup to reuse elsewhere
 
 While the Shadow DOM and HTML templates are undoubtedly useful in applications, we’ll be focusing on custom elements today, as we feel they’re the easiest place to start in introducing web components as a whole.
@@ -32,7 +32,7 @@ While the Shadow DOM and HTML templates are undoubtedly useful in applications, 
 
 ## What are Custom Elements?
 
-At their core, custom elements essentially allow you to create new HTML tags. These tags are then used to implement custom UI and logic that can be used throughout your application. 
+At their core, custom elements essentially allow you to create new [HTML tags](pfp-snitip:#html). These tags are then used to implement custom UI and logic that can be used throughout your application.
 
 ```
 <!-- page.html -->
@@ -134,7 +134,7 @@ customElements.define('my-component', MyComponent);
 
 You’ll notice that the “`attributeChangedCallback`” receives the name of the attribute changed, it’s previous value, and it’s current value. This is useful for granular manual change detection optimizations.
 
-However, utilizing attributes to pass values to a component has its limitations. To explain these limitations, we must first start by talking about serializability.
+However, utilizing attributes to pass values to a component has its limitations. To explain these limitations, we must first start by talking about [serializability](pfp-snitip:#serializability).
 
 ## Serializability
 

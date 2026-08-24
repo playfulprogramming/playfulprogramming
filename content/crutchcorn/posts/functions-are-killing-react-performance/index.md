@@ -367,7 +367,7 @@ Now, let's take a step even further within the `renderContents` function:
 return bool ? <div/> : <p/>
 ```
 
-Here, JSX might be transformed into the following:
+Here, [JSX](pfp-snitip:#jsx) might be transformed into the following:
 
 ```jsx
 return bool ? React.createElement('div') : React.createElement('p')

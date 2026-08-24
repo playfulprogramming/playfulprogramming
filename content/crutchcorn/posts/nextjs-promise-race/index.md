@@ -10,7 +10,7 @@
 
 While working on my next article, I was reminded of [a Next.js demo I posted to X/Twitter some time ago](https://x.com/crutchcorn/status/1754174851936629225). 
 
-This demo showcases how you can use [React Server Components (RSCs)](/posts/what-are-react-server-components) to say "Fully resolve a promise on the server unless it takes longer than N seconds. If it does, then show a spinner on the client":
+This demo showcases how you can use [React Server Components (RSCs)](pfp-snitip:#react-server-components) to say "Fully resolve a [promise](pfp-snitip:#promise) on the server unless it takes longer than N seconds. If it does, then show a spinner on the client":
 
 ```jsx
 import { Suspense } from "react";
@@ -61,6 +61,6 @@ Not only do React's client and server APIs marry in this code sample, but even t
 
 This means that if the promise resolves in time, it will never ship the loading `<div>` to the client!
 
-Likewise, if it doesn't resolve in time, the promise will "continue" on the client via Next.js' RPC mechanisms. Not only is this a neat party trick, but it comes with performance benefits as well. In the example above, `fetchUser` takes 2 seconds but the wait time is only 1 second. When the promise is passed to the user in this way, they'll only have to wait 1 addition second from the original wait time to resolve.
+Likewise, if it doesn't resolve in time, the promise will "continue" on the client via [Next.js'](pfp-snitip:#nextjs) RPC mechanisms. Not only is this a neat party trick, but it comes with performance benefits as well. In the example above, `fetchUser` takes 2 seconds but the wait time is only 1 second. When the promise is passed to the user in this way, they'll only have to wait 1 addition second from the original wait time to resolve.
 
 Pretty cool, right?

@@ -9,7 +9,7 @@
 }
 ---
 
-Python has a secret superpower with a similarly stupendous name: Magic Methods. These methods can fundamentally change the way you code with Python classes and introduce code that seems ✨ magical ✨ to handle complex logic. They’re more powerful than [list comprehensions](https://coderpad.io/blog/development/python-list-comprehension-guide/) and more exciting than any new [PEP8](https://peps.python.org/pep-0008/) linter.
+[Python](pfp-snitip:#python) has a secret superpower with a similarly stupendous name: Magic Methods. These methods can fundamentally change the way you code with Python classes and introduce code that seems ✨ magical ✨ to handle complex logic. They’re more powerful than [list comprehensions](https://coderpad.io/blog/development/python-list-comprehension-guide/) and more exciting than any new [PEP8](https://peps.python.org/pep-0008/) linter.
 
 Today, we’ll be talking about a few things:
 

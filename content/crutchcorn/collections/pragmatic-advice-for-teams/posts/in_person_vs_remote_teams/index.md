@@ -25,7 +25,7 @@ This sounds like a slam-dunk argument in favor of in-office work on the surface,
 
 This was fine for many things, but did mean that our product line was now contingent on their memory or note-taking abilities. On more than a few occasions, there would be a "What was that idea again?" question raised in a team chat met by a metaphorical glance over to the Senior to flip through their notes to answer.
 
-Not only is it easy to lose this information on a case-by-case basis, but the "bus factor" of this colloquial information drastically narrows in this context.
+Not only is it easy to lose this information on a case-by-case basis, but the ["bus factor"](pfp-snitip:#bus-factor) of this colloquial information drastically narrows in this context.
 
 For those unaware, a "bus factor" is a grim industry term outlining how many people that could be hit by a bus and allow operations to continue as-is. For many smaller companies, the bus factor may be one or two people; remove them from the equation — either through bus, illness, parental leave, or any other reason — and you'll find that things may quickly grind to a halt.
 
@@ -53,7 +53,13 @@ While some workflows don't require this level of cognitive context-stacking, wri
 
 Think of this a bit like a layered cake: To get to the bottom of the cake, you have to slice through all the levels above.
 
-Once you have all the context in mind, however, you're able to execute much faster and accurately than if you only had a cursory understanding of the problem you're aiming to solve. As a result, this is kind of productivity is often called one's "flow state."
+Once you have all the context in mind, however, you're able to execute much faster and accurately than if you only had a cursory understanding of the problem you're aiming to solve. As a result, this is kind of productivity is often called a [flow state](pfp-snitip:#flow-state).
+
+<!-- ::start:snitip id="flow-state" tags="leadership" -->
+## Flow State
+
+Flow state is a period of deep absorption in a challenging activity where attention is focused and work can feel fluid. Entering it generally requires clear goals and limited interruption, while disruptions can make rebuilding context costly.
+<!-- ::end:snitip -->
 
 Flow state often requires many hours of blocked off time to focus on a task. This kind of time _can_ be found during in-office work, but you're only ever a rogue colleague wanting to chit-chat away from being disturbed, breaking your thought process, and needing to re-enter the flow state. With remote work, you're in more control of what notifications can or cannot break through to interrupt this state.
 
@@ -105,4 +111,3 @@ So, what are the key takeaways from PDRT's in-office policies? For me, they'd be
 - Finding time for deep work is a fickle thing but incredibly important for the health of your engineering org.
 - It's extremely important to bridge the gap of social-abilities on remote-first teams.
 - Accountability is challenging to navigate for remote groups.
-

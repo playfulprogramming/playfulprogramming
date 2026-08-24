@@ -10,7 +10,7 @@
 
 [React](https://react.dev/) is a strange web development framework. I've found that many of their APIs require a specific mindset to use them properly; why is that?
 
-I had this very same question myself for years and years of using React until one day, something clicked. A culmination of years of listening to the React core team's communication mixed with observations of the tools' natural evolution finally made sense.
+I had this very same question myself for years and years of using [React](pfp-snitip:#react) until one day, something clicked. A culmination of years of listening to the React core team's communication mixed with observations of the tools' natural evolution finally made sense.
 
 Today I'd like to share the story behind React that made the library finally make sense to me. This story takes two directions at the same time: One of a historical nature and one derived purely from the code itself. 
 
@@ -48,7 +48,7 @@ So Jordan began to experiment with his own solutions to many of the problems he 
 
 Fast-forward to 2012; Facebook is doing great. So well, in fact, that they've just [acquired Instagram for one billion dollars](https://archive.nytimes.com/dealbook.nytimes.com/2012/04/09/facebook-buys-instagram-for-1-billion/).
 
-Instagram has a mobile app for Android and iOS, but no web presence. The new team at Facebook is tasked with building out their solution to this problem, but with a constraint of their new parent company: Use one of our existing tech stacks to do so.
+Instagram has a mobile app for Android and [iOS](pfp-snitip:#ios), but no web presence. The new team at Facebook is tasked with building out their solution to this problem, but with a constraint of their new parent company: Use one of our existing tech stacks to do so.
 
 After some time evaluating both Bolt and React, the team makes a decision; they're going to be the first production codebase to use React.
 
@@ -105,7 +105,7 @@ const data = (
 This came with some major benefits:
 
 - Template compilation could occur before runtime — allowing errors to be caught earlier in the development lifecycle
-- Since JSX was not a string, it had better XSS protections out of the box without having to require a specific API to do so
+- Since [JSX](pfp-snitip:#jsx) was not a string, it had better XSS protections out of the box without having to require a specific API to do so
 - Reuse of JavaScript for flow-control; no need to reinvent the expressiveness of JavaScript in another string-based language
 
 The API for JSX also enabled the "template to JavaScript" transform to stay extremely lightweight. Instead of having to rely on some kind of HTML to JavaScript compiler, the tags of the JSX are able to be trivially transformed to JavaScript functions:
@@ -288,7 +288,7 @@ While JSX allowed for lots of flexibility, it meant that templates required a re
 
 While smaller scale applications wouldn't likely run into challenges with this approach, large DOM trees would incur massive performance implications as a result of this decision.
 
-To solve this, the team used a concept of a "virtual DOM" (VDOM). This VDOM was a copy of the browser's DOM stored in JavaScript; When React constructed a node in the DOM, it made a copy into its own copy of the DOM.
+To solve this, the team used a concept of a ["virtual DOM" (VDOM)](pfp-snitip:#virtual-dom). This VDOM was a copy of the browser's DOM stored in JavaScript; When React constructed a node in the DOM, it made a copy into its own copy of the DOM.
 
 Then, when a given component needed to update the DOM, it would check against this VDOM and only localize the re-render to the specific node.
 
@@ -1623,7 +1623,7 @@ It wasn't until [Next's adoption of React Server Components in 2023](https://nex
 >
 > While this led to short-term stability headaches for some app router users, this enabled React and other vendors — like Vercel who makes Next.js — to cooperate on the RSC APIs.
 
-See, RSCs enabled React to have a different execution path for client and server code. This execution path allowed the client to intelligently skip over the reconciliation process for nodes that didn't require additional work from what the server had sent:
+See, [RSCs](pfp-snitip:#react-server-components) enabled React to have a different execution path for client and server code. This execution path allowed the client to intelligently skip over the reconciliation process for nodes that didn't require additional work from what the server had sent:
 
 ![The developer authors JSX with distinct client and server components. These components are ALL rendered on the server, but only the client components are re-rendered on the client](../../collections/react-beyond-the-render/posts/what-are-react-server-components/react-server-components.svg)
 
@@ -1882,4 +1882,3 @@ Well, I've written a free book series teaching React, Angular, and Vue all at on
 <!-- ::start:link-preview -->
 [The Framework Field Guide](/collections/framework-field-guide/)
 <!-- ::end:link-preview -->
-

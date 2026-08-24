@@ -8,7 +8,7 @@
 }
 ---
 
-If you're new to web development, it can be difficult to figure out when (and how) to use the package manager most commonly used to install app dependencies and utilities: `npm`. Likewise, if you've looked into projects that are already established, you may find yourself looking at instructions to use `yarn`.
+If you're new to web development, it can be difficult to figure out when (and how) to use the package manager most commonly used to install app dependencies and utilities: [`npm`](pfp-snitip:#npm). Likewise, if you've looked into projects that are already established, you may find yourself looking at instructions to use `yarn`.
 
 In this article, we'll outline what Node and npm are, how to use both `npm` and `yarn` to install dependencies for your project, and point out some "gotcha's" that are good to keep in mind while using them.
 
@@ -18,7 +18,7 @@ If you're new to web development - well, firstly, welcome! - you may wonder what
 
 ## Node {#whats-node}
 
-Let's start with Node. Node is a [JavaScript runtime](/posts/how-computers-speak/#compiled-vs-runtime) that allows you to run JavaScript code on your machine without having to run your JavaScript in a browser. This means that you can write JavaScript that interacts with your computer in ways your browser cannot. For example, you can host a REST web server from Node, write files to your hard drive, interact with operating system APIs (like notifications), and more!
+Let's start with Node. [Node](pfp-snitip:#nodejs) is a [JavaScript runtime](/posts/how-computers-speak/#compiled-vs-runtime) that allows you to run JavaScript code on your machine without having to run your JavaScript in a browser. This means that you can write JavaScript that interacts with your computer in ways your browser cannot. For example, you can host a REST web server from Node, write files to your hard drive, interact with operating system APIs (like notifications), and more!
 
 > You can [learn more about what a runtime is and how they work from our article that introduces the concept](/posts/how-computers-speak/#compiled-vs-runtime)
 
@@ -384,7 +384,7 @@ For each dependency listed, there is a number with three dots associated with it
 
 While you can use these numbers arbitrarily, most projects follow [a standard called "Semantic versioning"](https://semver.org/) (aka "SemVer" for short).
 
-The basics of semantic versioning can be broken down into three parts:
+The basics of [semantic versioning](pfp-snitip:#semantic-versioning) can be broken down into three parts:
 
 1) The major version
 2) The minor version

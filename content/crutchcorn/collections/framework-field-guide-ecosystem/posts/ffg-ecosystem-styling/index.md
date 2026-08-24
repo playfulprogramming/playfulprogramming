@@ -1647,7 +1647,7 @@ This isn't a premature optimization to think about this kind of thing, either! I
 
 This issue of FOUC is made even worse when we introduce static apps into the mix.
 
-Unless you've specifically opted into static behavior, your React, Angular, and Vue apps are all "client-side rendered" (CSR). This means that you ship a hyper minimal HTML bundle and a more expressive JavaScript bundle to generate the intended HTML on the user's machine:
+Unless you've specifically opted into static behavior, your React, Angular, and Vue apps are all "[client-side rendered](pfp-snitip:#csr)" (CSR). This means that you ship a hyper minimal HTML bundle and a more expressive JavaScript bundle to generate the intended HTML on the user's machine:
 
 ![The server sends out React code which generates the HTML on the user's machine](../../../react-beyond-the-render/posts/what-is-ssr-and-ssg/csr.svg)
 
@@ -1657,7 +1657,7 @@ However, if we wanted to ship the full HTML bundle to the user, say to improve S
 
 > You can learn more about SSR and SSG apps in [our article, which introduces the concepts.](/posts/what-is-ssr-and-ssg)
 
-However, especially in the context of CSS-in-JS apps, this can cause problems with initial layout. Because of the way the server executes the JavaScript required to generate the styles for your app, it may not properly hydrate the styling before your markup lands on the user's machine.
+However, especially in the context of [CSS-in-JS](pfp-snitip:#css-in-js) apps, this can cause problems with initial layout. Because of the way the server executes the JavaScript required to generate the styles for your app, it may not properly hydrate the styling before your markup lands on the user's machine.
 
 This again causes a FOUC but in a more extreme manner, since you now have to wait for your framework to replace the server-sent markup first as well as every step before it.
 

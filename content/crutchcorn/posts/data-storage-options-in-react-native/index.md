@@ -8,7 +8,7 @@
 }
 ---
 
-One of the hardest parts of any front-end application (native application or website alike) is the data layer. Where do I store information? That question alone can cause lots of headaches when dealing with large-scale applications. Well, worry not, as we'll be going over some of the different options you have at your disposal in your React Native applications today.
+One of the hardest parts of any front-end application (native application or website alike) is the data layer. Where do I store information? That question alone can cause lots of headaches when dealing with large-scale applications. Well, worry not, as we'll be going over some of the different options you have at your disposal in your [React Native](pfp-snitip:#react-native) applications today.
 
 # Key-Value Pair Storage {#default-preference}
 

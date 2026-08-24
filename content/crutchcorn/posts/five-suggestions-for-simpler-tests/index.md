@@ -9,13 +9,13 @@
 }
 ---
 
-Writing tests is a part of programming and the skills that allow for good test writing are deviant from the typical programming skillset. This isn't to say that programming and writing tests are entirely separate from one another, but that writing tests requires a different mindset when approaching them. One of the primary differences between most programming and writing tests is that it tends to benefit your application by writing simpler tests.
+Writing [tests](pfp-snitip:#testing) is a part of programming and the skills that allow for good test writing are deviant from the typical programming skillset. This isn't to say that programming and writing tests are entirely separate from one another, but that writing tests requires a different mindset when approaching them. One of the primary differences between most programming and writing tests is that it tends to benefit your application by writing simpler tests.
 
 We've collected five methods for simplifying your tests while making them easier to write, understand, and debug.
 
 You may notice that our code samples use various libraries from [the Testing Library suite of libraries](https://testing-library.com/). This is because we feel that these testing methodologies mesh well with the user-centric testing that the library encourages.
 
-> Keep in mind that Jest (and furthermore, Testing Library) is not exclusive to 
+> Keep in mind that [Jest](pfp-snitip:#jest) (and furthermore, Testing Library) is not exclusive to
 > any specific framework or toolset. This article is meant just as general advice for testing.
 >
 > That said, if you're looking to include Jest and Testing Library into your Angular app,
