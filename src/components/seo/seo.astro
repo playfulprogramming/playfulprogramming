@@ -53,7 +53,7 @@ const removeTrailingSlash = (str: string) =>
 	str.endsWith("/") ? str.slice(0, -1) : str;
 
 const currentPath = removeTrailingSlash(
-	siteMetadata.siteUrl + (pathName || ""),
+	siteMetadata.siteUrl + (Astro.url.pathname || ""),
 );
 ---
 
