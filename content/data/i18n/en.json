@@ -222,5 +222,9 @@
 	"label.links": "Links",
 	"action.search_for_term": "Search for ‘%s’",
 	"label.tooltip_prefix": "Tooltip: ",
-	"action.close_tooltip": "Close tooltip"
+	"action.close_tooltip": "Close tooltip",
+	"label.social_media_links": "Social media links",
+	"alt.about_banner": "A smiling unicorn with a bowtie, surrounded by a circle of contributors to the project",
+	"role.board_member": "Board Member",
+	"desc.javascript_required": "JavaScript required"
 }

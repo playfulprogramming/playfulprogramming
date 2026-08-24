@@ -2,7 +2,7 @@
 import style from "./about.module.scss";
 import "../../styles/shiki.scss";
 import * as data from "#utils/data.ts";
-import { translate } from "#src/utils/translations.ts";
+import { createTranslator, translate } from "#src/utils/translations.ts";
 import TranslationsHeader from "#src/views/base/translations/translations-header.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { License } from "./license.tsx";
@@ -24,6 +24,7 @@ interface Props {
 }
 
 const { locales, locale, file } = Astro.props as Props;
+const translateForLocale = createTranslator(locale);
 const fileInfo: MarkdownFileInfo = { kind: "page", file };
 const vfile = await getMarkdownVFile(fileInfo);
 
@@ -71,14 +72,14 @@ const tags = [
 ---
 
 <main class="container">
-	<h1 class="visually-hidden">About Us</h1>
+	<h1 class="visually-hidden">{translate(Astro, "title.about_us")}</h1>
 	<div class={style.banner}>
 		<BannerSvg />
 	</div>
 	<div class={`${style.aboutBody} post-body`}>
 		<TranslationsHeader locales={locales} />
 		<Content content={content1.content} />
-		<Links />
+		<Links translate={translateForLocale} />
 		<Content content={content2.content} />
 		<ul class={style.peopleContainer} role="list">
 			{
@@ -86,7 +87,10 @@ const tags = [
 					<ContributorCard
 						overrides={{
 							isPartner: false,
-							roles: ["Board Member", ...(person.boardRoles ?? [])],
+							roles: [
+								translate(Astro, "role.board_member"),
+								...(person.boardRoles ?? []),
+							],
 						}}
 						person={person}
 					/>
@@ -109,6 +113,7 @@ const tags = [
 							name={tag.displayName}
 							explainerHtml={tag.explainerHtml}
 							image={tag.image}
+							locale={locale}
 							action={
 								tag.explainerType === "license"
 									? translate(Astro, "action.view_license")
@@ -132,7 +137,7 @@ const tags = [
 		<p>
 			{translate(Astro, "desc.licenses_request_removal")}
 			<a id="email-licenses" href="#">
-				<noscript>JavaScript required</noscript>
+				<noscript>{translate(Astro, "desc.javascript_required")}</noscript>
 			</a>
 			<script>
 				{

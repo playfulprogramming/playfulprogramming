@@ -4,6 +4,7 @@ import { getPeopleByLang } from "#utils/api.ts";
 import style from "./banner-svg.module.scss";
 import { Picture } from "#components/image/picture.tsx";
 import logo from "#src/assets/playfulprogramming_circle.svg?svg?raw";
+import { translate } from "#utils/translations.ts";
 
 const sticker_star = await fs.readFile(
 	"public/stickers/sticker_star.svg",
@@ -61,7 +62,7 @@ const positions: Array<{ x: number; y: number; r: number }> = [
 <div
 	class={style.banner}
 	role="img"
-	aria-label="A smiling unicorn with a bowtie, surrounded by a circle of contributors to the project"
+	aria-label={translate(Astro, "alt.about_banner")}
 	id="banner-container"
 >
 	<div aria-hidden="true">

@@ -4,6 +4,8 @@ import { LargeIconOnlyButton } from "#components/index.ts";
 import { Dialog } from "#components/dialog/dialog.tsx";
 import close from "#src/icons/close.svg?raw";
 import { createPortal } from "preact/compat";
+import type { Languages } from "#types/index.ts";
+import { createTranslator, type Translate } from "#utils/translations.ts";
 
 interface LicenseProps {
 	name: string;
@@ -11,10 +13,12 @@ interface LicenseProps {
 	action: string;
 	actionLabel: string;
 	image: string;
+	locale: Languages;
 }
 
 export function License(props: LicenseProps) {
 	const [isOpen, setOpen] = useState(false);
+	const translate = createTranslator(props.locale);
 
 	const handleOpen = (e: Event) => {
 		e.stopPropagation();
@@ -52,6 +56,7 @@ export function License(props: LicenseProps) {
 						name={props.name}
 						explainerHtml={props.explainerHtml}
 						onClose={handleClose}
+						translate={translate}
 					/>,
 					document.body,
 				)
@@ -67,6 +72,7 @@ interface LicenseDialogProps {
 	name: string;
 	explainerHtml: string;
 	onClose: () => void;
+	translate: Translate;
 }
 
 export function LicenseDialog({
@@ -74,6 +80,7 @@ export function LicenseDialog({
 	name,
 	explainerHtml,
 	onClose,
+	translate,
 }: LicenseDialogProps) {
 	return (
 		<Dialog
@@ -86,7 +93,7 @@ export function LicenseDialog({
 				<LargeIconOnlyButton
 					tag="button"
 					class={style.closeButton}
-					aria-label="Close"
+					aria-label={translate("action.close")}
 				>
 					<span
 						style="display: flex;"
