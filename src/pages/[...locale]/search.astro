@@ -1,0 +1,46 @@
+---
+import style from "#src/views/search/search-page.module.scss";
+import SearchPage from "#src/views/search/search-page.tsx";
+import Document from "#src/layouts/document.astro";
+import SEO from "#components/seo/seo.astro";
+import { siteMetadata } from "#src/constants/site-config.ts";
+import {
+	getStaticLocalePaths,
+	isLanguageKey,
+	translate,
+} from "#utils/translations.ts";
+
+export function getStaticPaths() {
+	return getStaticLocalePaths();
+}
+
+const localeParam = Astro.params.locale;
+if (localeParam !== undefined && !isLanguageKey(localeParam)) {
+	return Astro.rewrite("/404");
+}
+
+const locale = localeParam ?? "en";
+const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
+---
+
+<Document size="xl">
+	<SEO
+		title={translate(Astro, "title.search")}
+		description={translate(Astro, "desc.search")}
+		providedLangs={providedLangs}
+		slot="head"
+	/>
+	<main>
+		<h1 class="visually-hidden">{translate(Astro, "title.search")}</h1>
+		<noscript>
+			<p class={`text-style-headline-3 ${style.centerHeader}`}>
+				{translate(Astro, "search.noscript")}
+			</p>
+		</noscript>
+		<SearchPage
+			client:only="preact"
+			siteTitle={siteMetadata.title}
+			locale={locale}
+		/>
+	</main>
+</Document>
