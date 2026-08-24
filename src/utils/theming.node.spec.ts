@@ -247,6 +247,11 @@ describe("brand theme validation", () => {
 				"pfp-font-family-brand": "var(--user-controlled-font)",
 			}),
 		).toEqual({});
+		expect(
+			sanitizeBrandTheme({
+				"pfp-font-family-brand": '"Changa One", "Arial", sans-serif',
+			}),
+		).toEqual({});
 	});
 
 	test("treats empty allowed values as a request to clear a property", () => {
@@ -322,18 +327,18 @@ describe("brand theme persistence", () => {
 			[BRAND_THEME_STORAGE_KEY]: JSON.stringify({
 				"hue-primary": "42",
 				"hue-secondary": "expression(alert(1))",
-				"pfp-font-family-brand": THEME_FONT_FAMILIES.changaOne,
+				"pfp-font-family-brand": THEME_FONT_FAMILIES.robotoMono,
 			}),
 		});
 		const { root, values } = createRoot();
 
 		expect(loadBrandTheme(root)).toEqual({
 			"--hue-primary": "42",
-			"--pfp-font-family-brand": THEME_FONT_FAMILIES.changaOne,
+			"--pfp-font-family-brand": THEME_FONT_FAMILIES.robotoMono,
 		});
 		expect(Object.fromEntries(values)).toEqual({
 			"--hue-primary": "42",
-			"--pfp-font-family-brand": THEME_FONT_FAMILIES.changaOne,
+			"--pfp-font-family-brand": THEME_FONT_FAMILIES.robotoMono,
 		});
 	});
 

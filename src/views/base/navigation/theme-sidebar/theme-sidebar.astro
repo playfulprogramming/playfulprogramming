@@ -12,6 +12,12 @@ const openDyslexicFont = {
 	family: THEME_FONT_FAMILIES.openDyslexic,
 } as const;
 
+const robotoMonoFont = {
+	id: "roboto-mono",
+	label: "Roboto Mono",
+	family: THEME_FONT_FAMILIES.robotoMono,
+} as const;
+
 const headingFonts = [
 	{
 		id: "figtree",
@@ -29,11 +35,7 @@ const headingFonts = [
 		family: '"Playpen Sans", "Arial", sans-serif',
 	},
 	openDyslexicFont,
-	{
-		id: "changa-one",
-		label: "Changa One",
-		family: '"Changa One", "Arial", sans-serif',
-	},
+	robotoMonoFont,
 ] as const;
 
 const bodyFonts = [
@@ -41,6 +43,7 @@ const bodyFonts = [
 	headingFonts[1],
 	headingFonts[2],
 	openDyslexicFont,
+	robotoMonoFont,
 	{
 		id: "system-ui",
 		label: "System UI",
