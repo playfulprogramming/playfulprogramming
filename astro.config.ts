@@ -51,6 +51,12 @@ export default defineConfig({
 		},
 	},
 	vite: {
+		build: {
+			assetsInlineLimit: (filePath) =>
+				filePath.includes("theme-sidebar.astro_astro_type_script")
+					? true
+					: undefined,
+		},
 		server: {
 			allowedHosts: ["localhost", "web"],
 		},
