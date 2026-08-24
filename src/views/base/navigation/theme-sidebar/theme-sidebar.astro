@@ -237,25 +237,15 @@ const colorOptions = Array.from({ length: 12 });
 						<p class={styles.controlLabel}>
 							{translate(Astro, "label.surprise_me")}
 						</p>
-						<div class={styles.surpriseActions}>
-							<Button
-								tag="button"
-								type="button"
-								class={styles.shuffleButton}
-								data-theme-shuffle
-							>
-								<Icon slot="leftIcon" name="dice" />
-								{translate(Astro, "action.shuffle")}
-							</Button>
-							<IconOnlyButton
-								tag="button"
-								type="button"
-								aria-label={translate(Astro, "action.refresh_color_choices")}
-								data-theme-refresh-colors
-							>
-								<Icon name="refresh" />
-							</IconOnlyButton>
-						</div>
+						<Button
+							tag="button"
+							type="button"
+							class={styles.shuffleButton}
+							data-theme-shuffle
+						>
+							<Icon slot="leftIcon" name="dice" />
+							{translate(Astro, "action.shuffle")}
+						</Button>
 					</div>
 				</div>
 			</fieldset>

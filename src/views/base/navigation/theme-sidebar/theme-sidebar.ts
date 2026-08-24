@@ -158,9 +158,6 @@ export const initializeThemeSidebar = () => {
 	const shuffleButton = dialog.querySelector<HTMLButtonElement>(
 		"[data-theme-shuffle]",
 	);
-	const refreshButton = dialog.querySelector<HTMLButtonElement>(
-		"[data-theme-refresh-colors]",
-	);
 	const modeInputs =
 		dialog.querySelectorAll<HTMLInputElement>("[data-theme-mode]");
 	const fontSelects =
@@ -315,8 +312,6 @@ export const initializeThemeSidebar = () => {
 		updateBrandTheme(root, { persist: false });
 		populatePalettes(true);
 	});
-
-	refreshButton?.addEventListener("click", () => populatePalettes(true));
 
 	resetButton?.addEventListener("click", () => {
 		clearBrandThemePreview(root);

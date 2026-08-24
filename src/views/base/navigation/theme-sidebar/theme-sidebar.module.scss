@@ -188,7 +188,8 @@ body:has(.dialog[open]) {
 	padding: var(--spc-2x) 0;
 }
 
-.fontRow {
+.fontRow,
+.surpriseGroup {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -204,7 +205,8 @@ body:has(.dialog[open]) {
 	line-height: var(--button_regular_line-height);
 }
 
-.fontSelect {
+.fontSelect,
+.shuffleButton {
 	width: 230px;
 	max-width: 100%;
 }
@@ -261,23 +263,6 @@ body:has(.dialog[open]) {
 		var(--lightness-40) var(--dynamic-chroma-40) var(--swatch-hue)
 	);
 	border-radius: var(--corner-radius_circular);
-}
-
-.surpriseGroup {
-	display: flex;
-	flex-direction: column;
-	gap: var(--spc-3x);
-}
-
-.surpriseActions {
-	display: flex;
-	align-items: center;
-	gap: var(--spc-2x);
-}
-
-.shuffleButton {
-	min-width: 0;
-	flex: 1;
 }
 
 .footer {

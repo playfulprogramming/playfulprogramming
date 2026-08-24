@@ -38,7 +38,6 @@
 	"action.save_changes": "Save changes",
 	"action.reset": "Reset",
 	"action.shuffle": "Shuffle",
-	"action.refresh_color_choices": "Refresh color choices",
 	"label.dark_mode": "Dark mode",
 	"label.theme": "Theme",
 	"label.light": "Light",
