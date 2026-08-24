@@ -1,6 +1,6 @@
 import style from "./post-card-grid.module.scss";
-import { PostCard, PostCardExpanded, type PostCardI18n } from "./post-card.tsx";
-import type { PersonInfo } from "#types/index.ts";
+import { PostCard, PostCardExpanded } from "./post-card.tsx";
+import type { Languages, PersonInfo } from "#types/index.ts";
 import type { HTMLAttributes } from "preact/compat";
 import { isDefined } from "#utils/is-defined.ts";
 import type { PostInfoWithBanner } from "./types.ts";
@@ -10,7 +10,7 @@ export interface PostGridProps extends HTMLAttributes<HTMLUListElement> {
 	postAuthors: Map<string, PersonInfo>;
 	postHeadingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	expanded?: boolean;
-	i18n: PostCardI18n;
+	locale: Languages;
 }
 
 export function PostCardGrid({
@@ -18,7 +18,7 @@ export function PostCardGrid({
 	postAuthors,
 	postHeadingTag,
 	expanded,
-	i18n,
+	locale,
 	...props
 }: PostGridProps) {
 	return (
@@ -36,7 +36,7 @@ export function PostCardGrid({
 						post={post}
 						authors={authors}
 						headingTag={postHeadingTag}
-						i18n={i18n}
+						locale={locale}
 						// images should be loaded eagerly when presented above-the-fold
 						imageLoading={i < 4 ? "eager" : "lazy"}
 					/>
@@ -45,7 +45,7 @@ export function PostCardGrid({
 						post={post}
 						authors={authors}
 						headingTag={postHeadingTag}
-						i18n={i18n}
+						locale={locale}
 					/>
 				);
 			})}

@@ -4,25 +4,23 @@ import type { CollectionInfo } from "#types/CollectionInfo.ts";
 import forward from "#src/icons/arrow_right.svg?raw";
 import { Picture as UUPicture } from "#components/image/picture.tsx";
 import type { PersonInfo } from "#types/PersonInfo.ts";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 interface CollectionCardProps {
 	collection: CollectionInfo;
 	authors: PersonInfo[];
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-	i18n: CollectionCardI18n;
-}
-
-export interface CollectionCardI18n {
-	authorsLabel: string;
-	chapterCountLabel: string;
+	locale: Languages;
 }
 
 export const CollectionCard = ({
 	collection,
 	authors,
 	headingTag: HeadingTag = "h2",
-	i18n,
+	locale,
 }: CollectionCardProps) => {
+	const translate = createTranslator(locale);
 	const coverImgAspectRatio =
 		collection.coverImgMeta.width / collection.coverImgMeta.height;
 
@@ -51,7 +49,7 @@ export const CollectionCard = ({
 				<ul
 					className={`unlist-inline ${style.authorList}`}
 					role="list"
-					aria-label={i18n.authorsLabel}
+					aria-label={translate("label.collection_authors")}
 				>
 					{authors?.map((author) => (
 						<li key={author.id}>
@@ -83,9 +81,9 @@ export const CollectionCard = ({
 				>
 					{collection.customChaptersText ?? (
 						<>
-							{i18n.chapterCountLabel.replace(
-								"%s",
-								collection.postCount.toLocaleString(collection.locale),
+							{translate(
+								"title.n_chapters",
+								collection.postCount.toLocaleString(locale),
 							)}
 						</>
 					)}

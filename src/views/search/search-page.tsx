@@ -17,10 +17,7 @@ import {
 import style from "./search-page.module.scss";
 import { PostCardGrid } from "#components/post-card/post-card-grid.tsx";
 import { Fragment } from "preact";
-import {
-	CollectionCard,
-	type CollectionCardI18n,
-} from "#components/collection-card/collection-card.tsx";
+import { CollectionCard } from "#components/collection-card/collection-card.tsx";
 import { FilterDisplay } from "./components/filter-display.tsx";
 import { useElementSize } from "../../hooks/use-element-size.tsx";
 import { SearchTopbar } from "./components/search-topbar.tsx";
@@ -49,7 +46,7 @@ import {
 } from "./constants.ts";
 import { useFilterState } from "./use-filter-state.ts";
 import { SnitipCardGrid } from "#components/snitip/snitip-card.tsx";
-import type { PostCardI18n } from "#components/post-card/post-card.tsx";
+import type { Languages } from "#types/index.ts";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -73,11 +70,7 @@ const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
 	);
 };
 
-export function SearchPageBase({
-	siteTitle,
-	postCardI18n,
-	collectionCardI18n,
-}: RootSearchPageProps) {
+export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 	const [query, setQueryState] = useSearchParams<SearchQuery>(
 		serializeParams,
 		deserializeParams,
@@ -533,7 +526,7 @@ export function SearchPageBase({
 												.map((id) => peopleMap.get(`${id}`))
 												.filter(isDefined)}
 											headingTag="h3"
-											i18n={collectionCardI18n}
+											locale={locale}
 										/>
 									))}
 								</ul>
@@ -558,7 +551,7 @@ export function SearchPageBase({
 									postAuthors={peopleMap}
 									postHeadingTag="h3"
 									expanded
-									i18n={postCardI18n}
+									locale={locale}
 								/>
 							</Fragment>
 						)}
@@ -598,8 +591,7 @@ const queryClient = new QueryClient();
 
 interface RootSearchPageProps {
 	siteTitle: string;
-	postCardI18n: PostCardI18n;
-	collectionCardI18n: CollectionCardI18n;
+	locale: Languages;
 }
 export default function SearchPage(props: RootSearchPageProps) {
 	return (

@@ -4,7 +4,9 @@ import SearchPage from "../views/search/search-page.tsx";
 import Document from "../layouts/document.astro";
 import SEO from "../components/seo/seo.astro";
 import { siteMetadata } from "#src/constants/site-config.ts";
-import { translate } from "#utils/translations.ts";
+import { getPrefixLanguageFromPath } from "#utils/translations.ts";
+
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
 <Document lang={"en"} size="xl">
@@ -23,15 +25,7 @@ import { translate } from "#utils/translations.ts";
 		<SearchPage
 			client:only="preact"
 			siteTitle={siteMetadata.title}
-			postCardI18n={{
-				authorsLabel: translate(Astro, "label.post_authors"),
-				tagsLabel: translate(Astro, "label.post_tags"),
-				wordCountLabel: translate(Astro, "title.n_words"),
-			}}
-			collectionCardI18n={{
-				authorsLabel: translate(Astro, "label.collection_authors"),
-				chapterCountLabel: translate(Astro, "title.n_chapters"),
-			}}
+			locale={locale}
 		/>
 	</main>
 </Document>

@@ -1,6 +1,5 @@
 import type { Languages } from "#types/index.ts";
 import { languages } from "../constants/index.ts";
-import { basename } from "path";
 import type { MDXInstance, MarkdownInstance } from "astro";
 
 function isLanguageKey(str: string | undefined): str is Languages {
@@ -128,7 +127,7 @@ try {
 const i18n: Partial<Record<Languages, Map<string, string>>> =
 	Object.fromEntries(
 		Object.entries(i18nFiles).map(([file, content]) => [
-			basename(file).split(".")[0],
+			file.split("/").at(-1)!.split(".")[0],
 			new Map(Object.entries(content.default)),
 		]),
 	);
@@ -148,6 +147,8 @@ const i18n: Partial<Record<Languages, Map<string, string>>> =
 
 export type TranslationKey =
 	keyof typeof import("../../content/data/i18n/en.json");
+export type Translate = (key: TranslationKey, ...args: string[]) => string;
+type TranslationContext = { url: URL } | Languages;
 
 /**
  * Translate a key into the associated value, according to /data/i18n
@@ -156,15 +157,22 @@ export type TranslationKey =
  * If the key is entirely missing, throws an error.
  */
 export function translate(
-	astro: { url: URL },
+	context: TranslationContext,
 	key: TranslationKey,
 	...args: string[]
 ) {
-	const lang = getPrefixLanguageFromPath(astro.url.pathname);
+	const lang =
+		typeof context === "string"
+			? context
+			: getPrefixLanguageFromPath(context.url.pathname);
 	let value = i18n[lang]?.get(key);
 
 	if (!value) {
-		if (process.argv.includes("--verbose")) {
+		if (
+			import.meta.env.SSR &&
+			typeof process !== "undefined" &&
+			process.argv.includes("--verbose")
+		) {
 			console.warn(
 				`Translation key "${key}" is not specified in /content/data/i18n/${lang}.json`,
 			);
@@ -185,4 +193,8 @@ export function translate(
 	}
 
 	return value;
+}
+
+export function createTranslator(context: TranslationContext): Translate {
+	return (key, ...args) => translate(context, key, ...args);
 }

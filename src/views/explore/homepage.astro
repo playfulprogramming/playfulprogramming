@@ -26,17 +26,6 @@ const postAuthors = new Map(
 		.filter(isDefined)
 		.map((u) => [u.id, u]),
 );
-
-const postCardI18n = {
-	authorsLabel: translate(Astro, "label.post_authors"),
-	tagsLabel: translate(Astro, "label.post_tags"),
-	wordCountLabel: translate(Astro, "title.n_words"),
-};
-
-const collectionCardI18n = {
-	authorsLabel: translate(Astro, "label.collection_authors"),
-	chapterCountLabel: translate(Astro, "title.n_chapters"),
-};
 ---
 
 <Hero />
@@ -59,7 +48,7 @@ const collectionCardI18n = {
 		postsToDisplay={posts}
 		postAuthors={postAuthors}
 		postHeadingTag="h3"
-		i18n={postCardI18n}
+		locale={locale}
 	/>
 </section>
 
@@ -93,7 +82,7 @@ const collectionCardI18n = {
 						.map((id) => api.getPersonById(id, collection.locale))
 						.filter(isDefined)}
 					headingTag="h3"
-					i18n={collectionCardI18n}
+					locale={locale}
 				/>
 			))
 		}

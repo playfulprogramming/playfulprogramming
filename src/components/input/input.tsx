@@ -9,6 +9,8 @@ import {
 } from "#components/button/button.tsx";
 import { useRandomId } from "#utils/preact/useId.ts";
 import type { ReactElement, Ref } from "preact/compat";
+import type { Languages } from "#types/index.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 interface InputProps extends InputHTMLAttributes {
 	label?: string;
@@ -58,8 +60,7 @@ interface SearchInputProps {
 	variant?: "default" | "dense";
 	usedInPreact?: boolean;
 	hideSearchButton?: boolean;
-	searchLabel?: string;
-	clearLabel?: string;
+	locale?: Languages;
 }
 
 export function SearchInput({
@@ -68,8 +69,7 @@ export function SearchInput({
 	variant = "default",
 	usedInPreact,
 	hideSearchButton,
-	searchLabel = "Search",
-	clearLabel = "Clear search",
+	locale = "en",
 	id: propsId,
 	type = "search",
 	...props
@@ -77,6 +77,7 @@ export function SearchInput({
 	const _id = useRandomId();
 
 	const id = propsId ?? _id;
+	const translate = createTranslator(locale);
 
 	// `onclick` lowercase is supported in Astro, not so in Preact runtime
 	const clearButtonOnClickProps = usedInPreact
@@ -107,7 +108,7 @@ export function SearchInput({
 				/>
 			)}
 			<input
-				aria-label={searchLabel}
+				aria-label={translate("title.search")}
 				{...props}
 				id={id}
 				type={type}
@@ -122,7 +123,7 @@ export function SearchInput({
 					tag="button"
 					type="button"
 					tabIndex={-1}
-					aria-label={clearLabel}
+					aria-label={translate("action.clear_search")}
 					{...clearButtonOnClickProps}
 				>
 					<div

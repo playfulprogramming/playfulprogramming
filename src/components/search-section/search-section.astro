@@ -1,6 +1,6 @@
 ---
 import { Chip } from "../chip/chip.tsx";
-import { translate } from "#utils/translations.ts";
+import { getPrefixLanguageFromPath, translate } from "#utils/translations.ts";
 import style from "./search-section.module.scss";
 import * as data from "#utils/data.ts";
 import { SearchInput } from "../input/input.tsx";
@@ -14,6 +14,7 @@ import {
 const tagsToDisplay = [...data.tags.entries()]
 	.sort(() => 0.5 - Math.random())
 	.slice(0, 8);
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
 <section class={style.container}>
@@ -28,8 +29,7 @@ const tagsToDisplay = [...data.tags.entries()]
 		<SearchInput
 			name={SEARCH_QUERY_KEY}
 			class={style.searchbar}
-			searchLabel={translate(Astro, "title.search")}
-			clearLabel={translate(Astro, "action.clear_search")}
+			locale={locale}
 		/>
 		<IconOnlyButton
 			tag="button"

@@ -7,6 +7,7 @@ import BackButton from "./back-button/back-button.astro";
 import style from "./header.module.scss";
 import logo from "#src/assets/playfulprogramming_sticker.svg?url";
 import {
+	getPrefixLanguageFromPath,
 	removePrefixLanguageFromPath,
 	translate,
 } from "#utils/translations.ts";
@@ -14,6 +15,7 @@ import { SearchInput } from "#components/input/input.tsx";
 import { SEARCH_QUERY_KEY } from "#src/views/search/search.ts";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 const isHome = path === "/";
 const isAbout = /^\/about\/?/.test(path);
 const isJoinUs = /^\/join-us\/?/.test(path);
@@ -83,8 +85,7 @@ const props = Astro.props;
 							<SearchInput
 								name={SEARCH_QUERY_KEY}
 								variant="dense"
-								searchLabel={translate(Astro, "title.search")}
-								clearLabel={translate(Astro, "action.clear_search")}
+								locale={locale}
 							/>
 						</form>,
 

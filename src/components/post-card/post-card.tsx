@@ -1,27 +1,24 @@
 import style from "./post-card.module.scss";
-import type { PersonInfo } from "#types/index.ts";
+import type { Languages, PersonInfo } from "#types/index.ts";
 import { Chip } from "#components/index.ts";
 import date from "#src/icons/date.svg?raw";
 import authorsSvg from "#src/icons/authors.svg?raw";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import { buildSearchQuery } from "#src/views/search/search.ts";
 import type { PostInfoWithBanner } from "./types.ts";
+import { createTranslator } from "#utils/translations.ts";
 
 interface PostCardProps {
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	post: PostInfoWithBanner;
 	authors: Pick<PersonInfo, "id" | "name">[];
 	class?: string;
-	i18n: PostCardI18n;
+	locale: Languages;
 }
 
-export interface PostCardI18n {
-	authorsLabel: string;
-	tagsLabel: string;
-	wordCountLabel: string;
-}
+function PostCardMeta({ post, authors, locale }: PostCardProps) {
+	const translate = createTranslator(locale);
 
-function PostCardMeta({ post, authors, i18n }: PostCardProps) {
 	return (
 		<>
 			<div className={style.postDataContainer}>
@@ -34,7 +31,7 @@ function PostCardMeta({ post, authors, i18n }: PostCardProps) {
 					<ul
 						className={style.authorList}
 						role="list"
-						aria-label={i18n.authorsLabel}
+						aria-label={translate("label.post_authors")}
 					>
 						{authors.map((author, i, arr) => (
 							<li key={author.id} class="text-style-body-small-bold">
@@ -65,9 +62,9 @@ function PostCardMeta({ post, authors, i18n }: PostCardProps) {
 							•
 						</span>
 						<span className={`text-style-body-small ${style.wordCount}`}>
-							{i18n.wordCountLabel.replace(
-								"%s",
-								post.wordCount.toLocaleString(post.locale),
+							{translate(
+								"title.n_words",
+								post.wordCount.toLocaleString(locale),
 							)}
 						</span>
 					</span>
@@ -78,7 +75,11 @@ function PostCardMeta({ post, authors, i18n }: PostCardProps) {
 				dangerouslySetInnerHTML={{ __html: post.description }}
 			/>
 			<div className={style.spacer} />
-			<ul className={style.cardList} aria-label={i18n.tagsLabel} role="list">
+			<ul
+				className={style.cardList}
+				aria-label={translate("label.post_tags")}
+				role="list"
+			>
 				{post.tags.map((tag) => (
 					<li key={tag}>
 						<Chip
@@ -99,7 +100,7 @@ export const PostCardExpanded = ({
 	headingTag: HeadingTag = "h2",
 	class: className = "",
 	imageLoading = "lazy",
-	i18n,
+	locale,
 }: PostCardProps & { imageLoading?: "eager" | "lazy" }) => {
 	return (
 		<li
@@ -121,7 +122,7 @@ export const PostCardExpanded = ({
 						{post.title}
 					</HeadingTag>
 				</a>
-				<PostCardMeta post={post} authors={authors} i18n={i18n} />
+				<PostCardMeta post={post} authors={authors} locale={locale} />
 			</div>
 		</li>
 	);
@@ -132,7 +133,7 @@ export const PostCard = ({
 	authors,
 	headingTag: HeadingTag = "h2",
 	class: className = "",
-	i18n,
+	locale,
 }: PostCardProps) => {
 	return (
 		<li
@@ -144,7 +145,7 @@ export const PostCard = ({
 					{post.title}
 				</HeadingTag>
 			</a>
-			<PostCardMeta post={post} authors={authors} i18n={i18n} />
+			<PostCardMeta post={post} authors={authors} locale={locale} />
 		</li>
 	);
 };
