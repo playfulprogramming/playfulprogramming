@@ -133,6 +133,7 @@
 
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	gap: var(--snitip_search-tag_gap);
 
 	&__icon {
