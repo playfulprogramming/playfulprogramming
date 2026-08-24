@@ -1,14 +1,28 @@
 ---
-import EventsPage from "../views/events/events-page.tsx";
-import Document from "../layouts/document.astro";
-import SEO from "../components/seo/seo.astro";
-import { events } from "../views/events/constants.ts";
+import EventsPage from "#src/views/events/events-page.tsx";
+import Document from "#src/layouts/document.astro";
+import SEO from "#components/seo/seo.astro";
+import { events } from "#src/views/events/constants.ts";
 import { getUrlMetadata } from "#utils/hoof/index.ts";
-import type { EventBlock } from "../views/events/types.ts";
-import type { LatestEventBlockLocationMetadataType } from "../views/events/components/event-cards/types.ts";
-import { getPrefixLanguageFromPath, translate } from "#utils/translations.ts";
+import type { EventBlock } from "#src/views/events/types.ts";
+import type { LatestEventBlockLocationMetadataType } from "#src/views/events/components/event-cards/types.ts";
+import {
+	getStaticLocalePaths,
+	isLanguageKey,
+	translate,
+} from "#utils/translations.ts";
 
-const locale = getPrefixLanguageFromPath(Astro.url.pathname);
+export function getStaticPaths() {
+	return getStaticLocalePaths();
+}
+
+const localeParam = Astro.params.locale;
+if (localeParam !== undefined && !isLanguageKey(localeParam)) {
+	return Astro.rewrite("/404");
+}
+
+const locale = localeParam ?? "en";
+const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
 
 // We only need the latest event block location metadata to show on the list view
 // Record<EventSlug, EventBlockWithMetadata>
@@ -61,6 +75,7 @@ for (const event of events) {
 	<SEO
 		title={translate(Astro, "title.events")}
 		description={translate(Astro, "desc.events")}
+		providedLangs={providedLangs}
 		slot="head"
 	/>
 	<main>
