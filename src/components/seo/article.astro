@@ -1,5 +1,6 @@
 ---
 import type { PersonInfo } from "#types/PersonInfo.ts";
+import { translate } from "#utils/translations.ts";
 
 export interface Props {
 	editedTime?: string;
@@ -12,7 +13,10 @@ const author = peopleData?.map((uni) => uni.name)?.join(",");
 ---
 
 {keywords?.map((keyword) => <meta property="article:tag" content={keyword} />)}
-<meta property="article:section" content="Technology" />
+<meta
+	property="article:section"
+	content={translate(Astro, "seo.article_section")}
+/>
 {author && <meta property="article:author" content={author} />}
 {editedTime && <meta property="article:modified_time" content={editedTime} />}
 {

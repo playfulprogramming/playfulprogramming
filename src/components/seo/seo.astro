@@ -3,6 +3,7 @@ import { siteMetadata, siteUrl } from "#src/constants/site-config.ts";
 import {
 	getPrefixLanguageFromPath,
 	removePrefixLanguageFromPath,
+	translate,
 } from "#utils/translations.ts";
 import Article from "./article.astro";
 import Book from "./book.astro";
@@ -32,8 +33,11 @@ const {
 const lang = getPrefixLanguageFromPath(Astro.url.pathname);
 const pathName = removePrefixLanguageFromPath(Astro.url.pathname);
 
-const metaDescription = description || siteMetadata.description;
-const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
+const metaDescription =
+	description || translate(Astro, "seo.default_description");
+const metaKeywords = keywords
+	? keywords.join(",")
+	: translate(Astro, "seo.default_keywords");
 const metaImage = new URL(
 	shareImage ?? "/share-banner.png",
 	siteUrl,
@@ -110,19 +114,19 @@ const currentPath = removeTrailingSlash(
 	rel="alternate"
 	href={`${siteUrl}/atom.xml`}
 	type="application/atom+xml"
-	title={`${siteMetadata.title} | Atom Feed`}
+	title={translate(Astro, "seo.atom_feed_title", siteMetadata.title)}
 />
 <link
 	rel="alternate"
 	href={`${siteUrl}/rss.xml`}
 	type="application/rss+xml"
-	title={`${siteMetadata.title} | RSS Feed`}
+	title={translate(Astro, "seo.rss_feed_title", siteMetadata.title)}
 />
 <link
 	rel="alternate"
 	href={`${siteUrl}/feed.json`}
 	type="application/json"
-	title={`${siteMetadata.title} | JSON Feed`}
+	title={translate(Astro, "seo.json_feed_title", siteMetadata.title)}
 />
 <>
 	{

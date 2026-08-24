@@ -286,5 +286,11 @@
 	"quiz.score": "You scored %s out of %s (%s)!",
 	"quiz.ready_for_results": "Ready to see your results?",
 	"action.open_tooltip": "Open tooltip",
-	"label.open_tooltip_for": "%s: Open tooltip for %s"
+	"label.open_tooltip_for": "%s: Open tooltip for %s",
+	"seo.default_description": "Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions",
+	"seo.default_keywords": "programming,development,mobile,web,game,playful,software engineering,javascript,angular,react,computer science",
+	"seo.atom_feed_title": "%s | Atom Feed",
+	"seo.rss_feed_title": "%s | RSS Feed",
+	"seo.json_feed_title": "%s | JSON Feed",
+	"seo.article_section": "Technology"
 }
