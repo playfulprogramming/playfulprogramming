@@ -1,0 +1,49 @@
+---
+import style from "#src/views/join-us/get-involved.module.scss";
+import Document from "#src/layouts/document.astro";
+import GetInvolvedHeader from "#src/views/join-us/get-involved-header.astro";
+import SEO from "#components/seo/seo.astro";
+import WhyGetInvolved from "#src/views/join-us/why-get-involved.astro";
+import WelcomeToEveryone from "#src/views/join-us/welcome-to-everyone.astro";
+import ReadyToLevelUp from "#src/views/join-us/ready-to-level-up.astro";
+import SupportUs from "#src/views/join-us/support-us.astro";
+import ContributorsAndPartners from "#src/views/join-us/contributors-and-partners.astro";
+import Hr from "#src/views/join-us/hr.astro";
+import {
+	getStaticLocalePaths,
+	isLanguageKey,
+	translate,
+} from "#utils/translations.ts";
+
+export function getStaticPaths() {
+	return getStaticLocalePaths();
+}
+
+const localeParam = Astro.params.locale;
+if (localeParam !== undefined && !isLanguageKey(localeParam)) {
+	return Astro.rewrite("/404");
+}
+
+const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
+---
+
+<Document>
+	<SEO
+		title={translate(Astro, "title.join_us")}
+		description={translate(Astro, "desc.join_us")}
+		providedLangs={providedLangs}
+		slot="head"
+	/>
+	<GetInvolvedHeader />
+	<WhyGetInvolved />
+	<WelcomeToEveryone />
+	<ReadyToLevelUp />
+	<div class={style.container}>
+		<Hr />
+	</div>
+	<SupportUs />
+	<div class={style.container}>
+		<Hr />
+	</div>
+	<ContributorsAndPartners />
+</Document>
