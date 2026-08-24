@@ -156,6 +156,7 @@ body:has(.dialog[open]) {
 	min-height: var(--min-target-size_m);
 	align-items: center;
 	justify-content: center;
+	gap: var(--spc-2x);
 	padding: var(--spc-2x) var(--spc-5x);
 	color: var(--primary_on-variant);
 	background: var(--surface_primary_emphasis-low);

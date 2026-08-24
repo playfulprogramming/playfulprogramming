@@ -51,6 +51,12 @@ const bodyFonts = [
 	},
 ] as const;
 
+const colorModes = [
+	{ icon: "light_mode", mode: "light" },
+	{ icon: "dark_mode", mode: "dark" },
+	{ icon: null, mode: "system" },
+] as const;
+
 const colorOptions = Array.from({ length: 12 });
 ---
 
@@ -85,7 +91,7 @@ const colorOptions = Array.from({ length: 12 });
 				</legend>
 				<div class={styles.modeOptions}>
 					{
-						(["light", "dark", "system"] as const).map((mode) => (
+						colorModes.map(({ icon, mode }) => (
 							<>
 								<input
 									class={styles.choiceInput}
@@ -96,6 +102,7 @@ const colorOptions = Array.from({ length: 12 });
 									data-theme-mode
 								/>
 								<label class={styles.modeOption} for={`theme-mode-${mode}`}>
+									{icon && <Icon name={icon} />}
 									{translate(Astro, `label.${mode}`)}
 								</label>
 							</>
