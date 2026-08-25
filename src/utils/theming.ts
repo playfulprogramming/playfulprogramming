@@ -1,12 +1,14 @@
 import {
 	BRAND_THEME_STORAGE_KEY,
 	COLOR_MODE_STORAGE_KEY,
+	CONTRAST_MODE_STORAGE_KEY,
 	THEME_COLOR_DARK,
 	THEME_COLOR_LIGHT,
 } from "../constants/theme.ts";
 
 export type ColorModePreference = "light" | "dark" | "system";
 export type ResolvedColorMode = Exclude<ColorModePreference, "system">;
+export type ContrastModePreference = "more" | "less" | "system";
 
 export const COLOR_SCHEME_MEDIA_QUERY = "(prefers-color-scheme: dark)";
 
@@ -54,6 +56,11 @@ export interface ApplyColorModeOptions {
 	root?: HTMLElement | null;
 	targetDocument?: Document | null;
 	matchMedia?: MatchMedia;
+	persist?: boolean;
+}
+
+export interface ApplyContrastModeOptions {
+	root?: HTMLElement | null;
 	persist?: boolean;
 }
 
@@ -210,6 +217,57 @@ export const loadColorMode = (
 	options: Omit<ApplyColorModeOptions, "persist"> = {},
 ) =>
 	applyColorMode(readColorModePreference(), {
+		...options,
+		persist: false,
+	});
+
+export const isContrastModePreference = (
+	value: unknown,
+): value is ContrastModePreference =>
+	value === "more" || value === "less" || value === "system";
+
+export const readContrastModePreference = (): ContrastModePreference => {
+	const savedPreference = getStoredValue(CONTRAST_MODE_STORAGE_KEY);
+	return isContrastModePreference(savedPreference) ? savedPreference : "system";
+};
+
+export const saveContrastModePreference = (
+	preference: ContrastModePreference,
+) => {
+	if (preference === "system") {
+		removeStoredValue(CONTRAST_MODE_STORAGE_KEY);
+		return;
+	}
+
+	setStoredValue(CONTRAST_MODE_STORAGE_KEY, preference);
+};
+
+export const applyContrastMode = (
+	preference: ContrastModePreference,
+	options: ApplyContrastModeOptions = {},
+): ContrastModePreference => {
+	const normalizedPreference = isContrastModePreference(preference)
+		? preference
+		: "system";
+	const root =
+		options.root === undefined
+			? getDocumentRoot()
+			: (options.root ?? undefined);
+
+	root?.classList.toggle("contrast-more", normalizedPreference === "more");
+	root?.classList.toggle("contrast-less", normalizedPreference === "less");
+
+	if (options.persist !== false) {
+		saveContrastModePreference(normalizedPreference);
+	}
+
+	return normalizedPreference;
+};
+
+export const loadContrastMode = (
+	options: Omit<ApplyContrastModeOptions, "persist"> = {},
+) =>
+	applyContrastMode(readContrastModePreference(), {
 		...options,
 		persist: false,
 	});

@@ -57,6 +57,12 @@ const colorModes = [
 	{ icon: "laptop", mode: "system" },
 ] as const;
 
+const contrastModes = [
+	{ icon: "add", mode: "more" },
+	{ icon: "subtract", mode: "less" },
+	{ icon: "laptop", mode: "system" },
+] as const;
+
 const colorOptions = Array.from({ length: 12 });
 ---
 
@@ -110,6 +116,39 @@ const colorOptions = Array.from({ length: 12 });
 											<Icon name={icon} />
 										</span>
 									)}
+									<span class="innerText">
+										{translate(Astro, `label.${mode}`)}
+									</span>
+								</label>
+							</>
+						))
+					}
+				</div>
+			</fieldset>
+
+			<fieldset class={styles.section}>
+				<legend class={styles.sectionTitle}>
+					{translate(Astro, "label.contrast")}
+				</legend>
+				<div class={styles.modeOptions}>
+					{
+						contrastModes.map(({ icon, mode }) => (
+							<>
+								<input
+									class={styles.choiceInput}
+									type="radio"
+									id={`theme-contrast-${mode}`}
+									name="theme-contrast"
+									value={mode}
+									data-theme-contrast
+								/>
+								<label
+									class="button text-style-button-regular regular primary"
+									for={`theme-contrast-${mode}`}
+								>
+									<span class="buttonIcon" aria-hidden="true">
+										<Icon name={icon} />
+									</span>
 									<span class="innerText">
 										{translate(Astro, `label.${mode}`)}
 									</span>

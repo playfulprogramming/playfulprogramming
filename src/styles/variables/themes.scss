@@ -1,3 +1,88 @@
+@mixin moreContrastLightTheme {
+	--background_primary: var(--primary99);
+	--background_secondary: var(--secondary99);
+	--background_positive: var(--positive99);
+	--background_error: var(--error99);
+
+	--foreground_high: var(--neutral10);
+
+	--primary_low: var(--primary_medium);
+	--primary_low_semantic: var(--primary_medium_semantic);
+	--primary_on-low: var(--primary_on-medium);
+
+	--secondary_low: var(--secondary_medium);
+	--secondary_low_semantic: var(--secondary_medium_semantic);
+	--secondary_on-low: var(--secondary_on-medium);
+
+	--positive_low: var(--positive_medium);
+	--positive_low_semantic: var(--positive_medium_semantic);
+	--positive_on-low: var(--positive_on-medium);
+
+	--error_low: var(--error_medium);
+	--error_low_semantic: var(--error_medium_semantic);
+	--error_on-low: var(--error_on-medium);
+
+	--primary_container: var(--primary40);
+	--primary_container_hover: var(--primary30);
+	--primary_container_pressed: var(--primary20);
+	--primary_on-container: var(--primary99);
+
+	--secondary_container: var(--secondary40);
+	--secondary_container_hover: var(--secondary30);
+	--secondary_container_pressed: var(--secondary20);
+	--secondary_on-container: var(--secondary99);
+
+	--positive_container: var(--positive40);
+	--positive_container_hover: var(--positive30);
+	--positive_container_pressed: var(--positive20);
+	--positive_on-container: var(--positive99);
+
+	--error_container: var(--error40);
+	--error_container_hover: var(--error30);
+	--error_container_pressed: var(--error20);
+	--error_on-container: var(--error99);
+}
+
+@mixin moreContrastDarkTheme {
+	--foreground_high: var(--neutral95);
+
+	--primary_low: var(--primary_medium);
+	--primary_low_semantic: var(--primary_medium_semantic);
+	--primary_on-low: var(--primary_on-medium);
+
+	--secondary_low: var(--secondary_medium);
+	--secondary_low_semantic: var(--secondary_medium_semantic);
+	--secondary_on-low: var(--secondary_on-medium);
+
+	--positive_low: var(--positive_medium);
+	--positive_low_semantic: var(--positive_medium_semantic);
+	--positive_on-low: var(--positive_on-medium);
+
+	--error_low: var(--error_medium);
+	--error_low_semantic: var(--error_medium_semantic);
+	--error_on-low: var(--error_on-medium);
+
+	--primary_container: var(--primary70);
+	--primary_container_hover: var(--primary80);
+	--primary_container_pressed: var(--primary90);
+	--primary_on-container: var(--primary10);
+
+	--secondary_container: var(--secondary70);
+	--secondary_container_hover: var(--secondary80);
+	--secondary_container_pressed: var(--secondary90);
+	--secondary_on-container: var(--secondary10);
+
+	--positive_container: var(--positive70);
+	--positive_container_hover: var(--positive80);
+	--positive_container_pressed: var(--positive90);
+	--positive_on-container: var(--positive10);
+
+	--error_container: var(--error70);
+	--error_container_hover: var(--error80);
+	--error_container_pressed: var(--error90);
+	--error_on-container: var(--error10);
+}
+
 // Light theme
 :root,
 // https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
@@ -181,50 +266,17 @@
 	--focus-outline_secondary: var(--secondary_medium_semantic);
 	--focus-outline_positive: var(--positive_medium_semantic);
 	--focus-outline_error: var(--error_medium_semantic);
+}
 
-	@media (prefers-contrast: more) {
-		--background_primary: var(--primary99);
-		--background_secondary: var(--secondary99);
-		--background_positive: var(--positive99);
-		--background_error: var(--error99);
+:root:where(.contrast-more),
+:root:where(.contrast-more) ::backdrop {
+	@include moreContrastLightTheme;
+}
 
-		--foreground_high: var(--neutral10);
-
-		--primary_low: var(--primary_medium);
-		--primary_low_semantic: var(--primary_medium_semantic);
-		--primary_on-low: var(--primary_on-medium);
-
-		--secondary_low: var(--secondary_medium);
-		--secondary_low_semantic: var(--secondary_medium_semantic);
-		--secondary_on-low: var(--secondary_on-medium);
-
-		--positive_low: var(--positive_medium);
-		--positive_low_semantic: var(--positive_medium_semantic);
-		--positive_on-low: var(--positive_on-medium);
-
-		--error_low: var(--error_medium);
-		--error_low_semantic: var(--error_medium_semantic);
-		--error_on-low: var(--error_on-medium);
-
-		--primary_container: var(--primary40);
-		--primary_container_hover: var(--primary30);
-		--primary_container_pressed: var(--primary20);
-		--primary_on-container: var(--primary99);
-
-		--secondary_container: var(--secondary40);
-		--secondary_container_hover: var(--secondary30);
-		--secondary_container_pressed: var(--secondary20);
-		--secondary_on-container: var(--secondary99);
-
-		--positive_container: var(--positive40);
-		--positive_container_hover: var(--positive30);
-		--positive_container_pressed: var(--positive20);
-		--positive_on-container: var(--positive99);
-
-		--error_container: var(--error40);
-		--error_container_hover: var(--error30);
-		--error_container_pressed: var(--error20);
-		--error_on-container: var(--error99);
+@media (prefers-contrast: more) {
+	:root:where(:not(.contrast-less)),
+	:root:where(:not(.contrast-less)) ::backdrop {
+		@include moreContrastLightTheme;
 	}
 }
 
@@ -345,45 +397,27 @@ body.dark,
 		--focus-outline_secondary: var(--secondary_medium_semantic);
 		--focus-outline_positive: var(--positive_medium_semantic);
 		--focus-outline_error: var(--error_medium_semantic);
+	}
+}
 
-		@media (prefers-contrast: more) {
-			--foreground_high: var(--neutral95);
+:root.dark:where(.contrast-more),
+:root.darkTheme:where(.contrast-more),
+:root:where(.contrast-more) body.dark,
+:root:where(.contrast-more) .darkTheme {
+	&,
+	& ::backdrop {
+		@include moreContrastDarkTheme;
+	}
+}
 
-			--primary_low: var(--primary_medium);
-			--primary_low_semantic: var(--primary_medium_semantic);
-			--primary_on-low: var(--primary_on-medium);
-
-			--secondary_low: var(--secondary_medium);
-			--secondary_low_semantic: var(--secondary_medium_semantic);
-			--secondary_on-low: var(--secondary_on-medium);
-
-			--positive_low: var(--positive_medium);
-			--positive_low_semantic: var(--positive_medium_semantic);
-			--positive_on-low: var(--positive_on-medium);
-
-			--error_low: var(--error_medium);
-			--error_low_semantic: var(--error_medium_semantic);
-			--error_on-low: var(--error_on-medium);
-
-			--primary_container: var(--primary70);
-			--primary_container_hover: var(--primary80);
-			--primary_container_pressed: var(--primary90);
-			--primary_on-container: var(--primary10);
-
-			--secondary_container: var(--secondary70);
-			--secondary_container_hover: var(--secondary80);
-			--secondary_container_pressed: var(--secondary90);
-			--secondary_on-container: var(--secondary10);
-
-			--positive_container: var(--positive70);
-			--positive_container_hover: var(--positive80);
-			--positive_container_pressed: var(--positive90);
-			--positive_on-container: var(--positive10);
-
-			--error_container: var(--error70);
-			--error_container_hover: var(--error80);
-			--error_container_pressed: var(--error90);
-			--error_on-container: var(--error10);
+@media (prefers-contrast: more) {
+	:root.dark:where(:not(.contrast-less)),
+	:root.darkTheme:where(:not(.contrast-less)),
+	:root:where(:not(.contrast-less)) body.dark,
+	:root:where(:not(.contrast-less)) .darkTheme {
+		&,
+		& ::backdrop {
+			@include moreContrastDarkTheme;
 		}
 	}
 }

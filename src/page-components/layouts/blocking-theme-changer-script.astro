@@ -4,6 +4,7 @@ import * as Terser from "terser";
 import {
 	BRAND_THEME_STORAGE_KEY,
 	COLOR_MODE_STORAGE_KEY,
+	CONTRAST_MODE_STORAGE_KEY,
 	THEME_COLOR_DARK,
 	THEME_COLOR_LIGHT,
 } from "../../constants/theme.ts";
@@ -153,6 +154,25 @@ const setBrandColorsByTheme = serializeInlineCall(
 	},
 );
 
+const setContrastByTheme = serializeInlineCall(
+	({ storageKey }: { storageKey: string }): void => {
+		let savedPreference: string | null = null;
+		try {
+			savedPreference = localStorage.getItem(storageKey);
+		} catch {
+			// Storage can be unavailable. Fall back to the system preference.
+		}
+
+		const preference =
+			savedPreference === "more" || savedPreference === "less"
+				? savedPreference
+				: "system";
+		const root = document.documentElement;
+		root.classList.toggle("contrast-more", preference === "more");
+		root.classList.toggle("contrast-less", preference === "less");
+	},
+);
+
 const inlineScript = [
 	setColorsByTheme({
 		storageKey: COLOR_MODE_STORAGE_KEY,
@@ -160,6 +180,7 @@ const inlineScript = [
 		darkTheme: THEME_COLOR_DARK,
 		colorSchemeMediaQuery: COLOR_SCHEME_MEDIA_QUERY,
 	}),
+	setContrastByTheme({ storageKey: CONTRAST_MODE_STORAGE_KEY }),
 	setBrandColorsByTheme({
 		storageKey: BRAND_THEME_STORAGE_KEY,
 		properties: BRAND_THEME_PROPERTIES,

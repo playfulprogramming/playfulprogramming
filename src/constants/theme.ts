@@ -1,4 +1,5 @@
 export const COLOR_MODE_STORAGE_KEY = "currentTheme";
+export const CONTRAST_MODE_STORAGE_KEY = "contrastMode";
 export const BRAND_THEME_STORAGE_KEY = "brandTheme";
 
 export const THEME_COLOR_LIGHT = "#e5f2ff";

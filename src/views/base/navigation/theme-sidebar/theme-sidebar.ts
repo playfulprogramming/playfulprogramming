@@ -2,13 +2,16 @@ import {
 	BRAND_THEME_PROPERTIES,
 	applyBrandTheme,
 	applyColorMode,
+	applyContrastMode,
 	harmonize,
 	readBrandTheme,
 	readColorModePreference,
+	readContrastModePreference,
 	saveBrandTheme,
 	updateBrandTheme,
 	type BrandTheme,
 	type ColorModePreference,
+	type ContrastModePreference,
 } from "#src/utils/theming.ts";
 
 type PaletteName = "primary" | "secondary";
@@ -160,6 +163,9 @@ export const initializeThemeSidebar = () => {
 	);
 	const modeInputs =
 		dialog.querySelectorAll<HTMLInputElement>("[data-theme-mode]");
+	const contrastInputs = dialog.querySelectorAll<HTMLInputElement>(
+		"[data-theme-contrast]",
+	);
 	const fontSelects =
 		dialog.querySelectorAll<HTMLSelectElement>("[data-theme-font]");
 
@@ -167,6 +173,8 @@ export const initializeThemeSidebar = () => {
 	let brandThemeBeforeOpen = readBrandTheme(root);
 	let colorModeBeforeOpen = readColorModePreference();
 	let previewColorMode: ColorModePreference = colorModeBeforeOpen;
+	let contrastModeBeforeOpen = readContrastModePreference();
+	let previewContrastMode: ContrastModePreference = contrastModeBeforeOpen;
 	let saved = false;
 
 	const setExpanded = (expanded: boolean) => {
@@ -178,6 +186,16 @@ export const initializeThemeSidebar = () => {
 	const syncModeInputs = () => {
 		modeInputs.forEach((input) => {
 			input.checked = input.value === previewColorMode;
+
+			const button = input.labels?.item(0);
+			button?.classList.toggle("primary", !input.checked);
+			button?.classList.toggle("primary-emphasized", input.checked);
+		});
+	};
+
+	const syncContrastInputs = () => {
+		contrastInputs.forEach((input) => {
+			input.checked = input.value === previewContrastMode;
 
 			const button = input.labels?.item(0);
 			button?.classList.toggle("primary", !input.checked);
@@ -239,6 +257,7 @@ export const initializeThemeSidebar = () => {
 
 	const syncForm = () => {
 		syncModeInputs();
+		syncContrastInputs();
 		syncFontSelects();
 		populatePalettes();
 	};
@@ -265,6 +284,8 @@ export const initializeThemeSidebar = () => {
 		brandThemeBeforeOpen = readBrandTheme(root);
 		colorModeBeforeOpen = readColorModePreference();
 		previewColorMode = colorModeBeforeOpen;
+		contrastModeBeforeOpen = readContrastModePreference();
+		previewContrastMode = contrastModeBeforeOpen;
 		saved = false;
 		syncForm();
 		setExpanded(true);
@@ -296,6 +317,28 @@ export const initializeThemeSidebar = () => {
 			syncModeInputs();
 			applyColorMode(previewColorMode, { persist: false });
 			syncTriggerIcons(root);
+		});
+	});
+
+	contrastInputs.forEach((input) => {
+		const button = input.labels?.item(0);
+
+		input.addEventListener("focus", () => {
+			button?.setAttribute(
+				"data-focus-visible",
+				String(input.matches(":focus-visible")),
+			);
+		});
+
+		input.addEventListener("blur", () => {
+			button?.removeAttribute("data-focus-visible");
+		});
+
+		input.addEventListener("change", () => {
+			if (!input.checked) return;
+			previewContrastMode = input.value as ContrastModePreference;
+			syncContrastInputs();
+			applyContrastMode(previewContrastMode, { persist: false });
 		});
 	});
 
@@ -335,6 +378,8 @@ export const initializeThemeSidebar = () => {
 		clearBrandThemePreview(root);
 		previewColorMode = "system";
 		applyColorMode(previewColorMode, { persist: false });
+		previewContrastMode = "system";
+		applyContrastMode(previewContrastMode, { persist: false });
 		syncTriggerIcons(root);
 		syncForm();
 	});
@@ -349,6 +394,7 @@ export const initializeThemeSidebar = () => {
 		event.preventDefault();
 		saveBrandTheme(root);
 		applyColorMode(previewColorMode);
+		applyContrastMode(previewContrastMode);
 		saved = true;
 		dialog.close("save");
 	});
@@ -358,6 +404,8 @@ export const initializeThemeSidebar = () => {
 			restoreBrandTheme(root, brandThemeBeforeOpen);
 			applyColorMode(colorModeBeforeOpen, { persist: false });
 			previewColorMode = colorModeBeforeOpen;
+			applyContrastMode(contrastModeBeforeOpen, { persist: false });
+			previewContrastMode = contrastModeBeforeOpen;
 		}
 
 		syncTriggerIcons(root);

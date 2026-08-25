@@ -18,7 +18,17 @@ async function openThemeSidebar(page: Page) {
 async function chooseMode(dialog: Locator, mode: "Dark" | "Light" | "System") {
 	await chooseRadio(
 		dialog,
-		dialog.getByRole("radio", { name: mode, exact: true }),
+		dialog.locator(`[data-theme-mode][value="${mode.toLowerCase()}"]`),
+	);
+}
+
+async function chooseContrast(
+	dialog: Locator,
+	mode: "More" | "Less" | "System",
+) {
+	await chooseRadio(
+		dialog,
+		dialog.locator(`[data-theme-contrast][value="${mode.toLowerCase()}"]`),
 	);
 }
 
@@ -48,6 +58,8 @@ async function readRootTheme(page: Page) {
 		return {
 			isDark: root.classList.contains("dark"),
 			isLight: root.classList.contains("light"),
+			isContrastMore: root.classList.contains("contrast-more"),
+			isContrastLess: root.classList.contains("contrast-less"),
 			primaryHue: property("--hue-primary"),
 			secondaryHue: property("--hue-secondary"),
 			positiveHue: property("--hue-positive"),
@@ -58,12 +70,27 @@ async function readRootTheme(page: Page) {
 	});
 }
 
+async function readContrastTokens(page: Page) {
+	return page.evaluate(() => {
+		const styles = getComputedStyle(document.documentElement);
+
+		return {
+			backgroundPrimary: styles.getPropertyValue("--background_primary").trim(),
+			foregroundHigh: styles.getPropertyValue("--foreground_high").trim(),
+			neutralOpacity: styles
+				.getPropertyValue("--opacity-neutral-medium")
+				.trim(),
+		};
+	});
+}
+
 async function readStoredTheme(page: Page) {
 	return page.evaluate(() => {
 		const brandTheme = localStorage.getItem("brandTheme");
 
 		return {
 			currentTheme: localStorage.getItem("currentTheme"),
+			contrastMode: localStorage.getItem("contrastMode"),
 			brandTheme: brandTheme
 				? (JSON.parse(brandTheme) as Record<string, string>)
 				: null,
@@ -73,7 +100,10 @@ async function readStoredTheme(page: Page) {
 
 test.describe("theme sidebar", () => {
 	test.beforeEach(async ({ page }) => {
-		await page.emulateMedia({ colorScheme: "light" });
+		await page.emulateMedia({
+			colorScheme: "light",
+			contrast: "no-preference",
+		});
 		await page.goto("/posts/example", { waitUntil: "networkidle" });
 	});
 
@@ -118,12 +148,14 @@ test.describe("theme sidebar", () => {
 		const { dialog, trigger } = await openThemeSidebar(page);
 
 		await chooseMode(dialog, "Dark");
+		await chooseContrast(dialog, "More");
 		await dialog
 			.locator('[data-theme-font="brand"]')
 			.selectOption("playpen-sans");
 		await choosePrimaryColor(dialog);
 
 		await expect(page.locator("html")).toHaveClass(/\bdark\b/);
+		await expect(page.locator("html")).toHaveClass(/\bcontrast-more\b/);
 		expect(await readRootTheme(page)).not.toEqual(initialTheme);
 
 		await page.keyboard.press("Escape");
@@ -133,11 +165,13 @@ test.describe("theme sidebar", () => {
 		expect(await readRootTheme(page)).toEqual(initialTheme);
 		expect(await readStoredTheme(page)).toEqual({
 			brandTheme: null,
+			contrastMode: null,
 			currentTheme: null,
 		});
 
 		const reopened = await openThemeSidebar(page);
 		await chooseMode(reopened.dialog, "Dark");
+		await chooseContrast(reopened.dialog, "Less");
 		await reopened.dialog
 			.locator('[data-theme-font="body"]')
 			.selectOption("system-ui");
@@ -157,12 +191,17 @@ test.describe("theme sidebar", () => {
 		expect((await readStoredTheme(page)).currentTheme).toBeNull();
 	});
 
-	test("saves color mode, fonts, and color across reloads", async ({
+	test("saves color mode, contrast, fonts, and color across reloads", async ({
 		page,
 	}) => {
 		const { dialog } = await openThemeSidebar(page);
 
 		await chooseMode(dialog, "Dark");
+		const darkBackground = (await readContrastTokens(page)).backgroundPrimary;
+		await chooseContrast(dialog, "More");
+		expect((await readContrastTokens(page)).backgroundPrimary).toBe(
+			darkBackground,
+		);
 		await dialog
 			.locator('[data-theme-font="brand"]')
 			.selectOption("open-dyslexic");
@@ -190,12 +229,15 @@ test.describe("theme sidebar", () => {
 		expect(rootTheme).toMatchObject({
 			bodyFont: OPEN_DYSLEXIC_FONT,
 			headingFont: OPEN_DYSLEXIC_FONT,
+			isContrastLess: false,
+			isContrastMore: true,
 			isDark: true,
 			isLight: false,
 			primaryHue: "90",
 		});
 		let storedTheme = await readStoredTheme(page);
 		expect(storedTheme.currentTheme).toBe("dark");
+		expect(storedTheme.contrastMode).toBe("more");
 		expect(storedTheme.brandTheme).toMatchObject({
 			"hue-primary": "90",
 			"pfp-font-family-body": "open-dyslexic",
@@ -209,18 +251,77 @@ test.describe("theme sidebar", () => {
 		expect(rootTheme).toMatchObject({
 			bodyFont: OPEN_DYSLEXIC_FONT,
 			headingFont: OPEN_DYSLEXIC_FONT,
+			isContrastLess: false,
+			isContrastMore: true,
 			isDark: true,
 			isLight: false,
 			primaryHue: "90",
 		});
 		storedTheme = await readStoredTheme(page);
 		expect(storedTheme.currentTheme).toBe("dark");
+		expect(storedTheme.contrastMode).toBe("more");
 		expect(storedTheme.brandTheme).toMatchObject({
 			"hue-primary": "90",
 			"pfp-font-family-body": "open-dyslexic",
 			"pfp-font-family-brand": "open-dyslexic",
 		});
 		expect(storedTheme.brandTheme).not.toHaveProperty("chroma-factor");
+	});
+
+	test("More forces contrast when the system does not request it", async ({
+		page,
+	}) => {
+		const root = page.locator("html");
+		const defaultTokens = await readContrastTokens(page);
+		const { dialog } = await openThemeSidebar(page);
+
+		await chooseContrast(dialog, "More");
+
+		await expect(root).toHaveClass(/\bcontrast-more\b/);
+		await expect(root).not.toHaveClass(/\bcontrast-less\b/);
+		const moreTokens = await readContrastTokens(page);
+		expect(moreTokens.foregroundHigh).not.toBe(defaultTokens.foregroundHigh);
+		expect(moreTokens.neutralOpacity).not.toBe(defaultTokens.neutralOpacity);
+	});
+
+	test("Less overrides system contrast and System follows the media query", async ({
+		page,
+	}) => {
+		const root = page.locator("html");
+		const defaultTokens = await readContrastTokens(page);
+
+		await page.emulateMedia({ contrast: "more" });
+		const moreTokens = await readContrastTokens(page);
+		expect(moreTokens.foregroundHigh).not.toBe(defaultTokens.foregroundHigh);
+		expect(moreTokens.neutralOpacity).not.toBe(defaultTokens.neutralOpacity);
+		await expect(root).not.toHaveClass(/\bcontrast-(?:more|less)\b/);
+
+		let sidebar = await openThemeSidebar(page);
+		await chooseContrast(sidebar.dialog, "Less");
+		await expect(root).toHaveClass(/\bcontrast-less\b/);
+		await expect(root).not.toHaveClass(/\bcontrast-more\b/);
+		expect(await readContrastTokens(page)).toEqual(defaultTokens);
+		await sidebar.dialog
+			.getByRole("button", { name: "Save changes", exact: true })
+			.click();
+
+		expect((await readStoredTheme(page)).contrastMode).toBe("less");
+		await page.reload({ waitUntil: "networkidle" });
+		await expect(root).toHaveClass(/\bcontrast-less\b/);
+		expect(await readContrastTokens(page)).toEqual(defaultTokens);
+
+		sidebar = await openThemeSidebar(page);
+		await chooseContrast(sidebar.dialog, "System");
+		await sidebar.dialog
+			.getByRole("button", { name: "Save changes", exact: true })
+			.click();
+
+		await expect(root).not.toHaveClass(/\bcontrast-(?:more|less)\b/);
+		expect((await readStoredTheme(page)).contrastMode).toBeNull();
+		expect(await readContrastTokens(page)).toEqual(moreTokens);
+
+		await page.emulateMedia({ contrast: "no-preference" });
+		expect(await readContrastTokens(page)).toEqual(defaultTokens);
 	});
 
 	test("disables the bowtie animation for a custom primary color", async ({
@@ -276,6 +377,7 @@ test.describe("theme sidebar", () => {
 	test("Reset and Save restore the site defaults", async ({ page }) => {
 		let sidebar = await openThemeSidebar(page);
 		await chooseMode(sidebar.dialog, "Dark");
+		await chooseContrast(sidebar.dialog, "More");
 		await sidebar.dialog
 			.locator('[data-theme-font="brand"]')
 			.selectOption("playpen-sans");
@@ -294,7 +396,10 @@ test.describe("theme sidebar", () => {
 			.click();
 
 		await expect(
-			sidebar.dialog.getByRole("radio", { name: "System", exact: true }),
+			sidebar.dialog.locator('[data-theme-mode][value="system"]'),
+		).toBeChecked();
+		await expect(
+			sidebar.dialog.locator('[data-theme-contrast][value="system"]'),
 		).toBeChecked();
 		await expect(
 			sidebar.dialog.locator('[data-theme-font="brand"]'),
@@ -306,6 +411,8 @@ test.describe("theme sidebar", () => {
 			bodyFont: "",
 			errorHue: "",
 			headingFont: "",
+			isContrastLess: false,
+			isContrastMore: false,
 			isDark: false,
 			isLight: true,
 			positiveHue: "",
@@ -319,6 +426,7 @@ test.describe("theme sidebar", () => {
 
 		expect(await readStoredTheme(page)).toEqual({
 			brandTheme: null,
+			contrastMode: null,
 			currentTheme: null,
 		});
 
@@ -327,6 +435,8 @@ test.describe("theme sidebar", () => {
 			bodyFont: "",
 			errorHue: "",
 			headingFont: "",
+			isContrastLess: false,
+			isContrastMore: false,
 			isDark: false,
 			isLight: true,
 			positiveHue: "",

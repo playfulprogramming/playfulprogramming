@@ -3,6 +3,7 @@ import { afterEach, describe, expect, test, vi } from "vitest";
 import {
 	BRAND_THEME_STORAGE_KEY,
 	COLOR_MODE_STORAGE_KEY,
+	CONTRAST_MODE_STORAGE_KEY,
 	THEME_COLOR_DARK,
 	THEME_COLOR_LIGHT,
 } from "../constants/theme.ts";
@@ -10,12 +11,15 @@ import {
 	ALLOWED_THEME_FONTS,
 	applyBrandTheme,
 	applyColorMode,
+	applyContrastMode,
 	BRAND_THEME_PROPERTIES,
 	COLOR_SCHEME_MEDIA_QUERY,
 	loadBrandTheme,
 	loadColorMode,
+	loadContrastMode,
 	readBrandTheme,
 	readColorModePreference,
+	readContrastModePreference,
 	readSavedBrandTheme,
 	resetBrandTheme,
 	resolveColorMode,
@@ -196,6 +200,66 @@ describe("color mode", () => {
 				THEME_COLOR_LIGHT,
 			);
 		}
+	});
+});
+
+describe("contrast mode", () => {
+	test("reads supported preferences and treats invalid storage as system", () => {
+		const storage = useStorage({ [CONTRAST_MODE_STORAGE_KEY]: "more" });
+
+		expect(readContrastModePreference()).toBe("more");
+
+		storage.setItem(CONTRAST_MODE_STORAGE_KEY, "less");
+		expect(readContrastModePreference()).toBe("less");
+
+		storage.setItem(CONTRAST_MODE_STORAGE_KEY, "maximum");
+		expect(readContrastModePreference()).toBe("system");
+	});
+
+	test("applies explicit preferences while preserving unrelated root classes", () => {
+		const storage = useStorage();
+		const { classes, root } = createRoot({}, [
+			"contrast-less",
+			"hydrated",
+			"page-home",
+		]);
+
+		expect(applyContrastMode("more", { root })).toBe("more");
+		expect([...classes]).toEqual(["hydrated", "page-home", "contrast-more"]);
+		expect(storage.getItem(CONTRAST_MODE_STORAGE_KEY)).toBe("more");
+
+		expect(applyContrastMode("less", { root })).toBe("less");
+		expect([...classes]).toEqual(["hydrated", "page-home", "contrast-less"]);
+		expect(storage.getItem(CONTRAST_MODE_STORAGE_KEY)).toBe("less");
+	});
+
+	test("system removes explicit classes and the saved preference", () => {
+		const storage = useStorage({
+			[CONTRAST_MODE_STORAGE_KEY]: "more",
+			unrelated: "keep me",
+		});
+		const { classes, root } = createRoot({}, [
+			"contrast-more",
+			"contrast-less",
+			"app",
+		]);
+
+		expect(applyContrastMode("system", { root })).toBe("system");
+		expect([...classes]).toEqual(["app"]);
+		expect(storage.getItem(CONTRAST_MODE_STORAGE_KEY)).toBeNull();
+		expect(storage.getItem("unrelated")).toBe("keep me");
+	});
+
+	test("loads a saved preference without rewriting storage", () => {
+		const storage = useStorage({ [CONTRAST_MODE_STORAGE_KEY]: "less" });
+		const setItem = vi.spyOn(storage, "setItem");
+		const removeItem = vi.spyOn(storage, "removeItem");
+		const { classes, root } = createRoot({}, ["contrast-more", "app"]);
+
+		expect(loadContrastMode({ root })).toBe("less");
+		expect([...classes]).toEqual(["app", "contrast-less"]);
+		expect(setItem).not.toHaveBeenCalled();
+		expect(removeItem).not.toHaveBeenCalled();
 	});
 });
 
