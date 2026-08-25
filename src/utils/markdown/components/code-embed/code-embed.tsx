@@ -11,7 +11,7 @@ import {
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { $container, runEmbed } from "./webcontainer-script.ts";
-import type { FileEntry } from "#components/code-embed/types.tsx";
+import type { FileEntry } from "#components/code-embed/types.ts";
 import { CodeEmbedContent } from "./code-embed-content.tsx";
 
 // Given the base webcontainer URL, modify it with any changes made in the address bar

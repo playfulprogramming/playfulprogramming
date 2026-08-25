@@ -13,9 +13,3 @@ export const IMAGE_SIZES: GetPictureSizes = {
 	356: { maxWidth: mobile },
 	596: { maxWidth: tabletSmall },
 };
-
-export interface MarkdownConfig {
-	format: "html" | "epub";
-	// fs path for any static files (used primarily for epub / rehype-absolute-paths)
-	path?: string;
-}
