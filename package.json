@@ -53,7 +53,7 @@
 		"search-index:deploy": "node --env-file-if-exists=.env --experimental-strip-types scripts/deploy-search-index.ts",
 		"hoof:generate": "openapi-typescript 'https://hoof.playfulprogramming.com/docs/openapi.json' -o src/utils/hoof/schema.d.ts",
 		"pretsc": "pnpm run paraglide:compile",
-		"tsc": "astro check && tsc --noEmit",
+		"tsc": "astro check && tsc --noEmit --project tsconfig.tsc.json",
 		"test": "pnpm run test:unit && pnpm run test:e2e",
 		"pretest:unit": "pnpm run paraglide:compile",
 		"test:unit": "vitest",

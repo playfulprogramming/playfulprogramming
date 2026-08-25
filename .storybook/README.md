@@ -3,9 +3,10 @@
 This is an intentionally small Storybook spike for the site's `.astro`
 components. It uses Storybook's CSF Next factory API throughout:
 `defineMain`, `definePreview`, `preview.meta`, and `meta.story`.
-Story args use explicit contracts because the community adapter's renderer type
-does not yet infer `.astro` props on its own, and its compatibility shim prevents
-Astro's usual `ComponentProps<typeof Component>` utility from narrowing them.
+Each story imports the component's exported `Props` contract and supplies it to
+`preview.type`, because the community adapter's renderer does not yet infer
+`.astro` props on its own. `page-card` adds only the Storybook-specific `slots`
+transport to that component-owned type.
 
 Run it locally with:
 

@@ -1,10 +1,10 @@
 import preview from "../../../../../.storybook/preview.ts";
 
-import MailingList from "./mailing-list.astro";
+import MailingList, {
+	type Props as MailingListProps,
+} from "./mailing-list.astro";
 
-type MailingListArgs = Record<string, never>;
-
-const meta = preview.type<{ args: MailingListArgs }>().meta({
+const meta = preview.type<{ args: MailingListProps }>().meta({
 	title: "Astro/Mailing List",
 	component: MailingList,
 	parameters: {
