@@ -13,7 +13,8 @@
 
 	--heading-link_background: var(--background_secondary);
 	--heading-link_background_copied: var(--secondary_low);
-	--heading-link_color: var(--secondary_on-low);
+	--heading-link_color: var(--secondary_high);
+	--heading-link_color_copied: var(--secondary_on-low);
 
 	--heading-link_icon-color: var(--secondary_medium);
 	--heading-link_icon-color_copied: var(--secondary_on-low);
@@ -73,6 +74,7 @@
 [data-heading-anchor="copied"] .headingLink {
 	border-color: var(--heading-link_border-color_copied);
 	background-color: var(--heading-link_background_copied);
+	color: var(--heading-link_color_copied);
 
 	.icon {
 		color: var(--heading-link_icon-color_copied);

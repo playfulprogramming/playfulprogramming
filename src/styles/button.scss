@@ -21,6 +21,11 @@
 	--btn_regular_icon_size_icon-only: var(--icon-size_default);
 	--btn_regular_label_padding-horizontal: var(--spc-1x);
 
+	// Colors: Text buttons
+	--btn_text_foreground-color: var(--foreground_primary);
+	--btn_text_background-color_hovered: var(--tint_primary_low);
+	--btn_text_background-color_pressed: var(--tint_primary_medium);
+
 	// Colors: Primary buttons
 	--btn_primary_background-color_default: var(--primary_container);
 	--btn_primary_background-color_default_hovered: var(
@@ -254,6 +259,34 @@
 	&:active {
 		background-color: var(--btn_secondary_background-color_default_pressed);
 	}
+}
+
+.button.text {
+	background-color: transparent;
+	color: var(--btn_text_foreground-color);
+
+	&:hover {
+		background-color: var(--btn_text_background-color_hovered);
+	}
+
+	&:focus-visible:not([data-focus-visible="false"]),
+	&[data-focus-visible="true"] {
+		outline: var(--btn_primary_focus-outline_width) solid
+			var(--btn_primary_focus-outline_color);
+		outline-offset: var(--btn_primary_focus-outline_gap);
+	}
+
+	&:active {
+		background-color: var(--btn_text_background-color_pressed);
+	}
+}
+
+.button.text[disabled]:not([disabled="false"]),
+.button.text[aria-disabled]:not([aria-disabled="false"]) {
+	text-decoration: none;
+	pointer-events: none;
+	background-color: transparent;
+	color: var(--btn_disabled_foreground-color);
 }
 
 .button[disabled]:not([disabled="false"]),

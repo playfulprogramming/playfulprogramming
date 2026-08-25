@@ -33,26 +33,26 @@ export function EventChip(props: EventChipProps) {
 	switch (props.variant) {
 		case "in-person": {
 			icon = location;
-			background = "var(--tint_positive_low)";
+			background = "var(--positive_container)";
 			borderColor = "var(--positive_low)";
-			color = "var(--positive_on-low)";
+			color = "var(--positive_on-container)";
 			label = "In-person";
 			break;
 		}
 		case "recurring": {
 			icon = repeat;
-			background = "var(--tint_secondary_low)";
+			background = "var(--secondary_container)";
 			borderColor = "var(--secondary_low)";
-			color = "var(--secondary_on-low)";
+			color = "var(--secondary_on-container)";
 			label = `Every ${props.every}`;
 			break;
 		}
 		case "online":
 		default: {
 			icon = wifi;
-			background = "var(--tint_primary_low)";
+			background = "var(--primary_container)";
 			borderColor = "var(--primary_low)";
-			color = "var(--primary_on-low)";
+			color = "var(--primary_on-container)";
 			label = "Online";
 			break;
 		}

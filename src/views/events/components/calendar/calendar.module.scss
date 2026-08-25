@@ -79,15 +79,17 @@
 	}
 
 	&[data-selected] .innerCalendarCell {
-		background: var(--tint_secondary_low);
+		background: var(--secondary_container);
+		color: var(--secondary_on-container);
 	}
 
 	&[data-hovered] .innerCalendarCell {
-		background: var(--tint_secondary_medium);
+		background: var(--secondary_container_hover);
+		color: var(--secondary_on-container);
 	}
 
 	&[data-pressed] .innerCalendarCell {
-		background: var(--tint_secondary_high);
+		background: var(--secondary_container_pressed);
 	}
 
 	&[data-today] .innerCalendarCell {
