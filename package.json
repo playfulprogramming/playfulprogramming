@@ -144,7 +144,7 @@
 		"shiki": "^4.1.0",
 		"sitemap": "^9.0.1",
 		"storybook": "10.5.2",
-		"storybook-addon-playwright": "file:/Users/crutchcorn/git/ccpu/storybook-addon-playwright",
+		"storybook-addon-playwright": "github:playfulprogramming/storybook-addon-playwright#storybook-10",
 		"symlink-dir": "^10.0.1",
 		"terser": "^5.48.0",
 		"tiny-async-pool": "^2.1.0",
