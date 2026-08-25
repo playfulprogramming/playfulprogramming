@@ -7,8 +7,7 @@ interface ChapterList {
 	description: string;
 	order: string;
 }
-
-interface CollectionTableOfContentsProps {
+interface Props {
 	title?: string;
 	posts: PostInfo[];
 	chapterList?: ChapterList[];
@@ -17,7 +16,7 @@ interface CollectionTableOfContentsProps {
 }
 
 const { title, posts, chapterList, chaptersToShow, postPrefixToRemove } =
-	Astro.props as CollectionTableOfContentsProps;
+	Astro.props;
 
 const maxChapterToShow = chaptersToShow ?? 10;
 
@@ -76,7 +75,7 @@ function removeTitlePrefix(title: string) {
 					const i = (posts?.length ?? 0) + _i;
 					const shouldHideInitially = i >= maxChapterToShow;
 					const isLastVisible = i === maxChapterToShow - 1;
-					const isNumber = /\d/.test(post.order);
+					const isNumber = /\d/.test(String(post.order));
 					return (
 						<li
 							class={styles.postContainer}

@@ -1,10 +1,10 @@
 ---
-interface InfiniteLoopSliderProps {
+interface Props {
 	duration: number;
 	reverse: boolean;
 }
 
-const { duration, reverse = false } = Astro.props as InfiniteLoopSliderProps;
+const { duration, reverse = false } = Astro.props;
 ---
 
 <div

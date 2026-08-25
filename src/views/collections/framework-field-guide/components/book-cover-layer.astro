@@ -1,15 +1,11 @@
 ---
-interface BookCoverLayerProps {
+interface Props {
 	class?: string;
 	moveOnScrollBy?: number;
 	name?: string;
 }
 
-const {
-	class: className,
-	moveOnScrollBy,
-	name,
-} = Astro.props as BookCoverLayerProps;
+const { class: className, moveOnScrollBy, name } = Astro.props;
 ---
 
 <div

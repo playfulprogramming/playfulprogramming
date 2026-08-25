@@ -1,9 +1,9 @@
 ---
-interface BookCoverContainerProps {
+interface Props {
 	class?: string;
 }
 
-const { class: className } = Astro.props as BookCoverContainerProps;
+const { class: className } = Astro.props;
 ---
 
 <div class={`bookCoverContainer ${className ? className : ""}`}>

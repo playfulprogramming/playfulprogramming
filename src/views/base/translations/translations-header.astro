@@ -9,11 +9,11 @@ import {
 import style from "./translations-header.module.scss";
 import { Icon } from "astro-icon/components";
 
-interface TranslationsHeaderProps {
+interface Props {
 	locales: Languages[];
 }
 
-const props = Astro.props as TranslationsHeaderProps;
+const props = Astro.props;
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 const currentLocale = getPrefixLanguageFromPath(Astro.url.pathname);
 

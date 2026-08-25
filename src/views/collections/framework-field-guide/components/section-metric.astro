@@ -1,13 +1,12 @@
 ---
-interface SectionMetricProps {
+interface Props {
 	numberStr: string;
 	asterisk: boolean;
 	subtitle: string;
 	ariaLabel: string;
 }
 
-const { numberStr, subtitle, asterisk, ariaLabel } =
-	Astro.props as SectionMetricProps;
+const { numberStr, subtitle, asterisk, ariaLabel } = Astro.props;
 ---
 
 <div class="section-metric-container" aria-label={ariaLabel}>

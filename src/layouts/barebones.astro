@@ -6,11 +6,11 @@ import type { Languages } from "#types/index.ts";
  * For our super custom pages that don't require the global styling of the rest of UU, such as FFG's pages.
  */
 
-interface DocumentProps {
+interface Props {
 	lang?: Languages;
 }
 
-let { lang } = Astro.props as DocumentProps;
+let { lang } = Astro.props;
 lang ??= "en";
 ---
 

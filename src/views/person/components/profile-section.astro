@@ -7,11 +7,11 @@ import * as api from "#utils/api.ts";
 import { isDefined } from "#utils/is-defined.ts";
 import { desktopSmall, tabletSmall } from "#src/tokens/breakpoints.ts";
 
-interface ProfileSectionProps {
+interface Props {
 	person: PersonInfo;
 }
 
-const { person } = Astro.props as ProfileSectionProps;
+const { person } = Astro.props;
 
 const iconSize = 20;
 

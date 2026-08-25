@@ -13,12 +13,12 @@ import { translate } from "#utils/translations.ts";
 import * as api from "#utils/api.ts";
 import { isDefined } from "#utils/is-defined.ts";
 
-interface UnicornPageProps {
+interface Props {
 	person: PersonInfo;
 	posts: PostInfo[];
 }
 
-const { person, posts } = Astro.props as UnicornPageProps;
+const { person, posts } = Astro.props;
 
 const achievementsMeta = await getAchievements(person);
 
