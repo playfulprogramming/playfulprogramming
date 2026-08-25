@@ -291,6 +291,9 @@ test.describe("theme sidebar", () => {
 		const defaultTokens = await readContrastTokens(page);
 
 		await page.emulateMedia({ contrast: "more" });
+		// Firefox updates matchMedia dynamically but only recascades existing
+		// prefers-contrast stylesheet rules after navigation.
+		await page.reload({ waitUntil: "networkidle" });
 		const moreTokens = await readContrastTokens(page);
 		expect(moreTokens.foregroundHigh).not.toBe(defaultTokens.foregroundHigh);
 		expect(moreTokens.neutralOpacity).not.toBe(defaultTokens.neutralOpacity);
@@ -321,6 +324,7 @@ test.describe("theme sidebar", () => {
 		expect(await readContrastTokens(page)).toEqual(moreTokens);
 
 		await page.emulateMedia({ contrast: "no-preference" });
+		await page.reload({ waitUntil: "networkidle" });
 		expect(await readContrastTokens(page)).toEqual(defaultTokens);
 	});
 
