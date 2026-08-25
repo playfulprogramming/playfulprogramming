@@ -17,11 +17,11 @@ body.dark,
 }
 
 :where(a) {
-	color: var(--primary_default);
+	color: var(--primary_default_semantic);
 }
 
 :where(a:visited) {
-	color: var(--secondary_default);
+	color: var(--secondary_default_semantic);
 }
 
 .post-body {
