@@ -25,6 +25,18 @@ body.dark,
 }
 
 .post-body {
+	& {
+		// offset scroll snap positions by the size of the sticky header + spacing
+		// (tokens in src/views/base/navigation/header.module.scss)
+		//
+		// - this prevents elements targeted by the URL hash (e.g. "/some-page#Heading-ID")
+		//   from being obscured by the header
+		scroll-margin-top: calc(var(--page_header-height) + var(--site-spacing));
+	}
+
+	* {
+		scroll-margin-top: inherit;
+	}
 	h1:not([class]) {
 		@extend .text-style-headline-1;
 	}
@@ -53,7 +65,9 @@ body.dark,
 		@extend .text-style-body-large;
 	}
 
-	color: var(--foreground_high);
+	& {
+		color: var(--foreground_high);
+	}
 
 	h1,
 	.text-style-headline-1,
@@ -159,7 +173,8 @@ body.dark,
 		text-decoration: underline;
 	}
 
-	a:focus-visible:not([class]) {
+	a:focus-visible:not([class]),
+	.a:focus-visible {
 		// adding +0.5px to each value converted to rem to ensure that it is
 		// the expected size when aliasing rounds it down to a px value
 		outline: pxToRem(3.5) solid var(--focus-outline_primary);
@@ -193,14 +208,6 @@ body.dark,
 	h5,
 	h6 {
 		position: relative;
-
-		// offset scroll snap positions by the size of the sticky header + spacing
-		// (tokens in src/views/base/navigation/header.module.scss)
-		//
-		// - this prevents elements targeted by the URL hash (e.g. "/some-page#Heading-ID")
-		//   from being obscured by the header
-		scroll-margin-top: calc(var(--page_header-height) + var(--site-spacing));
-
 		code {
 			display: inline-flex;
 			height: calc(1.2em + 0.15em);
