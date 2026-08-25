@@ -10,11 +10,15 @@
 	--primary_on-high: var(--primary99);
 
 	--primary_medium: var(--primary40);
-	--primary_medium_semantic: oklch(from var(--primary40) l var(--semantic-chroma-40) h);
+	--primary_medium_semantic: oklch(
+		from var(--primary40) l var(--semantic-chroma-40) h
+	);
 	--primary_on-medium: var(--primary99);
 
 	--primary_low: var(--primary80);
-	--primary_low_semantic: oklch(from var(--primary80) l var(--semantic-chroma-80) h);
+	--primary_low_semantic: oklch(
+		from var(--primary80) l var(--semantic-chroma-80) h
+	);
 	--primary_on-low: var(--primary10);
 
 	/* Secondary */
@@ -25,11 +29,15 @@
 	--secondary_on-high: var(--secondary99);
 
 	--secondary_medium: var(--secondary40);
-	--secondary_medium_semantic: oklch(from var(--secondary40) l var(--semantic-chroma-40) h);
+	--secondary_medium_semantic: oklch(
+		from var(--secondary40) l var(--semantic-chroma-40) h
+	);
 	--secondary_on-medium: var(--secondary99);
 
 	--secondary_low: var(--secondary80);
-	--secondary_low_semantic: oklch(from var(--secondary80) l var(--semantic-chroma-80) h);
+	--secondary_low_semantic: oklch(
+		from var(--secondary80) l var(--semantic-chroma-80) h
+	);
 	--secondary_on-low: var(--secondary10);
 
 	/* Error */
@@ -40,11 +48,15 @@
 	--error_on-high: var(--error99);
 
 	--error_medium: var(--error40);
-	--error_medium_semantic: oklch(from var(--error40) l var(--semantic-chroma-40) h);
+	--error_medium_semantic: oklch(
+		from var(--error40) l var(--semantic-chroma-40) h
+	);
 	--error_on-medium: var(--error99);
 
 	--error_low: var(--error80);
-	--error_low_semantic: oklch(from var(--error80) l var(--semantic-chroma-80) h);
+	--error_low_semantic: oklch(
+		from var(--error80) l var(--semantic-chroma-80) h
+	);
 	--error_on-low: var(--error10);
 
 	/* Positive */
@@ -55,34 +67,62 @@
 	--positive_on-high: var(--positive99);
 
 	--positive_medium: var(--positive40);
-	--positive_medium_semantic: oklch(from var(--positive40) l var(--semantic-chroma-40) h);
+	--positive_medium_semantic: oklch(
+		from var(--positive40) l var(--semantic-chroma-40) h
+	);
 	--positive_on-medium: var(--positive99);
 
 	--positive_low: var(--positive80);
-	--positive_low_semantic: oklch(from var(--positive80) l var(--semantic-chroma-80) h);
+	--positive_low_semantic: oklch(
+		from var(--positive80) l var(--semantic-chroma-80) h
+	);
 	--positive_on-low: var(--positive10);
 
 	/* Tints */
 
 	--tint_primary_high: var(--primary_low);
-	--tint_primary_medium: oklch(from var(--primary_low) l c h / var(--opacity-primary-medium));
-	--tint_primary_low: oklch(from var(--primary_low) l c h / var(--opacity-primary-low));
-	--tint_primary_none: oklch(from var(--primary_low) l c h / var(--opacity-primary-none));
+	--tint_primary_medium: oklch(
+		from var(--primary_low) l c h / var(--opacity-primary-medium)
+	);
+	--tint_primary_low: oklch(
+		from var(--primary_low) l c h / var(--opacity-primary-low)
+	);
+	--tint_primary_none: oklch(
+		from var(--primary_low) l c h / var(--opacity-primary-none)
+	);
 
 	--tint_secondary_high: var(--secondary_low);
-	--tint_secondary_medium: oklch(from var(--secondary_low) l c h / var(--opacity-against-primary-medium));
-	--tint_secondary_low: oklch(from var(--secondary_low) l c h / var(--opacity-against-primary-low));
-	--tint_secondary_none: oklch(from var(--secondary_low) l c h / var(--opacity-against-primary-none));
+	--tint_secondary_medium: oklch(
+		from var(--secondary_low) l c h / var(--opacity-against-primary-medium)
+	);
+	--tint_secondary_low: oklch(
+		from var(--secondary_low) l c h / var(--opacity-against-primary-low)
+	);
+	--tint_secondary_none: oklch(
+		from var(--secondary_low) l c h / var(--opacity-against-primary-none)
+	);
 
 	--tint_positive_high: var(--positive_low);
-	--tint_positive_medium: oklch(from var(--positive_low) l c h / var(--opacity-against-primary-medium));
-	--tint_positive_low: oklch(from var(--positive_low) l c h / var(--opacity-against-primary-low));
-	--tint_positive_none: oklch(from var(--positive_low) l c h / var(--opacity-against-primary-none));
+	--tint_positive_medium: oklch(
+		from var(--positive_low) l c h / var(--opacity-against-primary-medium)
+	);
+	--tint_positive_low: oklch(
+		from var(--positive_low) l c h / var(--opacity-against-primary-low)
+	);
+	--tint_positive_none: oklch(
+		from var(--positive_low) l c h / var(--opacity-against-primary-none)
+	);
 
 	--tint_error_high: var(--error_low);
-	--tint_error_medium: oklch(from var(--error_low) l c h / var(--opacity-against-primary-medium));
-	--tint_error_low: oklch(from var(--error_low) l c h / var(--opacity-against-primary-low));
-	--tint_error_none: oklch(from var(--error_low) l c h / var(--opacity-against-primary-none));
+	--tint_error_medium: oklch(
+		from var(--error_low) l c h / var(--opacity-against-primary-medium)
+	);
+	--tint_error_low: oklch(
+		from var(--error_low) l c h / var(--opacity-against-primary-low)
+	);
+	--tint_error_none: oklch(
+		from var(--error_low) l c h / var(--opacity-against-primary-none)
+	);
 
 	/* Containers */
 
@@ -121,13 +161,19 @@
 	--background_error-bright: var(--error99);
 
 	--background_focus: var(--white);
-	--background_disabled: oklch(from var(--neutral20) l c h / var(--opacity-neutral-none));
+	--background_disabled: oklch(
+		from var(--neutral20) l c h / var(--opacity-neutral-none)
+	);
 
 	/* Foregrounds */
 
 	--foreground_high: var(--neutral20);
-	--foreground_medium: oklch(from var(--foreground_high) l c h / var(--opacity-neutral-medium));
-	--foreground_disabled: oklch(from var(--foreground_high) l c h / var(--opacity-neutral-low));
+	--foreground_medium: oklch(
+		from var(--foreground_high) l c h / var(--opacity-neutral-medium)
+	);
+	--foreground_disabled: oklch(
+		from var(--foreground_high) l c h / var(--opacity-neutral-low)
+	);
 
 	/* Focus */
 
@@ -185,7 +231,6 @@
 html.dark,
 body.dark,
 .darkTheme {
-
 	&,
 	& ::backdrop {
 		/* Primary */
@@ -196,11 +241,15 @@ body.dark,
 		--primary_on-high: var(--primary10);
 
 		--primary_medium: var(--primary80);
-		--primary_medium_semantic: oklch(from var(--primary80) l var(--semantic-chroma-80) h);
+		--primary_medium_semantic: oklch(
+			from var(--primary80) l var(--semantic-chroma-80) h
+		);
 		--primary_on-medium: var(--primary10);
 
 		--primary_low: var(--primary40);
-		--primary_low_semantic: oklch(from var(--primary40) l var(--semantic-chroma-40) h);
+		--primary_low_semantic: oklch(
+			from var(--primary40) l var(--semantic-chroma-40) h
+		);
 		--primary_on-low: var(--primary99);
 
 		/* Secondary */
@@ -211,11 +260,15 @@ body.dark,
 		--secondary_on-high: var(--secondary10);
 
 		--secondary_medium: var(--secondary80);
-		--secondary_medium_semantic: oklch(from var(--secondary80) l var(--semantic-chroma-80) h);
+		--secondary_medium_semantic: oklch(
+			from var(--secondary80) l var(--semantic-chroma-80) h
+		);
 		--secondary_on-medium: var(--secondary10);
 
 		--secondary_low: var(--secondary40);
-		--secondary_low_semantic: oklch(from var(--secondary40) l var(--semantic-chroma-40) h);
+		--secondary_low_semantic: oklch(
+			from var(--secondary40) l var(--semantic-chroma-40) h
+		);
 		--secondary_on-low: var(--secondary99);
 
 		/* Error */
@@ -226,11 +279,15 @@ body.dark,
 		--error_on-high: var(--error10);
 
 		--error_medium: var(--error80);
-		--error_medium_semantic: oklch(from var(--error80) l var(--semantic-chroma-80) h);
+		--error_medium_semantic: oklch(
+			from var(--error80) l var(--semantic-chroma-80) h
+		);
 		--error_on-medium: var(--error10);
 
 		--error_low: var(--error40);
-		--error_low_semantic: oklch(from var(--error40) l var(--semantic-chroma-40) h);
+		--error_low_semantic: oklch(
+			from var(--error40) l var(--semantic-chroma-40) h
+		);
 		--error_on-low: var(--error99);
 
 		/* Positive */
@@ -241,11 +298,15 @@ body.dark,
 		--positive_on-high: var(--positive10);
 
 		--positive_medium: var(--positive80);
-		--positive_medium_semantic: oklch(from var(--positive80) l var(--semantic-chroma-80) h);
+		--positive_medium_semantic: oklch(
+			from var(--positive80) l var(--semantic-chroma-80) h
+		);
 		--positive_on-medium: var(--positive10);
 
 		--positive_low: var(--positive40);
-		--positive_low_semantic: oklch(from var(--positive40) l var(--semantic-chroma-40) h);
+		--positive_low_semantic: oklch(
+			from var(--positive40) l var(--semantic-chroma-40) h
+		);
 		--positive_on-low: var(--positive99);
 
 		/* Containers */
@@ -270,7 +331,9 @@ body.dark,
 		--background_error-bright: var(--error15);
 
 		--background_focus: var(--black);
-		--background_disabled: oklch(from var(--neutral90) l c h / var(--opacity-neutral-none));
+		--background_disabled: oklch(
+			from var(--neutral90) l c h / var(--opacity-neutral-none)
+		);
 
 		/* Foregrounds */
 
@@ -284,7 +347,6 @@ body.dark,
 		--focus-outline_error: var(--error_medium_semantic);
 
 		@media (prefers-contrast: more) {
-
 			--foreground_high: var(--neutral95);
 
 			--primary_low: var(--primary_medium);
@@ -322,7 +384,6 @@ body.dark,
 			--error_container_hover: var(--error80);
 			--error_container_pressed: var(--error90);
 			--error_on-container: var(--error10);
-
 		}
 	}
 }

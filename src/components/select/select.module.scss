@@ -3,9 +3,7 @@
 
 :root {
 	--popup_min-width: 192px;
-	--search-page_filter_list_controls_label-color: var(
-		--foreground_medium
-	);
+	--search-page_filter_list_controls_label-color: var(--foreground_medium);
 }
 
 .transparentBackground:not(:hover):not(:active) {

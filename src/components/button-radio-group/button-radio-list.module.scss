@@ -10,15 +10,9 @@
 	--radio-list-button_label_color: var(--foreground_medium);
 	--radio-list-button_label_color_selected: var(--foreground_high);
 
-	--radio-list-button_background-color_hovered: var(
-		--tint_primary_medium
-	);
-	--radio-list-button_background-color_pressed: var(
-		--tint_primary_high
-	);
-	--radio-list-button_background-color_selected: var(
-		--tint_primary_low
-	);
+	--radio-list-button_background-color_hovered: var(--tint_primary_medium);
+	--radio-list-button_background-color_pressed: var(--tint_primary_high);
+	--radio-list-button_background-color_selected: var(--tint_primary_low);
 	--radio-list-button_background-color_focused: var(--background_focus);
 
 	--radio-list-button_focus-outline_color: var(--focus-outline_primary);

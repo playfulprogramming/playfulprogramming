@@ -1,9 +1,8 @@
 :root,
 // https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
 ::backdrop {
-
-	--chroma-factor: 1.0;
-	--chroma-factor-semantic: 1.0;
+	--chroma-factor: 1;
+	--chroma-factor-semantic: 1;
 
 	--lightness-10: 22%;
 	--lightness-15: 27%;
@@ -62,68 +61,160 @@
 	--semantic-chroma-95: calc(var(--chroma-95) * var(--semantic-chroma));
 	--semantic-chroma-99: calc(var(--chroma-99) * var(--semantic-chroma));
 
-
 	/* Primary, the most prominent brand color */
 
-	--primary10: oklch(var(--lightness-10) var(--dynamic-chroma-10) var(--hue-primary));
-	--primary15: oklch(var(--lightness-15) var(--dynamic-chroma-15) var(--hue-primary));
-	--primary20: oklch(var(--lightness-20) var(--dynamic-chroma-20) var(--hue-primary));
-	--primary30: oklch(var(--lightness-30) var(--dynamic-chroma-30) var(--hue-primary));
-	--primary40: oklch(var(--lightness-40) var(--dynamic-chroma-40) var(--hue-primary));
-	--primary50: oklch(var(--lightness-50) var(--dynamic-chroma-50) var(--hue-primary));
-	--primary60: oklch(var(--lightness-60) var(--dynamic-chroma-60) var(--hue-primary));
-	--primary70: oklch(var(--lightness-70) var(--dynamic-chroma-70) var(--hue-primary));
-	--primary80: oklch(var(--lightness-80) var(--dynamic-chroma-80) var(--hue-primary));
-	--primary90: oklch(var(--lightness-90) var(--dynamic-chroma-90) var(--hue-primary));
-	--primary95: oklch(var(--lightness-95) var(--dynamic-chroma-95) var(--hue-primary));
-	--primary99: oklch(var(--lightness-99) var(--dynamic-chroma-99) var(--hue-primary));
-
+	--primary10: oklch(
+		var(--lightness-10) var(--dynamic-chroma-10) var(--hue-primary)
+	);
+	--primary15: oklch(
+		var(--lightness-15) var(--dynamic-chroma-15) var(--hue-primary)
+	);
+	--primary20: oklch(
+		var(--lightness-20) var(--dynamic-chroma-20) var(--hue-primary)
+	);
+	--primary30: oklch(
+		var(--lightness-30) var(--dynamic-chroma-30) var(--hue-primary)
+	);
+	--primary40: oklch(
+		var(--lightness-40) var(--dynamic-chroma-40) var(--hue-primary)
+	);
+	--primary50: oklch(
+		var(--lightness-50) var(--dynamic-chroma-50) var(--hue-primary)
+	);
+	--primary60: oklch(
+		var(--lightness-60) var(--dynamic-chroma-60) var(--hue-primary)
+	);
+	--primary70: oklch(
+		var(--lightness-70) var(--dynamic-chroma-70) var(--hue-primary)
+	);
+	--primary80: oklch(
+		var(--lightness-80) var(--dynamic-chroma-80) var(--hue-primary)
+	);
+	--primary90: oklch(
+		var(--lightness-90) var(--dynamic-chroma-90) var(--hue-primary)
+	);
+	--primary95: oklch(
+		var(--lightness-95) var(--dynamic-chroma-95) var(--hue-primary)
+	);
+	--primary99: oklch(
+		var(--lightness-99) var(--dynamic-chroma-99) var(--hue-primary)
+	);
 
 	/* Secondary color that is complementary to the primary color */
 
-	--secondary10: oklch(var(--lightness-10) var(--dynamic-chroma-10) var(--hue-secondary));
-	--secondary15: oklch(var(--lightness-15) var(--dynamic-chroma-15) var(--hue-secondary));
-	--secondary20: oklch(var(--lightness-20) var(--dynamic-chroma-20) var(--hue-secondary));
-	--secondary30: oklch(var(--lightness-30) var(--dynamic-chroma-30) var(--hue-secondary));
-	--secondary40: oklch(var(--lightness-40) var(--dynamic-chroma-40) var(--hue-secondary));
-	--secondary50: oklch(var(--lightness-50) var(--dynamic-chroma-50) var(--hue-secondary));
-	--secondary60: oklch(var(--lightness-60) var(--dynamic-chroma-60) var(--hue-secondary));
-	--secondary70: oklch(var(--lightness-70) var(--dynamic-chroma-70) var(--hue-secondary));
-	--secondary80: oklch(var(--lightness-80) var(--dynamic-chroma-80) var(--hue-secondary));
-	--secondary90: oklch(var(--lightness-90) var(--dynamic-chroma-90) var(--hue-secondary));
-	--secondary95: oklch(var(--lightness-95) var(--dynamic-chroma-95) var(--hue-secondary));
-	--secondary99: oklch(var(--lightness-99) var(--dynamic-chroma-99) var(--hue-secondary));
-
+	--secondary10: oklch(
+		var(--lightness-10) var(--dynamic-chroma-10) var(--hue-secondary)
+	);
+	--secondary15: oklch(
+		var(--lightness-15) var(--dynamic-chroma-15) var(--hue-secondary)
+	);
+	--secondary20: oklch(
+		var(--lightness-20) var(--dynamic-chroma-20) var(--hue-secondary)
+	);
+	--secondary30: oklch(
+		var(--lightness-30) var(--dynamic-chroma-30) var(--hue-secondary)
+	);
+	--secondary40: oklch(
+		var(--lightness-40) var(--dynamic-chroma-40) var(--hue-secondary)
+	);
+	--secondary50: oklch(
+		var(--lightness-50) var(--dynamic-chroma-50) var(--hue-secondary)
+	);
+	--secondary60: oklch(
+		var(--lightness-60) var(--dynamic-chroma-60) var(--hue-secondary)
+	);
+	--secondary70: oklch(
+		var(--lightness-70) var(--dynamic-chroma-70) var(--hue-secondary)
+	);
+	--secondary80: oklch(
+		var(--lightness-80) var(--dynamic-chroma-80) var(--hue-secondary)
+	);
+	--secondary90: oklch(
+		var(--lightness-90) var(--dynamic-chroma-90) var(--hue-secondary)
+	);
+	--secondary95: oklch(
+		var(--lightness-95) var(--dynamic-chroma-95) var(--hue-secondary)
+	);
+	--secondary99: oklch(
+		var(--lightness-99) var(--dynamic-chroma-99) var(--hue-secondary)
+	);
 
 	/* Positive color that indicates success or a favorable outcome */
 
-	--positive10: oklch(var(--lightness-10) var(--semantic-chroma-10) var(--hue-positive));
-	--positive15: oklch(var(--lightness-15) var(--semantic-chroma-15) var(--hue-positive));
-	--positive20: oklch(var(--lightness-20) var(--semantic-chroma-20) var(--hue-positive));
-	--positive30: oklch(var(--lightness-30) var(--semantic-chroma-30) var(--hue-positive));
-	--positive40: oklch(var(--lightness-40) var(--semantic-chroma-40) var(--hue-positive));
-	--positive50: oklch(var(--lightness-50) var(--semantic-chroma-50) var(--hue-positive));
-	--positive60: oklch(var(--lightness-60) var(--semantic-chroma-60) var(--hue-positive));
-	--positive70: oklch(var(--lightness-70) var(--semantic-chroma-70) var(--hue-positive));
-	--positive80: oklch(var(--lightness-80) var(--semantic-chroma-80) var(--hue-positive));
-	--positive90: oklch(var(--lightness-90) var(--semantic-chroma-90) var(--hue-positive));
-	--positive95: oklch(var(--lightness-95) var(--semantic-chroma-95) var(--hue-positive));
-	--positive99: oklch(var(--lightness-99) var(--semantic-chroma-99) var(--hue-positive));
-
+	--positive10: oklch(
+		var(--lightness-10) var(--semantic-chroma-10) var(--hue-positive)
+	);
+	--positive15: oklch(
+		var(--lightness-15) var(--semantic-chroma-15) var(--hue-positive)
+	);
+	--positive20: oklch(
+		var(--lightness-20) var(--semantic-chroma-20) var(--hue-positive)
+	);
+	--positive30: oklch(
+		var(--lightness-30) var(--semantic-chroma-30) var(--hue-positive)
+	);
+	--positive40: oklch(
+		var(--lightness-40) var(--semantic-chroma-40) var(--hue-positive)
+	);
+	--positive50: oklch(
+		var(--lightness-50) var(--semantic-chroma-50) var(--hue-positive)
+	);
+	--positive60: oklch(
+		var(--lightness-60) var(--semantic-chroma-60) var(--hue-positive)
+	);
+	--positive70: oklch(
+		var(--lightness-70) var(--semantic-chroma-70) var(--hue-positive)
+	);
+	--positive80: oklch(
+		var(--lightness-80) var(--semantic-chroma-80) var(--hue-positive)
+	);
+	--positive90: oklch(
+		var(--lightness-90) var(--semantic-chroma-90) var(--hue-positive)
+	);
+	--positive95: oklch(
+		var(--lightness-95) var(--semantic-chroma-95) var(--hue-positive)
+	);
+	--positive99: oklch(
+		var(--lightness-99) var(--semantic-chroma-99) var(--hue-positive)
+	);
 
 	/* Error color that indicates an error or a negative outcome */
-	--error10: oklch(var(--lightness-10) var(--semantic-chroma-10) var(--hue-error));
-	--error15: oklch(var(--lightness-15) var(--semantic-chroma-15) var(--hue-error));
-	--error20: oklch(var(--lightness-20) var(--semantic-chroma-20) var(--hue-error));
-	--error30: oklch(var(--lightness-30) var(--semantic-chroma-30) var(--hue-error));
-	--error40: oklch(var(--lightness-40) var(--semantic-chroma-40) var(--hue-error));
-	--error50: oklch(var(--lightness-50) var(--semantic-chroma-50) var(--hue-error));
-	--error60: oklch(var(--lightness-60) var(--semantic-chroma-60) var(--hue-error));
-	--error70: oklch(var(--lightness-70) var(--semantic-chroma-70) var(--hue-error));
-	--error80: oklch(var(--lightness-80) var(--semantic-chroma-80) var(--hue-error));
-	--error90: oklch(var(--lightness-90) var(--semantic-chroma-90) var(--hue-error));
-	--error95: oklch(var(--lightness-95) var(--semantic-chroma-95) var(--hue-error));
-	--error99: oklch(var(--lightness-99) var(--semantic-chroma-99) var(--hue-error));
+	--error10: oklch(
+		var(--lightness-10) var(--semantic-chroma-10) var(--hue-error)
+	);
+	--error15: oklch(
+		var(--lightness-15) var(--semantic-chroma-15) var(--hue-error)
+	);
+	--error20: oklch(
+		var(--lightness-20) var(--semantic-chroma-20) var(--hue-error)
+	);
+	--error30: oklch(
+		var(--lightness-30) var(--semantic-chroma-30) var(--hue-error)
+	);
+	--error40: oklch(
+		var(--lightness-40) var(--semantic-chroma-40) var(--hue-error)
+	);
+	--error50: oklch(
+		var(--lightness-50) var(--semantic-chroma-50) var(--hue-error)
+	);
+	--error60: oklch(
+		var(--lightness-60) var(--semantic-chroma-60) var(--hue-error)
+	);
+	--error70: oklch(
+		var(--lightness-70) var(--semantic-chroma-70) var(--hue-error)
+	);
+	--error80: oklch(
+		var(--lightness-80) var(--semantic-chroma-80) var(--hue-error)
+	);
+	--error90: oklch(
+		var(--lightness-90) var(--semantic-chroma-90) var(--hue-error)
+	);
+	--error95: oklch(
+		var(--lightness-95) var(--semantic-chroma-95) var(--hue-error)
+	);
+	--error99: oklch(
+		var(--lightness-99) var(--semantic-chroma-99) var(--hue-error)
+	);
 
 	--error90: oklch(
 		var(--lightness-90) var(--semantic-chroma-90) var(--hue-error)

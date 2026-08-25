@@ -32,9 +32,7 @@
 
 	// Colors for folders
 	--filesystem_item_folder_container_color: var(--transparent);
-	--filesystem_item_folder_container_color_hovered: var(
-		--tint_secondary_low
-	);
+	--filesystem_item_folder_container_color_hovered: var(--tint_secondary_low);
 	--filesystem_item_folder_container_color_pressed: var(
 		--tint_secondary_medium
 	);
@@ -59,9 +57,7 @@
 	--filesystem_item_file_label_color: var(--foreground_high);
 	--filesystem_item_file_highlight_border_width: var(--border-width_s);
 	--filesystem_item_file_highlight_border_color: var(--primary_medium);
-	--filesystem_item_file_highlight_background-color: var(
-		--tint_primary_low
-	);
+	--filesystem_item_file_highlight_background-color: var(--tint_primary_low);
 
 	// Tokens for the level inset dividers
 	--filesystem_item_inset_margin-start: calc(

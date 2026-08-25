@@ -22,12 +22,8 @@
 	--hint-header_gap: var(--spc-2x);
 
 	--hint-container_background-color: var(--tint_primary_low);
-	--hint-container_background-color_hovered: var(
-		--tint_primary_medium
-	);
-	--hint-container_background-color_pressed: var(
-		--tint_primary_high
-	);
+	--hint-container_background-color_hovered: var(--tint_primary_medium);
+	--hint-container_background-color_pressed: var(--tint_primary_high);
 	--hint-container_background-color_focused: var(--background_focus);
 
 	--hint-container_foreground-color: var(--foreground_high);

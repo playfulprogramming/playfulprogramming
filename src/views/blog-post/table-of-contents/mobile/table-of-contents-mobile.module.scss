@@ -27,15 +27,9 @@
 	--toc-mobile_label_color: var(--foreground_medium);
 	--toc-mobile_label_color_selected: var(--foreground_high);
 
-	--toc-mobile_item_background-color_hovered: var(
-		--tint_primary_medium
-	);
-	--toc-mobile_item_background-color_pressed: var(
-		--tint_primary_high
-	);
-	--toc-mobile_item_background-color_selected: var(
-		--tint_primary_low
-	);
+	--toc-mobile_item_background-color_hovered: var(--tint_primary_medium);
+	--toc-mobile_item_background-color_pressed: var(--tint_primary_high);
+	--toc-mobile_item_background-color_selected: var(--tint_primary_low);
 	--toc-mobile_item_background-color_focused: var(--background_focus);
 
 	--toc-mobile_subheading-dot_color: var(--primary_medium);
