@@ -1,13 +1,8 @@
 import preview from "../../../.storybook/preview.ts";
 
-import PageCard from "./page-card.astro";
+import PageCard, { type Props as PageCardProps } from "./page-card.astro";
 
-type PageCardArgs = {
-	title: string;
-	description: string;
-	imageSrc: string;
-	imageAlt: string;
-	numberOfButtons?: number;
+type PageCardStoryArgs = PageCardProps & {
 	slots?: {
 		button?: string;
 		"second-button"?: string;
@@ -26,7 +21,7 @@ const secondaryAction = `
 	</a>
 `;
 
-const meta = preview.type<{ args: PageCardArgs }>().meta({
+const meta = preview.type<{ args: PageCardStoryArgs }>().meta({
 	title: "Astro/Page Card",
 	component: PageCard,
 	parameters: {

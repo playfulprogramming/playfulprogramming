@@ -1,12 +1,12 @@
 ---
 import styles from "./achievements.module.scss";
-import type { AchievementsInfo } from "#types/AchievementsInfo.ts";
+import type { Achievement } from "#src/utils/achievements/index.ts";
 
-interface AchievementsProps {
-	achievement: AchievementsInfo;
+export interface Props {
+	achievement: Achievement;
 }
 
-const { achievement } = Astro.props as AchievementsProps;
+const { achievement } = Astro.props;
 ---
 
 <div class={styles.container}>

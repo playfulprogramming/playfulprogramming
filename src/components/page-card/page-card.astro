@@ -1,7 +1,7 @@
 ---
 import styles from "./page-card.module.scss";
 
-interface PageCardProps {
+export interface Props {
 	title: string;
 	description: string;
 	imageSrc: astroHTML.JSX.ImgHTMLAttributes["src"];
@@ -9,8 +9,7 @@ interface PageCardProps {
 	numberOfButtons?: number;
 }
 
-const { title, description, imageAlt, imageSrc, numberOfButtons } =
-	Astro.props as PageCardProps;
+const { title, description, imageAlt, imageSrc, numberOfButtons } = Astro.props;
 ---
 
 <div class={styles.pageCardContainer}>
