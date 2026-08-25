@@ -12,10 +12,10 @@ import { expect, test } from "@playwright/test";
 
 import {
 	closeBrowsers,
+	getScreenshots,
 	runAddonImageDiff,
-	takeAddonScreenshot,
 	type AddonScreenshotSetting,
-} from "./playwright-config.cjs";
+} from "./playwright-config.ts";
 
 interface StoryScreenshotFile {
 	stories: Record<
@@ -72,6 +72,17 @@ test.afterAll(async () => {
 	await closeBrowsers();
 });
 
+test("the Storybook manager loads the Playwright addon", async ({ page }) => {
+	const pageErrors: string[] = [];
+	page.on("pageerror", (error) => pageErrors.push(error.message));
+
+	await page.goto("http://127.0.0.1:6006/");
+	await expect(
+		page.getByRole("tab", { name: "Playwright Actions" }),
+	).toBeVisible();
+	expect(pageErrors).toEqual([]);
+});
+
 test("the Storybook screenshots match their baselines", async ({}, testInfo) => {
 	const requestId = randomUUID();
 
@@ -79,27 +90,26 @@ test("the Storybook screenshots match their baselines", async ({}, testInfo) => 
 		const definitions = getScreenshotDefinitions();
 		const writtenBaselines = new Set<string>();
 
-		for (const definition of definitions) {
-			const { setting, storyId } = definition;
-			const { id, title, ...captureOptions } = setting;
-			const screenshot = await takeAddonScreenshot({
-				...captureOptions,
-				requestId,
-				requestType: "all",
-				storyId,
-			});
-			const baselinePath = getBaselinePath(definition);
-
-			mkdirSync(dirname(baselinePath), { recursive: true });
-			writeFileSync(baselinePath, screenshot.buffer);
-			writtenBaselines.add(relative(process.cwd(), baselinePath));
-		}
+		const screenshots = await getScreenshots({
+			requestId,
+			requestType: "all",
+			onScreenshotReady(buffer, { screenshotIdentifier, screenshotsDir }) {
+				const baselinePath = join(
+					screenshotsDir,
+					`${screenshotIdentifier}.png`,
+				);
+				mkdirSync(dirname(baselinePath), { recursive: true });
+				writeFileSync(baselinePath, buffer);
+				writtenBaselines.add(relative(process.cwd(), baselinePath));
+			},
+		});
 
 		expect(
 			definitions.length,
 			"No screenshots were found in the story Playwright definitions.",
 		).toBeGreaterThan(0);
-		expect(writtenBaselines.size).toBe(definitions.length);
+		expect(screenshots).toHaveLength(definitions.length);
+		expect(writtenBaselines.size).toBe(screenshots.length);
 
 		return;
 	}

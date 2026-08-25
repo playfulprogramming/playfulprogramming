@@ -14,7 +14,7 @@ process.env.SASS_PATH = process.env.SASS_PATH
 
 export default defineMain({
 	stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-	addons: ["@storybook/addon-a11y"],
+	addons: ["@storybook/addon-a11y", "storybook-addon-playwright"],
 	framework: {
 		name: "@storybook-astro/framework",
 		options: {
