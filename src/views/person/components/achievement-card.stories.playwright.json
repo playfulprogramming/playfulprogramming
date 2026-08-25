@@ -1,0 +1,49 @@
+{
+	"version": 4,
+	"stories": {
+		"astro-achievement-card--default": {
+			"screenshots": [
+				{
+					"id": "achievement-card-default-desktop",
+					"title": "desktop",
+					"browserType": "chromium",
+					"browserOptions": {
+						"viewport": { "width": 1280, "height": 800 },
+						"colorScheme": "light",
+						"deviceScaleFactor": 1,
+						"locale": "en-US",
+						"timezoneId": "UTC"
+					},
+					"screenshotOptions": {
+						"fullPage": true,
+						"animations": "disabled",
+						"caret": "hide",
+						"scale": "css"
+					}
+				}
+			]
+		},
+		"astro-achievement-card--long-description": {
+			"screenshots": [
+				{
+					"id": "achievement-card-long-description-desktop",
+					"title": "desktop",
+					"browserType": "chromium",
+					"browserOptions": {
+						"viewport": { "width": 1280, "height": 800 },
+						"colorScheme": "light",
+						"deviceScaleFactor": 1,
+						"locale": "en-US",
+						"timezoneId": "UTC"
+					},
+					"screenshotOptions": {
+						"fullPage": true,
+						"animations": "disabled",
+						"caret": "hide",
+						"scale": "css"
+					}
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,91 @@
+{
+	"version": 4,
+	"stories": {
+		"astro-page-card--default": {
+			"screenshots": [
+				{
+					"id": "page-card-default-desktop",
+					"title": "desktop",
+					"browserType": "chromium",
+					"browserOptions": {
+						"viewport": { "width": 1280, "height": 800 },
+						"colorScheme": "light",
+						"deviceScaleFactor": 1,
+						"locale": "en-US",
+						"timezoneId": "UTC"
+					},
+					"screenshotOptions": {
+						"fullPage": true,
+						"animations": "disabled",
+						"caret": "hide",
+						"scale": "css"
+					}
+				}
+			]
+		},
+		"astro-page-card--two-actions": {
+			"screenshots": [
+				{
+					"id": "page-card-two-actions-desktop",
+					"title": "desktop",
+					"browserType": "chromium",
+					"browserOptions": {
+						"viewport": { "width": 1280, "height": 800 },
+						"colorScheme": "light",
+						"deviceScaleFactor": 1,
+						"locale": "en-US",
+						"timezoneId": "UTC"
+					},
+					"screenshotOptions": {
+						"fullPage": true,
+						"animations": "disabled",
+						"caret": "hide",
+						"scale": "css"
+					}
+				}
+			]
+		},
+		"astro-page-card--long-content": {
+			"screenshots": [
+				{
+					"id": "page-card-long-content-desktop",
+					"title": "desktop",
+					"browserType": "chromium",
+					"browserOptions": {
+						"viewport": { "width": 1280, "height": 800 },
+						"colorScheme": "light",
+						"deviceScaleFactor": 1,
+						"locale": "en-US",
+						"timezoneId": "UTC"
+					},
+					"screenshotOptions": {
+						"fullPage": true,
+						"animations": "disabled",
+						"caret": "hide",
+						"scale": "css"
+					}
+				},
+				{
+					"id": "page-card-long-content-mobile",
+					"title": "mobile",
+					"browserType": "chromium",
+					"browserOptions": {
+						"viewport": { "width": 390, "height": 844 },
+						"colorScheme": "light",
+						"deviceScaleFactor": 1,
+						"isMobile": true,
+						"hasTouch": true,
+						"locale": "en-US",
+						"timezoneId": "UTC"
+					},
+					"screenshotOptions": {
+						"fullPage": true,
+						"animations": "disabled",
+						"caret": "hide",
+						"scale": "css"
+					}
+				}
+			]
+		}
+	}
+}
