@@ -1,16 +1,12 @@
 ---
+import type { FuturePost } from "#types/CollectionInfo.ts";
 import type { PostInfo } from "#types/PostInfo.ts";
 import styles from "./collection-table-of-contents-ecosystem.module.scss";
 
-interface ChapterList {
-	title: string;
-	description: string;
-	order: string;
-}
 interface Props {
 	title?: string;
 	posts: PostInfo[];
-	chapterList?: ChapterList[];
+	chapterList?: FuturePost[];
 	chaptersToShow?: number;
 	postPrefixToRemove?: string;
 }

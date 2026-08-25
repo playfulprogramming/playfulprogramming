@@ -43,7 +43,7 @@ const uniqueTags = Array.from(new Set(tagTable.flat()));
 			tagTable.map((_, i) => (
 				<InfiniteLoopSlider
 					duration={random(MIN_DURATION, MAX_DURATION)}
-					reverse={i % 2}
+					reverse={(i % 2) === 1}
 				>
 					{tagTable[i].map((tag) => (
 						<li class="text-style-body-medium-bold tag">{tag}</li>
