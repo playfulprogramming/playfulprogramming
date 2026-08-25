@@ -1,6 +1,9 @@
 # build output
 dist/
 storybook-static/
+.playwright/
+**/__screenshots__/__diff_output__/
+__stories__/
 .tmp*
 
 # dependencies
