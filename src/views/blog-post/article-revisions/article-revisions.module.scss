@@ -96,6 +96,7 @@
 	min-width: var(--popup_min-width);
 
 	&.anchored {
+		position-anchor: auto;
 		top: calc(anchor(bottom) + var(--popup_top_offset));
 		left: calc(anchor(start) - 12px);
 		position-visibility: anchors-visible;
