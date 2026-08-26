@@ -17,9 +17,21 @@
 		"image": "/stickers/angular.svg",
 		"shownWithBranding": true
 	},
+	"animation": {
+		"displayName": "Animation",
+		"emoji": "✨"
+	},
 	"announcements": {
 		"displayName": "Announcements",
 		"emoji": "📢"
+	},
+	"api": {
+		"displayName": "APIs",
+		"emoji": "🔌"
+	},
+	"architecture": {
+		"displayName": "Software Architecture",
+		"emoji": "🏗️"
 	},
 	"astro": {
 		"displayName": "Astro",
@@ -30,20 +42,39 @@
 		"displayName": "Auth",
 		"emoji": "🔐"
 	},
+	"azure": {
+		"displayName": "Microsoft Azure"
+	},
 	"bash": {
 		"displayName": "Bash",
 		"image": "/stickers/bash.svg",
 		"shownWithBranding": true
+	},
+	"beginner": {
+		"displayName": "Beginner",
+		"emoji": "🌱"
+	},
+	"career": {
+		"displayName": "Career",
+		"emoji": "🧭"
 	},
 	"chrome": {
 		"displayName": "Chrome",
 		"image": "/stickers/chrome.svg",
 		"shownWithBranding": false
 	},
+	"cloud": {
+		"displayName": "Cloud Computing",
+		"emoji": "☁️"
+	},
 	"coldfusion": {
 		"displayName": "Adobe ColdFusion",
 		"image": "/stickers/coldfusion.svg",
 		"shownWithBranding": false
+	},
+	"community": {
+		"displayName": "Community",
+		"emoji": "🫂"
 	},
 	"computer science": {
 		"displayName": "Computer Science",
@@ -67,9 +98,20 @@
 		"image": "/stickers/css.svg",
 		"shownWithBranding": true
 	},
+	"database": {
+		"displayName": "Databases",
+		"emoji": "🗄️"
+	},
 	"design": {
 		"displayName": "Design",
 		"emoji": "🎨"
+	},
+	"devops": {
+		"displayName": "DevOps",
+		"emoji": "♾️"
+	},
+	"docker": {
+		"displayName": "Docker"
 	},
 	"documentation": {
 		"displayName": "Documentation",
@@ -80,14 +122,30 @@
 		"image": "/stickers/dotnet.svg",
 		"shownWithBranding": false
 	},
+	"events": {
+		"displayName": "Events",
+		"emoji": "📅"
+	},
+	"firebase": {
+		"displayName": "Firebase"
+	},
 	"gamedev": {
 		"displayName": "Game Development",
 		"emoji": "🎮"
+	},
+	"gemini": {
+		"displayName": "Google Gemini"
 	},
 	"git": {
 		"displayName": "Git",
 		"image": "/stickers/git.svg",
 		"shownWithBranding": true
+	},
+	"github": {
+		"displayName": "GitHub"
+	},
+	"github actions": {
+		"displayName": "GitHub Actions"
 	},
 	"go": {
 		"displayName": "Go",
@@ -133,6 +191,10 @@
 		"displayName": "Leadership",
 		"emoji": "👔"
 	},
+	"learning": {
+		"displayName": "Learning",
+		"emoji": "🎓"
+	},
 	"linux": {
 		"displayName": "Linux",
 		"image": "/stickers/linux.svg",
@@ -143,6 +205,12 @@
 		"image": "/stickers/lit.svg",
 		"shownWithBranding": false
 	},
+	"marko": {
+		"displayName": "Marko"
+	},
+	"microsoft": {
+		"displayName": "Microsoft"
+	},
 	"minecraft": {
 		"displayName": "Minecraft",
 		"image": "/stickers/minecraft.svg",
@@ -152,6 +220,10 @@
 		"displayName": "MongoDB",
 		"image": "/stickers/mongodb.svg",
 		"shownWithBranding": false
+	},
+	"monorepo": {
+		"displayName": "Monorepos",
+		"emoji": "🗂️"
 	},
 	"networking": {
 		"displayName": "Networking",
@@ -172,14 +244,38 @@
 		"image": "/stickers/npm.svg",
 		"shownWithBranding": false
 	},
+	"nx": {
+		"displayName": "Nx"
+	},
+	"open source": {
+		"displayName": "Open Source",
+		"emoji": "👐"
+	},
 	"opinion": {
 		"displayName": "Opinion",
 		"emoji": "🧠"
+	},
+	"performance": {
+		"displayName": "Performance",
+		"emoji": "⚡"
+	},
+	"playwright": {
+		"displayName": "Playwright"
+	},
+	"powershell": {
+		"displayName": "PowerShell"
+	},
+	"productivity": {
+		"displayName": "Productivity",
+		"emoji": "✅"
 	},
 	"python": {
 		"displayName": "Python",
 		"image": "/stickers/python.svg",
 		"shownWithBranding": true
+	},
+	"qwik": {
+		"displayName": "Qwik"
 	},
 	"react": {
 		"displayName": "React",
@@ -191,10 +287,17 @@
 		"image": "/stickers/react.svg",
 		"shownWithBranding": false
 	},
+	"reactivity": {
+		"displayName": "Reactivity",
+		"emoji": "🔄"
+	},
 	"rust": {
 		"displayName": "Rust",
 		"image": "/stickers/ferris.svg",
 		"shownWithBranding": true
+	},
+	"rxjs": {
+		"displayName": "RxJS"
 	},
 	"scully": {
 		"displayName": "Scully",
@@ -214,11 +317,24 @@
 		"image": "/stickers/slack.svg",
 		"shownWithBranding": false
 	},
+	"solidjs": {
+		"displayName": "SolidJS"
+	},
 	"ssg": {
 		"displayName": "Static Site Generation (SSG)"
 	},
 	"ssr": {
 		"displayName": "Server-Side Rendering (SSR)"
+	},
+	"startup": {
+		"displayName": "Startups",
+		"emoji": "🚀"
+	},
+	"svelte": {
+		"displayName": "Svelte"
+	},
+	"tanstack query": {
+		"displayName": "TanStack Query"
 	},
 	"testing": {
 		"displayName": "Testing",
@@ -227,6 +343,10 @@
 	"tools": {
 		"displayName": "Tools",
 		"emoji": "🔧"
+	},
+	"tutorial": {
+		"displayName": "Tutorial",
+		"emoji": "🧑‍🏫"
 	},
 	"twitch": {
 		"displayName": "Twitch",
@@ -237,6 +357,9 @@
 		"displayName": "TypeScript",
 		"image": "/stickers/typescript.svg",
 		"shownWithBranding": false
+	},
+	"vscode": {
+		"displayName": "Visual Studio Code"
 	},
 	"vue": {
 		"displayName": "Vue",
