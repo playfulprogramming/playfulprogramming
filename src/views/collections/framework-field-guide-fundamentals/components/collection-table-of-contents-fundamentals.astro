@@ -1,23 +1,18 @@
 ---
+import type { FuturePost } from "#types/CollectionInfo.ts";
 import type { PostInfo } from "#types/PostInfo.ts";
 import styles from "./collection-table-of-contents-fundamentals.module.scss";
 
-interface ChapterList {
-	title: string;
-	description: string;
-	order: string;
-}
-
-interface CollectionTableOfContentsProps {
+interface Props {
 	title?: string;
 	posts: PostInfo[];
-	chapterList?: ChapterList[];
+	chapterList?: FuturePost[];
 	chaptersToShow?: number;
 	postPrefixToRemove?: string;
 }
 
 const { title, posts, chapterList, chaptersToShow, postPrefixToRemove } =
-	Astro.props as CollectionTableOfContentsProps;
+	Astro.props;
 
 const maxChapterToShow = chaptersToShow ?? 10;
 
@@ -76,7 +71,7 @@ function removeTitlePrefix(title: string) {
 					const i = (posts?.length ?? 0) + _i;
 					const shouldHideInitially = i >= maxChapterToShow;
 					const isLastVisible = i === maxChapterToShow - 1;
-					const isNumber = /\d/.test(post.order);
+					const isNumber = /\d/.test(post.order as unknown as string);
 					return (
 						<li
 							class={styles.postContainer}

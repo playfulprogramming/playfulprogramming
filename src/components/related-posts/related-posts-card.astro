@@ -3,13 +3,13 @@ import style from "./related-posts-card.module.scss";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import type { PersonInfo } from "../../types/PersonInfo.ts";
 
-interface RelatedPostsCardProps {
+interface Props {
 	title: string;
 	slug: string;
 	authors: PersonInfo[];
 }
 
-const { title, slug, authors } = Astro.props as RelatedPostsCardProps;
+const { title, slug, authors } = Astro.props;
 ---
 
 <li {...getHrefContainerProps(`/posts/${slug}`)} class={style.container}>
