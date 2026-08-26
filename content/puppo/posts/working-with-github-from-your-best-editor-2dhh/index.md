@@ -3,7 +3,7 @@
 title: "Working with GitHub Actions from your best editor",
 published: "2022-11-08T09:00:42Z",
 edited: "2022-11-08T10:20:03Z",
-tags: ["github", "code", "actions"],
+tags: ["github", "github actions"],
 description: "Hi folks, today I'm going to speak about another cool VsCode Extension.  In many projects, I love...",
 originalLink: "https://blog.delpuppo.net/working-with-github-actions-from-your-best-editor",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "How to Release a Side Project as a Real Product",
 published: "2023-10-28T19:51:37Z",
-tags: ["saas", "product", "webdev"],
+tags: ["startup", "webdev"],
 description: "Many developers have side projects that they work on for fun, learning, or solving a personal...",
 originalLink: "https://dev.to/playfulprogramming/how-to-release-a-side-project-as-a-real-product-emj",
 coverImg: "cover-image.png",

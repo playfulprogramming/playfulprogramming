@@ -3,7 +3,7 @@
 title: "Hacktoberfest 2022 is almost there! Get ready!",
 published: "2022-09-21T14:18:43Z",
 edited: "2023-09-11T21:16:48Z",
-tags: ["hacktoberfest", "github", "opensource", "tutorial"],
+tags: ["open source", "github", "tutorial"],
 description: "September is almost over and Hacktoberfest is to begin soon!  But what is Hacktoberfest? It is not an...",
 originalLink: "https://leonardomontini.dev/hacktoberfest-starter-guide/",
 coverImg: "cover-image.png",

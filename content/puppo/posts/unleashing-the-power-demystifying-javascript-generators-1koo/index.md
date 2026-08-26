@@ -3,7 +3,7 @@
 title: "Unleashing the Power: Demystifying JavaScript Generators",
 published: "2023-09-01T04:38:50Z",
 edited: "2023-09-01T06:11:54Z",
-tags: ["javascript", "generators", "generator"],
+tags: ["javascript"],
 description: "Welcome to this blog post, where we're diving into the fascinating world of JavaScript generators. If...",
 originalLink: "https://blog.delpuppo.net/unleashing-the-power-demystifying-javascript-generators",
 coverImg: "cover-image.png",

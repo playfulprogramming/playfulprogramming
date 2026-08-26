@@ -2,7 +2,7 @@
 {
 title: "Secrets and Environment Variables in your GitHub Action",
 published: "2023-07-03T10:32:02Z",
-tags: ["github", "githubactions", "devops", "security"],
+tags: ["github", "github actions", "devops", "security"],
 description: "If you need to use some secret values in your pipeline, for example an API key to send a Slack...",
 originalLink: "https://leonardomontini.dev/github-actions-secrets-variables/",
 coverImg: "cover-image.png",

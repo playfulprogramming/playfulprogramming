@@ -2,7 +2,7 @@
 {
 title: "Setting up an Angular 12 workspace with Nx and GitHub Actions",
 published: "2021-05-21T13:21:54Z",
-tags: ["nx", "angular", "github", "githubactions"],
+tags: ["nx", "angular", "github", "github actions"],
 description: "Setting up an Angular 12 workspace with Nx. Also setting up a GitHub Actions CI workflow with Nx Cloud support.",
 originalLink: "https://dev.to/playfulprogramming/setting-up-an-angular-12-workspace-with-nx-and-github-actions-32l5",
 coverImg: "cover-image.png",

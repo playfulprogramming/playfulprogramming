@@ -3,7 +3,7 @@
 title: "Playwright - Let's start",
 published: "2022-12-07T09:00:44Z",
 edited: "2023-02-21T07:18:23Z",
-tags: ["playwright", "e2e"],
+tags: ["playwright", "testing"],
 description: "In the last period, in the frontend ecosystem, a new e2e tool has come up and it has started to...",
 originalLink: "https://blog.delpuppo.net/playwright-lets-start",
 coverImg: "cover-image.png",

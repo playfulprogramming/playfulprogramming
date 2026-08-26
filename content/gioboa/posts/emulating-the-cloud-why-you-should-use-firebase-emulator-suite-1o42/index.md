@@ -2,7 +2,7 @@
 {
 title: "Emulating the Cloud: why you should use Firebase Emulator Suite",
 published: "2025-04-10T09:54:50Z",
-tags: ["firebase", "programming", "webdev", "javascript"],
+tags: ["firebase", "webdev", "javascript"],
 description: "In the fast-paced world of modern application development, iteration speed and robust testing are...",
 originalLink: "https://dev.to/playfulprogramming/emulating-the-cloud-why-you-should-use-firebase-emulator-suite-1o42",
 coverImg: "cover-image.png",

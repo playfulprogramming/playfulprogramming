@@ -3,7 +3,7 @@
 title: "Time For Employers To Change Their Perspective On Open Source Contribution",
 published: "2020-02-04T08:21:34Z",
 edited: "2021-04-06T11:06:47Z",
-tags: ["discuss", "opensource"],
+tags: ["opinion", "open source"],
 description: "Before you read this article, I want to make it very clear, I am not blaming anyone here. Keeping thi...",
 originalLink: "https://medium.com/@santosh.yadav198613/time-for-employers-to-change-their-perspective-on-open-source-contribution-73d54765fddc",
 coverImg: "cover-image.png",

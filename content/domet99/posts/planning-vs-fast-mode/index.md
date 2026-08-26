@@ -2,7 +2,7 @@
 {
 title: "Planning vs Fast Mode in Google Antigravity: When and How to Use Each",
 published: "2026-02-03" ,
-tags: ["ai", "tools", "google", "gemini"],
+tags: ["ai", "tools", "gemini"],
 description: "If you've started exploring Google Antigravity, you've probably noticed those two options sitting right there in the agent panel: Planning and Fast modes. At first glance, they might seem like just different speeds for getting stuff done, but trust me understanding when to use each one is the difference between feeling like a productivity wizard and wondering why the agent just did something completely unexpected.",
 originalLink: "https://domenicotenace.dev/blog/planning-vs-fast-mode/",
 coverImg: "./cover.webp",

@@ -2,7 +2,7 @@
 {
 title: "15 Minutes of Documentation 📖 for 15 Days",
 published: "2024-01-31T10:59:14Z",
-tags: ["documentation", "webdev", "beginners", "codenewbie"],
+tags: ["documentation", "webdev", "beginner"],
 description: "I spent 15 minutes every single day reading documentation and here’s what I learnt.  In the last two...",
 originalLink: "https://leonardomontini.dev/15-days-of-documentation",
 coverImg: "cover-image.png",

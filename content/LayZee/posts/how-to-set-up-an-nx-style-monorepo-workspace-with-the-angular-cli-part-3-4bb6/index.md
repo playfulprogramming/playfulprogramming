@@ -3,7 +3,7 @@
 title: "How to set up an Nx-style monorepo workspace with the Angular CLI: Part 3",
 published: "2021-03-31T12:15:14Z",
 edited: "2021-09-18T23:09:03Z",
-tags: ["angular", "nx", "cli", "monorepo"],
+tags: ["angular", "nx", "tools", "monorepo"],
 description: "In Part 3 of this tutorial, we create the passenger info and flight search feature libraries. We use the generate project tool to create the mobile booking application and its test project. Finally, we create a mobile version of the flight search component template.",
 originalLink: "https://dev.to/playfulprogramming-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-3-4bb6",
 coverImg: "cover-image.png",

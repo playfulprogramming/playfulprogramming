@@ -2,7 +2,7 @@
 {
 title: "It's Prisma Time - Aggregate and GroupBy",
 published: "2022-01-18T08:44:57Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Welcome back Folks 👋  Today we are seeing how to aggregate and group data.  Let's start from the...",
 originalLink: "https://dev.to/playfulprogramming/its-prisma-time-aggregate-and-groupby-36a7",
 coverImg: "cover-image.png",

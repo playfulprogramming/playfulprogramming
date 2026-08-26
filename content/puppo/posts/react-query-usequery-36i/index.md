@@ -2,7 +2,7 @@
 {
 title: "React Query - useQuery",
 published: "2023-03-15T05:00:39Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey Folks, It's time to take a journey on react query. Don't you know it? Perfect, you are in the...",
 originalLink: "https://blog.delpuppo.net/react-query-usequery",
 coverImg: "cover-image.png",

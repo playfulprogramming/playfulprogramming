@@ -2,7 +2,7 @@
 {
 title: "Unlock the Power of JavaScript WeakSet: Mastering a Hidden Gem!",
 published: "2023-10-04T06:22:01Z",
-tags: ["javascript", "es6", "weakset", "weaksets"],
+tags: ["javascript"],
 description: "In the vast landscape of JavaScript, many powerful features often go unnoticed. One such hidden gem...",
 originalLink: "https://blog.delpuppo.net/unlock-the-power-of-javascript-weakset-mastering-a-hidden-gem",
 coverImg: "cover-image.png",

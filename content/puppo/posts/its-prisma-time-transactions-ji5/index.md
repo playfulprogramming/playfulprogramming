@@ -3,7 +3,7 @@
 title: "It's Prisma Time - Transactions",
 published: "2022-01-20T07:19:05Z",
 edited: "2023-02-16T09:29:21Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hello Guys 👋  Today it's time to speak about transactions.  Transactions are a pillar of the database...",
 originalLink: "https://dev.to/playfulprogramming/its-prisma-time-transactions-ji5",
 coverImg: "cover-image.png",

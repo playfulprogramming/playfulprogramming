@@ -3,7 +3,7 @@
 title: "Cracking the FAANG Code: My 2024 Google Interview Journey & Key Takeaways (with Actionable Tips!)",
 published: "2024-12-06T14:53:48Z",
 edited: "2024-12-06T15:08:53Z",
-tags: ["programming", "webdev", "devrel", "coding"],
+tags: ["webdev", "career"],
 description: "Earlier this year, I had the opportunity to interview for a role at Google. A recruiter reached out...",
 originalLink: "https://dev.to/playfulprogramming/cracking-the-faang-code-my-2024-google-interview-journey-key-takeaways-with-actionable-tips-3f59",
 coverImg: "cover-image.png",

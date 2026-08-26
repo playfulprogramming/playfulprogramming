@@ -3,7 +3,7 @@
 title: "Fetching and Publishing Settings for Azure Functions with Azure Functions Core Tools Command Line",
 published: "2023-12-05T13:46:00Z",
 edited: "2023-12-05T14:31:57Z",
-tags: ["azure", "azurefunctions", "tooling", "webdev"],
+tags: ["azure", "tools", "webdev"],
 description: "During my daily activities I develop a lot of Azure Functions. Every time I struggle to synchronize...",
 originalLink: "https://dev.to/playfulprogramming/fetching-and-publishing-settings-for-azure-functions-with-azure-functions-core-tools-command-line-4akj",
 coverImg: "cover-image.png",

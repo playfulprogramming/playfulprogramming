@@ -3,7 +3,7 @@
 title: "3 Pillars Only Senior Developers Know About Firebase and Firestore Databases",
 published: "2025-04-02T09:06:44Z",
 edited: "2025-04-02T09:12:27Z",
-tags: ["firebase", "database", "webdev", "mobile"],
+tags: ["firebase", "database", "webdev"],
 description: "Google offers robust, real-time NoSQL database solutions: the original Realtime Database and the...",
 originalLink: "https://dev.to/playfulprogramming/3-pillars-only-senior-developers-know-about-firebase-and-firestore-databases-oe0",
 coverImg: "cover-image.png",

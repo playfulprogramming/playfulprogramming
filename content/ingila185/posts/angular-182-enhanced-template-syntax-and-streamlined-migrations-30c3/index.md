@@ -3,7 +3,7 @@
 title: "Angular 18.2: Enhanced Template Syntax and Streamlined Migrations",
 published: "2024-08-21T23:43:15Z",
 edited: "2024-09-03T10:42:32Z",
-tags: ["angular", "webdev", "javascript", "programming"],
+tags: ["angular", "webdev", "javascript"],
 description: "Angular 18.2 has arrived, and while it may be a minor release, it holds some valuable improvements...",
 originalLink: "https://dev.to/playfulprogramming-angular/angular-182-enhanced-template-syntax-and-streamlined-migrations-30c3",
 coverImg: "cover-image.png",

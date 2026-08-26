@@ -3,7 +3,7 @@
 title: "Secure Airtable Integration: Mastering OAuth 2.0 PKCE with Node.js 22 and Angular 20",
 published: "2025-07-28T14:46:11Z",
 edited: "2025-07-28T17:26:58Z",
-tags: ["webdev", "programming", "javascript", "angular"],
+tags: ["webdev", "javascript", "angular"],
 description: "Integrating third-party services into B2B and SaaS applications demands robust security. When...",
 originalLink: "https://dev.to/playfulprogramming/secure-airtable-integration-mastering-oauth-20-pkce-with-nodejs-22-and-angular-20-71a",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "My Course on Angular Getting Started",
 published: "2022-07-27T18:17:00Z",
 edited: "2023-04-13T20:10:00Z",
-tags: ["angular", "learning", "webdev", "course"],
+tags: ["angular", "learning", "webdev"],
 description: "Photo by Nick Morrison on Unsplash  I had planned an Angular Course for the community for a very long...",
 originalLink: "https://dev.to/playfulprogramming/my-course-on-angular-getting-started-3jec",
 coverImg: "cover-image.png",

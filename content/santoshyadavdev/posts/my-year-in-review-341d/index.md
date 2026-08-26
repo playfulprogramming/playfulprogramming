@@ -3,7 +3,7 @@
 title: "My year in review",
 published: "2022-12-14T23:02:02Z",
 edited: "2022-12-15T09:30:08Z",
-tags: ["review", "journey"],
+tags: ["opinion", "career"],
 description: "Photo by Mantas Hesthaven on Unsplash  This is going to be challenging to write. This year felt like...",
 originalLink: "https://dev.to/playfulprogramming/my-year-in-review-341d",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "How to Boost Your Web Performance with HTML5 Features",
 published: "2023-06-07T13:29:10Z",
 edited: "2023-06-07T13:35:05Z",
-tags: ["webdev", "html", "beginners", "performance"],
+tags: ["webdev", "html", "beginner", "performance"],
 description: "Performance is a crucial aspect of web development, as it affects the user experience, accessibility,...",
 originalLink: "https://dev.to/playfulprogramming/how-to-boost-your-web-performance-with-html5-features-4027",
 coverImg: "cover-image.png",

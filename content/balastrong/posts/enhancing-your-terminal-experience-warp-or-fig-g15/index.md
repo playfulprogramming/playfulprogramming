@@ -2,7 +2,7 @@
 {
 title: "Enhancing your terminal experience: Warp or Fig?",
 published: "2023-05-31T07:34:31Z",
-tags: ["terminal", "ai", "productivity"],
+tags: ["tools", "ai", "productivity"],
 description: "After using Warp for over a couple of months (and collecting feedback from colleagues already using...",
 originalLink: "https://leonardomontini.dev/warp-terminal-vs-fig/",
 coverImg: "cover-image.png",

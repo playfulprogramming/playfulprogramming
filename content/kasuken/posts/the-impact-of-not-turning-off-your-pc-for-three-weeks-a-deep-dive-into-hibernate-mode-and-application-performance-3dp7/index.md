@@ -2,7 +2,7 @@
 {
 title: "The Impact of Not Turning Off Your PC for Three Weeks: A Deep Dive into Hibernate Mode and Application Performance",
 published: "2024-09-05T09:09:10Z",
-tags: ["microsoft", "productivity", "development"],
+tags: ["microsoft", "productivity"],
 description: "What happens when you rely solely on hibernate mode and don't turn off your PC for three weeks...",
 originalLink: "https://dev.to/playfulprogramming/the-impact-of-not-turning-off-your-pc-for-three-weeks-a-deep-dive-into-hibernate-mode-and-application-performance-3dp7",
 coverImg: "cover-image.png",

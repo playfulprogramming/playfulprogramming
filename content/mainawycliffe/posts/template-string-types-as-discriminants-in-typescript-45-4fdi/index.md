@@ -2,7 +2,7 @@
 {
 title: "Template String Types as Discriminants in Typescript 4.5",
 published: "2021-11-18T08:21:00Z",
-tags: ["typescript", "javascript", "webdev", "node"],
+tags: ["typescript", "javascript", "webdev", "nodejs"],
 description: "Typescript 4.5 was just released and one of the features that stood out to me is the Template String...",
 originalLink: "https://mainawycliffe.dev/blog/template-string-types-as-discriminants/",
 coverImg: "cover-image.png",

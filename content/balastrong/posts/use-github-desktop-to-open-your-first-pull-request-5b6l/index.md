@@ -3,7 +3,7 @@
 title: "Use GitHub Desktop to open your first Pull Request",
 published: "2022-11-10T17:38:51Z",
 edited: "2022-11-23T11:16:07Z",
-tags: ["github", "git", "opensource", "beginners"],
+tags: ["github", "git", "open source", "beginner"],
 description: "Contributing to Open Source projects that are hosted on GitHub has a barrier: git.  Some fresh...",
 originalLink: "https://leonardomontini.dev/open-pull-request-github-desktop/",
 coverImg: "cover-image.png",

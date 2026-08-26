@@ -3,7 +3,7 @@
 title: "Testing Angular routing components with RouterTestingHarness, provideLocationMocks, and provideRouter",
 published: "2023-02-08T23:54:59Z",
 edited: "2023-02-09T07:32:14Z",
-tags: ["angular", "testing", "router"],
+tags: ["angular", "testing"],
 description: "Learn how to implement integrated routing component tests with RouterTestingHarness, provideRouter, and provideLocationMocks.",
 originalLink: "https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-routertestingharness-providelocationmocks-and-providerouter-oi8",
 coverImg: "cover-image.png",

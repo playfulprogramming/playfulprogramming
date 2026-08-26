@@ -2,7 +2,7 @@
 {
 title: "React Query - useIsFetching & useIsMutation",
 published: "2023-03-29T05:49:40Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey folks,  Today it is time to talk about two hooks exposed by react query: useIsFetching and...",
 originalLink: "https://blog.delpuppo.net/react-query-useisfetching-useismutation",
 coverImg: "cover-image.png",

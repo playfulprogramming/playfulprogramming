@@ -3,7 +3,7 @@
 title: "Introduction to NestJS Services",
 published: "2020-01-08T07:43:05Z",
 edited: "2021-04-06T11:08:24Z",
-tags: ["typescript", "javascript", "node"],
+tags: ["typescript", "javascript", "nodejs"],
 description: "Service   In enterprise applications, we follow the SOLID principle, where S stands for Sing...",
 originalLink: "https://medium.com/better-programming/introduction-to-nestjs-services-2a7c9a629da9",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "What’s in My Bag: The Essentials for a Productive Day at the Office [2025]",
 published: "2025-03-14T15:52:51Z",
 edited: "2025-03-19T12:22:31Z",
-tags: ["productivity", "developer"],
+tags: ["productivity"],
 description: "As a developer and cloud engineer (or Architect, they call me like that), my work isn't confined to a...",
 originalLink: "https://dev.to/playfulprogramming/whats-in-my-bag-the-essentials-for-a-productive-day-at-the-office-2025-e2o",
 coverImg: "cover-image.png",

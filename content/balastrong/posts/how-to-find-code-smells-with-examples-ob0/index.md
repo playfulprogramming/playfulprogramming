@@ -3,7 +3,7 @@
 title: "How to find Code Smells - with examples",
 published: "2022-10-10T07:00:56Z",
 edited: "2022-11-23T11:14:05Z",
-tags: ["tutorial", "codenewbie", "beginners", "programming"],
+tags: ["tutorial", "beginner"],
 description: "What is a Code Smell?   Let me provide you with my personal definition and some examples to...",
 originalLink: "https://leonardomontini.dev/code-smell/",
 coverImg: "cover-image.png",

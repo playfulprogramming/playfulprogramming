@@ -2,7 +2,7 @@
 {
 title: "Organize Your Firebase Functions For Easier Deployments and Maintenance",
 published: "2023-06-06T10:11:48Z",
-tags: ["firebase", "serverless", "typescript", "javascript"],
+tags: ["firebase", "cloud", "typescript", "javascript"],
 description: "When developing Firebase functions, it's common to have everything in a single repository - all the...",
 originalLink: "https://mainawycliffe.dev/blog/organize-firebase-functions-easier-deployments-maintenance",
 coverImg: "cover-image.png",

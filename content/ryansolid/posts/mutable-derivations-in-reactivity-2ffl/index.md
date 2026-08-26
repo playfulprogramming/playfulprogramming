@@ -2,7 +2,7 @@
 {
 title: "Mutable Derivations in Reactivity",
 published: "2024-10-23T22:59:58Z",
-tags: ["javascript", "webdev", "reactivity", "signals"],
+tags: ["javascript", "webdev", "reactivity"],
 description: "All this exploration into scheduling and async made me realize how much we still don't understand...",
 originalLink: "https://dev.to/playfulprogramming/mutable-derivations-in-reactivity-2ffl",
 coverImg: "cover-image.png",

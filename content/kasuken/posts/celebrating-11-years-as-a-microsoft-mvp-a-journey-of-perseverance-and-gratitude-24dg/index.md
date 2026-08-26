@@ -3,7 +3,7 @@
 title: "🎉 Celebrating 11 Years as a Microsoft MVP: A Journey of Perseverance and Gratitude 🌟",
 published: "2024-08-22T08:31:53Z",
 edited: "2024-08-22T09:34:15Z",
-tags: ["microsoft", "awards"],
+tags: ["microsoft", "career"],
 description: "Introduction to the Microsoft MVP Program   The Microsoft Most Valuable Professional (MVP)...",
 originalLink: "https://dev.to/playfulprogramming/celebrating-11-years-as-a-microsoft-mvp-a-journey-of-perseverance-and-gratitude-24dg",
 coverImg: "cover-image.png",

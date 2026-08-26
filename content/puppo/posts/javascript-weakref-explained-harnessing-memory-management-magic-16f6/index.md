@@ -3,7 +3,7 @@
 title: "JavaScript WeakRef Explained: Harnessing Memory Management Magic",
 published: "2023-10-11T06:23:40Z",
 edited: "2023-10-11T06:29:44Z",
-tags: ["javascript", "es6", "weakref", "weakrefs"],
+tags: ["javascript"],
 description: "Introduction to WeakRef   WeakRef is a powerful feature in JavaScript that allows developers...",
 originalLink: "https://blog.delpuppo.net/javascript-weakref-explained-harnessing-memory-management-magic",
 coverImg: "cover-image.png",

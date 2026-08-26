@@ -3,7 +3,7 @@
 title: "💰 Get paid while contributing to Open Source",
 published: "2022-09-11T12:13:56Z",
 edited: "2022-11-22T22:19:02Z",
-tags: ["opensource", "github", "career"],
+tags: ["open source", "github", "career"],
 description: "What if I tell you that you get paid in real money - with Open Source?  Wait, that's not a scam or a...",
 originalLink: "https://leonardomontini.dev/make-money-from-open-source/",
 coverImg: "cover-image.png",

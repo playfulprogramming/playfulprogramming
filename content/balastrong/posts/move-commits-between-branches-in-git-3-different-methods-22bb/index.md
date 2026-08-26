@@ -3,7 +3,7 @@
 title: "Move Commits Between Branches in Git - 3 Different Methods 🍒",
 published: "2023-02-13T07:58:08Z",
 edited: "2023-02-13T11:20:01Z",
-tags: ["git", "tutorial", "beginners", "codenewbie"],
+tags: ["git", "tutorial", "beginner"],
 description: "Why do you need to move commits between branches? Let's imagine this scenario:  You're so happy, the...",
 originalLink: "https://leonardomontini.dev/git-move-commits-between-branches/",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Angular 19 - 5 Game-Changing Features You Need to Know",
 published: "2024-11-06T16:53:20Z",
 edited: "2024-11-08T11:16:46Z",
-tags: ["angular", "webdev", "javascript", "programming"],
+tags: ["angular", "webdev", "javascript"],
 description: "Angular continues to evolve, bringing exciting features with each release. Angular 19 is no...",
 originalLink: "https://dev.to/playfulprogramming-angular/angular-19-5-game-changing-features-you-need-to-know-32cd",
 coverImg: "cover-image.png",

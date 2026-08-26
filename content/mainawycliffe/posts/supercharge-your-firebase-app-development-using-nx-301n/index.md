@@ -2,7 +2,7 @@
 {
 title: "Supercharge your Firebase App Development using NX",
 published: "2022-12-28T08:49:07Z",
-tags: ["javascript", "firebase", "tooling", "typescript"],
+tags: ["javascript", "firebase", "tools", "typescript"],
 description: "One of the pain points that I am sure some of us have come across when using Firebase projects that...",
 originalLink: "https://mainawycliffe.dev/blog/supercharge-your-firebase-app-development-using-nx/",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Playwright - Components testing",
 published: "2023-01-12T09:00:42Z",
 edited: "2023-02-21T07:20:59Z",
-tags: ["playwright", "components", "testing"],
+tags: ["playwright", "webdev", "testing"],
 description: "Hi there, Today I'll speak about a beta feature in Playwright: Components.  The team is building a...",
 originalLink: "https://blog.delpuppo.net/playwright-components-testing",
 coverImg: "cover-image.png",

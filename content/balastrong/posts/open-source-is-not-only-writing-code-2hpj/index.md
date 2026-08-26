@@ -3,7 +3,7 @@
 title: "Open Source is not only writing code 🙅‍♂️🧑‍💻",
 published: "2022-08-31T15:32:02Z",
 edited: "2022-11-22T22:18:39Z",
-tags: ["opensource", "github", "tutorial", "beginners"],
+tags: ["open source", "github", "tutorial", "beginner"],
 description: "You can find a video version of this article on my YouTube channel.       Did you know that you can...",
 originalLink: "https://leonardomontini.dev/open-source-without-code/",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "A look at major features in the Angular Ivy version 9 release",
 published: "2021-03-24T14:29:14Z",
 edited: "2021-05-17T21:14:39Z",
-tags: ["angular", "ivy", "globalization"],
+tags: ["angular"],
 description: "AOT everywhere, dynamic globalisation, strict mode, Bazel, and much more.",
 originalLink: "https://dev.to/playfulprogramming-angular/a-look-at-major-features-in-the-angular-ivy-version-9-release-4dn7",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Building Dynamic Push Notifications with Firebase and Node.js",
 published: "2025-03-07T16:09:08Z",
 edited: "2025-03-07T16:17:29Z",
-tags: ["node", "firebase", "javascript", "angular"],
+tags: ["nodejs", "firebase", "javascript", "angular"],
 description: "In the previous article we saw how Firebase Cloud Messaging (FCM) is a versatile solution for...",
 originalLink: "https://dev.to/playfulprogramming/building-dynamic-push-notifications-with-firebase-and-nodejs-516h",
 coverImg: "cover-image.png",

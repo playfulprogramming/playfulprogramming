@@ -2,7 +2,7 @@
 {
 title: "Learning Web Development Together with a Real Project",
 published: "2023-08-21T09:22:23Z",
-tags: ["webdev", "nextjs", "typescript", "codenewbie"],
+tags: ["webdev", "nextjs", "typescript", "beginner"],
 description: "Learning through tutorials alone is not enough, some hands-on practice is required in order to...",
 originalLink: "https://leonardomontini.dev/web-development-community-project",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "Advent of Code Automation for Javascript/Typescript",
 published: "2023-12-03T21:27:55Z",
-tags: ["adventofcode", "javascript", "typescript", "webdev"],
+tags: ["computer science", "javascript", "typescript", "webdev"],
 description: "December means Advent of Code for many of us 🎄 (or at least, the first few days of December)  These...",
 originalLink: "https://leonardomontini.dev/advent-of-code-javascript-typescript",
 coverImg: "cover-image.png",

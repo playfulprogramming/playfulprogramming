@@ -3,7 +3,7 @@
 title: "The Angular Ivy guide for library authors",
 published: "2021-03-24T14:08:51Z",
 edited: "2021-03-24T15:08:01Z",
-tags: ["angular", "ivy", "library"],
+tags: ["angular"],
 description: "How to respond to Angular Ivy in 2020/2021 if you're a library author.",
 originalLink: "https://dev.to/playfulprogramming-angular/the-angular-ivy-guide-for-library-authors-9md",
 coverImg: "cover-image.png",

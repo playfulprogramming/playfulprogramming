@@ -2,7 +2,7 @@
 {
 title: "What the FORK are you doing?!",
 published: "2023-03-20T11:34:37Z",
-tags: ["github", "opensource", "tutorial", "codenewbie"],
+tags: ["github", "open source", "tutorial", "beginner"],
 description: "How to Fork a repository on GitHub is as easy as pressing a button, we take this for granted, but why...",
 originalLink: "https://leonardomontini.dev/github-fork/",
 coverImg: "cover-image.png",

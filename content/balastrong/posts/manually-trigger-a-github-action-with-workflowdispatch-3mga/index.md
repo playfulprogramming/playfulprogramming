@@ -2,7 +2,7 @@
 {
 title: "Manually Trigger a GitHub Action with workflow_dispatch",
 published: "2023-01-10T19:16:22Z",
-tags: ["discuss", "ai", "softwaredevelopment"],
+tags: ["opinion", "ai", "architecture"],
 description: "There's a plethora of triggers you can use to run a GitHub Action. You can run it on a schedule, on a...",
 originalLink: "https://leonardomontini.dev/github-action-manual-trigger/",
 coverImg: "cover-image.png",

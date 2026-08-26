@@ -3,7 +3,7 @@
 title: "How to set up an Nx-style monorepo workspace with the Angular CLI: Part 5",
 published: "2021-03-31T12:15:31Z",
 edited: "2021-09-18T23:09:19Z",
-tags: ["angular", "nx", "cli", "monorepo"],
+tags: ["angular", "nx", "tools", "monorepo"],
 description: "In the final part of this tutorial, we create the seatmap data access, seat listing feature, shared buttons UI, and shared formatting utilities library. Finally, we compare our approach with the full Nx toolchain.",
 originalLink: "https://dev.to/playfulprogramming-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-5-2hk7",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "My first year as Independent Consultant",
 published: "2021-10-15T19:25:14Z",
 edited: "2021-10-15T22:45:35Z",
-tags: ["career", "consulting", "webdev"],
+tags: ["career", "webdev"],
 description: "Photo by Callum Shaw on Unsplash  Last year around August 2020, I decided to leave my full-time job...",
 originalLink: "https://dev.to/playfulprogramming/my-first-year-as-independent-consultant-49ij",
 coverImg: "cover-image.png",

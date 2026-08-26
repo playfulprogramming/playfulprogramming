@@ -3,7 +3,7 @@
 title: "The Evolution of Signals in JavaScript",
 published: "2023-02-27T19:05:20Z",
 edited: "2023-03-21T16:20:03Z",
-tags: ["css", "tailwindcss", "webdev"],
+tags: ["css", "webdev"],
 description: "There has been some buzz recently in the frontend world around the term \"Signals\". In seemingly short...",
 originalLink: "https://dev.to/playfulprogramming/the-evolution-of-signals-in-javascript-8ob",
 coverImg: "cover-image.png",

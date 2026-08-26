@@ -2,7 +2,7 @@
 {
 title: "Contributing to Open Source is Easier Than You Think: My Journey with Firebase Genkit",
 published: "2025-05-30T10:37:27Z",
-tags: ["opensource", "ai", "firebase", "programming"],
+tags: ["open source", "ai", "firebase"],
 description: "I work full time as a software engineer and don't do open source to pay the bills, but I recently...",
 originalLink: "https://dev.to/playfulprogramming/contributing-to-open-source-is-easier-than-you-think-my-journey-with-firebase-genkit-44k7",
 coverImg: "cover-image.png",

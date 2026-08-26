@@ -2,7 +2,7 @@
 {
 title: "Why You Should Attend Experts Live Europe 2024 in Budapest: Unlocking Opportunities in the Heart of Innovation",
 published: "2024-09-01T19:15:18Z",
-tags: ["event", "microsoft", "azure"],
+tags: ["events", "microsoft", "azure"],
 description: "The IT landscape is ever-evolving, and staying ahead of the curve is crucial for professionals...",
 originalLink: "https://dev.to/playfulprogramming/why-you-should-attend-experts-live-europe-2024-in-budapest-unlocking-opportunities-in-the-heart-of-innovation-3pbg",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "Do you know JavaScript?",
 published: "2023-03-14T12:45:42Z",
-tags: ["webdev", "javascript", "beginners"],
+tags: ["webdev", "javascript", "beginner"],
 description: "Do you know Javascript? The language we all love has some weird and sometimes unexpected...",
 originalLink: "https://leonardomontini.dev/javascript-minigames/",
 coverImg: "cover-image.png",

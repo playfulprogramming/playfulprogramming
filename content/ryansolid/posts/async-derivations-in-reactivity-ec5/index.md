@@ -3,7 +3,7 @@
 title: "Async Derivations in Reactivity",
 published: "2024-08-06T17:10:48Z",
 edited: "2024-08-06T20:28:58Z",
-tags: ["javascript", "webdev", "signals", "solidjs"],
+tags: ["javascript", "webdev", "reactivity", "solidjs"],
 description: "Congratulations on making it through the series thus far. But this is where things start to go off...",
 originalLink: "https://dev.to/playfulprogramming/async-derivations-in-reactivity-ec5",
 coverImg: "cover-image.png",

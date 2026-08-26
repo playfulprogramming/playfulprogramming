@@ -2,7 +2,7 @@
 {
 title: "It's Prisma Time - Create Db",
 published: "2021-12-23T06:51:06Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hi Guys 👋 welcome back. Finally, today it's time to create our database, so don't waste time, and get...",
 originalLink: "https://dev.to/playfulprogramming/its-prisma-time-create-db-3e8n",
 coverImg: "cover-image.png",

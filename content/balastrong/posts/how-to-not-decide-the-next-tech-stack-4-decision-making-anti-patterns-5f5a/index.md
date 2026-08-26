@@ -2,7 +2,7 @@
 {
 title: "How to NOT decide the next tech stack: 4 decision making anti-patterns",
 published: "2023-10-19T09:34:25Z",
-tags: ["career", "webdev", "productivity", "softwaredevelopment"],
+tags: ["career", "webdev", "productivity", "architecture"],
 description: "These are 4 really easy ways of making horrible decisions, but don't worry, being able to recognize...",
 originalLink: "https://leonardomontini.dev/decision-making-antipatterns",
 coverImg: "cover-image.png",

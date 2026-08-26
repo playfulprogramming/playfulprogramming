@@ -2,7 +2,7 @@
 {
 title: "AWS Amplify: Let's add some unit tests into our pipeline",
 published: "2023-01-06T13:18:11Z",
-tags: ["aws", "cloud", "testing", "webdev"],
+tags: ["cloud", "testing", "webdev"],
 description: "In the previous article, we saw how to set up a pipeline with AWS Amplify, but as long as things are...",
 originalLink: "https://dev.to/playfulprogramming/aws-amplify-lets-add-some-unit-tests-into-our-pipeline-5f7l",
 coverImg: "cover-image.png",

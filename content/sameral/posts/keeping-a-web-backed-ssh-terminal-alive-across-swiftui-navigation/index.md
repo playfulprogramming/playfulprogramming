@@ -3,7 +3,7 @@
   title: "Keeping a Web-Backed SSH Terminal Alive Across SwiftUI Navigation",
   published: "2026-08-09",
   description: "How to separate SSH, renderer, and view lifetimes when embedding xterm.js in a native macOS app.",
-  tags: ["swift", "macos", "swiftui", "web-platform"],
+  tags: ["ios", "webdev"],
   originalLink: "https://coderlegion.com/24308/keeping-a-web-backed-ssh-terminal-alive-across-swiftui-navigation",
 }
 ---

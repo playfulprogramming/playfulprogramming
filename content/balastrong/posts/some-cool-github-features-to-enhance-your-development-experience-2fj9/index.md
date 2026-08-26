@@ -3,7 +3,7 @@
 title: "Some cool GitHub features to enhance your development experience",
 published: "2022-11-01T13:21:10Z",
 edited: "2023-03-07T11:57:09Z",
-tags: ["github", "opensource", "tutorial", "beginners"],
+tags: ["github", "open source", "tutorial", "beginner"],
 description: "Hello everyone, Leonardo here!  Today we talk about GitHub and some cool features it offers to...",
 originalLink: "https://leonardomontini.dev/github-tips-and-tricks/",
 coverImg: "cover-image.png",

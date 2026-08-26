@@ -3,7 +3,7 @@
 title: "Leveraging Django 5.1.1 and PostgreSQL 16 for an Efficient Geo-Targeted Rating API",
 published: "2024-09-03T17:21:14Z",
 edited: "2024-09-03T17:21:34Z",
-tags: ["python", "django", "backenddevelopment", "restapi"],
+tags: ["python", "webdev", "api"],
 description: "Last week, I had a chance to dive into a case study that involved developing an HTTP-based REST API....",
 originalLink: "https://dev.to/playfulprogramming/leveraging-django-511-and-postgresql-16-for-an-efficient-geo-targeted-rating-api-58hf",
 coverImg: "cover-image.png",

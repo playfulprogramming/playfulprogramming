@@ -3,7 +3,7 @@
 title: "AngularJS vs Angular",
 published: "2022-06-19T21:59:56Z",
 edited: "2022-09-14T13:06:28Z",
-tags: ["angular", "frontend", "framework"],
+tags: ["angular", "webdev"],
 description: "NOTE As I write this blog post, the AngularJS has already reached EOL. It's been 10 months now.      ...",
 originalLink: "https://dev.to/playfulprogramming-angular/angularjs-vs-angular-1gh6",
 coverImg: "cover-image.png",

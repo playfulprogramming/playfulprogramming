@@ -2,7 +2,7 @@
 {
 title: "Manage multiple Node.js versions with NVM",
 published: "2023-02-22T13:10:00Z",
-tags: ["webdev", "node", "javascript", "opensource"],
+tags: ["webdev", "nodejs", "javascript", "open source"],
 description: "When you work on multiple projects, and this happens quite often if you're into Open Source, you will...",
 originalLink: "https://leonardomontini.dev/multiple-node-version-nvm/",
 coverImg: "cover-image.png",

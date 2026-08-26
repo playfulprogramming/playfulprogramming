@@ -3,7 +3,7 @@
 title: "🚀 GitHub Copilot: A Persona-Based Approach to Real-World Development",
 published: "2025-08-26T11:30:01Z",
 edited: "2025-12-05T06:50:14Z",
-tags: ["githubcopilot", "github", "ai", "vscode"],
+tags: ["copilot", "github", "ai", "vscode"],
 description: "If you’ve ever used GitHub Copilot for more than a quick boilerplate snippet, you’ve probably felt...",
 originalLink: "https://dev.to/playfulprogramming/github-copilot-a-persona-based-approach-to-real-world-development-56ee",
 coverImg: "cover-image.png",

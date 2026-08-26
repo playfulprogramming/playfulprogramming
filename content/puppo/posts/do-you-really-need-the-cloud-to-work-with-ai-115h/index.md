@@ -2,7 +2,7 @@
 {
 title: "Do you really need the Cloud to work with AI?",
 published: "2025-06-25T06:27:11Z",
-tags: ["aisprint", "gemini", "ai", "chrome"],
+tags: ["ai", "gemini", "chrome"],
 description: "We are in the AI era. New models emerge daily, and many applications have already integrated AI into...",
 originalLink: "https://blog.delpuppo.net/do-you-really-need-the-cloud-to-work-with-ai",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "GitHub Copilot CLI is your new GIT assistant",
 published: "2023-05-08T06:58:26Z",
 edited: "2024-04-29T16:39:05Z",
-tags: ["ai", "github", "programming", "git"],
+tags: ["ai", "github", "git"],
 description: "GitHub Copilot CLI comes with three aliases:    ??: Ask for a generic shell command  git?: Ask for a...",
 originalLink: "https://leonardomontini.dev/copilot-x-git-cli/",
 coverImg: "cover-image.png",

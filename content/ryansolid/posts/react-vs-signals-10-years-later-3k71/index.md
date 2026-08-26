@@ -3,7 +3,7 @@
 title: "React vs Signals: 10 Years Later",
 published: "2023-03-01T17:27:05Z",
 edited: "2023-03-01T18:19:37Z",
-tags: ["watercooler"],
+tags: ["opinion"],
 description: "How does the old Winston Churchill quote go?   Those who fail to learn from history are doomed to...",
 originalLink: "https://dev.to/playfulprogramming/react-vs-signals-10-years-later-3k71",
 coverImg: "cover-image.png",

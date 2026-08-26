@@ -3,7 +3,7 @@
 title: "CSS Animation Events in Angular",
 published: "2022-03-18T01:51:18Z",
 edited: "2022-04-04T09:39:49Z",
-tags: ["angular", "css", "animations"],
+tags: ["angular", "css", "animation"],
 description: "CSS animations emit events that we can listen to using Javascript. There are slight differences in...",
 originalLink: "https://williamjuan.dev/blog/css-animation-events-in-angular",
 coverImg: "cover-image.png",
