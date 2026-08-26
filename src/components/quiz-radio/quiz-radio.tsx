@@ -30,6 +30,7 @@ export interface QuizRadioOption {
 export interface QuizRadioProps {
 	id?: string;
 	title: string;
+	titleId?: string;
 	options: QuizRadioOption[];
 	questionNum: number;
 	totalNum: number;
@@ -74,7 +75,7 @@ export function QuizRadio(props: QuizRadioProps) {
 					<span class="text-style-body-medium-bold">{props.totalNum}</span>
 				</span>
 				<Label className={`${style.quizOptionTitle} text-style-headline-5`}>
-					{props.title}
+					<span id={props.titleId}>{props.title}</span>
 				</Label>
 				<span class={`${style.quizPrompt} text-style-body-medium-bold`}>
 					Select the correct answer.

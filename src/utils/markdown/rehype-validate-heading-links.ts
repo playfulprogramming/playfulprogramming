@@ -1,11 +1,26 @@
-import type { Root } from "hast";
+import type { Element, Root } from "hast";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { isMarkdownVFile } from "./types.ts";
 import { logError } from "./logger.ts";
 
+type NodeWithFragmentIds = {
+	fragmentIds?: unknown;
+};
+
+function fragmentCandidates(fragment: string): string[] {
+	try {
+		const decodedFragment = decodeURIComponent(fragment);
+		return decodedFragment === fragment
+			? [fragment]
+			: [fragment, decodedFragment];
+	} catch {
+		return [fragment];
+	}
+}
+
 /**
- * Plugin to validate anchor links to headings and ensure their case matches their target heading IDs.
+ * Validate same-document fragment links and correct the case of heading links.
  */
 export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 	return (tree, file) => {
@@ -15,6 +30,7 @@ export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 
 		const headings = file.data.headingsWithIds;
 		const headingSlugsMap = new Map<string, string>();
+		const fragmentIds = new Set<string>();
 		for (const { slug } of headings) {
 			const lowerSlug = slug.toLowerCase();
 			const existingSlug = headingSlugsMap.get(lowerSlug);
@@ -31,12 +47,33 @@ export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 			headingSlugsMap.set(lowerSlug, slug);
 		}
 
+		visit(tree, (node) => {
+			if (node.type === "element") {
+				const id = (node as Element).properties["id"];
+				if (typeof id === "string") fragmentIds.add(id);
+			}
+
+			const componentFragmentIds = (node as NodeWithFragmentIds).fragmentIds;
+			if (!Array.isArray(componentFragmentIds)) return;
+
+			for (const id of componentFragmentIds) {
+				if (typeof id === "string") fragmentIds.add(id);
+			}
+		});
+
 		visit(tree, { type: "element", tagName: "a" }, (node) => {
 			const href = node.properties["href"];
 			if (typeof href !== "string" || !href.startsWith("#")) return;
 
-			const targetHeadingSlug = href.slice(1);
-			const headingSlug = headingSlugsMap.get(targetHeadingSlug.toLowerCase());
+			const candidates = fragmentCandidates(href.slice(1));
+			if (candidates.some((candidate) => fragmentIds.has(candidate))) return;
+
+			const targetHeadingSlug = candidates.find((candidate) =>
+				headingSlugsMap.has(candidate.toLowerCase()),
+			);
+			const headingSlug = targetHeadingSlug
+				? headingSlugsMap.get(targetHeadingSlug.toLowerCase())
+				: undefined;
 			if (!headingSlug) {
 				logError(
 					file,

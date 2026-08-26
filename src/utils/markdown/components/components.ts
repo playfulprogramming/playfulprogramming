@@ -38,6 +38,8 @@ export interface ComponentNode<Props = object> extends hast.Node {
 	component: keyof typeof components;
 	props: Omit<Props, "children">;
 	children: (PlayfulNode | hast.ElementContent)[];
+	/** IDs that the rendered component exposes as URL fragment targets. */
+	fragmentIds?: string[];
 }
 
 export type PlayfulNode =
