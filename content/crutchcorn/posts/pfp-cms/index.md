@@ -266,6 +266,7 @@ This is prep work to get us ready for the `v1` steps.
 
 Here's a rough flow chart of the planned functionality:
 
+<!-- ::start:mermaid -->
 ```mermaid
 flowchart TD
     CreatePost["User creates a draft post"] --> DB[("Database")]
@@ -289,9 +290,11 @@ flowchart TD
     classDef action stroke-width:4px
     classDef dashed stroke-dasharray:5 5
 ```
+<!-- ::end:mermaid -->
 
 ## Potential Sequence Diagram
 
+<!-- ::start:mermaid -->
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {
     "actorTextColor": "#000000",
@@ -365,6 +368,7 @@ sequenceDiagram
         end
     end
 ```
+<!-- ::end:mermaid -->
 
 ## Other Implementation Notes
 
