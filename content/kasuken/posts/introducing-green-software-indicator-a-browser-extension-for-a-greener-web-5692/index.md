@@ -2,7 +2,7 @@
 {
 title: "🌱 Introducing Green Software Indicator: a Browser Extension for a greener web",
 published: "2025-09-30T20:05:25Z",
-tags: ["browser", "extensions"],
+tags: ["webdev", "tools"],
 description: "As developers, we obsess over performance, accessibility, and design — but how often do we think...",
 originalLink: "https://dev.to/playfulprogramming/introducing-green-software-indicator-a-browser-extension-for-a-greener-web-5692",
 coverImg: "cover-image.png",

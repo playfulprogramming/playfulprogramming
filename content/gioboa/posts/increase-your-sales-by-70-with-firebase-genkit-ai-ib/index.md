@@ -2,7 +2,7 @@
 {
 title: "Increase Your Sales by 70% with Firebase Genkit AI",
 published: "2025-05-16T10:12:48Z",
-tags: ["firebase", "webdev", "programming", "ai"],
+tags: ["firebase", "webdev", "ai"],
 description: "Imagine your online store as a giant warehouse. You've got tons of cool stuff, but customers are...",
 originalLink: "https://dev.to/playfulprogramming/increase-your-sales-by-70-with-firebase-genkit-ai-ib",
 coverImg: "cover-image.png",

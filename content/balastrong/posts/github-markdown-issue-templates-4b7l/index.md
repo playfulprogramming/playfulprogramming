@@ -3,7 +3,7 @@
 title: "GitHub Markdown Issue Templates",
 published: "2023-09-14T06:27:14Z",
 edited: "2023-09-14T06:28:18Z",
-tags: ["github", "opensource", "codenewbie", "productivity"],
+tags: ["github", "open source", "beginner", "productivity"],
 description: "When you, as a contributor, want to create a new issue on GitHub, you're presented with a blank page...",
 originalLink: "https://leonardomontini.dev/github-issue-markdown-template",
 coverImg: "cover-image.png",

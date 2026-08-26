@@ -3,7 +3,7 @@
 title: "Building Single Executable Applications with Node.js",
 published: "2025-03-17T10:50:00Z",
 edited: "2025-09-02T04:58:50Z",
-tags: ["node", "tutorial", "devops", "docker"],
+tags: ["nodejs", "tutorial", "devops", "docker"],
 description: "Discover how to package your Node.js applications into single executable files, reducing deployment complexity and improving security.",
 originalLink: "https://dev.to/playfulprogramming/building-single-executable-applications-with-nodejs-16k3",
 coverImg: "cover-image.png",

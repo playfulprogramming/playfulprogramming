@@ -3,7 +3,7 @@
 title: "How I created a Cozy Workspace in VS Code",
 published: "2025-12-11T15:54:26Z",
 edited: "2025-12-11T22:18:36Z",
-tags: ["vscode", "productivity", "development", "githubcopilot"],
+tags: ["vscode", "productivity", "copilot"],
 description: "I love VS Code. It is fast, flexible, and works for almost any stack. But the default layout is not...",
 originalLink: "https://dev.to/playfulprogramming/how-i-created-a-cozy-workspace-in-vs-code-4bf0",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "GitHub Form Templates",
 published: "2023-10-17T20:53:04Z",
-tags: ["github", "opensource", "codenewbie", "productivity"],
+tags: ["github", "open source", "beginner", "productivity"],
 description: "When you, as a contributor, want to create a new issue on GitHub, you're presented with a blank page...",
 originalLink: "https://leonardomontini.dev/github-issue-form-template",
 coverImg: "cover-image.png",

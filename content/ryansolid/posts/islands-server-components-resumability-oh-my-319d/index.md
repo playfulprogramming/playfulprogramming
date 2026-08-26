@@ -3,7 +3,7 @@
 title: "Islands & Server Components & Resumability, Oh My!",
 published: "2023-09-14T07:01:00Z",
 edited: "2023-09-14T06:56:08Z",
-tags: ["javascript", "webdev", "performance", "frameworks"],
+tags: ["javascript", "webdev", "performance"],
 description: "It is no secret that the past 2 years have seen the beginnings of a fairly dramatic change in...",
 originalLink: "https://dev.to/playfulprogramming/islands-server-components-resumability-oh-my-319d",
 coverImg: "cover-image.png",

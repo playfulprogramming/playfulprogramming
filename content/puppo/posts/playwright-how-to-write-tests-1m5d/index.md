@@ -3,7 +3,7 @@
 title: "Playwright - How to write tests",
 published: "2022-12-14T09:30:42Z",
 edited: "2023-02-21T07:18:45Z",
-tags: ["playwright", "e2e"],
+tags: ["playwright", "testing"],
 description: "What are you going to learn in this post?   In this post, you will learn how to write tests...",
 originalLink: "https://blog.delpuppo.net/playwright-how-to-write-tests",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Backend development is more than writing endpoints for frontend",
 published: "2023-07-03T12:42:00Z",
 edited: "2024-05-10T23:04:53Z",
-tags: ["webdev", "dotnet", "programming", "csharp"],
+tags: ["webdev", "dotnet", "csharp"],
 description: "Backend development is a crucial part of web development that involves creating and maintaining the...",
 originalLink: "https://dev.to/playfulprogramming/backend-development-is-more-than-writing-endpoints-for-frontend-gl1",
 coverImg: "cover-image.png",

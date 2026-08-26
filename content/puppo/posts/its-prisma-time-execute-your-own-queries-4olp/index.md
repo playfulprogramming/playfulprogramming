@@ -2,7 +2,7 @@
 {
 title: "It's Prisma Time - Execute your own queries",
 published: "2022-01-28T07:10:53Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hello Folks 👋 Today it's time to see how we can execute our own queries.  In prisma we can run two...",
 originalLink: "https://dev.to/playfulprogramming/its-prisma-time-execute-your-own-queries-4olp",
 coverImg: "cover-image.png",

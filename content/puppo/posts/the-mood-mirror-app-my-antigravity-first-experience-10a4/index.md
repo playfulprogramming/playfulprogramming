@@ -3,7 +3,7 @@
 title: "The Mood Mirror App - My Antigravity first experience",
 published: "2025-12-04T06:03:00Z",
 edited: "2025-12-04T06:03:00Z",
-tags: ["ai", "gemini", "vibecoding", "antigravity"],
+tags: ["ai", "gemini"],
 description: "Just a week ago, Google launched Antigravity, and why not give it a try and share my experience? And...",
 originalLink: "https://blog.delpuppo.net/the-mood-mirror-app",
 coverImg: "cover-image.png",

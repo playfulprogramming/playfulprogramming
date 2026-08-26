@@ -3,7 +3,7 @@
 title: "Firebase Data Connect Introduces Enum Support for Enhanced Data Modeling",
 published: "2025-07-31T10:13:19Z",
 edited: "2025-07-31T10:14:03Z",
-tags: ["firebase", "programming", "database", "graphql"],
+tags: ["firebase", "database", "api"],
 description: "Enums allow you to quickly define a list of static, predefined values with a specific order, which...",
 originalLink: "https://dev.to/playfulprogramming/firebase-data-connect-introduces-enum-support-for-enhanced-data-modeling-2j97",
 coverImg: "cover-image.png",

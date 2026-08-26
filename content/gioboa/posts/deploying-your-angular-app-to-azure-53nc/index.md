@@ -3,7 +3,7 @@
 title: "Deploying Your Angular App to Azure",
 published: "2025-09-26T09:19:46Z",
 edited: "2025-09-26T09:20:07Z",
-tags: ["azure", "angular", "webdev", "programming"],
+tags: ["azure", "angular", "webdev"],
 description: "Every business need for a reliable and scalable cloud infrastructure, this is precisely where Azure...",
 originalLink: "https://dev.to/playfulprogramming-angular/deploying-your-angular-app-to-azure-53nc",
 coverImg: "cover-image.png",

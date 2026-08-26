@@ -3,7 +3,7 @@
 title: "Not feeling ready for Open Source?",
 published: "2022-10-05T05:52:32Z",
 edited: "2022-11-23T11:13:44Z",
-tags: ["opensource", "beginners", "github", "codenewbie"],
+tags: ["open source", "beginner", "github"],
 description: "One of the major blockers for newcomers to Open Source is that unpleasant impression of not feeling...",
 originalLink: "https://leonardomontini.dev/feeling-ready-for-open-source/",
 coverImg: "cover-image.png",

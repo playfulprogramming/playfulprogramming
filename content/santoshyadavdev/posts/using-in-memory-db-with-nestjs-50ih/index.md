@@ -3,7 +3,7 @@
 title: "Using in-memory-db With NestJS",
 published: "2020-01-14T18:20:24Z",
 edited: "2021-04-06T11:07:46Z",
-tags: ["typescript", "javascript", "webdev", "node"],
+tags: ["typescript", "javascript", "webdev", "nodejs"],
 description: "Let’s see why we should and how we can use in-memory-db, you can access the source code on GitHub....",
 originalLink: "https://medium.com/better-programming/using-in-memory-db-with-nestjs-803a91a8eb11",
 coverImg: "cover-image.png",

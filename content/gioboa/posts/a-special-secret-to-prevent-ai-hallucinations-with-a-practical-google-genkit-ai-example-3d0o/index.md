@@ -2,7 +2,7 @@
 {
 title: "A special secret to prevent AI hallucinations with a practical Google genkit-ai example!",
 published: "2025-05-08T12:08:22Z",
-tags: ["ai", "node", "firebase", "programming"],
+tags: ["ai", "nodejs", "firebase"],
 description: "Generative AI models possess the remarkable ability to generate human-quality text, code, images, and...",
 originalLink: "https://dev.to/playfulprogramming/a-special-secret-to-prevent-ai-hallucinations-with-a-practical-google-genkit-ai-example-3d0o",
 coverImg: "cover-image.png",

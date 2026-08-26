@@ -2,7 +2,7 @@
 {
 title: "How GitHub Copilot Uses MCP Tools Behind the Scenes",
 published: "2025-11-18T20:16:16Z",
-tags: ["github", "githubcopilot", "mcp", "agents"],
+tags: ["github", "copilot", "ai"],
 description: "Before we dive into the details, here is the video version of this article if you prefer to watch it...",
 originalLink: "https://leonardomontini.dev/mcp-tools-explained/",
 coverImg: "cover-image.png",

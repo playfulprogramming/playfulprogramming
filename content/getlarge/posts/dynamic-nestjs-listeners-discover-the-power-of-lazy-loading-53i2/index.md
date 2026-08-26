@@ -3,7 +3,7 @@
 title: "Dynamic NestJS Listeners: Discover the Power of Lazy Loading",
 published: "2024-10-13T11:46:34Z",
 edited: "2025-09-02T05:01:37Z",
-tags: ["typescript", "nestjs", "tutorial"],
+tags: ["typescript", "nodejs", "tutorial"],
 description: "Declare lazy-loaded routes in NestJS and in-depth review of the DiscoveryService",
 originalLink: "https://dev.to/playfulprogramming/dynamic-nestjs-listeners-discover-the-power-of-lazy-loading-53i2",
 coverImg: "cover-image.png",

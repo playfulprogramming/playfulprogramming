@@ -3,7 +3,7 @@
 title: "Tidy up your machine with Visual Studio Code Dev Containers",
 published: "2022-11-26T19:35:50Z",
 edited: "2022-12-20T08:12:33Z",
-tags: ["discuss"],
+tags: ["opinion"],
 description: "I recently discovered the Visual Studio Code - Dev Containers feature and I thought to share with you...",
 originalLink: "https://dev.to/playfulprogramming/tidy-up-your-machine-with-visual-studio-code-dev-containers-256n",
 coverImg: "cover-image.png",

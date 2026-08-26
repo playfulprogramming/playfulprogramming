@@ -2,7 +2,7 @@
 {
 title: "Google AI Studio - The Playground Every Developer Should Know About",
 published: "2026-06-05" ,
-tags: ["ai", "tools", "google", "gemini"],
+tags: ["ai", "tools", "gemini"],
 description: "Google AI Studio is a browser-based playground for developers to experiment with Gemini models, prototype ideas, and export working code without complex setup.",
 originalLink: "https://domenicotenace.dev/blog/google-ai-studio-the-playground-for-developer/",
 coverImg: "./cover.webp",

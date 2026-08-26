@@ -3,7 +3,7 @@
 title: "A quick overview of the Deno CLI",
 published: "2020-11-19T20:40:58Z",
 edited: "2020-11-20T21:31:05Z",
-tags: ["deno", "typescript", "javascript"],
+tags: ["javascript", "typescript"],
 description: "A quick introduction to the Deno CLI. It's a batteries included executable with everything you need to develop, lint, test, and run Deno code.",
 originalLink: "https://dev.to/playfulprogramming/a-quick-overview-of-the-deno-cli-1pm5",
 coverImg: "cover-image.png",

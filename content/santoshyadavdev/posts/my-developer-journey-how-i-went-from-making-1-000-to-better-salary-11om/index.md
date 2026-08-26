@@ -2,7 +2,7 @@
 {
 title: "My Developer Journey – How I Went from Making $1,000 to Better Salary",
 published: "2021-05-31T17:35:32Z",
-tags: ["motivation", "career"],
+tags: ["career"],
 description: "Cover photo by Ian Schneider on Unsplash.  Hey everyone, my name is Santosh. In this article, I will...",
 originalLink: "https://dev.to/playfulprogramming/my-developer-journey-how-i-went-from-making-1-000-to-better-salary-11om",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Head Start With Standalone Components In Angular",
 published: "2022-11-03T07:32:11Z",
 edited: "2022-11-24T07:34:04Z",
-tags: ["angular", "javascript", "frontend", "webdev"],
+tags: ["angular", "javascript", "webdev"],
 description: "Since version 14, we can play with Standalone Components as an easy way to build module-less...",
 originalLink: "https://www.danywalls.com/head-start-with-angular-14-and-standalone-components",
 coverImg: "cover-image.png",

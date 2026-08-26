@@ -2,7 +2,7 @@
 {
 title: "My Experience with Google Antigravity: How I Refactored Easy Kit Utils with AI Agents",
 published: "2026-01-06" ,
-tags: ["typescript", "antigravity", "javascript", "ai"],
+tags: ["typescript", "ai", "javascript"],
 description: "If you've been following the AI coding assistant space, you've probably heard the buzz around Cursor, Windsurf, and other tools. Well, Google decided to enter the chat with a different approach: instead of just assisting you while you code, Antigravity lets autonomous agents do the heavy lifting while you act more like an architect than a bricklayer.",
 originalLink: "https://domenicotenace.dev/blog/how-i-refactored-easy-kit-utils-with-ai-agents/",
 coverImg: "./cover.webp",

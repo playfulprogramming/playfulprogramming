@@ -2,7 +2,7 @@
 {
 title: "It's Prisma Time - Setup",
 published: "2021-12-16T07:03:17Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hi Guys, welcome to the second article of this series.  Today I'll show you how to setup a project...",
 originalLink: "https://dev.to/playfulprogramming/its-prisma-time-setup-ei7",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "How to Speak the Language of the Internet: A Introduction to the Most Common Network Protocols",
 published: "2024-01-03T09:55:00Z",
 edited: "2023-12-27T09:56:16Z",
-tags: ["networking", "network", "protocols"],
+tags: ["networking"],
 description: "Network protocols are sets of rules and standards that enable communication between devices over a...",
 originalLink: "https://dev.to/playfulprogramming/how-to-speak-the-language-of-the-internet-a-guide-to-the-most-common-network-protocols-j8e",
 coverImg: "cover-image.png",

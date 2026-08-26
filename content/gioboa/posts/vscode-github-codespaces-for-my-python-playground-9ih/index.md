@@ -3,7 +3,7 @@
 title: "VSCode & GitHub Codespaces for my Python playground",
 published: "2022-12-10T19:33:34Z",
 edited: "2022-12-20T08:15:58Z",
-tags: ["programming", "beginners", "cpp"],
+tags: ["beginner", "cpp"],
 description: "Today I did some experiments with Python, I decided to do this activity with GitHub Codespaces...",
 originalLink: "https://dev.to/playfulprogramming/vscode-github-codespaces-for-my-python-playground-9ih",
 coverImg: "cover-image.png",

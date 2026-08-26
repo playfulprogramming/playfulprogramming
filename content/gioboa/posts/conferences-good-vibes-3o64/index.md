@@ -3,7 +3,7 @@
 title: "Conferences = Good vibes",
 published: "2022-11-19T14:29:12Z",
 edited: "2022-12-20T08:16:43Z",
-tags: ["programming", "community", "gratitude"],
+tags: ["community", "opinion"],
 description: "After two days of conference I'm waiting for the flight to go home and I thought to share with you my...",
 originalLink: "https://dev.to/playfulprogramming/conferences-good-vibes-3o64",
 coverImg: "cover-image.png",

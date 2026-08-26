@@ -3,7 +3,7 @@
 title: "Bring Your Angular App to Life with Anime.js",
 published: "2025-08-19T13:57:42Z",
 edited: "2025-08-20T12:31:50Z",
-tags: ["angular", "animejs", "webdev", "tutorial"],
+tags: ["angular", "animation", "webdev", "tutorial"],
 description: "With recent updates to the Angular framework, it is now recommended to move away from the...",
 originalLink: "https://williamjuan.dev/blog/bring-your-angular-app-to-life-with-animejs",
 coverImg: "cover-image.png",

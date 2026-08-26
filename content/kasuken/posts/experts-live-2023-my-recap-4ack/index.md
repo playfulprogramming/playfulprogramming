@@ -2,7 +2,7 @@
 {
 title: "Experts Live 2023 - My Recap",
 published: "2023-09-29T20:49:32Z",
-tags: ["event", "powershell", "azure"],
+tags: ["events", "powershell", "azure"],
 description: "I’m excited to share with you my experience at Experts Live Europe 2023, a premier conference for IT...",
 originalLink: "https://dev.to/playfulprogramming/experts-live-2023-my-recap-4ack",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "⏪ 4 Ways to Undo a Git Commit - Amend vs Reset",
 published: "2023-01-12T13:21:45Z",
 edited: "2023-01-12T13:22:58Z",
-tags: ["motivation", "productivity"],
+tags: ["career", "productivity"],
 description: "I'm quite sure all of these happened to you at least once:   You committed a change with the wrong...",
 originalLink: "https://leonardomontini.dev/git-undo-amend-reset/",
 coverImg: "cover-image.png",

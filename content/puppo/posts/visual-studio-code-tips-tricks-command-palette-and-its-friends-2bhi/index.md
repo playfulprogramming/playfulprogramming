@@ -2,7 +2,7 @@
 {
 title: "Visual Studio Code - Tips & Tricks - Command Palette and its friends",
 published: "2022-02-21T06:27:16Z",
-tags: ["vscode", "productivity", "programming", "webdev"],
+tags: ["vscode", "productivity", "webdev"],
 description: "Visual Studio Code is one of the best code editors in this moment. Its Palette has many features but...",
 originalLink: "https://dev.to/playfulprogramming/visual-studio-code-tips-tricks-command-palette-and-its-friends-2bhi",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "The Tree Shaking Journey in Angular: A Deep Dive",
 published: "2024-12-23T17:08:33Z",
-tags: ["angular", "modern", "treeshaking", "santoshyadavdev"],
+tags: ["angular", "performance"],
 description: "Hey friends, how are you doing? This year, I tried a new Angular version and wanted to experiment...",
 originalLink: "https://www.santoshyadav.dev/blog/2024-12-20-the-tree-shaking-journey-in-angular-a-deep-dive/",
 coverImg: "cover-image.png",

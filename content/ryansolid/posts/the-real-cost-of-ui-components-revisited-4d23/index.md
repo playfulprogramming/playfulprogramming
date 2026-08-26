@@ -3,7 +3,7 @@
 title: "The Real Cost of UI Components Revisited",
 published: "2021-06-25T16:21:18Z",
 edited: "2021-06-25T17:55:25Z",
-tags: ["javascript", "webdev", "performance", "webperf"],
+tags: ["javascript", "webdev", "performance"],
 description: "With my focus recently going back to look at optimization for the Solid 1.0 release, I thought I'd...",
 originalLink: "https://dev.to/playfulprogramming/the-real-cost-of-ui-components-revisited-4d23",
 coverImg: "cover-image.png",

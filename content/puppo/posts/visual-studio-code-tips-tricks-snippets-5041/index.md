@@ -2,7 +2,7 @@
 {
 title: "Visual Studio Code - Tips & Tricks - Snippets",
 published: "2022-03-21T07:53:21Z",
-tags: ["vscode", "productivity", "programming", "webdev"],
+tags: ["vscode", "productivity", "webdev"],
 description: "If you used to adopt Visual Studio in the past probably you already know something about...",
 originalLink: "https://dev.to/playfulprogramming/visual-studio-code-tips-tricks-snippets-5041",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "It's Prisma Time - Insert",
 published: "2021-12-30T07:06:20Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Welcome Guys, Today it's time to add some records to the database 😁 so don't waste time and get your...",
 originalLink: "https://dev.to/playfulprogramming/its-prisma-time-insert-fc2",
 coverImg: "cover-image.png",

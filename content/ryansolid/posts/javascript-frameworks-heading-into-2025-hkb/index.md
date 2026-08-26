@@ -3,7 +3,7 @@
 title: "JavaScript Frameworks - Heading into 2025",
 published: "2025-01-06T17:13:46Z",
 edited: "2025-12-12T18:21:15Z",
-tags: ["webdev", "javascript", "webperf", "frameworks"],
+tags: ["webdev", "javascript", "performance"],
 description: "I admit I wasn't sure I'd be writing this article this year. It's easy to write articles that excite...",
 originalLink: "https://dev.to/playfulprogramming/javascript-frameworks-heading-into-2025-hkb",
 coverImg: "cover-image.png",

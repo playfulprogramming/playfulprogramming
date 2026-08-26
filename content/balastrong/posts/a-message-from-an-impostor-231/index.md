@@ -2,7 +2,7 @@
 {
 title: "A message from an Impostor",
 published: "2023-07-17T11:47:23Z",
-tags: ["learning", "motivation", "codenewbie", "beginners"],
+tags: ["learning", "career", "beginner"],
 description: "Impostor syndrome is quite popular in the tech industry.  People around you seem to be super experts,...",
 originalLink: "https://leonardomontini.dev/professional-impostor/",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "Google Antigravity vs GitHub Copilot - Why I'm Team Antigravity Now",
 published: "2026-01-23" ,
-tags: ["ai", "tools", "google", "gemini"],
+tags: ["ai", "tools", "gemini"],
 description: "If you’ve been following the AI coding tools space lately, you’ve probably noticed things are getting wild. We went from “whoa, AI can autocomplete my code!” to “wait, AI can literally build entire features while I grab coffee?” in what feels like about five minutes.",
 originalLink: "https://domenicotenace.dev/blog/antigravity-vs-copilot/",
 coverImg: "./cover.webp",

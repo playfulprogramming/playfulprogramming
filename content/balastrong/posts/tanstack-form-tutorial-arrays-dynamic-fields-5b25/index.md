@@ -2,7 +2,7 @@
 {
 title: "TanStack Form Tutorial: Arrays & Dynamic Fields",
 published: "2024-06-04T14:07:50Z",
-tags: ["react", "angular", "tutorial", "codenewbie"],
+tags: ["react", "angular", "tutorial", "beginner"],
 description: "Your form might not have a fixed number of fields, that's where arrays come in! Let's see today how...",
 originalLink: "https://leonardomontini.dev/tanstack-form-arrays-dynamic-fields/",
 coverImg: "cover-image.png",

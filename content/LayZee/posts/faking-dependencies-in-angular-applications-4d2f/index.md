@@ -3,7 +3,7 @@
 title: "Faking dependencies in Angular applications",
 published: "2021-03-24T13:44:32Z",
 edited: "2021-03-26T14:21:21Z",
-tags: ["angular", "dependencyinjection", "testing"],
+tags: ["angular", "testing"],
 description: "Create components and directives for manual tests.",
 originalLink: "https://dev.to/playfulprogramming-angular/faking-dependencies-in-angular-applications-4d2f",
 coverImg: "cover-image.png",

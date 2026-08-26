@@ -3,7 +3,7 @@
 title: "How to Close a Pull Request - Merge Commit vs Squash vs Rebase on GitHub",
 published: "2022-12-12T19:40:44Z",
 edited: "2023-02-21T07:56:26Z",
-tags: ["git", "github", "programming"],
+tags: ["git", "github"],
 description: "When Merging a Pull Request on GitHub, you mainly have three options, with a merge commit, squash or...",
 originalLink: "https://leonardomontini.dev/close-pr-strategy-merge-commit-squash-rebase/",
 coverImg: "cover-image.png",

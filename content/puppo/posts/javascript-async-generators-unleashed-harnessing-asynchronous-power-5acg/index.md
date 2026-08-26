@@ -2,7 +2,7 @@
 {
 title: "JavaScript Async Generators Unleashed: Harnessing Asynchronous Power",
 published: "2023-09-15T06:00:11Z",
-tags: ["javascript", "generator", "generators", "async"],
+tags: ["javascript"],
 description: "In the dynamic realm of JavaScript, the ability to efficiently handle asynchronous operations is...",
 originalLink: "https://blog.delpuppo.net/javascript-async-generators-unleashed-harnessing-asynchronous-power",
 coverImg: "cover-image.png",

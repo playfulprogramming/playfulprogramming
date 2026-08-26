@@ -2,7 +2,7 @@
 {
 title: "Animation Inspector: How DevTools can help when Creating Animations",
 published: "2021-10-14T11:25:36Z",
-tags: ["animations", "devtools"],
+tags: ["animation", "tools"],
 description: "Different browsers come with a different set of dev tools to help developers. When it comes to...",
 originalLink: "https://williamjuan.dev/blog/how-dev-tools-can-help-when-creating-animations",
 coverImg: "cover-image.png",

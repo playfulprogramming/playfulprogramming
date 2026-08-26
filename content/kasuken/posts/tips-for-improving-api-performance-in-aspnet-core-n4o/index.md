@@ -3,7 +3,7 @@
 title: "Tips for Improving API Performance in ASP.NET Core",
 published: "2025-06-01T20:23:55Z",
 edited: "2025-06-03T19:23:11Z",
-tags: ["aspnet", "dotnet", "performance", "webperf"],
+tags: ["dotnet", "performance"],
 description: "APIs are the backbone of modern applications, but even the cleanest code can drag if performance...",
 originalLink: "https://dev.to/playfulprogramming/tips-for-improving-api-performance-in-aspnet-core-n4o",
 coverImg: "cover-image.png",

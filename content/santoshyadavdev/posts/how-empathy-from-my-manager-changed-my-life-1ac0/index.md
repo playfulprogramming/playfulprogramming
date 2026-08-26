@@ -3,7 +3,7 @@
 title: "How empathy from my manager changed my life",
 published: "2021-03-10T10:14:50Z",
 edited: "2021-05-31T17:32:45Z",
-tags: ["leadership", "personalgrowth"],
+tags: ["leadership", "career"],
 description: "Cover photo by Helena Lopes on Unsplash.   \"You should always try to be a better person than you were...",
 originalLink: "https://dev.to/playfulprogramming/how-empathy-from-my-manager-changed-my-life-1ac0",
 coverImg: "cover-image.png",

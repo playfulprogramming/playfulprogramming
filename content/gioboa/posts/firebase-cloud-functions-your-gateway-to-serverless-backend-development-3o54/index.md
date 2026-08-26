@@ -3,7 +3,7 @@
 title: "Firebase Cloud Functions: Your Gateway to Serverless Backend Development",
 published: "2025-04-30T07:51:03Z",
 edited: "2025-04-30T07:51:15Z",
-tags: ["firebase", "serverless", "backend", "programming"],
+tags: ["firebase", "cloud", "webdev"],
 description: "The digital landscape is evolving at an unprecedented pace. Demands for faster, more scalable, and...",
 originalLink: "https://dev.to/playfulprogramming/firebase-cloud-functions-your-gateway-to-serverless-backend-development-3o54",
 coverImg: "cover-image.png",

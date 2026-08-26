@@ -3,7 +3,7 @@
 title: "Cracking the JavaScript Code: Unveil the Magic of Object Property Descriptors",
 published: "2023-11-02T06:35:07Z",
 edited: "2023-11-09T07:27:01Z",
-tags: ["javascript", "object", "descriptor"],
+tags: ["javascript"],
 description: "👋 Hey, JavaScript developers!  Ever wondered what makes your objects tick? Or how to go all...",
 originalLink: "https://blog.delpuppo.net/cracking-the-javascript-code-unveil-the-magic-of-object-descriptors",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Playwright - debug your tests",
 published: "2022-12-21T09:00:42Z",
 edited: "2023-02-21T07:19:12Z",
-tags: ["playwright", "e2e", "vscode", "extensions"],
+tags: ["playwright", "testing", "vscode", "tools"],
 description: "Debug your tests   One of the most popular things done by developers is to debug the code...",
 originalLink: "https://blog.delpuppo.net/playwright-debug-your-tests",
 coverImg: "cover-image.png",

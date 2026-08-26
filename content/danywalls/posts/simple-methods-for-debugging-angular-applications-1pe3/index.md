@@ -3,7 +3,7 @@
 title: "How To Debug Angular Applications Easy",
 published: "2023-06-17T07:50:28Z",
 edited: "2023-06-19T06:10:33Z",
-tags: ["angular", "javascript", "frontend"],
+tags: ["angular", "javascript", "webdev"],
 description: "As developers, we use a lot of our coding time to fix bugs. Debugging helps us find and remove errors...",
 originalLink: "https://www.danywalls.com/simple-methods-for-debugging-angular-applications",
 coverImg: "cover-image.png",

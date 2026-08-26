@@ -3,7 +3,7 @@
 title: "Unveiling the Magic: Exploring JavaScript Symbols",
 published: "2023-09-20T06:09:44Z",
 edited: "2023-09-20T06:15:35Z",
-tags: ["javascript", "es6", "symbols"],
+tags: ["javascript"],
 description: "Introduction to JavaScript Symbols   JavaScript Symbols are a new primitive data type...",
 originalLink: "https://blog.delpuppo.net/unveiling-the-magic-exploring-javascript-symbols",
 coverImg: "cover-image.png",

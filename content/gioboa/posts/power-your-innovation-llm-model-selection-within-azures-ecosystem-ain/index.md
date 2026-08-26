@@ -3,7 +3,7 @@
 title: "Power Your Innovation: LLM Model Selection within Azure's Ecosystem",
 published: "2025-07-23T07:44:57Z",
 edited: "2025-07-23T08:19:34Z",
-tags: ["azure", "cloud", "ai", "programming"],
+tags: ["azure", "cloud", "ai"],
 description: "The rise of Large Language Models (LLMs) has opened unprecedented possibilities for businesses, from...",
 originalLink: "https://dev.to/playfulprogramming/power-your-innovation-llm-model-selection-within-azures-ecosystem-ain",
 coverImg: "cover-image.png",

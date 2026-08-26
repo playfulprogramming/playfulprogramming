@@ -3,7 +3,7 @@
 title: "Let's keep it green ✅",
 published: "2022-11-04T11:07:18Z",
 edited: "2022-12-20T08:17:35Z",
-tags: ["refactoring", "cleancode", "testing", "webdev"],
+tags: ["architecture", "testing", "webdev"],
 description: "Working as a consultant I often carry out refactoring activities. I want to talk about that in this...",
 originalLink: "https://dev.to/playfulprogramming/lets-keep-it-green-4g9h",
 coverImg: "cover-image.png",

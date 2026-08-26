@@ -3,7 +3,7 @@
 title: "LeetCode Problem 121: Best Time to Buy and Sell Stock",
 published: "2024-08-01T12:45:20Z",
 edited: "2024-08-01T18:32:11Z",
-tags: ["javascript", "python", "algorithms", "programming"],
+tags: ["javascript", "python", "computer science"],
 description: "I recently tackled a classic LeetCode problem: \"Best Time to Buy and Sell Stock.\" This problem asks...",
 originalLink: "https://dev.to/playfulprogramming/leetcode-problem-121-best-time-to-buy-and-sell-stock-5d2b",
 coverImg: "cover-image.png",

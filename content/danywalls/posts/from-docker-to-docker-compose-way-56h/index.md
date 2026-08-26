@@ -3,7 +3,7 @@
 title: "From Docker to Docker compose way!",
 published: "2021-11-24T17:30:34Z",
 edited: "2021-11-25T08:20:47Z",
-tags: ["devops", "docker", "beginners"],
+tags: ["devops", "docker", "beginner"],
 description: "If you work with docker, typing for every action is not a good deal, and sometimes it can be a...",
 originalLink: "https://dev.to/playfulprogramming/from-docker-to-docker-compose-way-56h",
 coverImg: "cover-image.png",

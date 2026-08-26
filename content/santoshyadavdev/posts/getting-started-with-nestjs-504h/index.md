@@ -3,7 +3,7 @@
 title: "Getting Started With NestJS",
 published: "2020-01-02T11:18:44Z",
 edited: "2021-04-06T11:07:29Z",
-tags: ["javascript", "typescript", "node"],
+tags: ["javascript", "typescript", "nodejs"],
 description: "This is the first part of the series of articles on the Node.js framework known as NestJS, in this ar...",
 originalLink: "https://medium.com/@santosh.yadav198613/getting-started-with-nestjs-a4e8b0b09db4",
 coverImg: "cover-image.png",

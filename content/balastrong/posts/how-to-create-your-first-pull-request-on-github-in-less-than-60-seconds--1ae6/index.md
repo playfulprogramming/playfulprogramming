@@ -3,7 +3,7 @@
 title: "⏰ How to create your First Pull Request on GitHub in less than 60 seconds!",
 published: "2022-08-09T16:22:00Z",
 edited: "2022-11-22T22:17:42Z",
-tags: ["opensource", "github", "tutorial", "beginners"],
+tags: ["open source", "github", "tutorial", "beginner"],
 description: "Intro   Let's see the steps you need from zero to creating your first Pull Request.  If...",
 originalLink: "https://leonardomontini.dev/first-pull-request/",
 coverImg: "cover-image.png",

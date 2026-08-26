@@ -2,7 +2,7 @@
 {
 title: "Gemini CLI Skills - Teaching Your Terminal Agent How to Think",
 published: "2026-05-26" ,
-tags: ["ai", "tools", "google", "gemini"],
+tags: ["ai", "tools", "gemini"],
 description: "Gemini CLI Skills is a powerful tool that allows you to teach your terminal agent how to think, enabling it to perform complex tasks and automate workflows with ease.",
 originalLink: "https://domenicotenace.dev/blog/gemini-cli-skills/",
 coverImg: "./cover.webp",

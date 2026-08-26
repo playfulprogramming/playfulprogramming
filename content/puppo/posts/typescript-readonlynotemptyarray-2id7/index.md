@@ -2,7 +2,7 @@
 {
 title: "Typescript - (ReadOnly)NotEmptyArray",
 published: "2022-02-14T06:40:37Z",
-tags: ["typescript", "javascript", "webdev", "help"],
+tags: ["typescript", "javascript", "webdev", "learning"],
 description: "Arrays are already well described in typescript, but sometimes we need to be more strict with our...",
 originalLink: "https://dev.to/playfulprogramming/typescript-readonlynotemptyarray-2id7",
 coverImg: "cover-image.png",

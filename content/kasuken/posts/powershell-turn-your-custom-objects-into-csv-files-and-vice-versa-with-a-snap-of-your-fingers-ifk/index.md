@@ -3,7 +3,7 @@
 title: "PowerShell: Turn Your Custom Objects into CSV Files (and vice versa) with a Snap of Your Fingers",
 published: "2023-08-25T12:01:00Z",
 edited: "2023-08-27T08:14:45Z",
-tags: ["powershell", "programming", "terminal", "csv"],
+tags: ["powershell", "tools"],
 description: "PowerShell is a powerful scripting language that can manipulate various types of data, such as...",
 originalLink: "https://dev.to/playfulprogramming/powershell-turn-your-custom-objects-into-csv-files-and-vice-versa-with-a-snap-of-your-fingers-ifk",
 coverImg: "cover-image.png",

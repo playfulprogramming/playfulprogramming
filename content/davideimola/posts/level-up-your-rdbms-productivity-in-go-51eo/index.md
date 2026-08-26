@@ -2,7 +2,7 @@
 {
 title: "Level UP your RDBMS Productivity in GO",
 published: "2023-12-05T13:30:00Z",
-tags: ["go", "rdbms", "sql", "db"],
+tags: ["go", "database"],
 description: "IMPORTANT: All the things in this article are highly opinionated, and they are not a standard. I'm...",
 originalLink: "https://davideimola.dev/blog/level-up-your-rdbms-productivity-in-go/"
 }

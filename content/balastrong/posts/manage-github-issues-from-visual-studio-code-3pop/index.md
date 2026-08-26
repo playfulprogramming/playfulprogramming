@@ -2,7 +2,7 @@
 {
 title: "Manage GitHub Issues from Visual Studio Code",
 published: "2023-04-03T13:36:03Z",
-tags: ["github", "vscode", "codenewbie", "tutorial"],
+tags: ["github", "vscode", "beginner", "tutorial"],
 description: "Stop! 🛑 You no longer need to open GitHub and search 🔎 for that issue you were assigned to. You can...",
 originalLink: "https://leonardomontini.dev/manage-issues-vscode-github/",
 coverImg: "cover-image.png",

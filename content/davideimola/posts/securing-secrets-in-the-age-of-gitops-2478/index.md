@@ -3,7 +3,7 @@
 title: "Securing Secrets in the Age of GitOps",
 published: "2023-10-27T09:07:21Z",
 edited: "2023-11-04T18:01:50Z",
-tags: ["kubernetes", "security", "git", "cloud"],
+tags: ["devops", "security", "git", "cloud"],
 description: "Kubernetes and GitOps offer a powerful way to manage your infrastructure and applications. However,...",
 originalLink: "https://www.davideimola.dev/blog/securing-secrets-in-the-gitops-era",
 coverImg: "cover-image.png",
