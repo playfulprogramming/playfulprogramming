@@ -10,7 +10,7 @@ import {
 	createComponent,
 } from "../components.ts";
 import { visit } from "unist-util-visit";
-import type { FileEntry } from "#components/code-embed/types.tsx";
+import type { FileEntry } from "#components/code-embed/types.ts";
 import { codeToHtml } from "./code-embed-shiki.ts";
 
 /**
