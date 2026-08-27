@@ -21,7 +21,8 @@
 .inline-popup {
 	@extend .text-style-button-regular;
 
-	padding: var(--inline-popup_padding-vertical) var(--inline-popup_padding-horizontal);
+	padding: var(--inline-popup_padding-vertical)
+		var(--inline-popup_padding-horizontal);
 
 	background-color: var(--inline-popup_background);
 	color: var(--inline-popup_color);

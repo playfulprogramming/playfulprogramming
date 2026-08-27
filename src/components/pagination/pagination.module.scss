@@ -4,26 +4,24 @@
 	--nav-btn_min-size: var(--min-target-size_m);
 	--nav-btn_corner-radius: var(--corner-radius_s);
 
-	--nav-btn_background-color: var(--surface_primary_emphasis-low);
-	--nav-btn_background-color_hovered: var(--surface_primary_emphasis-medium);
-	--nav-btn_background-color_pressed: var(--surface_primary_emphasis-high);
+	--nav-btn_background-color: var(--tint_primary_low);
+	--nav-btn_background-color_hovered: var(--tint_primary_medium);
+	--nav-btn_background-color_pressed: var(--tint_primary_high);
 	--nav-btn_background-color_focused: var(--background_focus);
 	--nav-btn_background-color_disabled: var(--background_disabled);
 
-	--nav-btn_background-color_selected: var(--primary_default);
-	--nav-btn_background-color_selected_hovered: var(
-		--primary_high-contrast_hovered
-	);
-	--nav-btn_background-color_selected_pressed: var(--primary_high-contrast);
+	--nav-btn_background-color_selected: var(--primary_medium);
+	--nav-btn_background-color_selected_hovered: var(--primary_high_hovered);
+	--nav-btn_background-color_selected_pressed: var(--primary_high);
 
-	--nav-btn_foreground-color: var(--foreground_emphasis-high);
-	--nav-btn_foreground-color_selected: var(--primary_on-default);
+	--nav-btn_foreground-color: var(--foreground_high);
+	--nav-btn_foreground-color_selected: var(--primary_on-medium);
 	--nav-btn_foreground-color_disabled: var(--foreground_disabled);
 
 	--nav-btn_focus-outline_color: var(--focus-outline_primary);
 	--nav-btn_focus-outline_width: var(--border-width_focus);
 
-	--nav-btn_selected-outline_color: var(--primary_variant);
+	--nav-btn_selected-outline_color: var(--primary_low);
 	--nav-btn_selected-outline_width: var(--border-width_focus);
 }
 

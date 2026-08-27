@@ -18,35 +18,25 @@
 	--series-nav_chapter-item_border_width: var(--border-width_l);
 	--series-nav_chapter-item_arrow_size: var(--icon-size_default);
 
-	--series-nav_header_overline_color: var(--foreground_emphasis-medium);
-	--series-nav_header_title_color: var(--foreground_emphasis-high);
+	--series-nav_header_overline_color: var(--foreground_medium);
+	--series-nav_header_title_color: var(--foreground_high);
 
-	--series-nav_chapter-container_color: var(--surface_primary_emphasis-none);
+	--series-nav_chapter-container_color: var(--tint_primary_none);
 
-	--series-nav_chapter-item_border_color_hovered: var(--primary_variant);
-	--series-nav_chapter-item_border_color_pressed: var(--primary_default);
-	--series-nav_chapter-item_border_color_selected: var(
-		--surface_primary_emphasis-medium
-	);
+	--series-nav_chapter-item_border_color_hovered: var(--primary_low);
+	--series-nav_chapter-item_border_color_pressed: var(--primary_medium);
+	--series-nav_chapter-item_border_color_selected: var(--tint_primary_medium);
 
-	--series-nav_chapter-item_background-color_hovered: var(
-		--surface_primary_emphasis-none
-	);
-	--series-nav_chapter-item_background-color_pressed: var(
-		--surface_primary_emphasis-low
-	);
+	--series-nav_chapter-item_background-color_hovered: var(--tint_primary_none);
+	--series-nav_chapter-item_background-color_pressed: var(--tint_primary_low);
 	--series-nav_chapter-item_background-color_focused: var(--background_focus);
 
 	--series-nav_chapter-item_outline-color_focused: var(--focus-outline_primary);
 
-	--series-nav_chapter-item_arrow_color: var(--foreground_emphasis-medium);
-	--series-nav_chapter-item_title_color: var(--primary_default);
-	--series-nav_chapter-item_title_color_pressed: var(
-		--foreground_emphasis-high
-	);
-	--series-nav_chapter-item_title_color_selected: var(
-		--foreground_emphasis-medium
-	);
+	--series-nav_chapter-item_arrow_color: var(--foreground_medium);
+	--series-nav_chapter-item_title_color: var(--primary_medium);
+	--series-nav_chapter-item_title_color_pressed: var(--foreground_high);
+	--series-nav_chapter-item_title_color_selected: var(--foreground_medium);
 }
 
 .seriesTableOfContent {

@@ -1,10 +1,10 @@
 @use "../../tokens/index" as *;
 
 :root {
-	--contributor_background-color: var(--surface_primary_emphasis-none);
+	--contributor_background-color: var(--tint_primary_none);
 	--contributor_corner-radius: var(--corner-radius_l);
-	--contributor_name-color: var(--foreground_emphasis-high);
-	--contributor_role-color: var(--foreground_emphasis-medium);
+	--contributor_name-color: var(--foreground_high);
+	--contributor_role-color: var(--foreground_medium);
 	--contributor_avatar_size: 64px;
 	--contributor_avatar_border_color: var(--background_primary);
 	--contributor_avatar_border_width: var(--border-width_xl);
@@ -120,7 +120,7 @@
 .partnerLabel {
 	margin: 0;
 	margin-left: var(--spc-2x);
-	background: var(--surface_primary_emphasis-low);
+	background: var(--tint_primary_low);
 	border-radius: var(--corner-radius_s);
 	padding: var(--spc-1x) var(--spc-3x) var(--spc-1x) var(--spc-2x);
 	display: inline-flex;

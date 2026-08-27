@@ -2,53 +2,37 @@
 
 :root {
 	--quiz-option_unselected_background-color_default: var(--transparent);
-	--quiz-option_unselected_background-color_hovered: var(
-		--surface_primary_emphasis-medium
-	);
-	--quiz-option_unselected_background-color_pressed: var(
-		--surface_primary_emphasis-high
-	);
+	--quiz-option_unselected_background-color_hovered: var(--tint_primary_medium);
+	--quiz-option_unselected_background-color_pressed: var(--tint_primary_high);
 	--quiz-option_unselected_background-color_focused: var(--background_focus);
-	--quiz-option_unselected_foreground-color_default: var(
-		--foreground_emphasis-medium
-	);
-	--quiz-option_unselected_foreground-color_interaction: var(
-		--foreground_emphasis-high
-	);
+	--quiz-option_unselected_foreground-color_default: var(--foreground_medium);
+	--quiz-option_unselected_foreground-color_interaction: var(--foreground_high);
 
-	--quiz-option_selected_background-color_default: var(
-		--surface_primary_emphasis-low
-	);
-	--quiz-option_selected_background-color_hovered: var(
-		--surface_primary_emphasis-medium
-	);
-	--quiz-option_selected_background-color_pressed: var(
-		--surface_primary_emphasis-high
-	);
+	--quiz-option_selected_background-color_default: var(--tint_primary_low);
+	--quiz-option_selected_background-color_hovered: var(--tint_primary_medium);
+	--quiz-option_selected_background-color_pressed: var(--tint_primary_high);
 	--quiz-option_selected_background-color_focused: var(--background_focus);
-	--quiz-option_selected_foreground-color: var(--primary_on-variant);
-	--quiz-option_selected_icon-color: var(--primary_default);
+	--quiz-option_selected_foreground-color: var(--primary_on-low);
+	--quiz-option_selected_icon-color: var(--primary_medium);
 	--quiz-option_selected_icon-bg-color: var(--background_primary);
 
 	--quiz-option_disabled_foreground-color_default: var(--foreground_disabled);
 	--quiz-option_disabled_icon-color: var(--foreground_disabled);
 
-	--quiz-option_correct_background-color: var(--surface_positive_emphasis-low);
-	--quiz-option_correct_text-color: var(--positive_on-variant);
-	--quiz-option_correct_explanation_text-color: var(--positive_default);
+	--quiz-option_correct_background-color: var(--tint_positive_low);
+	--quiz-option_correct_text-color: var(--positive_on-low);
+	--quiz-option_correct_explanation_text-color: var(--positive_medium);
 
 	// Radio button color overrides
-	--quiz-option_correct_icon-color: var(--positive_default);
+	--quiz-option_correct_icon-color: var(--positive_medium);
 	--quiz-option_correct_icon-bg-color: var(--background_positive);
 
-	--quiz-option_incorrect_background-color: var(
-		--surface_secondary_emphasis-low
-	);
-	--quiz-option_incorrect_text-color: var(--secondary_on-variant);
-	--quiz-option_incorrect_explanation_text-color: var(--secondary_default);
+	--quiz-option_incorrect_background-color: var(--tint_secondary_low);
+	--quiz-option_incorrect_text-color: var(--secondary_on-low);
+	--quiz-option_incorrect_explanation_text-color: var(--secondary_medium);
 
 	// Radio button color overrides
-	--quiz-option_incorrect_icon-color: var(--secondary_default);
+	--quiz-option_incorrect_icon-color: var(--secondary_medium);
 	--quiz-option_incorrect_icon-bg-color: var(--background_secondary);
 
 	--quiz-option_focus-outline_width: var(--border-width_focus);
@@ -62,16 +46,16 @@
 	--quiz-option_gap: var(--spc-3x);
 	--quiz-option_row_padding-horizontal: var(--spc-3x);
 
-	--quiz_background-color: var(--surface_primary_emphasis-none);
+	--quiz_background-color: var(--tint_primary_none);
 	--quiz_corner-radius: var(--corner-radius_xl);
 
 	// Error handling
-	--quiz_error_background-color: var(--surface_error_emphasis-low);
-	--quiz_error_foreground-color: var(--error_on-variant);
+	--quiz_error_background-color: var(--tint_error_low);
+	--quiz_error_foreground-color: var(--error_on-low);
 	--quiz_error_corner-radius: var(--corner-radius_l);
 
-	--quiz_explanation_background-color: var(--surface_primary_emphasis-low);
-	--quiz_explanation_foreground-color: var(--primary_on-variant);
+	--quiz_explanation_background-color: var(--tint_primary_low);
+	--quiz_explanation_foreground-color: var(--primary_on-low);
 }
 
 .quizOptionContainer {
@@ -100,7 +84,7 @@
 .quizPrompt {
 	display: block;
 	padding: 0 var(--spc-6x) var(--spc-4x) var(--spc-6x);
-	color: var(--primary_default);
+	color: var(--primary_medium);
 }
 
 .quizOptionBottomContainer {

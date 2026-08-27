@@ -12,13 +12,11 @@
 
 	--search-hero_icon_size: var(--icon-size_default);
 
-	--search-hero_container_background-color: var(
-		--surface_primary_emphasis-none
-	);
+	--search-hero_container_background-color: var(--tint_primary_none);
 	--search-hero_image_border_color: var(--background_primary);
 
-	--search-hero_title_color: var(--foreground_emphasis-high);
-	--search-hero_description_color: var(--foreground_emphasis-medium);
+	--search-hero_title_color: var(--foreground_high);
+	--search-hero_description_color: var(--foreground_medium);
 
 	--search-hero_btn_margin-top: var(--site-spacing);
 

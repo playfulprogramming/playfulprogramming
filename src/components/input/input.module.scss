@@ -10,22 +10,22 @@
 	--form-field_outline_width_focused: var(--border-width_m);
 	--form-field_halo_width: var(--border-width_focus);
 
-	--form-label_color: var(--foreground_emphasis-high);
+	--form-label_color: var(--foreground_high);
 	--form-label_color_disabled: var(--foreground_disabled);
 
-	--form-field_background: var(--surface_primary_emphasis-none);
-	--form-field_background_hovered: var(--surface_primary_emphasis-low);
+	--form-field_background: var(--tint_primary_none);
+	--form-field_background_hovered: var(--tint_primary_low);
 	--form-field_background_focused: var(--background_focus);
 	--form-field_background_error: var(--background_error);
 	--form-field_background_disabled: var(--background_disabled);
 
 	--form-field_outline_color: var(--foreground_disabled);
-	--form-field_outline_color_hovered: var(--foreground_emphasis-medium);
-	--form-field_outline_color_focused: var(--secondary_default);
-	--form-field_outline_color_error: var(--error_default);
+	--form-field_outline_color_hovered: var(--foreground_medium);
+	--form-field_outline_color_focused: var(--focus-outline_secondary);
+	--form-field_outline_color_error: var(--focus-outline_error);
 	--form-field_outline_color_disabled: var(--background_disabled);
 
-	--form-field_halo_color: var(--secondary_variant);
+	--form-field_halo_color: var(--secondary_low);
 	--form-field_halo_color_error: var(--error_variant);
 }
 
@@ -36,7 +36,7 @@
 	border: var(--form-field_outline_width) solid var(--form-field_outline_color);
 	border-radius: 8px;
 	background: var(--form-field_background);
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	margin: 0;
 }
 
@@ -81,9 +81,9 @@
 .input input:-webkit-autofill:hover,
 .input input:-webkit-autofill:focus,
 .input input:-webkit-autofill:active {
-	color: var(--foreground_emphasis-high);
-	caret-color: var(--foreground_emphasis-high);
-	-webkit-text-fill-color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
+	caret-color: var(--foreground_high);
+	-webkit-text-fill-color: var(--foreground_high);
 	-webkit-box-shadow: 0 0 0 var(--form-field_min-height)
 		var(--form-field_background_focused) inset;
 }
@@ -94,7 +94,7 @@
 }
 
 .label {
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	padding: var(--spc-1x) var(--spc-2x) var(--spc-1x) var(--spc-1x);
 }
 
@@ -103,7 +103,7 @@
 	--search-form-field_padding-vertical: var(--spc-4x);
 
 	--search-form_icon-size: var(--icon-size_default);
-	--search-form_icon-color: var(--foreground_emphasis-high);
+	--search-form_icon-color: var(--foreground_high);
 	--search-form_icon-color_disabled: var(--foreground_disabled);
 
 	--search-form-hint_color: var(--foreground_disabled);

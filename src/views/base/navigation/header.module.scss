@@ -77,8 +77,7 @@ header {
 		margin-left: var(--spc-1x);
 		margin-right: var(--header_logo_padding-end);
 		line-height: 125%;
-
-		color: var(--primary_default);
+		color: var(--primary_medium_semantic);
 
 		display: none;
 
@@ -91,10 +90,6 @@ header {
 .nav {
 	gap: var(--header_button-gap);
 	flex-grow: 1;
-
-	a:global(.button) {
-		background: transparent;
-	}
 
 	display: none;
 
