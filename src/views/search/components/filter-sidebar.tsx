@@ -11,7 +11,6 @@ import { FilterSidebarControls } from "./filter-sidebar-controls.tsx";
 import type { FilterState } from "../use-filter-state.ts";
 import { useState, useMemo, useEffect } from "preact/hooks";
 import { SearchInput } from "#components/input/input.tsx";
-import type { Locale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
 interface FilterSidebarProps {
@@ -27,7 +26,6 @@ interface FilterSidebarProps {
 	isHybridSearch: boolean;
 	numberOfPosts: number | null;
 	numberOfCollections: number | null;
-	locale: Locale;
 }
 
 export const FilterSidebar = ({
@@ -43,7 +41,6 @@ export const FilterSidebar = ({
 	isHybridSearch,
 	numberOfPosts,
 	numberOfCollections,
-	locale,
 }: FilterSidebarProps) => {
 	const hideSearchbar = !searchString;
 
@@ -79,7 +76,7 @@ export const FilterSidebar = ({
 			}}
 			inert={hideSearchbar}
 		>
-			<h2 className="visually-hidden">{m.title_filters({}, { locale })}</h2>
+			<h2 className="visually-hidden">{m.title_filters()}</h2>
 			<LargeButton
 				tag="button"
 				type="button"
@@ -88,7 +85,7 @@ export const FilterSidebar = ({
 					(document.querySelector("#search-bar") as HTMLInputElement).focus()
 				}
 			>
-				{m.action_jump_to_search_bar({}, { locale })}
+				{m.action_jump_to_search_bar()}
 			</LargeButton>
 
 			<FilterSidebarControls
@@ -98,22 +95,19 @@ export const FilterSidebar = ({
 				contentToDisplay={contentToDisplay}
 				numberOfPosts={numberOfPosts}
 				numberOfCollections={numberOfCollections}
-				locale={locale}
 			/>
 			<FilterSection
-				title={m.title_tag({}, { locale })}
-				selectedLabel={m.search_filter_selected_tags({}, { locale })}
+				title={m.title_tag()}
+				selectedLabel={m.search_filter_selected_tags()}
 				data-testid="tag-filter-section-sidebar"
 				selectedNumber={filterState.tags.length}
 				onClear={() => filterState.setTags([])}
-				locale={locale}
 				searchSlot={
 					<SearchInput
 						usedInPreact
 						variant="dense"
-						placeholder={m.search_placeholder_tags({}, { locale })}
+						placeholder={m.search_placeholder_tags()}
 						value={tagQuery}
-						locale={locale}
 						onInput={(e) =>
 							setTagQuery((e.currentTarget as HTMLInputElement).value)
 						}
@@ -143,25 +137,22 @@ export const FilterSidebar = ({
 								filterState.onTagChange(tag.tag, selected)
 							}
 							isHybridSearch={isHybridSearch}
-							locale={locale}
 						/>
 					);
 				})}
 			</FilterSection>
 			<FilterSection
-				title={m.title_author({}, { locale })}
-				selectedLabel={m.search_filter_selected_authors({}, { locale })}
+				title={m.title_author()}
+				selectedLabel={m.search_filter_selected_authors()}
 				data-testid="author-filter-section-sidebar"
 				selectedNumber={filterState.authors.length}
 				onClear={() => filterState.setAuthors([])}
-				locale={locale}
 				searchSlot={
 					<SearchInput
 						usedInPreact
 						variant="dense"
-						placeholder={m.search_placeholder_authors({}, { locale })}
+						placeholder={m.search_placeholder_authors()}
 						value={authorQuery}
-						locale={locale}
 						onInput={(e) =>
 							setAuthorQuery((e.currentTarget as HTMLInputElement).value)
 						}
@@ -189,7 +180,6 @@ export const FilterSidebar = ({
 								filterState.onAuthorChange(author.id, selected)
 							}
 							isHybridSearch={isHybridSearch}
-							locale={locale}
 						/>
 					);
 				})}

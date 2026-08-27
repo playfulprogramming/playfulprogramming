@@ -1,4 +1,3 @@
-import type { Locale } from "#src/paraglide/runtime.js";
 import {
 	test,
 	beforeEach,
@@ -55,10 +54,11 @@ import type {
 import { collectionSchema, postSchema } from "#utils/search.ts";
 
 const user = userEvent.setup();
+const initialPathname = window.location.pathname;
 
 beforeEach(() => {
 	// Reset URL after each test
-	window.history.replaceState({}, "", window.location.pathname);
+	window.history.replaceState({}, "", initialPathname);
 });
 
 interface FnReply {
@@ -229,12 +229,12 @@ function mockPeopleIndex(
 	);
 }
 
-function SearchPage(props: { mockClient: SearchContext; locale?: Locale }) {
+function SearchPage(props: { mockClient: SearchContext }) {
 	const queryClient = new QueryClient();
 	return (
 		<SearchClient.Provider value={props.mockClient}>
 			<QueryClientProvider client={queryClient}>
-				<SearchPageBase siteTitle="Site Title" locale={props.locale ?? "en"} />
+				<SearchPageBase siteTitle="Site Title" />
 			</QueryClientProvider>
 		</SearchClient.Provider>
 	);
@@ -280,7 +280,7 @@ describe("Search page", () => {
 		window.history.replaceState(
 			{},
 			"",
-			`?${buildSearchQuery({ searchQuery: MockPost.title })}`,
+			`/fr/search?${buildSearchQuery({ searchQuery: MockPost.title })}`,
 		);
 		mockPeopleIndex([MockPerson]);
 		const client = mockClient(() => ({
@@ -290,9 +290,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByRole } = render(
-			<SearchPage mockClient={client} locale="fr" />,
-		);
+		const { getByRole } = render(<SearchPage mockClient={client} />);
 
 		await waitFor(() =>
 			expect(getByRole("link", { name: MockPost.title })).toBeInTheDocument(),

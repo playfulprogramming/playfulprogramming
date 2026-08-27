@@ -8,7 +8,7 @@ import styles from "./person-page.module.scss";
 import AchievementCard from "./components/achievement-card.astro";
 import { buildSearchQuery } from "../search/search.ts";
 import { getAchievements } from "#src/utils/achievements/index.ts";
-import { localizeHref, type Locale } from "#src/paraglide/runtime.js";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import * as api from "#utils/api.ts";
 import { isDefined } from "#utils/is-defined.ts";
@@ -16,10 +16,10 @@ import { isDefined } from "#utils/is-defined.ts";
 interface Props {
 	person: PersonInfo;
 	posts: PostInfo[];
-	locale: Locale;
 }
 
-const { person, posts, locale } = Astro.props;
+const { person, posts } = Astro.props;
+const locale = getLocale();
 
 const achievementsMeta = await getAchievements(person);
 
@@ -105,7 +105,6 @@ const postAuthors = new Map(
 							postsToDisplay={postsToDisplay}
 							postAuthors={postAuthors}
 							postHeadingTag="h3"
-							locale={locale}
 						/>,
 					]
 				: undefined

@@ -37,11 +37,7 @@ const collectionsToDisplay = isLocaleRoute
 		<Document>
 			<SEO slot="head" title={m.title_home()} providedLangs={providedLangs} />
 			<main class="container">
-				<Homepage
-					posts={postsToDisplay}
-					collections={collectionsToDisplay}
-					locale={locale}
-				/>
+				<Homepage posts={postsToDisplay} collections={collectionsToDisplay} />
 			</main>
 		</Document>
 	) : (

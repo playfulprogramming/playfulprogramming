@@ -8,7 +8,6 @@ import {
 	getStaticLocalePaths,
 	isValidLocaleRouteParam,
 } from "#utils/locales.ts";
-import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
 export function getStaticPaths() {
@@ -20,7 +19,6 @@ if (!isValidLocaleRouteParam(localeParam)) {
 	return Astro.rewrite("/404");
 }
 
-const locale = getLocale();
 const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
 ---
 
@@ -38,10 +36,6 @@ const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
 				{m.search_noscript()}
 			</p>
 		</noscript>
-		<SearchPage
-			client:only="preact"
-			siteTitle={siteMetadata.title}
-			locale={locale}
-		/>
+		<SearchPage client:only="preact" siteTitle={siteMetadata.title} />
 	</main>
 </Document>

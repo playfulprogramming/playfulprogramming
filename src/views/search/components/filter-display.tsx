@@ -1,6 +1,5 @@
 import { useMemo } from "preact/hooks";
 import type { PersonInfo, TagInfo } from "#types/index.ts";
-import type { Locale } from "#src/paraglide/runtime.js";
 import type { CSSProperties } from "preact";
 import { useWindowSize } from "../../../hooks/use-window-size.tsx";
 import { tabletLarge } from "../../../tokens/breakpoints.ts";
@@ -29,7 +28,6 @@ interface FilterDisplayProps {
 	contentToDisplay: DisplayContentType;
 	numberOfPosts: number | null;
 	numberOfCollections: number | null;
-	locale: Locale;
 }
 
 export const FilterDisplay = ({
@@ -48,7 +46,6 @@ export const FilterDisplay = ({
 	contentToDisplay,
 	numberOfPosts,
 	numberOfCollections,
-	locale,
 }: FilterDisplayProps) => {
 	const tags: ExtendedTag[] = useMemo(() => {
 		const totalEntries = {
@@ -108,7 +105,6 @@ export const FilterDisplay = ({
 				authors={authors}
 				filterState={filterState}
 				isHybridSearch={isHybridSearch}
-				locale={locale}
 			/>
 		);
 	}
@@ -127,7 +123,6 @@ export const FilterDisplay = ({
 			isHybridSearch={isHybridSearch}
 			numberOfPosts={numberOfPosts}
 			numberOfCollections={numberOfCollections}
-			locale={locale}
 		/>
 	);
 };

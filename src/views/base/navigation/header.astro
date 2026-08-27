@@ -96,11 +96,7 @@ const props = Astro.props;
 				{
 					!isSearch && [
 						<form method="get" action={searchHref} class={style.searchLarge}>
-							<SearchInput
-								name={SEARCH_QUERY_KEY}
-								variant="dense"
-								locale={locale}
-							/>
+							<SearchInput name={SEARCH_QUERY_KEY} variant="dense" />
 						</form>,
 
 						<IconOnlyButton

@@ -1,5 +1,3 @@
-import type { Locale } from "#src/paraglide/runtime.js";
-
 export interface PageInfo {
 	currentPage: number;
 	lastPage: number;
@@ -11,12 +9,10 @@ export interface PaginationButtonProps {
 	selected: boolean;
 	href: string;
 	softNavigate?: (href: string, pageNum: number) => void;
-	locale: Locale;
 }
 
 export interface PaginationProps {
 	page: PageInfo;
-	locale: Locale;
 	class?: string;
 	divClass?: string;
 	id?: string;

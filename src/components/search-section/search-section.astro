@@ -28,11 +28,7 @@ const searchPath = localizeHref("/search", { locale });
 	</p>
 
 	<form class={style.searchbarRow} method="get" action={searchPath}>
-		<SearchInput
-			name={SEARCH_QUERY_KEY}
-			class={style.searchbar}
-			locale={locale}
-		/>
+		<SearchInput name={SEARCH_QUERY_KEY} class={style.searchbar} />
 		<IconOnlyButton
 			tag="button"
 			type="submit"

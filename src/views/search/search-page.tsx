@@ -46,7 +46,6 @@ import {
 } from "./constants.ts";
 import { useFilterState } from "./use-filter-state.ts";
 import { SnitipCardGrid } from "#components/snitip/snitip-card.tsx";
-import type { Locale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
@@ -71,20 +70,20 @@ const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
 	);
 };
 
-export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
+export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 	const [query, setQueryState] = useSearchParams<SearchQuery>(
 		serializeParams,
 		deserializeParams,
 		(query): string => {
 			if (query.searchQuery === "*") {
-				return m.search_meta_all({ siteTitle }, { locale });
+				return m.search_meta_all({ siteTitle });
 			} else if (query.searchQuery) {
-				return m.search_meta_query(
-					{ query: query.searchQuery, siteTitle },
-					{ locale },
-				);
+				return m.search_meta_query({
+					query: query.searchQuery,
+					siteTitle,
+				});
 			}
-			return m.search_meta_default({ siteTitle }, { locale });
+			return m.search_meta_default({ siteTitle });
 		},
 	);
 
@@ -403,7 +402,6 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 				isHybridSearch={isHybridSearch}
 				numberOfPosts={isContentLoading ? null : data.totalPosts}
 				numberOfCollections={isContentLoading ? null : data.totalCollections}
-				locale={locale}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar
@@ -417,7 +415,6 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 					sort={query.sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 					headerHeight={headerHeight}
-					locale={locale}
 				/>
 				<section className={style.mainContentsInner}>
 					{/* aria-live cannot be on an element that is programmatically removed
@@ -429,14 +426,12 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 								<SearchResultCount
 									ref={resultsHeading}
 									numberOfCollections={data.totalCollections}
-									locale={locale}
 								/>
 							)}
 						{!isContentLoading && showArticles && data.totalPosts > 0 && (
 							<SearchResultCount
 								ref={resultsHeading}
 								numberOfPosts={data.totalPosts}
-								locale={locale}
 							/>
 						)}
 						{!isError && isContentLoading && (
@@ -444,7 +439,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 								<div className={style.loadingAnimationContainer}>
 									<div className={style.loadingAnimation} />
 									<p className={`text-style-headline-4 ${style.loadingText}`}>
-										{m.search_state_loading({}, { locale })}
+										{m.search_state_loading()}
 									</p>
 								</div>
 							</>
@@ -459,16 +454,16 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 							<SearchHero
 								imageSrc={sadUnicorn.src}
 								imageAlt={""}
-								title={m.search_state_empty_title({}, { locale })}
-								description={m.search_state_empty_description({}, { locale })}
+								title={m.search_state_empty_title()}
+								description={m.search_state_empty_description()}
 							/>
 						)}
 						{isError && (
 							<SearchHero
 								imageSrc={scaredUnicorn.src}
 								imageAlt={""}
-								title={m.search_state_error_title({}, { locale })}
-								description={m.search_state_error_description({}, { locale })}
+								title={m.search_state_error_title()}
+								description={m.search_state_error_description()}
 								buttons={
 									<LargeButton
 										onClick={() => refetch()}
@@ -476,7 +471,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 											<span dangerouslySetInnerHTML={{ __html: retry }} />
 										}
 									>
-										{m.action_retry({}, { locale })}
+										{m.action_retry()}
 									</LargeButton>
 								}
 							/>
@@ -487,8 +482,8 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 						<SearchHero
 							imageSrc={happyUnicorn.src}
 							imageAlt={""}
-							title={m.search_state_initial_title({}, { locale })}
-							description={m.desc_looking_for_more({}, { locale })}
+							title={m.search_state_initial_title()}
+							description={m.desc_looking_for_more()}
 						/>
 					)}
 					{enabled &&
@@ -498,13 +493,12 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 						Boolean(snitips.length) && (
 							<div className={style.snitipsContainer}>
 								<h2 id="snitips-header" className="visually-hidden">
-									{m.title_tags({}, { locale })}
+									{m.title_tags()}
 								</h2>
 								<SnitipCardGrid
 									snitips={snitips}
 									headingTag="h3"
 									aria-labelledby="snitips-header"
-									locale={locale}
 								/>
 							</div>
 						)}
@@ -518,7 +512,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 									data-testid="collections-header"
 									class="visually-hidden"
 								>
-									{m.title_collections({}, { locale })}
+									{m.title_collections()}
 								</h2>
 								<ul
 									aria-labelledby="collections-header"
@@ -533,7 +527,6 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 												.map((id) => peopleMap.get(`${id}`))
 												.filter(isDefined)}
 											headingTag="h3"
-											locale={locale}
 										/>
 									))}
 								</ul>
@@ -550,7 +543,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 									data-testid="articles-header"
 									class="visually-hidden"
 								>
-									{m.title_articles({}, { locale })}
+									{m.title_articles()}
 								</h2>
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
@@ -558,7 +551,6 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 									postAuthors={peopleMap}
 									postHeadingTag="h3"
 									expanded
-									locale={locale}
 								/>
 							</Fragment>
 						)}
@@ -569,7 +561,6 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 							<Pagination
 								divClass={style.pagination}
 								testId="pagination"
-								locale={locale}
 								softNavigate={(_href, pageNum) => {
 									window.scrollTo(0, 0);
 									setQuery(() => ({
@@ -599,7 +590,6 @@ const queryClient = new QueryClient();
 
 interface RootSearchPageProps {
 	siteTitle: string;
-	locale: Locale;
 }
 export default function SearchPage(props: RootSearchPageProps) {
 	return (

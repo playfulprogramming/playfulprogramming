@@ -7,17 +7,17 @@ import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import { buildSearchQuery } from "#src/views/search/search.ts";
 import type { PostInfoWithBanner } from "./types.ts";
 import { m } from "#src/paraglide/messages.js";
-import { localizeHref, type Locale } from "#src/paraglide/runtime.js";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 
 interface PostCardProps {
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	post: PostInfoWithBanner;
 	authors: Pick<PersonInfo, "id" | "name" | "locale">[];
 	class?: string;
-	locale: Locale;
 }
 
-function PostCardMeta({ post, authors, locale }: PostCardProps) {
+function PostCardMeta({ post, authors }: PostCardProps) {
+	const locale = getLocale();
 	const searchHref = localizeHref("/search", { locale });
 
 	return (
@@ -32,7 +32,7 @@ function PostCardMeta({ post, authors, locale }: PostCardProps) {
 					<ul
 						className={style.authorList}
 						role="list"
-						aria-label={m.label_post_authors({}, { locale })}
+						aria-label={m.label_post_authors()}
 					>
 						{authors.map((author, i, arr) => (
 							<li key={author.id} class="text-style-body-small-bold">
@@ -65,10 +65,9 @@ function PostCardMeta({ post, authors, locale }: PostCardProps) {
 							•
 						</span>
 						<span className={`text-style-body-small ${style.wordCount}`}>
-							{m.title_n_words(
-								{ count: post.wordCount.toLocaleString(locale) },
-								{ locale },
-							)}
+							{m.title_n_words({
+								count: post.wordCount.toLocaleString(locale),
+							})}
 						</span>
 					</span>
 				</p>
@@ -80,7 +79,7 @@ function PostCardMeta({ post, authors, locale }: PostCardProps) {
 			<div className={style.spacer} />
 			<ul
 				className={style.cardList}
-				aria-label={m.label_post_tags({}, { locale })}
+				aria-label={m.label_post_tags()}
 				role="list"
 			>
 				{post.tags.map((tag) => (
@@ -103,7 +102,6 @@ export const PostCardExpanded = ({
 	headingTag: HeadingTag = "h2",
 	class: className = "",
 	imageLoading = "lazy",
-	locale,
 }: PostCardProps & { imageLoading?: "eager" | "lazy" }) => {
 	const postHref = localizeHref(`/posts/${post.slug}`, {
 		locale: post.locale,
@@ -129,7 +127,7 @@ export const PostCardExpanded = ({
 						{post.title}
 					</HeadingTag>
 				</a>
-				<PostCardMeta post={post} authors={authors} locale={locale} />
+				<PostCardMeta post={post} authors={authors} />
 			</div>
 		</li>
 	);
@@ -140,7 +138,6 @@ export const PostCard = ({
 	authors,
 	headingTag: HeadingTag = "h2",
 	class: className = "",
-	locale,
 }: PostCardProps) => {
 	const postHref = localizeHref(`/posts/${post.slug}`, {
 		locale: post.locale,
@@ -156,7 +153,7 @@ export const PostCard = ({
 					{post.title}
 				</HeadingTag>
 			</a>
-			<PostCardMeta post={post} authors={authors} locale={locale} />
+			<PostCardMeta post={post} authors={authors} />
 		</li>
 	);
 };

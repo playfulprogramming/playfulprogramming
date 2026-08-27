@@ -7,7 +7,7 @@ import { RawSvg } from "#components/image/raw-svg.tsx";
 import ArticlesIcon from "#src/icons/articles.svg?raw";
 import NotebookIcon from "#src/icons/notebook.svg?raw";
 import { useMemo, useRef } from "preact/hooks";
-import type { Locale } from "#src/paraglide/runtime.js";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
 interface FilterSidebarControlsProps {
@@ -17,7 +17,6 @@ interface FilterSidebarControlsProps {
 	contentToDisplay: DisplayContentType;
 	numberOfPosts: number | null;
 	numberOfCollections: number | null;
-	locale: Locale;
 }
 
 function usePersistedRef<T>(value: T | undefined) {
@@ -38,8 +37,8 @@ export const FilterSidebarControls = ({
 	contentToDisplay,
 	numberOfPosts,
 	numberOfCollections,
-	locale,
 }: FilterSidebarControlsProps) => {
+	const locale = getLocale();
 	const postsLabel = usePersistedRef(numberOfPosts?.toLocaleString(locale));
 	const collectionsLabel = usePersistedRef(
 		numberOfCollections?.toLocaleString(locale),
@@ -48,7 +47,7 @@ export const FilterSidebarControls = ({
 		<>
 			<RadioButtonGroup
 				testId="show-group-sidebar"
-				label={m.label_show({}, { locale })}
+				label={m.label_show()}
 				defaultValue="articles"
 				value={contentToDisplay}
 				onChange={(v) => setContentToDisplay(v as DisplayContentType)}
@@ -58,30 +57,28 @@ export const FilterSidebarControls = ({
 					leftIcon={<RawSvg icon={ArticlesIcon} />}
 					rightIcon={postsLabel}
 				>
-					{m.title_articles({}, { locale })}
+					{m.title_articles()}
 				</RadioListButton>
 				<RadioListButton
 					value="collections"
 					leftIcon={<RawSvg icon={NotebookIcon} />}
 					rightIcon={collectionsLabel}
 				>
-					{m.title_collections({}, { locale })}
+					{m.title_collections()}
 				</RadioListButton>
 			</RadioButtonGroup>
 			<div className={style.container}>
 				<SelectWithLabel
 					testId={"sort-order-group-sidebar"}
-					label={m.label_sort({}, { locale })}
+					label={m.label_sort()}
 					prefixSelected={""}
-					defaultValue={m.search_sort_relevance({}, { locale })}
+					defaultValue={m.search_sort_relevance()}
 					value={sort}
 					onChange={(v) => setSort(v as SortType)}
 				>
-					<Item key={"relevance"}>
-						{m.search_sort_relevance({}, { locale })}
-					</Item>
-					<Item key={"newest"}>{m.search_sort_newest({}, { locale })}</Item>
-					<Item key={"oldest"}>{m.search_sort_oldest({}, { locale })}</Item>
+					<Item key={"relevance"}>{m.search_sort_relevance()}</Item>
+					<Item key={"newest"}>{m.search_sort_newest()}</Item>
+					<Item key={"oldest"}>{m.search_sort_oldest()}</Item>
 				</SelectWithLabel>
 			</div>
 		</>

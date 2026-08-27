@@ -16,7 +16,6 @@ function PaginationButton({
 	href,
 	selected,
 	softNavigate,
-	locale,
 }: PaginationButtonProps) {
 	const pageOptionalMin = Math.min(
 		Math.max(1, pageInfo.currentPage - 1),
@@ -38,10 +37,9 @@ function PaginationButton({
 				onClick={
 					softNavigate ? onSoftNavClick(softNavigate, pageNum) : undefined
 				}
-				aria-label={m.pagination_go_to_page_number(
-					{ pageNumber: String(pageNum) },
-					{ locale },
-				)}
+				aria-label={m.pagination_go_to_page_number({
+					pageNumber: String(pageNum),
+				})}
 				aria-current={selected || undefined}
 			>
 				{`${pageNum}`}
@@ -54,10 +52,7 @@ function PaginationButton({
  * This prevents the pagination menu from rendering on SSR, which throws errors
  */
 function PaginationMenuWrapper(
-	props: Pick<
-		PaginationProps,
-		"page" | "getPageHref" | "softNavigate" | "locale"
-	>,
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">,
 ) {
 	const shouldRender = typeof process === "undefined";
 
@@ -77,7 +72,6 @@ export const Pagination = ({
 	getPageHref = (pageNum: number) => `${rootURL}${pageNum}`,
 	softNavigate,
 	testId,
-	locale,
 }: PaginationProps) => {
 	const { isPreviousEnabled, isNextEnabled, pages } = usePagination(page);
 
@@ -88,7 +82,7 @@ export const Pagination = ({
 		<>
 			<div
 				role="navigation"
-				aria-label={m.pagination_label({}, { locale })}
+				aria-label={m.pagination_label()}
 				data-testid={testId}
 				className={divClassName}
 			>
@@ -97,7 +91,7 @@ export const Pagination = ({
 						<a
 							data-testid="pagination-previous"
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
-							aria-label={m.pagination_previous({}, { locale })}
+							aria-label={m.pagination_previous()}
 							href={
 								!isPreviousEnabled
 									? "javascript:void(0)"
@@ -122,7 +116,6 @@ export const Pagination = ({
 								selected={pageNum === page.currentPage}
 								href={getPageHref(pageNum)}
 								softNavigate={softNavigate}
-								locale={locale}
 							/>
 						) : (
 							<PaginationMenuWrapper
@@ -130,7 +123,6 @@ export const Pagination = ({
 								page={page}
 								getPageHref={getPageHref}
 								softNavigate={softNavigate}
-								locale={locale}
 							/>
 						);
 					})}
@@ -149,7 +141,7 @@ export const Pagination = ({
 									? onSoftNavClick(softNavigate, page.currentPage + 1)
 									: undefined
 							}
-							aria-label={m.pagination_next({}, { locale })}
+							aria-label={m.pagination_next()}
 							aria-disabled={!isNextEnabled}
 							dangerouslySetInnerHTML={{ __html: forward }}
 						/>

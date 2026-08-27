@@ -15,7 +15,6 @@ import {
 import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useDebouncedCallback } from "../use-debounced-value.ts";
-import type { Locale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
 interface SearchTopbarProps {
@@ -29,7 +28,6 @@ interface SearchTopbarProps {
 	setSort: (sortBy: SortType) => void;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
 	headerHeight: number;
-	locale: Locale;
 }
 
 export const SearchTopbar = ({
@@ -43,7 +41,6 @@ export const SearchTopbar = ({
 	sort,
 	setFilterIsDialogOpen,
 	headerHeight,
-	locale,
 }: SearchTopbarProps) => {
 	// while search and setSearch reflect the current query values, they are debounced to prevent fetch spam
 	// - searchInput contains the current input value
@@ -87,7 +84,7 @@ export const SearchTopbar = ({
 			>
 				<form
 					role="search"
-					aria-label={m.label_search_content({}, { locale })}
+					aria-label={m.label_search_content()}
 					className={style.searchbarRow}
 					onSubmit={(e) => {
 						e.preventDefault();
@@ -97,10 +94,9 @@ export const SearchTopbar = ({
 					<SearchInput
 						id="search-bar"
 						data-testid="search-input"
-						aria-description={m.desc_search_live_results({}, { locale })}
+						aria-description={m.desc_search_live_results()}
 						class={style.searchbar}
 						usedInPreact={true}
-						locale={locale}
 						value={searchInput}
 						onBlur={handleBlur}
 						onInput={handleInput}
@@ -110,13 +106,13 @@ export const SearchTopbar = ({
 						tag="button"
 						type="submit"
 					>
-						{m.title_search({}, { locale })}
+						{m.title_search()}
 					</LargeButton>
 					<IconOnlyButton
 						class={style.searchIconButton}
 						tag="button"
 						type="submit"
-						aria-label={m.title_search({}, { locale })}
+						aria-label={m.title_search()}
 						dangerouslySetInnerHTML={{ __html: forward }}
 						children={[]}
 					/>
@@ -130,14 +126,12 @@ export const SearchTopbar = ({
 					className={style.contentToDisplayGroup}
 					testId={"content-to-display-group-topbar"}
 					value={contentToDisplay}
-					label={m.label_content_to_display({}, { locale })}
+					label={m.label_content_to_display()}
 					onChange={(val) => setContentToDisplay(val as DisplayContentType)}
 				>
-					<RadioButton value={"articles"}>
-						{m.title_articles({}, { locale })}
-					</RadioButton>
+					<RadioButton value={"articles"}>{m.title_articles()}</RadioButton>
 					<RadioButton value={"collections"}>
-						{m.title_collections({}, { locale })}
+						{m.title_collections()}
 					</RadioButton>
 				</RadioButtonGroup>
 				<Button
@@ -152,29 +146,27 @@ export const SearchTopbar = ({
 						/>
 					}
 				>
-					{m.action_filter({}, { locale })}
+					{m.action_filter()}
 				</Button>
 				<Select
 					className={style.sortOrderGroup}
 					testId={"sort-order-group-topbar"}
-					label={m.label_post_sort_order({}, { locale })}
-					prefixSelected={m.label_sort_by({}, { locale })}
-					defaultValue={m.search_sort_relevance({}, { locale })}
+					label={m.label_post_sort_order()}
+					prefixSelected={m.label_sort_by()}
+					defaultValue={m.search_sort_relevance()}
 					value={sort}
 					onChange={(v) => setSort(v as SortType)}
 				>
-					<Item key={"relevance"}>
-						{m.search_sort_relevance({}, { locale })}
-					</Item>
-					<Item key={"newest"}>{m.search_sort_newest({}, { locale })}</Item>
-					<Item key={"oldest"}>{m.search_sort_oldest({}, { locale })}</Item>
+					<Item key={"relevance"}>{m.search_sort_relevance()}</Item>
+					<Item key={"newest"}>{m.search_sort_newest()}</Item>
+					<Item key={"oldest"}>{m.search_sort_oldest()}</Item>
 				</Select>
 				<IconOnlyButton
 					class={style.filterIconButton}
 					tag="button"
 					type="button"
 					onClick={() => setFilterIsDialogOpen(true)}
-					aria-label={m.action_filter({}, { locale })}
+					aria-label={m.action_filter()}
 				>
 					<span
 						className={style.filterIconContainer}

@@ -6,21 +6,20 @@ import { Picture as UUPicture } from "#components/image/picture.tsx";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 
 import { m } from "#src/paraglide/messages.js";
-import { localizeHref, type Locale } from "#src/paraglide/runtime.js";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 
 interface CollectionCardProps {
 	collection: CollectionInfo;
 	authors: PersonInfo[];
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-	locale: Locale;
 }
 
 export const CollectionCard = ({
 	collection,
 	authors,
 	headingTag: HeadingTag = "h2",
-	locale,
 }: CollectionCardProps) => {
+	const locale = getLocale();
 	const coverImgAspectRatio =
 		collection.coverImgMeta.width / collection.coverImgMeta.height;
 
@@ -49,7 +48,7 @@ export const CollectionCard = ({
 				<ul
 					className={`unlist-inline ${style.authorList}`}
 					role="list"
-					aria-label={m.label_collection_authors({}, { locale })}
+					aria-label={m.label_collection_authors()}
 				>
 					{authors?.map((author) => (
 						<li key={author.id}>
@@ -85,10 +84,9 @@ export const CollectionCard = ({
 				>
 					{collection.customChaptersText ?? (
 						<>
-							{m.title_n_chapters(
-								{ count: collection.postCount.toLocaleString(locale) },
-								{ locale },
-							)}
+							{m.title_n_chapters({
+								count: collection.postCount.toLocaleString(locale),
+							})}
 						</>
 					)}
 				</Button>

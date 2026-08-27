@@ -42,7 +42,7 @@ const posts = validPerson ? api.getPostsByPerson(validPerson.id, locale) : [];
 				type="profile"
 			/>
 			<main class="listViewContent">
-				<PersonPage person={validPerson} posts={posts} locale={locale} />
+				<PersonPage person={validPerson} posts={posts} />
 			</main>
 		</Document>
 	) : (

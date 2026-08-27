@@ -1,4 +1,3 @@
-import type { Locale } from "#src/paraglide/runtime.js";
 import style from "./post-card-grid.module.scss";
 import { PostCard, PostCardExpanded } from "./post-card.tsx";
 import type { PersonInfo } from "#types/index.ts";
@@ -11,7 +10,6 @@ export interface PostGridProps extends HTMLAttributes<HTMLUListElement> {
 	postAuthors: Map<string, PersonInfo>;
 	postHeadingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	expanded?: boolean;
-	locale: Locale;
 }
 
 export function PostCardGrid({
@@ -19,7 +17,6 @@ export function PostCardGrid({
 	postAuthors,
 	postHeadingTag,
 	expanded,
-	locale,
 	...props
 }: PostGridProps) {
 	return (
@@ -37,17 +34,11 @@ export function PostCardGrid({
 						post={post}
 						authors={authors}
 						headingTag={postHeadingTag}
-						locale={locale}
 						// images should be loaded eagerly when presented above-the-fold
 						imageLoading={i < 4 ? "eager" : "lazy"}
 					/>
 				) : (
-					<PostCard
-						post={post}
-						authors={authors}
-						headingTag={postHeadingTag}
-						locale={locale}
-					/>
+					<PostCard post={post} authors={authors} headingTag={postHeadingTag} />
 				);
 			})}
 		</ul>

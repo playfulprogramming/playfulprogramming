@@ -5,7 +5,7 @@ import style from "./filter-section-item.module.scss";
 import { useToggleState } from "react-stately";
 import { useEffect, useRef } from "preact/hooks";
 import { useRandomId } from "#utils/preact/useId.ts";
-import type { Locale } from "#src/paraglide/runtime.js";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
 interface FilterSectionItemProps {
@@ -15,7 +15,6 @@ interface FilterSectionItemProps {
 	selected: boolean;
 	isHybridSearch: boolean;
 	onChange: (selected: boolean) => void;
-	locale: Locale;
 }
 
 export const FilterSectionItem = ({
@@ -25,8 +24,8 @@ export const FilterSectionItem = ({
 	selected,
 	isHybridSearch,
 	onChange,
-	locale,
 }: FilterSectionItemProps) => {
+	const locale = getLocale();
 	const id = useRandomId();
 	const props = {
 		id,
@@ -46,8 +45,8 @@ export const FilterSectionItem = ({
 	const formattedCount = count.toLocaleString(locale);
 	const countLabel =
 		count === 1
-			? m.search_count_post_one({ count: formattedCount }, { locale })
-			: m.search_count_post_other({ count: formattedCount }, { locale });
+			? m.search_count_post_one({ count: formattedCount })
+			: m.search_count_post_other({ count: formattedCount });
 
 	useEffect(() => {
 		// this does not happen automatically, so we need to manually scroll to the focused item
