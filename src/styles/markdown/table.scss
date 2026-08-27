@@ -20,11 +20,11 @@
 
 	--table_header_label-color: var(--primary95);
 	--table_header_divider_color: var(--primary50);
-	--table_cell-alternate_background-color: var(--surface_primary_emphasis-low);
-	--table_cell_background-color: var(--surface_primary_emphasis-none);
-	--table_cell_background-color_hovered: var(--surface_primary_emphasis-medium);
-	--table_cell_background-color_pressed: var(--surface_primary_emphasis-high);
-	--table_cell_label-color: var(--foreground_emphasis-high);
+	--table_cell-alternate_background-color: var(--tint_primary_low);
+	--table_cell_background-color: var(--tint_primary_none);
+	--table_cell_background-color_hovered: var(--tint_primary_medium);
+	--table_cell_background-color_pressed: var(--tint_primary_high);
+	--table_cell_label-color: var(--foreground_high);
 }
 
 .post-body {

@@ -14,14 +14,14 @@
 	);
 	--popup_item_icon-size: var(--icon-size_default);
 
-	--popup_item_background-color_hovered: var(--surface_primary_emphasis-medium);
-	--popup_item_background-color_pressed: var(--surface_primary_emphasis-high);
-	--popup_item_background-color_selected: var(--surface_primary_emphasis-low);
+	--popup_item_background-color_hovered: var(--tint_primary_medium);
+	--popup_item_background-color_pressed: var(--tint_primary_high);
+	--popup_item_background-color_selected: var(--tint_primary_low);
 	--popup_item_background-color_focused: var(--background_focus);
 
-	--popup_item_label_color: var(--foreground_emphasis-high);
+	--popup_item_label_color: var(--foreground_high);
 	--popup_item_start-icon_color: var(--foreground_disabled);
-	--popup_item_check-icon_color: var(--foreground_emphasis-high);
+	--popup_item_check-icon_color: var(--foreground_high);
 
 	--popup_top_offset: var(--spc-2x);
 

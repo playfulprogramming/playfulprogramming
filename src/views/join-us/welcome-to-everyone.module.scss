@@ -8,7 +8,7 @@
 }
 
 .colorContainer {
-	background: var(--surface_secondary_emphasis-low);
+	background: var(--tint_secondary_low);
 	width: 100%;
 	border-radius: var(--corner-radius_xl);
 	padding: calc(var(--site-spacing) * 1.5);
@@ -34,12 +34,12 @@
 .title {
 	margin: 0;
 	margin-bottom: var(--spc-2x);
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 }
 
 .explainer {
 	margin: 0;
-	color: var(--secondary_on-variant);
+	color: var(--foreground_medium);
 }
 
 .buttonContainer {
