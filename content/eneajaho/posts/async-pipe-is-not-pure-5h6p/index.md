@@ -3,7 +3,7 @@
 title: "Async pipe is not pure 🤯",
 published: "2023-01-16T15:48:11Z",
 edited: "2023-01-16T16:04:34Z",
-tags: ["gratitude", "angular"],
+tags: ["opinion", "angular"],
 description: "Yes, that’s normal! Why? Because of how Angular does change detection under the hood!  To better...",
 originalLink: "https://eneajahollari.medium.com/async-pipe-is-not-pure-948f7b24e2d1",
 coverImg: "cover-image.png",

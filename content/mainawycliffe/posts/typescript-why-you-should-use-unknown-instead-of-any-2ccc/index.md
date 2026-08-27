@@ -2,7 +2,7 @@
 {
 title: "Typescript: why you should use unknown instead of any",
 published: "2021-09-02T08:53:53Z",
-tags: ["typescript", "javascript", "webdev", "programming"],
+tags: ["typescript", "javascript", "webdev"],
 description: "From time to time, we come across situations where the type isn't known beforehand, i.e. could be...",
 originalLink: "https://mainawycliffe.dev/blog/typescript-use-unknown-instead-of-any",
 coverImg: "cover-image.png",

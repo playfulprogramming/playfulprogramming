@@ -1,0 +1,67 @@
+{
+	"$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
+	// These files intentionally expose API/capability symbols that do not yet
+	// have consumers: Section, desktopLarge, the MSW-aware `it`, and
+	// isSupported, respectively.
+	"ignoreIssues": {
+		"src/components/select/select.tsx": ["exports"],
+		"src/tokens/breakpoints.ts": ["exports"],
+		"src/ui-test-utils/index.ts": ["exports"],
+		"src/utils/markdown/components/code-embed/webcontainer-script.ts": [
+			"exports",
+		],
+	},
+	"workspaces": {
+		".": {
+			// `content/` contains standalone tutorial projects, not site source. Keep
+			// Knip's source analysis scoped to this workspace's application code.
+			"project": [
+				"src/**/*.{astro,js,jsx,sass,scss,ts,tsx}",
+				"scripts/**/*.{js,ts}",
+				"__mocks__/**/*.ts",
+				"public/{sw,uninstall-sw}.js",
+			],
+			"entry": [
+				"src/pages/**/*.{astro,js,ts}",
+				"scripts/**/*.{js,ts}",
+				// Loaded by a <script> tag in bowtie-button.astro.
+				"src/components/bowtie-button/bowtie-button-script.ts",
+				// Bundled by esbuild from a string path in shiki-pool.ts.
+				"src/utils/markdown/shiki/worker.ts",
+				// Loaded by URL in the browser rather than imported as modules.
+				"public/{sw,uninstall-sw}.js",
+			],
+			// Knip does not resolve these aliased Sass @use edges. These partials
+			// are loaded by src/styles/post-body.scss, then src/global.scss.
+			"ignoreFiles": [
+				"src/styles/markdown/base.scss",
+				"src/styles/markdown/blockquote.scss",
+				"src/styles/markdown/codeblock.scss",
+				"src/styles/markdown/lists.scss",
+				"src/styles/markdown/table.scss",
+			],
+			// Keep exports that are used internally; removing their public modifier is
+			// not meaningful cleanup for this application workspace.
+			"ignoreExportsUsedInFile": true,
+			// Astro and endpoint entry files expose framework-consumed exports.
+			"includeEntryExports": false,
+			// The default Vitest glob also finds tests in standalone content examples.
+			"vitest": {
+				"entry": [
+					"src/**/*.node.spec.ts",
+					"src/**/*.ui.spec.{ts,tsx}",
+					"__mocks__/**/*.ts",
+				],
+			},
+		},
+		"e2e": {
+			"project": ["**/*.ts"],
+			"entry": [
+				"tests/**/*.spec.ts",
+				// Started by e2e/docker-compose.e2e.yml.
+				"src/server.ts",
+			],
+			"includeEntryExports": false,
+		},
+	},
+}

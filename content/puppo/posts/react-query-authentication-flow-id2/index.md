@@ -3,7 +3,7 @@
 title: "React Query - Authentication Flow",
 published: "2023-04-12T06:00:39Z",
 edited: "2023-04-12T07:03:58Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Every application should handle an authentication flow; in this article, you'll learn how to build an...",
 originalLink: "https://blog.delpuppo.net/react-query-authentication-flow",
 coverImg: "cover-image.png",

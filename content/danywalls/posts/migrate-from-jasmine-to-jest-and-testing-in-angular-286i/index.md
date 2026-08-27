@@ -3,7 +3,7 @@
 title: "Migrate from Jasmine to Jest and Testing Library in Angular",
 published: "2021-12-27T08:16:52Z",
 edited: "2022-11-04T13:40:02Z",
-tags: ["angular", "testing", "frontend", "javascript"],
+tags: ["angular", "testing", "webdev", "javascript"],
 description: "Angular, by default, comes with Jasmine; it is a great testing framework. I spent one year and a half...",
 originalLink: "https://www.danywalls.com/from-jasmine-to-jest-and-testing-library-in-angular-projects",
 coverImg: "cover-image.png",

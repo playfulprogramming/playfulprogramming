@@ -3,7 +3,7 @@
 title: "The Awesome Side of GitHub - Awesome Lists",
 published: "2023-03-07T09:03:43Z",
 edited: "2023-03-07T11:58:02Z",
-tags: ["github", "opensource", "tutorial", "awesome"],
+tags: ["github", "open source", "tutorial"],
 description: "Free resources for developers, board games and chess... what do they have in common? You can find...",
 originalLink: "https://leonardomontini.dev/github-awesome-lists/",
 coverImg: "cover-image.png",

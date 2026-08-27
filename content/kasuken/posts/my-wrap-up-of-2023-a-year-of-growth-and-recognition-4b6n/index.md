@@ -3,7 +3,7 @@
 title: "My Wrap Up of 2023: A Year of Growth and Recognition",
 published: "2024-01-21T05:31:21Z",
 edited: "2024-01-21T05:40:32Z",
-tags: ["career", "community", "writing", "devjournal"],
+tags: ["career", "community", "opinion"],
 description: "Hello everyone, this is my last blog post of the year and I want to share with you some of the...",
 originalLink: "https://dev.to/playfulprogramming/my-wrap-up-of-2023-a-year-of-growth-and-recognition-4b6n",
 coverImg: "cover-image.png",

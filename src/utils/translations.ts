@@ -1,7 +1,6 @@
 import type { Languages } from "#types/index.ts";
 import { languages } from "../constants/index.ts";
 import { basename } from "path";
-import type { MDXInstance, MarkdownInstance } from "astro";
 
 function isLanguageKey(str: string | undefined): str is Languages {
 	return str !== undefined && Object.keys(languages).includes(str);
@@ -78,41 +77,6 @@ export function removePrefixLanguageFromPath(path: string) {
 			return true;
 		})
 		.join("/");
-}
-
-/**
- * Gets a translated markdown page from Astro, based on the current URL locale.
- *
- * @param astro the Astro global instance
- * @param glob the Astro glob to query
- * @returns the matched markdown page
- */
-export function getTranslatedPage<
-	PageInstance extends
-		| MarkdownInstance<Record<string, unknown>>
-		| MDXInstance<Record<string, unknown>>,
->(
-	astro: { url: URL },
-	glob: PageInstance[],
-): {
-	locales: Languages[];
-	page: PageInstance;
-} {
-	const globResults = glob;
-	const lang = getPrefixLanguageFromPath(astro.url.pathname);
-
-	const matchedResult = globResults.find(
-		(md) => md.file.endsWith(`.${lang}.md`) || md.file.endsWith(`.${lang}.mdx`),
-	);
-
-	const locales = globResults.map((md) => getLanguageFromFilename(md.file));
-
-	const enResult = globResults[locales.findIndex((lang) => lang === "en")];
-
-	return {
-		locales: locales.sort(),
-		page: matchedResult || enResult,
-	};
 }
 
 // fetch translation files from /data/i18n

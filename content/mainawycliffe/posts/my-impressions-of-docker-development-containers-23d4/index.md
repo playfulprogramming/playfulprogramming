@@ -2,7 +2,7 @@
 {
 title: "My Impressions of Docker Development Containers",
 published: "2021-07-22T13:49:54Z",
-tags: ["docker", "vscode", "tooling", "programming"],
+tags: ["docker", "vscode", "tools"],
 description: "Docker development containers enable developers to set up development environment faster and...",
 originalLink: "https://mainawycliffe.dev/blog/my-impressions-of-docker-development-containers",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "How to set up an Nx-style monorepo workspace with the Angular CLI: Part 1",
 published: "2021-03-31T12:14:53Z",
 edited: "2021-09-18T23:08:49Z",
-tags: ["angular", "nx", "cli", "monorepo"],
+tags: ["angular", "nx", "tools", "monorepo"],
 description: "In this step-by-step tutorial, we set up an Nx-style monorepo workspace with the Angular CLI. In this first part, we create an application project, an end-to-end test project, and a feature shell library.",
 originalLink: "https://dev.to/playfulprogramming-angular/how-to-set-up-an-nx-style-monorepo-workspace-with-the-angular-cli-part-1-16b5",
 coverImg: "cover-image.png",

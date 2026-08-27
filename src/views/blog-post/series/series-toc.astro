@@ -8,13 +8,13 @@ import type { CollectionInfo } from "#types/CollectionInfo.ts";
 import { translate } from "#utils/index.ts";
 import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
 
-interface SeriesTocProps {
+interface Props {
 	post: PostInfo;
 	postSeries: PostInfo[];
 	collection?: CollectionInfo;
 }
 
-const { post, postSeries, collection } = Astro.props as SeriesTocProps;
+const { post, postSeries, collection } = Astro.props;
 
 const activePostsMeta = findActivePost(post, postSeries);
 

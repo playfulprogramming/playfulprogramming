@@ -2,7 +2,7 @@
 {
 title: "Feeling overwhelmed by technical articles? Let's find a solution",
 published: "2024-04-21T08:47:34Z",
-tags: ["productivity", "career", "learning", "codenewbie"],
+tags: ["productivity", "career", "learning", "beginner"],
 description: "Sometimes I feel that I'm reading a lot of technical articles and watching videos, but nothing really...",
 originalLink: "https://leonardomontini.dev/technical-content-vs-doom-scrolling/",
 coverImg: "cover-image.png",

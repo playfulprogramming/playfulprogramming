@@ -18,13 +18,13 @@ const TAGS_PER_ROW = 10;
 
 export type TagList = Readonly<FixedArray<string, 30>>;
 
-interface ChipGroupProps {
+interface Props {
 	tags: TagList;
 	ariaLabel: string;
 	rows?: number;
 }
 
-const { tags, ariaLabel, rows } = Astro.props as ChipGroupProps;
+const { tags, ariaLabel, rows } = Astro.props;
 const ROWS = rows ?? 3;
 const SHUFFLED_TAGS = shuffle(tags);
 const tagTable = [...new Array(ROWS)].map((_, i) =>
@@ -43,7 +43,7 @@ const uniqueTags = Array.from(new Set(tagTable.flat()));
 			tagTable.map((_, i) => (
 				<InfiniteLoopSlider
 					duration={random(MIN_DURATION, MAX_DURATION)}
-					reverse={i % 2}
+					reverse={(i % 2) === 1}
 				>
 					{tagTable[i].map((tag) => (
 						<li class="text-style-body-medium-bold tag">{tag}</li>

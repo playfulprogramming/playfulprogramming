@@ -3,7 +3,7 @@
 title: "Cracking the LeetCode 122. Best Time to Buy and Sell Stock II",
 published: "2024-08-04T09:48:30Z",
 edited: "2024-08-04T09:50:47Z",
-tags: ["python", "javascript", "dsa", "datastructures"],
+tags: ["python", "javascript", "computer science"],
 description: "In my ongoing quest to sharpen my LeetCode skills, I tackled the \"Best Time to Buy and Sell Stock II\"...",
 originalLink: "https://dev.to/playfulprogramming/cracking-the-leetcode-122-best-time-to-buy-and-sell-stock-ii-17k5",
 coverImg: "cover-image.png",

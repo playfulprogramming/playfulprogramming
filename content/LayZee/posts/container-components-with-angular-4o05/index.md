@@ -3,7 +3,7 @@
 title: "Container components with Angular",
 published: "2020-12-30T00:32:09Z",
 edited: "2021-03-22T21:56:14Z",
-tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
+tags: ["angular", "architecture"],
 description: "Container components are extracted from mixed Angular components to increase the maintainability, testability and scalability of our Angular apps.",
 originalLink: "https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Rust's `'static` doesn't imply memory leaks",
 published: '2026-01-11',
 description: "Leaking memory is one way to get a value living for `'static`, but it's not the only way",
-tags: ['rust', 'computer-science'],
+tags: ['rust', 'computer science'],
 originalLink: 'https://jacobasper.com/blog/rusts-static-doesnt-imply-memory-leaks/',
 }
 ---

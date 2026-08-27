@@ -3,7 +3,7 @@
 title: "Lean Angular components",
 published: "2021-03-24T12:43:12Z",
 edited: "2021-03-24T15:06:36Z",
-tags: ["angular", "architecture", "designpatterns", "components"],
+tags: ["angular", "architecture", "webdev"],
 description: "Building a robust component architecture.",
 originalLink: "https://dev.to/playfulprogramming-angular/lean-angular-components-1abl",
 coverImg: "cover-image.png",

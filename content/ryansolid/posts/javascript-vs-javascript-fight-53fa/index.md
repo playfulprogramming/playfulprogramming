@@ -3,7 +3,7 @@
 title: "JavaScript vs JavaScript. Fight!",
 published: "2021-08-19T14:12:54Z",
 edited: "2021-09-10T23:40:52Z",
-tags: ["javascript", "webdev", "react", "frameworks"],
+tags: ["javascript", "webdev", "react"],
 description: "With software development, we are often presented with alternative choices for libraries and tools...",
 originalLink: "https://dev.to/playfulprogramming/javascript-vs-javascript-fight-53fa",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Incremental stylesheet linting with Stylelint and the Nx toolchain",
 published: "2020-12-17T22:22:38Z",
 edited: "2022-12-23T00:59:39Z",
-tags: ["nx", "stylelint", "angular", "react"],
+tags: ["nx", "tools", "angular", "react"],
 description: "Add and configure Stylelint. Then automate Stylelint workflows in your Nx workspace.",
 originalLink: "https://dev.to/playfulprogramming/incremental-stylesheet-linting-with-stylelint-and-the-nx-toolchain-3f5g",
 coverImg: "cover-image.png",

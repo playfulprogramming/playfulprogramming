@@ -2,7 +2,7 @@
 {
 title: "100% Code Coverage is a Lie 🎯",
 published: "2023-02-09T18:20:00Z",
-tags: ["postgres", "sql", "howto"],
+tags: ["database", "tutorial"],
 description: "On a project I finally hit 100% Code Coverage 🎯 what could go wrong now? I tested ALL lines of my...",
 originalLink: "https://leonardomontini.dev/code-coverage-is-a-lie/",
 coverImg: "cover-image.png",

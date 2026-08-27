@@ -3,7 +3,7 @@
 title: "⚙ This new GIT push config will save you lot of frustration!",
 published: "2022-08-02T17:09:00Z",
 edited: "2022-11-22T22:16:56Z",
-tags: ["git", "beginners", "github", "tutorial"],
+tags: ["git", "beginner", "github", "tutorial"],
 description: "If you have 59 seconds and in particular you're also on mobile, you might enjoy watching the YouTube...",
 originalLink: "https://leonardomontini.dev/git-push-auto-setup-remote/",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "Decoding Startup Jargon: A Comprehensive Guide for Entrepreneurs",
 published: "2024-02-16T07:57:13Z",
-tags: ["startup", "devlife"],
+tags: ["startup", "career"],
 description: "In the fast-paced world of startups, communication is key. However, navigating through the sea of...",
 originalLink: "https://dev.to/playfulprogramming/decoding-startup-jargon-a-comprehensive-guide-for-entrepreneurs-12im",
 coverImg: "cover-image.png",

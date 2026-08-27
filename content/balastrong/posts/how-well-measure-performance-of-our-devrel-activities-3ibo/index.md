@@ -2,7 +2,7 @@
 {
 title: "How we'll measure performance of our DevRel activities",
 published: "2025-06-23T14:31:13Z",
-tags: ["devrel", "career"],
+tags: ["career"],
 description: "▶️ This article is extracted from a video transcript, slightly tweaked for better readability. Watch...",
 originalLink: "https://leonardomontini.dev/devrel-02/",
 coverImg: "cover-image.png",

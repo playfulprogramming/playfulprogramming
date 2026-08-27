@@ -5,7 +5,7 @@ import { Button, IconOnlyButton } from "#components/index.ts";
 import DarkLightButton from "./dark-light-button/dark-light-button.astro";
 import BackButton from "./back-button/back-button.astro";
 import style from "./header.module.scss";
-import logo from "#src/assets/playfulprogramming_sticker.svg?url";
+import logo from "#src/assets/playfulprogramming_sticker.svg?raw";
 import {
 	removePrefixLanguageFromPath,
 	translate,
@@ -38,13 +38,12 @@ const props = Astro.props;
 		>
 			{!isHome && <BackButton class={style.backButton} />}
 
-			<a href="/" class={`d-flex ${style.logo}`}>
-				<img
-					src={logo}
-					width={56}
-					height={56}
-					alt={translate(Astro, "alt.playfulprogramming_logo")}
-				/>
+			<a
+				href="/"
+				aria-label={translate(Astro, "alt.playfulprogramming_logo")}
+				class={`d-flex ${style.logo}`}
+			>
+				<div aria-hidden="true" set:html={logo} class={style.logoContainer} />
 
 				<span class="text-style-button-regular">
 					Playful<br />

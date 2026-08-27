@@ -3,7 +3,7 @@
 title: "A Decade of SolidJS",
 published: "2025-04-24T18:48:10Z",
 edited: "2025-04-25T06:46:30Z",
-tags: ["javascript", "webdev", "solidjs", "devjournal"],
+tags: ["javascript", "webdev", "solidjs", "opinion"],
 description: "As of today, it has been 7 years since I open-sourced SolidJS. It wasn't for noble reasons. I wasn't...",
 originalLink: "https://dev.to/playfulprogramming/a-decade-of-solidjs-32f4",
 coverImg: "cover-image.png",

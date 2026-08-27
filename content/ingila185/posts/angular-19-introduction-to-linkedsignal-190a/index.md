@@ -3,7 +3,7 @@
 title: "Angular 19 - Introduction to linkedSignal",
 published: "2024-11-03T08:27:13Z",
 edited: "2024-11-04T10:02:49Z",
-tags: ["angular", "webdev", "javascript", "programming"],
+tags: ["angular", "webdev", "javascript"],
 description: "Angular 19 is on the horizon, and it’s bringing a host of exciting new features to the table. One of...",
 originalLink: "https://dev.to/playfulprogramming-angular/angular-19-introduction-to-linkedsignal-190a",
 coverImg: "cover-image.png",

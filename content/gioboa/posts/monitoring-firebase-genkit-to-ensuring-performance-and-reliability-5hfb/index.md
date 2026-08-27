@@ -2,7 +2,7 @@
 {
 title: "Monitoring Firebase Genkit to Ensuring Performance and Reliability",
 published: "2025-06-06T09:32:37Z",
-tags: ["firebase", "ai", "programming", "googlecloud"],
+tags: ["firebase", "ai", "cloud"],
 description: "As we increasingly integrate Large Language Models (LLMs) into our applications, understanding and...",
 originalLink: "https://dev.to/playfulprogramming/monitoring-firebase-genkit-to-ensuring-performance-and-reliability-5hfb",
 coverImg: "cover-image.png",

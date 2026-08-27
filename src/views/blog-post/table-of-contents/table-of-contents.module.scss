@@ -31,8 +31,7 @@
 	--toc_focus-outline_width: var(--border-width_focus);
 
 	--toc_divider_width: var(--border-width_s);
-	// --background_disabled applied to background
-	--toc_divider_color: #cddbe7;
+	--toc_divider_color: var(--primary_variant);
 
 	--toc_arrow_color: var(--foreground_emphasis-high);
 	--toc_arrow_color_selected: var(--primary);
@@ -47,12 +46,6 @@
 		--toc_header_padding-top: var(--site-spacing);
 		--toc_header_padding-horizontal: var(--site-spacing);
 		--toc_header_padding-bottom: var(--site-spacing);
-	}
-}
-
-.container {
-	@include darkTheme() {
-		--toc_divider_color: #253e4c;
 	}
 }
 

@@ -3,7 +3,7 @@
 title: "Weekly 0074",
 published: "2024-08-26T18:02:47Z",
 edited: "2024-08-26T18:03:00Z",
-tags: ["weeklyretro", "devjournal"],
+tags: ["opinion"],
 description: "Monday   Dedicated time to meticulously outline the comprehensive roadmap for Cloud Glow, my...",
 originalLink: "https://dev.to/playfulprogramming/weekly-0076-2ibl",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Safely Experiment with Angular 18: A Guide for Developers with Existing 16 & 17 Projects",
 published: "2024-07-16T09:37:34Z",
 edited: "2024-07-24T13:11:24Z",
-tags: ["angular", "typescript", "javascript", "angularcli"],
+tags: ["angular", "typescript", "javascript"],
 description: "Exploring Angular 18 Without Disrupting Existing Projects   I was recently working on an...",
 originalLink: "https://dev.to/playfulprogramming-angular/safely-experiment-with-angular-18-a-guide-for-developers-with-existing-16-17-projects-3c3"
 }

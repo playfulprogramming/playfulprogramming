@@ -97,7 +97,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 				post.collection ? (
 					<SeriesToC
 						post={post}
-						postSeries={collectionPosts}
+						postSeries={collectionPosts!}
 						collection={collection}
 					/>
 				) : null

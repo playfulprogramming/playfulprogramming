@@ -3,7 +3,7 @@
 title: "How GitHub is Improving Developer Experience",
 published: "2022-04-14T11:25:47Z",
 edited: "2022-04-19T08:39:23Z",
-tags: ["tooling", "devexeperience", "github", "git"],
+tags: ["tools", "productivity", "github", "git"],
 description: "Photo by Annie Spratt on Unsplash  In the last couple of years, the number of developers contributing...",
 originalLink: "https://dev.to/playfulprogramming/how-github-is-improving-developer-experience-8jj",
 coverImg: "cover-image.png",

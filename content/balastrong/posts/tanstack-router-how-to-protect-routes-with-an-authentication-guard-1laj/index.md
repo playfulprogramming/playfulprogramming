@@ -3,7 +3,7 @@
 title: "TanStack Router: How to protect routes with an authentication guard",
 published: "2025-06-22T14:49:00Z",
 edited: "2025-06-21T13:58:40Z",
-tags: ["react", "typescript", "tanstack"],
+tags: ["react", "typescript"],
 description: "Some routes in your application require authentication or other conditions to be met before users can...",
 originalLink: "https://leonardomontini.dev/tanstack-router-guard/",
 coverImg: "cover-image.png",

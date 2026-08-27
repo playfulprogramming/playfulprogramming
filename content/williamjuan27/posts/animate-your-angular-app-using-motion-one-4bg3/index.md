@@ -2,7 +2,7 @@
 {
 title: "Animate your Angular App using Motion One",
 published: "2021-11-18T14:07:19Z",
-tags: ["angular", "animations", "motion"],
+tags: ["angular", "animation"],
 description: "Motion One is a new animation library built on the Web Animations API. If you have used Popmotion or...",
 originalLink: "https://williamjuan.dev/blog/animate-your-angular-app-using-motion-one",
 coverImg: "cover-image.png",

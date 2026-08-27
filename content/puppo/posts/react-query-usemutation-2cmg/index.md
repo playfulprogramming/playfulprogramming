@@ -3,7 +3,7 @@
 title: "React Query - useMutation",
 published: "2023-03-22T06:00:39Z",
 edited: "2023-03-22T06:43:24Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey Folks, It's time to talk about the second core concept in React Query, mutation.          What is...",
 originalLink: "https://blog.delpuppo.net/react-query-usemutation",
 coverImg: "cover-image.png",

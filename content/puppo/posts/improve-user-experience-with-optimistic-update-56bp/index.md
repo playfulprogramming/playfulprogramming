@@ -2,7 +2,7 @@
 {
 title: "Improve user experience with optimistic update",
 published: "2023-05-11T05:56:50Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey Folks,  Sometimes to improve the user experience you can decide to bet on the success of your...",
 originalLink: "https://blog.delpuppo.net/improve-user-experience-with-optimistic-update",
 coverImg: "cover-image.png",

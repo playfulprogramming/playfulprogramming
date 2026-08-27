@@ -3,7 +3,7 @@
 title: "Material forms: mat-checkbox disabling controls",
 published: "2023-01-12T10:55:51Z",
 edited: "2023-01-15T12:27:14Z",
-tags: ["hackathon", "discuss", "community", "angular"],
+tags: ["events", "opinion", "community", "angular"],
 description: "In previous article we analyzed a generic workflow for the creation of a directive capable of adding...",
 originalLink: "https://dev.to/playfulprogramming-angular/material-forms-mat-checkbox-disabling-controls-2jc6",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Scheduling Derivations in Reactivity",
 published: "2024-08-01T15:28:00Z",
 edited: "2024-08-02T21:56:35Z",
-tags: ["javascript", "webdev", "reactivity", "signals"],
+tags: ["javascript", "webdev", "reactivity"],
 description: "Most developers think about Reactivity as an event system. You have some state. You update that state...",
 originalLink: "https://dev.to/playfulprogramming/scheduling-derivations-in-reactivity-4687",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Presentational components with Angular",
 published: "2021-03-22T21:35:55Z",
 edited: "2021-03-22T21:50:17Z",
-tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
+tags: ["angular", "architecture"],
 description: "Presentational components encapsulate presentation and UI behaviour. They can be stateful or stateless and are connected to the application state through their data binding API.",
 originalLink: "https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961",
 coverImg: "cover-image.png",

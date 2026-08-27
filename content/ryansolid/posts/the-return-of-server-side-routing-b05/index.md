@@ -3,7 +3,7 @@
 title: "The Return of Server Side Routing",
 published: "2022-01-26T00:33:23Z",
 edited: "2022-02-01T20:16:51Z",
-tags: ["javascript", "webdev", "webperf", "programming"],
+tags: ["javascript", "webdev", "performance"],
 description: "Return? It never went away. Or at least that is what some smug \"told you so\" is going to say. But for...",
 originalLink: "https://dev.to/playfulprogramming/the-return-of-server-side-routing-b05",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Weighted 🏋️ Random generator in Typescript (with Test Driven Development 🧪)",
 published: "2022-08-18T10:55:13Z",
 edited: "2023-04-11T10:05:11Z",
-tags: ["javascript", "typescript", "tutorial", "beginners"],
+tags: ["javascript", "typescript", "tutorial", "beginner"],
 description: "You can find a video version of this article on my YouTube Channel.           Intro   Today we're...",
 originalLink: "https://leonardomontini.dev/typescript-test-driven-development/",
 coverImg: "cover-image.png",

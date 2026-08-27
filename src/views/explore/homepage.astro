@@ -12,13 +12,13 @@ import { buildSearchQuery } from "#src/views/search/search.ts";
 import * as api from "#utils/api.ts";
 import { isDefined } from "#utils/is-defined.ts";
 
-export interface HomepageProps {
+export interface Props {
 	posts: PostInfo[];
 	collections: CollectionInfo[];
 	locale: Languages;
 }
 
-const { posts, collections, locale } = Astro.props as HomepageProps;
+const { posts, collections, locale } = Astro.props;
 
 const postAuthors = new Map(
 	[...new Set(posts.flatMap((p) => p.authors))]

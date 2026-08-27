@@ -2,7 +2,7 @@
 {
 title: "Running Automated Tests with GitHub Actions",
 published: "2023-01-03T15:23:55Z",
-tags: ["developer", "webdev", "career", "learning"],
+tags: ["webdev", "career", "learning"],
 description: "GitHub Actions can bring your project to life, for real!  If you never used them, this video tutorial...",
 originalLink: "https://leonardomontini.dev/automated-tests-github-action/",
 coverImg: "cover-image.png",

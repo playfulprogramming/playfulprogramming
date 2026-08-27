@@ -2,7 +2,7 @@
 {
 title: "OramaSearch, a full-text search in your React application",
 published: "2023-03-30T06:03:59Z",
-tags: ["orama", "search", "react"],
+tags: ["webdev", "react"],
 description: "In some applications, you need to create a full-text search to improve the search of data. In some...",
 originalLink: "https://blog.delpuppo.net/oramasearch-a-full-text-search-in-your-react-application",
 coverImg: "cover-image.png",

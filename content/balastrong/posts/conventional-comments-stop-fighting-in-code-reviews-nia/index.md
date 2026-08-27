@@ -3,7 +3,7 @@
 title: "Conventional Comments: Stop Fighting in Code Reviews",
 published: "2024-02-13T14:51:42Z",
 edited: "2024-02-14T07:47:27Z",
-tags: ["beginners", "codenewbie", "github"],
+tags: ["beginner", "github"],
 description: "I’m sure you’ve heard about conventional commits, but what about conventional comments?           The...",
 originalLink: "https://leonardomontini.dev/",
 coverImg: "cover-image.png",

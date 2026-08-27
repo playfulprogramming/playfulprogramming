@@ -3,7 +3,7 @@
 title: "Playing with Copilot CLI on top of Warp terminal",
 published: "2023-05-23T07:50:00Z",
 edited: "2024-04-29T16:39:38Z",
-tags: ["terminal", "ai", "github", "productivity"],
+tags: ["tools", "ai", "github", "productivity"],
 description: "I recently got access to the new Copilot CLI, which basically gives you the full power of GitHub...",
 originalLink: "https://leonardomontini.dev/copilot-cli-vs-warp-ai/",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Improve Your Git Commit Messages with GitLens Tips",
 published: "2025-10-03T06:13:45Z",
 edited: "2025-10-03T06:15:11Z",
-tags: ["git", "gitkraken", "ai", "gitlens"],
+tags: ["git", "ai"],
 description: "In the AI era, we can do many different things with LLM: generate code, images, videos or ask...",
 originalLink: "https://blog.delpuppo.net/improve-your-git-commit-messages-with-gitlens-tips",
 coverImg: "cover-image.png",

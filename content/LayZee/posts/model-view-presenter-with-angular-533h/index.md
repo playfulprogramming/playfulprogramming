@@ -3,7 +3,7 @@
 title: "Model-View-Presenter with Angular",
 published: "2020-11-24T20:32:03Z",
 edited: "2021-03-22T21:58:02Z",
-tags: ["angular", "architecture", "designpatterns", "modelviewpresenter"],
+tags: ["angular", "architecture"],
 description: "The MVP pattern increases separation of concerns, maintainability, testability and scalability in complex Angular apps by using container components, presentational components and presenters.",
 originalLink: "https://dev.to/playfulprogramming-angular/model-view-presenter-with-angular-533h",
 coverImg: "cover-image.png",

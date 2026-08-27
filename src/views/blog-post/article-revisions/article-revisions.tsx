@@ -18,7 +18,9 @@ interface ArticleRevisionDropdownProps {
 }
 
 const supportsAnchors =
-	import.meta.env.SSR || CSS.supports("top: anchor(bottom)");
+	import.meta.env.SSR ||
+	(CSS.supports("top: anchor(bottom)") &&
+		CSS.supports("position-anchor: auto"));
 
 export function ArticleRevisionDropdown({
 	post,

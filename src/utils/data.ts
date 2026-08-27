@@ -26,7 +26,6 @@ import { getExcerpt } from "./markdown/get-excerpt.ts";
 import { getLanguageFromFilename } from "./translations.ts";
 import aboutRaw from "../../content/data/about.json" with { type: "json" };
 import rolesRaw from "../../content/data/roles.json" with { type: "json" };
-import licensesRaw from "../../content/data/licenses.json" with { type: "json" };
 import tagsRaw from "../../content/data/tags.json" with { type: "json" };
 import type { LocalFile } from "#types/LocalFile.ts";
 
@@ -487,7 +486,6 @@ await Promise.all(
 export {
 	aboutRaw as about,
 	rolesRaw as roles,
-	licensesRaw as licenses,
 	people,
 	collections,
 	posts,

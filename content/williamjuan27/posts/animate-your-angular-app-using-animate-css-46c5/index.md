@@ -2,7 +2,7 @@
 {
 title: "Animate your Angular App using Animate.css",
 published: "2021-09-22T14:22:17Z",
-tags: ["angular", "animations", "css"],
+tags: ["angular", "animation", "css"],
 description: "Most of you probably have heard of Animate.css. It is an open-source CSS animation library with lots...",
 originalLink: "https://williamjuan.dev/blog/animate-your-angular-app-using-animate-css",
 coverImg: "cover-image.png",

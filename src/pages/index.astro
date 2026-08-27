@@ -16,6 +16,10 @@ const collectionsToDisplay = getCollectionsByLang(locale).slice(0, 4);
 <Document>
 	<SEO slot="head" title="Homepage" />
 	<main class="container">
-		<Homepage posts={postsToDisplay} collections={collectionsToDisplay} />
+		<Homepage
+			posts={postsToDisplay}
+			collections={collectionsToDisplay}
+			locale={locale}
+		/>
 	</main>
 </Document>

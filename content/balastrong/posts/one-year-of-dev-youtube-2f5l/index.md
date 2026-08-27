@@ -2,7 +2,7 @@
 {
 title: "One Year of Dev YouTube",
 published: "2023-07-30T09:25:11Z",
-tags: ["webdev", "motivation", "career", "showdev"],
+tags: ["webdev", "career"],
 description: "Exactly one year ago I started consistently posting on YouTube, at least a video every single week,...",
 originalLink: "https://leonardomontini.dev/dev-youtube-anniversary/",
 coverImg: "cover-image.png",

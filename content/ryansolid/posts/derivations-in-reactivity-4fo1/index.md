@@ -3,7 +3,7 @@
 title: "Derivations in Reactivity",
 published: "2024-01-19T08:00:00Z",
 edited: "2024-10-22T21:50:15Z",
-tags: ["javascript", "webdev", "reactivity", "signals"],
+tags: ["javascript", "webdev", "reactivity"],
 description: "There is a reason why the first time you learn about a reactive system the example always looks...",
 originalLink: "https://dev.to/playfulprogramming/derivations-in-reactivity-4fo1",
 coverImg: "cover-image.png",

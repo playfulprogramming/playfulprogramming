@@ -2,7 +2,7 @@
 {
 title: "Astro Coding Session: \"Series\" feature on my blog",
 published: "2023-06-05T10:35:08Z",
-tags: ["astro", "webdev", "showdev", "typescript"],
+tags: ["astro", "webdev", "typescript"],
 description: "Hello! If you read my articles often here on devto you probably noticed that I also publish them on...",
 originalLink: "https://leonardomontini.dev/astro-coding-session/",
 coverImg: "cover-image.png",

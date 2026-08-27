@@ -4,10 +4,6 @@ import type * as components from "./components.ts";
 
 type MaybePromise<T> = Promise<T> | T;
 
-export type RehypeComponentsProps = {
-	components: Record<string, RehypeFunctionComponent>;
-};
-
 export type RehypeFunctionProps = {
 	vfile: VFile;
 	node: hast.Node;

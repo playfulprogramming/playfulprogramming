@@ -3,7 +3,7 @@
 title: "Stop using the defaultProject Nx CLI setting and start using NX_DEFAULT_PROJECT",
 published: "2023-05-30T06:26:51Z",
 edited: "2025-08-22T06:55:19Z",
-tags: ["nx", "angular", "deprecation"],
+tags: ["nx", "angular", "tools"],
 description: "The defaultProject Nx CLI setting is deprecated. However, there's a hidden alternative.",
 originalLink: "https://dev.to/playfulprogramming/stop-using-the-defaultproject-nx-cli-setting-and-start-using-nxdefaultproject-2ka5",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "I QUIT from a TOXIC Software Development Workplace",
 published: "2023-04-17T10:49:06Z",
-tags: ["career", "motivation"],
+tags: ["career"],
 description: "I worked as a Full Stack Web Developer on what I realized it was to me a toxic workplace for software...",
 originalLink: "https://leonardomontini.dev/quit-toxic-development-workplace/",
 coverImg: "cover-image.png",

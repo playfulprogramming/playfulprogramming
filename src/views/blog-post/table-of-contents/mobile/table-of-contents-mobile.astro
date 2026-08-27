@@ -8,11 +8,11 @@ import { Icon } from "astro-icon/components";
 import MobileHeadingIntersectionObserverScript from "./mobile-heading-intersection-observer-script.astro";
 import MobileTableOfContentsTitleScrollObserver from "./mobile-table-of-contents-title-scroll-observer.astro";
 
-interface TableOfContentsProps {
+interface Props {
 	headingsWithId: PostHeadingInfo[];
 }
 
-const { headingsWithId } = Astro.props as TableOfContentsProps;
+const { headingsWithId } = Astro.props;
 
 const headings = headingsWithId?.length ? headingsWithId : [];
 

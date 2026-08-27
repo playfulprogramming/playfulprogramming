@@ -2,7 +2,7 @@
 {
 title: "Async and Await in Vanilla JavaScript",
 published: "2023-05-04T18:47:01Z",
-tags: ["javascript", "webdev", "webassembly"],
+tags: ["javascript", "webdev"],
 description: "In the last couple of years I work a lot with Blazor WebAssembly for my personal projects and, first...",
 originalLink: "https://dev.to/playfulprogramming/async-and-await-in-vanilla-javascript-2mep",
 coverImg: "cover-image.png",

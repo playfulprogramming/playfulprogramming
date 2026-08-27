@@ -3,7 +3,7 @@
 title: "Playwright - Visual Comparisons",
 published: "2023-02-02T07:51:48Z",
 edited: "2023-02-21T07:22:06Z",
-tags: ["playwright", "e2e", "visual"],
+tags: ["playwright", "testing"],
 description: "Hi there,  Today I want to speak about Visual comparisons with Playwright.  In some projects is...",
 originalLink: "https://blog.delpuppo.net/playwright-visual-comparisons",
 coverImg: "cover-image.png",
