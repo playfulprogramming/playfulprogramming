@@ -2,18 +2,16 @@
 import * as Terser from "terser";
 
 import {
+	BRAND_THEME_PROPERTIES,
 	BRAND_THEME_STORAGE_KEY,
 	COLOR_MODE_STORAGE_KEY,
+	COLOR_SCHEME_MEDIA_QUERY,
 	CONTRAST_MODE_STORAGE_KEY,
 	THEME_COLOR_DARK,
 	THEME_COLOR_LIGHT,
+	THEME_FONT_FAMILIES,
 } from "../../constants/theme.ts";
 import { serializeInlineCall } from "#utils/serialize-inline-call.ts";
-import {
-	BRAND_THEME_PROPERTIES,
-	COLOR_SCHEME_MEDIA_QUERY,
-	THEME_FONT_FAMILIES,
-} from "#utils/theming.ts";
 
 /**
  * Much of this code deals with dark mode. It's ripped straight from:

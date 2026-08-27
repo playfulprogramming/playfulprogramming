@@ -1,19 +1,21 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
 
 import {
+	BRAND_THEME_PROPERTIES,
 	BRAND_THEME_STORAGE_KEY,
 	COLOR_MODE_STORAGE_KEY,
+	COLOR_SCHEME_MEDIA_QUERY,
 	CONTRAST_MODE_STORAGE_KEY,
 	THEME_COLOR_DARK,
 	THEME_COLOR_LIGHT,
+	THEME_FONT,
+	THEME_FONT_FAMILIES,
 } from "../constants/theme.ts";
 import {
 	ALLOWED_THEME_FONTS,
 	applyBrandTheme,
 	applyColorMode,
 	applyContrastMode,
-	BRAND_THEME_PROPERTIES,
-	COLOR_SCHEME_MEDIA_QUERY,
 	loadBrandTheme,
 	loadColorMode,
 	loadContrastMode,
@@ -25,8 +27,6 @@ import {
 	resolveColorMode,
 	sanitizeBrandTheme,
 	saveBrandTheme,
-	THEME_FONT,
-	THEME_FONT_FAMILIES,
 	updateBrandTheme,
 } from "./theming.ts";
 

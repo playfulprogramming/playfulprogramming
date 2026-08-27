@@ -1,5 +1,5 @@
+import { BRAND_THEME_PROPERTIES } from "#src/constants/theme.ts";
 import {
-	BRAND_THEME_PROPERTIES,
 	applyBrandTheme,
 	applyColorMode,
 	applyContrastMode,
