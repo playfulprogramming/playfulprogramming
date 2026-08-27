@@ -1,4 +1,4 @@
-import type { Locale } from "#src/paraglide/runtime.js";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { useCallback, useMemo } from "preact/hooks";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import style from "./quiz-radio.module.scss";
@@ -31,7 +31,6 @@ export interface QuizRadioOption {
 }
 
 export interface QuizRadioProps {
-	locale: Locale;
 	id?: string;
 	title: string;
 	options: QuizRadioOption[];
@@ -47,6 +46,7 @@ export interface QuizRadioProps {
 }
 
 export function QuizRadio(props: QuizRadioProps) {
+	const locale = getLocale();
 	const isDisabled = useMemo(
 		() =>
 			props.isDisabled ||
@@ -74,18 +74,18 @@ export function QuizRadio(props: QuizRadioProps) {
 			>
 				<span class={`${style.quizNum} text-style-body-medium`}>
 					<span class="text-style-body-medium-bold">
-						{props.questionNum.toLocaleString(props.locale)}
+						{props.questionNum.toLocaleString(locale)}
 					</span>{" "}
-					{m.quiz_progress_separator({}, { locale: props.locale })}{" "}
+					{m.quiz_progress_separator()}{" "}
 					<span class="text-style-body-medium-bold">
-						{props.totalNum.toLocaleString(props.locale)}
+						{props.totalNum.toLocaleString(locale)}
 					</span>
 				</span>
 				<Label className={`${style.quizOptionTitle} text-style-headline-5`}>
 					{props.title}
 				</Label>
 				<span class={`${style.quizPrompt} text-style-body-medium-bold`}>
-					{m.quiz_select_correct_answer({}, { locale: props.locale })}
+					{m.quiz_select_correct_answer()}
 				</span>
 				<div class={style.quizOptionOptionsContainer}>
 					{props.options.map((option) => {
@@ -144,7 +144,7 @@ export function QuizRadio(props: QuizRadioProps) {
 							disabled={isDisabled || typeof props.value === "undefined"}
 							onClick={handleSubmit}
 						>
-							{m.action_submit({}, { locale: props.locale })}
+							{m.action_submit()}
 						</Button>
 					</div>
 				) : undefined}

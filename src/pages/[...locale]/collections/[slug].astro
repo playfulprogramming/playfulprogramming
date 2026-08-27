@@ -44,7 +44,7 @@ const authors = collection.authors.map(
 	(authorId) => api.getPersonById(authorId, locale)!,
 );
 
-const collectionHtml = await getMarkdownHtml(collection, undefined, locale);
+const collectionHtml = await getMarkdownHtml(collection);
 
 const isCurrentPost = (
 	chapter: CurrentPost | FuturePost,

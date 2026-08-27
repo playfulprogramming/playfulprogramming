@@ -4,13 +4,10 @@ import type {
 	FileProps,
 } from "#components/file-list/file-list.tsx";
 import { FileList as PreactFileList } from "#components/file-list/file-list.tsx";
-import { getLocale } from "#src/paraglide/runtime.js";
 
 export interface Props {
 	items: Array<DirectoryProps | FileProps>;
 }
-
-const locale = getLocale();
 ---
 
-<PreactFileList items={Astro.props.items} locale={locale} />
+<PreactFileList items={Astro.props.items} />

@@ -1,4 +1,3 @@
-import type { Locale } from "#src/paraglide/runtime.js";
 import { IconOnlyButton } from "#components/button/button.tsx";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import { useState } from "preact/hooks";
@@ -16,7 +15,6 @@ import { m } from "#src/paraglide/messages.js";
 const isCredentiallessSupported = false;
 
 export interface VideoPlaceholderProps {
-	locale: Locale;
 	width: number;
 	height: number;
 	src: string;
@@ -72,9 +70,7 @@ export function VideoPlaceholder({
 				</div>
 				<div class={style.headerInfo}>
 					<p>
-						<span class="visually-hidden">
-							{m.label_embedded_webpage({}, { locale: props.locale })}
-						</span>
+						<span class="visually-hidden">{m.label_embedded_webpage()}</span>
 						{props.pageTitle}
 					</p>
 				</div>
@@ -97,7 +93,7 @@ export function VideoPlaceholder({
 						class={style.placeholderButton}
 						tag={isCredentiallessSupported ? "button" : "a"}
 						variant="primary"
-						aria-label={m.action_play_video({}, { locale: props.locale })}
+						aria-label={m.action_play_video()}
 						{...(isCredentiallessSupported
 							? {
 									onClick: () => setFrameVisible(true),

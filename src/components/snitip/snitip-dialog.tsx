@@ -14,7 +14,6 @@ export function SnitipDialog({
 	id,
 	headingTag,
 	includeSearchTags,
-	locale,
 }: SnitipDialogProps) {
 	const headingId = `${id}-title`;
 	const formId = `${id}-form`;
@@ -55,10 +54,9 @@ export function SnitipDialog({
 					snitip={snitip}
 					headingTag={headingTag}
 					headingId={headingId}
-					headingLabelPrefix={m.label_tooltip_prefix({}, { locale })}
+					headingLabelPrefix={m.label_tooltip_prefix()}
 					headingTabIndex={-1}
 					includeSearchTags={includeSearchTags}
-					locale={locale}
 				/>
 			</form>
 
@@ -69,7 +67,7 @@ export function SnitipDialog({
 				form={formId}
 				formNoValidate
 				value="close"
-				aria-label={m.action_close_tooltip({}, { locale })}
+				aria-label={m.action_close_tooltip()}
 				class={style.closeButton}
 			>
 				<RawSvg aria-hidden icon={iconClose} />

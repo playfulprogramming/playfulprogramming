@@ -53,11 +53,7 @@ const pageProps = !isLocaleRoute
 				noindex={pageProps.isFallback}
 				slot="head"
 			/>
-			<AboutView
-				locales={pageProps.locales}
-				locale={pageProps.locale}
-				file={pageProps.file}
-			/>
+			<AboutView locales={pageProps.locales} file={pageProps.file} />
 		</Document>
 	) : (
 		<NotFoundPage />

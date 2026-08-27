@@ -4,20 +4,16 @@ import type { MarkdownFileInfo, MarkdownVFile } from "./types.ts";
 import { createHtmlPlugins } from "./createHtmlPlugins.ts";
 import type * as components from "./components/index.ts";
 
-import { type Locale, baseLocale } from "#src/paraglide/runtime.js";
-
 export type MarkdownHtml = MarkdownVFile["data"] & {
 	content: components.PlayfulNode[];
 };
 
-const unifiedChains = new Map<Locale, Processor>();
+let unifiedChain: Processor | undefined;
 
-function getUnifiedChain(locale: Locale) {
-	let unifiedChain = unifiedChains.get(locale);
+function getUnifiedChain() {
 	if (!unifiedChain) {
 		unifiedChain = unified();
-		createHtmlPlugins(unifiedChain, locale);
-		unifiedChains.set(locale, unifiedChain);
+		createHtmlPlugins(unifiedChain);
 	}
 	return unifiedChain;
 }
@@ -25,11 +21,10 @@ function getUnifiedChain(locale: Locale) {
 export async function getMarkdownHtml(
 	post: MarkdownFileInfo,
 	vfilePromise: MarkdownVFile | Promise<MarkdownVFile> = getMarkdownVFile(post),
-	locale: Locale = baseLocale,
 ): Promise<MarkdownHtml> {
 	const vfile = await vfilePromise;
 
-	const result = await getUnifiedChain(locale).process(vfile);
+	const result = await getUnifiedChain().process(vfile);
 
 	return {
 		...vfile.data,

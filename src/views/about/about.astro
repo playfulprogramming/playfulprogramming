@@ -1,5 +1,5 @@
 ---
-import type { Locale } from "#src/paraglide/runtime.js";
+import { getLocale, type Locale } from "#src/paraglide/runtime.js";
 import style from "./about.module.scss";
 import "../../styles/shiki.scss";
 import * as data from "#utils/data.ts";
@@ -20,11 +20,11 @@ import Content from "#utils/markdown/components/content.astro";
 
 interface Props {
 	locales: Locale[];
-	locale: Locale;
 	file: string;
 }
 
-const { locales, locale, file } = Astro.props as Props;
+const { locales, file } = Astro.props as Props;
+const locale = getLocale();
 const fileInfo: MarkdownFileInfo = { kind: "page", file };
 const vfile = await getMarkdownVFile(fileInfo);
 
@@ -44,7 +44,6 @@ const [content1, content2, content3] = await Promise.all(
 						snitips: new Map(),
 					},
 				}) as MarkdownVFile,
-				locale,
 			),
 		),
 );
@@ -80,7 +79,7 @@ const tags = [
 	<div class={`${style.aboutBody} post-body`}>
 		<TranslationsHeader locales={locales} />
 		<Content content={content1.content} />
-		<Links locale={locale} />
+		<Links />
 		<Content content={content2.content} />
 		<ul class={style.peopleContainer} role="list">
 			{
@@ -111,7 +110,6 @@ const tags = [
 							name={tag.displayName}
 							explainerHtml={tag.explainerHtml}
 							image={tag.image}
-							locale={locale}
 							action={
 								tag.explainerType === "license"
 									? m.action_view_license()

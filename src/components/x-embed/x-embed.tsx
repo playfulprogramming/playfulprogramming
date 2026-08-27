@@ -1,4 +1,4 @@
-import type { Locale } from "#src/paraglide/runtime.js";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { Button, IconOnlyButton } from "#components/button/button.tsx";
 import discussion from "#src/icons/discussion.svg?raw";
 import repost from "#src/icons/repost.svg?raw";
@@ -18,7 +18,8 @@ const ordinalMessages = {
 	other: m.date_ordinal_other,
 } as const;
 
-export function formatPostDate(date: Date, locale: Locale) {
+export function formatPostDate(date: Date) {
+	const locale = getLocale();
 	const formatter = new Intl.DateTimeFormat(locale, {
 		month: "short",
 		day: "numeric",
@@ -32,7 +33,7 @@ export function formatPostDate(date: Date, locale: Locale) {
 		.formatToParts(date)
 		.map((part) =>
 			part.type === "day"
-				? ordinalMessages[ordinalRule]({ day: part.value }, { locale })
+				? ordinalMessages[ordinalRule]({ day: part.value })
 				: part.value,
 		)
 		.join("");
@@ -46,7 +47,6 @@ interface XEmbedPicture {
 }
 
 export interface XEmbedPlaceholderProps {
-	locale: Locale;
 	text: string;
 	profilePic: string;
 	likes?: number;
@@ -70,11 +70,11 @@ export function XEmbedPlaceholder({
 	name,
 	link,
 	picture,
-	locale,
 }: XEmbedPlaceholderProps) {
+	const locale = getLocale();
 	const postDate = new Date(date);
 	const isValidDate = !Number.isNaN(postDate.valueOf());
-	const formattedDate = isValidDate ? formatPostDate(postDate, locale) : date;
+	const formattedDate = isValidDate ? formatPostDate(postDate) : date;
 	const formattedTime = isValidDate
 		? new Intl.DateTimeFormat(locale, {
 				hour: "numeric",
@@ -89,7 +89,7 @@ export function XEmbedPlaceholder({
 						data-dont-round
 						data-nozoom
 						src={profilePic}
-						alt={m.label_profile_picture_for({ handle }, { locale })}
+						alt={m.label_profile_picture_for({ handle })}
 						crossorigin="anonymous"
 					/>
 				</div>
@@ -105,14 +105,14 @@ export function XEmbedPlaceholder({
 					target="_blank"
 					rel="nofollow noopener noreferrer"
 				>
-					{m.action_view_on_x({}, { locale })}
+					{m.action_view_on_x()}
 				</Button>
 				<IconOnlyButton
 					class={style.iconButton}
 					href={link}
 					target="_blank"
 					rel="nofollow noopener noreferrer"
-					aria-label={m.action_view_on_x({}, { locale })}
+					aria-label={m.action_view_on_x()}
 				>
 					<RawSvg icon={launch} />
 				</IconOnlyButton>

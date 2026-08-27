@@ -1,4 +1,4 @@
-import type { Locale } from "#src/paraglide/runtime.js";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { useCallback, useMemo } from "preact/hooks";
 import style from "./quiz-results.module.scss";
 import { Button } from "#components/button/button.tsx";
@@ -16,7 +16,6 @@ export interface QuizQuestion {
 }
 
 export interface QuizResultsProps {
-	locale: Locale;
 	questions: QuizQuestion[];
 	isSubmitted?: boolean;
 	isDisabled?: boolean;
@@ -24,17 +23,18 @@ export interface QuizResultsProps {
 }
 
 export function QuizResults(props: QuizResultsProps) {
+	const locale = getLocale();
 	const numberFormatter = useMemo(
-		() => new Intl.NumberFormat(props.locale),
-		[props.locale],
+		() => new Intl.NumberFormat(locale),
+		[locale],
 	);
 	const percentFormatter = useMemo(
 		() =>
-			new Intl.NumberFormat(props.locale, {
+			new Intl.NumberFormat(locale, {
 				style: "percent",
 				maximumFractionDigits: 0,
 			}),
-		[props.locale],
+		[locale],
 	);
 	const handleSubmit = useCallback(
 		(e: Event) => {
@@ -68,14 +68,12 @@ export function QuizResults(props: QuizResultsProps) {
 					<RawSvg icon={QuizIcon} />
 					<span class="text-style-button-regular">
 						{props.questions.length === 1
-							? m.quiz_questions_one(
-									{ count: numberFormatter.format(props.questions.length) },
-									{ locale: props.locale },
-								)
-							: m.quiz_questions_other(
-									{ count: numberFormatter.format(props.questions.length) },
-									{ locale: props.locale },
-								)}
+							? m.quiz_questions_one({
+									count: numberFormatter.format(props.questions.length),
+								})
+							: m.quiz_questions_other({
+									count: numberFormatter.format(props.questions.length),
+								})}
 					</span>
 				</span>
 				{props.isSubmitted ? (
@@ -96,14 +94,12 @@ export function QuizResults(props: QuizResultsProps) {
 				) : (
 					<span class={`${style.remaining} text-style-button-regular`}>
 						{remainingNum === 1
-							? m.quiz_remaining_one(
-									{ count: numberFormatter.format(remainingNum) },
-									{ locale: props.locale },
-								)
-							: m.quiz_remaining_other(
-									{ count: numberFormatter.format(remainingNum) },
-									{ locale: props.locale },
-								)}
+							? m.quiz_remaining_one({
+									count: numberFormatter.format(remainingNum),
+								})
+							: m.quiz_remaining_other({
+									count: numberFormatter.format(remainingNum),
+								})}
 					</span>
 				)}
 			</div>
@@ -121,19 +117,16 @@ export function QuizResults(props: QuizResultsProps) {
 			<div class={style.content}>
 				{props.isSubmitted ? (
 					<p class={`${style.prompt} text-style-headline-5`}>
-						{m.quiz_score(
-							{
-								correct: numberFormatter.format(correctNum),
-								total: numberFormatter.format(props.questions.length),
-								percentage: correctPercentage,
-							},
-							{ locale: props.locale },
-						)}
+						{m.quiz_score({
+							correct: numberFormatter.format(correctNum),
+							total: numberFormatter.format(props.questions.length),
+							percentage: correctPercentage,
+						})}
 					</p>
 				) : (
 					<>
 						<p class={`${style.prompt} text-style-headline-5`}>
-							{m.quiz_ready_for_results({}, { locale: props.locale })}
+							{m.quiz_ready_for_results()}
 						</p>
 						<Button
 							tag="button"
@@ -142,7 +135,7 @@ export function QuizResults(props: QuizResultsProps) {
 							onClick={handleSubmit}
 							class={style.submit}
 						>
-							{m.action_submit({}, { locale: props.locale })}
+							{m.action_submit()}
 						</Button>
 					</>
 				)}

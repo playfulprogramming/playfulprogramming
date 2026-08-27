@@ -1,4 +1,3 @@
-import type { Locale } from "#src/paraglide/runtime.js";
 import {
 	type DirectoryProps,
 	type FileProps,
@@ -25,7 +24,6 @@ interface FilePickerProps {
 	entries: Array<FileEntry>;
 	file: string;
 	onFileChange?(file: string): void;
-	locale: Locale;
 }
 
 function sortFileItems(files: Array<DirectoryProps | FileProps>) {
@@ -43,7 +41,7 @@ function sortFileItems(files: Array<DirectoryProps | FileProps>) {
 }
 
 function buildFileItems(
-	props: Omit<FilePickerProps, "locale">,
+	props: FilePickerProps,
 ): Array<DirectoryProps | FileProps> {
 	const files: Array<DirectoryProps | FileProps> = [];
 
@@ -163,17 +161,17 @@ export function FilePicker(props: FilePickerProps) {
 			>
 				<div class={style.header}>
 					<h1 class={`${style.title} text-style-headline-5`}>
-						{m.title_files({}, { locale: props.locale })}
+						{m.title_files()}
 					</h1>
 					<IconOnlyButton
 						tag="button"
 						class={style.closeButton}
-						aria-label={m.action_close({}, { locale: props.locale })}
+						aria-label={m.action_close()}
 					>
 						<RawSvg icon={CloseIcon} />
 					</IconOnlyButton>
 				</div>
-				<FileListList items={listItems} locale={props.locale} />
+				<FileListList items={listItems} />
 			</Dialog>
 		</>
 	);

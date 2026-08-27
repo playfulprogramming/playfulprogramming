@@ -1,11 +1,9 @@
-import type { Locale } from "#src/paraglide/runtime.js";
 import { useCallback, useMemo } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { $quizState } from "./atom.ts";
 import { type QuizQuestion, QuizResults } from "./quiz-results.tsx";
 
 export interface QuizResultsInlineProps {
-	locale: Locale;
 	quizId: string;
 	questionIds: string[];
 }
@@ -40,7 +38,6 @@ export function QuizResultsInline(props: QuizResultsInlineProps) {
 
 	return (
 		<QuizResults
-			locale={props.locale}
 			questions={questions}
 			isDisabled={isDisabled}
 			isSubmitted={isSubmitted}

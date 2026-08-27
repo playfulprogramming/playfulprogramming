@@ -3,15 +3,13 @@ import type { QuizResultsInlineProps } from "#components/quiz-radio/quiz-results
 import { QuizResultsInline as PreactQuizResults } from "#components/quiz-radio/quiz-results-inline.tsx";
 import Content from "../content.astro";
 import type { PlayfulNode } from "../components.ts";
-import { getLocale } from "#src/paraglide/runtime.js";
 
-export type Props = Omit<QuizResultsInlineProps, "locale"> & {
+export type Props = QuizResultsInlineProps & {
 	children: PlayfulNode[];
 };
 
 const { children, ...props } = Astro.props;
-const locale = getLocale();
 ---
 
 <Content content={children} />
-<PreactQuizResults {...props} locale={locale} client:load />
+<PreactQuizResults {...props} client:load />

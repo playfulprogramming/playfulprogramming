@@ -1,4 +1,3 @@
-import type { Locale } from "#src/paraglide/runtime.js";
 import { Button } from "#components/button/button.tsx";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import type { HTMLAttributes } from "preact/compat";
@@ -14,7 +13,6 @@ const isCredentiallessSupported =
 	import.meta.env.SSR || "credentialless" in HTMLIFrameElement.prototype;
 
 export interface IFramePlaceholderProps {
-	locale: Locale;
 	width: string;
 	height: string;
 	src: string;
@@ -61,9 +59,7 @@ export function IFramePlaceholder({
 				</div>
 				<div class={style.headerInfo}>
 					<p>
-						<span class="visually-hidden">
-							{m.label_embedded_webpage({}, { locale: props.locale })}
-						</span>
+						<span class="visually-hidden">{m.label_embedded_webpage()}</span>
 						{props.pageTitle}
 					</p>
 					<a
@@ -81,7 +77,7 @@ export function IFramePlaceholder({
 					target="_blank"
 					leftIcon={<RawSvg icon={LaunchIcon} />}
 				>
-					{m.action_new_tab({}, { locale: props.locale })}
+					{m.action_new_tab()}
 				</Button>
 			</div>
 			{isCredentiallessSupported &&
@@ -97,7 +93,7 @@ export function IFramePlaceholder({
 							leftIcon={<RawSvg icon={PlayIcon} />}
 							onClick={() => setFrameVisible(true)}
 						>
-							{m.action_run({}, { locale: props.locale })}
+							{m.action_run()}
 						</Button>
 					</div>
 				) : (

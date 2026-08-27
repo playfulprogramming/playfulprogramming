@@ -1,4 +1,3 @@
-import type { Locale } from "#src/paraglide/runtime.js";
 import type { ComponentChild } from "preact";
 import styles from "./gist-placeholder.module.scss";
 import { Button } from "#components/button/button.tsx";
@@ -8,7 +7,6 @@ import { RawSvg } from "#components/image/raw-svg.tsx";
 import { m } from "#src/paraglide/messages.js";
 
 export interface GistPlaceholderProps {
-	locale: Locale;
 	username: string;
 	filename: string;
 	href: string;
@@ -17,7 +15,6 @@ export interface GistPlaceholderProps {
 export function GistPlaceholder({
 	children,
 	href,
-	locale,
 	username,
 	filename,
 }: GistPlaceholderProps & {
@@ -40,7 +37,7 @@ export function GistPlaceholder({
 					</span>
 				</p>
 				<Button href={href} leftIcon={<RawSvg icon={github} />}>
-					{m.action_view_gist({}, { locale })}
+					{m.action_view_gist()}
 				</Button>
 			</div>
 		</div>

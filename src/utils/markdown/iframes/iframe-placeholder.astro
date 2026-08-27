@@ -1,11 +1,8 @@
 ---
 import type { IFramePlaceholderProps } from "#components/iframe-placeholder/iframe-placeholder.tsx";
 import { IFramePlaceholder as PreactIFramePlaceholder } from "#components/iframe-placeholder/iframe-placeholder.tsx";
-import { getLocale } from "#src/paraglide/runtime.js";
 
-export type Props = Omit<IFramePlaceholderProps, "locale">;
-
-const locale = getLocale();
+export type Props = IFramePlaceholderProps;
 ---
 
-<PreactIFramePlaceholder {...Astro.props} locale={locale} client:load />
+<PreactIFramePlaceholder {...Astro.props} client:load />

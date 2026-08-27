@@ -3,11 +3,8 @@ import {
 	FourOFourEmbed,
 	type FourOFourEmbedProps,
 } from "#components/404-embed/404-embed.js";
-import { getLocale } from "#src/paraglide/runtime.js";
 
-export type Props = Omit<FourOFourEmbedProps, "locale">;
-
-const locale = getLocale();
+export type Props = FourOFourEmbedProps;
 ---
 
-<FourOFourEmbed {...Astro.props} locale={locale} client:load />
+<FourOFourEmbed {...Astro.props} client:load />
