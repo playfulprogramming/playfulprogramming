@@ -1,10 +1,10 @@
-import dayjs from "dayjs";
 import { Button } from "#components/button/button.tsx";
 import type { RecurringEventsCardProps } from "./types.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import date from "#src/icons/date.svg?raw";
 import style from "./recurring-event-card.module.scss";
 import { EventChip } from "../event-chip/event-chip.tsx";
+import { formatCompactTime, formatEnglishOrdinalDate } from "#utils/date.ts";
 
 export function RecurringEventsCard({
 	latestEventBlockLocationMetadata,
@@ -15,6 +15,15 @@ export function RecurringEventsCard({
 
 	const latestEventBannerSrc =
 		latestEventBlockWithMetadata?.location_metadata?.banner?.src;
+	const latestEventDate = latestEventBlockWithMetadata
+		? formatEnglishOrdinalDate(latestEventBlockWithMetadata.starts_at, {
+				month: "long",
+				day: "numeric",
+			})
+		: undefined;
+	const latestEventTime = latestEventBlockWithMetadata
+		? formatCompactTime(latestEventBlockWithMetadata.starts_at)
+		: undefined;
 
 	return (
 		<li
@@ -42,10 +51,8 @@ export function RecurringEventsCard({
 								dangerouslySetInnerHTML={{ __html: date }}
 							/>
 							<span>
-								{dayjs(latestEventBlockWithMetadata.starts_at).format(
-									"MMMM Do • h:mmA ",
-								)}
-								• <span className={style.nextEventText}>Next event</span>
+								{latestEventDate} • {latestEventTime} •{" "}
+								<span className={style.nextEventText}>Next event</span>
 							</span>
 						</div>
 					) : null}

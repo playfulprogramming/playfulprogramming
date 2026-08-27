@@ -1,22 +1,30 @@
 import type { Event, EventBlock } from "./types.ts";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
+import { fromDate, parseDate, parseDateTime } from "@internationalized/date";
 
-dayjs.extend(customParseFormat);
-dayjs.extend(utc);
-dayjs.extend(timezone);
+const eventTimeZone = "America/Los_Angeles";
+
+const inEventTimeZone = (value: string) =>
+	parseDateTime(value).toDate(eventTimeZone);
+
+const dateInEventTimeZone = (value: string) =>
+	parseDate(value).toDate(eventTimeZone);
+
+const formatMonthDayYear = ({
+	year,
+	month,
+	day,
+}: {
+	year: number;
+	month: number;
+	day: number;
+}) =>
+	`${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}-${year}`;
 
 export const bookClubBlocks = [
 	{
 		slug: "book-club-09-25-2025",
-		starts_at: dayjs("09-25-2025 02:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("09-25-2025 03:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2025-09-25T14:30"),
+		ends_at: inEventTimeZone("2025-09-25T15:30"),
 		location_description: "The Perils of Reactivity",
 		location_url:
 			"https://outbox.matthewphillips.info/archive/perils-of-reactivity",
@@ -25,12 +33,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-10-23-2025",
-		starts_at: dayjs("10-23-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("10-23-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2025-10-23T16:30"),
+		ends_at: inEventTimeZone("2025-10-23T17:30"),
 		location_description: "Build Your Own Database",
 		location_url: "https://www.nan.fyi/database",
 		presenters: [],
@@ -38,12 +42,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-10-30-2025",
-		starts_at: dayjs("10-30-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("10-30-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2025-10-30T16:30"),
+		ends_at: inEventTimeZone("2025-10-30T17:30"),
 		location_description: "An Interactive Guide to TanStack DB",
 		location_url: "https://frontendatscale.com/blog/tanstack-db/",
 		presenters: [],
@@ -51,12 +51,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-11-06-2025",
-		starts_at: dayjs("11-06-2025 07:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("11-06-2025 08:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2025-11-06T19:30"),
+		ends_at: inEventTimeZone("2025-11-06T20:30"),
 		location_description: "Dithering Part 1 — Introduction",
 		location_url: "https://visualrambling.space/dithering-part-1/",
 		presenters: [],
@@ -64,12 +60,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-11-20-2025",
-		starts_at: dayjs("11-20-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("11-20-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2025-11-20T16:30"),
+		ends_at: inEventTimeZone("2025-11-20T17:30"),
 		location_description: "A pragmatic guide to modern CSS colours - part one",
 		location_url:
 			"https://piccalil.li/blog/a-pragmatic-guide-to-modern-css-colours-part-one/",
@@ -78,12 +70,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-11-27-2025",
-		starts_at: dayjs("11-27-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("11-27-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2025-11-27T16:30"),
+		ends_at: inEventTimeZone("2025-11-27T17:30"),
 		location_description:
 			"Unpacking Cloudflare Workers CPU Performance Benchmarks",
 		location_url:
@@ -93,12 +81,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-12-04-2025",
-		starts_at: dayjs("12-04-2025 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("12-04-2025 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2025-12-04T16:30"),
+		ends_at: inEventTimeZone("2025-12-04T17:30"),
 		location_description: "Your URL Is Your State",
 		location_url: "https://alfy.blog/2025/10/31/your-url-is-your-state.html",
 		presenters: [],
@@ -106,12 +90,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-01-14-2026",
-		starts_at: dayjs("01-14-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("01-14-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2026-01-14T16:30"),
+		ends_at: inEventTimeZone("2026-01-14T17:30"),
 		location_description: "MSW: Docs",
 		location_url: "https://mswjs.io/docs/",
 		presenters: [],
@@ -119,12 +99,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-01-21-2026",
-		starts_at: dayjs("01-21-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("01-21-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2026-01-21T16:30"),
+		ends_at: inEventTimeZone("2026-01-21T17:30"),
 		location_description: "How to Steal Any React Component",
 		location_url: "https://fant.io/react/",
 		presenters: [],
@@ -132,12 +108,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-01-28-2026",
-		starts_at: dayjs("01-28-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("01-28-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2026-01-28T16:30"),
+		ends_at: inEventTimeZone("2026-01-28T17:30"),
 		location_description: 'The "You" in CPU: The Basics',
 		location_url: "https://cpu.land/the-basics",
 		presenters: [],
@@ -145,12 +117,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-02-04-2026",
-		starts_at: dayjs("02-04-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("02-04-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2026-02-04T16:30"),
+		ends_at: inEventTimeZone("2026-02-04T17:30"),
 		location_description: 'The "You" in CPU: Multitasking',
 		location_url: "https://cpu.land/slice-dat-time",
 		presenters: [],
@@ -158,12 +126,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-02-11-2026",
-		starts_at: dayjs("02-11-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("02-11-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2026-02-11T16:30"),
+		ends_at: inEventTimeZone("2026-02-11T17:30"),
 		location_description: 'The "You" in CPU: Exec',
 		location_url: "https://cpu.land/how-to-run-a-program",
 		presenters: [],
@@ -171,12 +135,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-02-18-2026",
-		starts_at: dayjs("02-18-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("02-18-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2026-02-18T16:30"),
+		ends_at: inEventTimeZone("2026-02-18T17:30"),
 		location_description: 'The "You" in CPU: Elf',
 		location_url: "https://cpu.land/becoming-an-elf-lord",
 		presenters: [],
@@ -184,12 +144,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-02-25-2026",
-		starts_at: dayjs("02-25-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("02-25-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2026-02-25T16:30"),
+		ends_at: inEventTimeZone("2026-02-25T17:30"),
 		location_description: 'The "You" in CPU: Paging',
 		location_url: "https://cpu.land/the-translator-in-your-computer",
 		presenters: [],
@@ -197,12 +153,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-03-04-2026",
-		starts_at: dayjs("03-04-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("03-04-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2026-03-04T16:30"),
+		ends_at: inEventTimeZone("2026-03-04T17:30"),
 		location_description: 'The "You" in CPU: Fork-Exec',
 		location_url: "https://cpu.land/lets-talk-about-forks-and-cows",
 		presenters: [],
@@ -210,12 +162,8 @@ export const bookClubBlocks = [
 	},
 	{
 		slug: "book-club-04-01-2026",
-		starts_at: dayjs("04-01-2026 04:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("04-01-2026 05:30 PM", "MM-DD-YYYY hh:mm A")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: inEventTimeZone("2026-04-01T16:30"),
+		ends_at: inEventTimeZone("2026-04-01T17:30"),
 		location_description: "CSS is DOOMed",
 		location_url:
 			"https://nielsleenheer.com/articles/2026/css-is-doomed-rendering-doom-in-3d-with-css/",
@@ -226,12 +174,16 @@ export const bookClubBlocks = [
 
 for (const _ of new Array(5).fill(0)) {
 	const lastEvent = bookClubBlocks.at(-1)!;
-	const starts_at = dayjs(lastEvent.starts_at).add(1, "week");
+	const startsAt = fromDate(lastEvent.starts_at, lastEvent.timezone).add({
+		weeks: 1,
+	});
 	bookClubBlocks.push({
 		...lastEvent,
-		slug: starts_at.format("MM-DD-YYYY"),
-		starts_at: starts_at.toDate(),
-		ends_at: dayjs(lastEvent.ends_at).add(1, "week").toDate(),
+		slug: formatMonthDayYear(startsAt),
+		starts_at: startsAt.toDate(),
+		ends_at: fromDate(lastEvent.ends_at, lastEvent.timezone)
+			.add({ weeks: 1 })
+			.toDate(),
 		location_description: "Discord",
 		location_url: "https://discord.playfulprogramming.com",
 	});
@@ -241,14 +193,12 @@ export const officeHoursBlocks = new Array(64).fill(0).map(
 	(_, index) =>
 		({
 			slug: "office-hours",
-			starts_at: dayjs("04-02-2026 6:00 PM", "MM-DD-YYYY hh:mm A")
-				.add(index, "week")
-				.tz("America/Los_Angeles", true)
-				.toDate(),
-			ends_at: dayjs("04-02-2027 6:00 PM", "MM-DD-YYYY hh:mm A")
-				.add(index, "week")
-				.tz("America/Los_Angeles", true)
-				.toDate(),
+			starts_at: parseDateTime("2026-04-02T18:00")
+				.add({ weeks: index })
+				.toDate(eventTimeZone),
+			ends_at: parseDateTime("2027-04-02T18:00")
+				.add({ weeks: index })
+				.toDate(eventTimeZone),
 			location_description: "Discord",
 			location_url: "https://discord.playfulprogramming.com",
 			presenters: [],
@@ -259,12 +209,8 @@ export const officeHoursBlocks = new Array(64).fill(0).map(
 export const SacramentoBootcampBlocks = [
 	{
 		slug: "sacramento-bootcamp-2026-01",
-		starts_at: dayjs("01-06-2026", "MM-DD-YYYY")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
-		ends_at: dayjs("03-24-2026", "MM-DD-YYYY")
-			.tz("America/Los_Angeles", true)
-			.toDate(),
+		starts_at: dateInEventTimeZone("2026-01-06"),
+		ends_at: dateInEventTimeZone("2026-03-24"),
 		location_description: "Sacramento, CA",
 		timezone: "America/Los_Angeles",
 		presenters: [],
