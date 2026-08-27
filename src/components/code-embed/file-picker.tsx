@@ -1,3 +1,4 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import {
 	type DirectoryProps,
 	type FileProps,
@@ -18,10 +19,13 @@ import { IconOnlyButton } from "#components/button/button.tsx";
 import CloseIcon from "#src/icons/close.svg?raw";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 
+import { m } from "#src/paraglide/messages.js";
+
 interface FilePickerProps {
 	entries: Array<FileEntry>;
 	file: string;
 	onFileChange?(file: string): void;
+	locale: Locale;
 }
 
 function sortFileItems(files: Array<DirectoryProps | FileProps>) {
@@ -39,7 +43,7 @@ function sortFileItems(files: Array<DirectoryProps | FileProps>) {
 }
 
 function buildFileItems(
-	props: FilePickerProps,
+	props: Omit<FilePickerProps, "locale">,
 ): Array<DirectoryProps | FileProps> {
 	const files: Array<DirectoryProps | FileProps> = [];
 
@@ -158,16 +162,18 @@ export function FilePicker(props: FilePickerProps) {
 				)}
 			>
 				<div class={style.header}>
-					<h1 class={`${style.title} text-style-headline-5`}>Files</h1>
+					<h1 class={`${style.title} text-style-headline-5`}>
+						{m.title_files({}, { locale: props.locale })}
+					</h1>
 					<IconOnlyButton
 						tag="button"
 						class={style.closeButton}
-						aria-label="Close"
+						aria-label={m.action_close({}, { locale: props.locale })}
 					>
 						<RawSvg icon={CloseIcon} />
 					</IconOnlyButton>
 				</div>
-				<FileListList items={listItems} />
+				<FileListList items={listItems} locale={props.locale} />
 			</Dialog>
 		</>
 	);

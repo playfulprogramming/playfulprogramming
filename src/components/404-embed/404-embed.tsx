@@ -1,29 +1,33 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import style from "./404-embed.module.scss";
 import { LargeButton } from "#components/button/button.tsx";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import LaunchIcon from "#src/icons/launch.svg?raw";
 
+import { m } from "#src/paraglide/messages.js";
+
 export interface FourOFourEmbedProps {
+	locale: Locale;
 	url: string;
 }
 
-export function FourOFourEmbed({ url }: FourOFourEmbedProps) {
+export function FourOFourEmbed({ locale, url }: FourOFourEmbedProps) {
 	return (
 		<aside class={style.embedContainer}>
 			<div class={style.embedContents}>
 				<img
 					src="/illustrations/404.svg"
-					alt="404 illustration"
+					alt={m.alt_404_illustration({}, { locale })}
 					loading="lazy"
 					data-dont-round
 					data-nozoom
 					class={style.fourOFourIllustration}
 				/>
 				<h2 data-no-heading-link class={`${style.title} text-style-headline-5`}>
-					We couldn’t find what you were looking for.
+					{m.title_embed_not_found({}, { locale })}
 				</h2>
 				<p class={`${style.description} text-style-body-large`}>
-					The webpage may no longer be available or the URL may be broken.
+					{m.desc_embed_not_found({}, { locale })}
 				</p>
 				<LargeButton
 					class={style.button}
@@ -33,7 +37,7 @@ export function FourOFourEmbed({ url }: FourOFourEmbedProps) {
 					rel="nofollow noopener noreferrer"
 					leftIcon={<RawSvg icon={LaunchIcon} />}
 				>
-					Open URL
+					{m.action_open_url({}, { locale })}
 				</LargeButton>
 			</div>
 			<div class={style.embedImageBg}>

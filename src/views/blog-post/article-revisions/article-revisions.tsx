@@ -1,3 +1,4 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import { useEffect, useRef, useState } from "preact/hooks";
 import style from "./article-revisions.module.scss";
 import listStyle from "#components/select/select.module.scss";
@@ -7,6 +8,8 @@ import type { PostInfo, PostVersion } from "#types/PostInfo.ts";
 import { siteMetadata } from "#src/constants/site-config.ts";
 import { Option } from "#components/select/basic-option.tsx";
 
+import { m } from "#src/paraglide/messages.js";
+
 interface PopOverLocation {
 	x: number;
 	y: number;
@@ -15,6 +18,7 @@ interface PopOverLocation {
 interface ArticleRevisionDropdownProps {
 	post: PostInfo;
 	versions: PostVersion[];
+	locale: Locale;
 }
 
 const supportsAnchors =
@@ -25,15 +29,24 @@ const supportsAnchors =
 export function ArticleRevisionDropdown({
 	post,
 	versions,
+	locale,
 }: ArticleRevisionDropdownProps) {
-	const { slug, publishedMeta, version } = post;
+	const { slug, published, version } = post;
 	const buttonRef = useRef<HTMLButtonElement>(null);
+	const dateFormatter = new Intl.DateTimeFormat(locale, {
+		dateStyle: "long",
+		timeZone: "UTC",
+	});
 
 	const currentPostVersion = versions.filter(({ href }) => href.endsWith(slug));
 
-	const date = currentPostVersion.length
-		? currentPostVersion[0]["publishedMeta"]
-		: publishedMeta;
+	const date = dateFormatter.format(
+		new Date(
+			currentPostVersion.length
+				? currentPostVersion[0]["published"]
+				: published,
+		),
+	);
 
 	const buttonVersion = currentPostVersion.length
 		? currentPostVersion[0]["version"]
@@ -103,7 +116,7 @@ export function ArticleRevisionDropdown({
 						: { left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }
 				}
 			>
-				{versions.map(({ href, publishedMeta, version }) => (
+				{versions.map(({ href, published, version }) => (
 					<Option key={href} isSelected={href.endsWith(slug)}>
 						<a
 							class={style.item}
@@ -111,7 +124,7 @@ export function ArticleRevisionDropdown({
 							href={href}
 						>
 							<span class={`text-style-button-regular ${style.date}`}>
-								{publishedMeta}
+								{dateFormatter.format(new Date(published))}
 							</span>
 							<span
 								class={`text-style-button-regular ${style.version} ${href.endsWith(slug) ? style.selected : ""}`}
@@ -124,7 +137,9 @@ export function ArticleRevisionDropdown({
 				<li class={style.changelog}>
 					<hr />
 					<a href={postHistory} target="_blank" rel="noreferrer">
-						<span class="text-style-button-regular">View Changelog</span>
+						<span class="text-style-button-regular">
+							{m.action_view_changelog({}, { locale })}
+						</span>
 					</a>
 				</li>
 			</ul>

@@ -1,8 +1,11 @@
 ---
 import type { VideoPlaceholderProps } from "#components/video/video-placeholder.tsx";
 import { VideoPlaceholder as PreactVideoPlaceholder } from "#components/video/video-placeholder.tsx";
+import { getLocale } from "#src/paraglide/runtime.js";
 
-export type Props = VideoPlaceholderProps;
+export type Props = Omit<VideoPlaceholderProps, "locale">;
+
+const locale = getLocale();
 ---
 
-<PreactVideoPlaceholder {...Astro.props} client:load />
+<PreactVideoPlaceholder {...Astro.props} locale={locale} client:load />

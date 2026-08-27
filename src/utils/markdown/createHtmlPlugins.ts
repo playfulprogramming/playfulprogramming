@@ -1,3 +1,4 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
 import {
@@ -55,7 +56,7 @@ import {
 import { transformUser } from "#utils/markdown/components/user/rehype-transform.ts";
 import { transformQuizRadio } from "./components/quiz/rehype-transform-quiz-radio.ts";
 
-export function createHtmlPlugins(unified: Processor) {
+export function createHtmlPlugins(unified: Processor, locale: Locale) {
 	return (
 		unified
 			.use(remarkParse, { fragment: true } as never)
@@ -120,7 +121,7 @@ export function createHtmlPlugins(unified: Processor) {
 			})
 			// Resolve local definitions after component transforms have populated
 			// the VFile's snitip map, even when a link appears first in the document.
-			.use(rehypeSnitipLinks)
+			.use(rehypeSnitipLinks, { locale })
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
 			.use(rehypeValidateHeadingLinks)

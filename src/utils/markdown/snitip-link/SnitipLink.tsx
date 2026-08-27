@@ -1,3 +1,4 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 /** @jsxRuntime automatic */
 import type { Element, ElementContent } from "hast";
 import { fromHtml } from "hast-util-from-html";
@@ -5,10 +6,13 @@ import { toString } from "hast-util-to-string";
 import fs from "fs/promises";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 
+import { m } from "#src/paraglide/messages.js";
+
 interface LinkProps {
 	id: string;
 	scopeId: string;
 	snitip: SnitipInfo;
+	locale: Locale;
 	children: ElementContent[];
 }
 
@@ -35,12 +39,17 @@ export function SnitipLink(props: LinkProps): Element {
 				aria-controls={dialogId}
 				aria-expanded="false"
 				aria-haspopup="dialog"
-				aria-label={`${label}: Open tooltip for ${props.snitip.title}`}
+				aria-label={m.label_open_tooltip_for(
+					{ label, title: props.snitip.title },
+					{ locale: props.locale },
+				)}
 			>
 				<span class="snitip-trigger__text">{props.children}</span>
 				<span class="snitip-trigger__icon-container">
 					<span aria-hidden="true" class="snitip-trigger__popup inline-popup">
-						<span class="inline-popup__content">Open tooltip</span>
+						<span class="inline-popup__content">
+							{m.action_open_tooltip({}, { locale: props.locale })}
+						</span>
 					</span>
 					{InfoIcon}
 				</span>

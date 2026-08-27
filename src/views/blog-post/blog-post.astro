@@ -29,6 +29,8 @@ import styles from "./blog-post.module.scss";
 import type { MarkdownHtml } from "#utils/markdown/index.ts";
 import Content from "#utils/markdown/components/content.astro";
 import KatexCss from "./katex.astro";
+import { m } from "#src/paraglide/messages.js";
+import { getLocale } from "#src/paraglide/runtime.js";
 
 export interface Props {
 	post: PostInfo;
@@ -52,6 +54,7 @@ const {
 
 const postHeadings = postHtml.headingsWithIds;
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
+const locale = getLocale();
 ---
 
 {postHtml.isKatexMathUsed && <KatexCss />}
@@ -117,7 +120,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 			aria-labelledby="blog-post-contents"
 		>
 			<h2 id="blog-post-contents" class="visually-hidden" data-no-heading-link>
-				Post contents
+				{m.title_post_contents()}
 			</h2>
 			<Content content={postHtml.content} />
 			{
@@ -126,6 +129,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 						post={post}
 						collection={collection}
 						collectionPosts={collectionPosts}
+						locale={locale}
 					/>
 				) : null
 			}
@@ -137,7 +141,9 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 			{
 				license ? (
 					<a
-						aria-label={`Post licensed with ${license.displayName}`}
+						aria-label={m.label_post_licensed_with({
+							license: license.displayName,
+						})}
 						href={license.explainLink}
 						class={styles.licenseImageContainer}
 					>
@@ -157,7 +163,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 						style="width: 100%; height: 100%;"
 						name="github"
 					/>
-					View this post on GitHub
+					{m.action_view_post_on_github()}
 				</LargeButton>
 				<LargeButton
 					tag="a"
@@ -169,7 +175,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 						style="width: 100%; height: 100%;"
 						name="discord"
 					/>
-					Join our Discord server
+					{m.action_join_discord_server()}
 				</LargeButton>
 			</div>
 		</footer>

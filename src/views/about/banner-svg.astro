@@ -4,6 +4,7 @@ import { getPeopleByLang } from "#utils/api.ts";
 import style from "./banner-svg.module.scss";
 import { Picture } from "#components/image/picture.tsx";
 import logo from "#src/assets/playfulprogramming_circle.svg?svg?raw";
+import { m } from "#src/paraglide/messages.js";
 import { baseLocale } from "#src/paraglide/runtime.js";
 
 const sticker_star = await fs.readFile(
@@ -62,7 +63,7 @@ const positions: Array<{ x: number; y: number; r: number }> = [
 <div
 	class={style.banner}
 	role="img"
-	aria-label="A smiling unicorn with a bowtie, surrounded by a circle of contributors to the project"
+	aria-label={m.alt_about_banner()}
 	id="banner-container"
 >
 	<div aria-hidden="true">

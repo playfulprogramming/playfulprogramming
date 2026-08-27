@@ -1,8 +1,11 @@
 ---
 import type { CodeEmbedProps } from "./code-embed.tsx";
 import { CodeEmbed as PreactCodeEmbed } from "./code-embed.tsx";
+import { getLocale } from "#src/paraglide/runtime.js";
 
-export type Props = CodeEmbedProps;
+export type Props = Omit<CodeEmbedProps, "locale">;
+
+const locale = getLocale();
 ---
 
-<PreactCodeEmbed client:visible {...Astro.props} />
+<PreactCodeEmbed client:visible {...Astro.props} locale={locale} />

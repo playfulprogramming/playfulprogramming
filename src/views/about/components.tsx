@@ -9,6 +9,8 @@ import bluesky from "#src/icons/bluesky.svg?raw";
 import facebook from "#src/icons/facebook.svg?raw";
 import rss from "#src/icons/rss.svg?raw";
 import youtube from "#src/icons/youtube.svg?raw";
+import { m } from "#src/paraglide/messages.js";
+import type { Locale } from "#src/paraglide/runtime.js";
 
 const icons: Record<string, string> = {
 	discord,
@@ -21,9 +23,13 @@ const icons: Record<string, string> = {
 	youtube,
 };
 
-export function Links() {
+export function Links({ locale }: { locale: Locale }) {
 	return (
-		<ul class="links" role="list" aria-label="Social media links">
+		<ul
+			class="links"
+			role="list"
+			aria-label={m.label_social_media_links({}, { locale })}
+		>
 			{Object.entries(data.about.links).map(([name, link]) => (
 				<li key={name}>
 					<Button

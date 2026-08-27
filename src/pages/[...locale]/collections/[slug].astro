@@ -46,7 +46,7 @@ const authors = collection.authors.map(
 	(authorId) => api.getPersonById(authorId, locale)!,
 );
 
-const collectionHtml = await getMarkdownHtml(collection);
+const collectionHtml = await getMarkdownHtml(collection, undefined, locale);
 
 const isCurrentPost = (
 	chapter: CurrentPost | FuturePost,
@@ -64,8 +64,8 @@ if (collection?.chapterList?.length) {
 		let externalLink = false;
 		if (isCurrentPost(post)) {
 			const postData = api.getPostBySlug(post.post, locale);
-			title = postData?.title || "No title";
-			description = postData?.description || "No description";
+			title = postData?.title || m.fallback_no_title();
+			description = postData?.description || m.fallback_no_description();
 			href = post?.post ? `/posts/${post.post}` : undefined;
 		} else {
 			title = post.title;

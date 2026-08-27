@@ -1,5 +1,6 @@
 ---
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 import "../../../../styles/shiki.scss";
 import "./code-block.scss";
 import styles from "./code-block.module.scss";
@@ -28,6 +29,7 @@ const { content } = await getMarkdownHtml(
 			data: vfileData,
 		}) as MarkdownVFile,
 	),
+	baseLocale,
 );
 ---
 

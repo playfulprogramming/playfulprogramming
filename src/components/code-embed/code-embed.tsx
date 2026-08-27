@@ -1,3 +1,4 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import PlayIcon from "#src/icons/play.svg?raw";
 import EditIcon from "#src/icons/edit.svg?raw";
 import RefreshIcon from "#src/icons/refresh.svg?raw";
@@ -14,11 +15,14 @@ import { FilePicker } from "./file-picker.tsx";
 import type { FileEntry } from "./types.ts";
 import { ResizeablePanels } from "./resizeable-panels.tsx";
 
+import { m } from "#src/paraglide/messages.js";
+
 interface ContainerProps {
 	title?: string;
 	editUrl?: string;
 	codePanel: ComponentChildren;
 	previewPanel: ComponentChildren;
+	locale: Locale;
 }
 
 export function Container(props: ContainerProps) {
@@ -33,7 +37,7 @@ export function Container(props: ContainerProps) {
 						leftIcon={<RawSvg icon={EditIcon} />}
 						href={props.editUrl}
 					>
-						Edit
+						{m.action_edit({}, { locale: props.locale })}
 					</Button>
 				) : null}
 			</div>
@@ -51,6 +55,7 @@ interface AddressBarProps {
 	onChange(value: string): void;
 	onSubmit(value: string): void;
 	onReload(): void;
+	locale: Locale;
 }
 
 export function AddressBar({
@@ -58,6 +63,7 @@ export function AddressBar({
 	onChange,
 	onSubmit,
 	onReload,
+	locale,
 }: AddressBarProps) {
 	const id = useId();
 
@@ -86,7 +92,7 @@ export function AddressBar({
 				for={`code-embed-input-${id}`}
 				class={`text-style-body-medium ${style.address__input}`}
 			>
-				<span class="visually-hidden">Address</span>
+				<span class="visually-hidden">{m.label_address({}, { locale })}</span>
 				<input
 					id={`code-embed-input-${id}`}
 					name="address"
@@ -99,7 +105,7 @@ export function AddressBar({
 			<IconOnlyButton
 				tag="button"
 				variant="primary"
-				aria-label="Reload"
+				aria-label={m.action_reload({}, { locale })}
 				onClick={onReload}
 			>
 				<RawSvg icon={RefreshIcon} />
@@ -112,6 +118,7 @@ export interface CodeContainerProps extends PropsWithChildren {
 	file?: string;
 	onFileChange(file: string): void;
 	entries: Array<FileEntry>;
+	locale: Locale;
 }
 
 export function CodeContainer(props: CodeContainerProps) {
@@ -126,6 +133,7 @@ export function CodeContainer(props: CodeContainerProps) {
 					file={file}
 					entries={props.entries}
 					onFileChange={props.onFileChange}
+					locale={props.locale}
 				/>
 			</div>
 			<div class={style.content__code__snippet}>{props.children}</div>
@@ -139,6 +147,7 @@ export function PreviewContainer({ children }: PropsWithChildren) {
 
 interface PreviewPlaceholderProps {
 	onClick(): void;
+	locale: Locale;
 }
 
 export function PreviewPlaceholder(props: PreviewPlaceholderProps) {
@@ -151,7 +160,7 @@ export function PreviewPlaceholder(props: PreviewPlaceholderProps) {
 				leftIcon={<RawSvg icon={PlayIcon} />}
 				onClick={props.onClick}
 			>
-				Run
+				{m.action_run({}, { locale: props.locale })}
 			</Button>
 		</div>
 	);
@@ -170,6 +179,7 @@ interface LoadingPlaceholderProps {
 	loading?: "download" | "install" | "start";
 	consoleProcess?: string;
 	consoleOutput?: string;
+	locale: Locale;
 }
 
 export function LoadingPlaceholder(props: LoadingPlaceholderProps) {
@@ -182,17 +192,27 @@ export function LoadingPlaceholder(props: LoadingPlaceholderProps) {
 				<ol>
 					<li>
 						<LoadingStepIcon index={0} current={current} />
-						<span class="text-style-body-medium-bold">Downloading sources</span>
+						<span class="text-style-body-medium-bold">
+							{m.code_embed_loading_download_sources(
+								{},
+								{ locale: props.locale },
+							)}
+						</span>
 					</li>
 					<li>
 						<LoadingStepIcon index={1} current={current} />
 						<span class="text-style-body-medium-bold">
-							Installing dependencies
+							{m.code_embed_loading_install_dependencies(
+								{},
+								{ locale: props.locale },
+							)}
 						</span>
 					</li>
 					<li>
 						<LoadingStepIcon index={2} current={current} />
-						<span class="text-style-body-medium-bold">Starting up</span>
+						<span class="text-style-body-medium-bold">
+							{m.code_embed_loading_starting_up({}, { locale: props.locale })}
+						</span>
 					</li>
 				</ol>
 				<span class={`${style.loader__command} text-style-body-small-bold`}>
@@ -228,16 +248,18 @@ export function PreviewFrame(props: PreviewFrameProps) {
 	);
 }
 
-export function PreviewError() {
+export function PreviewError({ locale }: { locale: Locale }) {
 	return (
 		<div class={style.error}>
 			<div class={style.error__grid}>
 				<div class={style.error__background} />
-				<p class={`${style.error__heading} text-style-headline-3`}>Oh, no!</p>
+				<p class={`${style.error__heading} text-style-headline-3`}>
+					{m.code_embed_error_title({}, { locale })}
+				</p>
 				<p class={`${style.error__message} text-style-body-large`}>
-					This project failed to load. Try using the Edit button, or switch to{" "}
+					{m.code_embed_error_description_before_link({}, { locale })}{" "}
 					<a href="https://webcontainers.io/guides/browser-support">
-						a supported browser
+						{m.code_embed_error_supported_browser({}, { locale })}
 					</a>
 					.
 				</p>
@@ -248,7 +270,7 @@ export function PreviewError() {
 						target="_blank"
 						variant="secondary"
 					>
-						Report an issue
+						{m.action_report_issue({}, { locale })}
 					</Button>
 				</div>
 			</div>

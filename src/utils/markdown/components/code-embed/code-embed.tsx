@@ -1,3 +1,4 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import {
 	AddressBar,
 	CodeContainer,
@@ -41,6 +42,7 @@ export interface CodeEmbedProps {
 	fileHtml?: string;
 	files: Array<FileEntry>;
 	editUrl?: string;
+	locale: Locale;
 }
 
 export function CodeEmbed(props: CodeEmbedProps) {
@@ -92,11 +94,13 @@ export function CodeEmbed(props: CodeEmbedProps) {
 		<Container
 			title={props.title}
 			editUrl={props.editUrl}
+			locale={props.locale}
 			codePanel={
 				<CodeContainer
 					entries={props.files}
 					file={selectedFile}
 					onFileChange={setSelectedFile}
+					locale={props.locale}
 				>
 					{selectedFileContent ? (
 						<CodeEmbedContent
@@ -116,10 +120,11 @@ export function CodeEmbed(props: CodeEmbedProps) {
 						onChange={handleAddressChange}
 						onSubmit={handleAddressSubmit}
 						onReload={handleAddressReset}
+						locale={props.locale}
 					/>
 					{isCurrent ? (
 						container.error ? (
-							<PreviewError />
+							<PreviewError locale={props.locale} />
 						) : container.processUrl && frameUrl != addressUrl ? (
 							<PreviewFrame src={frameUrl} onLoad={handleFrameLoad} />
 						) : (
@@ -127,10 +132,14 @@ export function CodeEmbed(props: CodeEmbedProps) {
 								loading={container.loading}
 								consoleProcess={container.consoleProcess}
 								consoleOutput={container.consoleOutput}
+								locale={props.locale}
 							/>
 						)
 					) : (
-						<PreviewPlaceholder onClick={handleRunEmbed} />
+						<PreviewPlaceholder
+							onClick={handleRunEmbed}
+							locale={props.locale}
+						/>
 					)}
 				</PreviewContainer>
 			}

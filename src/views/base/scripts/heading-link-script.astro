@@ -1,23 +1,27 @@
 ---
 import { Icon } from "astro-icon/components";
 import style from "./heading-link.module.scss";
+import { getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
+
+const locale = getLocale();
 ---
 
-<template id="heading-link-template">
+<template id="heading-link-template" data-locale={locale}>
 	<button class={style.headingLinkContainer} data-heading-anchor="copy">
 		<div class={style.headingLink}>
 			<span data-heading-link="copy">
 				<div class={style.icon} aria-hidden>
 					<Icon name="link" />
 				</div>
-				Copy link
+				{m.action_copy_link()}
 			</span>
 			<span aria-live="polite">
 				<span data-heading-link="copied" hidden>
 					<div class={style.icon} aria-hidden>
 						<Icon name="checkmark" />
 					</div>
-					Link copied!
+					{m.status_link_copied()}
 				</span>
 			</span>
 		</div>
@@ -25,10 +29,14 @@ import style from "./heading-link.module.scss";
 </template>
 
 <script>
+	import { m } from "#src/paraglide/messages.js";
+	import type { Locale } from "#src/paraglide/runtime.js";
+
 	window.addEventListener("load", () => {
 		const template = document.querySelector(
 			"#heading-link-template",
 		) as HTMLTemplateElement;
+		const locale = template.dataset.locale as Locale;
 
 		function handleClick(e: Event) {
 			if ((e.target as HTMLElement).tagName === "A") {
@@ -87,7 +95,10 @@ import style from "./heading-link.module.scss";
 				anchorEl.setAttribute("data-heading-href", href.toString());
 				anchorEl.setAttribute(
 					"aria-label",
-					`Copy permalink for "${headingEl.innerText}"`,
+					m.label_copy_permalink_for(
+						{ heading: headingEl.innerText },
+						{ locale },
+					),
 				);
 
 				headingEl.appendChild(templateClone);

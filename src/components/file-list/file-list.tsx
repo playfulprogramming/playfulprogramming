@@ -1,6 +1,9 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import { getIcon } from "./file-tree-icons.ts";
 import style from "./file-list.module.scss";
+
+import { m } from "#src/paraglide/messages.js";
 
 const FolderIcon = `
 <svg viewBox="0 0 20 20">
@@ -63,7 +66,7 @@ export function File(props: FileProps) {
 	);
 }
 
-function Directory(props: DirectoryProps) {
+function Directory(props: DirectoryProps, locale: Locale) {
 	return (
 		<details open={props.openByDefault} class={style.directoryDetails}>
 			<summary class={style.directorySummary}>
@@ -71,7 +74,10 @@ function Directory(props: DirectoryProps) {
 					className={`${style.directoryNameAndIcon} text-style-body-small-bold`}
 					data-highlighted={props.isHighlighted}
 				>
-					<span class={style.directoryIcon} aria-label="Directory">
+					<span
+						class={style.directoryIcon}
+						aria-label={m.label_directory({}, { locale })}
+					>
 						<RawSvg icon={FolderIcon} aria-hidden />
 					</span>
 					{props.name}
@@ -83,31 +89,32 @@ function Directory(props: DirectoryProps) {
 					/>
 				) : null}
 			</summary>
-			{FileListList({ items: props.items })}
+			{FileListList({ items: props.items, locale })}
 		</details>
 	);
 }
 
 interface FileListProps {
 	items: Array<DirectoryProps | FileProps>;
+	locale: Locale;
 }
 
-export function FileListList({ items }: FileListProps) {
+export function FileListList({ items, locale }: FileListProps) {
 	return (
 		<ul class={style.fileTreeList}>
 			{items.map((item) => (
 				<li key={item.name}>
-					{isDirectory(item) ? Directory(item) : File(item)}
+					{isDirectory(item) ? Directory(item, locale) : File(item)}
 				</li>
 			))}
 		</ul>
 	);
 }
 
-export function FileList({ items }: FileListProps) {
+export function FileList({ items, locale }: FileListProps) {
 	return (
 		<div class={`${style.fileTreeContainer} markdownCollapsePadding`}>
-			<div class={style.fileTree}>{FileListList({ items })}</div>
+			<div class={style.fileTree}>{FileListList({ items, locale })}</div>
 		</div>
 	);
 }

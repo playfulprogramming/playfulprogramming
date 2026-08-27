@@ -1,10 +1,14 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import { useCallback, useMemo, useState } from "preact/hooks";
 import { type QuizRadioOption, QuizRadio } from "./quiz-radio.tsx";
 import { useStore } from "@nanostores/preact";
 import { $quizState } from "./atom.ts";
 import type { ComponentChildren } from "preact";
 
+import { m } from "#src/paraglide/messages.js";
+
 export interface QuizRadioInlineProps {
+	locale: Locale;
 	id: string;
 	quizId?: string;
 	title: string;
@@ -61,17 +65,18 @@ export function QuizRadioInline(props: QuizRadioInlineProps) {
 			explanation: isSubmitted
 				? option.isCorrect
 					? option.id === questionState?.selectedAnswer
-						? "You got it!"
-						: "The correct answer"
+						? m.quiz_feedback_correct_selected({}, { locale: props.locale })
+						: m.quiz_feedback_correct_answer({}, { locale: props.locale })
 					: option.id === questionState?.selectedAnswer
-						? "You answered"
+						? m.quiz_feedback_incorrect_selected({}, { locale: props.locale })
 						: undefined
 				: undefined,
 		}));
-	}, [props.options, isSubmitted, questionState?.selectedAnswer]);
+	}, [props.options, props.locale, isSubmitted, questionState?.selectedAnswer]);
 
 	return (
 		<QuizRadio
+			locale={props.locale}
 			id={props.id}
 			title={props.title}
 			options={options}

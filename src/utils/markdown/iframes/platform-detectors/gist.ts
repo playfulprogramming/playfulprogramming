@@ -32,7 +32,7 @@ export async function rehypeTransformGist({
 			{
 				username: gist.username,
 				href: src,
-				filename: file.filename ?? "Untitled",
+				filename: file.filename,
 			},
 			[
 				GistCodeBlock({

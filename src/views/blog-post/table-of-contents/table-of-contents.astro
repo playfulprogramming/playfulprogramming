@@ -3,6 +3,7 @@ import styles from "./table-of-contents.module.scss";
 import classnames from "classnames";
 import type { PostHeadingInfo } from "#types/index.ts";
 import HeadingIntersectionObserverScript from "./heading-intersection-observer-script.astro";
+import { m } from "#src/paraglide/messages.js";
 
 interface Props {
 	headingsWithId: PostHeadingInfo[];
@@ -28,7 +29,7 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 		id="table-of-contents-heading"
 		class={`text-style-headline-5 ${styles.tocTitle}`}
 	>
-		Table of Contents
+		{m.title_table_of_contents()}
 	</h2>
 	<ol class={styles.tableList} role="list" id="tocList">
 		{

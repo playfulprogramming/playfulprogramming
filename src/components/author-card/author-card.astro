@@ -5,12 +5,14 @@ import type { PersonInfo } from "#types/PersonInfo.ts";
 import { Button } from "#components/button/button.tsx";
 import { Picture } from "#components/image/picture.tsx";
 import styles from "./author-card.module.scss";
+import { getLocale } from "#src/paraglide/runtime.js";
 
 export interface Props {
 	author: PersonInfo;
 }
 
 const { author } = Astro.props as Props;
+const locale = getLocale();
 
 const href = `/people/${author.id}`;
 ---
@@ -32,7 +34,7 @@ const href = `/people/${author.id}`;
 			<span class={`text-style-body-medium-bold ${styles.authorArticles}`}>
 				{
 					m.title_n_articles({
-						count: author.totalPostCount.toLocaleString("en"),
+						count: author.totalPostCount.toLocaleString(locale),
 					})
 				}
 			</span>
@@ -40,7 +42,7 @@ const href = `/people/${author.id}`;
 			<span class={`text-style-body-medium-bold ${styles.authorWordCount}`}>
 				{
 					m.title_n_words({
-						count: author.totalWordCount.toLocaleString("en"),
+						count: author.totalWordCount.toLocaleString(locale),
 					})
 				}
 			</span>

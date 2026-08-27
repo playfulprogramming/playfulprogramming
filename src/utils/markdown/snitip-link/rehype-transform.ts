@@ -1,3 +1,4 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import type { Element } from "hast";
 import { SKIP, visit } from "unist-util-visit";
 import type { Plugin } from "unified";
@@ -11,7 +12,14 @@ import { v4 as uuidv4 } from "uuid";
 
 const SNITIP_PROTOCOL = "pfp-snitip:";
 
-export const rehypeSnitipLinks: Plugin<[], PlayfulRoot> = () => {
+interface RehypeSnitipLinksOptions {
+	locale: Locale;
+}
+
+export const rehypeSnitipLinks: Plugin<
+	[RehypeSnitipLinksOptions],
+	PlayfulRoot
+> = ({ locale }) => {
 	return (tree, vfile) => {
 		delete (vfile as MarkdownVFile).snitipScopeId;
 		const scopeId = uuidv4();
@@ -63,6 +71,7 @@ export const rehypeSnitipLinks: Plugin<[], PlayfulRoot> = () => {
 					id: snitipId,
 					scopeId,
 					snitip,
+					locale,
 					children: node.children,
 				});
 				transformedLinks += 1;

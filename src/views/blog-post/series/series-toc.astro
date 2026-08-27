@@ -5,6 +5,7 @@ import type { PostInfo } from "#types/index.ts";
 import { Button } from "../../../components/index.ts";
 import { findActivePost } from "./base.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
 
@@ -17,9 +18,10 @@ interface Props {
 const { post, postSeries, collection } = Astro.props;
 
 const activePostsMeta = findActivePost(post, postSeries);
+const locale = getLocale();
 
 const showMoreText = m.action_view_all_chapters({
-	count: String(activePostsMeta.length),
+	count: activePostsMeta.length.toLocaleString(locale),
 });
 const showLessText = m.action_view_less_chapters();
 ---
@@ -34,7 +36,7 @@ const showLessText = m.action_view_less_chapters();
 					data-no-heading-link
 				>
 					<span class={`text-style-body-medium-bold ${styles.partOfSeries}`}>
-						This article is part of a series:
+						{m.blog_post_series_intro()}
 					</span>
 					{collection ? (
 						<a
@@ -71,8 +73,10 @@ const showLessText = m.action_view_less_chapters();
 									class={`text-style-body-large-bold ${styles.navigationItem}`}
 									data-is-active={seriesPost.isActive}
 								>
-									Part {seriesPost.order}:{" "}
-									{getShortTitle(seriesPost, collection)}
+									{m.blog_post_series_part({
+										partNumber: seriesPost.order?.toLocaleString(locale) ?? "",
+										title: getShortTitle(seriesPost, collection),
+									})}
 								</a>
 							</li>
 						))}

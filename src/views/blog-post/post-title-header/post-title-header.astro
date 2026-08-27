@@ -3,8 +3,8 @@ import style from "./post-title-header.module.scss";
 import type { PostInfo, PersonInfo, PostVersion } from "#types/index.ts";
 import { Icon } from "astro-icon/components";
 import { Chip } from "#components/index.ts";
-import dayjs from "dayjs";
 import { buildSearchQuery } from "../../search/search.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import { ArticleRevisionDropdown } from "../article-revisions/article-revisions.tsx";
 
@@ -16,8 +16,13 @@ export interface Props {
 const { post, versions, authors } = Astro.props;
 const { title, tags } = post;
 
-const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
-const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
+const locale = getLocale();
+const dateFormatter = new Intl.DateTimeFormat(locale, {
+	dateStyle: "long",
+	timeZone: "UTC",
+});
+const publishedStr = dateFormatter.format(new Date(post.published));
+const editedStr = post.edited && dateFormatter.format(new Date(post.edited));
 
 const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 ---
@@ -48,6 +53,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 								client:load
 								versions={versions}
 								post={post}
+								locale={locale}
 							/>
 						) : (
 							<p class="text-style-button-regular">{publishedStr}</p>
@@ -58,7 +64,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 				{
 					editedStr && editedStr !== publishedStr ? (
 						<p class={`text-style-button-regular ${style.date__edited}`}>
-							Last updated: {editedStr}
+							{m.label_last_updated({ date: editedStr })}
 						</p>
 					) : null
 				}
@@ -66,7 +72,11 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 
 			<div class={style.authors}>
 				<Icon width={24} height={24} name="authors" aria-hidden="true" />
-				<ul aria-label="Post authors" role="list" class={style.authors__list}>
+				<ul
+					aria-label={m.label_post_authors()}
+					role="list"
+					class={style.authors__list}
+				>
 					{
 						authors.map((author, i) => (
 							<li class="text-style-button-regular">
@@ -84,7 +94,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 				<p class="text-style-button-regular">
 					{
 						m.title_n_words({
-							count: post.wordCount.toLocaleString("en"),
+							count: post.wordCount.toLocaleString(locale),
 						})
 					}
 				</p>
@@ -109,7 +119,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 			}
 		</div>
 
-		<ul aria-label="Post tags" role="list" class={style.tags}>
+		<ul aria-label={m.label_post_tags()} role="list" class={style.tags}>
 			{
 				tags?.map((tag) => (
 					<li>

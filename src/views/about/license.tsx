@@ -1,3 +1,4 @@
+import type { Locale } from "#src/paraglide/runtime.js";
 import style from "./license.module.scss";
 import { useState } from "preact/hooks";
 import { LargeIconOnlyButton } from "#components/index.ts";
@@ -5,12 +6,15 @@ import { Dialog } from "#components/dialog/dialog.tsx";
 import close from "#src/icons/close.svg?raw";
 import { createPortal } from "preact/compat";
 
+import { m } from "#src/paraglide/messages.js";
+
 interface LicenseProps {
 	name: string;
 	explainerHtml: string;
 	action: string;
 	actionLabel: string;
 	image: string;
+	locale: Locale;
 }
 
 export function License(props: LicenseProps) {
@@ -52,6 +56,7 @@ export function License(props: LicenseProps) {
 						name={props.name}
 						explainerHtml={props.explainerHtml}
 						onClose={handleClose}
+						locale={props.locale}
 					/>,
 					document.body,
 				)
@@ -67,6 +72,7 @@ interface LicenseDialogProps {
 	name: string;
 	explainerHtml: string;
 	onClose: () => void;
+	locale: Locale;
 }
 
 export function LicenseDialog({
@@ -74,6 +80,7 @@ export function LicenseDialog({
 	name,
 	explainerHtml,
 	onClose,
+	locale,
 }: LicenseDialogProps) {
 	return (
 		<Dialog
@@ -86,7 +93,7 @@ export function LicenseDialog({
 				<LargeIconOnlyButton
 					tag="button"
 					class={style.closeButton}
-					aria-label="Close"
+					aria-label={m.action_close({}, { locale })}
 				>
 					<span
 						style="display: flex;"

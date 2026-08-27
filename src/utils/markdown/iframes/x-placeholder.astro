@@ -1,8 +1,11 @@
 ---
 import type { XEmbedPlaceholderProps } from "#components/x-embed/x-embed.tsx";
 import { XEmbedPlaceholder as PreactXPlaceholder } from "#components/x-embed/x-embed.tsx";
+import { getLocale } from "#src/paraglide/runtime.js";
 
-export type Props = XEmbedPlaceholderProps;
+export type Props = Omit<XEmbedPlaceholderProps, "locale">;
+
+const locale = getLocale();
 ---
 
-<PreactXPlaceholder {...Astro.props} client:load />
+<PreactXPlaceholder {...Astro.props} locale={locale} client:load />

@@ -55,5 +55,6 @@ export interface PostHeadingInfo {
 export interface PostVersion {
 	href: string;
 	version: PostInfo["version"];
+	published: PostInfo["published"];
 	publishedMeta: PostInfo["publishedMeta"];
 }

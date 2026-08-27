@@ -4,14 +4,22 @@ import arrow_left from "../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../icons/arrow_right.svg?raw";
 import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 type ArticleNavItemProps = {
 	post: PostInfo;
 	collection?: CollectionInfo;
 	type: "next" | "previous";
+	locale: Locale;
 };
 
-function ArticleNavItem({ post, collection, type }: ArticleNavItemProps) {
+function ArticleNavItem({
+	post,
+	collection,
+	type,
+	locale,
+}: ArticleNavItemProps) {
 	const href = `/posts/${post.slug}`;
 	return (
 		<div
@@ -24,11 +32,11 @@ function ArticleNavItem({ post, collection, type }: ArticleNavItemProps) {
 						class={`${style.icon}`}
 						dangerouslySetInnerHTML={{ __html: arrow_left }}
 					/>
-					Previous article
+					{m.action_previous_article({}, { locale })}
 				</span>
 			) : (
 				<span class={`${style.item__overline} text-style-button-regular`}>
-					Next article
+					{m.action_next_article({}, { locale })}
 					<span
 						class={`${style.icon}`}
 						dangerouslySetInnerHTML={{ __html: arrow_right }}
@@ -46,12 +54,14 @@ export interface ArticleNavProps {
 	post: PostInfo;
 	collection?: CollectionInfo;
 	collectionPosts: PostInfo[];
+	locale: Locale;
 }
 
 export function ArticleNav({
 	post,
 	collection,
 	collectionPosts,
+	locale,
 }: ArticleNavProps) {
 	const postIndex = collectionPosts.findIndex((p) => p.order === post.order);
 
@@ -64,10 +74,16 @@ export function ArticleNav({
 					post={prevPost}
 					collection={collection}
 					type="previous"
+					locale={locale}
 				/>
 			)}
 			{nextPost && (
-				<ArticleNavItem post={nextPost} collection={collection} type="next" />
+				<ArticleNavItem
+					post={nextPost}
+					collection={collection}
+					type="next"
+					locale={locale}
+				/>
 			)}
 		</div>
 	);
