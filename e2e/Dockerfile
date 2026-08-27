@@ -39,7 +39,7 @@ COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json .
 
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter "!e2e"
 
-COPY --parents content public src astro.config.ts tsconfig.json .
+COPY --parents content public src project.inlang astro.config.ts tsconfig.json .
 
 ENV MODE=e2e BUILD_OUTPUT=server
 RUN pnpm build --mode $MODE
