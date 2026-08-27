@@ -4,7 +4,7 @@ import arrow_left from "../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../icons/arrow_right.svg?raw";
 import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
-import type { Locale } from "#src/paraglide/runtime.js";
+import { type Locale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
 type ArticleNavItemProps = {
@@ -20,7 +20,7 @@ function ArticleNavItem({
 	type,
 	locale,
 }: ArticleNavItemProps) {
-	const href = `/posts/${post.slug}`;
+	const href = localizeHref(`/posts/${post.slug}`, { locale: post.locale });
 	return (
 		<div
 			class={`${style.item} ${style[`item--${type}`]}`}

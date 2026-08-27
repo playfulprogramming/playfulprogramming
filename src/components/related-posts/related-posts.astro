@@ -32,6 +32,7 @@ function getPostAuthors(post: PostInfo) {
 				title={suggestedPost.title}
 				slug={suggestedPost.slug}
 				authors={getPostAuthors(suggestedPost)}
+				locale={suggestedPost.locale}
 			/>
 		))
 	}

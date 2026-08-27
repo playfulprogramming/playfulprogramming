@@ -5,7 +5,7 @@ import type { PostInfo } from "#types/index.ts";
 import { Button } from "../../../components/index.ts";
 import { findActivePost } from "./base.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
-import { getLocale } from "#src/paraglide/runtime.js";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
 
@@ -41,7 +41,10 @@ const showLessText = m.action_view_less_chapters();
 					{collection ? (
 						<a
 							class={`text-style-headline-4 ${styles.articleTitle}`}
-							href={`/collections/${collection.upToDateSlug ?? collection.slug}`}
+							href={localizeHref(
+								`/collections/${collection.upToDateSlug ?? collection.slug}`,
+								{ locale: collection.locale },
+							)}
 						>
 							{collection.title}
 						</a>
@@ -69,7 +72,9 @@ const showLessText = m.action_view_less_chapters();
 								data-dont-show-initially={!seriesPost.shouldShowInitially}
 							>
 								<a
-									href={`/posts/${seriesPost.slug}`}
+									href={localizeHref(`/posts/${seriesPost.slug}`, {
+										locale: seriesPost.locale,
+									})}
 									class={`text-style-body-large-bold ${styles.navigationItem}`}
 									data-is-active={seriesPost.isActive}
 								>

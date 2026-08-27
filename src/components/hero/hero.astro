@@ -4,8 +4,11 @@ import BowtieButton from "../bowtie-button/bowtie-button.astro";
 import { LargeButton } from "../button/button.tsx";
 import { Icon } from "astro-icon/components";
 import style from "./hero.module.scss";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import * as data from "#utils/data.ts";
+
+const locale = getLocale();
 ---
 
 <section class={`${style.header}`}>
@@ -26,7 +29,7 @@ import * as data from "#utils/data.ts";
 				/>
 				{m.action_join_discord()}
 			</BowtieButton>
-			<LargeButton variant="primary" href="/about">
+			<LargeButton variant="primary" href={localizeHref("/about", { locale })}>
 				{m.action_learn_more()}
 				<Icon
 					slot="rightIcon"

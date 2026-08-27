@@ -1,11 +1,11 @@
 ---
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 import { Button } from "#components/button/button.tsx";
 import { Picture } from "#components/image/picture.tsx";
 import styles from "./author-card.module.scss";
-import { getLocale } from "#src/paraglide/runtime.js";
 
 export interface Props {
 	author: PersonInfo;
@@ -14,7 +14,7 @@ export interface Props {
 const { author } = Astro.props as Props;
 const locale = getLocale();
 
-const href = `/people/${author.id}`;
+const href = localizeHref(`/people/${author.id}`, { locale: author.locale });
 ---
 
 <div class={styles.authorContainer} {...getHrefContainerProps(href)}>
