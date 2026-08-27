@@ -144,7 +144,16 @@ Los vídeos también se pueden incrustar con la siguiente sintaxis:
 
 > Cuando sea posible, los elementos `<video>` deberán elegirse por sobre los archivos `.gif` u otras imágenes animadas en tus publicaciones. Esto es por motivos de accesibilidad - los vídeos dan más control a los usuarios acerca de cuándo y cómo es que la animación se reproduce.
 
-# Traducir una publicación del blog
+# Internacionalización
+
+Playful Programming tiene dos flujos de traducción relacionados, pero separados:
+
+- Las publicaciones del blog y otros contenidos extensos se localizan como archivos Markdown junto al contenido original.
+- El texto de la interfaz del sitio se guarda en catálogos de mensajes y se compila con [Paraglide JS](https://paraglidejs.com/astro).
+
+La lista canónica de idiomas configurados, incluido el idioma base, se encuentra en [`/project.inlang/settings.json`](./project.inlang/settings.json). El archivo [`/content/data/languages.json`](./content/data/languages.json) contiene los nombres legibles que se muestran para esos idiomas; por sí solo, no configura Paraglide.
+
+## Traducir una publicación del blog
 
 Si quires agregar una traducción, primero asegúrate de crear un [Archivo de datos de autor](#crear-un-perfil-de-autor) con el rol de `"translator"`, ¡Así podrás recibir crédito por tu trabajo en el sitio!
 
@@ -154,15 +163,31 @@ Para crear un archivo de traduccción para una publicación, copia su archivo `i
 >
 > Cualquier enlace a esas imágenes deberá ser actualizado en el archivo `index.fr.md` de la publicación para que apunte a la imagen traducida.
 
-Como referencia, los códigos que corresponden a cada idioma los puedes consultar en el archivo [`/content/data/languages.json`](./content/data/languages.json) - si el idioma que quieres usar no se encuentra tal vez sea necesario que lo agregues.
+Consulta [`/project.inlang/settings.json`](./project.inlang/settings.json) para conocer los códigos de idioma compatibles. Al agregar un nuevo idioma, añádelo primero a esa configuración y agrega su nombre para mostrar en [`/content/data/languages.json`](./content/data/languages.json).
 
-## Encontrar un código de idioma
+### Encontrar un código de idioma
 
-Cada código de idioma dentro de [`/content/data/languages.json`](./content/data/languages.json) está formado por dos letras en minúscula. Si incluye una región, agrega un guion seguido de otras dos letras en minúscula. Por ejemplo, el código para el francés es `fr` - para referirse al dialecto del francés que se habla en Canadá, el código será `fr-ca`.
+Cada código de idioma dentro de [`/project.inlang/settings.json`](./project.inlang/settings.json) está formado por dos letras en minúscula. Si incluye una región, agrega un guion seguido de otras dos letras en minúscula. Por ejemplo, el código para el francés es `fr` - para referirse al dialecto del francés que se habla en Canadá, el código será `fr-ca`.
 
 > Por favor usa `-` en lugar de `_` en los formatos ISO de la región del idioma. En lugar de `fr_ca`, deberá ser `fr-ca`.
 
 Consulta la lista [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) para conocer los identificadores que usarás en este formato.
+
+## Traducir los mensajes de la interfaz
+
+Los mensajes de la interfaz, como las etiquetas de navegación, el texto de los botones y las etiquetas de accesibilidad, se encuentran en [`/content/data/i18n`](./content/data/i18n). El patrón de ruta de los catálogos es `content/data/i18n/{locale}.json`, lo que produce archivos como `en.json` o `pt-br.json`. Estos catálogos son independientes del contenido Markdown localizado, como `index.fr.md`.
+
+Para agregar o actualizar un mensaje de la interfaz:
+
+1. Agrega o actualiza el mensaje en el catálogo base en inglés, [`/content/data/i18n/en.json`](./content/data/i18n/en.json).
+2. Agrega la misma clave de mensaje a los catálogos de los idiomas correspondientes. Las traducciones que falten usan el mensaje del catálogo base en inglés.
+3. Nombra los identificadores de mensajes con letras minúsculas, números y guiones bajos para que sean identificadores válidos de JavaScript, como `action_view_all`. No uses identificadores con puntos, como `action.view_all`.
+4. Usa parámetros con nombre, como `{name}` o `{count}`, para los valores insertados durante la ejecución.
+5. Ejecuta `pnpm run paraglide:compile` para validar los catálogos y volver a generar localmente la salida de Paraglide.
+
+En el código de la aplicación, importa `{ m }` desde `#src/paraglide/messages.js` y usa la API nombrada y con tipado seguro que se genera, por ejemplo `m.action_view_all()`. No uses acceso dinámico ni mediante corchetes, como `m["action.view_all"]`.
+
+El directorio generado `src/paraglide` es un resultado de compilación. No edites sus archivos manualmente; actualiza `project.inlang/settings.json` o los catálogos de origen y vuelve a compilar. Astro también compila estos mensajes durante su flujo normal de desarrollo y compilación, y las pruebas unitarias ejecutan automáticamente el paso de compilación.
 
 # Enviar una Pull Request
 
