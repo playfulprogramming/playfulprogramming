@@ -102,8 +102,9 @@ export function getPostVersionsBySlug(
 		.filter(isDefined)
 		.filter((p) => p.upToDateSlug === slug || p.slug === slug)
 		.sort(compareByPublished)
-		.map(({ locale, publishedMeta, slug, version }) => ({
+		.map(({ locale, published, publishedMeta, slug, version }) => ({
 			href: localizeHref(`/posts/${slug}`, { locale }),
+			published,
 			publishedMeta,
 			version,
 		}));

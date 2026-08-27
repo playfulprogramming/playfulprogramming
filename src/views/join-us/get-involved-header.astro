@@ -4,8 +4,11 @@ import { getPeopleByLang } from "#utils/api.ts";
 import style from "./get-involved-header.module.scss";
 import Hr from "./hr.astro";
 import { Button } from "#components/index.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
-const people = getPeopleByLang("en").map((person) => {
+const locale = getLocale();
+const people = getPeopleByLang(locale).map((person) => {
 	const imageUrls = getPictureUrls({
 		src: person.profileImgMeta.relativeServerPath,
 		width: 160,
@@ -43,17 +46,17 @@ const people = getPeopleByLang("en").map((person) => {
 				class={style.bowtieFlair}
 				aria-hidden="true"
 			/>
-			<h1 class={style.getInvolvedHeader}>Join us!</h1>
+			<h1 class={style.getInvolvedHeader}>
+				{m.join_us_hero_title()}
+			</h1>
 			<div class={style.break}>
 				<Hr />
 			</div>
 			<p class={`text-style-headline-6 ${style.paragraph}`}>
-				As a non-profit, Playful Programming embraces the best part of Open
-				Source: We’re run by real people wanting to make an impact in the world
-				and help others learn.
+				{m.join_us_hero_description()}
 			</p>
 			<Button tag="button" class={style.playPauseBtn} id="carousel-play-pause">
-				Pause
+				{m.action_pause()}
 			</Button>
 		</div>
 		<canvas
@@ -66,6 +69,7 @@ const people = getPeopleByLang("en").map((person) => {
 <script>
 	// In a requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
 	import { calculatePosition } from "./get-involved-header.ts";
+	import { m } from "#src/paraglide/messages.js";
 
 	const NUMBER_OF_INNER_ITEMS = 22;
 	const NUMBER_OF_OUTER_ITEMS = 28;
@@ -331,7 +335,9 @@ const people = getPeopleByLang("en").map((person) => {
 
 		playPauseBtn.addEventListener("click", () => {
 			paused = !paused;
-			playPauseBtn.children[0].textContent = paused ? "Play" : "Pause";
+			playPauseBtn.children[0].textContent = paused
+				? m.action_play()
+				: m.action_pause();
 		});
 
 		function handleDragStart(e: MouseEvent | TouchEvent) {

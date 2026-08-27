@@ -5,10 +5,11 @@ import * as api from "#utils/api.ts";
 import CollectionPage from "#src/views/collections/collection-page.astro";
 import CollectionChapter from "#src/views/collections/collection-chapter.astro";
 import { SubHeader } from "#src/components/subheader/subheader.tsx";
-import { m } from "#src/paraglide/messages.js";
+import { isValidLocaleRouteParam } from "#utils/locales.ts";
 import type { CurrentPost, FuturePost } from "#types/index.ts";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
-import { baseLocale, getLocale, isLocale } from "#src/paraglide/runtime.js";
+import { baseLocale, getLocale, localizeHref } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 export async function getStaticPaths() {
 	const collections = api.getAllCollections();
@@ -32,10 +33,7 @@ const params = Astro.params as {
 	slug: string;
 };
 
-if (
-	params.locale !== undefined &&
-	(params.locale === baseLocale || !isLocale(params.locale))
-) {
+if (!isValidLocaleRouteParam(params.locale)) {
 	return Astro.rewrite("/404");
 }
 
@@ -64,9 +62,13 @@ if (collection?.chapterList?.length) {
 		let externalLink = false;
 		if (isCurrentPost(post)) {
 			const postData = api.getPostBySlug(post.post, locale);
-			title = postData?.title || "No title";
-			description = postData?.description || "No description";
-			href = post?.post ? `/posts/${post.post}` : undefined;
+			title = postData?.title || m.fallback_no_title();
+			description = postData?.description || m.fallback_no_description();
+			href = post?.post
+				? localizeHref(`/posts/${post.post}`, {
+						locale: postData?.locale ?? locale,
+					})
+				: undefined;
 		} else {
 			title = post.title;
 			description = post.description || "";
@@ -83,11 +85,11 @@ if (collection?.chapterList?.length) {
 	});
 } else if (collectionPosts?.length) {
 	collectionData = collectionPosts.map(
-		({ order, title, description, slug }, i) => ({
+		({ order, title, description, slug, locale: postLocale }, i) => ({
 			num: order || i + 1,
 			title,
 			description,
-			href: `/posts/${slug}`,
+			href: localizeHref(`/posts/${slug}`, { locale: postLocale }),
 			externalLink: false,
 			collection,
 		}),

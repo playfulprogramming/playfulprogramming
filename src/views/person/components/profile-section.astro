@@ -6,6 +6,7 @@ import { Icon } from "astro-icon/components";
 import * as api from "#utils/api.ts";
 import { isDefined } from "#utils/is-defined.ts";
 import { desktopSmall, tabletSmall } from "#src/tokens/breakpoints.ts";
+import { m } from "#src/paraglide/messages.js";
 
 interface Props {
 	person: PersonInfo;
@@ -24,62 +25,62 @@ interface SocialInfo {
 const socials: SocialInfo[] = [
 	{
 		icon: "website",
-		name: "Website",
+		name: m.social_website(),
 		href: (s) => s.website,
 	},
 	{
 		icon: "github",
-		name: "GitHub",
+		name: m.social_github(),
 		href: (s) => s.github && `https://github.com/${s.github}`,
 	},
 	{
 		icon: "gitlab",
-		name: "GitLab",
+		name: m.social_gitlab(),
 		href: (s) => s.gitlab && `https://gitlab.com/${s.gitlab}`,
 	},
 	{
 		icon: "twitter",
-		name: "Twitter",
+		name: m.social_twitter(),
 		href: (s) => s.twitter && `https://twitter.com/${s.twitter}`,
 	},
 	{
 		icon: "twitch",
-		name: "Twitch",
+		name: m.social_twitch(),
 		href: (s) => s.twitch && `https://www.twitch.tv/${s.twitch}`,
 	},
 	{
 		icon: "dribbble",
-		name: "Dribbble",
+		name: m.social_dribbble(),
 		href: (s) => s.dribbble && `https://dribbble.com/${s.dribbble}`,
 	},
 	{
 		icon: "linkedin",
-		name: "LinkedIn",
+		name: m.social_linkedin(),
 		href: (s) => s.linkedIn && `https://www.linkedin.com/in/${s.linkedIn}`,
 	},
 	{
 		icon: "mastodon",
-		name: "Mastodon",
+		name: m.social_mastodon(),
 		href: (s) => s.mastodon,
 	},
 	{
 		icon: "threads",
-		name: "Threads",
+		name: m.social_threads(),
 		href: (s) => s.threads && `https://www.threads.net/${s.threads}`,
 	},
 	{
 		icon: "youtube",
-		name: "YouTube",
+		name: m.social_youtube(),
 		href: (s) => s.youtube && s.youtube,
 	},
 	{
 		icon: "cohost",
-		name: "Cohost",
+		name: m.social_cohost(),
 		href: (s) => s.cohost && `https://cohost.org/${s.cohost}`,
 	},
 	{
 		icon: "bluesky",
-		name: "Bluesky",
+		name: m.social_bluesky(),
 		href: (s) => s.bluesky,
 	},
 ];
@@ -122,7 +123,7 @@ const roles = person.roles
 		<ul
 			class={styles.socialLinkContainer}
 			role="list"
-			aria-label={`${person.name} social media links`}
+			aria-label={m.label_social_media_links_for({ name: person.name })}
 		>
 			{
 				socials.map((social) => {
@@ -148,7 +149,11 @@ const roles = person.roles
 				})
 			}
 		</ul>
-		<ul class={styles.rolesList} role="list" aria-label="Contributor roles">
+		<ul
+			class={styles.rolesList}
+			role="list"
+			aria-label={m.label_contributor_roles()}
+		>
 			{
 				roles.map((role) => (
 					<li class={styles.role}>

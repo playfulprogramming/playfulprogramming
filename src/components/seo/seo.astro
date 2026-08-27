@@ -1,6 +1,7 @@
 ---
 import { siteMetadata, siteUrl } from "#src/constants/site-config.ts";
 import { deLocalizeHref, getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 import Article from "./article.astro";
 import Book from "./book.astro";
 import Locale from "./locale.astro";
@@ -29,8 +30,8 @@ const {
 const lang = getLocale();
 const pathName = deLocalizeHref(Astro.url.pathname);
 
-const metaDescription = description || siteMetadata.description;
-const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
+const metaDescription = description || m.seo_default_description();
+const metaKeywords = keywords ? keywords.join(",") : m.seo_default_keywords();
 const metaImage = new URL(
 	shareImage ?? "/share-banner.png",
 	siteUrl,
@@ -46,7 +47,7 @@ const removeTrailingSlash = (str: string) =>
 	str.endsWith("/") ? str.slice(0, -1) : str;
 
 const currentPath = removeTrailingSlash(
-	siteMetadata.siteUrl + (pathName || ""),
+	siteMetadata.siteUrl + (Astro.url.pathname || ""),
 );
 ---
 
@@ -107,19 +108,19 @@ const currentPath = removeTrailingSlash(
 	rel="alternate"
 	href={`${siteUrl}/atom.xml`}
 	type="application/atom+xml"
-	title={`${siteMetadata.title} | Atom Feed`}
+	title={m.seo_atom_feed_title({ siteTitle: siteMetadata.title })}
 />
 <link
 	rel="alternate"
 	href={`${siteUrl}/rss.xml`}
 	type="application/rss+xml"
-	title={`${siteMetadata.title} | RSS Feed`}
+	title={m.seo_rss_feed_title({ siteTitle: siteMetadata.title })}
 />
 <link
 	rel="alternate"
 	href={`${siteUrl}/feed.json`}
 	type="application/json"
-	title={`${siteMetadata.title} | JSON Feed`}
+	title={m.seo_json_feed_title({ siteTitle: siteMetadata.title })}
 />
 <>
 	{

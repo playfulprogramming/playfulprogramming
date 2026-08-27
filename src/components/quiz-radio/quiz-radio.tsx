@@ -1,3 +1,4 @@
+import { getLocale } from "#src/paraglide/runtime.js";
 import { useCallback, useMemo } from "preact/hooks";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import style from "./quiz-radio.module.scss";
@@ -8,6 +9,8 @@ import RadioButtonSelectedIcon from "#src/icons/radio_button_selected.svg?raw";
 import RadioButtonCorrectIcon from "#src/icons/radio_button_correct_filled.svg?raw";
 import RadioButtonIncorrectIcon from "#src/icons/radio_button_incorrect_filled.svg?raw";
 import type { ComponentChildren } from "preact";
+
+import { m } from "#src/paraglide/messages.js";
 
 export interface QuizRadioOption {
 	id: string;
@@ -43,6 +46,7 @@ export interface QuizRadioProps {
 }
 
 export function QuizRadio(props: QuizRadioProps) {
+	const locale = getLocale();
 	const isDisabled = useMemo(
 		() =>
 			props.isDisabled ||
@@ -69,15 +73,19 @@ export function QuizRadio(props: QuizRadioProps) {
 				isDisabled={isDisabled}
 			>
 				<span class={`${style.quizNum} text-style-body-medium`}>
-					<span class="text-style-body-medium-bold">{props.questionNum}</span>
-					{" of "}
-					<span class="text-style-body-medium-bold">{props.totalNum}</span>
+					<span class="text-style-body-medium-bold">
+						{props.questionNum.toLocaleString(locale)}
+					</span>{" "}
+					{m.quiz_progress_separator()}{" "}
+					<span class="text-style-body-medium-bold">
+						{props.totalNum.toLocaleString(locale)}
+					</span>
 				</span>
 				<Label className={`${style.quizOptionTitle} text-style-headline-5`}>
 					{props.title}
 				</Label>
 				<span class={`${style.quizPrompt} text-style-body-medium-bold`}>
-					Select the correct answer.
+					{m.quiz_select_correct_answer()}
 				</span>
 				<div class={style.quizOptionOptionsContainer}>
 					{props.options.map((option) => {
@@ -136,7 +144,7 @@ export function QuizRadio(props: QuizRadioProps) {
 							disabled={isDisabled || typeof props.value === "undefined"}
 							onClick={handleSubmit}
 						>
-							Submit
+							{m.action_submit()}
 						</Button>
 					</div>
 				) : undefined}

@@ -3,6 +3,7 @@ import { RawSvg } from "#components/image/raw-svg.tsx";
 import iconClose from "#src/icons/close.svg?raw";
 import { SnitipContent, type SnitipProps } from "./snitip.tsx";
 import style from "./snitip.module.scss";
+import { m } from "#src/paraglide/messages.js";
 
 type SnitipDialogProps = Omit<SnitipProps, "id"> & {
 	id: string;
@@ -53,7 +54,7 @@ export function SnitipDialog({
 					snitip={snitip}
 					headingTag={headingTag}
 					headingId={headingId}
-					headingLabelPrefix="Tooltip: "
+					headingLabelPrefix={m.label_tooltip_prefix()}
 					headingTabIndex={-1}
 					includeSearchTags={includeSearchTags}
 				/>
@@ -66,7 +67,7 @@ export function SnitipDialog({
 				form={formId}
 				formNoValidate
 				value="close"
-				aria-label="Close tooltip"
+				aria-label={m.action_close_tooltip()}
 				class={style.closeButton}
 			>
 				<RawSvg aria-hidden icon={iconClose} />

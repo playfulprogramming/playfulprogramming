@@ -5,6 +5,9 @@ import forward from "#src/icons/arrow_right.svg?raw";
 import { Picture as UUPicture } from "#components/image/picture.tsx";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 
+import { m } from "#src/paraglide/messages.js";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
+
 interface CollectionCardProps {
 	collection: CollectionInfo;
 	authors: PersonInfo[];
@@ -16,6 +19,7 @@ export const CollectionCard = ({
 	authors,
 	headingTag: HeadingTag = "h2",
 }: CollectionCardProps) => {
+	const locale = getLocale();
 	const coverImgAspectRatio =
 		collection.coverImgMeta.width / collection.coverImgMeta.height;
 
@@ -44,12 +48,14 @@ export const CollectionCard = ({
 				<ul
 					className={`unlist-inline ${style.authorList}`}
 					role="list"
-					aria-label="Collection authors"
+					aria-label={m.label_collection_authors()}
 				>
 					{authors?.map((author) => (
 						<li key={author.id}>
 							<a
-								href={`/people/${author.id}`}
+								href={localizeHref(`/people/${author.id}`, {
+									locale: author.locale,
+								})}
 								className={`text-style-button-regular ${style.authorListItem}`}
 							>
 								<UUPicture
@@ -66,7 +72,9 @@ export const CollectionCard = ({
 				</ul>
 
 				<Button
-					href={`/collections/${collection.slug}`}
+					href={localizeHref(`/collections/${collection.slug}`, {
+						locale: collection.locale,
+					})}
 					rightIcon={
 						<span
 							className={style.forwardIcon}
@@ -75,7 +83,11 @@ export const CollectionCard = ({
 					}
 				>
 					{collection.customChaptersText ?? (
-						<>{String(collection.postCount)} chapters</>
+						<>
+							{m.title_n_chapters({
+								count: collection.postCount.toLocaleString(locale),
+							})}
+						</>
 					)}
 				</Button>
 			</div>

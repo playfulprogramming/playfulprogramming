@@ -1,52 +1,61 @@
 ---
-import * as fs from "fs/promises";
 import Document from "#src/layouts/document.astro";
 import SEO from "#components/seo/seo.astro";
 import AboutView from "#src/views/about/about.astro";
-import { getLanguageFromFilename } from "#utils/locales.ts";
+import NotFoundPage from "#src/views/not-found/not-found-page.astro";
+import {
+	getStaticLocalePaths,
+	isValidLocaleRouteParam,
+} from "#utils/locales.ts";
+import {
+	createAboutProps,
+	getAboutFiles,
+	type AboutPageProps,
+} from "#src/views/about/route-data.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
-import { join } from "path";
-import { contentDirectory } from "#utils/data.ts";
-import { getLocale, type Locale } from "#src/paraglide/runtime.js";
 
 export async function getStaticPaths() {
-	const files = (await fs.readdir(join(contentDirectory, "site")))
-		.filter((filename) => filename.startsWith("about-us"))
-		.map((filename) => ({
-			file: join(contentDirectory, "site", filename),
-			locale: getLanguageFromFilename(filename),
-		}));
+	const files = await getAboutFiles();
 
-	return files.map((data) => {
-		return {
-			params: {
-				locale: data.locale !== "en" ? data.locale : undefined,
-			},
-			props: {
-				file: data.file,
-				locales: files.map((d) => d.locale),
-				locale: data.locale,
-			},
-		};
-	});
+	return getStaticLocalePaths().map(({ params, props }) => ({
+		params,
+		props: createAboutProps(files, props.locale),
+	}));
 }
 
-interface Props {
-	file: string;
-	locales: Locale[];
-	locale: Locale;
+const localeParam = Astro.params.locale;
+const isLocaleRoute = isValidLocaleRouteParam(localeParam);
+if (!isLocaleRoute) {
+	Astro.response.status = 404;
 }
 
-const { file, locales } = Astro.props as Props;
 const locale = getLocale();
+const generatedProps = Astro.props as Partial<AboutPageProps>;
+const hasGeneratedProps =
+	typeof generatedProps.file === "string" &&
+	typeof generatedProps.isFallback === "boolean" &&
+	Array.isArray(generatedProps.locales);
+const pageProps = !isLocaleRoute
+	? undefined
+	: hasGeneratedProps
+		? (generatedProps as AboutPageProps)
+		: createAboutProps(await getAboutFiles(), locale);
 ---
 
-<Document>
-	<SEO
-		title={m.title_about_us()}
-		description={m.desc_about_us()}
-		providedLangs={locales}
-		slot="head"
-	/>
-	<AboutView locales={locales} locale={locale} file={file} />
-</Document>
+{
+	pageProps ? (
+		<Document>
+			<SEO
+				title={m.title_about_us()}
+				description={m.desc_about_us()}
+				providedLangs={pageProps.locales}
+				noindex={pageProps.isFallback}
+				slot="head"
+			/>
+			<AboutView locales={pageProps.locales} file={pageProps.file} />
+		</Document>
+	) : (
+		<NotFoundPage />
+	)
+}

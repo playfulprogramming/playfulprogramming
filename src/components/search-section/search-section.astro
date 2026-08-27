@@ -1,5 +1,6 @@
 ---
 import { Chip } from "../chip/chip.tsx";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import style from "./search-section.module.scss";
 import * as data from "#utils/data.ts";
@@ -14,6 +15,8 @@ import {
 const tagsToDisplay = [...data.tags.entries()]
 	.sort(() => 0.5 - Math.random())
 	.slice(0, 8);
+const locale = getLocale();
+const searchPath = localizeHref("/search", { locale });
 ---
 
 <section class={style.container}>
@@ -24,7 +27,7 @@ const tagsToDisplay = [...data.tags.entries()]
 		{m.desc_looking_for_more()}
 	</p>
 
-	<form class={style.searchbarRow} method="get" action="/search">
+	<form class={style.searchbarRow} method="get" action={searchPath}>
 		<SearchInput name={SEARCH_QUERY_KEY} class={style.searchbar} />
 		<IconOnlyButton
 			tag="button"
@@ -38,14 +41,14 @@ const tagsToDisplay = [...data.tags.entries()]
 
 	<ul
 		class="unlist-inline gap-2 text-center"
-		aria-label="Post tags"
+		aria-label={m.label_post_tags()}
 		role="list"
 	>
 		{
 			tagsToDisplay.map((tag) => (
 				<li>
 					<Chip
-						href={`/search?${buildSearchQuery({
+						href={`${searchPath}?${buildSearchQuery({
 							searchQuery: "*",
 							filterTags: [tag[0]],
 						})}`}

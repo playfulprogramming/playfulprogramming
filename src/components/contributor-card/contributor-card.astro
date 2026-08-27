@@ -3,6 +3,7 @@ import style from "./contributor-card.module.scss";
 import type { PersonInfo } from "../../types/index.ts";
 import { Picture } from "../image/picture.tsx";
 import { Button } from "../index.ts";
+import { localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import { getHrefContainerProps } from "../../utils/href-container-script.ts";
 import allRoles from "../../../content/data/roles.json" with { type: "json" };
@@ -17,7 +18,9 @@ interface Props {
 }
 
 const { person, overrides } = Astro.props;
-const personHref = `/people/${person.id}`;
+const personHref = localizeHref(`/people/${person.id}`, {
+	locale: person.locale,
+});
 
 const roles =
 	overrides?.roles === undefined
@@ -54,7 +57,7 @@ const isPartner =
 				isPartner && (
 					<span class={`text-style-body-small-bold ${style.partnerLabel}`}>
 						<img width="16" height="16" src="/flair/bowtie.svg" alt="" />
-						Partner
+						{m.label_partner()}
 					</span>
 				)
 			}

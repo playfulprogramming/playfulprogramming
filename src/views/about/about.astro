@@ -1,4 +1,5 @@
 ---
+import { getLocale, type Locale } from "#src/paraglide/runtime.js";
 import style from "./about.module.scss";
 import "../../styles/shiki.scss";
 import * as data from "#utils/data.ts";
@@ -8,7 +9,7 @@ import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { License } from "./license.tsx";
 import BannerSvg from "./banner-svg.astro";
 import * as api from "#utils/api.ts";
-import type { Locale } from "#src/paraglide/runtime.js";
+
 import { VFile } from "vfile";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
 import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
@@ -19,11 +20,11 @@ import Content from "#utils/markdown/components/content.astro";
 
 interface Props {
 	locales: Locale[];
-	locale: Locale;
 	file: string;
 }
 
-const { locales, locale, file } = Astro.props as Props;
+const { locales, file } = Astro.props as Props;
+const locale = getLocale();
 const fileInfo: MarkdownFileInfo = { kind: "page", file };
 const vfile = await getMarkdownVFile(fileInfo);
 
@@ -71,7 +72,7 @@ const tags = [
 ---
 
 <main class="container">
-	<h1 class="visually-hidden">About Us</h1>
+	<h1 class="visually-hidden">{m.title_about_us()}</h1>
 	<div class={style.banner}>
 		<BannerSvg />
 	</div>
@@ -86,7 +87,7 @@ const tags = [
 					<ContributorCard
 						overrides={{
 							isPartner: false,
-							roles: ["Board Member", ...(person.boardRoles ?? [])],
+							roles: [m.role_board_member(), ...(person.boardRoles ?? [])],
 						}}
 						person={person}
 					/>
@@ -132,7 +133,7 @@ const tags = [
 		<p>
 			{m.desc_licenses_request_removal()}
 			<a id="email-licenses" href="#">
-				<noscript>JavaScript required</noscript>
+				<noscript>{m.desc_javascript_required()}</noscript>
 			</a>
 			<script>
 				{

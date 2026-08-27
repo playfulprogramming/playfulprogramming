@@ -5,6 +5,8 @@ import { useState } from "preact/hooks";
 import LaunchIcon from "#src/icons/launch.svg?raw";
 import PlayIcon from "#src/icons/play.svg?raw";
 import FallbackPageIcon from "#src/icons/website.svg?raw";
+
+import { m } from "#src/paraglide/messages.js";
 import style from "./iframe-placeholder.module.scss";
 
 const isCredentiallessSupported =
@@ -57,7 +59,7 @@ export function IFramePlaceholder({
 				</div>
 				<div class={style.headerInfo}>
 					<p>
-						<span class="visually-hidden">An embedded webpage:</span>
+						<span class="visually-hidden">{m.label_embedded_webpage()}</span>
 						{props.pageTitle}
 					</p>
 					<a
@@ -75,7 +77,7 @@ export function IFramePlaceholder({
 					target="_blank"
 					leftIcon={<RawSvg icon={LaunchIcon} />}
 				>
-					New tab
+					{m.action_new_tab()}
 				</Button>
 			</div>
 			{isCredentiallessSupported &&
@@ -91,7 +93,7 @@ export function IFramePlaceholder({
 							leftIcon={<RawSvg icon={PlayIcon} />}
 							onClick={() => setFrameVisible(true)}
 						>
-							Run
+							{m.action_run()}
 						</Button>
 					</div>
 				) : (

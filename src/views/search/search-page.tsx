@@ -46,6 +46,7 @@ import {
 } from "./constants.ts";
 import { useFilterState } from "./use-filter-state.ts";
 import { SnitipCardGrid } from "#components/snitip/snitip-card.tsx";
+import { m } from "#src/paraglide/messages.js";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -75,11 +76,14 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 		deserializeParams,
 		(query): string => {
 			if (query.searchQuery === "*") {
-				return `Search all | ${siteTitle}`;
+				return m.search_meta_all({ siteTitle });
 			} else if (query.searchQuery) {
-				return `${query.searchQuery} | ${siteTitle}`;
+				return m.search_meta_query({
+					query: query.searchQuery,
+					siteTitle,
+				});
 			}
-			return `Search | ${siteTitle}`;
+			return m.search_meta_default({ siteTitle });
 		},
 	);
 
@@ -435,7 +439,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 								<div className={style.loadingAnimationContainer}>
 									<div className={style.loadingAnimation} />
 									<p className={`text-style-headline-4 ${style.loadingText}`}>
-										Fetching results...
+										{m.search_state_loading()}
 									</p>
 								</div>
 							</>
@@ -450,16 +454,16 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 							<SearchHero
 								imageSrc={sadUnicorn.src}
 								imageAlt={""}
-								title={"No results found..."}
-								description={"Please adjust your query or your active filters!"}
+								title={m.search_state_empty_title()}
+								description={m.search_state_empty_description()}
 							/>
 						)}
 						{isError && (
 							<SearchHero
 								imageSrc={scaredUnicorn.src}
 								imageAlt={""}
-								title={"There was an error fetching your search results."}
-								description={"Please adjust your query or try again."}
+								title={m.search_state_error_title()}
+								description={m.search_state_error_description()}
 								buttons={
 									<LargeButton
 										onClick={() => refetch()}
@@ -467,7 +471,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 											<span dangerouslySetInnerHTML={{ __html: retry }} />
 										}
 									>
-										Retry
+										{m.action_retry()}
 									</LargeButton>
 								}
 							/>
@@ -478,10 +482,8 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 						<SearchHero
 							imageSrc={happyUnicorn.src}
 							imageAlt={""}
-							title={"What would you like to find?"}
-							description={
-								"Search for your favorite framework or most loved language; we'll share what we know."
-							}
+							title={m.search_state_initial_title()}
+							description={m.desc_looking_for_more()}
 						/>
 					)}
 					{enabled &&
@@ -491,7 +493,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 						Boolean(snitips.length) && (
 							<div className={style.snitipsContainer}>
 								<h2 id="snitips-header" className="visually-hidden">
-									Tags
+									{m.title_tags()}
 								</h2>
 								<SnitipCardGrid
 									snitips={snitips}
@@ -510,7 +512,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 									data-testid="collections-header"
 									class="visually-hidden"
 								>
-									Collections
+									{m.title_collections()}
 								</h2>
 								<ul
 									aria-labelledby="collections-header"
@@ -541,7 +543,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 									data-testid="articles-header"
 									class="visually-hidden"
 								>
-									Articles
+									{m.title_articles()}
 								</h2>
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
@@ -589,11 +591,11 @@ const queryClient = new QueryClient();
 interface RootSearchPageProps {
 	siteTitle: string;
 }
-export default function SearchPage({ siteTitle }: RootSearchPageProps) {
+export default function SearchPage(props: RootSearchPageProps) {
 	return (
 		<SearchProvider>
 			<QueryClientProvider client={queryClient}>
-				<SearchPageBase siteTitle={siteTitle} />
+				<SearchPageBase {...props} />
 			</QueryClientProvider>
 		</SearchProvider>
 	);

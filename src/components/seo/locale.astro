@@ -5,7 +5,6 @@ import {
 	localizeHref,
 	type Locale,
 } from "#src/paraglide/runtime.js";
-import { localeToOpenGraph } from "#utils/locales.ts";
 
 export type Props = {
 	providedLangs?: Locale[];
@@ -37,7 +36,7 @@ const absoluteLocalizedUrl = (locale: Locale) =>
 					<link
 						rel="alternate"
 						href={absoluteLocalizedUrl(locale)}
-						hreflang={localeToOpenGraph(locale)}
+						hreflang={new Intl.Locale(locale).toString()}
 					/>
 				))
 			: null

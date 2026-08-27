@@ -15,6 +15,7 @@ import {
 import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useDebouncedCallback } from "../use-debounced-value.ts";
+import { m } from "#src/paraglide/messages.js";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;
@@ -83,7 +84,7 @@ export const SearchTopbar = ({
 			>
 				<form
 					role="search"
-					aria-label="Search our content"
+					aria-label={m.label_search_content()}
 					className={style.searchbarRow}
 					onSubmit={(e) => {
 						e.preventDefault();
@@ -93,7 +94,7 @@ export const SearchTopbar = ({
 					<SearchInput
 						id="search-bar"
 						data-testid="search-input"
-						aria-description={"Results will update as you type"}
+						aria-description={m.desc_search_live_results()}
 						class={style.searchbar}
 						usedInPreact={true}
 						value={searchInput}
@@ -105,13 +106,13 @@ export const SearchTopbar = ({
 						tag="button"
 						type="submit"
 					>
-						Search
+						{m.title_search()}
 					</LargeButton>
 					<IconOnlyButton
 						class={style.searchIconButton}
 						tag="button"
 						type="submit"
-						aria-label="Search"
+						aria-label={m.title_search()}
 						dangerouslySetInnerHTML={{ __html: forward }}
 						children={[]}
 					/>
@@ -125,11 +126,13 @@ export const SearchTopbar = ({
 					className={style.contentToDisplayGroup}
 					testId={"content-to-display-group-topbar"}
 					value={contentToDisplay}
-					label={"Content to display"}
+					label={m.label_content_to_display()}
 					onChange={(val) => setContentToDisplay(val as DisplayContentType)}
 				>
-					<RadioButton value={"articles"}>Articles</RadioButton>
-					<RadioButton value={"collections"}>Collections</RadioButton>
+					<RadioButton value={"articles"}>{m.title_articles()}</RadioButton>
+					<RadioButton value={"collections"}>
+						{m.title_collections()}
+					</RadioButton>
 				</RadioButtonGroup>
 				<Button
 					onClick={() => setFilterIsDialogOpen(true)}
@@ -143,27 +146,27 @@ export const SearchTopbar = ({
 						/>
 					}
 				>
-					Filter
+					{m.action_filter()}
 				</Button>
 				<Select
 					className={style.sortOrderGroup}
 					testId={"sort-order-group-topbar"}
-					label={"Post sort order"}
-					prefixSelected={"Sort by: "}
-					defaultValue={"Relevance"}
+					label={m.label_post_sort_order()}
+					prefixSelected={m.label_sort_by()}
+					defaultValue={m.search_sort_relevance()}
 					value={sort}
 					onChange={(v) => setSort(v as SortType)}
 				>
-					<Item key={"relevance"}>Relevance</Item>
-					<Item key={"newest"}>Newest</Item>
-					<Item key={"oldest"}>Oldest</Item>
+					<Item key={"relevance"}>{m.search_sort_relevance()}</Item>
+					<Item key={"newest"}>{m.search_sort_newest()}</Item>
+					<Item key={"oldest"}>{m.search_sort_oldest()}</Item>
 				</Select>
 				<IconOnlyButton
 					class={style.filterIconButton}
 					tag="button"
 					type="button"
 					onClick={() => setFilterIsDialogOpen(true)}
-					aria-label="Filter"
+					aria-label={m.action_filter()}
 				>
 					<span
 						className={style.filterIconContainer}

@@ -4,7 +4,9 @@ import { QuizResultsInline as PreactQuizResults } from "#components/quiz-radio/q
 import Content from "../content.astro";
 import type { PlayfulNode } from "../components.ts";
 
-export type Props = QuizResultsInlineProps & { children: PlayfulNode[] };
+export type Props = QuizResultsInlineProps & {
+	children: PlayfulNode[];
+};
 
 const { children, ...props } = Astro.props;
 ---

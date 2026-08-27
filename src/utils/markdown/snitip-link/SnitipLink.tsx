@@ -5,6 +5,8 @@ import { toString } from "hast-util-to-string";
 import fs from "fs/promises";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 
+import { m } from "#src/paraglide/messages.js";
+
 interface LinkProps {
 	id: string;
 	scopeId: string;
@@ -35,12 +37,15 @@ export function SnitipLink(props: LinkProps): Element {
 				aria-controls={dialogId}
 				aria-expanded="false"
 				aria-haspopup="dialog"
-				aria-label={`${label}: Open tooltip for ${props.snitip.title}`}
+				aria-label={m.label_open_tooltip_for({
+					label,
+					title: props.snitip.title,
+				})}
 			>
 				<span class="snitip-trigger__text">{props.children}</span>
 				<span class="snitip-trigger__icon-container">
 					<span aria-hidden="true" class="snitip-trigger__popup inline-popup">
-						<span class="inline-popup__content">Open tooltip</span>
+						<span class="inline-popup__content">{m.action_open_tooltip()}</span>
 					</span>
 					{InfoIcon}
 				</span>

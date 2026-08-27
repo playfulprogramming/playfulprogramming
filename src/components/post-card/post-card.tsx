@@ -6,15 +6,20 @@ import authorsSvg from "#src/icons/authors.svg?raw";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import { buildSearchQuery } from "#src/views/search/search.ts";
 import type { PostInfoWithBanner } from "./types.ts";
+import { m } from "#src/paraglide/messages.js";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 
 interface PostCardProps {
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	post: PostInfoWithBanner;
-	authors: Pick<PersonInfo, "id" | "name">[];
+	authors: Pick<PersonInfo, "id" | "name" | "locale">[];
 	class?: string;
 }
 
 function PostCardMeta({ post, authors }: PostCardProps) {
+	const locale = getLocale();
+	const searchHref = localizeHref("/search", { locale });
+
 	return (
 		<>
 			<div className={style.postDataContainer}>
@@ -27,13 +32,15 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 					<ul
 						className={style.authorList}
 						role="list"
-						aria-label="Post authors"
+						aria-label={m.label_post_authors()}
 					>
 						{authors.map((author, i, arr) => (
 							<li key={author.id} class="text-style-body-small-bold">
 								<a
 									className={`${style.authorName}`}
-									href={`/people/${author.id}`}
+									href={localizeHref(`/people/${author.id}`, {
+										locale: author.locale,
+									})}
 								>
 									{author.name}
 									{i !== arr.length - 1 && <span aria-hidden="true">, </span>}
@@ -58,7 +65,9 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 							•
 						</span>
 						<span className={`text-style-body-small ${style.wordCount}`}>
-							{post.wordCount.toLocaleString("en")} words
+							{m.title_n_words({
+								count: post.wordCount.toLocaleString(locale),
+							})}
 						</span>
 					</span>
 				</p>
@@ -68,11 +77,15 @@ function PostCardMeta({ post, authors }: PostCardProps) {
 				dangerouslySetInnerHTML={{ __html: post.description }}
 			/>
 			<div className={style.spacer} />
-			<ul className={style.cardList} aria-label={"Post tags"} role="list">
+			<ul
+				className={style.cardList}
+				aria-label={m.label_post_tags()}
+				role="list"
+			>
 				{post.tags.map((tag) => (
 					<li key={tag}>
 						<Chip
-							href={`/search?${buildSearchQuery({ searchQuery: "*", filterTags: [tag] })}`}
+							href={`${searchHref}?${buildSearchQuery({ searchQuery: "*", filterTags: [tag] })}`}
 						>
 							{tag}
 						</Chip>
@@ -90,9 +103,13 @@ export const PostCardExpanded = ({
 	class: className = "",
 	imageLoading = "lazy",
 }: PostCardProps & { imageLoading?: "eager" | "lazy" }) => {
+	const postHref = localizeHref(`/posts/${post.slug}`, {
+		locale: post.locale,
+	});
+
 	return (
 		<li
-			{...getHrefContainerProps(`/posts/${post.slug}`)}
+			{...getHrefContainerProps(postHref)}
 			className={`${className} ${style.postBase} ${style.extendedPostContainer}`}
 		>
 			<div className={style.extendedPostImageContainer}>
@@ -105,7 +122,7 @@ export const PostCardExpanded = ({
 				/>
 			</div>
 			<div className={style.postContainer}>
-				<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
+				<a href={postHref} className={`${style.postHeaderBase}`}>
 					<HeadingTag className={`text-style-headline-2`}>
 						{post.title}
 					</HeadingTag>
@@ -122,12 +139,16 @@ export const PostCard = ({
 	headingTag: HeadingTag = "h2",
 	class: className = "",
 }: PostCardProps) => {
+	const postHref = localizeHref(`/posts/${post.slug}`, {
+		locale: post.locale,
+	});
+
 	return (
 		<li
-			{...getHrefContainerProps(`/posts/${post.slug}`)}
+			{...getHrefContainerProps(postHref)}
 			className={`${className} ${style.postContainer} ${style.postBase} ${style.regularPostContainer}`}
 		>
-			<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
+			<a href={postHref} className={`${style.postHeaderBase}`}>
 				<HeadingTag className={`text-style-headline-5`}>
 					{post.title}
 				</HeadingTag>

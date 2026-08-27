@@ -7,6 +7,8 @@ import { RawSvg } from "#components/image/raw-svg.tsx";
 import ArticlesIcon from "#src/icons/articles.svg?raw";
 import NotebookIcon from "#src/icons/notebook.svg?raw";
 import { useMemo, useRef } from "preact/hooks";
+import { getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 interface FilterSidebarControlsProps {
 	sort: SortType;
@@ -36,15 +38,16 @@ export const FilterSidebarControls = ({
 	numberOfPosts,
 	numberOfCollections,
 }: FilterSidebarControlsProps) => {
-	const postsLabel = usePersistedRef(numberOfPosts?.toLocaleString());
+	const locale = getLocale();
+	const postsLabel = usePersistedRef(numberOfPosts?.toLocaleString(locale));
 	const collectionsLabel = usePersistedRef(
-		numberOfCollections?.toLocaleString(),
+		numberOfCollections?.toLocaleString(locale),
 	);
 	return (
 		<>
 			<RadioButtonGroup
 				testId="show-group-sidebar"
-				label="Show:"
+				label={m.label_show()}
 				defaultValue="articles"
 				value={contentToDisplay}
 				onChange={(v) => setContentToDisplay(v as DisplayContentType)}
@@ -54,28 +57,28 @@ export const FilterSidebarControls = ({
 					leftIcon={<RawSvg icon={ArticlesIcon} />}
 					rightIcon={postsLabel}
 				>
-					Articles
+					{m.title_articles()}
 				</RadioListButton>
 				<RadioListButton
 					value="collections"
 					leftIcon={<RawSvg icon={NotebookIcon} />}
 					rightIcon={collectionsLabel}
 				>
-					Collections
+					{m.title_collections()}
 				</RadioListButton>
 			</RadioButtonGroup>
 			<div className={style.container}>
 				<SelectWithLabel
 					testId={"sort-order-group-sidebar"}
-					label={"Sort:"}
+					label={m.label_sort()}
 					prefixSelected={""}
-					defaultValue={"Relevance"}
+					defaultValue={m.search_sort_relevance()}
 					value={sort}
 					onChange={(v) => setSort(v as SortType)}
 				>
-					<Item key={"relevance"}>Relevance</Item>
-					<Item key={"newest"}>Newest</Item>
-					<Item key={"oldest"}>Oldest</Item>
+					<Item key={"relevance"}>{m.search_sort_relevance()}</Item>
+					<Item key={"newest"}>{m.search_sort_newest()}</Item>
+					<Item key={"oldest"}>{m.search_sort_oldest()}</Item>
 				</SelectWithLabel>
 			</div>
 		</>

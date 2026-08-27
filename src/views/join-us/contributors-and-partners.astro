@@ -1,10 +1,12 @@
 ---
 import * as api from "#utils/api.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import ContributorCard from "../../components/contributor-card/contributor-card.astro";
 import style from "./contributors-and-partners.module.scss";
 
-const people = api.getPeopleByLang("en");
+const locale = getLocale();
+const people = api.getPeopleByLang(locale);
 
 const { partners, nonPartners } = people.reduce(
 	(prev, person) => {
@@ -25,30 +27,16 @@ const { partners, nonPartners } = people.reduce(
 <section>
 	<div class={style.becomeAPartnerContainer}>
 		<h2 class={`text-style-headline-1 ${style.becomeAPartnerTitle}`}>
-			<!--<span>Become a partner</span>-->
-			<span>Our partners</span>
+			<span>{m.join_us_partners_title()}</span>
 		</h2>
 		<p class={`text-style-body-large ${style.becomeAPartnerBody}`}>
-			Playful Programming Partners reflect the very best our community has to
-			offer; experienced, knowledgeable, and compassionate members that are the
-			lifeblood of our project.
-			<!--<br />-->
-			<!--<br />-->
-			<!--<span>-->
-			<!--	Own a stake of the project and leverage our existing infrastructure and-->
-			<!--	community to help you grow!</span-->
-			<!--&gt;-->
+			{m.join_us_partners_description()}
 		</p>
-		<!--<LargeButton-->
-		<!--	variant="primary-emphasized"-->
-		<!--	tag="button"-->
-		<!--	class={style.becomeAPartnerButton}>Show me how</LargeButton-->
-		<!--&gt;-->
 	</div>
 </section>
 
 <div class={style.allPeopleContainer}>
-	<ul class={style.peopleContainer} role="list" aria-label="Partners">
+	<ul class={style.peopleContainer} role="list" aria-label={m.label_partners()}>
 		{partners.map((person) => <ContributorCard person={person} />)}
 	</ul>
 	<section>

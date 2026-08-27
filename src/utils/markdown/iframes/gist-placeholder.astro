@@ -3,14 +3,20 @@ import Content from "../components/content.astro";
 import type { ComponentNode } from "#utils/markdown/components/index.ts";
 import type { GistPlaceholderProps } from "#components/gist-placeholder/gist-placeholder.tsx";
 import { GistPlaceholder as PreactGistPlaceholder } from "#components/gist-placeholder/gist-placeholder.tsx";
+import { m } from "#src/paraglide/messages.js";
 
-export interface Props extends GistPlaceholderProps {
+export interface Props extends Omit<GistPlaceholderProps, "filename"> {
+	filename?: string;
 	children: ComponentNode["children"];
 }
 
 const { username, children, filename, href } = Astro.props;
 ---
 
-<PreactGistPlaceholder username={username} filename={filename} href={href}>
+<PreactGistPlaceholder
+	username={username}
+	filename={filename ?? m.label_untitled()}
+	href={href}
+>
 	<Content content={children} />
 </PreactGistPlaceholder>
