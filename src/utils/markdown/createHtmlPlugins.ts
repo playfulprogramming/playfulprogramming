@@ -98,6 +98,11 @@ export function createHtmlPlugins(unified: Processor) {
 			})
 			.use(rehypePlayfulElementMap)
 			.use(rehypeValidateComponents)
+			// Shiki is the last plugin before stringify, to avoid performance issues
+			// with node traversal (shiki creates A LOT of element nodes)
+			.use(rehypeCodeblockMeta)
+			.use(rehypeShikiUU)
+			.use(rehypePostShikiTransform)
 			.use(rehypeTransformComponents, {
 				components: {
 					"code-embed": transformCodeEmbed,
@@ -118,11 +123,6 @@ export function createHtmlPlugins(unified: Processor) {
 			// Resolve local definitions after component transforms have populated
 			// the VFile's snitip map, even when a link appears first in the document.
 			.use(rehypeSnitipLinks)
-			// Shiki must run after component transforms so Mermaid receives the
-			// original fenced code block rather than Shiki-generated spans.
-			.use(rehypeCodeblockMeta)
-			.use(rehypeShikiUU)
-			.use(rehypePostShikiTransform)
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
 			.use(rehypeValidateHeadingLinks)

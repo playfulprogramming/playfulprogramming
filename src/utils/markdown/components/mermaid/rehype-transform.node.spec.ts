@@ -1,13 +1,22 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { Element } from "hast";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import { VFile } from "vfile";
 import type { MarkdownVFile } from "../../types.ts";
+import { rehypeCodeblockMeta } from "../../shiki/rehype-codeblock-meta.ts";
+import { rehypePostShikiTransform } from "../../shiki/rehype-post-shiki-transform.ts";
+import { rehypeShikiUU } from "../../shiki/rehype-transform.ts";
+import { runShiki } from "../../shiki/shiki-pool.ts";
 import { rehypeParseComponents } from "../rehype-parse-components.ts";
 import { rehypeTransformComponents } from "../rehype-transform-components.ts";
 import { transformMermaid } from "./rehype-transform.ts";
+
+vi.mock("../../shiki/shiki-pool.ts", () => ({
+	runShiki: vi.fn(async (node: Element) => node),
+}));
 
 vi.mock("../components.ts", () => ({
 	createComponent: (component: string, props: object) => ({
@@ -45,6 +54,9 @@ async function processMarkdown(value: string) {
 		.use(remarkToRehype, { allowDangerousHtml: true })
 		.use(rehypeRaw)
 		.use(rehypeParseComponents)
+		.use(rehypeCodeblockMeta)
+		.use(rehypeShikiUU)
+		.use(rehypePostShikiTransform)
 		.use(rehypeTransformComponents, {
 			components: { mermaid: transformMermaid },
 		});
@@ -63,6 +75,10 @@ function findComponent(
 }
 
 describe("Mermaid markdown component", () => {
+	beforeEach(() => {
+		vi.mocked(runShiki).mockClear();
+	});
+
 	it("transforms a wrapped Mermaid fence into a chart component", async () => {
 		const source = [
 			"<!-- ::start:mermaid -->",
@@ -77,6 +93,7 @@ describe("Mermaid markdown component", () => {
 		const mermaid = findComponent(tree.children, "Mermaid");
 
 		expect(vfile.data.isMermaidUsed).toBe(true);
+		expect(runShiki).not.toHaveBeenCalled();
 		expect(mermaid).toMatchObject({
 			type: "playful-component",
 			component: "Mermaid",
@@ -93,6 +110,7 @@ describe("Mermaid markdown component", () => {
 
 		const { tree, vfile } = await processMarkdown(source);
 
+		expect(runShiki).not.toHaveBeenCalled();
 		expect(vfile.data.isMermaidUsed).toBeUndefined();
 		expect(findComponent(tree.children, "Mermaid")).toBeUndefined();
 	});
@@ -116,6 +134,10 @@ describe("Mermaid markdown component", () => {
 		try {
 			const { tree, vfile } = await processMarkdown(source);
 
+			expect(runShiki).toHaveBeenCalledOnce();
+			expect(runShiki).toHaveBeenCalledWith(
+				expect.objectContaining({ tagName: "pre" }),
+			);
 			expect(vfile.data.isMermaidUsed).toBeUndefined();
 			expect(findComponent(tree.children, "Mermaid")).toBeUndefined();
 			expect(consoleError.mock.calls.flat().join(" ")).toContain(
