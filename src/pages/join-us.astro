@@ -9,14 +9,11 @@ import ReadyToLevelUp from "../views/join-us/ready-to-level-up.astro";
 import SupportUs from "../views/join-us/support-us.astro";
 import ContributorsAndPartners from "../views/join-us/contributors-and-partners.astro";
 import Hr from "../views/join-us/hr.astro";
+import { m } from "#src/paraglide/messages.js";
 ---
 
 <Document>
-	<SEO
-		title={"Join Us"}
-		description={`Get involved with the community and help us make learning programming more accessible.`}
-		slot="head"
-	/>
+	<SEO title={m.title_join_us()} description={m.desc_join_us()} slot="head" />
 	<GetInvolvedHeader />
 	<WhyGetInvolved />
 	<WelcomeToEveryone />

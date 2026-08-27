@@ -7,6 +7,7 @@ import { getUrlMetadata } from "#utils/hoof/index.ts";
 import type { EventBlock } from "../views/events/types.ts";
 import type { LatestEventBlockLocationMetadataType } from "../views/events/components/event-cards/types.ts";
 import { getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 const locale = getLocale();
 
@@ -58,11 +59,7 @@ for (const event of events) {
 ---
 
 <Document lang={"en"} size="l">
-	<SEO
-		title="Events"
-		description="See events going on in the world of Playful Programming!"
-		slot="head"
-	/>
+	<SEO title={m.title_events()} description={m.desc_events()} slot="head" />
 	<main>
 		<EventsPage
 			client:load
