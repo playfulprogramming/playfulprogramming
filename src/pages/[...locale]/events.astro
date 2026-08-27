@@ -9,7 +9,6 @@ import {
 	getStaticLocalePaths,
 	isValidLocaleRouteParam,
 } from "#utils/locales.ts";
-import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 export async function getStaticPaths() {
 	const latestEventBlockLocationMetadata =
@@ -30,7 +29,6 @@ if (!isValidLocaleRouteParam(localeParam)) {
 	return Astro.rewrite("/404");
 }
 
-const locale = getLocale();
 const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
 const generatedProps = Astro.props as Props;
 const latestEventBlockLocationMetadata =
@@ -49,7 +47,6 @@ const latestEventBlockLocationMetadata =
 		<EventsPage
 			client:load
 			events={events}
-			locale={locale}
 			latestEventBlockLocationMetadata={latestEventBlockLocationMetadata}
 		/>
 	</main>

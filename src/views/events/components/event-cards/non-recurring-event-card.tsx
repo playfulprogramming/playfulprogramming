@@ -5,11 +5,10 @@ import style from "./non-recurring-event-card.module.scss";
 import { useMemo } from "preact/hooks";
 import { EventChip } from "../event-chip/event-chip.tsx";
 import { m } from "#src/paraglide/messages.js";
+import { getLocale } from "#src/paraglide/runtime.js";
 
-export function NonRecurringEventsCard({
-	event,
-	locale,
-}: NonRecurringEventsCardProps) {
+export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
+	const locale = getLocale();
 	// Helps us get the event with the earliest start time
 	const startSortedEventBlocks = useMemo(
 		() =>
@@ -33,13 +32,10 @@ export function NonRecurringEventsCard({
 		() => new Intl.DateTimeFormat(locale, { month: "long", day: "numeric" }),
 		[locale],
 	);
-	const dateRange = m.events_card_date_range(
-		{
-			startDate: dateFormatter.format(startsAt),
-			endDate: dateFormatter.format(endsAt),
-		},
-		{ locale },
-	);
+	const dateRange = m.events_card_date_range({
+		startDate: dateFormatter.format(startsAt),
+		endDate: dateFormatter.format(endsAt),
+	});
 
 	return (
 		<li
@@ -69,24 +65,16 @@ export function NonRecurringEventsCard({
 					</div>
 					<ul
 						className={style.chipsContainer}
-						aria-label={m.events_card_event_type({}, { locale })}
+						aria-label={m.events_card_event_type()}
 					>
 						{event.in_person && (
 							<li>
-								<EventChip
-									variant={"in-person"}
-									size={"compact"}
-									locale={locale}
-								/>
+								<EventChip variant={"in-person"} size={"compact"} />
 							</li>
 						)}
 						{event.is_online && (
 							<li>
-								<EventChip
-									variant={"online"}
-									size={"compact"}
-									locale={locale}
-								/>
+								<EventChip variant={"online"} size={"compact"} />
 							</li>
 						)}
 					</ul>

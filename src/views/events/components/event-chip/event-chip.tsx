@@ -3,12 +3,10 @@ import wifi from "#src/icons/wifi.svg?raw";
 import repeat from "#src/icons/repeat.svg?raw";
 import style from "./event-chip.module.scss";
 import { m } from "#src/paraglide/messages.js";
-import type { Locale } from "#src/paraglide/runtime.js";
 
 interface BaseEventChipProps {
 	// With icon or without
 	size: "default" | "compact";
-	locale: Locale;
 }
 
 interface InPersonChipProps extends BaseEventChipProps {
@@ -46,7 +44,7 @@ export function EventChip(props: EventChipProps) {
 			background = "var(--surface_positive_emphasis-low)";
 			borderColor = "var(--positive_variant)";
 			color = "var(--positive_on-variant)";
-			label = m.events_type_in_person({}, { locale: props.locale });
+			label = m.events_type_in_person();
 			break;
 		}
 		case "recurring": {
@@ -54,7 +52,7 @@ export function EventChip(props: EventChipProps) {
 			background = "var(--surface_secondary_emphasis-low)";
 			borderColor = "var(--secondary_variant)";
 			color = "var(--secondary_on-variant)";
-			label = recurrenceMessages[props.every]({}, { locale: props.locale });
+			label = recurrenceMessages[props.every]();
 			break;
 		}
 		case "online":
@@ -63,7 +61,7 @@ export function EventChip(props: EventChipProps) {
 			background = "var(--surface_primary_emphasis-low)";
 			borderColor = "var(--primary_variant)";
 			color = "var(--primary_on-variant)";
-			label = m.events_type_online({}, { locale: props.locale });
+			label = m.events_type_online();
 			break;
 		}
 	}

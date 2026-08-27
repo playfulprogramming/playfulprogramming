@@ -5,12 +5,13 @@ import date from "#src/icons/date.svg?raw";
 import style from "./recurring-event-card.module.scss";
 import { EventChip } from "../event-chip/event-chip.tsx";
 import { m } from "#src/paraglide/messages.js";
+import { getLocale } from "#src/paraglide/runtime.js";
 
 export function RecurringEventsCard({
 	latestEventBlockLocationMetadata,
 	event,
-	locale,
 }: RecurringEventsCardProps) {
+	const locale = getLocale();
 	const latestEventBlockWithMetadata =
 		latestEventBlockLocationMetadata[event.slug];
 
@@ -52,34 +53,23 @@ export function RecurringEventsCard({
 							/>
 							<span>
 								<span className={style.nextEventText}>
-									{m.events_card_next_event_date(
-										{ date: latestEventDate! },
-										{ locale },
-									)}
+									{m.events_card_next_event_date({ date: latestEventDate! })}
 								</span>
 							</span>
 						</div>
 					) : null}
 					<ul
 						className={style.chipsContainer}
-						aria-label={m.events_card_event_type({}, { locale })}
+						aria-label={m.events_card_event_type()}
 					>
 						{event.in_person && (
 							<li>
-								<EventChip
-									variant={"in-person"}
-									size={"compact"}
-									locale={locale}
-								/>
+								<EventChip variant={"in-person"} size={"compact"} />
 							</li>
 						)}
 						{event.is_online && (
 							<li>
-								<EventChip
-									variant={"online"}
-									size={"compact"}
-									locale={locale}
-								/>
+								<EventChip variant={"online"} size={"compact"} />
 							</li>
 						)}
 					</ul>
@@ -90,7 +80,7 @@ export function RecurringEventsCard({
 				{latestEventBlockWithMetadata?.location_description ? (
 					<div className={style.eventRightContainer}>
 						<h3 className={`text-style-body-medium-bold`}>
-							{m.events_card_next_event_info({}, { locale })}
+							{m.events_card_next_event_info()}
 						</h3>
 						<div className={style.nextEventInnerCard}>
 							{latestEventBannerSrc ? (

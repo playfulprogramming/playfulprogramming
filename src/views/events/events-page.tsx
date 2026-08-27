@@ -14,7 +14,6 @@ import type { LatestEventBlockLocationMetadataType } from "./components/event-ca
 import { RecurringEventsCard } from "./components/event-cards/recurring-event-card.tsx";
 import { NonRecurringEventsCard } from "./components/event-cards/non-recurring-event-card.tsx";
 import type { Event } from "./types.ts";
-import type { Locale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
 type EventType = "all" | "online" | "in-person";
@@ -22,13 +21,11 @@ type EventType = "all" | "online" | "in-person";
 interface EventsPageProps {
 	latestEventBlockLocationMetadata: LatestEventBlockLocationMetadataType;
 	events: Event[];
-	locale: Locale;
 }
 
 export default function EventsPage({
 	latestEventBlockLocationMetadata,
 	events,
-	locale,
 }: EventsPageProps) {
 	const [eventTypesToShow, setEventTypesToShow] = useState("all" as EventType);
 
@@ -79,7 +76,7 @@ export default function EventsPage({
 			>
 				<div className={style.backgroundTop}>
 					<h1 className={`text-style-headline-1 ${style.eventsTitle}`}>
-						{m.title_events({}, { locale })}
+						{m.title_events()}
 					</h1>
 					<div className={style.showButtonContainer}>
 						<div className={style.showTextContainer}>
@@ -88,23 +85,21 @@ export default function EventsPage({
 								dangerouslySetInnerHTML={{ __html: filter }}
 							/>
 							<span className={`text-style-button-regular`}>
-								{m.events_filter_show({}, { locale })}
+								{m.events_filter_show()}
 							</span>
 						</div>
 						<RadioButtonGroup
 							className={style.eventTypesToShowGroup}
 							value={eventTypesToShow}
-							label={m.events_filter_show({}, { locale })}
+							label={m.events_filter_show()}
 							onChange={(val) => setEventTypesToShow(val as EventType)}
 						>
-							<RadioButton value={"all"}>
-								{m.events_filter_all({}, { locale })}
-							</RadioButton>
+							<RadioButton value={"all"}>{m.events_filter_all()}</RadioButton>
 							<RadioButton value={"online"}>
-								{m.events_type_online({}, { locale })}
+								{m.events_type_online()}
 							</RadioButton>
 							<RadioButton value={"in-person"}>
-								{m.events_type_in_person({}, { locale })}
+								{m.events_type_in_person()}
 							</RadioButton>
 						</RadioButtonGroup>
 					</div>
@@ -112,18 +107,17 @@ export default function EventsPage({
 				<LongWave />
 			</div>
 			<div className={style.listsContainer}>
-				<Calendar events={filteredEvents} locale={locale} />
+				<Calendar events={filteredEvents} />
 				{recurringEvents.length ? (
 					<div className={style.listContainer}>
 						<h2 className={`text-style-headline-5 ${style.listHeading}`}>
-							{m.events_section_recurring({}, { locale })}
+							{m.events_section_recurring()}
 						</h2>
 						<ul className={style.list} role={"list"}>
 							{recurringEvents.map((event) => (
 								<RecurringEventsCard
 									key={event.slug}
 									event={event}
-									locale={locale}
 									latestEventBlockLocationMetadata={
 										latestEventBlockLocationMetadata
 									}
@@ -135,15 +129,11 @@ export default function EventsPage({
 				{nonRecurringEvents.length ? (
 					<div className={style.listContainer}>
 						<h2 className={`text-style-headline-5 ${style.listHeading}`}>
-							{m.events_section_special({}, { locale })}
+							{m.events_section_special()}
 						</h2>
 						<ul className={style.list}>
 							{nonRecurringEvents.map((event) => (
-								<NonRecurringEventsCard
-									key={event.slug}
-									event={event}
-									locale={locale}
-								/>
+								<NonRecurringEventsCard key={event.slug} event={event} />
 							))}
 						</ul>
 					</div>
