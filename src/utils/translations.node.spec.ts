@@ -1,6 +1,11 @@
-import { describe, expect, test } from "vitest";
+import { afterEach, describe, expect, test } from "vitest";
 import type { Languages } from "#types/index.ts";
+import { getLocale, overwriteGetLocale } from "#src/paraglide/runtime.js";
 import * as translations from "./translations.ts";
+
+const originalGetLocale = getLocale;
+
+afterEach(() => overwriteGetLocale(originalGetLocale));
 
 describe("utils/translations.ts", () => {
 	describe("fileToOpenGraphConverter", () => {
@@ -36,33 +41,6 @@ describe("utils/translations.ts", () => {
 				"/posts/test/index.fr.md",
 			);
 			expect(lang).toBe("fr");
-		});
-	});
-
-	describe("getPrefixLanguageFromPath", () => {
-		test("returns an initial prefix", () => {
-			const expected: Languages = "fr";
-			const actual = translations.getPrefixLanguageFromPath(
-				`/${expected}/something/extra/en/fr/hi`,
-			);
-
-			expect(actual).toEqual(expected);
-		});
-
-		test("returns an initial prefix with no preceding slash", () => {
-			const expected: Languages = "fr";
-			const actual = translations.getPrefixLanguageFromPath(
-				`${expected}/something/extra/en/fr/hi`,
-			);
-
-			expect(actual).toEqual(expected);
-		});
-
-		test("defaults to 'en' when no prefix is present", () => {
-			const expected: Languages = "en";
-			const actual = translations.getPrefixLanguageFromPath(`/something/fr/hi`);
-
-			expect(actual).toEqual(expected);
 		});
 	});
 
@@ -104,6 +82,7 @@ describe("utils/translations.ts", () => {
 
 	describe("translate", () => {
 		test("uses Paraglide locale fallbacks", () => {
+			overwriteGetLocale(() => "it");
 			expect(
 				translations.translate(
 					{ url: new URL("https://example.com/it/about") },
@@ -111,6 +90,7 @@ describe("utils/translations.ts", () => {
 					"Ada",
 				),
 			).toBe("Visualizza profilo di Ada");
+			overwriteGetLocale(() => "fr");
 			expect(
 				translations.translate(
 					{ url: new URL("https://example.com/fr/about") },

@@ -25,6 +25,11 @@ export default defineConfig({
 	i18n: {
 		defaultLocale: projectSettings.baseLocale,
 		locales: projectSettings.locales,
+		routing: isServerBuild
+			? "manual"
+			: {
+					prefixDefaultLocale: false,
+				},
 	},
 	adapter: isServerBuild
 		? node({

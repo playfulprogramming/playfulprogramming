@@ -1,8 +1,8 @@
 ---
 import type { Languages } from "#types/index.ts";
 import { languages } from "#src/constants/index.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
 import {
-	getPrefixLanguageFromPath,
 	removePrefixLanguageFromPath,
 	translate,
 } from "#utils/translations.ts";
@@ -15,7 +15,7 @@ interface Props {
 
 const props = Astro.props;
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
-const currentLocale = getPrefixLanguageFromPath(Astro.url.pathname);
+const currentLocale = getLocale();
 
 const titleId = "translations-header-title";
 ---

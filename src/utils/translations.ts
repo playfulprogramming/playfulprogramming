@@ -1,12 +1,15 @@
 import type { Languages } from "#types/index.ts";
-import { languages } from "../constants/index.ts";
 import { m } from "../paraglide/messages.js";
-import { baseLocale, extractLocaleFromUrl } from "../paraglide/runtime.js";
+import {
+	baseLocale,
+	deLocalizeHref,
+	getLocale,
+	isLocale,
+} from "../paraglide/runtime.js";
 
 function isLanguageKey(str: string | undefined): str is Languages {
-	return str !== undefined && Object.keys(languages).includes(str);
+	return isLocale(str);
 }
-
 /**
  * In our translations.json file, we choose to use a `eg-eg` format
  *
@@ -33,22 +36,7 @@ export function fileToOpenGraphConverter<T extends Languages>(
 export function getLanguageFromFilename(name: string): Languages {
 	const lang = name.split(".").at(-2);
 	if (isLanguageKey(lang)) return lang;
-	return "en";
-}
-
-/**
- * Given a URL, find the prefix language.
- *
- * @example "/es/posts/test" -> "es"
- * @example "/posts/test" -> "en"
- * @example "/es-es/posts/test" -> "es-es"
- */
-export function getPrefixLanguageFromPath(path: string): Languages {
-	// find the first non-empty path segment, e.g. ["", "en", "posts"] -> "en"
-	const pathSegment = path.split("/").find((s) => !!s);
-
-	if (isLanguageKey(pathSegment)) return pathSegment;
-	return "en";
+	return baseLocale;
 }
 
 /**
@@ -64,20 +52,9 @@ export function getPrefixLanguageFromPath(path: string): Languages {
  * @example "es-es/posts/test" -> "posts/test"
  */
 export function removePrefixLanguageFromPath(path: string) {
-	let isFirst = true;
-
-	return path
-		.split("/")
-		.filter((s) => {
-			// only exclude the first non-empty str, if it matches a lang
-			if (s && isFirst) {
-				isFirst = false;
-				if (isLanguageKey(s)) return false;
-			}
-
-			return true;
-		})
-		.join("/");
+	const hasLeadingSlash = path.startsWith("/");
+	const deLocalizedPath = deLocalizeHref(hasLeadingSlash ? path : `/${path}`);
+	return hasLeadingSlash ? deLocalizedPath : deLocalizedPath.slice(1);
 }
 
 type TranslationKey = keyof typeof import("../../content/data/i18n/en.json");
@@ -104,12 +81,11 @@ const messageParameters: Partial<Record<TranslationKey, readonly string[]>> = {
  * If the key is entirely missing, throws an error.
  */
 export function translate(
-	astro: { url: URL },
+	_astro: { url: URL },
 	key: TranslationKey,
 	...args: string[]
 ) {
-	const lang =
-		(extractLocaleFromUrl(astro.url) as Languages | undefined) ?? baseLocale;
+	const lang = getLocale();
 	const parameterNames = messageParameters[key] ?? [];
 	const inputs = Object.fromEntries(
 		parameterNames.map((parameter, index) => [parameter, args[index]]),

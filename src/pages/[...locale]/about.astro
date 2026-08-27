@@ -7,6 +7,7 @@ import { getLanguageFromFilename, translate } from "#utils/translations.ts";
 import { join } from "path";
 import { contentDirectory } from "#utils/data.ts";
 import type { Languages } from "#types/index.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
 
 export async function getStaticPaths() {
 	const files = (await fs.readdir(join(contentDirectory, "site")))
@@ -36,7 +37,8 @@ interface Props {
 	locale: Languages;
 }
 
-const { file, locales, locale } = Astro.props as Props;
+const { file, locales } = Astro.props as Props;
+const locale = getLocale();
 ---
 
 <Document>

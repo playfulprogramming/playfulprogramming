@@ -1,12 +1,12 @@
 ---
 import Document from "#src/layouts/document.astro";
 import SEO from "#components/seo/seo.astro";
-import type { Languages } from "#types/index.ts";
 import BlogPost from "#src/views/blog-post/blog-post.astro";
 import * as api from "#utils/api.ts";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
 import { isDefined } from "#utils/is-defined.ts";
 import { getPostImages } from "#utils/hoof/index.ts";
+import { baseLocale, getLocale, isLocale } from "#src/paraglide/runtime.js";
 
 export async function getStaticPaths() {
 	const posts = api.getAllPosts();
@@ -22,11 +22,18 @@ export async function getStaticPaths() {
 }
 
 const params = Astro.params as {
-	locale: Languages;
+	locale?: string;
 	postid: string;
 };
 
-const locale = params.locale ?? "en";
+if (
+	params.locale !== undefined &&
+	(params.locale === baseLocale || !isLocale(params.locale))
+) {
+	return Astro.rewrite("/404");
+}
+
+const locale = getLocale();
 const post = api.getPostBySlug(params.postid, locale)!;
 const authors = post.authors
 	.map((personId) => api.getPersonById(personId, locale))
