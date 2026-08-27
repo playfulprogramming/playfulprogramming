@@ -1,11 +1,11 @@
 ---
-import type { Languages } from "#types/index.ts";
-import { fileToOpenGraphConverter } from "#utils/translations.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
+import { localeToOpenGraph } from "#utils/locales.ts";
 
 import type { SEOProps } from "./shared.ts";
 
 export type Props = Pick<SEOProps, "title" | "providedLangs" | "peopleData"> & {
-	lang: Languages;
+	lang: Locale;
 	currentPath: string;
 	metaDescription: string;
 	metaImage: string;
@@ -30,14 +30,14 @@ const {
 <meta property="og:site_name" content={siteMetadata.title} />
 <meta property="og:title" content={title} />
 
-<meta property="og:locale" content={fileToOpenGraphConverter(lang || "en")} />
+<meta property="og:locale" content={localeToOpenGraph(lang)} />
 <>
 	{
 		providedLangs?.length
 			? providedLangs.map((lang) => (
 					<meta
 						property="og:locale:alternate"
-						content={fileToOpenGraphConverter(lang)}
+						content={localeToOpenGraph(lang)}
 					/>
 				))
 			: null

@@ -1,17 +1,21 @@
 ---
 import { THEME_COLOR_DARK, THEME_COLOR_LIGHT } from "#src/constants/theme.ts";
-import type { Languages } from "#types/index.ts";
+import {
+	baseLocale,
+	getTextDirection,
+	type Locale,
+} from "#src/paraglide/runtime.js";
 
 /**
  * For our super custom pages that don't require the global styling of the rest of UU, such as FFG's pages.
  */
 
 interface Props {
-	lang?: Languages;
+	lang?: Locale;
 }
 
 let { lang } = Astro.props;
-lang ??= "en";
+lang ??= baseLocale;
 
 const enableAnalytics = import.meta.env.MODE === "production";
 const analyticsSetupScript = `
@@ -23,7 +27,7 @@ const analyticsSetupScript = `
 `;
 ---
 
-<html lang={lang} class="light">
+<html lang={lang} dir={getTextDirection(lang)} class="light">
 	<head>
 		<slot name="first" />
 		<meta name="viewport" content="width=device-width" />
@@ -92,11 +96,7 @@ const analyticsSetupScript = `
 				/>
 			)
 		}
-		{
-			enableAnalytics && (
-				<script is:inline set:html={analyticsSetupScript} />
-			)
-		}
+		{enableAnalytics && <script is:inline set:html={analyticsSetupScript} />}
 		<slot name="head" />
 	</head>
 	<body>

@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { IconOnlyButton } from "#components/index.ts";
-import { translate } from "#utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 
 const { class: className } = Astro.props as { class?: string };
 ---
@@ -10,7 +10,7 @@ const { class: className } = Astro.props as { class?: string };
 	tag="button"
 	id="backbtn"
 	class={`${className}`}
-	aria-label={translate(Astro, "action.go_back")}
+	aria-label={m.action_go_back()}
 >
 	<Icon style="width: 100%; height: 100%;" name="arrow_left" />
 </IconOnlyButton>

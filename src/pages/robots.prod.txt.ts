@@ -2,6 +2,7 @@ import { siteUrl } from "#src/constants/site-config.ts";
 import { getAllPosts, getAllCollections } from "#utils/api.ts";
 import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
+import { localizeHref } from "#src/paraglide/runtime.js";
 
 const noIndexPosts = getAllPosts().filter((post) => post.noindex);
 const noIndexCollection = getAllCollections().filter(
@@ -9,11 +10,13 @@ const noIndexCollection = getAllCollections().filter(
 );
 
 function buildPostUrl(post: PostInfo) {
-	return `${post.locale === "en" ? "" : `/${post.locale}`}/posts/${post.slug}`;
+	return localizeHref(`/posts/${post.slug}`, { locale: post.locale });
 }
 
 function buildCollectionUrl(collection: CollectionInfo) {
-	return `${collection.locale === "en" ? "" : `/${collection.locale}`}/collections/${collection.slug}`;
+	return localizeHref(`/collections/${collection.slug}`, {
+		locale: collection.locale,
+	});
 }
 
 export const GET = () => {

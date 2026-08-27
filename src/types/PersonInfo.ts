@@ -1,4 +1,4 @@
-import type { Languages } from ".";
+import type { Locale } from "#src/paraglide/runtime.js";
 
 export interface RawPersonInfo {
 	name: string;
@@ -33,8 +33,8 @@ export interface PersonInfo extends Required<RawPersonInfo> {
 	kind: "person";
 	id: string;
 	file: string;
-	locale: Languages;
-	locales: Languages[];
+	locale: Locale;
+	locales: Locale[];
 	totalPostCount: number;
 	totalWordCount: number;
 	profileImgMeta: {

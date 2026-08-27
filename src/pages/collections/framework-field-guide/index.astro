@@ -1,5 +1,6 @@
 ---
 import Barebones from "#src/layouts/barebones.astro";
+import { baseLocale } from "#src/paraglide/runtime.js";
 import "../../../views/collections/framework-field-guide/fonts/fira-code.css";
 import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
 import "../../../views/collections/framework-field-guide/fonts/changa-one.css";
@@ -38,7 +39,7 @@ import WhatDoIGet from "#src/views/collections/framework-field-guide/segments/wh
 import { getCollectionBySlug, getPersonById } from "#utils/api.ts";
 import BlockingTabsSignalScript from "#components/tabs/blocking-tabs-signal-script.astro";
 
-const collection = getCollectionBySlug("framework-field-guide", "en")!;
+const collection = getCollectionBySlug("framework-field-guide", baseLocale)!;
 ---
 
 <Barebones>
@@ -46,7 +47,7 @@ const collection = getCollectionBySlug("framework-field-guide", "en")!;
 		slot="head"
 		title={collection.title}
 		description={collection.description}
-		peopleData={[getPersonById("crutchcorn", "en")!]}
+		peopleData={[getPersonById("crutchcorn", baseLocale)!]}
 		publishedTime={collection.published}
 		type={"book"}
 		shareImage={collection.socialImgMeta?.relativeServerPath}

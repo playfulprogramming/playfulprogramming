@@ -14,6 +14,7 @@ import { type UrlMetadataResponse, getUrlMetadata } from "#utils/hoof/index.ts";
 import { logError } from "#utils/markdown/logger.ts";
 import { siteUrl } from "#src/constants/site-config.ts";
 import * as api from "#utils/api.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 /**
  * Transform image-wrapped links into a link preview component
@@ -48,7 +49,7 @@ export const rehypeLinkPreview: Plugin<[], PlayfulRoot> = () => {
 function getPlayfulUrlBanner(url: URL): UrlMetadataResponse["banner"] {
 	const [, postSlug] = /^\/posts\/([^\/]+)/.exec(url.pathname) ?? [];
 	if (postSlug) {
-		const post = api.getPostBySlug(postSlug, "en");
+		const post = api.getPostBySlug(postSlug, baseLocale);
 		if (post?.socialImgMeta) {
 			return {
 				src: post.socialImgMeta.relativeServerPath,
@@ -61,7 +62,7 @@ function getPlayfulUrlBanner(url: URL): UrlMetadataResponse["banner"] {
 	const [, collectionSlug] =
 		/^\/collections\/([^\/]+)/.exec(url.pathname) ?? [];
 	if (collectionSlug) {
-		const collection = api.getCollectionBySlug(collectionSlug, "en");
+		const collection = api.getCollectionBySlug(collectionSlug, baseLocale);
 		if (collection?.socialImgMeta) {
 			return {
 				src: collection.socialImgMeta.relativeServerPath,

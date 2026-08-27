@@ -1,3 +1,5 @@
 export * from "./theme.ts";
-import * as languages from "../../content/data/languages.json" with { type: "json" };
-export { languages };
+import languageNames from "../../content/data/languages.json" with { type: "json" };
+import type { Locale } from "#src/paraglide/runtime.js";
+
+export const languages: Record<Locale, string> = languageNames;

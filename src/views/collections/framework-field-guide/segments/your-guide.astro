@@ -1,5 +1,6 @@
 ---
 import { Picture } from "#components/image/picture.tsx";
+import { baseLocale } from "#src/paraglide/runtime.js";
 import styles from "./your-guide.module.scss";
 import { getPersonById } from "#utils/api.ts";
 import YourGuideMetrics from "../components/your-guide-metrics.astro";
@@ -13,7 +14,8 @@ import YourGuideTextContainer from "../components/your-guide-text-container.astr
 	<Picture
 		imgAttrs={{ class: styles.guidePicture }}
 		alt=""
-		src={getPersonById("crutchcorn", "en")!.profileImgMeta.relativeServerPath}
+		src={getPersonById("crutchcorn", baseLocale)!.profileImgMeta
+			.relativeServerPath}
 		width={96}
 		height={96}
 	/>

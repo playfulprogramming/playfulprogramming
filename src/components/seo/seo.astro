@@ -1,9 +1,6 @@
 ---
 import { siteMetadata, siteUrl } from "#src/constants/site-config.ts";
-import {
-	getPrefixLanguageFromPath,
-	removePrefixLanguageFromPath,
-} from "#utils/translations.ts";
+import { deLocalizeHref, getLocale } from "#src/paraglide/runtime.js";
 import Article from "./article.astro";
 import Book from "./book.astro";
 import Locale from "./locale.astro";
@@ -29,8 +26,8 @@ const {
 	noindex,
 } = Astro.props;
 
-const lang = getPrefixLanguageFromPath(Astro.url.pathname);
-const pathName = removePrefixLanguageFromPath(Astro.url.pathname);
+const lang = getLocale();
+const pathName = deLocalizeHref(Astro.url.pathname);
 
 const metaDescription = description || siteMetadata.description;
 const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;

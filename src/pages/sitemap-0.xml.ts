@@ -8,13 +8,17 @@ import * as api from "#utils/api.ts";
 import { toDate } from "#utils/date.ts";
 import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
-import type { Languages } from "#types/index.ts";
 import { Readable } from "stream";
 import { siteUrl } from "#src/constants/site-config.ts";
 import { events } from "#src/views/events/constants.ts";
+import {
+	baseLocale,
+	localizeHref,
+	type Locale,
+} from "#src/paraglide/runtime.js";
 
 const About = (await import("./[...locale]/about.astro")) as unknown as {
-	getStaticPaths: () => Promise<Array<{ params: { locale?: Languages } }>>;
+	getStaticPaths: () => Promise<Array<{ params: { locale?: Locale } }>>;
 };
 
 const sitemapDefaults: Pick<
@@ -26,13 +30,13 @@ const sitemapDefaults: Pick<
 	priority: 0.7,
 };
 
-const createLocaleUrl = (locale: Languages | undefined, path: string) =>
-	`${locale && locale !== "en" ? `/${locale}` : ""}${path}`;
+const createLocaleUrl = (locale: Locale | undefined, path: string) =>
+	localizeHref(path || "/", { locale: locale ?? baseLocale });
 
-const createPostUrl = (locale: Languages, post: PostInfo) =>
+const createPostUrl = (locale: Locale, post: PostInfo) =>
 	createLocaleUrl(locale, `/posts/${post.slug}`);
 
-const createCollectionUrl = (locale: Languages, collection: CollectionInfo) =>
+const createCollectionUrl = (locale: Locale, collection: CollectionInfo) =>
 	createLocaleUrl(locale, `/collections/${collection.slug}`);
 
 const includedRoutes = ["", "/join-us", "/search", "/events"];
@@ -62,7 +66,7 @@ export const GET = async () => {
 			...sitemapDefaults,
 			url: createLocaleUrl(locale, "/about"),
 			links: aboutPageLocales.map((lang) => ({
-				lang: lang ?? "en",
+				lang: lang ?? baseLocale,
 				url: createLocaleUrl(lang, "/about"),
 			})),
 		});
@@ -113,7 +117,9 @@ export const GET = async () => {
 	}
 
 	// sort alphabetically to avoid changes between builds
-	entries.sort((a, b) => a.url.localeCompare(b.url, "en", { numeric: true }));
+	entries.sort((a, b) =>
+		a.url.localeCompare(b.url, baseLocale, { numeric: true }),
+	);
 
 	const stream = new SitemapStream({
 		hostname: siteUrl,

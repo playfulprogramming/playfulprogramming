@@ -9,7 +9,7 @@ import AchievementCard from "./components/achievement-card.astro";
 import { buildSearchQuery } from "../search/search.ts";
 import type { AchievementsInfo } from "#types/AchievementsInfo.ts";
 import { getAchievements } from "#src/utils/achievements/index.ts";
-import { translate } from "#utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 import * as api from "#utils/api.ts";
 import { isDefined } from "#utils/is-defined.ts";
 
@@ -50,7 +50,7 @@ const postAuthors = new Map(
 						aria-label="View all achievements"
 						aria-pressed="false"
 					>
-						{translate(Astro, "action.view_all")}
+						{m.action_view_all()}
 					</Button>
 				)
 			}
@@ -91,7 +91,7 @@ const postAuthors = new Map(
 									})}`}
 									aria-labelledby="recent-articles-header"
 								>
-									{translate(Astro, "action.view_all")}
+									{m.action_view_all()}
 								</Button>
 							)}
 						</SubHeader>,

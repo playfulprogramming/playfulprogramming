@@ -3,10 +3,11 @@ import * as fs from "fs/promises";
 import Document from "#src/layouts/document.astro";
 import SEO from "#components/seo/seo.astro";
 import AboutView from "#src/views/about/about.astro";
-import { getLanguageFromFilename, translate } from "#utils/translations.ts";
+import { getLanguageFromFilename } from "#utils/locales.ts";
+import { m } from "#src/paraglide/messages.js";
 import { join } from "path";
 import { contentDirectory } from "#utils/data.ts";
-import type { Languages } from "#types/index.ts";
+import { getLocale, type Locale } from "#src/paraglide/runtime.js";
 
 export async function getStaticPaths() {
 	const files = (await fs.readdir(join(contentDirectory, "site")))
@@ -32,17 +33,18 @@ export async function getStaticPaths() {
 
 interface Props {
 	file: string;
-	locales: Languages[];
-	locale: Languages;
+	locales: Locale[];
+	locale: Locale;
 }
 
-const { file, locales, locale } = Astro.props as Props;
+const { file, locales } = Astro.props as Props;
+const locale = getLocale();
 ---
 
 <Document>
 	<SEO
-		title={translate(Astro, "title.about_us")}
-		description={translate(Astro, "desc.about_us")}
+		title={m.title_about_us()}
+		description={m.desc_about_us()}
 		providedLangs={locales}
 		slot="head"
 	/>

@@ -5,6 +5,8 @@ import { symlinkDir } from "symlink-dir";
 import * as path from "path";
 import type { AstroUserConfig } from "astro";
 import node from "@astrojs/node";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
+import projectSettings from "./project.inlang/settings.json" with { type: "json" };
 
 await symlinkDir(path.resolve("content"), path.resolve("public/content"));
 
@@ -20,6 +22,15 @@ export default defineConfig({
 			: undefined) ??
 		"https://playfulprogramming.com",
 	output: isServerBuild ? "server" : "static",
+	i18n: {
+		defaultLocale: projectSettings.baseLocale,
+		locales: projectSettings.locales,
+		routing: isServerBuild
+			? "manual"
+			: {
+					prefixDefaultLocale: false,
+				},
+	},
 	adapter: isServerBuild
 		? node({
 				mode: "standalone",
@@ -51,6 +62,17 @@ export default defineConfig({
 		},
 	},
 	vite: {
+		define: {
+			__PARAGLIDE_SERVER_OUTPUT__: JSON.stringify(isServerBuild),
+		},
+		plugins: [
+			paraglideVitePlugin({
+				project: "./project.inlang",
+				outdir: "./src/paraglide",
+				emitTsDeclarations: true,
+				strategy: ["url", "globalVariable", "baseLocale"],
+			}),
+		],
 		server: {
 			allowedHosts: ["localhost", "web"],
 		},

@@ -27,6 +27,7 @@ export default defineConfig([
 	includeIgnoreFile(fileURLToPath(new URL(".gitignore", import.meta.url))),
 	globalIgnores([
 		"content/**/*",
+		"src/paraglide/**/*",
 		"public/content/**/*",
 		"public/mockServiceWorker.js",
 		"public/sw.js",

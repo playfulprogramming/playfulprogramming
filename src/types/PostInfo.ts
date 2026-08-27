@@ -1,4 +1,4 @@
-import type { Languages } from "#types/index.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
 import type { LocalFile } from "#types/LocalFile.ts";
 
 export interface RawPostInfo {
@@ -28,8 +28,8 @@ export interface PostInfo extends RawPostInfo {
 	description: string;
 	excerpt: string;
 	path: string;
-	locales: Languages[];
-	locale: Languages;
+	locales: Locale[];
+	locale: Locale;
 	publishedMeta: string;
 	editedMeta?: string;
 	wordCount: number;
