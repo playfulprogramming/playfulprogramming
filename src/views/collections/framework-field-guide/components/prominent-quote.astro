@@ -3,7 +3,7 @@ import { Picture } from "#components/image/picture.tsx";
 import styles from "./prominent-quote.module.scss";
 import type { ImageMetadata } from "astro";
 
-interface QuoteCardProps {
+interface Props {
 	avatarSrc: string | Promise<{ default: ImageMetadata }>;
 	quote: string;
 	personLink: string;
@@ -11,8 +11,7 @@ interface QuoteCardProps {
 	personName: string;
 }
 
-const { avatarSrc, quote, personLink, personTitle, personName } =
-	Astro.props as QuoteCardProps;
+const { avatarSrc, quote, personLink, personTitle, personName } = Astro.props;
 
 const src =
 	typeof avatarSrc === "string" ? avatarSrc : (await avatarSrc).default;

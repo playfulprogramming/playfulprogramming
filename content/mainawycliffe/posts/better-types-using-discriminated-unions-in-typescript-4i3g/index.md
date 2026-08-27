@@ -2,7 +2,7 @@
 {
 title: "Better Types using Discriminated Unions in TypeScript",
 published: "2021-09-27T08:03:07Z",
-tags: ["typescript", "javascript", "webdev", "node"],
+tags: ["typescript", "javascript", "webdev", "nodejs"],
 description: "How we define our types in Typescript impacts how effective typescript is at warning us when we make...",
 originalLink: "https://mainawycliffe.dev/blog/better-types-using-discriminated-types-in-typescript",
 coverImg: "cover-image.png",

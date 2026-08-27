@@ -1,5 +1,6 @@
 ---
 import Barebones from "#src/layouts/barebones.astro";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 // Stylesheets must be imported before any component, so that component styles
 // are ordered after them in the bundled build
@@ -31,8 +32,8 @@ import TopContents from "../../../views/collections/big-bot-builders/segments/to
 import BottomContents from "../../../views/collections/big-bot-builders/segments/bottom-contents.astro";
 import CollectionTableOfContents from "../../../views/collections/framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
 
-const collection = getCollectionBySlug("big-bot-builders", "en");
-const chapterList = getPostsByCollection("big-bot-builders", "en");
+const collection = getCollectionBySlug("big-bot-builders", baseLocale);
+const chapterList = getPostsByCollection("big-bot-builders", baseLocale);
 const comingSoon = [
 	{ order: 1, title: "AI Basics", description: "Coming soon..." },
 	{ order: 2, title: "AI Products", description: "Coming soon..." },
@@ -59,7 +60,7 @@ const comingSoon = [
 		slot="head"
 		title={"The Big Bot Builders"}
 		description={"A beginner-to-advanced series on how modern AI models are trained, generate responses, use tools, and remember information."}
-		peopleData={[getPersonById("crutchcorn", "en")!]}
+		peopleData={[getPersonById("crutchcorn", baseLocale)!]}
 		type={"book"}
 		shareImage={collection?.socialImgMeta?.relativeServerPath}
 	/>

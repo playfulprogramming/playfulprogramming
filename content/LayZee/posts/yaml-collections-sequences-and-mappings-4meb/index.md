@@ -3,7 +3,7 @@
 title: "YAML collections: Sequences and mappings",
 published: "2022-11-21T17:14:55Z",
 edited: "2023-12-12T14:14:35Z",
-tags: ["yaml", "beginners"],
+tags: ["tools", "beginner"],
 description: "A quick overview of YAML sequences (arrays/lists) and mappings (hash maps/associative arrays).",
 originalLink: "https://dev.to/playfulprogramming/yaml-collections-sequences-and-mappings-4meb",
 coverImg: "cover-image.png",

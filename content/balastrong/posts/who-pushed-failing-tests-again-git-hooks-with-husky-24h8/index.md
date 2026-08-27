@@ -2,7 +2,7 @@
 {
 title: "Who pushed failing tests again? Git Hooks with Husky 🐶",
 published: "2023-07-11T09:17:35Z",
-tags: ["git", "codenewbie", "node", "testing"],
+tags: ["git", "beginner", "nodejs", "testing"],
 description: "Three things you do NOT want in your repository:   Unformatted code Warnings/errors Failing...",
 originalLink: "https://leonardomontini.dev/husky-git-hooks/",
 coverImg: "cover-image.png",

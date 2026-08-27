@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 import { Button, IconOnlyButton } from "#components/index.ts";
 import StyledSelect from "#components/styled-select/styled-select.astro";
 import { THEME_FONT, THEME_FONT_FAMILIES } from "#src/constants/theme.ts";
-import { translate } from "#utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 import styles from "./theme-sidebar.module.scss";
 
 const openDyslexicFont = {
@@ -52,15 +52,15 @@ const bodyFonts = [
 ] as const;
 
 const colorModes = [
-	{ icon: "light_mode", mode: "light" },
-	{ icon: "dark_mode", mode: "dark" },
-	{ icon: "laptop", mode: "system" },
+	{ icon: "light_mode", label: m.label_light(), mode: "light" },
+	{ icon: "dark_mode", label: m.label_dark(), mode: "dark" },
+	{ icon: "laptop", label: m.label_system(), mode: "system" },
 ] as const;
 
 const contrastModes = [
-	{ icon: "add", mode: "more" },
-	{ icon: "subtract", mode: "less" },
-	{ icon: "laptop", mode: "system" },
+	{ icon: "add", label: m.label_more(), mode: "more" },
+	{ icon: "subtract", label: m.label_less(), mode: "less" },
+	{ icon: "laptop", label: m.label_system(), mode: "system" },
 ] as const;
 
 const colorOptions = Array.from({ length: 12 });
@@ -77,7 +77,7 @@ const colorOptions = Array.from({ length: 12 });
 			<IconOnlyButton
 				tag="button"
 				type="button"
-				aria-label={translate(Astro, "action.close_theme_customizer")}
+				aria-label={m.action_close_theme_customizer()}
 				data-theme-sidebar-close
 			>
 				<Icon name="close" />
@@ -86,18 +86,18 @@ const colorOptions = Array.from({ length: 12 });
 				id="theme-sidebar-title"
 				class={`text-style-headline-6 ${styles.title}`}
 			>
-				{translate(Astro, "action.customize_theme")}
+				{m.action_customize_theme()}
 			</h2>
 		</div>
 
 		<div class={styles.content}>
 			<fieldset class={styles.section}>
 				<legend class={styles.sectionTitle}>
-					{translate(Astro, "label.theme")}
+					{m.label_theme()}
 				</legend>
 				<div class={styles.modeOptions}>
 					{
-						colorModes.map(({ icon, mode }) => (
+						colorModes.map(({ icon, label, mode }) => (
 							<>
 								<input
 									class={styles.choiceInput}
@@ -116,9 +116,7 @@ const colorOptions = Array.from({ length: 12 });
 											<Icon name={icon} />
 										</span>
 									)}
-									<span class="innerText">
-										{translate(Astro, `label.${mode}`)}
-									</span>
+									<span class="innerText">{label}</span>
 								</label>
 							</>
 						))
@@ -128,11 +126,11 @@ const colorOptions = Array.from({ length: 12 });
 
 			<fieldset class={styles.section}>
 				<legend class={styles.sectionTitle}>
-					{translate(Astro, "label.contrast")}
+					{m.label_contrast()}
 				</legend>
 				<div class={styles.modeOptions}>
 					{
-						contrastModes.map(({ icon, mode }) => (
+						contrastModes.map(({ icon, label, mode }) => (
 							<>
 								<input
 									class={styles.choiceInput}
@@ -149,9 +147,7 @@ const colorOptions = Array.from({ length: 12 });
 									<span class="buttonIcon" aria-hidden="true">
 										<Icon name={icon} />
 									</span>
-									<span class="innerText">
-										{translate(Astro, `label.${mode}`)}
-									</span>
+									<span class="innerText">{label}</span>
 								</label>
 							</>
 						))
@@ -161,12 +157,12 @@ const colorOptions = Array.from({ length: 12 });
 
 			<fieldset class={styles.section}>
 				<legend class={styles.sectionTitle}>
-					{translate(Astro, "label.font")}
+					{m.label_font()}
 				</legend>
 				<div class={styles.fontOptions}>
 					<div class={styles.fontRow}>
 						<label class={styles.controlLabel} for="theme-heading-font">
-							{translate(Astro, "label.headings")}
+							{m.label_headings()}
 						</label>
 						<StyledSelect
 							class={styles.fontSelect}
@@ -189,7 +185,7 @@ const colorOptions = Array.from({ length: 12 });
 
 					<div class={styles.fontRow}>
 						<label class={styles.controlLabel} for="theme-body-font">
-							{translate(Astro, "label.body")}
+							{m.label_body()}
 						</label>
 						<StyledSelect
 							class={styles.fontSelect}
@@ -214,12 +210,12 @@ const colorOptions = Array.from({ length: 12 });
 
 			<fieldset class={styles.section}>
 				<legend class={styles.sectionTitle}>
-					{translate(Astro, "label.color")}
+					{m.label_color()}
 				</legend>
 				<div class={styles.colorOptions}>
 					<fieldset class={styles.paletteGroup} data-theme-palette="primary">
 						<legend class={styles.controlLabel}>
-							{translate(Astro, "label.primary")}
+							{m.label_primary()}
 						</legend>
 						<div class={styles.palette}>
 							{
@@ -231,11 +227,9 @@ const colorOptions = Array.from({ length: 12 });
 											id={`theme-primary-color-${index}`}
 											name="theme-primary-color"
 											value={String(index * 30)}
-											aria-label={translate(
-												Astro,
-												"label.primary_color_option",
-												String(index + 1),
-											)}
+											aria-label={m.label_primary_color_option({
+												number: String(index + 1),
+											})}
 											data-theme-color-option
 										/>
 										<label
@@ -251,7 +245,7 @@ const colorOptions = Array.from({ length: 12 });
 
 					<fieldset class={styles.paletteGroup} data-theme-palette="secondary">
 						<legend class={styles.controlLabel}>
-							{translate(Astro, "label.secondary")}
+							{m.label_secondary()}
 						</legend>
 						<div class={styles.palette}>
 							{
@@ -263,11 +257,9 @@ const colorOptions = Array.from({ length: 12 });
 											id={`theme-secondary-color-${index}`}
 											name="theme-secondary-color"
 											value={String(index * 30)}
-											aria-label={translate(
-												Astro,
-												"label.secondary_color_option",
-												String(index + 1),
-											)}
+											aria-label={m.label_secondary_color_option({
+												number: String(index + 1),
+											})}
 											data-theme-color-option
 										/>
 										<label
@@ -283,7 +275,7 @@ const colorOptions = Array.from({ length: 12 });
 
 					<div class={styles.surpriseGroup}>
 						<p class={styles.controlLabel}>
-							{translate(Astro, "label.surprise_me")}
+							{m.label_surprise_me()}
 						</p>
 						<Button
 							tag="button"
@@ -292,7 +284,7 @@ const colorOptions = Array.from({ length: 12 });
 							data-theme-shuffle
 						>
 							<Icon slot="leftIcon" name="dice" />
-							{translate(Astro, "action.shuffle")}
+							{m.action_shuffle()}
 						</Button>
 					</div>
 				</div>
@@ -306,10 +298,10 @@ const colorOptions = Array.from({ length: 12 });
 				variant="primary-emphasized"
 				data-theme-save
 			>
-				{translate(Astro, "action.save_changes")}
+				{m.action_save_changes()}
 			</Button>
 			<Button tag="button" type="button" variant="secondary" data-theme-reset>
-				{translate(Astro, "action.reset")}
+				{m.action_reset()}
 			</Button>
 		</div>
 	</form>

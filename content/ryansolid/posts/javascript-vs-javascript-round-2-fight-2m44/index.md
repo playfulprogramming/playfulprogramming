@@ -3,7 +3,7 @@
 title: "JavaScript vs JavaScript: Round 2. Fight!",
 published: "2021-09-17T14:01:56Z",
 edited: "2021-09-17T14:20:31Z",
-tags: ["javascript", "webdev", "frameworks", "react"],
+tags: ["javascript", "webdev", "react"],
 description: "After I finished the first article I wasn't sure how long it would be before we'd have enough topics...",
 originalLink: "https://dev.to/playfulprogramming/javascript-vs-javascript-round-2-fight-2m44",
 coverImg: "cover-image.png",

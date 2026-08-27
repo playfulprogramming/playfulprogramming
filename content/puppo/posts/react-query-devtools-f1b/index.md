@@ -2,7 +2,7 @@
 {
 title: "React Query - DevTools",
 published: "2023-04-05T06:30:39Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey Folks,  In this post, you'll learn how to debug and check whatever happens in your React Query...",
 originalLink: "https://blog.delpuppo.net/react-query-devtools",
 coverImg: "cover-image.png",

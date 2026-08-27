@@ -3,7 +3,7 @@
 title: "JavaScript Frameworks - Heading into 2023",
 published: "2022-12-29T20:09:40Z",
 edited: "2025-12-12T18:20:34Z",
-tags: ["career", "productivity", "discuss"],
+tags: ["career", "productivity", "opinion"],
 description: "The wonderful thing about glimpsing into the future is that the path is never completely clear. We...",
 originalLink: "https://dev.to/playfulprogramming/javascript-frameworks-heading-into-2023-nln",
 coverImg: "cover-image.png",

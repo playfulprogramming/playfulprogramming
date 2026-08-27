@@ -2,7 +2,7 @@
 {
 title: "How to Clean Up Your Local Repository with Git Commands",
 published: "2023-06-16T14:02:00Z",
-tags: ["git", "development"],
+tags: ["git"],
 description: "Git is a powerful and popular version control system that helps you manage your code history and...",
 originalLink: "https://dev.to/playfulprogramming/how-to-clean-up-your-local-repository-with-git-commands-531o",
 coverImg: "cover-image.png",

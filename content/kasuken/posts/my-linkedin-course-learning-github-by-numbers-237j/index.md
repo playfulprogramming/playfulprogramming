@@ -3,7 +3,7 @@
 title: "My LinkedIn Course \"Learning GitHub\" by numbers",
 published: "2023-03-27T07:10:34Z",
 edited: "2023-04-30T13:23:02Z",
-tags: ["github", "learning", "git", "githubcopilot"],
+tags: ["github", "learning", "git", "copilot"],
 description: "Introduction   A few months ago I started to talk about my journey as a Technical Instructor...",
 originalLink: "https://dev.to/playfulprogramming/my-linkedin-course-learning-github-by-numbers-237j",
 coverImg: "cover-image.png",

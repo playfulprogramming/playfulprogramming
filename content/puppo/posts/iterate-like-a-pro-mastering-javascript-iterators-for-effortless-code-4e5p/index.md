@@ -2,7 +2,7 @@
 {
 title: "Iterate Like a Pro: Mastering JavaScript Iterators for Effortless Code",
 published: "2023-08-25T06:10:55Z",
-tags: ["javascript", "iterators"],
+tags: ["javascript"],
 description: "Welcome to this blog post, where we're about to unravel the power and versatility of JavaScript...",
 originalLink: "https://blog.delpuppo.net/iterate-like-a-pro-mastering-javascript-iterators-for-effortless-code",
 coverImg: "cover-image.png",

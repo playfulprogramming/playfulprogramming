@@ -2,7 +2,7 @@
 {
 title: "Codemotion 2024 Milan: Rediscovering My Voice and Passion as a Speaker",
 published: "2024-11-06T08:59:57Z",
-tags: ["publicspeaking", "devlife", "webdev", "dotnet"],
+tags: ["events", "career", "webdev", "dotnet"],
 description: "Codemotion 2024 in Milan was nothing short of spectacular. Imagine being in a place filled with over...",
 originalLink: "https://dev.to/playfulprogramming/codemotion-2024-milan-rediscovering-my-voice-and-passion-as-a-speaker-171o",
 coverImg: "cover-image.png",

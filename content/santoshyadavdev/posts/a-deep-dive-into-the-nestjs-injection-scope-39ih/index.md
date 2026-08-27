@@ -3,7 +3,7 @@
 title: "A Deep Dive Into the NestJS Injection Scope",
 published: "2020-01-10T19:49:47Z",
 edited: "2021-04-06T11:07:02Z",
-tags: ["javascript", "typescript", "webdev", "node"],
+tags: ["javascript", "typescript", "webdev", "nodejs"],
 description: "In my previous piece, we discussed NestJS services. In this piece, we’ll look at the injection scope....",
 originalLink: "https://medium.com/better-programming/a-deep-dive-into-nestjs-injection-scope-d45e87fd918d",
 coverImg: "cover-image.png",

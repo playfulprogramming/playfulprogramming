@@ -3,7 +3,7 @@
 title: "Code Review on a GitHub Pull Request from Visual Studio Code",
 published: "2023-03-28T14:05:31Z",
 edited: "2023-04-03T13:36:36Z",
-tags: ["vscode", "github", "tutorial", "codenewbie"],
+tags: ["vscode", "github", "tutorial", "beginner"],
 description: "Doing Code Review 📖 on a GitHub Pull Request without leaving Visual Studio Code? Easy! 👇  Last week...",
 originalLink: "https://leonardomontini.dev/code-review-vscode-github/",
 coverImg: "cover-image.png",

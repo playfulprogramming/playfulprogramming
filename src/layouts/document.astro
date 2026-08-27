@@ -3,9 +3,9 @@ import BlockingThemeChangerScript from "../page-components/layouts/blocking-them
 import "../global.scss";
 import Barebones from "./barebones.astro";
 import Header from "#src/views/base/navigation/header.astro";
-import { getPrefixLanguageFromPath } from "#utils/translations.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
 
-const lang = getPrefixLanguageFromPath(Astro.url.pathname);
+const lang = getLocale();
 
 const props = Astro.props as {
 	size: undefined | "l" | "xl";

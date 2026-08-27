@@ -3,7 +3,7 @@
 title: "Writing Emails: Tips & Tricks (Especially for Developers)",
 published: "2025-08-19T07:41:49Z",
 edited: "2025-08-19T07:49:28Z",
-tags: ["productivity", "developers"],
+tags: ["productivity"],
 description: "You can write clean, efficient code. But can you write a clean, efficient email?  As developers, we...",
 originalLink: "https://dev.to/playfulprogramming/writing-emails-tips-tricks-especially-for-developers-1e7i",
 coverImg: "cover-image.png",

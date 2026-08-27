@@ -3,7 +3,7 @@
 title: "🕵️‍♂️ Learn git alias and boost your productivity",
 published: "2022-10-22T18:32:58Z",
 edited: "2023-01-12T13:22:32Z",
-tags: ["git", "tutorial", "codenewbie", "productivity"],
+tags: ["git", "tutorial", "beginner", "productivity"],
 description: "Setting up an Alias   Repeating the same git commands over and over again can be such a...",
 originalLink: "https://leonardomontini.dev/git-alias-tutorial/",
 coverImg: "cover-image.png",

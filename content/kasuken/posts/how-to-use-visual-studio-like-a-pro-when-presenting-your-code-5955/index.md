@@ -2,7 +2,7 @@
 {
 title: "How to Use Visual Studio Like a Pro When Presenting Your Code",
 published: "2023-05-10T07:10:00Z",
-tags: ["visualstudio", "csharp", "speaking"],
+tags: ["tools", "csharp", "events"],
 description: "Visual Studio is great to write code and create something amazing, but sometimes, you may want to use...",
 originalLink: "https://dev.to/playfulprogramming/how-to-use-visual-studio-like-a-pro-when-presenting-your-code-5955",
 coverImg: "cover-image.png",

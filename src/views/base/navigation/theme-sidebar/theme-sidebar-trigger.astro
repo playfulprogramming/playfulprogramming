@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { IconOnlyButton } from "#components/index.ts";
-import { translate } from "#utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 import styles from "./theme-sidebar.module.scss";
 ---
 
@@ -11,7 +11,7 @@ import styles from "./theme-sidebar.module.scss";
 	aria-controls="theme-sidebar"
 	aria-expanded="false"
 	aria-haspopup="dialog"
-	aria-label={translate(Astro, "action.customize_theme")}
+	aria-label={m.action_customize_theme()}
 	data-theme-sidebar-trigger="true"
 >
 	<span class={styles.triggerIcon} data-theme-sidebar-trigger-icon="dark">

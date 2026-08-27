@@ -2,7 +2,7 @@
 {
 title: "OpenCode: The Open Source Coding Agent That Doesn't Lock You In",
 published: "2026-08-05",
-tags: ["ai", "opensource", "agents", "tools"],
+tags: ["ai", "open source", "tools"],
 description: "OpenCode is an open source AI coding agent built in Go that runs in the terminal, desktop, and IDE. Its thesis is simple: you bring the model, OpenCode brings the agent. It supports 75+ LLM providers, from Claude and GPT to local models via Ollama, doesn't store your code, doesn't charge a subscription, and over 7.5 million developers use it monthly.",
 originalLink: "https://domenicotenace.dev/blog/open-code-open-source-agent/",
 coverImg: "./cover.webp",
@@ -156,4 +156,3 @@ The real freedom comes when you combine OpenCode's harness with open or local mo
 Managed product or open tool? The answer depends on who you want to be as a developer.
 
 Happy coding!
-

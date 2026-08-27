@@ -1,8 +1,9 @@
-import type { Languages, PersonInfo } from "../../types/index.ts";
+import type { PersonInfo } from "../../types/index.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
 
 export interface SEOProps {
 	description?: string;
-	providedLangs?: Languages[];
+	providedLangs?: Locale[];
 	title: string;
 	peopleData?: PersonInfo[];
 	keywords?: string[];

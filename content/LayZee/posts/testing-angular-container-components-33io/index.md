@@ -3,7 +3,7 @@
 title: "Testing Angular container components",
 published: "2021-03-22T21:06:02Z",
 edited: "2021-03-22T21:07:07Z",
-tags: ["angular", "testing", "rxjs", "modelviewpresenter"],
+tags: ["angular", "testing", "rxjs", "architecture"],
 description: "Learn tactics for testing RxJS observables and application state commands. Opt out of Angular testing modules for blazingly fast unit tests.",
 originalLink: "https://dev.to/playfulprogramming-angular/testing-angular-container-components-33io",
 coverImg: "cover-image.png",

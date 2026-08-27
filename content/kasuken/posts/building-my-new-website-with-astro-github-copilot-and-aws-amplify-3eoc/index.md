@@ -3,7 +3,7 @@
 title: "Building My New Website with Astro, GitHub Copilot, and AWS Amplify",
 published: "2025-10-07T12:41:50Z",
 edited: "2025-10-07T12:45:31Z",
-tags: ["astro", "aws", "githubcopilot", "webdev"],
+tags: ["astro", "cloud", "copilot", "webdev"],
 description: "For me, in general, the best way to learn something new is to start from zero and hit...",
 originalLink: "https://dev.to/playfulprogramming/building-my-new-website-with-astro-github-copilot-and-aws-amplify-3eoc",
 coverImg: "cover-image.png",

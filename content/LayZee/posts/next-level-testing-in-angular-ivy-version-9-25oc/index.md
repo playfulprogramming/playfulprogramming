@@ -3,7 +3,7 @@
 title: "Next-level testing in Angular Ivy version 9",
 published: "2021-03-24T14:18:32Z",
 edited: "2021-03-24T15:08:28Z",
-tags: ["angular", "ivy", "testing"],
+tags: ["angular", "testing"],
 description: "AOT, faster tests, stronger types, and component harnesses.",
 originalLink: "https://dev.to/playfulprogramming-angular/next-level-testing-in-angular-ivy-version-9-25oc",
 coverImg: "cover-image.png",

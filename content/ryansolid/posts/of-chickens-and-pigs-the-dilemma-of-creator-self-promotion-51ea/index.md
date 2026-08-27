@@ -3,7 +3,7 @@
 title: "Of Chickens and Pigs - The Dilemma of Creator Self Promotion",
 published: "2021-04-22T18:18:01Z",
 edited: "2021-04-25T02:43:09Z",
-tags: ["webdev", "devjournal", "javascript", "opensource"],
+tags: ["webdev", "opinion", "javascript", "open source"],
 description: "Have you ever created a new library? You saw a gap when creating a project at work. So you worked on...",
 originalLink: "https://dev.to/playfulprogramming/of-chickens-and-pigs-the-dilemma-of-creator-self-promotion-51ea",
 coverImg: "cover-image.png",

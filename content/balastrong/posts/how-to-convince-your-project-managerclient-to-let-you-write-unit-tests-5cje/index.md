@@ -2,7 +2,7 @@
 {
 title: "How to Convince your Project Manager/Client to let you write Unit Tests",
 published: "2023-05-24T20:23:40Z",
-tags: ["testing", "webdev", "productivity", "coding"],
+tags: ["testing", "webdev", "productivity"],
 description: "I recently shared a video where I showed how Copilot Chat can write tests for you, a funny demo, but...",
 originalLink: "https://leonardomontini.dev/save-time-with-automated-tests/",
 coverImg: "cover-image.png",

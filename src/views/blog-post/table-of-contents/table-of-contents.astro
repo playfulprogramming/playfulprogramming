@@ -4,11 +4,11 @@ import classnames from "classnames";
 import type { PostHeadingInfo } from "#types/index.ts";
 import HeadingIntersectionObserverScript from "./heading-intersection-observer-script.astro";
 
-interface TableOfContentsProps {
+interface Props {
 	headingsWithId: PostHeadingInfo[];
 }
 
-const { headingsWithId } = Astro.props as TableOfContentsProps;
+const { headingsWithId } = Astro.props;
 
 const headings = headingsWithId?.length ? headingsWithId : [];
 

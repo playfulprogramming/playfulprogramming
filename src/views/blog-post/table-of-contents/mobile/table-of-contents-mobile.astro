@@ -1,18 +1,18 @@
 ---
 import styles from "./table-of-contents-mobile.module.scss";
 import classnames from "classnames";
-import { translate } from "#utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 import type { PostHeadingInfo } from "#types/index.ts";
 import { IconOnlyButton } from "#components/button/button.tsx";
 import { Icon } from "astro-icon/components";
 import MobileHeadingIntersectionObserverScript from "./mobile-heading-intersection-observer-script.astro";
 import MobileTableOfContentsTitleScrollObserver from "./mobile-table-of-contents-title-scroll-observer.astro";
 
-interface TableOfContentsProps {
+interface Props {
 	headingsWithId: PostHeadingInfo[];
 }
 
-const { headingsWithId } = Astro.props as TableOfContentsProps;
+const { headingsWithId } = Astro.props;
 
 const headings = headingsWithId?.length ? headingsWithId : [];
 
@@ -38,7 +38,7 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 			data-mobile-table-of-contents-menu-header
 			class="text-style-body-large-bold"
 		>
-			{translate(Astro, "title.table_of_contents")}
+			{m.title_table_of_contents()}
 		</h4>
 		<IconOnlyButton
 			id="toggleMenuExpanded"
@@ -91,7 +91,7 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 	headingsToDisplaySlugs={headingsToDisplaySlugs}
 />
 <MobileTableOfContentsTitleScrollObserver
-	tableOfContentsDefaultText={translate(Astro, "title.table_of_contents")}
+	tableOfContentsDefaultText={m.title_table_of_contents()}
 />
 
 <script>

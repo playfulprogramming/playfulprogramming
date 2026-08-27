@@ -2,7 +2,7 @@
 {
 title: "React Query - Keys & Prefetching",
 published: "2023-05-03T05:30:39Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey Folks, Today I want to share two important things if you are using ReactQuery. The first is how...",
 originalLink: "https://blog.delpuppo.net/react-query-keys-prefetching",
 coverImg: "cover-image.png",

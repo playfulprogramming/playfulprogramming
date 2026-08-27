@@ -3,7 +3,7 @@
 title: "5 Places SolidJS is not the Best",
 published: "2021-04-06T16:24:00Z",
 edited: "2021-04-06T17:57:40Z",
-tags: ["solidjs", "webdev", "javascript", "webperf"],
+tags: ["solidjs", "webdev", "javascript", "performance"],
 description: "In this article, I wish to finally address the question \"What is Solid not as good at?\" The list migh...",
 originalLink: "https://dev.to/playfulprogramming/5-places-solidjs-is-not-the-best-5019",
 coverImg: "cover-image.png",

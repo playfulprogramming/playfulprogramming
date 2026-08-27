@@ -2,7 +2,7 @@
 {
 title: "Gemini CLI - Google's Free AI Agent for Your Terminal",
 published: "2026-05-12" ,
-tags: ["ai", "tools", "google", "gemini"],
+tags: ["ai", "tools", "gemini"],
 description: "Gemini CLI is a free AI agent developed by Google that allows you to interact with AI directly from your terminal. It provides a seamless experience for developers and tech enthusiasts to leverage AI capabilities without leaving the command line interface.",
 originalLink: "https://domenicotenace.dev/blog/gemini-cli-googles-free-ai-agent-for-your-terminal/",
 coverImg: "./cover.webp",

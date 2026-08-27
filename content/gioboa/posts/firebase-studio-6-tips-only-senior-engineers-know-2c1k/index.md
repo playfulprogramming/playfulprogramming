@@ -3,7 +3,7 @@
 title: "Firebase Studio: 6 tips only senior engineers know",
 published: "2025-04-16T15:25:33Z",
 edited: "2025-04-16T15:27:00Z",
-tags: ["firebase", "ai", "programming", "productivity"],
+tags: ["firebase", "ai", "productivity"],
 description: "Firebase, Google's comprehensive platform for building mobile and web applications, has continually...",
 originalLink: "https://dev.to/playfulprogramming/firebase-studio-6-tips-only-senior-engineers-know-2c1k",
 coverImg: "cover-image.png",

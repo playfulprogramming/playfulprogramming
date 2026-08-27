@@ -2,7 +2,7 @@
 {
 title: "Gemini 3.6 Flash: Google's Fastest Bet in a Crowded Race",
 published: "2026-07-29" ,
-tags: ["ai", "tools", "google", "gemini"],
+tags: ["ai", "tools", "gemini"],
 description: "Gemini 3.6 Flash is Google’s workhorse model for developers, the go-to for agentic workflows, coding tasks, long-document reasoning, and multimodal work.",
 originalLink: "https://domenicotenace.dev/blog/gemini-36-flash/",
 coverImg: "./cover.webp",

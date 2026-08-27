@@ -2,7 +2,7 @@
 {
 title: "Boost your productivity by mastering Oh My ZSH git aliases",
 published: "2024-03-06T07:03:05Z",
-tags: ["tooling", "git", "devex", "productivity"],
+tags: ["tools", "git", "productivity"],
 description: "Since I discovered Oh My Zsh a few years ago, it has been a god-sent gift to me. I believe it has...",
 originalLink: "https://newsletter.unstacked.dev/p/boost-your-productivity-by-mastering"
 }

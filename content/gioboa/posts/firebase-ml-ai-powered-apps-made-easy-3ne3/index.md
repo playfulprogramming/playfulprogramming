@@ -2,7 +2,7 @@
 {
 title: "Firebase ML: AI-Powered Apps Made Easy",
 published: "2025-06-13T13:21:16Z",
-tags: ["machinelearning", "firebase", "mobile", "programming"],
+tags: ["ai", "firebase"],
 description: "How many times have you needed to translate your application, but didn't know where to start?  One of...",
 originalLink: "https://dev.to/playfulprogramming/firebase-ml-ai-powered-apps-made-easy-3ne3",
 coverImg: "cover-image.png",

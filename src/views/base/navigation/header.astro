@@ -7,14 +7,12 @@ import ThemeSidebar from "./theme-sidebar/theme-sidebar.astro";
 import ThemeSidebarTrigger from "./theme-sidebar/theme-sidebar-trigger.astro";
 import style from "./header.module.scss";
 import logo from "#src/assets/playfulprogramming_sticker.svg?raw";
-import {
-	removePrefixLanguageFromPath,
-	translate,
-} from "#utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
+import { deLocalizeHref } from "#src/paraglide/runtime.js";
 import { SearchInput } from "#components/input/input.tsx";
 import { SEARCH_QUERY_KEY } from "#src/views/search/search.ts";
 
-const path = removePrefixLanguageFromPath(Astro.url.pathname);
+const path = deLocalizeHref(Astro.url.pathname);
 const isHome = path === "/";
 const isAbout = /^\/about\/?/.test(path);
 const isJoinUs = /^\/join-us\/?/.test(path);
@@ -41,7 +39,7 @@ const props = Astro.props;
 
 			<a
 				href="/"
-				aria-label={translate(Astro, "alt.playfulprogramming_logo")}
+				aria-label={m.alt_playfulprogramming_logo()}
 				class={`d-flex ${style.logo}`}
 			>
 				<div aria-hidden="true" set:html={logo} class={style.logoContainer} />
@@ -56,21 +54,21 @@ const props = Astro.props;
 				{
 					!isAbout && (
 						<Button href="/about" variant="text">
-							{translate(Astro, "title.about_us")}
+							{m.title_about_us()}
 						</Button>
 					)
 				}
 				{
 					!isJoinUs && (
 						<Button href="/join-us" variant="text">
-							{translate(Astro, "title.join_us")}
+							{m.title_join_us()}
 						</Button>
 					)
 				}
 				{
 					!isEvents && (
 						<Button href="/events" variant="text">
-							{translate(Astro, "title.events")}
+							{m.title_events()}
 						</Button>
 					)
 				}
@@ -85,7 +83,7 @@ const props = Astro.props;
 
 						<IconOnlyButton
 							href="/search"
-							aria-label={translate(Astro, "title.search")}
+							aria-label={m.title_search()}
 							class={style.searchSmall}
 						>
 							<Icon style="width: 100%; height: 100%;" name="search" />
@@ -98,7 +96,7 @@ const props = Astro.props;
 						!props.disableDiscord && [
 							<Button
 								href={data.about.links.Discord.url}
-								aria-label={translate(Astro, "action.join_discord")}
+								aria-label={m.action_join_discord()}
 								class={style.discordLarge}
 							>
 								<Icon
@@ -106,12 +104,12 @@ const props = Astro.props;
 									style="width: 100%; height: 100%;"
 									name={data.about.links.Discord.icon as never}
 								/>
-								{translate(Astro, "action.join_discord")}
+								{m.action_join_discord()}
 							</Button>,
 
 							<IconOnlyButton
 								href={data.about.links.Discord.url}
-								aria-label={translate(Astro, "action.join_discord")}
+								aria-label={m.action_join_discord()}
 								class={style.discordSmall}
 							>
 								<Icon

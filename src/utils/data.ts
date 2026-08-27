@@ -15,7 +15,7 @@ import { isNotJunk as baseIsNotJunk } from "junk";
 import { getImageSize } from "../utils/get-image-size.ts";
 import { resolvePath } from "./url-paths.ts";
 import matter from "gray-matter";
-import dayjs from "dayjs";
+import { formatDate } from "./date.ts";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -23,10 +23,9 @@ import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { rehypePlayfulElementMap } from "./markdown/rehype-playful-element-map.ts";
 import { getExcerpt } from "./markdown/get-excerpt.ts";
-import { getLanguageFromFilename } from "./translations.ts";
+import { getLanguageFromFilename } from "./locales.ts";
 import aboutRaw from "../../content/data/about.json" with { type: "json" };
 import rolesRaw from "../../content/data/roles.json" with { type: "json" };
-import licensesRaw from "../../content/data/licenses.json" with { type: "json" };
 import tagsRaw from "../../content/data/tags.json" with { type: "json" };
 import type { LocalFile } from "#types/LocalFile.ts";
 
@@ -376,9 +375,18 @@ async function readPost(
 			excerpt,
 			publishedMeta:
 				frontmatter.published &&
-				dayjs(frontmatter.published).format("MMMM D, YYYY"),
+				formatDate(frontmatter.published, {
+					month: "long",
+					day: "numeric",
+					year: "numeric",
+				}),
 			editedMeta:
-				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
+				frontmatter.edited &&
+				formatDate(frontmatter.edited, {
+					month: "long",
+					day: "numeric",
+					year: "numeric",
+				}),
 			coverImgMeta,
 			socialImgMeta,
 		});
@@ -487,7 +495,6 @@ await Promise.all(
 export {
 	aboutRaw as about,
 	rolesRaw as roles,
-	licensesRaw as licenses,
 	people,
 	collections,
 	posts,

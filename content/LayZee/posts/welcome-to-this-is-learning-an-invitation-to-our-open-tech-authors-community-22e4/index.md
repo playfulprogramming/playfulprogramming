@@ -3,7 +3,7 @@
 title: "Welcome to This is Learning—an invitation to our open tech authors community",
 published: "2021-05-03T05:28:38Z",
 edited: "2021-05-05T22:18:19Z",
-tags: ["learninginpublic", "webdev", "community"],
+tags: ["learning", "webdev", "community"],
 description: "This is Learning is the place to share what you learn. Welcome!",
 originalLink: "https://dev.to/playfulprogramming/welcome-to-this-is-learning-an-invitation-to-our-open-tech-authors-community-22e4",
 coverImg: "cover-image.png",

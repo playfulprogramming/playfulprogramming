@@ -2,7 +2,7 @@
 {
 title: "How I Organize My Microsoft Teams Chats (Without Losing My Mind)",
 published: "2025-08-12T09:14:05Z",
-tags: ["productivity", "msteams"],
+tags: ["productivity", "microsoft"],
 description: "If you’re anything like me, your Microsoft Teams chat list can go from zen garden to dumpster fire in...",
 originalLink: "https://dev.to/playfulprogramming/how-i-organize-my-microsoft-teams-chats-without-losing-my-mind-2hbm",
 coverImg: "cover-image.png",

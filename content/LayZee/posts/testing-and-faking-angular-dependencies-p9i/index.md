@@ -3,7 +3,7 @@
 title: "Testing and faking Angular dependencies",
 published: "2021-03-24T13:34:23Z",
 edited: "2021-03-26T14:20:51Z",
-tags: ["angular", "testing", "dependencyinjection"],
+tags: ["angular", "testing"],
 description: "Learn the ins an outs of Angular dependency injection in automated tests.",
 originalLink: "https://dev.to/playfulprogramming-angular/testing-and-faking-angular-dependencies-p9i",
 coverImg: "cover-image.png",

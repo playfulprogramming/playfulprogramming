@@ -6,12 +6,12 @@ import * as api from "#utils/api.ts";
 import { getSuggestedArticles } from "#utils/get-suggested-articles.ts";
 import { isDefined } from "#utils/is-defined.ts";
 
-interface RelatedPostsProps {
+interface Props {
 	post: PostInfo;
 	headingId: string;
 }
 
-const { post, headingId } = Astro.props as RelatedPostsProps;
+const { post, headingId } = Astro.props;
 const suggestedArticles = getSuggestedArticles(post);
 
 function getPostAuthors(post: PostInfo) {

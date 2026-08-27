@@ -3,7 +3,7 @@
   title: "Why I’m Building My Own Home Server",
   description: "Exploring the motivation behind why I'm building a home server.",
   published: "2026-01-30",
-  tags: ['home server', 'cloud computing', 'opinion'],
+  tags: ['hardware', 'cloud', 'opinion'],
   originalLink: 'https://sarahgerrard.me/posts/why-a-home-server'
 }
 ---

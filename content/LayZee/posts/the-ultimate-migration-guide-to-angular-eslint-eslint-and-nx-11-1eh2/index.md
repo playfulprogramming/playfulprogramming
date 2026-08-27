@@ -3,7 +3,7 @@
 title: "The ultimate migration guide to angular-eslint, ESLint and Nx 11",
 published: "2020-12-13T23:30:20Z",
 edited: "2021-04-22T20:04:51Z",
-tags: ["angular", "nx", "eslint"],
+tags: ["angular", "nx", "tools"],
 description: "How to set up a new Nx workspace using angular-eslint or migrate an existing Nx workspace from ESLint or TSLint.",
 originalLink: "https://dev.to/playfulprogramming-angular/the-ultimate-migration-guide-to-angular-eslint-eslint-and-nx-11-1eh2",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Firebase Data Connect: forget about boring repetitive tasks",
 published: "2025-06-20T13:39:34Z",
 edited: "2025-06-27T10:25:43Z",
-tags: ["firebase", "database", "programming", "webdev"],
+tags: ["firebase", "database", "webdev"],
 description: "For years, the Firebase platform has been synonymous with rapid, scalable application development,...",
 originalLink: "https://dev.to/playfulprogramming/firebase-data-connect-forget-about-boring-repetitive-tasks-172m",
 coverImg: "cover-image.png",

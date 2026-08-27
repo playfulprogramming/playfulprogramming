@@ -2,7 +2,7 @@
 {
 title: "Creating your First Valid PR for Hacktoberfest 2023",
 published: "2023-09-18T12:16:36Z",
-tags: ["hacktoberfest", "hacktoberfest23", "github", "opensource"],
+tags: ["open source", "github"],
 description: "Starting from September 26th you can register for the event. There will be a button on the official...",
 originalLink: "https://leonardomontini.dev/hacktoberfest-first-valid-pr",
 coverImg: "cover-image.png",

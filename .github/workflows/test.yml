@@ -118,3 +118,5 @@ jobs:
 
       - name: Run Linting
         run: pnpm run lint
+      - name: Find unused code
+        run: pnpm run knip

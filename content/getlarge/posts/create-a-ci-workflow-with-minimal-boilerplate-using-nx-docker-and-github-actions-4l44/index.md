@@ -3,7 +3,7 @@
 title: "Create a CI Workflow with Minimal Boilerplate Using Nx, Docker, and GitHub Actions",
 published: "2024-08-04T11:14:05Z",
 edited: "2025-07-10T14:03:01Z",
-tags: ["tutorial", "nx", "ci"],
+tags: ["tutorial", "nx", "devops"],
 description: "In this post, I share my blueprint for a hybrid CI workflow that neither forces you to adapt to a...",
 originalLink: "https://dev.to/playfulprogramming/create-a-ci-workflow-with-minimal-boilerplate-using-nx-docker-and-github-actions-4l44",
 coverImg: "cover-image.png",

@@ -1,21 +1,22 @@
 ---
-import type { Languages } from "#types/index.ts";
 import { languages } from "#src/constants/index.ts";
 import {
-	getPrefixLanguageFromPath,
-	removePrefixLanguageFromPath,
-	translate,
-} from "#utils/translations.ts";
+	deLocalizeHref,
+	getLocale,
+	localizeHref,
+	type Locale,
+} from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 import style from "./translations-header.module.scss";
 import { Icon } from "astro-icon/components";
 
-interface TranslationsHeaderProps {
-	locales: Languages[];
+interface Props {
+	locales: Locale[];
 }
 
-const props = Astro.props as TranslationsHeaderProps;
-const path = removePrefixLanguageFromPath(Astro.url.pathname);
-const currentLocale = getPrefixLanguageFromPath(Astro.url.pathname);
+const props = Astro.props;
+const path = deLocalizeHref(Astro.url.pathname);
+const currentLocale = getLocale();
 
 const titleId = "translations-header-title";
 ---
@@ -25,7 +26,7 @@ const titleId = "translations-header-title";
 		<div class={style.title}>
 			<Icon width={24} height={24} name="translate" aria-hidden="true" />
 			<span id={titleId} class="text-style-body-large">
-				{translate(Astro, "desc.translated_into")}
+				{m.desc_translated_into()}
 			</span>
 		</div>
 		<ul class={style.links} role="list" aria-labelledby={titleId}>
@@ -34,7 +35,7 @@ const titleId = "translations-header-title";
 					<li>
 						<a
 							lang={locale}
-							href={locale === "en" ? path : `/${locale}${path}`}
+							href={localizeHref(path, { locale })}
 							aria-current={locale === currentLocale ? "page" : undefined}
 							class="text-style-body-large-bold"
 						>

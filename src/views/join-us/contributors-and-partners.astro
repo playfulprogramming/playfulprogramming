@@ -1,6 +1,6 @@
 ---
 import * as api from "#utils/api.ts";
-import { translate } from "#utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 import ContributorCard from "../../components/contributor-card/contributor-card.astro";
 import style from "./contributors-and-partners.module.scss";
 
@@ -56,7 +56,7 @@ const { partners, nonPartners } = people.reduce(
 			class={`text-style-headline-3 ${style.contributorsTitle}`}
 			id="contributors"
 		>
-			{translate(Astro, "title.contributors")}
+			{m.title_contributors()}
 		</h2>
 		<ul
 			class={style.peopleContainer}

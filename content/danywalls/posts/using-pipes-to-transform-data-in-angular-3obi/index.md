@@ -3,7 +3,7 @@
 title: "Using Pipes to Transform Data in Angular",
 published: "2022-04-08T16:49:00Z",
 edited: "2022-07-27T05:30:36Z",
-tags: ["angular", "javascript", "programming"],
+tags: ["angular", "javascript"],
 description: "Angular help us to convert values for display using Pipes; the pipes are a way to transform input...",
 originalLink: "https://www.danywalls.com/using-pipes-to-transform-data-in-angular",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "I'm starting a Developer Relations program, somehow 🤷",
 published: "2025-06-17T12:49:06Z",
 edited: "2025-06-17T12:53:09Z",
-tags: ["devrel", "career"],
+tags: ["career"],
 description: "▶️ Video version on YouTube: https://youtu.be/ERWzk5iOAiU  Hey everybody, look at that! I finally had...",
 originalLink: "https://leonardomontini.dev/devrel-01/",
 coverImg: "cover-image.png",

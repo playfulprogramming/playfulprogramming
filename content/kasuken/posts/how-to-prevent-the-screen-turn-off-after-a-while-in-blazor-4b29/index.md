@@ -2,7 +2,7 @@
 {
 title: "How to prevent the screen turn off after a while in Blazor",
 published: "2023-07-12T12:39:00Z",
-tags: ["dotnet", "webassembly", "blazor", "webdev"],
+tags: ["dotnet", "webdev"],
 description: "One of the challenges of web development is to keep the screen awake when an application needs to...",
 originalLink: "https://dev.to/playfulprogramming/how-to-prevent-the-screen-turn-off-after-a-while-in-blazor-4b29",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Create configurable Angular guards",
 published: "2023-08-09T23:03:27Z",
 edited: "2023-08-09T23:03:46Z",
-tags: ["angular", "webdev", "javascript", "router"],
+tags: ["angular", "webdev", "javascript"],
 description: "When building web application, from time to time we have to protect routes from unauthorized access....",
 originalLink: "https://medium.com/@eneajahollari/create-configurable-angular-guards-11800f84d90a",
 coverImg: "cover-image.png",

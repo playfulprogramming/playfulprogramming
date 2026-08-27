@@ -3,7 +3,7 @@
 title: "Trying out a new terminal: Warp",
 published: "2023-04-25T17:10:46Z",
 edited: "2023-04-28T19:45:12Z",
-tags: ["terminal", "rust", "programming", "productivity"],
+tags: ["tools", "rust", "productivity"],
 description: "When I moved from Windows to Mac a year ago I also developed the habit of using the terminal much...",
 originalLink: "https://leonardomontini.dev/warp-rust-terminal/",
 coverImg: "cover-image.png",

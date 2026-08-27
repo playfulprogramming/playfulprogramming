@@ -5,9 +5,10 @@ import * as api from "#utils/api.ts";
 import CollectionPage from "#src/views/collections/collection-page.astro";
 import CollectionChapter from "#src/views/collections/collection-chapter.astro";
 import { SubHeader } from "#src/components/subheader/subheader.tsx";
-import { translate } from "#utils/translations.ts";
-import type { CurrentPost, FuturePost, Languages } from "#types/index.ts";
+import { m } from "#src/paraglide/messages.js";
+import type { CurrentPost, FuturePost } from "#types/index.ts";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
+import { baseLocale, getLocale, isLocale } from "#src/paraglide/runtime.js";
 
 export async function getStaticPaths() {
 	const collections = api.getAllCollections();
@@ -17,7 +18,8 @@ export async function getStaticPaths() {
 		.map((collection) => {
 			return {
 				params: {
-					locale: collection.locale !== "en" ? collection.locale : undefined,
+					locale:
+						collection.locale !== baseLocale ? collection.locale : undefined,
 					slug: collection.slug,
 				},
 				props: {},
@@ -26,11 +28,18 @@ export async function getStaticPaths() {
 }
 
 const params = Astro.params as {
-	locale?: Languages;
+	locale?: string;
 	slug: string;
 };
 
-const locale = params.locale || "en";
+if (
+	params.locale !== undefined &&
+	(params.locale === baseLocale || !isLocale(params.locale))
+) {
+	return Astro.rewrite("/404");
+}
+
+const locale = getLocale();
 const collection = api.getCollectionBySlug(params.slug, locale)!;
 const collectionPosts = api.getPostsByCollection(params.slug, locale);
 const authors = collection.authors.map(
@@ -107,7 +116,7 @@ if (collection?.chapterList?.length) {
 		/>
 		<section class="collection-post-list-container">
 			<div class="collection-post-list">
-				<SubHeader tag="h2" text={translate(Astro, "desc.chapter_listing")} />
+				<SubHeader tag="h2" text={m.desc_chapter_listing()} />
 				<ol>
 					{
 						collectionData.map((props) => {

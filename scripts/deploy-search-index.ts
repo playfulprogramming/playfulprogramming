@@ -18,6 +18,7 @@ import {
 	collectionSchema,
 	postSchema,
 } from "#utils/search.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 // The deploy script cannot use import.meta.env, as it runs through tsx
 if (!env.TYPESENSE_WRITE_API_KEY) {
@@ -112,7 +113,7 @@ async function processPost(post: PostInfo): Promise<SearchPostInfo> {
 	const excerpt = getExcerpt(vfileContent, undefined);
 	// Collect searchable author info (name, social media handles, etc)
 	const searchMeta = post.authors
-		.map((id) => api.getPersonById(id, "en"))
+		.map((id) => api.getPersonById(id, baseLocale))
 		.filter((a) => !!a)
 		.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
 		.flatMap((set) => Array.from(set))
@@ -137,20 +138,24 @@ async function processPost(post: PostInfo): Promise<SearchPostInfo> {
 }
 
 const posts: SearchPostInfo[] = [];
-for await (const post of asyncPool(8, api.getPostsByLang("en"), processPost)) {
+for await (const post of asyncPool(
+	8,
+	api.getPostsByLang(baseLocale),
+	processPost,
+)) {
 	posts.push(post);
 }
 
 await deployPosts(posts);
 
-const collections = api.getCollectionsByLang("en").map((collection) => {
-	const chapters = api.getPostsByCollection(collection.slug, "en");
+const collections = api.getCollectionsByLang(baseLocale).map((collection) => {
+	const chapters = api.getPostsByCollection(collection.slug, baseLocale);
 	const excerpt = chapters
 		.map((chapter) => `${chapter.title} ${chapter.description}`)
 		.join(" ");
 	// Collect searchable author info (name, social media handles, etc)
 	const searchMeta = collection.authors
-		.map((id) => api.getPersonById(id, "en"))
+		.map((id) => api.getPersonById(id, baseLocale))
 		.filter((a) => !!a)
 		.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
 		.flatMap((set) => Array.from(set))

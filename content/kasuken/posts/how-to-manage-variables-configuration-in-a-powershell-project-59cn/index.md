@@ -2,7 +2,7 @@
 {
 title: "How to Manage Variables Configuration in a PowerShell Project",
 published: "2024-02-02T19:05:30Z",
-tags: ["powershell", "development", "scripting"],
+tags: ["powershell"],
 description: "One of the challenges of writing PowerShell scripts is how to handle variables configuration, such as...",
 originalLink: "https://dev.to/playfulprogramming/how-to-manage-variables-configuration-in-a-powershell-project-59cn",
 coverImg: "cover-image.png",

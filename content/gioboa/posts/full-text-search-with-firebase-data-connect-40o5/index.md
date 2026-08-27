@@ -3,7 +3,7 @@
 title: "Full-Text Search with Firebase Data Connect",
 published: "2025-07-25T09:25:26Z",
 edited: "2025-07-25T09:25:34Z",
-tags: ["firebase", "webdev", "programming", "database"],
+tags: ["firebase", "webdev", "database"],
 description: "In the previous article, you saw how to create a project from scratch with Firebase Data...",
 originalLink: "https://dev.to/playfulprogramming/full-text-search-with-firebase-data-connect-40o5",
 coverImg: "cover-image.png",

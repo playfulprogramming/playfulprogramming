@@ -3,7 +3,7 @@
 title: "Patterns for Building JavaScript Websites in 2022",
 published: "2022-06-08T16:11:03Z",
 edited: "2023-03-18T08:23:52Z",
-tags: ["javascript", "webdev", "patterns", "architecture"],
+tags: ["javascript", "webdev", "architecture"],
 description: "Deciding on the approaches and tools to use to build on web these days can be a challenging prospect....",
 originalLink: "https://dev.to/playfulprogramming/patterns-for-building-javascript-websites-in-2022-5a93",
 coverImg: "cover-image.png",

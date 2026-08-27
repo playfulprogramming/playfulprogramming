@@ -2,6 +2,7 @@ import { Feed } from "feed";
 import { siteUrl } from "#src/constants/site-config.ts";
 import { getPostsByLang, getPersonById } from "#utils/api.ts";
 import licenses from "../../content/data/licenses.json" with { type: "json" };
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 export const GET = () => {
 	const feed = new Feed({
@@ -10,7 +11,7 @@ export const GET = () => {
 			"Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions",
 		id: siteUrl,
 		link: siteUrl,
-		language: "en",
+		language: baseLocale,
 		image: `${siteUrl}/image.png`,
 		favicon: `${siteUrl}/favicon.ico`,
 		copyright: `Contributor's rights reserved ${new Date().getFullYear()}, Playful Programming`,
@@ -21,7 +22,7 @@ export const GET = () => {
 		},
 	});
 
-	getPostsByLang("en").forEach((post) => {
+	getPostsByLang(baseLocale).forEach((post) => {
 		const nodeUrl = `${siteUrl}/posts/${post.slug}`;
 
 		feed.addItem({

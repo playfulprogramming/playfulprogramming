@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat";
 import { Button, IconOnlyButton } from "#components/button/button.tsx";
 import discussion from "#src/icons/discussion.svg?raw";
 import repost from "#src/icons/repost.svg?raw";
@@ -7,8 +5,7 @@ import heart from "#src/icons/heart.svg?raw";
 import launch from "#src/icons/launch.svg?raw";
 import style from "./x-embed.module.scss";
 import { RawSvg } from "#components/image/raw-svg.tsx";
-
-dayjs.extend(advancedFormat);
+import { formatDate, formatEnglishOrdinalDate, toDate } from "#utils/date.ts";
 
 interface XEmbedPicture {
 	src: string;
@@ -42,7 +39,21 @@ export function XEmbedPlaceholder({
 	link,
 	picture,
 }: XEmbedPlaceholderProps) {
-	const dayjsDate = dayjs(date);
+	const postDate = toDate(date);
+	const isValidDate = !Number.isNaN(postDate.valueOf());
+	const formattedDate = isValidDate
+		? formatEnglishOrdinalDate(postDate, {
+				month: "short",
+				day: "numeric",
+				year: "numeric",
+			})
+		: date;
+	const formattedTime = isValidDate
+		? formatDate(postDate, {
+				hour: "numeric",
+				minute: "2-digit",
+			})
+		: undefined;
 	return (
 		<div className={style.container}>
 			<div className={style.topContainer}>
@@ -122,15 +133,17 @@ export function XEmbedPlaceholder({
 					</div>
 				</div>
 				<p className={style.timeContainer}>
-					<span className={`text-style-body-small-bold`}>
-						{dayjsDate.format("MMM Do, YYYY")}
-					</span>
-					<span className={`text-style-body-small ${style.timeSaparator}`}>
-						•
-					</span>
-					<span className={`text-style-body-small ${style.time}`}>
-						{dayjsDate.format("h:mm A")}
-					</span>
+					<span className={`text-style-body-small-bold`}>{formattedDate}</span>
+					{formattedTime ? (
+						<>
+							<span className={`text-style-body-small ${style.timeSaparator}`}>
+								•
+							</span>
+							<span className={`text-style-body-small ${style.time}`}>
+								{formattedTime}
+							</span>
+						</>
+					) : null}
 				</p>
 			</div>
 		</div>

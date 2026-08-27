@@ -6,10 +6,25 @@ import type {
 	TagInfo,
 	SnitipInfo,
 	PostVersion,
-	Languages,
 } from "#types/index.ts";
 import { roles, people, posts, collections, tags, snitips } from "./data.ts";
 import { isDefined } from "./is-defined.ts";
+import {
+	baseLocale,
+	localizeHref,
+	type Locale,
+} from "#src/paraglide/runtime.js";
+
+function findLocalizedEntry<T extends { locale: Locale }>(
+	locales: T[],
+	language: Locale,
+): T | undefined {
+	return (
+		locales.find((entry) => entry.locale === language) ??
+		locales.find((entry) => entry.locale === baseLocale) ??
+		locales[0]
+	);
+}
 
 function compareByDate(date1: string, date2: string): number {
 	return new Date(date1) > new Date(date2) ? -1 : 1;
@@ -36,30 +51,30 @@ export function getAllPeople(): PersonInfo[] {
 
 export function getPersonById(
 	id: string,
-	language: Languages,
+	language: Locale,
 ): PersonInfo | undefined {
 	const locales = people.get(id);
 	if (!locales) return undefined;
-	return locales.find((u) => u.locale === language) || locales[0];
+	return findLocalizedEntry(locales, language);
 }
 
-export function getPeopleByLang(language: Languages): PersonInfo[] {
+export function getPeopleByLang(language: Locale): PersonInfo[] {
 	return [...people.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined);
 }
 
 export function getPostBySlug(
 	slug: string,
-	language: Languages,
+	language: Locale,
 ): PostInfo | undefined {
 	const locales = posts.get(slug) || [];
-	return locales.find((p) => p.locale === language) || locales[0];
+	return findLocalizedEntry(locales, language);
 }
 
-export function getPostsByLang(language: Languages): PostInfo[] {
+export function getPostsByLang(language: Locale): PostInfo[] {
 	return [...posts.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
 		.filter((p) => !p.noindex)
 		.sort(compareByPublished);
@@ -67,11 +82,12 @@ export function getPostsByLang(language: Languages): PostInfo[] {
 
 export function getPostsByCollection(
 	collectionSlug: string,
-	language: Languages,
+	language: Locale,
 ): PostInfo[] {
 	return [...posts.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((p) => p?.collection === collectionSlug)
+		.map((locales) => findLocalizedEntry(locales, language))
+		.filter(isDefined)
+		.filter((p) => p.collection === collectionSlug)
 		.sort((postA, postB) =>
 			Number(postA.order) > Number(postB.order) ? 1 : -1,
 		);
@@ -79,14 +95,15 @@ export function getPostsByCollection(
 
 export function getPostVersionsBySlug(
 	slug: string,
-	language: Languages,
+	language: Locale,
 ): PostVersion[] {
 	return [...posts.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((p) => p?.upToDateSlug === slug || p.slug === slug)
+		.map((locales) => findLocalizedEntry(locales, language))
+		.filter(isDefined)
+		.filter((p) => p.upToDateSlug === slug || p.slug === slug)
 		.sort(compareByPublished)
 		.map(({ locale, publishedMeta, slug, version }) => ({
-			href: locale === "en" ? `/posts/${slug}` : `/${locale}/posts/${slug}`,
+			href: localizeHref(`/posts/${slug}`, { locale }),
 			publishedMeta,
 			version,
 		}));
@@ -94,10 +111,10 @@ export function getPostVersionsBySlug(
 
 export function getPostsByPerson(
 	personId: string,
-	language: Languages,
+	language: Locale,
 ): PostInfo[] {
 	return [...posts.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
 		.filter((p) => p.authors.includes(personId))
 		.filter((p) => !p.noindex)
@@ -106,15 +123,15 @@ export function getPostsByPerson(
 
 export function getCollectionBySlug(
 	slug: string,
-	language: Languages,
+	language: Locale,
 ): CollectionInfo | undefined {
 	const locales = collections.get(slug) || [];
-	return locales.find((c) => c.locale === language) || locales[0];
+	return findLocalizedEntry(locales, language);
 }
 
-export function getCollectionsByLang(language: Languages): CollectionInfo[] {
+export function getCollectionsByLang(language: Locale): CollectionInfo[] {
 	return [...collections.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
 		.filter((p) => !p.noindex)
 		.sort(compareByPublished);
@@ -122,10 +139,10 @@ export function getCollectionsByLang(language: Languages): CollectionInfo[] {
 
 export function getCollectionsByPerson(
 	personId: string,
-	language: Languages,
+	language: Locale,
 ): CollectionInfo[] {
 	return [...collections.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
 		.filter((c) => c.authors.includes(personId))
 		.filter((p) => !p.noindex)
@@ -134,7 +151,7 @@ export function getCollectionsByPerson(
 
 export function getRoleById(
 	roleId: string,
-	_language: Languages,
+	_language: Locale,
 ): RolesInfo | undefined {
 	// TODO: support role name translations
 	return roles.find((r) => r.id === roleId);

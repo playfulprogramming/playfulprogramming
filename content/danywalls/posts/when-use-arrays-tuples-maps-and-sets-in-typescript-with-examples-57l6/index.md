@@ -3,7 +3,7 @@
 title: "When Use Arrays, Tuples, Maps, and Sets In Typescript with Examples",
 published: "2023-08-14T15:52:32Z",
 edited: "2023-08-15T14:26:38Z",
-tags: ["typescript", "javascript", "frontend"],
+tags: ["typescript", "javascript", "webdev"],
 description: "A few days ago, a friend asked how to prevent duplicate keys in an array, and I told him there are...",
 originalLink: "https://dev.to/playfulprogramming/when-use-arrays-tuples-maps-and-sets-in-typescript-with-examples-57l6",
 coverImg: "cover-image.png",

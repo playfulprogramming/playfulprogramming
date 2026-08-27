@@ -3,7 +3,7 @@
 title: "5+1 Basic GIT Commands you Need for Hacktoberfest 2022",
 published: "2022-09-30T15:14:50Z",
 edited: "2023-09-11T21:17:20Z",
-tags: ["hacktoberfest", "git", "beginners", "tutorial"],
+tags: ["open source", "git", "beginner", "tutorial"],
 description: "Hacktoberfest is starting tomorrow!! Are you ready??  In case you're quite new to git, I will try to...",
 originalLink: "https://leonardomontini.dev/basic-git-commands-for-open-source/",
 coverImg: "cover-image.png",

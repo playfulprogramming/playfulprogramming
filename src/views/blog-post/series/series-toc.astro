@@ -5,25 +5,23 @@ import type { PostInfo } from "#types/index.ts";
 import { Button } from "../../../components/index.ts";
 import { findActivePost } from "./base.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
-import { translate } from "#utils/index.ts";
+import { m } from "#src/paraglide/messages.js";
 import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
 
-interface SeriesTocProps {
+interface Props {
 	post: PostInfo;
 	postSeries: PostInfo[];
 	collection?: CollectionInfo;
 }
 
-const { post, postSeries, collection } = Astro.props as SeriesTocProps;
+const { post, postSeries, collection } = Astro.props;
 
 const activePostsMeta = findActivePost(post, postSeries);
 
-const showMoreText = translate(
-	Astro,
-	"action.view_all_chapters",
-	"" + activePostsMeta.length,
-);
-const showLessText = translate(Astro, "action.view_less_chapters");
+const showMoreText = m.action_view_all_chapters({
+	count: String(activePostsMeta.length),
+});
+const showLessText = m.action_view_less_chapters();
 ---
 
 <div class={styles.seriesTableOfContent}>

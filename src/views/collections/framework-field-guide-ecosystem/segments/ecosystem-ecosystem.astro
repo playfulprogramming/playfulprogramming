@@ -5,12 +5,17 @@ import WhatYouNeed from "../components/what-you-need.astro";
 import CollectionTableOfContents from "../components/collection-table-of-contents-ecosystem.astro";
 import BottomContents from "./bottom-contents.astro";
 import { getCollectionBySlug, getPostsByCollection } from "#utils/api.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
+import type { FuturePost } from "#types/CollectionInfo.ts";
 
-const collection = getCollectionBySlug("framework-field-guide-ecosystem", "en");
+const collection = getCollectionBySlug(
+	"framework-field-guide-ecosystem",
+	baseLocale,
+);
 
 const chapterList = getPostsByCollection(
 	"framework-field-guide-ecosystem",
-	"en",
+	baseLocale,
 );
 ---
 
@@ -26,7 +31,7 @@ const chapterList = getPostsByCollection(
 			<CollectionTableOfContents
 				title="Chapters*"
 				chaptersToShow={5}
-				chapterList={collection!.chapterList}
+				chapterList={collection!.chapterList as FuturePost[]}
 				posts={chapterList}
 			/>
 			<BottomContents />

@@ -3,7 +3,7 @@
 title: "Setting up an Nx workspace with nx-dotnet",
 published: "2021-05-05T21:56:13Z",
 edited: "2021-05-05T22:11:14Z",
-tags: ["nx", "dotnet", "githubactions", "github"],
+tags: ["nx", "dotnet", "github actions", "github"],
 description: "Setting up an Nx workspace for .NET development with nx-dotnet. Also setting up a GitHub Actions CI workflow.",
 originalLink: "https://dev.to/playfulprogramming/setting-up-an-nx-workspace-with-nx-dotnet-893",
 coverImg: "cover-image.png",

@@ -4,13 +4,14 @@ import type {
 	SearchFiltersData,
 	TagFilterInfo,
 } from "#src/views/search/search.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 export const GET = async () => {
 	const people = api
-		.getPeopleByLang("en")
+		.getPeopleByLang(baseLocale)
 		.filter((person) => person.totalPostCount > 0);
 
-	const posts = api.getPostsByLang("en");
+	const posts = api.getPostsByLang(baseLocale);
 
 	const tags = Object.entries(tagsObj).map(([tag, value]) => {
 		return {

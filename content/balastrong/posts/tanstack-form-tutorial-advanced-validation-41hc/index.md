@@ -3,7 +3,7 @@
 title: "TanStack Form Tutorial: Advanced Validation",
 published: "2024-05-21T12:05:10Z",
 edited: "2024-05-21T12:08:06Z",
-tags: ["webdev", "typescript", "tutorial", "codenewbie"],
+tags: ["webdev", "typescript", "tutorial", "beginner"],
 description: "Validation is one of the core features of forms, probably the most important one.  In the last...",
 originalLink: "https://leonardomontini.dev/tanstack-form-advanced-validation/",
 coverImg: "cover-image.png",

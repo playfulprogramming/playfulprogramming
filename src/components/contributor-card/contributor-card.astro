@@ -3,12 +3,12 @@ import style from "./contributor-card.module.scss";
 import type { PersonInfo } from "../../types/index.ts";
 import { Picture } from "../image/picture.tsx";
 import { Button } from "../index.ts";
-import { translate } from "../../utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 import { getHrefContainerProps } from "../../utils/href-container-script.ts";
 import allRoles from "../../../content/data/roles.json" with { type: "json" };
 import { tabletSmall } from "../../tokens/breakpoints.ts";
 
-interface CardProps {
+interface Props {
 	person: PersonInfo;
 	overrides?: {
 		roles?: string[];
@@ -16,7 +16,7 @@ interface CardProps {
 	};
 }
 
-const { person, overrides } = Astro.props as CardProps;
+const { person, overrides } = Astro.props;
 const personHref = `/people/${person.id}`;
 
 const roles =
@@ -61,7 +61,7 @@ const isPartner =
 		</span>
 		<ul
 			class={`${style.roles} text-style-body-small`}
-			aria-label={translate(Astro, "desc.person_roles")}
+			aria-label={m.desc_person_roles()}
 			role="list"
 		>
 			{
@@ -77,8 +77,8 @@ const isPartner =
 	<Button
 		class={style.button}
 		href={personHref}
-		aria-label={translate(Astro, "label.view_profile_for", person.name)}
+		aria-label={m.label_view_profile_for({ name: person.name })}
 	>
-		{translate(Astro, "action.view_profile")}
+		{m.action_view_profile()}
 	</Button>
 </li>

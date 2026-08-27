@@ -3,7 +3,7 @@
 title: "Angular Change Detection from zone.js to Experimental Zoneless",
 published: "2024-09-19T09:07:16Z",
 edited: "2024-10-22T07:16:51Z",
-tags: ["angular", "webdev", "frontend", "javascript"],
+tags: ["angular", "webdev", "javascript"],
 description: "Change detection is a fundamental aspect of Angular, responsible for identifying and updating parts...",
 originalLink: "https://dev.to/playfulprogramming-angular/the-evolution-of-change-detection-from-angular-2-zonejs-to-angular-18-provideexperimentalzonelesschangedetection-4f77",
 coverImg: "cover-image.png",

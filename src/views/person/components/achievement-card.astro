@@ -2,11 +2,11 @@
 import styles from "./achievements.module.scss";
 import type { AchievementsInfo } from "#types/AchievementsInfo.ts";
 
-interface AchievementsProps {
+interface Props {
 	achievement: AchievementsInfo;
 }
 
-const { achievement } = Astro.props as AchievementsProps;
+const { achievement } = Astro.props;
 ---
 
 <div class={styles.container}>

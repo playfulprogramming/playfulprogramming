@@ -2,7 +2,7 @@
 {
 title: "It's Prisma Time - Seeding",
 published: "2022-02-04T06:57:04Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hello Folks 👋 Today we'll see how to handle seed with Prisma.  Seeding allows you to re-create...",
 originalLink: "https://dev.to/playfulprogramming/its-prisma-time-seeding-43h4",
 coverImg: "cover-image.png",

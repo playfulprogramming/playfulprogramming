@@ -3,7 +3,7 @@
 title: "Bind Route Info to Component Inputs (New Router feature)",
 published: "2023-04-05T15:41:34Z",
 edited: "2023-04-05T16:06:07Z",
-tags: ["angular", "router", "input", "v16"],
+tags: ["angular"],
 description: "Pass router info to routed component inputs            Topics covered in this...",
 originalLink: "https://eneajahollari.medium.com/bind-route-info-to-component-inputs-new-router-feature-1d747e559dc4",
 coverImg: "cover-image.png",

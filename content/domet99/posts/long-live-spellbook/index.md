@@ -2,7 +2,7 @@
 {
 title: "Daily Prompt Is Out. Long Live Spellbook of Prompt",
 published: "2026-07-06" ,
-tags: ["ai", "documentation", "opensource", "astro"],
+tags: ["ai", "documentation", "open source", "astro"],
 description: "Spellbook of Prompt is a new open-source project that aims to provide a comprehensive and well-documented collection of prompts for AI models. It is designed to be a valuable resource for developers, researchers, and enthusiasts who want to explore the capabilities of AI models and learn how to use them effectively.",
 originalLink: "https://domenicotenace.dev/blog/long-live-spellbook/",
 coverImg: "./cover.webp",

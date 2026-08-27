@@ -2,7 +2,7 @@
 {
 title: "How I made workplace toxic",
 published: "2021-12-27T17:55:33Z",
-tags: ["career", "workplace", "toxic"],
+tags: ["career"],
 description: "Photo by Kyle Nieber on Unsplash  It's been six years since I left my job at a startup where I worked...",
 originalLink: "https://dev.to/playfulprogramming/how-i-made-workplace-toxic-1ici",
 coverImg: "cover-image.png",

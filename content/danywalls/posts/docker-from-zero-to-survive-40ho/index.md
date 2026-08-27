@@ -3,7 +3,7 @@
 title: "Docker from zero to survive",
 published: "2021-11-02T17:16:47Z",
 edited: "2021-11-02T22:09:52Z",
-tags: ["docker", "devops", "cloudskills"],
+tags: ["docker", "devops", "cloud"],
 description: "Be ready to deploy your apps with Docker is a one of higher-demand knowledge today, and this article...",
 originalLink: "https://dev.to/playfulprogramming/docker-from-zero-to-survive-40ho",
 coverImg: "cover-image.png",

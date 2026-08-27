@@ -3,7 +3,7 @@
 title: "Live Reloading in Golang using Air",
 published: "2022-04-07T07:45:18Z",
 edited: "2022-07-09T09:57:35Z",
-tags: ["go", "tutorial", "beginners", "tooling"],
+tags: ["go", "tutorial", "beginner", "tools"],
 description: "Live reloading changes to our codebase is one of the core tenants of a great developer experience....",
 originalLink: "https://mainawycliffe.dev/blog/live-reloading-golang-using-air/",
 coverImg: "cover-image.png",

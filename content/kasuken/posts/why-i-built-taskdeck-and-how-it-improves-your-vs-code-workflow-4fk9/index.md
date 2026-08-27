@@ -3,7 +3,7 @@
 title: "Why I Built TaskDeck and How It Improves Your VS Code Workflow",
 published: "2025-11-20T12:50:24Z",
 edited: "2025-11-20T12:53:59Z",
-tags: ["vscode", "productivity", "webdev", "showdev"],
+tags: ["vscode", "productivity", "webdev"],
 description: "VS Code tasks are powerful, but most developers barely use them. The problem is not the feature...",
 originalLink: "https://dev.to/playfulprogramming/why-i-built-taskdeck-and-how-it-improves-your-vs-code-workflow-4fk9",
 coverImg: "cover-image.png",

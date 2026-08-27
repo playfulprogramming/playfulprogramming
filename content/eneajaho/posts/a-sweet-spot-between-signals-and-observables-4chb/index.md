@@ -3,7 +3,7 @@
 title: "A sweet spot between signals and observables 🍬",
 published: "2023-08-18T15:48:46Z",
 edited: "2023-09-13T19:05:30Z",
-tags: ["angular", "javascript", "webdev", "signals"],
+tags: ["angular", "javascript", "webdev", "reactivity"],
 description: "In collaboration with Chau Tran.   The migration wave to signals is real, state management libraries...",
 originalLink: "https://medium.com/@eneajahollari/a-sweet-spot-between-signals-and-observables-a3c9620768f1",
 coverImg: "cover-image.png",

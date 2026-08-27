@@ -1,4 +1,4 @@
-import type { Languages } from "#types/index.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
 import type { LocalFile } from "#types/LocalFile.ts";
 
 export interface FuturePost {
@@ -40,8 +40,8 @@ export interface CollectionInfo extends RawCollectionInfo {
 	file: string;
 	authors: string[];
 	tags: string[];
-	locales: Languages[];
-	locale: Languages;
+	locales: Locale[];
+	locale: Locale;
 	postCount: number;
 	coverImgMeta: LocalFile;
 	socialImgMeta?: LocalFile;

@@ -2,7 +2,7 @@
 {
 title: "I Fixed Trello",
 published: "2023-10-31T14:21:33Z",
-tags: ["productivity", "webdev", "chrome", "opensource"],
+tags: ["productivity", "webdev", "chrome", "open source"],
 description: "Having a unique ID on each card is so important to efficiently communicate, but Trello does not show...",
 originalLink: "https://leonardomontini.dev/trello-numbers-fixed",
 coverImg: "cover-image.png",

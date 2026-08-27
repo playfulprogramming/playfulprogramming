@@ -3,7 +3,7 @@
 title: "JavaScript Frameworks - Heading into 2024",
 published: "2023-12-21T22:44:48Z",
 edited: "2025-12-12T18:20:53Z",
-tags: ["webdev", "javascript", "webperf", "frameworks"],
+tags: ["webdev", "javascript", "performance"],
 description: "I won't be the first to say it, but I will say it nonetheless, 2023 was quite the year for JavaScript...",
 originalLink: "https://dev.to/playfulprogramming/javascript-frameworks-heading-into-2024-i3l",
 coverImg: "cover-image.png",
