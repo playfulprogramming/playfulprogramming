@@ -1,20 +1,29 @@
-import dayjs from "dayjs";
 import { Button } from "#components/button/button.tsx";
 import type { RecurringEventsCardProps } from "./types.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import date from "#src/icons/date.svg?raw";
 import style from "./recurring-event-card.module.scss";
 import { EventChip } from "../event-chip/event-chip.tsx";
+import { m } from "#src/paraglide/messages.js";
 
 export function RecurringEventsCard({
 	latestEventBlockLocationMetadata,
 	event,
+	locale,
 }: RecurringEventsCardProps) {
 	const latestEventBlockWithMetadata =
 		latestEventBlockLocationMetadata[event.slug];
 
 	const latestEventBannerSrc =
 		latestEventBlockWithMetadata?.location_metadata?.banner?.src;
+	const latestEventDate = latestEventBlockWithMetadata
+		? new Intl.DateTimeFormat(locale, {
+				month: "long",
+				day: "numeric",
+				hour: "numeric",
+				minute: "2-digit",
+			}).format(latestEventBlockWithMetadata.starts_at)
+		: undefined;
 
 	return (
 		<li
@@ -42,22 +51,35 @@ export function RecurringEventsCard({
 								dangerouslySetInnerHTML={{ __html: date }}
 							/>
 							<span>
-								{dayjs(latestEventBlockWithMetadata.starts_at).format(
-									"MMMM Do • h:mmA ",
-								)}
-								• <span className={style.nextEventText}>Next event</span>
+								<span className={style.nextEventText}>
+									{m.events_card_next_event_date(
+										{ date: latestEventDate! },
+										{ locale },
+									)}
+								</span>
 							</span>
 						</div>
 					) : null}
-					<ul className={style.chipsContainer} aria-label="Event type">
+					<ul
+						className={style.chipsContainer}
+						aria-label={m.events_card_event_type({}, { locale })}
+					>
 						{event.in_person && (
 							<li>
-								<EventChip variant={"in-person"} size={"compact"} />
+								<EventChip
+									variant={"in-person"}
+									size={"compact"}
+									locale={locale}
+								/>
 							</li>
 						)}
 						{event.is_online && (
 							<li>
-								<EventChip variant={"online"} size={"compact"} />
+								<EventChip
+									variant={"online"}
+									size={"compact"}
+									locale={locale}
+								/>
 							</li>
 						)}
 					</ul>
@@ -67,7 +89,9 @@ export function RecurringEventsCard({
 				</div>
 				{latestEventBlockWithMetadata?.location_description ? (
 					<div className={style.eventRightContainer}>
-						<h3 className={`text-style-body-medium-bold`}>Next event's info</h3>
+						<h3 className={`text-style-body-medium-bold`}>
+							{m.events_card_next_event_info({}, { locale })}
+						</h3>
 						<div className={style.nextEventInnerCard}>
 							{latestEventBannerSrc ? (
 								<img

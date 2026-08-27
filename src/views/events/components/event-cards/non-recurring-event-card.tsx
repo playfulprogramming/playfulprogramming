@@ -1,12 +1,15 @@
-import dayjs from "dayjs";
 import type { NonRecurringEventsCardProps } from "./types.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import date from "#src/icons/date.svg?raw";
 import style from "./non-recurring-event-card.module.scss";
 import { useMemo } from "preact/hooks";
 import { EventChip } from "../event-chip/event-chip.tsx";
+import { m } from "#src/paraglide/messages.js";
 
-export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
+export function NonRecurringEventsCard({
+	event,
+	locale,
+}: NonRecurringEventsCardProps) {
 	// Helps us get the event with the earliest start time
 	const startSortedEventBlocks = useMemo(
 		() =>
@@ -26,6 +29,17 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 
 	const startsAt = startSortedEventBlocks[0]?.starts_at;
 	const endsAt = endsSortedEventBlocks[0]?.ends_at;
+	const dateFormatter = useMemo(
+		() => new Intl.DateTimeFormat(locale, { month: "long", day: "numeric" }),
+		[locale],
+	);
+	const dateRange = m.events_card_date_range(
+		{
+			startDate: dateFormatter.format(startsAt),
+			endDate: dateFormatter.format(endsAt),
+		},
+		{ locale },
+	);
 
 	return (
 		<li
@@ -51,20 +65,28 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 							className={style.eventIcon}
 							dangerouslySetInnerHTML={{ __html: date }}
 						/>
-						<span>
-							{dayjs(startsAt).format("MMMM Do")} —{" "}
-							{dayjs(endsAt).format("MMMM Do")}
-						</span>
+						<span>{dateRange}</span>
 					</div>
-					<ul className={style.chipsContainer} aria-label="Event type">
+					<ul
+						className={style.chipsContainer}
+						aria-label={m.events_card_event_type({}, { locale })}
+					>
 						{event.in_person && (
 							<li>
-								<EventChip variant={"in-person"} size={"compact"} />
+								<EventChip
+									variant={"in-person"}
+									size={"compact"}
+									locale={locale}
+								/>
 							</li>
 						)}
 						{event.is_online && (
 							<li>
-								<EventChip variant={"online"} size={"compact"} />
+								<EventChip
+									variant={"online"}
+									size={"compact"}
+									locale={locale}
+								/>
 							</li>
 						)}
 					</ul>

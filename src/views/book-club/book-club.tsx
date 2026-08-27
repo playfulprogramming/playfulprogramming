@@ -9,6 +9,7 @@ import { LargeButton } from "#components/button/button.tsx";
 import dayjs from "dayjs";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import style from "./book-club.module.scss";
+import type { Locale } from "#src/paraglide/runtime.js";
 
 interface EventBlockWithMetadata extends EventBlock {
 	location_metadata?: UrlMetadataResponse;
@@ -97,9 +98,13 @@ function BookClubSmallCard({ eventBlock }: BookClubSmallCardProps) {
 
 interface BookClubProps {
 	eventBlocksWithMetadata: EventBlockWithMetadata[];
+	locale: Locale;
 }
 
-export default function BookClub({ eventBlocksWithMetadata }: BookClubProps) {
+export default function BookClub({
+	eventBlocksWithMetadata,
+	locale,
+}: BookClubProps) {
 	/**
 	 * Styles for header bar
 	 */
@@ -159,7 +164,11 @@ export default function BookClub({ eventBlocksWithMetadata }: BookClubProps) {
 						<h1 className={`text-style-headline-1 ${style.eventsTitle}`}>
 							Book Club
 							<span className={style.eventChipContainer}>
-								<EventChip size={"compact"} variant={"online"} />
+								<EventChip
+									size={"compact"}
+									variant={"online"}
+									locale={locale}
+								/>
 							</span>
 						</h1>
 						<p

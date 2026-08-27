@@ -6,9 +6,10 @@ import { events } from "../../views/events/constants.ts";
 import type { UrlMetadataResponse } from "#utils/hoof/index.ts";
 import { getUrlMetadata } from "#utils/hoof/index.ts";
 import type { Event, EventBlock } from "../../views/events/types.ts";
-import { baseLocale } from "#src/paraglide/runtime.js";
+import { baseLocale, getLocale } from "#src/paraglide/runtime.js";
 
 const event: Event = events.find((e) => e.slug === "book-club")!;
+const locale = getLocale();
 
 interface EventBlockWithMetadata extends EventBlock {
 	location_metadata?: UrlMetadataResponse;
@@ -40,6 +41,7 @@ for (const block of event.blocks) {
 	<main>
 		<BookClubPage
 			client:load
+			locale={locale}
 			eventBlocksWithMetadata={eventBlocksWithMetadata}
 		/>
 	</main>

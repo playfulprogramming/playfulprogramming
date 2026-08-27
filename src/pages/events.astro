@@ -6,6 +6,9 @@ import { events } from "../views/events/constants.ts";
 import { getUrlMetadata } from "#utils/hoof/index.ts";
 import type { EventBlock } from "../views/events/types.ts";
 import type { LatestEventBlockLocationMetadataType } from "../views/events/components/event-cards/types.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
+
+const locale = getLocale();
 
 // We only need the latest event block location metadata to show on the list view
 // Record<EventSlug, EventBlockWithMetadata>
@@ -63,6 +66,8 @@ for (const event of events) {
 	<main>
 		<EventsPage
 			client:load
+			events={events}
+			locale={locale}
 			latestEventBlockLocationMetadata={latestEventBlockLocationMetadata}
 		/>
 	</main>
