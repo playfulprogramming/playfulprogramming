@@ -4,6 +4,7 @@ import { getCollectionsByLang, getPostsByLang } from "#utils/api.ts";
 import SEO from "#components/seo/seo.astro";
 import Homepage from "#src/views/explore/homepage.astro";
 import type { Locale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 const locale: Locale = "en";
 
@@ -14,7 +15,7 @@ const collectionsToDisplay = getCollectionsByLang(locale).slice(0, 4);
 ---
 
 <Document>
-	<SEO slot="head" title="Homepage" />
+	<SEO slot="head" title={m.title_home()} />
 	<main class="container">
 		<Homepage
 			posts={postsToDisplay}
