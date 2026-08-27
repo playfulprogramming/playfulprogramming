@@ -1,0 +1,56 @@
+---
+import EventsPage from "#src/views/events/events-page.tsx";
+import Document from "#src/layouts/document.astro";
+import SEO from "#components/seo/seo.astro";
+import { events } from "#src/views/events/constants.ts";
+import { getLatestEventBlockLocationMetadata } from "#src/views/events/get-latest-event-block-location-metadata.ts";
+import type { LatestEventBlockLocationMetadataType } from "#src/views/events/components/event-cards/types.ts";
+import {
+	getStaticLocalePaths,
+	isValidLocaleRouteParam,
+} from "#utils/locales.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
+export async function getStaticPaths() {
+	const latestEventBlockLocationMetadata =
+		await getLatestEventBlockLocationMetadata();
+
+	return getStaticLocalePaths().map(({ params, props }) => ({
+		params,
+		props: { ...props, latestEventBlockLocationMetadata },
+	}));
+}
+
+interface Props {
+	latestEventBlockLocationMetadata?: LatestEventBlockLocationMetadataType;
+}
+
+const localeParam = Astro.params.locale;
+if (!isValidLocaleRouteParam(localeParam)) {
+	return Astro.rewrite("/404");
+}
+
+const locale = getLocale();
+const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
+const generatedProps = Astro.props as Props;
+const latestEventBlockLocationMetadata =
+	generatedProps.latestEventBlockLocationMetadata ??
+	(await getLatestEventBlockLocationMetadata());
+---
+
+<Document size="l">
+	<SEO
+		title={m.title_events()}
+		description={m.desc_events()}
+		providedLangs={providedLangs}
+		slot="head"
+	/>
+	<main>
+		<EventsPage
+			client:load
+			events={events}
+			locale={locale}
+			latestEventBlockLocationMetadata={latestEventBlockLocationMetadata}
+		/>
+	</main>
+</Document>

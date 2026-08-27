@@ -1,0 +1,51 @@
+---
+import Document from "#src/layouts/document.astro";
+import SEO from "#components/seo/seo.astro";
+import PersonPage from "#src/views/person/person-page.astro";
+import NotFoundPage from "#src/views/not-found/not-found-page.astro";
+import * as api from "#utils/api.ts";
+import { isValidLocaleRouteParam } from "#utils/locales.ts";
+import { baseLocale, getLocale } from "#src/paraglide/runtime.js";
+
+export function getStaticPaths() {
+	return api.getAllPeople().map((person) => ({
+		params: {
+			locale: person.locale === baseLocale ? undefined : person.locale,
+			personid: person.id,
+		},
+	}));
+}
+
+const localeParam = Astro.params.locale;
+const isLocaleRoute = isValidLocaleRouteParam(localeParam);
+const locale = getLocale();
+const personId = Astro.params.personid!;
+const person = isLocaleRoute ? api.getPersonById(personId, locale) : undefined;
+const validPerson = person?.locale === locale ? person : undefined;
+
+if (!validPerson) {
+	Astro.response.status = 404;
+}
+
+const posts = validPerson ? api.getPostsByPerson(validPerson.id, locale) : [];
+---
+
+{
+	validPerson ? (
+		<Document size="xl">
+			<SEO
+				slot="head"
+				title={validPerson.name}
+				description={validPerson.description}
+				peopleData={[validPerson]}
+				providedLangs={validPerson.locales}
+				type="profile"
+			/>
+			<main class="listViewContent">
+				<PersonPage person={validPerson} posts={posts} locale={locale} />
+			</main>
+		</Document>
+	) : (
+		<NotFoundPage />
+	)
+}
