@@ -5,7 +5,7 @@
 	--achievement_padding-horizontal: var(--spc-4x);
 	--achievement_corner-radius: var(--corner-radius_m);
 	--achievement_border_width: var(--border-width_m);
-	--achievement_border_color: var(--surface_primary_emphasis-medium);
+	--achievement_border_color: var(--tint_primary_medium);
 
 	@include from($desktopSmall) {
 		--achievement_padding-vertical: var(--spc-4x);
@@ -22,9 +22,9 @@
 }
 
 .name {
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 }
 
 .description {
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 }

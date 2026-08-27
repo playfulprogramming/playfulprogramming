@@ -71,21 +71,21 @@ const props = Astro.props;
 			<div class={`d-flex ${style.nav}`}>
 				{
 					!isAbout && (
-						<Button href={aboutHref} variant="primary">
+						<Button href={aboutHref} variant="text">
 							{m.title_about_us()}
 						</Button>
 					)
 				}
 				{
 					!isJoinUs && (
-						<Button href={joinUsHref} variant="primary">
+						<Button href={joinUsHref} variant="text">
 							{m.title_join_us()}
 						</Button>
 					)
 				}
 				{
 					!isEvents && (
-						<Button href={eventsHref} variant="primary">
+						<Button href={eventsHref} variant="text">
 							{m.title_events()}
 						</Button>
 					)

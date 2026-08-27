@@ -6,6 +6,7 @@ import { useMemo } from "preact/hooks";
 import { EventChip } from "../event-chip/event-chip.tsx";
 import { m } from "#src/paraglide/messages.js";
 import { getLocale } from "#src/paraglide/runtime.js";
+import { toDate } from "#utils/date.ts";
 
 export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 	const locale = getLocale();
@@ -33,8 +34,8 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 		[locale],
 	);
 	const dateRange = m.events_card_date_range({
-		startDate: dateFormatter.format(startsAt),
-		endDate: dateFormatter.format(endsAt),
+		startDate: dateFormatter.format(toDate(startsAt)),
+		endDate: dateFormatter.format(toDate(endsAt)),
 	});
 
 	return (

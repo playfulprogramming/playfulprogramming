@@ -40,14 +40,15 @@ import {
 	type CalendarDate,
 	fromDate,
 	getLocalTimeZone,
+	isSameDay,
 	isSameMonth,
 	isToday,
-	parseDate,
+	startOfMonth,
 	today,
+	toCalendarDate,
 } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
 import type { Event } from "../../types.ts";
-import dayjs from "dayjs";
 import { useIsOnClient } from "../../../../hooks/use-is-on-client.ts";
 import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScrollGutterHack.ts";
 import {
@@ -85,7 +86,7 @@ const CustomButton = forwardRef(
 
 interface CustomCalendarCellProps extends CalendarCellProps {
 	// It's a long story
-	monthDate: Date;
+	monthDate: CalendarDate;
 	popupTriggerButtonProps: DOMProps;
 }
 
@@ -102,10 +103,7 @@ export const CustomCalendarCell = forwardRef(
 	) => {
 		const state: CalendarState = useContext(CalendarStateContext);
 
-		const isOutsideMonth = !isSameMonth(
-			date,
-			fromDate(monthDate, state.timeZone),
-		);
+		const isOutsideMonth = !isSameMonth(date, monthDate);
 		const istoday = isToday(date, state.timeZone);
 
 		const buttonRef = useRef<HTMLDivElement>(null);
@@ -251,9 +249,9 @@ function CalendarDayPopup({
 						<ul role={"list"} className={style.popupContentContainer}>
 							{eventsForDate.map((event) => {
 								const firstBlockOfDay = event.blocks.find((block) => {
-									return dayjs(date.toDate(state.timeZone)).isSame(
-										block.starts_at,
-										"date",
+									return isSameDay(
+										date,
+										fromDate(block.starts_at, state.timeZone),
 									);
 								});
 
@@ -277,6 +275,7 @@ function CalendarDayPopup({
 													{new Intl.DateTimeFormat(locale, {
 														hour: "numeric",
 														minute: "2-digit",
+														timeZone: state.timeZone,
 													}).format(firstBlockOfDay.starts_at)}{" "}
 												</span>
 												<span className={`text-style-body-small-bold`}>
@@ -304,7 +303,7 @@ function CalendarDayPopup({
 
 type CustomCalendarCellWrapperProps = CalendarCellProps & {
 	events: Event[];
-	monthDate: Date;
+	monthDate: CalendarDate;
 };
 
 function CustomCalendarCellWrapper({
@@ -328,7 +327,7 @@ function CustomCalendarCellWrapper({
 	const eventsForDate = useMemo(() => {
 		return events.filter((event) =>
 			event.blocks.some((block) =>
-				dayjs(date.toDate(state.timeZone)).isSame(block.starts_at, "date"),
+				isSameDay(date, fromDate(block.starts_at, state.timeZone)),
 			),
 		);
 	}, [events, state, date]);
@@ -376,10 +375,9 @@ type CustomCalendarGridProps = CalendarGridProps & {
 function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 	const state: CalendarState = useContext(CalendarStateContext);
 
-	const monthDate = dayjs(state.visibleRange.start.toDate(state.timeZone))
-		.startOf("month")
-		.add(props.offset?.months ?? 0, "month")
-		.toDate();
+	const monthDate = startOfMonth(state.visibleRange.start).add({
+		months: props.offset?.months ?? 0,
+	});
 
 	return (
 		<CalendarGrid {...props} className={style.grid}>
@@ -411,23 +409,26 @@ function CustomHeading() {
 
 	const firstMonthName = useMemo(
 		() =>
-			new Intl.DateTimeFormat(locale, { month: "long" }).format(
-				state.visibleRange.start.toDate(state.timeZone),
-			),
+			new Intl.DateTimeFormat(locale, {
+				month: "long",
+				timeZone: state.timeZone,
+			}).format(state.visibleRange.start.toDate(state.timeZone)),
 		[state, locale],
 	);
 	const lastMonthName = useMemo(
 		() =>
-			new Intl.DateTimeFormat(locale, { month: "long" }).format(
-				state.visibleRange.end.toDate(state.timeZone),
-			),
+			new Intl.DateTimeFormat(locale, {
+				month: "long",
+				timeZone: state.timeZone,
+			}).format(state.visibleRange.end.toDate(state.timeZone)),
 		[state, locale],
 	);
 	const lastYearName = useMemo(
 		() =>
-			new Intl.DateTimeFormat(locale, { year: "numeric" }).format(
-				state.visibleRange.end.toDate(state.timeZone),
-			),
+			new Intl.DateTimeFormat(locale, {
+				year: "numeric",
+				timeZone: state.timeZone,
+			}).format(state.visibleRange.end.toDate(state.timeZone)),
 		[state, locale],
 	);
 
@@ -480,8 +481,10 @@ export function Calendar({ events }: CalendarProps) {
 
 		for (const event of events) {
 			for (const block of event.blocks) {
-				const dateString = dayjs(block.starts_at).format("YYYY-MM-DD");
-				selectedDates.set(dateString, parseDate(dateString));
+				const date = toCalendarDate(
+					fromDate(block.starts_at, getLocalTimeZone()),
+				);
+				selectedDates.set(date.toString(), date);
 			}
 		}
 

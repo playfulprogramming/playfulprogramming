@@ -36,7 +36,8 @@ export type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 			| "primary-emphasized"
 			| "secondary-emphasized"
 			| "primary"
-			| "secondary";
+			| "secondary"
+			| "text";
 	} & AllowedJSXElements<Tag>
 >;
 

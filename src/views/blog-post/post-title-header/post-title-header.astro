@@ -3,6 +3,7 @@ import style from "./post-title-header.module.scss";
 import type { PostInfo, PersonInfo, PostVersion } from "#types/index.ts";
 import { Icon } from "astro-icon/components";
 import { Chip } from "#components/index.ts";
+import { toDate } from "#utils/date.ts";
 import { buildSearchQuery } from "../../search/search.ts";
 import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
@@ -17,12 +18,14 @@ const { post, versions, authors } = Astro.props;
 const { title, tags } = post;
 
 const locale = getLocale();
-const dateFormatter = new Intl.DateTimeFormat(locale, {
-	dateStyle: "long",
-	timeZone: "UTC",
-});
-const publishedStr = dateFormatter.format(new Date(post.published));
-const editedStr = post.edited && dateFormatter.format(new Date(post.edited));
+const dateFormat = {
+	month: "long",
+	day: "numeric",
+	year: "numeric",
+} as const satisfies Intl.DateTimeFormatOptions;
+const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
+const publishedStr = dateFormatter.format(toDate(post.published));
+const editedStr = post.edited && dateFormatter.format(toDate(post.edited));
 
 const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 ---

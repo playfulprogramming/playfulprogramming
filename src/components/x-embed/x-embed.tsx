@@ -6,6 +6,7 @@ import heart from "#src/icons/heart.svg?raw";
 import launch from "#src/icons/launch.svg?raw";
 import style from "./x-embed.module.scss";
 import { RawSvg } from "#components/image/raw-svg.tsx";
+import { toDate } from "#utils/date.ts";
 
 import { m } from "#src/paraglide/messages.js";
 
@@ -72,7 +73,7 @@ export function XEmbedPlaceholder({
 	picture,
 }: XEmbedPlaceholderProps) {
 	const locale = getLocale();
-	const postDate = new Date(date);
+	const postDate = toDate(date);
 	const isValidDate = !Number.isNaN(postDate.valueOf());
 	const formattedDate = isValidDate ? formatPostDate(postDate) : date;
 	const formattedTime = isValidDate

@@ -9,10 +9,10 @@
 			var(--collection-chapter_num_margin-left)
 	);
 
-	--collection-chapter_num_color: var(--foreground_emphasis-high);
-	--collection-chapter_num-container_color: var(--surface_primary_emphasis-low);
-	--collection-chapter_title_color: var(--foreground_emphasis-high);
-	--collection-chapter_description_color: var(--foreground_emphasis-medium);
+	--collection-chapter_num_color: var(--foreground_high);
+	--collection-chapter_num-container_color: var(--tint_primary_low);
+	--collection-chapter_title_color: var(--foreground_high);
+	--collection-chapter_description_color: var(--foreground_medium);
 }
 .container {
 	padding: var(--collection-chapter_padding-top)

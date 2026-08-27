@@ -17,23 +17,23 @@
 	--toc_sub-item_dot_margin-end: var(--spc-3x);
 	--toc_sub-item_dot_size: 1rem;
 
-	--toc_label_color: var(--foreground_emphasis-medium);
-	--toc_label_color_selected: var(--foreground_emphasis-high);
+	--toc_label_color: var(--foreground_medium);
+	--toc_label_color_selected: var(--foreground_high);
 
-	--toc_item_background-color_hovered: var(--surface_primary_emphasis-medium);
-	--toc_item_background-color_pressed: var(--surface_primary_emphasis-high);
-	--toc_item_background-color_selected: var(--surface_primary_emphasis-low);
+	--toc_item_background-color_hovered: var(--primary_container_hover);
+	--toc_item_background-color_pressed: var(--primary_container_pressed);
+	--toc_item_background-color_selected: var(--primary_container);
 	--toc_item_background-color_focused: var(--background_focus);
 
-	--toc_subheading-dot_color: var(--primary_default);
+	--toc_subheading-dot_color: var(--primary_on-container);
 
 	--toc_focus-outline_color: var(--focus-outline_primary);
 	--toc_focus-outline_width: var(--border-width_focus);
 
 	--toc_divider_width: var(--border-width_s);
-	--toc_divider_color: var(--primary_variant);
+	--toc_divider_color: var(--primary_low);
 
-	--toc_arrow_color: var(--foreground_emphasis-high);
+	--toc_arrow_color: var(--foreground_high);
 	--toc_arrow_color_selected: var(--primary);
 
 	@include until($tabletLarge) {
@@ -98,13 +98,13 @@
 }
 
 .tableListItemLinkInner {
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 	pointer-events: none;
 }
 
 .tableListItem:hover > a > *,
 :global(.toc-is-active) .tableListItemLinkInner {
-	color: var(--foreground_emphasis-high);
+	color: var(--primary_on-container);
 }
 
 .depth1 {
@@ -226,5 +226,6 @@
 }
 
 :global(.toc-is-active) > a {
-	background: var(--surface_primary_emphasis-low);
+	background: var(--primary_container);
+	color: var(--primary_on-container);
 }

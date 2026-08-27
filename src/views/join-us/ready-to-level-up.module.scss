@@ -10,7 +10,7 @@
 }
 
 .header {
-	color: var(--primary_default);
+	color: var(--primary_medium);
 	margin: 0;
 	margin-bottom: var(--site-spacing);
 }
@@ -48,13 +48,13 @@
 }
 
 .typeTitle {
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	margin: 0;
 	margin-bottom: var(--spc-2x);
 }
 
 .typeBody {
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 	margin: 0;
 	margin-bottom: var(--spc-6x);
 }
