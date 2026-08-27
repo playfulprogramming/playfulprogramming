@@ -38,7 +38,7 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 			data-mobile-table-of-contents-menu-header
 			class="text-style-body-large-bold"
 		>
-			{m["title.table_of_contents"]()}
+			{m.title_table_of_contents()}
 		</h4>
 		<IconOnlyButton
 			id="toggleMenuExpanded"
@@ -91,7 +91,7 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 	headingsToDisplaySlugs={headingsToDisplaySlugs}
 />
 <MobileTableOfContentsTitleScrollObserver
-	tableOfContentsDefaultText={m["title.table_of_contents"]()}
+	tableOfContentsDefaultText={m.title_table_of_contents()}
 />
 
 <script>

@@ -83,7 +83,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 				<Icon width={24} height={24} name="words" aria-hidden="true" />
 				<p class="text-style-button-regular">
 					{
-						m["title.n_words"]({
+						m.title_n_words({
 							count: post.wordCount.toLocaleString("en"),
 						})
 					}
@@ -95,7 +95,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 					<div class={style.originalLink}>
 						<Icon width={24} height={24} name="website" aria-hidden="true" />
 						<p class="text-style-button-regular">
-							{m["desc.original_link"]()}{" "}
+							{m.desc_original_link()}{" "}
 							<a
 								href={post.originalLink}
 								target="_blank"

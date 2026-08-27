@@ -15,7 +15,7 @@ const props = Astro.props as {
 			tag="button"
 			data-theme-toggle
 			aria-pressed="false"
-			aria-label={m["label.dark_mode"]()}
+			aria-label={m.label_dark_mode()}
 			class={props.class}
 		>
 			<Icon
@@ -35,7 +35,7 @@ const props = Astro.props as {
 			tag="button"
 			data-theme-toggle
 			aria-pressed="false"
-			aria-label={m["label.dark_mode"]()}
+			aria-label={m.label_dark_mode()}
 			class={props.class}
 		>
 			<Icon
@@ -51,7 +51,7 @@ const props = Astro.props as {
 				data-theme-toggle-icon="light"
 				style="display: none;"
 			/>
-			{m["action.switch_theme"]()}
+			{m.action_switch_theme()}
 		</Button>
 	)
 }

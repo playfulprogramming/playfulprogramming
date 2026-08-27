@@ -10,7 +10,7 @@ const { class: className } = Astro.props as { class?: string };
 	tag="button"
 	id="backbtn"
 	class={`${className}`}
-	aria-label={m["action.go_back"]()}
+	aria-label={m.action_go_back()}
 >
 	<Icon style="width: 100%; height: 100%;" name="arrow_left" />
 </IconOnlyButton>

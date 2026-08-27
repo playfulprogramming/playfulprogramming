@@ -61,7 +61,7 @@ const isPartner =
 		</span>
 		<ul
 			class={`${style.roles} text-style-body-small`}
-			aria-label={m["desc.person_roles"]()}
+			aria-label={m.desc_person_roles()}
 			role="list"
 		>
 			{
@@ -77,8 +77,8 @@ const isPartner =
 	<Button
 		class={style.button}
 		href={personHref}
-		aria-label={m["label.view_profile_for"]({ name: person.name })}
+		aria-label={m.label_view_profile_for({ name: person.name })}
 	>
-		{m["action.view_profile"]()}
+		{m.action_view_profile()}
 	</Button>
 </li>

@@ -18,10 +18,10 @@ const { post, postSeries, collection } = Astro.props;
 
 const activePostsMeta = findActivePost(post, postSeries);
 
-const showMoreText = m["action.view_all_chapters"]({
+const showMoreText = m.action_view_all_chapters({
 	count: String(activePostsMeta.length),
 });
-const showLessText = m["action.view_less_chapters"]();
+const showLessText = m.action_view_less_chapters();
 ---
 
 <div class={styles.seriesTableOfContent}>

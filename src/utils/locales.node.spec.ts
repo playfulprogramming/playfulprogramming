@@ -15,9 +15,9 @@ describe("utils/locales.ts", () => {
 	});
 
 	test("uses Paraglide fallbacks and named interpolation", () => {
-		expect(m["label.view_profile_for"]({ name: "Ada" }, { locale: "it" })).toBe(
+		expect(m.label_view_profile_for({ name: "Ada" }, { locale: "it" })).toBe(
 			"Visualizza profilo di Ada",
 		);
-		expect(m["title.home"]({}, { locale: "fr" })).toBe("Home");
+		expect(m.title_home({}, { locale: "fr" })).toBe("Home");
 	});
 });

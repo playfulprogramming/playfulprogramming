@@ -31,7 +31,7 @@ const href = `/people/${author.id}`;
 		<p class={`text-style-body-large ${styles.authorTextContainer}`}>
 			<span class={`text-style-body-medium-bold ${styles.authorArticles}`}>
 				{
-					m["title.n_articles"]({
+					m.title_n_articles({
 						count: author.totalPostCount.toLocaleString("en"),
 					})
 				}
@@ -39,7 +39,7 @@ const href = `/people/${author.id}`;
 			<span class={styles.authorMetaSeperatorDot}>•</span>
 			<span class={`text-style-body-medium-bold ${styles.authorWordCount}`}>
 				{
-					m["title.n_words"]({
+					m.title_n_words({
 						count: author.totalWordCount.toLocaleString("en"),
 					})
 				}
@@ -47,7 +47,7 @@ const href = `/people/${author.id}`;
 		</p>
 	</div>
 	<Button tag="a" href={href} class={styles.viewProfileBtn}>
-		{m["action.view_profile"]()}
+		{m.action_view_profile()}
 	</Button>
 	<div class={`text-style-body-medium ${styles.authorDescription}`}>
 		{author.description}
