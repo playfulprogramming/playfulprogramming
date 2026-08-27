@@ -330,54 +330,54 @@ gitGraph
   commit id:"F2"
   checkout main
   commit id:"C1"
-  merge feature
+  merge feature id:"M0"
 ```
 <!-- ::end:mermaid -->
 
 <!-- ::start:mermaid -->
 ```mermaid
       gitGraph
-        commit
+        commit id:"C0"
         branch hotfix
         checkout hotfix
-        commit
+        commit id:"H1"
         branch develop
         checkout develop
         commit id:"ash" tag:"abc"
         branch featureB
         checkout featureB
-        commit type:HIGHLIGHT
+        commit id:"B1" type:HIGHLIGHT
         checkout main
         checkout hotfix
-        commit type:NORMAL
+        commit id:"H2" type:NORMAL
         checkout develop
-        commit type:REVERSE
+        commit id:"D1" type:REVERSE
         checkout featureB
-        commit
+        commit id:"B2"
         checkout main
-        merge hotfix
+        merge hotfix id:"M1"
         checkout featureB
-        commit
+        commit id:"B3"
         checkout develop
         branch featureA
-        commit
+        commit id:"A1"
         checkout develop
-        merge hotfix
+        merge hotfix id:"M2"
         checkout featureA
-        commit
+        commit id:"A2"
         checkout featureB
-        commit
+        commit id:"B4"
         checkout develop
-        merge featureA
+        merge featureA id:"M3"
         branch release
         checkout release
-        commit
+        commit id:"R1"
         checkout main
-        commit
+        commit id:"C1"
         checkout release
-        merge main
+        merge main id:"M4"
         checkout develop
-        merge release
+        merge release id:"M5"
 ```
 <!-- ::end:mermaid -->
 
