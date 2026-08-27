@@ -5,8 +5,9 @@ import PageCard from "#components/page-card/page-card.astro";
 
 import neutralUnicorn from "../assets/unicorn_neutral.svg";
 import { LargeButton } from "../components/index.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
-const locale = "en";
+const locale = baseLocale;
 ---
 
 <Document lang={locale}>

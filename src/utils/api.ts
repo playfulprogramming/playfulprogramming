@@ -10,6 +10,18 @@ import type {
 } from "#types/index.ts";
 import { roles, people, posts, collections, tags, snitips } from "./data.ts";
 import { isDefined } from "./is-defined.ts";
+import { baseLocale, localizeHref } from "#src/paraglide/runtime.js";
+
+function findLocalizedEntry<T extends { locale: Languages }>(
+	locales: T[],
+	language: Languages,
+): T | undefined {
+	return (
+		locales.find((entry) => entry.locale === language) ??
+		locales.find((entry) => entry.locale === baseLocale) ??
+		locales[0]
+	);
+}
 
 function compareByDate(date1: string, date2: string): number {
 	return new Date(date1) > new Date(date2) ? -1 : 1;
@@ -40,12 +52,12 @@ export function getPersonById(
 ): PersonInfo | undefined {
 	const locales = people.get(id);
 	if (!locales) return undefined;
-	return locales.find((u) => u.locale === language) || locales[0];
+	return findLocalizedEntry(locales, language);
 }
 
 export function getPeopleByLang(language: Languages): PersonInfo[] {
 	return [...people.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined);
 }
 
@@ -54,12 +66,12 @@ export function getPostBySlug(
 	language: Languages,
 ): PostInfo | undefined {
 	const locales = posts.get(slug) || [];
-	return locales.find((p) => p.locale === language) || locales[0];
+	return findLocalizedEntry(locales, language);
 }
 
 export function getPostsByLang(language: Languages): PostInfo[] {
 	return [...posts.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
 		.filter((p) => !p.noindex)
 		.sort(compareByPublished);
@@ -70,8 +82,9 @@ export function getPostsByCollection(
 	language: Languages,
 ): PostInfo[] {
 	return [...posts.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((p) => p?.collection === collectionSlug)
+		.map((locales) => findLocalizedEntry(locales, language))
+		.filter(isDefined)
+		.filter((p) => p.collection === collectionSlug)
 		.sort((postA, postB) =>
 			Number(postA.order) > Number(postB.order) ? 1 : -1,
 		);
@@ -82,11 +95,12 @@ export function getPostVersionsBySlug(
 	language: Languages,
 ): PostVersion[] {
 	return [...posts.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((p) => p?.upToDateSlug === slug || p.slug === slug)
+		.map((locales) => findLocalizedEntry(locales, language))
+		.filter(isDefined)
+		.filter((p) => p.upToDateSlug === slug || p.slug === slug)
 		.sort(compareByPublished)
 		.map(({ locale, publishedMeta, slug, version }) => ({
-			href: locale === "en" ? `/posts/${slug}` : `/${locale}/posts/${slug}`,
+			href: localizeHref(`/posts/${slug}`, { locale }),
 			publishedMeta,
 			version,
 		}));
@@ -97,7 +111,7 @@ export function getPostsByPerson(
 	language: Languages,
 ): PostInfo[] {
 	return [...posts.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
 		.filter((p) => p.authors.includes(personId))
 		.filter((p) => !p.noindex)
@@ -109,12 +123,12 @@ export function getCollectionBySlug(
 	language: Languages,
 ): CollectionInfo | undefined {
 	const locales = collections.get(slug) || [];
-	return locales.find((c) => c.locale === language) || locales[0];
+	return findLocalizedEntry(locales, language);
 }
 
 export function getCollectionsByLang(language: Languages): CollectionInfo[] {
 	return [...collections.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
 		.filter((p) => !p.noindex)
 		.sort(compareByPublished);
@@ -125,7 +139,7 @@ export function getCollectionsByPerson(
 	language: Languages,
 ): CollectionInfo[] {
 	return [...collections.values()]
-		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
+		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
 		.filter((c) => c.authors.includes(personId))
 		.filter((p) => !p.noindex)

@@ -62,6 +62,9 @@ export default defineConfig({
 		},
 	},
 	vite: {
+		define: {
+			__PARAGLIDE_SERVER_OUTPUT__: JSON.stringify(isServerBuild),
+		},
 		plugins: [
 			paraglideVitePlugin({
 				project: "./project.inlang",

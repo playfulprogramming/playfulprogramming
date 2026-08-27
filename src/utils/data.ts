@@ -23,7 +23,7 @@ import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { rehypePlayfulElementMap } from "./markdown/rehype-playful-element-map.ts";
 import { getExcerpt } from "./markdown/get-excerpt.ts";
-import { getLanguageFromFilename } from "./translations.ts";
+import { getLanguageFromFilename } from "./locales.ts";
 import aboutRaw from "../../content/data/about.json" with { type: "json" };
 import rolesRaw from "../../content/data/roles.json" with { type: "json" };
 import tagsRaw from "../../content/data/tags.json" with { type: "json" };

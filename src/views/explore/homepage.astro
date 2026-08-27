@@ -2,7 +2,7 @@
 import { PostCardGrid } from "#src/components/post-card/post-card-grid.tsx";
 import { Button } from "#components/button/button.tsx";
 import type { Languages, PostInfo, CollectionInfo } from "#types/index.ts";
-import { translate } from "#utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 import { CollectionCard } from "#components/collection-card/collection-card.tsx";
 import { SubHeader } from "../../components/subheader/subheader.tsx";
 import Hero from "../../components/hero/hero.astro";
@@ -35,7 +35,7 @@ const postAuthors = new Map(
 			href={`/search?${buildSearchQuery({ searchQuery: "*", display: "articles" })}`}
 			aria-labelledby="posts-header"
 		>
-			{translate(Astro, "action.view_all")}
+			{m["action.view_all"]()}
 		</Button>
 	</SubHeader>
 
@@ -56,7 +56,7 @@ const postAuthors = new Map(
 			})}`}
 			aria-labelledby="collections-header"
 		>
-			{translate(Astro, "action.view_all")}
+			{m["action.view_all"]()}
 		</Button>
 	</SubHeader>
 

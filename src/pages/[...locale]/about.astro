@@ -3,7 +3,8 @@ import * as fs from "fs/promises";
 import Document from "#src/layouts/document.astro";
 import SEO from "#components/seo/seo.astro";
 import AboutView from "#src/views/about/about.astro";
-import { getLanguageFromFilename, translate } from "#utils/translations.ts";
+import { getLanguageFromFilename } from "#utils/locales.ts";
+import { m } from "#src/paraglide/messages.js";
 import { join } from "path";
 import { contentDirectory } from "#utils/data.ts";
 import type { Languages } from "#types/index.ts";
@@ -43,8 +44,8 @@ const locale = getLocale();
 
 <Document>
 	<SEO
-		title={translate(Astro, "title.about_us")}
-		description={translate(Astro, "desc.about_us")}
+		title={m["title.about_us"]()}
+		description={m["desc.about_us"]()}
 		providedLangs={locales}
 		slot="head"
 	/>

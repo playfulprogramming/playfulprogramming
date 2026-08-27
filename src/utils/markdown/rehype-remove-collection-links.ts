@@ -4,6 +4,7 @@ import type { PostInfo } from "#types/PostInfo.ts";
 import { visit } from "unist-util-visit";
 import * as api from "#utils/api.ts";
 import type { MarkdownVFile } from "./types.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 function normalizeUrl(url: string) {
 	return url.endsWith("/") ? url.slice(0, -1) : url;
@@ -13,7 +14,7 @@ export const rehypeRemoveCollectionLinks: Plugin<[], Root> = () => {
 	return (tree, vfile) => {
 		const post = (vfile as MarkdownVFile).data.frontmatter as PostInfo;
 		const posts = post.collection
-			? api.getPostsByCollection(post.collection, "en")
+			? api.getPostsByCollection(post.collection, baseLocale)
 			: [];
 
 		visit(tree, "element", (node, _index, _parent) => {

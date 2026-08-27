@@ -1,9 +1,11 @@
 ---
 import type { Languages } from "#types/index.ts";
 import {
-	removePrefixLanguageFromPath,
-	fileToOpenGraphConverter,
-} from "#utils/translations.ts";
+	baseLocale,
+	deLocalizeHref,
+	localizeHref,
+} from "#src/paraglide/runtime.js";
+import { localeToOpenGraph } from "#utils/locales.ts";
 
 export type Props = {
 	providedLangs?: Languages[];
@@ -13,17 +15,19 @@ export type Props = {
 
 const { providedLangs, siteMetadata, pathName } = Astro.props;
 
-const defaultLocale = "en";
-
 const removeTrailingSlash = (str: string) =>
 	str.endsWith("/") ? str.slice(0, -1) : str;
+
+const canonicalPath = deLocalizeHref(pathName || "");
+const absoluteLocalizedUrl = (locale: Languages) =>
+	removeTrailingSlash(
+		new URL(localizeHref(canonicalPath, { locale }), siteMetadata.siteUrl).href,
+	);
 ---
 
 <link
 	rel="alternate"
-	href={removeTrailingSlash(
-		siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || ""),
-	)}
+	href={absoluteLocalizedUrl(baseLocale)}
 	hreflang="x-default"
 />
 <>
@@ -32,12 +36,8 @@ const removeTrailingSlash = (str: string) =>
 			? providedLangs.map((locale) => (
 					<link
 						rel="alternate"
-						href={removeTrailingSlash(
-							siteMetadata.siteUrl +
-								(locale === defaultLocale ? "" : `/${locale}`) +
-								removePrefixLanguageFromPath(pathName || ""),
-						)}
-						hreflang={fileToOpenGraphConverter(locale)}
+						href={absoluteLocalizedUrl(locale)}
+						hreflang={localeToOpenGraph(locale)}
 					/>
 				))
 			: null

@@ -2,7 +2,7 @@
 import style from "./about.module.scss";
 import "../../styles/shiki.scss";
 import * as data from "#utils/data.ts";
-import { translate } from "#src/utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 import TranslationsHeader from "#src/views/base/translations/translations-header.astro";
 import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { License } from "./license.tsx";
@@ -97,7 +97,7 @@ const tags = [
 		<hr />
 
 		<h2 id="licenses">
-			<span>{translate(Astro, "title.licenses")}</span>
+			<span>{m["title.licenses"]()}</span>
 		</h2>
 
 		<ul class={style.licenses} role="list" aria-labelledby="licenses">
@@ -111,17 +111,17 @@ const tags = [
 							image={tag.image}
 							action={
 								tag.explainerType === "license"
-									? translate(Astro, "action.view_license")
-									: translate(Astro, "action.view_attribution")
+									? m["action.view_license"]()
+									: m["action.view_attribution"]()
 							}
 							actionLabel={
 								tag.explainerType === "license"
-									? translate(Astro, "label.view_license_for", tag.displayName)
-									: translate(
-											Astro,
-											"label.view_attribution_for",
-											tag.displayName,
-										)
+									? m["label.view_license_for"]({
+											displayName: tag.displayName,
+										})
+									: m["label.view_attribution_for"]({
+											displayName: tag.displayName,
+										})
 							}
 						/>
 					</li>
@@ -130,7 +130,7 @@ const tags = [
 		</ul>
 
 		<p>
-			{translate(Astro, "desc.licenses_request_removal")}
+			{m["desc.licenses_request_removal"]()}
 			<a id="email-licenses" href="#">
 				<noscript>JavaScript required</noscript>
 			</a>

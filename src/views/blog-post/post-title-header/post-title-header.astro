@@ -5,7 +5,7 @@ import { Icon } from "astro-icon/components";
 import { Chip } from "#components/index.ts";
 import dayjs from "dayjs";
 import { buildSearchQuery } from "../../search/search.ts";
-import { translate } from "#utils/translations.ts";
+import { m } from "#src/paraglide/messages.js";
 import { ArticleRevisionDropdown } from "../article-revisions/article-revisions.tsx";
 
 export interface Props {
@@ -83,11 +83,9 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 				<Icon width={24} height={24} name="words" aria-hidden="true" />
 				<p class="text-style-button-regular">
 					{
-						translate(
-							Astro,
-							"title.n_words",
-							post.wordCount.toLocaleString("en"),
-						)
+						m["title.n_words"]({
+							count: post.wordCount.toLocaleString("en"),
+						})
 					}
 				</p>
 			</div>
@@ -97,7 +95,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 					<div class={style.originalLink}>
 						<Icon width={24} height={24} name="website" aria-hidden="true" />
 						<p class="text-style-button-regular">
-							{translate(Astro, "desc.original_link")}{" "}
+							{m["desc.original_link"]()}{" "}
 							<a
 								href={post.originalLink}
 								target="_blank"

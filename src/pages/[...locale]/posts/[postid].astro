@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 	return posts.map((post) => {
 		return {
 			params: {
-				locale: post.locale !== "en" ? post.locale : undefined,
+				locale: post.locale !== baseLocale ? post.locale : undefined,
 				postid: post.slug,
 			},
 		};

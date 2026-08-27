@@ -5,11 +5,12 @@ import {
 	getPostsByCollection,
 } from "#utils/api.ts";
 import { generateCollectionEPub } from "#utils/epubs/generate-collection-epub.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 export const GET: APIRoute = async ({ params }) => {
 	const slug = String(params.slug);
-	const collection = getCollectionBySlug(slug, "en")!;
-	const collectionPosts = getPostsByCollection(slug, "en");
+	const collection = getCollectionBySlug(slug, baseLocale)!;
+	const collectionPosts = getPostsByCollection(slug, baseLocale);
 
 	const epub = await generateCollectionEPub(collection, collectionPosts);
 
@@ -21,6 +22,6 @@ export const GET: APIRoute = async ({ params }) => {
 };
 
 export function getStaticPaths() {
-	const collections = getCollectionsByLang("en");
+	const collections = getCollectionsByLang(baseLocale);
 	return collections.map((c) => ({ params: { slug: c.slug } }));
 }

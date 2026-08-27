@@ -12,6 +12,7 @@ import type { Languages } from "#types/index.ts";
 import { Readable } from "stream";
 import { siteUrl } from "#src/constants/site-config.ts";
 import { events } from "#src/views/events/constants.ts";
+import { baseLocale, localizeHref } from "#src/paraglide/runtime.js";
 
 const About = (await import("./[...locale]/about.astro")) as unknown as {
 	getStaticPaths: () => Promise<Array<{ params: { locale?: Languages } }>>;
@@ -27,7 +28,7 @@ const sitemapDefaults: Pick<
 };
 
 const createLocaleUrl = (locale: Languages | undefined, path: string) =>
-	`${locale && locale !== "en" ? `/${locale}` : ""}${path}`;
+	localizeHref(path || "/", { locale: locale ?? baseLocale });
 
 const createPostUrl = (locale: Languages, post: PostInfo) =>
 	createLocaleUrl(locale, `/posts/${post.slug}`);
@@ -62,7 +63,7 @@ export const GET = async () => {
 			...sitemapDefaults,
 			url: createLocaleUrl(locale, "/about"),
 			links: aboutPageLocales.map((lang) => ({
-				lang: lang ?? "en",
+				lang: lang ?? baseLocale,
 				url: createLocaleUrl(lang, "/about"),
 			})),
 		});
@@ -113,7 +114,9 @@ export const GET = async () => {
 	}
 
 	// sort alphabetically to avoid changes between builds
-	entries.sort((a, b) => a.url.localeCompare(b.url, "en", { numeric: true }));
+	entries.sort((a, b) =>
+		a.url.localeCompare(b.url, baseLocale, { numeric: true }),
+	);
 
 	const stream = new SitemapStream({
 		hostname: siteUrl,
