@@ -160,6 +160,14 @@
 
 .unicornLogo {
 	display: none;
+	height: 190px;
+	width: 190px;
+
+	svg {
+		display: block;
+		height: 100%;
+		width: 100%;
+	}
 }
 
 @include from($desktopSmall) {

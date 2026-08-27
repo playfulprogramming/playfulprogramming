@@ -48,6 +48,10 @@
 	opacity: 1;
 }
 
+.bowtieButton[data-bowtie-animation-disabled] .bowtieVisibility {
+	display: none;
+}
+
 .bowties {
 	position: absolute;
 	height: 100%;

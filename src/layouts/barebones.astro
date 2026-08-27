@@ -29,7 +29,6 @@ const analyticsSetupScript = `
 
 <html lang={lang} dir={getTextDirection(lang)} class="light">
 	<head>
-		<slot name="first" />
 		<meta name="viewport" content="width=device-width" />
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.ico" />
@@ -44,6 +43,7 @@ const analyticsSetupScript = `
 			media="(prefers-color-scheme: dark)"
 			content={THEME_COLOR_DARK}
 		/>
+		<slot name="first" />
 		<link
 			rel="apple-touch-icon"
 			sizes="48x48"

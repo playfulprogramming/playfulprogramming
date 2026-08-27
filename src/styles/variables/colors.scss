@@ -1,3 +1,8 @@
+@mixin moreContrast {
+	--opacity-neutral-medium: 1;
+	--opacity-neutral-low: 0.75;
+}
+
 :root,
 // https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
 ::backdrop {
@@ -251,12 +256,19 @@
 	--opacity-neutral-low: 0.5;
 	--opacity-neutral-none: 0.25;
 
-	@media (prefers-contrast: more) {
-		--opacity-neutral-medium: 1;
-		--opacity-neutral-low: 0.75;
-	}
-
 	--white: oklch(100% 0 0);
 	--black: oklch(0% 0 0);
 	--transparent: transparent;
+}
+
+:root:where(.contrast-more),
+:root:where(.contrast-more) ::backdrop {
+	@include moreContrast;
+}
+
+@media (prefers-contrast: more) {
+	:root:where(:not(.contrast-less)),
+	:root:where(:not(.contrast-less)) ::backdrop {
+		@include moreContrast;
+	}
 }

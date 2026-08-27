@@ -42,7 +42,14 @@ test("posts/example renders dark mode", async ({ page }) => {
 
 	await forceLoadLazyImages(page);
 
-	await page.click('button[data-theme-toggle="true"]');
+	await page
+		.getByRole("button", { name: "Customize theme", exact: true })
+		.click();
+	const themeDialog = page.locator("[data-theme-sidebar]");
+	await themeDialog.locator('label[for="theme-mode-dark"]').click();
+	await themeDialog
+		.getByRole("button", { name: "Save changes", exact: true })
+		.click();
 
 	await expect(page).toHaveScreenshot({
 		fullPage: true,

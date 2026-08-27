@@ -8,6 +8,24 @@ if (!el) throw new Error("Missing #bowtie-button element");
 const bowties = el.querySelector<HTMLElement>("[data-bowtie]")!;
 if (!bowties) throw new Error("Missing [data-bowtie] element");
 
+const root = document.documentElement;
+const animationDisabledAttribute = "data-bowtie-animation-disabled";
+
+function hasDefaultBackground() {
+	const styles = getComputedStyle(root);
+	const primaryHue = styles.getPropertyValue("--hue-primary").trim();
+	const defaultPrimaryHue = styles.getPropertyValue("--pfp-hue-primary").trim();
+
+	return (
+		primaryHue !== "" &&
+		defaultPrimaryHue !== "" &&
+		Number(primaryHue) === Number(defaultPrimaryHue)
+	);
+}
+
+let animationEnabled = hasDefaultBackground();
+el.toggleAttribute(animationDisabledAttribute, !animationEnabled);
+
 // The scale is deliberately non-uniform: it tightens the vertical tile spacing, and each frame SVG
 // pre-stretches its artwork to match so the bowties stay un-squished. See assets/README.md.
 //
@@ -30,7 +48,7 @@ let targetProgress = 0;
 let previousTimestamp: number | null = null;
 let rafId: number | null = null;
 let renderedFrame = 0;
-let renderedDarkMode = document.documentElement.classList.contains("dark");
+let renderedDarkMode = root.classList.contains("dark");
 
 function frameUrl(frameNum: number, darkMode: boolean) {
 	const frameId = `${darkMode ? "dark-" : ""}frame${frameNum}`;
@@ -44,7 +62,7 @@ function render() {
 		frameIntervals,
 		Math.floor(progress * frameIntervals),
 	);
-	const darkMode = document.documentElement.classList.contains("dark");
+	const darkMode = root.classList.contains("dark");
 	if (frameNum === renderedFrame && darkMode === renderedDarkMode) return;
 
 	renderedFrame = frameNum;
@@ -52,17 +70,24 @@ function render() {
 	bowties.style.backgroundImage = frameUrl(frameNum, darkMode);
 }
 
-// Theme toggles can happen while the animation is held on its final frame, after its RAF loop has
-// stopped. Watch the root class so the current frame (including frame0 at rest) swaps immediately.
+// Theme changes can happen while the animation is held on its final frame, after its RAF loop has
+// stopped. Keep the current frame in sync with color mode, and use the static button treatment when
+// the primary color no longer matches the artwork's default background.
 new MutationObserver(() => {
-	const darkMode = document.documentElement.classList.contains("dark");
-	if (darkMode === renderedDarkMode) return;
+	const nextAnimationEnabled = hasDefaultBackground();
+	if (nextAnimationEnabled !== animationEnabled) {
+		animationEnabled = nextAnimationEnabled;
+		el.toggleAttribute(animationDisabledAttribute, !animationEnabled);
+		syncPressedState();
+	}
 
+	const darkMode = root.classList.contains("dark");
+	if (darkMode === renderedDarkMode) return;
 	renderedDarkMode = darkMode;
 	bowties.style.backgroundImage = frameUrl(renderedFrame, darkMode);
-}).observe(document.documentElement, {
+}).observe(root, {
 	attributes: true,
-	attributeFilter: ["class"],
+	attributeFilter: ["class", "style"],
 });
 
 function advance(timestamp: number) {
@@ -90,7 +115,7 @@ function finishAtTarget() {
 	press.cancel();
 	bowties.style.removeProperty("background-image");
 	renderedFrame = 0;
-	renderedDarkMode = document.documentElement.classList.contains("dark");
+	renderedDarkMode = root.classList.contains("dark");
 }
 
 function tick() {
@@ -131,7 +156,9 @@ const activePointers = new Set<number>();
 const activeKeys = new Set<string>();
 
 function syncPressedState() {
-	setPressed(activePointers.size > 0 || activeKeys.size > 0);
+	setPressed(
+		animationEnabled && (activePointers.size > 0 || activeKeys.size > 0),
+	);
 }
 
 el.addEventListener("pointerdown", (event) => {

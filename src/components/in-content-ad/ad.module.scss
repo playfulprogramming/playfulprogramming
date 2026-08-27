@@ -90,8 +90,9 @@
 .inContentImageInnerBg {
 	height: 200%;
 	width: 150%;
-	background-image: url("/patterns/dots-grid.svg");
-	background-repeat: repeat;
+	background-color: var(--secondary40, #8c4585);
+	mask-image: url("/patterns/dots-grid.svg");
+	mask-repeat: repeat;
 	position: absolute;
 	top: 50%;
 	left: 50%;
