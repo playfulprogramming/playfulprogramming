@@ -39,7 +39,7 @@ const hasGeneratedProps =
 const pageProps = !isLocaleRoute
 	? undefined
 	: hasGeneratedProps
-		? ({ ...generatedProps, locale } as AboutPageProps)
+		? (generatedProps as AboutPageProps)
 		: createAboutProps(await getAboutFiles(), locale);
 ---
 

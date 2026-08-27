@@ -9,7 +9,6 @@ export interface AboutPageProps {
 	file: string;
 	isFallback: boolean;
 	locales: Locale[];
-	locale: Locale;
 }
 
 export async function getAboutFiles() {
@@ -36,6 +35,5 @@ export function createAboutProps(
 		file: data.file,
 		isFallback: data.locale !== locale,
 		locales: files.map((file) => file.locale),
-		locale,
 	};
 }
