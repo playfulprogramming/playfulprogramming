@@ -8,7 +8,7 @@ import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { License } from "./license.tsx";
 import BannerSvg from "./banner-svg.astro";
 import * as api from "#utils/api.ts";
-import type { Languages } from "#types/index.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
 import { VFile } from "vfile";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
 import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
@@ -18,8 +18,8 @@ import ContributorCard from "../../components/contributor-card/contributor-card.
 import Content from "#utils/markdown/components/content.astro";
 
 interface Props {
-	locales: Languages[];
-	locale: Languages;
+	locales: Locale[];
+	locale: Locale;
 	file: string;
 }
 

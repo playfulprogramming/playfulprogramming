@@ -1,17 +1,17 @@
 ---
-import type { Languages } from "#types/index.ts";
 import { languages } from "#src/constants/index.ts";
 import {
 	deLocalizeHref,
 	getLocale,
 	localizeHref,
+	type Locale,
 } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import style from "./translations-header.module.scss";
 import { Icon } from "astro-icon/components";
 
 interface Props {
-	locales: Languages[];
+	locales: Locale[];
 }
 
 const props = Astro.props;

@@ -1,7 +1,8 @@
 ---
 import { PostCardGrid } from "#src/components/post-card/post-card-grid.tsx";
 import { Button } from "#components/button/button.tsx";
-import type { Languages, PostInfo, CollectionInfo } from "#types/index.ts";
+import type { PostInfo, CollectionInfo } from "#types/index.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import { CollectionCard } from "#components/collection-card/collection-card.tsx";
 import { SubHeader } from "../../components/subheader/subheader.tsx";
@@ -15,7 +16,7 @@ import { isDefined } from "#utils/is-defined.ts";
 export interface Props {
 	posts: PostInfo[];
 	collections: CollectionInfo[];
-	locale: Languages;
+	locale: Locale;
 }
 
 const { posts, collections, locale } = Astro.props;

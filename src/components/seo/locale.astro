@@ -1,14 +1,14 @@
 ---
-import type { Languages } from "#types/index.ts";
 import {
 	baseLocale,
 	deLocalizeHref,
 	localizeHref,
+	type Locale,
 } from "#src/paraglide/runtime.js";
 import { localeToOpenGraph } from "#utils/locales.ts";
 
 export type Props = {
-	providedLangs?: Languages[];
+	providedLangs?: Locale[];
 	pathName: string;
 	siteMetadata: { siteUrl: string };
 };
@@ -19,7 +19,7 @@ const removeTrailingSlash = (str: string) =>
 	str.endsWith("/") ? str.slice(0, -1) : str;
 
 const canonicalPath = deLocalizeHref(pathName || "");
-const absoluteLocalizedUrl = (locale: Languages) =>
+const absoluteLocalizedUrl = (locale: Locale) =>
 	removeTrailingSlash(
 		new URL(localizeHref(canonicalPath, { locale }), siteMetadata.siteUrl).href,
 	);

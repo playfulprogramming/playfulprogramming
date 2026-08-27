@@ -8,14 +8,17 @@ import * as api from "#utils/api.ts";
 import dayjs from "dayjs";
 import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
-import type { Languages } from "#types/index.ts";
 import { Readable } from "stream";
 import { siteUrl } from "#src/constants/site-config.ts";
 import { events } from "#src/views/events/constants.ts";
-import { baseLocale, localizeHref } from "#src/paraglide/runtime.js";
+import {
+	baseLocale,
+	localizeHref,
+	type Locale,
+} from "#src/paraglide/runtime.js";
 
 const About = (await import("./[...locale]/about.astro")) as unknown as {
-	getStaticPaths: () => Promise<Array<{ params: { locale?: Languages } }>>;
+	getStaticPaths: () => Promise<Array<{ params: { locale?: Locale } }>>;
 };
 
 const sitemapDefaults: Pick<
@@ -27,13 +30,13 @@ const sitemapDefaults: Pick<
 	priority: 0.7,
 };
 
-const createLocaleUrl = (locale: Languages | undefined, path: string) =>
+const createLocaleUrl = (locale: Locale | undefined, path: string) =>
 	localizeHref(path || "/", { locale: locale ?? baseLocale });
 
-const createPostUrl = (locale: Languages, post: PostInfo) =>
+const createPostUrl = (locale: Locale, post: PostInfo) =>
 	createLocaleUrl(locale, `/posts/${post.slug}`);
 
-const createCollectionUrl = (locale: Languages, collection: CollectionInfo) =>
+const createCollectionUrl = (locale: Locale, collection: CollectionInfo) =>
 	createLocaleUrl(locale, `/collections/${collection.slug}`);
 
 const includedRoutes = ["", "/join-us", "/search", "/events"];

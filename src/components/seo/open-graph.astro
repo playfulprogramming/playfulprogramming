@@ -1,11 +1,11 @@
 ---
-import type { Languages } from "#types/index.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
 import { localeToOpenGraph } from "#utils/locales.ts";
 
 import type { SEOProps } from "./shared.ts";
 
 export type Props = Pick<SEOProps, "title" | "providedLangs" | "peopleData"> & {
-	lang: Languages;
+	lang: Locale;
 	currentPath: string;
 	metaDescription: string;
 	metaImage: string;

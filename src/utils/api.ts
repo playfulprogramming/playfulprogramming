@@ -6,15 +6,18 @@ import type {
 	TagInfo,
 	SnitipInfo,
 	PostVersion,
-	Languages,
 } from "#types/index.ts";
 import { roles, people, posts, collections, tags, snitips } from "./data.ts";
 import { isDefined } from "./is-defined.ts";
-import { baseLocale, localizeHref } from "#src/paraglide/runtime.js";
+import {
+	baseLocale,
+	localizeHref,
+	type Locale,
+} from "#src/paraglide/runtime.js";
 
-function findLocalizedEntry<T extends { locale: Languages }>(
+function findLocalizedEntry<T extends { locale: Locale }>(
 	locales: T[],
-	language: Languages,
+	language: Locale,
 ): T | undefined {
 	return (
 		locales.find((entry) => entry.locale === language) ??
@@ -48,14 +51,14 @@ export function getAllPeople(): PersonInfo[] {
 
 export function getPersonById(
 	id: string,
-	language: Languages,
+	language: Locale,
 ): PersonInfo | undefined {
 	const locales = people.get(id);
 	if (!locales) return undefined;
 	return findLocalizedEntry(locales, language);
 }
 
-export function getPeopleByLang(language: Languages): PersonInfo[] {
+export function getPeopleByLang(language: Locale): PersonInfo[] {
 	return [...people.values()]
 		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined);
@@ -63,13 +66,13 @@ export function getPeopleByLang(language: Languages): PersonInfo[] {
 
 export function getPostBySlug(
 	slug: string,
-	language: Languages,
+	language: Locale,
 ): PostInfo | undefined {
 	const locales = posts.get(slug) || [];
 	return findLocalizedEntry(locales, language);
 }
 
-export function getPostsByLang(language: Languages): PostInfo[] {
+export function getPostsByLang(language: Locale): PostInfo[] {
 	return [...posts.values()]
 		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
@@ -79,7 +82,7 @@ export function getPostsByLang(language: Languages): PostInfo[] {
 
 export function getPostsByCollection(
 	collectionSlug: string,
-	language: Languages,
+	language: Locale,
 ): PostInfo[] {
 	return [...posts.values()]
 		.map((locales) => findLocalizedEntry(locales, language))
@@ -92,7 +95,7 @@ export function getPostsByCollection(
 
 export function getPostVersionsBySlug(
 	slug: string,
-	language: Languages,
+	language: Locale,
 ): PostVersion[] {
 	return [...posts.values()]
 		.map((locales) => findLocalizedEntry(locales, language))
@@ -108,7 +111,7 @@ export function getPostVersionsBySlug(
 
 export function getPostsByPerson(
 	personId: string,
-	language: Languages,
+	language: Locale,
 ): PostInfo[] {
 	return [...posts.values()]
 		.map((locales) => findLocalizedEntry(locales, language))
@@ -120,13 +123,13 @@ export function getPostsByPerson(
 
 export function getCollectionBySlug(
 	slug: string,
-	language: Languages,
+	language: Locale,
 ): CollectionInfo | undefined {
 	const locales = collections.get(slug) || [];
 	return findLocalizedEntry(locales, language);
 }
 
-export function getCollectionsByLang(language: Languages): CollectionInfo[] {
+export function getCollectionsByLang(language: Locale): CollectionInfo[] {
 	return [...collections.values()]
 		.map((locales) => findLocalizedEntry(locales, language))
 		.filter(isDefined)
@@ -136,7 +139,7 @@ export function getCollectionsByLang(language: Languages): CollectionInfo[] {
 
 export function getCollectionsByPerson(
 	personId: string,
-	language: Languages,
+	language: Locale,
 ): CollectionInfo[] {
 	return [...collections.values()]
 		.map((locales) => findLocalizedEntry(locales, language))
@@ -148,7 +151,7 @@ export function getCollectionsByPerson(
 
 export function getRoleById(
 	roleId: string,
-	_language: Languages,
+	_language: Locale,
 ): RolesInfo | undefined {
 	// TODO: support role name translations
 	return roles.find((r) => r.id === roleId);
