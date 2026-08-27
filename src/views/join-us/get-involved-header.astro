@@ -55,12 +55,7 @@ const people = getPeopleByLang(locale).map((person) => {
 			<p class={`text-style-headline-6 ${style.paragraph}`}>
 				{m.join_us_hero_description()}
 			</p>
-			<Button
-				tag="button"
-				class={style.playPauseBtn}
-				id="carousel-play-pause"
-				data-locale={locale}
-			>
+			<Button tag="button" class={style.playPauseBtn} id="carousel-play-pause">
 				{m.action_pause()}
 			</Button>
 		</div>
@@ -75,7 +70,6 @@ const people = getPeopleByLang(locale).map((person) => {
 	// In a requestAnimationFrame loop, take each item and change the X, Y, and scale to rotate the items in the circle clockwise
 	import { calculatePosition } from "./get-involved-header.ts";
 	import { m } from "#src/paraglide/messages.js";
-	import type { Locale } from "#src/paraglide/runtime.js";
 
 	const NUMBER_OF_INNER_ITEMS = 22;
 	const NUMBER_OF_OUTER_ITEMS = 28;
@@ -101,7 +95,6 @@ const people = getPeopleByLang(locale).map((person) => {
 	const playPauseBtn = document.querySelector(
 		"#carousel-play-pause",
 	) as HTMLElement;
-	const locale = playPauseBtn.dataset.locale as Locale;
 
 	let innerAngle = 0;
 	let outerAngle = 0;
@@ -343,8 +336,8 @@ const people = getPeopleByLang(locale).map((person) => {
 		playPauseBtn.addEventListener("click", () => {
 			paused = !paused;
 			playPauseBtn.children[0].textContent = paused
-				? m.action_play({}, { locale })
-				: m.action_pause({}, { locale });
+				? m.action_play()
+				: m.action_pause();
 		});
 
 		function handleDragStart(e: MouseEvent | TouchEvent) {

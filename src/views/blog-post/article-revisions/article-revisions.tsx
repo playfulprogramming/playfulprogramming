@@ -1,4 +1,4 @@
-import type { Locale } from "#src/paraglide/runtime.js";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { useEffect, useRef, useState } from "preact/hooks";
 import style from "./article-revisions.module.scss";
 import listStyle from "#components/select/select.module.scss";
@@ -18,7 +18,6 @@ interface PopOverLocation {
 interface ArticleRevisionDropdownProps {
 	post: PostInfo;
 	versions: PostVersion[];
-	locale: Locale;
 }
 
 const supportsAnchors =
@@ -29,8 +28,8 @@ const supportsAnchors =
 export function ArticleRevisionDropdown({
 	post,
 	versions,
-	locale,
 }: ArticleRevisionDropdownProps) {
+	const locale = getLocale();
 	const { slug, published, version } = post;
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const dateFormatter = new Intl.DateTimeFormat(locale, {
@@ -138,7 +137,7 @@ export function ArticleRevisionDropdown({
 					<hr />
 					<a href={postHistory} target="_blank" rel="noreferrer">
 						<span class="text-style-button-regular">
-							{m.action_view_changelog({}, { locale })}
+							{m.action_view_changelog()}
 						</span>
 					</a>
 				</li>

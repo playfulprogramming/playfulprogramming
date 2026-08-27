@@ -30,7 +30,6 @@ import type { MarkdownHtml } from "#utils/markdown/index.ts";
 import Content from "#utils/markdown/components/content.astro";
 import KatexCss from "./katex.astro";
 import { m } from "#src/paraglide/messages.js";
-import { getLocale } from "#src/paraglide/runtime.js";
 
 export interface Props {
 	post: PostInfo;
@@ -54,7 +53,6 @@ const {
 
 const postHeadings = postHtml.headingsWithIds;
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${post.path}/index.md`;
-const locale = getLocale();
 ---
 
 {postHtml.isKatexMathUsed && <KatexCss />}
@@ -129,7 +127,6 @@ const locale = getLocale();
 						post={post}
 						collection={collection}
 						collectionPosts={collectionPosts}
-						locale={locale}
 					/>
 				) : null
 			}

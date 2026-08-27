@@ -6,6 +6,7 @@ import * as api from "#utils/api.ts";
 import { getSuggestedArticles } from "#utils/get-suggested-articles.ts";
 import { isDefined } from "#utils/is-defined.ts";
 import { m } from "#src/paraglide/messages.js";
+import { localizeHref } from "#src/paraglide/runtime.js";
 
 interface Props {
 	post: PostInfo;
@@ -30,9 +31,10 @@ function getPostAuthors(post: PostInfo) {
 		suggestedArticles.map((suggestedPost) => (
 			<RelatedPostsCard
 				title={suggestedPost.title}
-				slug={suggestedPost.slug}
+				href={localizeHref(`/posts/${suggestedPost.slug}`, {
+					locale: suggestedPost.locale,
+				})}
 				authors={getPostAuthors(suggestedPost)}
-				locale={suggestedPost.locale}
 			/>
 		))
 	}

@@ -3,21 +3,19 @@ import style from "./related-posts-card.module.scss";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import type { PersonInfo } from "../../types/PersonInfo.ts";
 
-import { type Locale, localizeHref } from "#src/paraglide/runtime.js";
+import { localizeHref } from "#src/paraglide/runtime.js";
 
 interface Props {
 	title: string;
-	slug: string;
+	href: string;
 	authors: PersonInfo[];
-	locale: Locale;
 }
 
-const { title, slug, authors, locale } = Astro.props;
-const postHref = localizeHref(`/posts/${slug}`, { locale });
+const { title, href, authors } = Astro.props;
 ---
 
-<li {...getHrefContainerProps(postHref)} class={style.container}>
-	<a href={postHref} class={`text-style-body-medium-bold ${style.articleTitle}`}
+<li {...getHrefContainerProps(href)} class={style.container}>
+	<a href={href} class={`text-style-body-medium-bold ${style.articleTitle}`}
 		>{title}
 	</a>
 
