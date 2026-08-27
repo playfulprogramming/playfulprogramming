@@ -101,4 +101,22 @@ describe("utils/translations.ts", () => {
 			expect(actual).toEqual(`/${lang}/es/fr/something/hi`);
 		});
 	});
+
+	describe("translate", () => {
+		test("uses Paraglide locale fallbacks", () => {
+			expect(
+				translations.translate(
+					{ url: new URL("https://example.com/it/about") },
+					"label.view_profile_for",
+					"Ada",
+				),
+			).toBe("Visualizza profilo di Ada");
+			expect(
+				translations.translate(
+					{ url: new URL("https://example.com/fr/about") },
+					"title.home",
+				),
+			).toBe("Home");
+		});
+	});
 });

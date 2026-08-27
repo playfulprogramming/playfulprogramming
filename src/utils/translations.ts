@@ -1,6 +1,7 @@
 import type { Languages } from "#types/index.ts";
 import { languages } from "../constants/index.ts";
-import { basename } from "path";
+import { m } from "../paraglide/messages.js";
+import { baseLocale, extractLocaleFromUrl } from "../paraglide/runtime.js";
 
 function isLanguageKey(str: string | undefined): str is Languages {
 	return str !== undefined && Object.keys(languages).includes(str);
@@ -79,38 +80,22 @@ export function removePrefixLanguageFromPath(path: string) {
 		.join("/");
 }
 
-// fetch translation files from /data/i18n
-let i18nFiles: Record<string, { default: Record<string, string> }>;
-try {
-	i18nFiles = import.meta.glob("../../content/data/i18n/*.json", {
-		eager: true,
-	});
-} catch (e) {
-	i18nFiles = {};
-}
-
-const i18n: Partial<Record<Languages, Map<string, string>>> =
-	Object.fromEntries(
-		Object.entries(i18nFiles).map(([file, content]) => [
-			basename(file).split(".")[0],
-			new Map(Object.entries(content.default)),
-		]),
-	);
-
-// warn about any values that do not have full translations
-/*for (const key of i18n.en?.keys() || []) {
-	const missing = Object.entries(i18n)
-		.filter(([, map]) => !map.has(key))
-		.map(([lang]) => lang);
-
-	if (missing.length) {
-		console.log(
-			`i18n: key "${key}" is missing from /content/data/i18n for languages: ${missing}`,
-		);
-	}
-}*/
-
 type TranslationKey = keyof typeof import("../../content/data/i18n/en.json");
+
+type ParaglideMessage = (
+	inputs?: Record<string, string>,
+	options?: { locale?: Languages },
+) => string;
+
+const messageParameters: Partial<Record<TranslationKey, readonly string[]>> = {
+	"label.view_license_for": ["displayName"],
+	"label.view_attribution_for": ["displayName"],
+	"title.n_chapters": ["count"],
+	"title.n_articles": ["count"],
+	"title.n_words": ["count"],
+	"label.view_profile_for": ["name"],
+	"action.view_all_chapters": ["count"],
+};
 
 /**
  * Translate a key into the associated value, according to /data/i18n
@@ -123,29 +108,12 @@ export function translate(
 	key: TranslationKey,
 	...args: string[]
 ) {
-	const lang = getPrefixLanguageFromPath(astro.url.pathname);
-	let value = i18n[lang]?.get(key);
+	const lang =
+		(extractLocaleFromUrl(astro.url) as Languages | undefined) ?? baseLocale;
+	const parameterNames = messageParameters[key] ?? [];
+	const inputs = Object.fromEntries(
+		parameterNames.map((parameter, index) => [parameter, args[index]]),
+	);
 
-	if (!value) {
-		if (process.argv.includes("--verbose")) {
-			console.warn(
-				`Translation key "${key}" is not specified in /content/data/i18n/${lang}.json`,
-			);
-		}
-		value = i18n.en?.get(key);
-	}
-
-	if (value) {
-		// replace any instances of "%s" with the corresponding argument
-		//   ignoring double escapes (%%s)
-		for (const arg of args) {
-			value = value.replace(/(?<!%)%s/, arg).replace(/%%s/g, "%s");
-		}
-	}
-
-	if (!value) {
-		throw `Translation key "${key}" does not exist.`;
-	}
-
-	return value;
+	return (m[key] as ParaglideMessage)(inputs, { locale: lang });
 }
