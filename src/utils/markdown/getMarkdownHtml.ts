@@ -1,4 +1,4 @@
-import { type Processor, unified } from "unified";
+import { unified } from "unified";
 import { getMarkdownVFile } from "./getMarkdownVFile.ts";
 import type { MarkdownFileInfo, MarkdownVFile } from "./types.ts";
 import { createHtmlPlugins } from "./createHtmlPlugins.ts";
@@ -8,15 +8,8 @@ export type MarkdownHtml = MarkdownVFile["data"] & {
 	content: components.PlayfulNode[];
 };
 
-let unifiedChain: Processor | undefined;
-
-function getUnifiedChain() {
-	if (!unifiedChain) {
-		unifiedChain = unified();
-		createHtmlPlugins(unifiedChain);
-	}
-	return unifiedChain;
-}
+const unifiedChain = unified();
+createHtmlPlugins(unifiedChain);
 
 export async function getMarkdownHtml(
 	post: MarkdownFileInfo,
@@ -24,7 +17,7 @@ export async function getMarkdownHtml(
 ): Promise<MarkdownHtml> {
 	const vfile = await vfilePromise;
 
-	const result = await getUnifiedChain().process(vfile);
+	const result = await unifiedChain.process(vfile);
 
 	return {
 		...vfile.data,
