@@ -5,6 +5,7 @@ import { PaginationMenuAndPopover } from "./pagination-popover.tsx";
 test("when the menu button is clicked, the menu popup is opened", async () => {
 	const { getByTestId, findAllByTestId } = render(
 		<PaginationMenuAndPopover
+			locale="en"
 			page={{
 				currentPage: 2,
 				lastPage: 11,
@@ -24,6 +25,7 @@ test("when the menu button is clicked, the menu popup is opened", async () => {
 test("when '+' is clicked, the page number is incremented", async () => {
 	const { getByTestId } = render(
 		<PaginationMenuAndPopover
+			locale="en"
 			page={{
 				currentPage: 2,
 				lastPage: 11,
@@ -51,6 +53,7 @@ test("when '+' is clicked, the page number is incremented", async () => {
 test("when '-' is clicked, the page number is decremented", async () => {
 	const { getByTestId } = render(
 		<PaginationMenuAndPopover
+			locale="en"
 			page={{
 				currentPage: 2,
 				lastPage: 11,
@@ -79,6 +82,7 @@ test("when 'Go to page' is clicked, softNavigate is invoked with the input page 
 	const softNavigate = vi.fn();
 	const { getByTestId } = render(
 		<PaginationMenuAndPopover
+			locale="en"
 			page={{
 				currentPage: 2,
 				lastPage: 11,

@@ -8,6 +8,7 @@ const user = userEvent.setup();
 test("Pagination renders", () => {
 	const { baseElement, getByText } = render(
 		<Pagination
+			locale="en"
 			page={{
 				currentPage: 3,
 				lastPage: 8,
@@ -22,6 +23,7 @@ test("Pagination renders", () => {
 test("when there is only one page, nothing is rendered", () => {
 	const { container } = render(
 		<Pagination
+			locale="en"
 			page={{
 				currentPage: 1,
 				lastPage: 1,
@@ -35,6 +37,7 @@ test("when there is only one page, nothing is rendered", () => {
 test("when there is more than one page, the pages are rendered", () => {
 	const { container, getByText } = render(
 		<Pagination
+			locale="en"
 			page={{
 				currentPage: 1,
 				lastPage: 2,
@@ -50,6 +53,7 @@ test("when there is more than one page, the pages are rendered", () => {
 test("when page 1 is selected, its button has the selected state", () => {
 	const { getByText } = render(
 		<Pagination
+			locale="en"
 			page={{
 				currentPage: 1,
 				lastPage: 11,
@@ -66,6 +70,7 @@ test("when the previous button is clicked, softNavigate is called for the previo
 	const softNavigate = vi.fn();
 	const { getByTestId } = render(
 		<Pagination
+			locale="en"
 			page={{
 				currentPage: 2,
 				lastPage: 11,
@@ -88,6 +93,7 @@ test("when the next button is clicked, softNavigate is called for the next page"
 	const softNavigate = vi.fn();
 	const { getByTestId } = render(
 		<Pagination
+			locale="en"
 			page={{
 				currentPage: 2,
 				lastPage: 11,
@@ -110,6 +116,7 @@ test("when a page button is clicked, softNavigate is called for its page", async
 	const softNavigate = vi.fn();
 	const { getByText } = render(
 		<Pagination
+			locale="en"
 			page={{
 				currentPage: 2,
 				lastPage: 11,

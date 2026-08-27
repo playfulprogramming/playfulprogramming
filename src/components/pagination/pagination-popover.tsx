@@ -23,9 +23,13 @@ import {
 } from "react-stately";
 import type { DOMProps } from "@react-types/shared";
 import { useReactAriaScrollGutterHack } from "#src/hooks/useReactAriaScrollGutterHack.ts";
+import { m } from "#src/paraglide/messages.js";
 
 function PopupContents(
-	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> & {
+	props: Pick<
+		PaginationProps,
+		"page" | "getPageHref" | "softNavigate" | "locale"
+	> & {
 		titleId?: string;
 		close: () => void;
 	},
@@ -57,7 +61,7 @@ function PopupContents(
 						setCount((v) => v - 1);
 					}}
 					aria-disabled={count <= 1}
-					aria-label="Decrement page"
+					aria-label={m.pagination_decrement({}, { locale: props.locale })}
 					class={style.iconButton}
 				>
 					<div
@@ -92,7 +96,7 @@ function PopupContents(
 						setCount((v) => v + 1);
 					}}
 					aria-disabled={count >= props.page.lastPage}
-					aria-label="Increment page"
+					aria-label={m.pagination_increment({}, { locale: props.locale })}
 					class={style.iconButton}
 				>
 					<div
@@ -107,7 +111,7 @@ function PopupContents(
 				type="submit"
 				variant="primary"
 			>
-				Go to page
+				{m.pagination_go_to_page({}, { locale: props.locale })}
 			</Button>
 		</form>
 	);
@@ -115,7 +119,7 @@ function PopupContents(
 
 interface PaginationPopoverProps extends Pick<
 	PaginationProps,
-	"page" | "getPageHref" | "softNavigate"
+	"page" | "getPageHref" | "softNavigate" | "locale"
 > {
 	triggerRef: RefObject<Element>;
 	state: OverlayTriggerState;
@@ -179,7 +183,7 @@ function PaginationPopover({
 					data-focus-visible={isFocusVisible}
 				>
 					<h1 {...titleProps} className="visually-hidden">
-						Go to page
+						{m.pagination_go_to_page({}, { locale: props.locale })}
 					</h1>
 					<PopupContents
 						{...props}
@@ -194,7 +198,10 @@ function PaginationPopover({
 }
 
 export function PaginationMenuAndPopover(
-	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">,
+	props: Pick<
+		PaginationProps,
+		"page" | "getPageHref" | "softNavigate" | "locale"
+	>,
 ) {
 	/* Setup trigger */
 	const triggerRef = useRef(null);
@@ -214,7 +221,7 @@ export function PaginationMenuAndPopover(
 				<button
 					ref={triggerRef}
 					{...buttonProps}
-					aria-label="Go to page"
+					aria-label={m.pagination_go_to_page({}, { locale: props.locale })}
 					data-testid="pagination-menu"
 					data-focus-visible={isFocusVisible}
 					className={`text-style-body-medium-bold ${mainStyles.extendPageButton} ${mainStyles.paginationButton} ${mainStyles.paginationIconButton}`}

@@ -3,6 +3,7 @@ import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import { SnitipDialog } from "#components/snitip/snitip-dialog.tsx";
 import "#src/views/base/scripts/snitip-trigger.scss";
 import "#components/inline-popup/inline-popup.scss";
+import { getLocale } from "#src/paraglide/runtime.js";
 
 export interface Props {
 	snitip: SnitipInfo;
@@ -11,12 +12,14 @@ export interface Props {
 
 const { scopeId, snitip } = Astro.props;
 const supportId = `${scopeId}-${snitip.id}`;
+const locale = getLocale();
 ---
 
 <SnitipDialog
 	id={`snitip-dialog-${supportId}`}
 	snitip={snitip}
 	headingTag="h2"
+	locale={locale}
 />
 
 <script>

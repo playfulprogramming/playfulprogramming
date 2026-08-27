@@ -5,25 +5,31 @@ import styles from "./filter-section.module.scss";
 import { Chip } from "#components/chip/chip.tsx";
 import type { HTMLAttributes } from "preact/compat";
 import { useRandomId } from "#utils/preact/useId.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
-interface FilterSectionProps extends HTMLAttributes<HTMLDivElement> {
+type FilterSectionProps = Omit<HTMLAttributes<HTMLDivElement>, "translate"> & {
 	title: string;
+	selectedLabel: string;
 	selectedNumber: number;
 	onClear: () => void;
 	class?: string;
 	className?: string;
 	searchSlot?: ComponentChildren;
 	children?: ComponentChildren;
-}
+	locale: Locale;
+};
 
 export const FilterSection = ({
 	title,
+	selectedLabel,
 	children,
 	selectedNumber,
 	onClear,
 	searchSlot,
 	class: className = "",
 	className: classNameName = "",
+	locale,
 	...props
 }: FilterSectionProps) => {
 	const id = useRandomId();
@@ -88,7 +94,7 @@ export const FilterSection = ({
 						{selectedNumber ? (
 							<>
 								({selectedNumber}){" "}
-								<span className="visually-hidden">Selected {title}s</span>
+								<span className="visually-hidden">{selectedLabel}</span>
 							</>
 						) : null}
 					</span>
@@ -101,8 +107,8 @@ export const FilterSection = ({
 							className={styles.clearChip}
 							onClick={handleClear}
 						>
-							Clear
-							<span className="visually-hidden">selected {title}s</span>
+							{m.action_clear({}, { locale })}{" "}
+							<span className="visually-hidden">{selectedLabel}</span>
 						</Chip>
 					</div>
 				)}

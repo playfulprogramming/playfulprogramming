@@ -19,5 +19,11 @@ describe("utils/locales.ts", () => {
 			"Visualizza profilo di Ada",
 		);
 		expect(m.title_home({}, { locale: "fr" })).toBe("Home");
+		expect(
+			m.search_meta_query(
+				{ query: "$& authored %s", siteTitle: "Playful Programming" },
+				{ locale: "en" },
+			),
+		).toBe("$& authored %s | Playful Programming");
 	});
 });

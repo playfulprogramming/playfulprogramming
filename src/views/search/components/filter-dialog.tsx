@@ -14,6 +14,8 @@ import { Picture as UUPicture } from "#components/image/picture.tsx";
 import { DEFAULT_TAG_EMOJI } from "./constants.ts";
 import close from "#src/icons/close.svg?raw";
 import { type FilterState, useFilterState } from "../use-filter-state.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 interface FilterDialogProps {
 	isOpen: boolean;
@@ -25,6 +27,7 @@ interface FilterDialogProps {
 	authors: ExtendedUnicorn[];
 	filterState: FilterState;
 	isHybridSearch: boolean;
+	locale: Locale;
 }
 
 type FilterDialogInner = Omit<FilterDialogProps, "isOpen" | "onClose">;
@@ -34,16 +37,21 @@ const FilterDialogMobile = ({
 	authors,
 	filterState,
 	isHybridSearch,
+	locale,
 }: FilterDialogInner) => {
 	return (
 		<div class={styles.mobileDialogContainer}>
 			<div class={styles.dialogTitleContainer}>
-				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>Filter</h1>
+				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
+					{m.title_filter({}, { locale })}
+				</h1>
 			</div>
 			<FilterSection
-				title={"Tag"}
+				title={m.title_tag({}, { locale })}
+				selectedLabel={m.search_filter_selected_tags({}, { locale })}
 				selectedNumber={filterState.tags.length}
 				onClear={() => filterState.setTags([])}
+				locale={locale}
 			>
 				{tags.map((tag, i) => {
 					return (
@@ -67,15 +75,18 @@ const FilterDialogMobile = ({
 								filterState.onTagChange(tag.tag, selected)
 							}
 							isHybridSearch={isHybridSearch}
+							locale={locale}
 						/>
 					);
 				})}
 			</FilterSection>
 			<FilterSection
 				class={styles.mobileAuthorList}
-				title={"Author"}
+				title={m.title_author({}, { locale })}
+				selectedLabel={m.search_filter_selected_authors({}, { locale })}
 				selectedNumber={filterState.authors.length}
 				onClear={() => filterState.setAuthors([])}
+				locale={locale}
 			>
 				{authors.map((author) => {
 					return (
@@ -97,6 +108,7 @@ const FilterDialogMobile = ({
 								filterState.onAuthorChange(author.id, selected)
 							}
 							isHybridSearch={isHybridSearch}
+							locale={locale}
 						/>
 					);
 				})}
@@ -108,7 +120,7 @@ const FilterDialogMobile = ({
 					variant="primary"
 					tag="button"
 				>
-					Cancel
+					{m.action_cancel({}, { locale })}
 				</LargeButton>
 				<LargeButton
 					class={styles.mobileButton}
@@ -116,7 +128,7 @@ const FilterDialogMobile = ({
 					value="confirm"
 					variant="primary-emphasized"
 				>
-					Filter
+					{m.action_filter({}, { locale })}
 				</LargeButton>
 			</div>
 		</div>
@@ -128,6 +140,7 @@ const FilterDialogSmallTablet = ({
 	authors,
 	filterState,
 	isHybridSearch,
+	locale,
 }: FilterDialogInner) => {
 	return (
 		<div class={styles.tabletDialogContainer}>
@@ -136,24 +149,28 @@ const FilterDialogSmallTablet = ({
 					tag="button"
 					value="cancel"
 					class={styles.closeButton}
-					aria-label="Close"
+					aria-label={m.action_close({}, { locale })}
 				>
 					<span
 						class={styles.closeIcon}
 						dangerouslySetInnerHTML={{ __html: close }}
 					/>
 				</LargeIconOnlyButton>
-				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>Filter</h1>
+				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
+					{m.title_filter({}, { locale })}
+				</h1>
 				<LargeButton variant="primary-emphasized" tag="button" value="confirm">
-					Filter results
+					{m.action_filter_results({}, { locale })}
 				</LargeButton>
 			</div>
 			<div class={styles.filterSelectionContainer}>
 				<div class={styles.filterSelection}>
 					<FilterSection
-						title={"Tag"}
+						title={m.title_tag({}, { locale })}
+						selectedLabel={m.search_filter_selected_tags({}, { locale })}
 						selectedNumber={filterState.tags.length}
 						onClear={() => filterState.setTags([])}
+						locale={locale}
 					>
 						{tags.map((tag, i) => {
 							return (
@@ -177,6 +194,7 @@ const FilterDialogSmallTablet = ({
 										filterState.onTagChange(tag.tag, selected)
 									}
 									isHybridSearch={isHybridSearch}
+									locale={locale}
 								/>
 							);
 						})}
@@ -184,9 +202,11 @@ const FilterDialogSmallTablet = ({
 				</div>
 				<div class={styles.filterSelection}>
 					<FilterSection
-						title={"Author"}
+						title={m.title_author({}, { locale })}
+						selectedLabel={m.search_filter_selected_authors({}, { locale })}
 						selectedNumber={filterState.authors.length}
 						onClear={() => filterState.setAuthors([])}
+						locale={locale}
 					>
 						{authors.map((author) => {
 							return (
@@ -208,6 +228,7 @@ const FilterDialogSmallTablet = ({
 										filterState.onAuthorChange(author.id, selected)
 									}
 									isHybridSearch={isHybridSearch}
+									locale={locale}
 								/>
 							);
 						})}
@@ -225,6 +246,7 @@ export const FilterDialog = ({
 	authors,
 	filterState: parentFilterState,
 	isHybridSearch,
+	locale,
 }: FilterDialogProps) => {
 	/**
 	 * Inner state
@@ -298,6 +320,7 @@ export const FilterDialog = ({
 				authors={authors}
 				filterState={filterState}
 				isHybridSearch={isHybridSearch}
+				locale={locale}
 			/>
 		</Dialog>
 	);

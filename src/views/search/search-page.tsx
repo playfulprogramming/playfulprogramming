@@ -47,6 +47,7 @@ import {
 import { useFilterState } from "./use-filter-state.ts";
 import { SnitipCardGrid } from "#components/snitip/snitip-card.tsx";
 import type { Locale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -76,11 +77,14 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 		deserializeParams,
 		(query): string => {
 			if (query.searchQuery === "*") {
-				return `Search all | ${siteTitle}`;
+				return m.search_meta_all({ siteTitle }, { locale });
 			} else if (query.searchQuery) {
-				return `${query.searchQuery} | ${siteTitle}`;
+				return m.search_meta_query(
+					{ query: query.searchQuery, siteTitle },
+					{ locale },
+				);
 			}
-			return `Search | ${siteTitle}`;
+			return m.search_meta_default({ siteTitle }, { locale });
 		},
 	);
 
@@ -399,6 +403,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 				isHybridSearch={isHybridSearch}
 				numberOfPosts={isContentLoading ? null : data.totalPosts}
 				numberOfCollections={isContentLoading ? null : data.totalCollections}
+				locale={locale}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar
@@ -412,6 +417,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 					sort={query.sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 					headerHeight={headerHeight}
+					locale={locale}
 				/>
 				<section className={style.mainContentsInner}>
 					{/* aria-live cannot be on an element that is programmatically removed
@@ -423,12 +429,14 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 								<SearchResultCount
 									ref={resultsHeading}
 									numberOfCollections={data.totalCollections}
+									locale={locale}
 								/>
 							)}
 						{!isContentLoading && showArticles && data.totalPosts > 0 && (
 							<SearchResultCount
 								ref={resultsHeading}
 								numberOfPosts={data.totalPosts}
+								locale={locale}
 							/>
 						)}
 						{!isError && isContentLoading && (
@@ -436,7 +444,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 								<div className={style.loadingAnimationContainer}>
 									<div className={style.loadingAnimation} />
 									<p className={`text-style-headline-4 ${style.loadingText}`}>
-										Fetching results...
+										{m.search_state_loading({}, { locale })}
 									</p>
 								</div>
 							</>
@@ -451,16 +459,16 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 							<SearchHero
 								imageSrc={sadUnicorn.src}
 								imageAlt={""}
-								title={"No results found..."}
-								description={"Please adjust your query or your active filters!"}
+								title={m.search_state_empty_title({}, { locale })}
+								description={m.search_state_empty_description({}, { locale })}
 							/>
 						)}
 						{isError && (
 							<SearchHero
 								imageSrc={scaredUnicorn.src}
 								imageAlt={""}
-								title={"There was an error fetching your search results."}
-								description={"Please adjust your query or try again."}
+								title={m.search_state_error_title({}, { locale })}
+								description={m.search_state_error_description({}, { locale })}
 								buttons={
 									<LargeButton
 										onClick={() => refetch()}
@@ -468,7 +476,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 											<span dangerouslySetInnerHTML={{ __html: retry }} />
 										}
 									>
-										Retry
+										{m.action_retry({}, { locale })}
 									</LargeButton>
 								}
 							/>
@@ -479,10 +487,8 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 						<SearchHero
 							imageSrc={happyUnicorn.src}
 							imageAlt={""}
-							title={"What would you like to find?"}
-							description={
-								"Search for your favorite framework or most loved language; we'll share what we know."
-							}
+							title={m.search_state_initial_title({}, { locale })}
+							description={m.desc_looking_for_more({}, { locale })}
 						/>
 					)}
 					{enabled &&
@@ -492,12 +498,13 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 						Boolean(snitips.length) && (
 							<div className={style.snitipsContainer}>
 								<h2 id="snitips-header" className="visually-hidden">
-									Tags
+									{m.title_tags({}, { locale })}
 								</h2>
 								<SnitipCardGrid
 									snitips={snitips}
 									headingTag="h3"
 									aria-labelledby="snitips-header"
+									locale={locale}
 								/>
 							</div>
 						)}
@@ -511,7 +518,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 									data-testid="collections-header"
 									class="visually-hidden"
 								>
-									Collections
+									{m.title_collections({}, { locale })}
 								</h2>
 								<ul
 									aria-labelledby="collections-header"
@@ -543,15 +550,15 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 									data-testid="articles-header"
 									class="visually-hidden"
 								>
-									Articles
+									{m.title_articles({}, { locale })}
 								</h2>
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
 									postsToDisplay={data.posts}
 									postAuthors={peopleMap}
 									postHeadingTag="h3"
-									locale={locale}
 									expanded
+									locale={locale}
 								/>
 							</Fragment>
 						)}
@@ -562,6 +569,7 @@ export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 							<Pagination
 								divClass={style.pagination}
 								testId="pagination"
+								locale={locale}
 								softNavigate={(_href, pageNum) => {
 									window.scrollTo(0, 0);
 									setQuery(() => ({
@@ -593,11 +601,11 @@ interface RootSearchPageProps {
 	siteTitle: string;
 	locale: Locale;
 }
-export default function SearchPage({ siteTitle, locale }: RootSearchPageProps) {
+export default function SearchPage(props: RootSearchPageProps) {
 	return (
 		<SearchProvider>
 			<QueryClientProvider client={queryClient}>
-				<SearchPageBase siteTitle={siteTitle} locale={locale} />
+				<SearchPageBase {...props} />
 			</QueryClientProvider>
 		</SearchProvider>
 	);

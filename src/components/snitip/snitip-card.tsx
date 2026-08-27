@@ -13,12 +13,14 @@ export function SnitipCard(props: SnitipProps) {
 
 export interface SnitipCardGridProps extends HTMLAttributes<HTMLUListElement> {
 	snitips: SnitipInfo[];
+	locale: SnitipProps["locale"];
 	headingTag?: SnitipProps["headingTag"];
 }
 
 export function SnitipCardGrid({
 	snitips,
 	headingTag,
+	locale,
 	...extra
 }: SnitipCardGridProps) {
 	return (
@@ -29,6 +31,7 @@ export function SnitipCardGrid({
 						snitip={snitip}
 						headingTag={headingTag}
 						includeSearchTags={false}
+						locale={locale}
 					/>
 				</li>
 			))}
