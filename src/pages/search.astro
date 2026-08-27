@@ -19,6 +19,10 @@ import { siteMetadata } from "#src/constants/site-config.ts";
 				JavaScript needs to be enabled to use this page
 			</p>
 		</noscript>
-		<SearchPage client:only="preact" siteTitle={siteMetadata.title} />
+		<SearchPage
+			client:only="preact"
+			siteTitle={siteMetadata.title}
+			locale="en"
+		/>
 	</main>
 </Document>

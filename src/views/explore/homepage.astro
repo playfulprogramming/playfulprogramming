@@ -2,8 +2,6 @@
 import { PostCardGrid } from "#src/components/post-card/post-card-grid.tsx";
 import { Button } from "#components/button/button.tsx";
 import type { PostInfo, CollectionInfo } from "#types/index.ts";
-import type { Locale } from "#src/paraglide/runtime.js";
-import { m } from "#src/paraglide/messages.js";
 import { CollectionCard } from "#components/collection-card/collection-card.tsx";
 import { SubHeader } from "../../components/subheader/subheader.tsx";
 import Hero from "../../components/hero/hero.astro";
@@ -12,6 +10,8 @@ import styles from "./homepage.module.scss";
 import { buildSearchQuery } from "#src/views/search/search.ts";
 import * as api from "#utils/api.ts";
 import { isDefined } from "#utils/is-defined.ts";
+import { m } from "#src/paraglide/messages.js";
+import { localizeHref, type Locale } from "#src/paraglide/runtime.js";
 
 export interface Props {
 	posts: PostInfo[];
@@ -31,9 +31,12 @@ const postAuthors = new Map(
 
 <Hero />
 <section>
-	<SubHeader tag="h2" text="Recent articles" id="posts-header">
+	<SubHeader tag="h2" text={m.title_recent_articles()} id="posts-header">
 		<Button
-			href={`/search?${buildSearchQuery({ searchQuery: "*", display: "articles" })}`}
+			href={localizeHref(
+				`/search?${buildSearchQuery({ searchQuery: "*", display: "articles" })}`,
+				{ locale },
+			)}
 			aria-labelledby="posts-header"
 		>
 			{m.action_view_all()}
@@ -45,16 +48,20 @@ const postAuthors = new Map(
 		postsToDisplay={posts}
 		postAuthors={postAuthors}
 		postHeadingTag="h3"
+		locale={locale}
 	/>
 </section>
 
 <section>
-	<SubHeader tag="h2" text="Collections" id="collections-header">
+	<SubHeader tag="h2" text={m.title_collections()} id="collections-header">
 		<Button
-			href={`/search?${buildSearchQuery({
-				searchQuery: "*",
-				display: "collections",
-			})}`}
+			href={localizeHref(
+				`/search?${buildSearchQuery({
+					searchQuery: "*",
+					display: "collections",
+				})}`,
+				{ locale },
+			)}
 			aria-labelledby="collections-header"
 		>
 			{m.action_view_all()}
@@ -74,6 +81,7 @@ const postAuthors = new Map(
 						.map((id) => api.getPersonById(id, collection.locale))
 						.filter(isDefined)}
 					headingTag="h3"
+					locale={locale}
 				/>
 			))
 		}

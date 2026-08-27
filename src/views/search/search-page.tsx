@@ -46,6 +46,7 @@ import {
 } from "./constants.ts";
 import { useFilterState } from "./use-filter-state.ts";
 import { SnitipCardGrid } from "#components/snitip/snitip-card.tsx";
+import type { Locale } from "#src/paraglide/runtime.js";
 
 function usePersistedEmptyRef<T extends object>(value: T) {
 	const ref = useRef<T>();
@@ -69,7 +70,7 @@ const fetchSearchFilters = async ({ signal }: { signal: AbortSignal }) => {
 	);
 };
 
-export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
+export function SearchPageBase({ siteTitle, locale }: RootSearchPageProps) {
 	const [query, setQueryState] = useSearchParams<SearchQuery>(
 		serializeParams,
 		deserializeParams,
@@ -525,6 +526,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 												.map((id) => peopleMap.get(`${id}`))
 												.filter(isDefined)}
 											headingTag="h3"
+											locale={locale}
 										/>
 									))}
 								</ul>
@@ -548,6 +550,7 @@ export function SearchPageBase({ siteTitle }: RootSearchPageProps) {
 									postsToDisplay={data.posts}
 									postAuthors={peopleMap}
 									postHeadingTag="h3"
+									locale={locale}
 									expanded
 								/>
 							</Fragment>
@@ -588,12 +591,13 @@ const queryClient = new QueryClient();
 
 interface RootSearchPageProps {
 	siteTitle: string;
+	locale: Locale;
 }
-export default function SearchPage({ siteTitle }: RootSearchPageProps) {
+export default function SearchPage({ siteTitle, locale }: RootSearchPageProps) {
 	return (
 		<SearchProvider>
 			<QueryClientProvider client={queryClient}>
-				<SearchPageBase siteTitle={siteTitle} />
+				<SearchPageBase siteTitle={siteTitle} locale={locale} />
 			</QueryClientProvider>
 		</SearchProvider>
 	);

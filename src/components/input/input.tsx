@@ -10,6 +10,9 @@ import {
 import { useRandomId } from "#utils/preact/useId.ts";
 import type { ReactElement, Ref } from "preact/compat";
 
+import { m } from "#src/paraglide/messages.js";
+import { baseLocale, type Locale } from "#src/paraglide/runtime.js";
+
 interface InputProps extends InputHTMLAttributes {
 	label?: string;
 	containerClass?: string;
@@ -58,6 +61,7 @@ interface SearchInputProps {
 	variant?: "default" | "dense";
 	usedInPreact?: boolean;
 	hideSearchButton?: boolean;
+	locale?: Locale;
 }
 
 export function SearchInput({
@@ -66,6 +70,7 @@ export function SearchInput({
 	variant = "default",
 	usedInPreact,
 	hideSearchButton,
+	locale = baseLocale,
 	id: propsId,
 	type = "search",
 	...props
@@ -103,7 +108,7 @@ export function SearchInput({
 				/>
 			)}
 			<input
-				aria-label="Search"
+				aria-label={m.title_search({}, { locale })}
 				{...props}
 				id={id}
 				type={type}
@@ -118,7 +123,7 @@ export function SearchInput({
 					tag="button"
 					type="button"
 					tabIndex={-1}
-					aria-label="Clear search"
+					aria-label={m.action_clear_search({}, { locale })}
 					{...clearButtonOnClickProps}
 				>
 					<div

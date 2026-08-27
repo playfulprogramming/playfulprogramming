@@ -26,6 +26,6 @@ const posts = api.getPostsByPerson(person.id, locale);
 		type="profile"
 	/>
 	<main class="listViewContent">
-		<PersonPage person={person} posts={posts} />
+		<PersonPage person={person} posts={posts} locale={locale} />
 	</main>
 </Document>

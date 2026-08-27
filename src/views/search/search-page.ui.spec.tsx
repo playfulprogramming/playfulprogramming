@@ -232,7 +232,7 @@ function SearchPage(props: { mockClient: SearchContext }) {
 	return (
 		<SearchClient.Provider value={props.mockClient}>
 			<QueryClientProvider client={queryClient}>
-				<SearchPageBase siteTitle="Site Title" />
+				<SearchPageBase siteTitle="Site Title" locale="en" />
 			</QueryClientProvider>
 		</SearchClient.Provider>
 	);
