@@ -1,7 +1,7 @@
 ---
-import BlockingThemeChangerScript from "../page-components/layouts/blocking-theme-changer-script.astro";
-import "../global.scss";
-import Barebones from "./barebones.astro";
+import BlockingThemeChangerScript from "./blocking-theme-changer-script.astro";
+import "../../../global.scss";
+import Barebones from "../barebones/barebones.astro";
 import Header from "#src/views/base/navigation/header.astro";
 import { getLocale } from "#src/paraglide/runtime.js";
 
@@ -22,10 +22,10 @@ const props = Astro.props as {
 	<slot name="post-body" />
 
 	<script>
-		import "#src/utils/href-container-script.ts";
+		import "#utils/href-container-script.ts";
 	</script>
 	<script>
-		import { enableStickyScrollListener } from "#src/utils/sticky-scroll-script.ts";
+		import { enableStickyScrollListener } from "#utils/sticky-scroll-script.ts";
 		enableStickyScrollListener();
 	</script>
 </Barebones>
