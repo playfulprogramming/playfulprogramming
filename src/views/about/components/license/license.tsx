@@ -1,6 +1,6 @@
 import style from "./license.module.scss";
 import { useState } from "preact/hooks";
-import { LargeIconOnlyButton } from "#components/index.ts";
+import { LargeIconOnlyButton } from "#src/components/index.ts";
 import { Dialog } from "#components/dialog/dialog.tsx";
 import close from "#src/assets/icons/close.svg?raw";
 import { createPortal } from "preact/compat";
