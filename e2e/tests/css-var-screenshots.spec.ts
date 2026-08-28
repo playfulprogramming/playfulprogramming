@@ -92,4 +92,13 @@ for (const theme of themes) {
 		await quotes.waitFor({ state: "visible" });
 		await expect(quotes).toHaveScreenshot(`ffg-quotes-text-${theme}.png`);
 	});
+
+	// TODO(undefined-css-vars): found --outline-focused, code expects --outline_focused
+	test(`ffg signup email focus border (${theme})`, async ({ page }) => {
+		await goTo(page, "/collections/framework-field-guide", theme);
+		const email = page.locator("[class*=emailInput]").first();
+		await email.waitFor({ state: "visible" });
+		await email.focus();
+		await expect(email).toHaveScreenshot(`ffg-signup-email-focus-${theme}.png`);
+	});
 }
