@@ -45,8 +45,6 @@ body {
 }
 
 .titleContainer {
-	// stylelint-disable-next-line declaration-block-no-duplicate-properties
-	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
 
@@ -107,8 +105,6 @@ body {
 	}
 
 	.heroLineBottomHider {
-		// stylelint-disable-next-line declaration-block-no-duplicate-properties
-		position: relative;
 		left: -50%;
 		height: 1rem;
 		background: var(--fund-200);

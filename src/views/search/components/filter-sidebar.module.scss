@@ -35,8 +35,7 @@
 	padding: 0;
 	margin: -1px;
 	overflow: hidden;
-	// stylelint-disable-next-line property-no-deprecated
-	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
 	white-space: nowrap;
 	border-width: 0;
 }
@@ -48,8 +47,7 @@
 	padding: unset;
 	margin: unset;
 	overflow: unset;
-	// stylelint-disable-next-line property-no-deprecated
-	clip: unset;
+	clip-path: unset;
 	white-space: unset;
 	border-width: unset;
 }

@@ -61,8 +61,5 @@ body {
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
-	/* stylelint-disable-next-line property-no-deprecated */
-	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-	/* stylelint-disable-next-line property-no-deprecated */
-	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
 }

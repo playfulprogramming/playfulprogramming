@@ -41,8 +41,6 @@ pre code {
 	counter-increment: step var(--codeblock-line-start, 0);
 
 	display: block;
-	// stylelint-disable-next-line declaration-block-no-duplicate-properties
-	position: relative;
 	padding-left: 2.5rem;
 	tab-size: 4;
 
