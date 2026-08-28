@@ -12,7 +12,7 @@ import {
 	type BrandTheme,
 	type ColorModePreference,
 	type ContrastModePreference,
-} from "#src/utils/theming.ts";
+} from "#utils/theming.ts";
 
 type PaletteName = "primary" | "secondary";
 

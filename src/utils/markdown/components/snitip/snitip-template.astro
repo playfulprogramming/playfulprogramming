@@ -1,7 +1,7 @@
 ---
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import { SnitipDialog } from "#components/snitip/snitip-dialog.tsx";
-import "#src/views/base/scripts/snitip-trigger.scss";
+import "#components/snitip/snitip-trigger.scss";
 import "#components/inline-popup/inline-popup.scss";
 
 export interface Props {
@@ -20,5 +20,5 @@ const supportId = `${scopeId}-${snitip.id}`;
 />
 
 <script>
-	import "#src/views/base/scripts/snitip-script-impl.ts";
+	import "#components/snitip/snitip-script-impl.ts";
 </script>
