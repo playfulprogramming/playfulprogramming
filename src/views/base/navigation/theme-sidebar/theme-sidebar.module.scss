@@ -24,7 +24,7 @@ body:has(.dialog[open]) {
 	margin: 0;
 	padding: 0;
 	overflow: clip;
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	background: var(--background_primary-bright);
 	border: var(--border-width_s) solid var(--background_disabled);
 	border-radius: var(--corner-radius_xl);
