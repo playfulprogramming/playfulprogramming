@@ -5,46 +5,68 @@ import {
 	streamToPromise,
 } from "sitemap";
 import * as api from "#utils/api.ts";
-import dayjs from "dayjs";
+import { toDate } from "#utils/date.ts";
 import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
-import type { Languages } from "#types/index.ts";
 import { Readable } from "stream";
 import { siteUrl } from "#src/constants/site-config.ts";
 import { events } from "#src/views/events/constants.ts";
+import {
+	baseLocale,
+	locales as configuredLocales,
+	localizeHref,
+	type Locale,
+} from "#src/paraglide/runtime.js";
 
 const About = (await import("./[...locale]/about.astro")) as unknown as {
-	getStaticPaths: () => Promise<Array<{ params: { locale?: Languages } }>>;
+	getStaticPaths: () => Promise<
+		Array<{
+			params: { locale?: Locale };
+			props: { isFallback: boolean };
+		}>
+	>;
 };
 
 const sitemapDefaults: Pick<
 	SitemapItemLoose,
 	"lastmod" | "changefreq" | "priority"
 > = {
-	lastmod: dayjs().toISOString(),
+	lastmod: new Date().toISOString(),
 	changefreq: EnumChangefreq.DAILY,
 	priority: 0.7,
 };
 
-const createLocaleUrl = (locale: Languages | undefined, path: string) =>
-	`${locale && locale !== "en" ? `/${locale}` : ""}${path}`;
+const createLocaleUrl = (locale: Locale | undefined, path: string) =>
+	localizeHref(path || "/", { locale: locale ?? baseLocale });
 
-const createPostUrl = (locale: Languages, post: PostInfo) =>
+const createPostUrl = (locale: Locale, post: PostInfo) =>
 	createLocaleUrl(locale, `/posts/${post.slug}`);
 
-const createCollectionUrl = (locale: Languages, collection: CollectionInfo) =>
+const createCollectionUrl = (locale: Locale, collection: CollectionInfo) =>
 	createLocaleUrl(locale, `/collections/${collection.slug}`);
 
 const includedRoutes = ["", "/join-us", "/search", "/events"];
+
+const createLocaleLinks = (
+	path: string,
+	locales: readonly Locale[] = configuredLocales,
+) =>
+	locales.map((locale) => ({
+		lang: locale,
+		url: createLocaleUrl(locale, path),
+	}));
 
 export const GET = async () => {
 	const entries: SitemapItemLoose[] = [];
 
 	for (const path of includedRoutes) {
-		entries.push({
-			...sitemapDefaults,
-			url: path,
-		});
+		for (const locale of configuredLocales) {
+			entries.push({
+				...sitemapDefaults,
+				url: createLocaleUrl(locale, path),
+				links: createLocaleLinks(path),
+			});
+		}
 	}
 
 	for (const event of events) {
@@ -55,6 +77,7 @@ export const GET = async () => {
 	}
 
 	const aboutPageLocales = (await About.getStaticPaths())
+		.filter((page) => !page.props.isFallback)
 		.map((page) => page.params.locale)
 		.sort();
 	for (const locale of aboutPageLocales) {
@@ -62,7 +85,7 @@ export const GET = async () => {
 			...sitemapDefaults,
 			url: createLocaleUrl(locale, "/about"),
 			links: aboutPageLocales.map((lang) => ({
-				lang: lang ?? "en",
+				lang: lang ?? baseLocale,
 				url: createLocaleUrl(lang, "/about"),
 			})),
 		});
@@ -83,7 +106,7 @@ export const GET = async () => {
 			...sitemapDefaults,
 			url: createPostUrl(post.locale, post),
 			links,
-			lastmod: dayjs(post.edited ?? post.published).toISOString(),
+			lastmod: toDate(post.edited ?? post.published).toISOString(),
 		});
 	}
 
@@ -105,15 +128,32 @@ export const GET = async () => {
 		});
 	}
 
+	const personLocalesById = new Map<string, Set<Locale>>();
 	for (const person of api.getAllPeople()) {
-		entries.push({
-			...sitemapDefaults,
-			url: `/people/${person.id}`,
-		});
+		const locales = personLocalesById.get(person.id) ?? new Set<Locale>();
+		for (const locale of person.locales) locales.add(locale);
+		personLocalesById.set(person.id, locales);
+	}
+
+	for (const [personId, localeSet] of personLocalesById) {
+		const path = `/people/${personId}`;
+		const locales = [...localeSet].sort();
+		const links =
+			locales.length > 1 ? createLocaleLinks(path, locales) : undefined;
+
+		for (const locale of locales) {
+			entries.push({
+				...sitemapDefaults,
+				url: createLocaleUrl(locale, path),
+				links,
+			});
+		}
 	}
 
 	// sort alphabetically to avoid changes between builds
-	entries.sort((a, b) => a.url.localeCompare(b.url, "en", { numeric: true }));
+	entries.sort((a, b) =>
+		a.url.localeCompare(b.url, baseLocale, { numeric: true }),
+	);
 
 	const stream = new SitemapStream({
 		hostname: siteUrl,

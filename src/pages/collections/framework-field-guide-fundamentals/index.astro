@@ -1,5 +1,6 @@
 ---
 import Barebones from "#src/layouts/barebones.astro";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
 import "../../../views/collections/framework-field-guide/fonts/changa-one.css";
@@ -26,7 +27,7 @@ import { getCollectionBySlug, getPersonById } from "#utils/api.ts";
 
 const collection = getCollectionBySlug(
 	"framework-field-guide-fundamentals",
-	"en",
+	baseLocale,
 )!;
 ---
 
@@ -35,7 +36,7 @@ const collection = getCollectionBySlug(
 		slot="head"
 		title={collection.title}
 		description={collection.description}
-		peopleData={[getPersonById("crutchcorn", "en")!]}
+		peopleData={[getPersonById("crutchcorn", baseLocale)!]}
 		publishedTime={collection.published}
 		type={"book"}
 		shareImage={collection.socialImgMeta?.relativeServerPath}

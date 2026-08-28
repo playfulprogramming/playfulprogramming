@@ -14,6 +14,7 @@ import { Picture as UUPicture } from "#components/image/picture.tsx";
 import { DEFAULT_TAG_EMOJI } from "./constants.ts";
 import close from "#src/icons/close.svg?raw";
 import { type FilterState, useFilterState } from "../use-filter-state.ts";
+import { m } from "#src/paraglide/messages.js";
 
 interface FilterDialogProps {
 	isOpen: boolean;
@@ -38,10 +39,13 @@ const FilterDialogMobile = ({
 	return (
 		<div class={styles.mobileDialogContainer}>
 			<div class={styles.dialogTitleContainer}>
-				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>Filter</h1>
+				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
+					{m.title_filter()}
+				</h1>
 			</div>
 			<FilterSection
-				title={"Tag"}
+				title={m.title_tag()}
+				selectedLabel={m.search_filter_selected_tags()}
 				selectedNumber={filterState.tags.length}
 				onClear={() => filterState.setTags([])}
 			>
@@ -73,7 +77,8 @@ const FilterDialogMobile = ({
 			</FilterSection>
 			<FilterSection
 				class={styles.mobileAuthorList}
-				title={"Author"}
+				title={m.title_author()}
+				selectedLabel={m.search_filter_selected_authors()}
 				selectedNumber={filterState.authors.length}
 				onClear={() => filterState.setAuthors([])}
 			>
@@ -108,7 +113,7 @@ const FilterDialogMobile = ({
 					variant="primary"
 					tag="button"
 				>
-					Cancel
+					{m.action_cancel()}
 				</LargeButton>
 				<LargeButton
 					class={styles.mobileButton}
@@ -116,7 +121,7 @@ const FilterDialogMobile = ({
 					value="confirm"
 					variant="primary-emphasized"
 				>
-					Filter
+					{m.action_filter()}
 				</LargeButton>
 			</div>
 		</div>
@@ -136,22 +141,25 @@ const FilterDialogSmallTablet = ({
 					tag="button"
 					value="cancel"
 					class={styles.closeButton}
-					aria-label="Close"
+					aria-label={m.action_close()}
 				>
 					<span
 						class={styles.closeIcon}
 						dangerouslySetInnerHTML={{ __html: close }}
 					/>
 				</LargeIconOnlyButton>
-				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>Filter</h1>
+				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
+					{m.title_filter()}
+				</h1>
 				<LargeButton variant="primary-emphasized" tag="button" value="confirm">
-					Filter results
+					{m.action_filter_results()}
 				</LargeButton>
 			</div>
 			<div class={styles.filterSelectionContainer}>
 				<div class={styles.filterSelection}>
 					<FilterSection
-						title={"Tag"}
+						title={m.title_tag()}
+						selectedLabel={m.search_filter_selected_tags()}
 						selectedNumber={filterState.tags.length}
 						onClear={() => filterState.setTags([])}
 					>
@@ -184,7 +192,8 @@ const FilterDialogSmallTablet = ({
 				</div>
 				<div class={styles.filterSelection}>
 					<FilterSection
-						title={"Author"}
+						title={m.title_author()}
+						selectedLabel={m.search_filter_selected_authors()}
 						selectedNumber={filterState.authors.length}
 						onClear={() => filterState.setAuthors([])}
 					>

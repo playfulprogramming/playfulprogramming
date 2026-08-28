@@ -10,6 +10,8 @@ import {
 import { useRandomId } from "#utils/preact/useId.ts";
 import type { ReactElement, Ref } from "preact/compat";
 
+import { m } from "#src/paraglide/messages.js";
+
 interface InputProps extends InputHTMLAttributes {
 	label?: string;
 	containerClass?: string;
@@ -103,7 +105,7 @@ export function SearchInput({
 				/>
 			)}
 			<input
-				aria-label="Search"
+				aria-label={m.title_search()}
 				{...props}
 				id={id}
 				type={type}
@@ -118,7 +120,7 @@ export function SearchInput({
 					tag="button"
 					type="button"
 					tabIndex={-1}
-					aria-label="Clear search"
+					aria-label={m.action_clear_search()}
 					{...clearButtonOnClickProps}
 				>
 					<div

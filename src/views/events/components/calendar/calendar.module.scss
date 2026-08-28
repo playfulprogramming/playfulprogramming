@@ -8,7 +8,7 @@
 	--calendar-popup_border-width: var(--border-width_m);
 
 	--calendar-popup_background-color: var(--background_primary);
-	--calendar-popup_border-color: var(--primary_variant);
+	--calendar-popup_border-color: var(--primary_low);
 }
 
 .calendar {
@@ -20,7 +20,7 @@
 	align-items: center;
 	margin: 0 0 calc(var(--site-spacing) / 2) 0;
 	width: 100%;
-	background: var(--surface_primary_emphasis-none);
+	background: var(--tint_primary_none);
 	padding: var(--spc-2x);
 	border-radius: var(--corner-radius_circular);
 }
@@ -29,7 +29,7 @@
 	flex-grow: 1;
 	display: flex;
 	justify-content: center;
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	margin: 0;
 }
 
@@ -48,7 +48,7 @@
 
 .grid {
 	flex-grow: 1;
-	background: var(--surface_primary_emphasis-none);
+	background: var(--tint_primary_none);
 	border-radius: var(--corner-radius_l);
 	padding: var(--spc-2x);
 }
@@ -79,15 +79,17 @@
 	}
 
 	&[data-selected] .innerCalendarCell {
-		background: var(--surface_secondary_emphasis-low);
+		background: var(--secondary_container);
+		color: var(--secondary_on-container);
 	}
 
 	&[data-hovered] .innerCalendarCell {
-		background: var(--surface_secondary_emphasis-medium);
+		background: var(--secondary_container_hover);
+		color: var(--secondary_on-container);
 	}
 
 	&[data-pressed] .innerCalendarCell {
-		background: var(--surface_secondary_emphasis-high);
+		background: var(--secondary_container_pressed);
 	}
 
 	&[data-today] .innerCalendarCell {
@@ -148,7 +150,7 @@
 }
 
 .popupContentTime {
-	color: var(--primary_default);
+	color: var(--primary_medium);
 	font-family: var(--pfp-font-family-code);
 	font-weight: 500;
 	font-size: 14px;

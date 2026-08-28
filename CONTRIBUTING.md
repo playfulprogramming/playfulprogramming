@@ -143,7 +143,16 @@ Videos can also be embedded with the following syntax:
 
 > When possible, `<video>` elements should be preferred over `.gif` files or other animated images in our posts. This is for accessibility concerns - videos provide users with more control over when/how the animation plays.
 
-# Translating a Blog Post
+# Internationalization
+
+Playful Programming has two related but separate translation workflows:
+
+- Blog posts and other long-form content are localized as Markdown files alongside the original content.
+- Site interface text is stored in message catalogs and compiled with [Paraglide JS](https://paraglidejs.com/astro).
+
+The canonical list of configured locales, including the base locale, is in [`/project.inlang/settings.json`](./project.inlang/settings.json). [`/content/data/languages.json`](./content/data/languages.json) contains the human-readable names shown for those locales; it does not configure Paraglide by itself.
+
+## Translating a Blog Post
 
 If you are adding a translation, make sure to first create an [Author Data File](#creating-an-author-profile) with the `"translator"` role so that you are credited for your work on the site!
 
@@ -153,15 +162,31 @@ To create a translation file for a post, copy its `index.md` file and rename it 
 >
 > Any links to these images will need to be updated in the `index.fr.md` post to point to the translated image.
 
-For reference, the current language codes can be found in [`/content/data/languages.json`](./content/data/languages.json) - you may need to add to this file if the language is missing.
+Check [`/project.inlang/settings.json`](./project.inlang/settings.json) for the currently supported locale codes. When adding a new locale, add it to that configuration first and add its display name to [`/content/data/languages.json`](./content/data/languages.json).
 
-## Finding a Language Code
+### Finding a Language Code
 
-Each language code in [`/content/data/languages.json`](./content/data/languages.json) should consist of two lowercase letters. If it includes a region, append a hyphen followed by two more lowercase letters. For example, the code for French is `fr` - to specifically refer to the French dialect in Canada, the code would be `fr-ca`.
+Each locale code in [`/project.inlang/settings.json`](./project.inlang/settings.json) should consist of two lowercase letters. If it includes a region, append a hyphen followed by two more lowercase letters. For example, the code for French is `fr` - to specifically refer to the French dialect in Canada, the code would be `fr-ca`.
 
 > Please use `-` instead of `_` in the language region ISO formats. Instead of `fr_ca`, it'd be `fr-ca`.
 
 Refer to [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for identifiers to be used in this format.
+
+## Translating Site Interface Messages
+
+Site interface messages, such as navigation labels, button text, and accessibility labels, live in [`/content/data/i18n`](./content/data/i18n). The catalog path pattern is `content/data/i18n/{locale}.json`, producing files such as `en.json` or `pt-br.json`. These catalogs are separate from localized Markdown content such as `index.fr.md`.
+
+To add or update an interface message:
+
+1. Add or update the message in the base English catalog, [`/content/data/i18n/en.json`](./content/data/i18n/en.json).
+2. Add the same message key to the relevant locale catalogs. Missing translations fall back to the message in the base English catalog.
+3. Name message IDs with lowercase letters, numbers, and underscores so they are valid JavaScript identifiers, such as `action_view_all`. Do not use dotted IDs such as `action.view_all`.
+4. Use named placeholders such as `{name}` or `{count}` for values inserted at runtime.
+5. Run `pnpm run paraglide:compile` to validate the catalogs and regenerate the local Paraglide output.
+
+In application code, import `{ m }` from `#src/paraglide/messages.js` and use the generated, type-safe named API, for example `m.action_view_all()`. Do not use dynamic or bracket access such as `m["action.view_all"]`.
+
+The generated `src/paraglide` directory is build output. Do not edit files in it by hand; update `project.inlang/settings.json` or the source catalogs and compile again. Astro also compiles these messages during its normal development and build workflow, and unit tests run the compile step automatically.
 
 # Submitting a Pull Request
 

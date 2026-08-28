@@ -18,6 +18,8 @@ import { IconOnlyButton } from "#components/button/button.tsx";
 import CloseIcon from "#src/icons/close.svg?raw";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 
+import { m } from "#src/paraglide/messages.js";
+
 interface FilePickerProps {
 	entries: Array<FileEntry>;
 	file: string;
@@ -158,11 +160,13 @@ export function FilePicker(props: FilePickerProps) {
 				)}
 			>
 				<div class={style.header}>
-					<h1 class={`${style.title} text-style-headline-5`}>Files</h1>
+					<h1 class={`${style.title} text-style-headline-5`}>
+						{m.title_files()}
+					</h1>
 					<IconOnlyButton
 						tag="button"
 						class={style.closeButton}
-						aria-label="Close"
+						aria-label={m.action_close()}
 					>
 						<RawSvg icon={CloseIcon} />
 					</IconOnlyButton>

@@ -3,9 +3,10 @@ import style from "./post-title-header.module.scss";
 import type { PostInfo, PersonInfo, PostVersion } from "#types/index.ts";
 import { Icon } from "astro-icon/components";
 import { Chip } from "#components/index.ts";
-import dayjs from "dayjs";
+import { toDate } from "#utils/date.ts";
 import { buildSearchQuery } from "../../search/search.ts";
-import { translate } from "#utils/translations.ts";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 import { ArticleRevisionDropdown } from "../article-revisions/article-revisions.tsx";
 
 export interface Props {
@@ -16,8 +17,15 @@ export interface Props {
 const { post, versions, authors } = Astro.props;
 const { title, tags } = post;
 
-const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
-const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
+const locale = getLocale();
+const dateFormat = {
+	month: "long",
+	day: "numeric",
+	year: "numeric",
+} as const satisfies Intl.DateTimeFormatOptions;
+const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
+const publishedStr = dateFormatter.format(toDate(post.published));
+const editedStr = post.edited && dateFormatter.format(toDate(post.edited));
 
 const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 ---
@@ -58,7 +66,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 				{
 					editedStr && editedStr !== publishedStr ? (
 						<p class={`text-style-button-regular ${style.date__edited}`}>
-							Last updated: {editedStr}
+							{m.label_last_updated({ date: editedStr })}
 						</p>
 					) : null
 				}
@@ -66,11 +74,19 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 
 			<div class={style.authors}>
 				<Icon width={24} height={24} name="authors" aria-hidden="true" />
-				<ul aria-label="Post authors" role="list" class={style.authors__list}>
+				<ul
+					aria-label={m.label_post_authors()}
+					role="list"
+					class={style.authors__list}
+				>
 					{
 						authors.map((author, i) => (
 							<li class="text-style-button-regular">
-								<a href={`/people/${author.id}`}>
+								<a
+									href={localizeHref(`/people/${author.id}`, {
+										locale: author.locale,
+									})}
+								>
 									{[author.name, i + 1 < authors.length ? "," : ""]}
 								</a>
 							</li>
@@ -83,11 +99,9 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 				<Icon width={24} height={24} name="words" aria-hidden="true" />
 				<p class="text-style-button-regular">
 					{
-						translate(
-							Astro,
-							"title.n_words",
-							post.wordCount.toLocaleString("en"),
-						)
+						m.title_n_words({
+							count: post.wordCount.toLocaleString(locale),
+						})
 					}
 				</p>
 			</div>
@@ -97,7 +111,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 					<div class={style.originalLink}>
 						<Icon width={24} height={24} name="website" aria-hidden="true" />
 						<p class="text-style-button-regular">
-							{translate(Astro, "desc.original_link")}{" "}
+							{m.desc_original_link()}{" "}
 							<a
 								href={post.originalLink}
 								target="_blank"
@@ -111,15 +125,18 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 			}
 		</div>
 
-		<ul aria-label="Post tags" role="list" class={style.tags}>
+		<ul aria-label={m.label_post_tags()} role="list" class={style.tags}>
 			{
 				tags?.map((tag) => (
 					<li>
 						<Chip
-							href={`/search?${buildSearchQuery({
-								searchQuery: "*",
-								filterTags: [tag],
-							})}`}
+							href={localizeHref(
+								`/search?${buildSearchQuery({
+									searchQuery: "*",
+									filterTags: [tag],
+								})}`,
+								{ locale },
+							)}
 						>
 							{tag}
 						</Chip>

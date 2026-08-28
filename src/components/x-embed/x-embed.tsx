@@ -1,5 +1,4 @@
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat";
+import { getLocale } from "#src/paraglide/runtime.js";
 import { Button, IconOnlyButton } from "#components/button/button.tsx";
 import discussion from "#src/icons/discussion.svg?raw";
 import repost from "#src/icons/repost.svg?raw";
@@ -7,8 +6,39 @@ import heart from "#src/icons/heart.svg?raw";
 import launch from "#src/icons/launch.svg?raw";
 import style from "./x-embed.module.scss";
 import { RawSvg } from "#components/image/raw-svg.tsx";
+import { toDate } from "#utils/date.ts";
 
-dayjs.extend(advancedFormat);
+import { m } from "#src/paraglide/messages.js";
+
+const ordinalMessages = {
+	zero: m.date_ordinal_zero,
+	one: m.date_ordinal_one,
+	two: m.date_ordinal_two,
+	few: m.date_ordinal_few,
+	many: m.date_ordinal_many,
+	other: m.date_ordinal_other,
+} as const;
+
+export function formatPostDate(date: Date) {
+	const locale = getLocale();
+	const formatter = new Intl.DateTimeFormat(locale, {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	});
+	const ordinalRule = new Intl.PluralRules(locale, { type: "ordinal" }).select(
+		date.getDate(),
+	);
+
+	return formatter
+		.formatToParts(date)
+		.map((part) =>
+			part.type === "day"
+				? ordinalMessages[ordinalRule]({ day: part.value })
+				: part.value,
+		)
+		.join("");
+}
 
 interface XEmbedPicture {
 	src: string;
@@ -42,7 +72,16 @@ export function XEmbedPlaceholder({
 	link,
 	picture,
 }: XEmbedPlaceholderProps) {
-	const dayjsDate = dayjs(date);
+	const locale = getLocale();
+	const postDate = toDate(date);
+	const isValidDate = !Number.isNaN(postDate.valueOf());
+	const formattedDate = isValidDate ? formatPostDate(postDate) : date;
+	const formattedTime = isValidDate
+		? new Intl.DateTimeFormat(locale, {
+				hour: "numeric",
+				minute: "2-digit",
+			}).format(postDate)
+		: undefined;
 	return (
 		<div className={style.container}>
 			<div className={style.topContainer}>
@@ -51,7 +90,7 @@ export function XEmbedPlaceholder({
 						data-dont-round
 						data-nozoom
 						src={profilePic}
-						alt={`${handle}'s profile picture`}
+						alt={m.label_profile_picture_for({ handle })}
 						crossorigin="anonymous"
 					/>
 				</div>
@@ -67,14 +106,14 @@ export function XEmbedPlaceholder({
 					target="_blank"
 					rel="nofollow noopener noreferrer"
 				>
-					View on X
+					{m.action_view_on_x()}
 				</Button>
 				<IconOnlyButton
 					class={style.iconButton}
 					href={link}
 					target="_blank"
 					rel="nofollow noopener noreferrer"
-					aria-label={"View on X"}
+					aria-label={m.action_view_on_x()}
 				>
 					<RawSvg icon={launch} />
 				</IconOnlyButton>
@@ -104,33 +143,35 @@ export function XEmbedPlaceholder({
 							className={style.statIcon}
 							dangerouslySetInnerHTML={{ __html: discussion }}
 						/>
-						<span>{replies ?? 0}</span>
+						<span>{(replies ?? 0).toLocaleString(locale)}</span>
 					</div>
 					<div className={`text-style-body-small-bold ${style.statContainer}`}>
 						<span
 							className={style.statIcon}
 							dangerouslySetInnerHTML={{ __html: repost }}
 						/>
-						<span>{reposts ?? 0}</span>
+						<span>{(reposts ?? 0).toLocaleString(locale)}</span>
 					</div>
 					<div className={`text-style-body-small-bold ${style.statContainer}`}>
 						<span
 							className={style.statIcon}
 							dangerouslySetInnerHTML={{ __html: heart }}
 						/>
-						<span>{likes ?? 0}</span>
+						<span>{(likes ?? 0).toLocaleString(locale)}</span>
 					</div>
 				</div>
 				<p className={style.timeContainer}>
-					<span className={`text-style-body-small-bold`}>
-						{dayjsDate.format("MMM Do, YYYY")}
-					</span>
-					<span className={`text-style-body-small ${style.timeSaparator}`}>
-						•
-					</span>
-					<span className={`text-style-body-small ${style.time}`}>
-						{dayjsDate.format("h:mm A")}
-					</span>
+					<span className={`text-style-body-small-bold`}>{formattedDate}</span>
+					{formattedTime ? (
+						<>
+							<span className={`text-style-body-small ${style.timeSaparator}`}>
+								•
+							</span>
+							<span className={`text-style-body-small ${style.time}`}>
+								{formattedTime}
+							</span>
+						</>
+					) : null}
 				</p>
 			</div>
 		</div>

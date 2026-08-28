@@ -10,10 +10,10 @@
 	--article-header_details_date-gap: 0.5rem;
 	--article-header_details_gap: var(--spc-2x);
 
-	--article-header_title_color: var(--foreground_emphasis-high);
+	--article-header_title_color: var(--foreground_high);
 	--article-header_details_icon_color: var(--foreground_disabled);
-	--article-header_details_date_color: var(--foreground_emphasis-high);
-	--article-header_details_date_edited_color: var(--foreground_emphasis-medium);
+	--article-header_details_date_color: var(--foreground_high);
+	--article-header_details_date_edited_color: var(--foreground_medium);
 	--article-header_details_author_color: var(--link-color);
 
 	@include from($desktopSmall) {
@@ -55,7 +55,7 @@
 
 	.originalLink,
 	.wordCount {
-		color: var(--foreground_emphasis-medium);
+		color: var(--foreground_medium);
 	}
 
 	.date {

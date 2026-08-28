@@ -13,6 +13,7 @@ import {
 	useContextProps,
 	CalendarStateContext,
 	useRenderProps,
+	I18nProvider,
 } from "react-aria-components";
 import arrow_left from "../../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../../icons/arrow_right.svg?raw";
@@ -39,14 +40,15 @@ import {
 	type CalendarDate,
 	fromDate,
 	getLocalTimeZone,
+	isSameDay,
 	isSameMonth,
 	isToday,
-	parseDate,
+	startOfMonth,
 	today,
+	toCalendarDate,
 } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
 import type { Event } from "../../types.ts";
-import dayjs from "dayjs";
 import { useIsOnClient } from "../../../../hooks/use-is-on-client.ts";
 import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScrollGutterHack.ts";
 import {
@@ -56,6 +58,8 @@ import {
 import type { DOMProps } from "@react-types/shared";
 import author from "#src/icons/authors.svg?raw";
 import wifi from "#src/icons/wifi.svg?raw";
+import { getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 const CustomButton = forwardRef(
 	(
@@ -82,7 +86,7 @@ const CustomButton = forwardRef(
 
 interface CustomCalendarCellProps extends CalendarCellProps {
 	// It's a long story
-	monthDate: Date;
+	monthDate: CalendarDate;
 	popupTriggerButtonProps: DOMProps;
 }
 
@@ -99,10 +103,7 @@ export const CustomCalendarCell = forwardRef(
 	) => {
 		const state: CalendarState = useContext(CalendarStateContext);
 
-		const isOutsideMonth = !isSameMonth(
-			date,
-			fromDate(monthDate, state.timeZone),
-		);
+		const isOutsideMonth = !isSameMonth(date, monthDate);
 		const istoday = isToday(date, state.timeZone);
 
 		const buttonRef = useRef<HTMLDivElement>(null);
@@ -189,6 +190,7 @@ function CalendarDayPopup({
 	date,
 }: CalendarDayPopupProps) {
 	const state: CalendarState = useContext(CalendarStateContext);
+	const locale = getLocale();
 
 	/* Setup popover */
 	const popoverRef = useRef<HTMLDivElement>(null);
@@ -241,15 +243,15 @@ function CalendarDayPopup({
 					data-focus-visible={isFocusVisible}
 				>
 					<h1 {...titleProps} className="visually-hidden">
-						Events on this day
+						{m.events_calendar_events_on_day()}
 					</h1>
 					<div className={style.popupContents}>
 						<ul role={"list"} className={style.popupContentContainer}>
 							{eventsForDate.map((event) => {
 								const firstBlockOfDay = event.blocks.find((block) => {
-									return dayjs(date.toDate(state.timeZone)).isSame(
-										block.starts_at,
-										"date",
+									return isSameDay(
+										date,
+										fromDate(block.starts_at, state.timeZone),
 									);
 								});
 
@@ -270,9 +272,11 @@ function CalendarDayPopup({
 												<span
 													className={`text-style-body-small ${style.popupContentTime}`}
 												>
-													{dayjs(firstBlockOfDay.starts_at).format(
-														"hh:mm A",
-													)}{" "}
+													{new Intl.DateTimeFormat(locale, {
+														hour: "numeric",
+														minute: "2-digit",
+														timeZone: state.timeZone,
+													}).format(firstBlockOfDay.starts_at)}{" "}
 												</span>
 												<span className={`text-style-body-small-bold`}>
 													{event.title}
@@ -297,10 +301,10 @@ function CalendarDayPopup({
 	);
 }
 
-interface CustomCalendarCellWrapperProps extends CalendarCellProps {
+type CustomCalendarCellWrapperProps = CalendarCellProps & {
 	events: Event[];
-	monthDate: Date;
-}
+	monthDate: CalendarDate;
+};
 
 function CustomCalendarCellWrapper({
 	events,
@@ -323,7 +327,7 @@ function CustomCalendarCellWrapper({
 	const eventsForDate = useMemo(() => {
 		return events.filter((event) =>
 			event.blocks.some((block) =>
-				dayjs(date.toDate(state.timeZone)).isSame(block.starts_at, "date"),
+				isSameDay(date, fromDate(block.starts_at, state.timeZone)),
 			),
 		);
 	}, [events, state, date]);
@@ -364,17 +368,16 @@ function CustomCalendarCellWrapper({
 	);
 }
 
-interface CustomCalendarGridProps extends CalendarGridProps {
+type CustomCalendarGridProps = CalendarGridProps & {
 	events: Event[];
-}
+};
 
 function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 	const state: CalendarState = useContext(CalendarStateContext);
 
-	const monthDate = dayjs(state.visibleRange.start.toDate(state.timeZone))
-		.startOf("month")
-		.add(props.offset?.months ?? 0, "month")
-		.toDate();
+	const monthDate = startOfMonth(state.visibleRange.start).add({
+		months: props.offset?.months ?? 0,
+	});
 
 	return (
 		<CalendarGrid {...props} className={style.grid}>
@@ -402,18 +405,31 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 
 function CustomHeading() {
 	const state: CalendarState = useContext(CalendarStateContext);
+	const locale = getLocale();
 
 	const firstMonthName = useMemo(
-		() => dayjs(state.visibleRange.start.toDate(state.timeZone)).format("MMMM"),
-		[state],
+		() =>
+			new Intl.DateTimeFormat(locale, {
+				month: "long",
+				timeZone: state.timeZone,
+			}).format(state.visibleRange.start.toDate(state.timeZone)),
+		[state, locale],
 	);
 	const lastMonthName = useMemo(
-		() => dayjs(state.visibleRange.end.toDate(state.timeZone)).format("MMMM"),
-		[state],
+		() =>
+			new Intl.DateTimeFormat(locale, {
+				month: "long",
+				timeZone: state.timeZone,
+			}).format(state.visibleRange.end.toDate(state.timeZone)),
+		[state, locale],
 	);
 	const lastYearName = useMemo(
-		() => dayjs(state.visibleRange.end.toDate(state.timeZone)).format("YYYY"),
-		[state],
+		() =>
+			new Intl.DateTimeFormat(locale, {
+				year: "numeric",
+				timeZone: state.timeZone,
+			}).format(state.visibleRange.end.toDate(state.timeZone)),
+		[state, locale],
 	);
 
 	const shouldShowSecondMonth = useMemo(
@@ -426,13 +442,12 @@ function CustomHeading() {
 			aria-hidden={true}
 			className={`_text-style-headline-6 ${style.calendarHeading}`}
 		>
-			{firstMonthName}{" "}
-			{shouldShowSecondMonth ? (
-				<>
-					<span className={style.calendarHeadingDisabled}> to </span>{" "}
-					{lastMonthName}
-				</>
-			) : null}
+			{shouldShowSecondMonth
+				? m.events_calendar_month_range({
+						startMonth: firstMonthName,
+						endMonth: lastMonthName,
+					})
+				: firstMonthName}
 			<span className={style.calendarHeadingDisabled}> {lastYearName}</span>
 		</h2>
 	);
@@ -444,6 +459,7 @@ interface CalendarProps {
 
 export function Calendar({ events }: CalendarProps) {
 	const isClient = useIsOnClient();
+	const locale = getLocale();
 
 	const windowSize = useWindowSize();
 
@@ -465,8 +481,10 @@ export function Calendar({ events }: CalendarProps) {
 
 		for (const event of events) {
 			for (const block of event.blocks) {
-				const dateString = dayjs(block.starts_at).format("YYYY-MM-DD");
-				selectedDates.set(dateString, parseDate(dateString));
+				const date = toCalendarDate(
+					fromDate(block.starts_at, getLocalTimeZone()),
+				);
+				selectedDates.set(date.toString(), date);
 			}
 		}
 
@@ -479,39 +497,41 @@ export function Calendar({ events }: CalendarProps) {
 	if (!isClient) return null;
 
 	return (
-		<AriaCalendar
-			className={style.calendar}
-			aria-label="Events calendar"
-			visibleDuration={visibleDuration}
-			selectionMode="multiple"
-			value={selectedEventDates}
-			defaultFocusedValue={today(getLocalTimeZone())}
-			isReadOnly
-		>
-			<header className={style.calendarHeader}>
-				<CustomButton
-					slot="previous"
-					className={style.arrowButton}
-					type="submit"
-					dangerouslySetInnerHTML={{ __html: arrow_left }}
-				/>
-				<CustomHeading />
-				<CustomButton
-					slot="next"
-					className={style.arrowButton}
-					type="submit"
-					dangerouslySetInnerHTML={{ __html: arrow_right }}
-				/>
-			</header>
-			<div className={style.gridContainer}>
-				<CustomCalendarGrid events={events} />
-				{isMobile ? null : (
-					<CustomCalendarGrid events={events} offset={{ months: 1 }} />
-				)}
-				{isTablet ? null : (
-					<CustomCalendarGrid events={events} offset={{ months: 2 }} />
-				)}
-			</div>
-		</AriaCalendar>
+		<I18nProvider locale={locale}>
+			<AriaCalendar
+				className={style.calendar}
+				aria-label={m.events_calendar_label()}
+				visibleDuration={visibleDuration}
+				selectionMode="multiple"
+				value={selectedEventDates}
+				defaultFocusedValue={today(getLocalTimeZone())}
+				isReadOnly
+			>
+				<header className={style.calendarHeader}>
+					<CustomButton
+						slot="previous"
+						className={style.arrowButton}
+						type="submit"
+						dangerouslySetInnerHTML={{ __html: arrow_left }}
+					/>
+					<CustomHeading />
+					<CustomButton
+						slot="next"
+						className={style.arrowButton}
+						type="submit"
+						dangerouslySetInnerHTML={{ __html: arrow_right }}
+					/>
+				</header>
+				<div className={style.gridContainer}>
+					<CustomCalendarGrid events={events} />
+					{isMobile ? null : (
+						<CustomCalendarGrid events={events} offset={{ months: 1 }} />
+					)}
+					{isTablet ? null : (
+						<CustomCalendarGrid events={events} offset={{ months: 2 }} />
+					)}
+				</div>
+			</AriaCalendar>
+		</I18nProvider>
 	);
 }

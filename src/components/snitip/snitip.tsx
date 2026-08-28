@@ -6,6 +6,8 @@ import iconSearch from "#src/icons/search.svg?raw";
 import { buildSearchQuery } from "#src/views/search/search.ts";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import style from "./snitip.module.scss";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 export interface SnitipProps extends HTMLAttributes<HTMLDivElement> {
 	snitip: SnitipInfo;
@@ -24,6 +26,9 @@ export function SnitipContent({
 	headingTabIndex,
 	includeSearchTags = true,
 }: SnitipProps) {
+	const locale = getLocale();
+	const searchHref = localizeHref("/search", { locale });
+
 	return (
 		<>
 			<div class={style.containerTitle}>
@@ -56,7 +61,7 @@ export function SnitipContent({
 					dangerouslySetInnerHTML={{ __html: snitip.content }}
 				/>
 				{snitip.links.length > 0 ? (
-					<ul class={style.links} aria-label="Links" role="list">
+					<ul class={style.links} aria-label={m.label_links()} role="list">
 						{snitip.links.map((link) => (
 							<li key={link.href}>
 								<a class={`${style.links__item} a`} href={link.href}>
@@ -72,13 +77,13 @@ export function SnitipContent({
 					</ul>
 				) : null}
 				{includeSearchTags ? (
-					<ul class={style.tags} aria-label="Tags" role="list">
+					<ul class={style.tags} aria-label={m.title_tags()} role="list">
 						{snitip.tagsMeta.size > 0 ? (
 							[...snitip.tagsMeta.entries()].map(([tag, tagInfo]) => (
 								<li key={tag}>
 									<Chip
 										tag="a"
-										href={`/search?${buildSearchQuery({
+										href={`${searchHref}?${buildSearchQuery({
 											searchQuery: "*",
 											filterTags: [tag],
 										})}`}
@@ -98,7 +103,7 @@ export function SnitipContent({
 							<li>
 								<Chip
 									tag="a"
-									href={`/search?${buildSearchQuery({
+									href={`${searchHref}?${buildSearchQuery({
 										searchQuery: snitip.title,
 									})}`}
 									icon={
@@ -109,7 +114,7 @@ export function SnitipContent({
 										/>
 									}
 								>
-									Search for &lsquo;{snitip.title}&rsquo;
+									{m.action_search_for_term({ term: snitip.title })}
 								</Chip>
 							</li>
 						)}

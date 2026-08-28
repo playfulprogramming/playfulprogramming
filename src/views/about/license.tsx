@@ -5,6 +5,8 @@ import { Dialog } from "#components/dialog/dialog.tsx";
 import close from "#src/icons/close.svg?raw";
 import { createPortal } from "preact/compat";
 
+import { m } from "#src/paraglide/messages.js";
+
 interface LicenseProps {
 	name: string;
 	explainerHtml: string;
@@ -86,7 +88,7 @@ export function LicenseDialog({
 				<LargeIconOnlyButton
 					tag="button"
 					class={style.closeButton}
-					aria-label="Close"
+					aria-label={m.action_close()}
 				>
 					<span
 						style="display: flex;"

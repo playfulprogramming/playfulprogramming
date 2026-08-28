@@ -8,31 +8,29 @@
 
 	--checkbox_on_container_size: 24px;
 	--checkbox_on_container_corner-radius: 6px;
-	--checkbox_on_container_color_default: var(--primary_variant);
-	--checkbox_on_container_color_hovered: var(--primary_variant);
-	--checkbox_on_container_color_pressed: var(--primary_variant);
+	--checkbox_on_container_color_default: var(--primary_low);
+	--checkbox_on_container_color_hovered: var(--primary_low);
+	--checkbox_on_container_color_pressed: var(--primary_low);
 	--checkbox_on_container_color_disabled: var(--background_disabled);
 
 	--checkbox_on_border_color_default: var(--transparent);
-	--checkbox_on_border_color_hovered: var(--primary_default);
-	--checkbox_on_border_color_pressed: var(--primary_on-variant);
+	--checkbox_on_border_color_hovered: var(--primary_medium);
+	--checkbox_on_border_color_pressed: var(--primary_on-low);
 	--checkbox_on_border_color_disabled: var(--transparent);
 
-	--checkbox_on_checkmark_color_default: var(--primary_on-variant);
+	--checkbox_on_checkmark_color_default: var(--primary_on-low);
 	--checkbox_on_checkmark_color_disabled: var(--foreground_disabled);
 
 	--checkbox_off_container_size: 18px;
 	--checkbox_off_container_corner-radius: 4px;
 	--checkbox_off_container_color_default: var(--transparent);
-	--checkbox_off_container_color_hovered: var(
-		--surface_primary_emphasis-medium
-	);
-	--checkbox_off_container_color_pressed: var(--primary_variant);
+	--checkbox_off_container_color_hovered: var(--tint_primary_medium);
+	--checkbox_off_container_color_pressed: var(--primary_low);
 	--checkbox_off_container_color_disabled: var(--background_disabled);
 
 	--checkbox_off_border_color_default: var(--foreground_disabled);
-	--checkbox_off_border_color_hovered: var(--primary_default);
-	--checkbox_off_border_color_pressed: var(--primary_on-variant);
+	--checkbox_off_border_color_hovered: var(--primary_medium);
+	--checkbox_off_border_color_pressed: var(--primary_on-low);
 	--checkbox_off_border_color_disabled: var(--background_disabled);
 }
 

@@ -1,7 +1,8 @@
-import { useMemo } from "preact/hooks";
 import info from "#src/icons/info.svg?raw";
 import style from "./search-result-count.module.scss";
 import { forwardRef } from "preact/compat";
+import { getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 interface SearchResultCountProps {
 	numberOfPosts?: number;
@@ -12,25 +13,29 @@ export const SearchResultCount = forwardRef<
 	HTMLDivElement | null,
 	SearchResultCountProps
 >(({ numberOfPosts, numberOfCollections }, ref) => {
-	const language = useMemo(() => {
-		let languageStr = "";
-		if (numberOfPosts && numberOfPosts > 0) {
-			languageStr += `${numberOfPosts} post`;
-			if (numberOfPosts > 1) {
-				languageStr += "s";
-			}
-		}
-		if (numberOfCollections && numberOfCollections > 0) {
-			if (languageStr !== "") {
-				languageStr += " and ";
-			}
-			languageStr += `${numberOfCollections} collection`;
-			if (numberOfCollections > 1) {
-				languageStr += "s";
-			}
-		}
-		return languageStr;
-	}, [numberOfPosts, numberOfCollections]);
+	const locale = getLocale();
+	const posts = numberOfPosts
+		? numberOfPosts === 1
+			? m.search_count_post_one({
+					count: numberOfPosts.toLocaleString(locale),
+				})
+			: m.search_count_post_other({
+					count: numberOfPosts.toLocaleString(locale),
+				})
+		: undefined;
+	const collections = numberOfCollections
+		? numberOfCollections === 1
+			? m.search_count_collection_one({
+					count: numberOfCollections.toLocaleString(locale),
+				})
+			: m.search_count_collection_other({
+					count: numberOfCollections.toLocaleString(locale),
+				})
+		: undefined;
+	const resultCount =
+		posts && collections
+			? m.search_count_mixed({ posts, collections })
+			: (posts ?? collections ?? "");
 
 	return (
 		<div className={style.container} ref={ref} tabIndex={-1}>
@@ -40,7 +45,7 @@ export const SearchResultCount = forwardRef<
 				dangerouslySetInnerHTML={{ __html: info }}
 			/>
 			<h2 className={`text-style-body-large-bold ${style.text}`}>
-				We found {language} in your search
+				{m.search_count_summary({ resultCount })}
 			</h2>
 		</div>
 	);

@@ -75,7 +75,7 @@ pre code .line::before {
 }
 
 pre code .line.highlight::before {
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 }
 
 pre.shiki .line {
@@ -90,19 +90,19 @@ pre.shiki .line {
  */
 pre.shiki .line.highlight {
 	font-weight: bold;
-	background-color: var(--surface_primary_emphasis-none);
-	--shiki-dark-bg: var(--surface_primary_emphasis-none);
+	background-color: var(--tint_primary_none);
+	--shiki-dark-bg: var(--tint_primary_none);
 }
 
 pre.shiki .line:not(.highlight) + .line.highlight,
 pre.shiki .line:first-child.highlight {
-	border-top: 2px dashed var(--primary_default);
+	border-top: 2px dashed var(--primary_medium);
 }
 
 pre.shiki .line.highlight + .line:not(.highlight) {
-	border-top: 2px dashed var(--primary_default);
+	border-top: 2px dashed var(--primary_medium);
 }
 
 pre.shiki .line:last-child.highlight {
-	border-bottom: 2px dashed var(--primary_default);
+	border-bottom: 2px dashed var(--primary_medium);
 }

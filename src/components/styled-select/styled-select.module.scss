@@ -1,0 +1,206 @@
+@use "src/tokens/index" as *;
+@use "../select/popup.module";
+
+.root {
+	--styled-select_picker-min-width: 192px;
+
+	position: relative;
+	display: grid;
+	grid-template-columns:
+		minmax(0, 1fr)
+		calc(
+			var(--btn_regular_icon_size_default) +
+				var(--btn_regular_padding-horizontal)
+		);
+	min-width: 0;
+	min-height: var(--btn_regular_min-height);
+	align-items: center;
+	color: var(--btn_primary_foreground-color_default);
+	background: var(--btn_primary_background-color_default);
+	border-radius: var(--corner-radius_circular);
+	@include transition(color background-color);
+}
+
+.select {
+	position: relative;
+	z-index: 1;
+	box-sizing: border-box;
+	grid-column: 1 / -1;
+	grid-row: 1;
+	width: 100%;
+	min-width: 0;
+	min-height: var(--btn_regular_min-height);
+	padding: var(--btn_regular_padding-vertical)
+		calc(
+			var(--btn_regular_padding-horizontal) +
+				var(--btn_regular_icon_size_default) +
+				var(--btn_regular_label_padding-horizontal)
+		)
+		var(--btn_regular_padding-vertical)
+		calc(
+			var(--btn_regular_padding-horizontal) +
+				var(--btn_regular_label_padding-horizontal)
+		);
+	appearance: none;
+	color: inherit;
+	background: transparent;
+	border: 0;
+	border-radius: inherit;
+	outline: 0;
+	cursor: pointer;
+	font-family: var(--styled-select_font-family, var(--pfp-font-family-brand));
+	font-size: var(--button_regular_font-size);
+	font-weight: var(--weight_semibold);
+	line-height: var(--button_regular_line-height);
+}
+
+.select option {
+	font-family: var(--styled-select_option-font-family, inherit);
+}
+
+.select:focus-visible {
+	outline: var(--btn_primary_focus-outline_width) solid
+		var(--btn_primary_focus-outline_color);
+	outline-offset: var(--btn_primary_focus-outline_gap);
+}
+
+.icon {
+	z-index: 0;
+	display: block;
+	grid-column: 2;
+	grid-row: 1;
+	width: var(--btn_regular_icon_size_default);
+	height: var(--btn_regular_icon_size_default);
+	margin-right: var(--btn_regular_padding-horizontal);
+	pointer-events: none;
+	transform-origin: center;
+	transition: transform 300ms ease-in-out;
+}
+
+.root:has(.select:hover:not(:disabled)) {
+	background: var(--btn_primary_background-color_default_hovered);
+}
+
+.root:has(.select:active:not(:disabled)) {
+	background: var(--btn_primary_background-color_default_pressed);
+}
+
+.root:has(.select:disabled) {
+	color: var(--btn_disabled_foreground-color);
+	background: var(--btn_disabled_background-color);
+}
+
+.select:disabled {
+	cursor: not-allowed;
+}
+
+@supports (appearance: base-select) and selector(select::picker(select)) {
+	.select {
+		appearance: base-select;
+	}
+
+	.select::picker(select) {
+		appearance: base-select;
+	}
+
+	.select::picker-icon {
+		display: none;
+	}
+
+	.select::picker(select) {
+		box-sizing: border-box;
+		inline-size: max-content;
+		min-inline-size: var(--styled-select_picker-min-width);
+		max-inline-size: calc(100vw - var(--spc-8x));
+		max-block-size: min(320px, calc(100dvh - var(--spc-8x)));
+		margin-block-start: var(--popup_top_offset);
+		padding: var(--popup_padding);
+		overflow: auto;
+		color: var(--popup_item_label_color);
+		background: var(--popup_background-color);
+		border: var(--popup_border_width) solid var(--popup_border_color);
+		border-radius: var(--popup_corner-radius);
+		box-shadow: var(--shadow_popup);
+		font-family: var(--pfp-font-family-brand);
+		font-size: var(--button_regular_font-size);
+		font-weight: var(--weight_semibold);
+		line-height: var(--button_regular_line-height);
+	}
+
+	@supports (inline-size: anchor-size(width)) {
+		.select::picker(select) {
+			inline-size: anchor-size(width);
+		}
+	}
+
+	.select option {
+		display: flex;
+		box-sizing: border-box;
+		width: 100%;
+		min-height: var(--popup_item_min-height);
+		align-items: center;
+		gap: var(--spc-2x);
+		padding: var(--popup_item_padding);
+		color: var(--popup_item_label_color);
+		background: transparent;
+		border: 0;
+		border-radius: var(--popup_item_corner-radius);
+		outline: none;
+		cursor: pointer;
+		font: inherit;
+		font-family: var(--styled-select_option-font-family, inherit);
+		white-space: nowrap;
+		@include transition(background-color);
+	}
+
+	.select option:checked {
+		background: var(--popup_item_background-color_selected);
+	}
+
+	.select option:hover {
+		background: var(--popup_item_background-color_hovered);
+	}
+
+	.select option:active {
+		background: var(--popup_item_background-color_pressed);
+	}
+
+	.select option:focus,
+	.select option:focus-visible {
+		background: var(--popup_item_background-color_focused);
+		outline: var(--border-width_focus) solid var(--focus-outline_primary);
+	}
+
+	.select option:disabled {
+		color: var(--foreground_disabled);
+		cursor: not-allowed;
+	}
+
+	.select option::checkmark {
+		order: 1;
+		width: var(--popup_item_icon-size);
+		height: var(--popup_item_icon-size);
+		margin-inline-start: auto;
+		background-color: var(--popup_item_check-icon_color);
+		content: "";
+		-webkit-mask: url("../../icons/checkmark.svg") center / contain no-repeat;
+		mask: url("../../icons/checkmark.svg") center / contain no-repeat;
+	}
+
+	.root:has(.select:open) {
+		color: var(--btn_primary_foreground-color_emphasized);
+		background: var(--btn_primary_background-color_emphasized);
+	}
+
+	.root:has(.select:open) .icon {
+		transform: rotate(-180deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.root,
+	.icon,
+	.select option {
+		transition-duration: 0.01ms;
+	}
+}

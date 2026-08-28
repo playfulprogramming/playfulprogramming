@@ -4,6 +4,7 @@
 	// have consumers: Section, desktopLarge, the MSW-aware `it`, and
 	// isSupported, respectively.
 	"ignoreIssues": {
+		"src/paraglide/runtime.js": ["exports"],
 		"src/components/select/select.tsx": ["exports"],
 		"src/tokens/breakpoints.ts": ["exports"],
 		"src/ui-test-utils/index.ts": ["exports"],
@@ -34,6 +35,7 @@
 			// Knip does not resolve these aliased Sass @use edges. These partials
 			// are loaded by src/styles/post-body.scss, then src/global.scss.
 			"ignoreFiles": [
+				"src/paraglide/**/*",
 				"src/styles/markdown/base.scss",
 				"src/styles/markdown/blockquote.scss",
 				"src/styles/markdown/codeblock.scss",

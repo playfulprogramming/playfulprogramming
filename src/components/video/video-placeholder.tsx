@@ -6,6 +6,8 @@ import YoutubeIcon from "#src/icons/youtube.svg?raw";
 import style from "./video-placeholder.module.scss";
 import type { HTMLAttributes } from "preact/compat";
 
+import { m } from "#src/paraglide/messages.js";
+
 // This is hardcoded as 'false' because youtube does not support embedding within an iframe
 // in credentialless mode.
 // TODO: Once https://github.com/playfulprogramming/playfulprogramming/issues/1496 is resolved,
@@ -68,7 +70,7 @@ export function VideoPlaceholder({
 				</div>
 				<div class={style.headerInfo}>
 					<p>
-						<span class="visually-hidden">An embedded webpage:</span>
+						<span class="visually-hidden">{m.label_embedded_webpage()}</span>
 						{props.pageTitle}
 					</p>
 				</div>
@@ -91,7 +93,7 @@ export function VideoPlaceholder({
 						class={style.placeholderButton}
 						tag={isCredentiallessSupported ? "button" : "a"}
 						variant="primary"
-						aria-label="Play video"
+						aria-label={m.action_play_video()}
 						{...(isCredentiallessSupported
 							? {
 									onClick: () => setFrameVisible(true),

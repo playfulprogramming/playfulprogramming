@@ -6,7 +6,7 @@ import type { EventBlock } from "../events/types.ts";
 import type { UrlMetadataResponse } from "#utils/hoof/index.ts";
 import { EventChip } from "../events/components/event-chip/event-chip.tsx";
 import { LargeButton } from "#components/button/button.tsx";
-import dayjs from "dayjs";
+import { formatDate } from "#utils/date.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import style from "./book-club.module.scss";
 
@@ -26,7 +26,11 @@ function BookClubLargeCard({ eventBlock }: BookClubLargeCardProps) {
 	return (
 		<li className={style.largeCardContainer}>
 			<p className={`text-style-headline-5 ${style.largeEventBlockDate}`}>
-				{dayjs(eventBlock.starts_at).format("dddd, MMM D")}
+				{formatDate(eventBlock.starts_at, {
+					weekday: "long",
+					month: "short",
+					day: "numeric",
+				})}
 			</p>
 			<div
 				className={style.largeCard}
@@ -65,7 +69,11 @@ function BookClubSmallCard({ eventBlock }: BookClubSmallCardProps) {
 	return (
 		<li className={style.smallCardContainer}>
 			<p className={`text-style-headline-5 ${style.smallEventBlockDate}`}>
-				{dayjs(eventBlock.starts_at).format("MMM D, YYYY")}
+				{formatDate(eventBlock.starts_at, {
+					month: "short",
+					day: "numeric",
+					year: "numeric",
+				})}
 			</p>
 			<div
 				className={style.smallCard}

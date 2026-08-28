@@ -5,9 +5,11 @@ import * as api from "#utils/api.ts";
 import CollectionPage from "#src/views/collections/collection-page.astro";
 import CollectionChapter from "#src/views/collections/collection-chapter.astro";
 import { SubHeader } from "#src/components/subheader/subheader.tsx";
-import { translate } from "#utils/translations.ts";
-import type { CurrentPost, FuturePost, Languages } from "#types/index.ts";
+import { isValidLocaleRouteParam } from "#utils/locales.ts";
+import type { CurrentPost, FuturePost } from "#types/index.ts";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
+import { baseLocale, getLocale, localizeHref } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 export async function getStaticPaths() {
 	const collections = api.getAllCollections();
@@ -17,7 +19,8 @@ export async function getStaticPaths() {
 		.map((collection) => {
 			return {
 				params: {
-					locale: collection.locale !== "en" ? collection.locale : undefined,
+					locale:
+						collection.locale !== baseLocale ? collection.locale : undefined,
 					slug: collection.slug,
 				},
 				props: {},
@@ -26,11 +29,15 @@ export async function getStaticPaths() {
 }
 
 const params = Astro.params as {
-	locale?: Languages;
+	locale?: string;
 	slug: string;
 };
 
-const locale = params.locale || "en";
+if (!isValidLocaleRouteParam(params.locale)) {
+	return Astro.rewrite("/404");
+}
+
+const locale = getLocale();
 const collection = api.getCollectionBySlug(params.slug, locale)!;
 const collectionPosts = api.getPostsByCollection(params.slug, locale);
 const authors = collection.authors.map(
@@ -55,9 +62,13 @@ if (collection?.chapterList?.length) {
 		let externalLink = false;
 		if (isCurrentPost(post)) {
 			const postData = api.getPostBySlug(post.post, locale);
-			title = postData?.title || "No title";
-			description = postData?.description || "No description";
-			href = post?.post ? `/posts/${post.post}` : undefined;
+			title = postData?.title || m.fallback_no_title();
+			description = postData?.description || m.fallback_no_description();
+			href = post?.post
+				? localizeHref(`/posts/${post.post}`, {
+						locale: postData?.locale ?? locale,
+					})
+				: undefined;
 		} else {
 			title = post.title;
 			description = post.description || "";
@@ -74,11 +85,11 @@ if (collection?.chapterList?.length) {
 	});
 } else if (collectionPosts?.length) {
 	collectionData = collectionPosts.map(
-		({ order, title, description, slug }, i) => ({
+		({ order, title, description, slug, locale: postLocale }, i) => ({
 			num: order || i + 1,
 			title,
 			description,
-			href: `/posts/${slug}`,
+			href: localizeHref(`/posts/${slug}`, { locale: postLocale }),
 			externalLink: false,
 			collection,
 		}),
@@ -107,7 +118,7 @@ if (collection?.chapterList?.length) {
 		/>
 		<section class="collection-post-list-container">
 			<div class="collection-post-list">
-				<SubHeader tag="h2" text={translate(Astro, "desc.chapter_listing")} />
+				<SubHeader tag="h2" text={m.desc_chapter_listing()} />
 				<ol>
 					{
 						collectionData.map((props) => {
@@ -126,7 +137,7 @@ if (collection?.chapterList?.length) {
 
 <style>
 	.collection-post-list-container {
-		background: var(--surface_primary_emphasis-none);
+		background: var(--tint_primary_none);
 	}
 
 	.collection-post-list {

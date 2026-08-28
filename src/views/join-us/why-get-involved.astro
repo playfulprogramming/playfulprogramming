@@ -1,9 +1,12 @@
 ---
 import style from "./why-get-involved.module.scss";
+import { m } from "#src/paraglide/messages.js";
 ---
 
 <section>
-	<h2 id="why-contribute" class={style.srOnly}>Why contribute?</h2>
+	<h2 id="why-contribute" class={style.srOnly}>
+		{m.join_us_why_title()}
+	</h2>
 	<ul class={style.illustrationList} aria-labelledby="why-contribute">
 		<li class={style.illustrationListItem}>
 			<!-- Replace with an `img` tag -->
@@ -17,7 +20,7 @@ import style from "./why-get-involved.module.scss";
 			</div>
 			<div class={style.illustrationTextContainer}>
 				<p class={`text-style-headline-6 ${style.illustrationText}`}>
-					Gain real-world writing and development experience
+					{m.join_us_why_experience()}
 				</p>
 			</div>
 		</li>
@@ -33,7 +36,7 @@ import style from "./why-get-involved.module.scss";
 			</div>
 			<div class={style.illustrationTextContainer}>
 				<p class={`text-style-headline-6 ${style.illustrationText}`}>
-					Receive a letter of recommendation from project leaders
+					{m.join_us_why_recommendation()}
 				</p>
 			</div>
 		</li>
@@ -49,7 +52,7 @@ import style from "./why-get-involved.module.scss";
 			</div>
 			<div class={style.illustrationTextContainer}>
 				<p class={`text-style-headline-6 ${style.illustrationText}`}>
-					Own a slice of a growing community of computer science experts
+					{m.join_us_why_community()}
 				</p>
 			</div>
 		</li>

@@ -6,6 +6,7 @@ import { events } from "../../views/events/constants.ts";
 import type { UrlMetadataResponse } from "#utils/hoof/index.ts";
 import { getUrlMetadata } from "#utils/hoof/index.ts";
 import type { Event, EventBlock } from "../../views/events/types.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 const event: Event = events.find((e) => e.slug === "book-club")!;
 
@@ -29,7 +30,7 @@ for (const block of event.blocks) {
 }
 ---
 
-<Document lang={"en"} size="l" disableDiscord>
+<Document lang={baseLocale} size="l" disableDiscord>
 	<SEO
 		title="Book Club"
 		description="In our weekly book club, we hang out and chat about a topic or a specific article!"

@@ -6,6 +6,7 @@ import { toString } from "hast-util-to-string";
 import { SuperScriptLink } from "./link.tsx";
 import * as api from "#utils/api.ts";
 import type { MarkdownVFile } from "../types.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 export interface CollectionLinks {
 	node: Node;
@@ -36,10 +37,10 @@ export const rehypeReferencePage: Plugin<
 	return (tree, vfile) => {
 		const post = (vfile as MarkdownVFile).data.frontmatter as PostInfo;
 		const collection = post.collection
-			? api.getCollectionBySlug(post.collection, "en")
+			? api.getCollectionBySlug(post.collection, baseLocale)
 			: undefined;
 		const collectionPosts = post.collection
-			? api.getPostsByCollection(post.collection, "en")
+			? api.getPostsByCollection(post.collection, baseLocale)
 			: [];
 		if (!collection || !collectionPosts.length) return;
 

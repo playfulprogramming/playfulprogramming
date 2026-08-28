@@ -8,6 +8,7 @@ import type {
 } from "#components/pagination/types.ts";
 import { usePagination } from "./use-pagination.ts";
 import { onSoftNavClick } from "./on-click-base.ts";
+import { m } from "#src/paraglide/messages.js";
 
 function PaginationButton({
 	pageInfo,
@@ -36,7 +37,9 @@ function PaginationButton({
 				onClick={
 					softNavigate ? onSoftNavClick(softNavigate, pageNum) : undefined
 				}
-				aria-label={`Go to page ${pageNum}`}
+				aria-label={m.pagination_go_to_page_number({
+					pageNumber: String(pageNum),
+				})}
 				aria-current={selected || undefined}
 			>
 				{`${pageNum}`}
@@ -79,7 +82,7 @@ export const Pagination = ({
 		<>
 			<div
 				role="navigation"
-				aria-label="Pagination Navigation"
+				aria-label={m.pagination_label()}
 				data-testid={testId}
 				className={divClassName}
 			>
@@ -88,7 +91,7 @@ export const Pagination = ({
 						<a
 							data-testid="pagination-previous"
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
-							aria-label="Previous page"
+							aria-label={m.pagination_previous()}
 							href={
 								!isPreviousEnabled
 									? "javascript:void(0)"
@@ -138,7 +141,7 @@ export const Pagination = ({
 									? onSoftNavClick(softNavigate, page.currentPage + 1)
 									: undefined
 							}
-							aria-label="Next page"
+							aria-label={m.pagination_next()}
 							aria-disabled={!isNextEnabled}
 							dangerouslySetInnerHTML={{ __html: forward }}
 						/>

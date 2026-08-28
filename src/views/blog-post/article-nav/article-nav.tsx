@@ -4,6 +4,8 @@ import arrow_left from "../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../icons/arrow_right.svg?raw";
 import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
+import { localizeHref } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 type ArticleNavItemProps = {
 	post: PostInfo;
@@ -12,7 +14,7 @@ type ArticleNavItemProps = {
 };
 
 function ArticleNavItem({ post, collection, type }: ArticleNavItemProps) {
-	const href = `/posts/${post.slug}`;
+	const href = localizeHref(`/posts/${post.slug}`, { locale: post.locale });
 	return (
 		<div
 			class={`${style.item} ${style[`item--${type}`]}`}
@@ -24,11 +26,11 @@ function ArticleNavItem({ post, collection, type }: ArticleNavItemProps) {
 						class={`${style.icon}`}
 						dangerouslySetInnerHTML={{ __html: arrow_left }}
 					/>
-					Previous article
+					{m.action_previous_article()}
 				</span>
 			) : (
 				<span class={`${style.item__overline} text-style-button-regular`}>
-					Next article
+					{m.action_next_article()}
 					<span
 						class={`${style.icon}`}
 						dangerouslySetInnerHTML={{ __html: arrow_right }}

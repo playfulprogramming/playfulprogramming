@@ -4,6 +4,8 @@ import { useStore } from "@nanostores/preact";
 import { $quizState } from "./atom.ts";
 import type { ComponentChildren } from "preact";
 
+import { m } from "#src/paraglide/messages.js";
+
 export interface QuizRadioInlineProps {
 	id: string;
 	quizId?: string;
@@ -61,10 +63,10 @@ export function QuizRadioInline(props: QuizRadioInlineProps) {
 			explanation: isSubmitted
 				? option.isCorrect
 					? option.id === questionState?.selectedAnswer
-						? "You got it!"
-						: "The correct answer"
+						? m.quiz_feedback_correct_selected()
+						: m.quiz_feedback_correct_answer()
 					: option.id === questionState?.selectedAnswer
-						? "You answered"
+						? m.quiz_feedback_incorrect_selected()
 						: undefined
 				: undefined,
 		}));

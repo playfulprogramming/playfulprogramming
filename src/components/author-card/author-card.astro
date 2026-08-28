@@ -1,6 +1,7 @@
 ---
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
-import { translate } from "#utils/translations.ts";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 import { Button } from "#components/button/button.tsx";
 import { Picture } from "#components/image/picture.tsx";
@@ -11,8 +12,9 @@ export interface Props {
 }
 
 const { author } = Astro.props as Props;
+const locale = getLocale();
 
-const href = `/people/${author.id}`;
+const href = localizeHref(`/people/${author.id}`, { locale: author.locale });
 ---
 
 <div class={styles.authorContainer} {...getHrefContainerProps(href)}>
@@ -31,27 +33,23 @@ const href = `/people/${author.id}`;
 		<p class={`text-style-body-large ${styles.authorTextContainer}`}>
 			<span class={`text-style-body-medium-bold ${styles.authorArticles}`}>
 				{
-					translate(
-						Astro,
-						"title.n_articles",
-						author.totalPostCount.toLocaleString("en"),
-					)
+					m.title_n_articles({
+						count: author.totalPostCount.toLocaleString(locale),
+					})
 				}
 			</span>
 			<span class={styles.authorMetaSeperatorDot}>•</span>
 			<span class={`text-style-body-medium-bold ${styles.authorWordCount}`}>
 				{
-					translate(
-						Astro,
-						"title.n_words",
-						author.totalWordCount.toLocaleString("en"),
-					)
+					m.title_n_words({
+						count: author.totalWordCount.toLocaleString(locale),
+					})
 				}
 			</span>
 		</p>
 	</div>
 	<Button tag="a" href={href} class={styles.viewProfileBtn}>
-		{translate(Astro, "action.view_profile")}
+		{m.action_view_profile()}
 	</Button>
 	<div class={`text-style-body-medium ${styles.authorDescription}`}>
 		{author.description}

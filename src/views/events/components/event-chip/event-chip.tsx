@@ -2,6 +2,7 @@ import location from "#src/icons/location.svg?raw";
 import wifi from "#src/icons/wifi.svg?raw";
 import repeat from "#src/icons/repeat.svg?raw";
 import style from "./event-chip.module.scss";
+import { m } from "#src/paraglide/messages.js";
 
 interface BaseEventChipProps {
 	// With icon or without
@@ -23,6 +24,13 @@ interface RecurringChipProps extends BaseEventChipProps {
 
 type EventChipProps = InPersonChipProps | OnlineChipProps | RecurringChipProps;
 
+const recurrenceMessages = {
+	day: m.events_recurrence_day,
+	week: m.events_recurrence_week,
+	month: m.events_recurrence_month,
+	year: m.events_recurrence_year,
+};
+
 export function EventChip(props: EventChipProps) {
 	let icon: string;
 	let borderColor: string;
@@ -33,27 +41,27 @@ export function EventChip(props: EventChipProps) {
 	switch (props.variant) {
 		case "in-person": {
 			icon = location;
-			background = "var(--surface_positive_emphasis-low)";
-			borderColor = "var(--positive_variant)";
-			color = "var(--positive_on-variant)";
-			label = "In-person";
+			background = "var(--positive_container)";
+			borderColor = "var(--positive_low)";
+			color = "var(--positive_on-container)";
+			label = m.events_type_in_person();
 			break;
 		}
 		case "recurring": {
 			icon = repeat;
-			background = "var(--surface_secondary_emphasis-low)";
-			borderColor = "var(--secondary_variant)";
-			color = "var(--secondary_on-variant)";
-			label = `Every ${props.every}`;
+			background = "var(--secondary_container)";
+			borderColor = "var(--secondary_low)";
+			color = "var(--secondary_on-container)";
+			label = recurrenceMessages[props.every]();
 			break;
 		}
 		case "online":
 		default: {
 			icon = wifi;
-			background = "var(--surface_primary_emphasis-low)";
-			borderColor = "var(--primary_variant)";
-			color = "var(--primary_on-variant)";
-			label = "Online";
+			background = "var(--primary_container)";
+			borderColor = "var(--primary_low)";
+			color = "var(--primary_on-container)";
+			label = m.events_type_online();
 			break;
 		}
 	}

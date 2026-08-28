@@ -11,6 +11,7 @@ import { FilterSidebarControls } from "./filter-sidebar-controls.tsx";
 import type { FilterState } from "../use-filter-state.ts";
 import { useState, useMemo, useEffect } from "preact/hooks";
 import { SearchInput } from "#components/input/input.tsx";
+import { m } from "#src/paraglide/messages.js";
 
 interface FilterSidebarProps {
 	desktopStyle?: CSSProperties;
@@ -75,7 +76,7 @@ export const FilterSidebar = ({
 			}}
 			inert={hideSearchbar}
 		>
-			<h2 className="visually-hidden">Filters</h2>
+			<h2 className="visually-hidden">{m.title_filters()}</h2>
 			<LargeButton
 				tag="button"
 				type="button"
@@ -84,7 +85,7 @@ export const FilterSidebar = ({
 					(document.querySelector("#search-bar") as HTMLInputElement).focus()
 				}
 			>
-				Jump to search bar
+				{m.action_jump_to_search_bar()}
 			</LargeButton>
 
 			<FilterSidebarControls
@@ -96,7 +97,8 @@ export const FilterSidebar = ({
 				numberOfCollections={numberOfCollections}
 			/>
 			<FilterSection
-				title={"Tag"}
+				title={m.title_tag()}
+				selectedLabel={m.search_filter_selected_tags()}
 				data-testid="tag-filter-section-sidebar"
 				selectedNumber={filterState.tags.length}
 				onClear={() => filterState.setTags([])}
@@ -104,7 +106,7 @@ export const FilterSidebar = ({
 					<SearchInput
 						usedInPreact
 						variant="dense"
-						placeholder="Search tags..."
+						placeholder={m.search_placeholder_tags()}
 						value={tagQuery}
 						onInput={(e) =>
 							setTagQuery((e.currentTarget as HTMLInputElement).value)
@@ -140,7 +142,8 @@ export const FilterSidebar = ({
 				})}
 			</FilterSection>
 			<FilterSection
-				title={"Author"}
+				title={m.title_author()}
+				selectedLabel={m.search_filter_selected_authors()}
 				data-testid="author-filter-section-sidebar"
 				selectedNumber={filterState.authors.length}
 				onClear={() => filterState.setAuthors([])}
@@ -148,7 +151,7 @@ export const FilterSidebar = ({
 					<SearchInput
 						usedInPreact
 						variant="dense"
-						placeholder="Search authors..."
+						placeholder={m.search_placeholder_authors()}
 						value={authorQuery}
 						onInput={(e) =>
 							setAuthorQuery((e.currentTarget as HTMLInputElement).value)

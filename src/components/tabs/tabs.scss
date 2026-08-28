@@ -5,20 +5,20 @@
 	--tabbed-wrapper_corner-radius_inner: var(--spc-5x);
 	--tabbed-wrapper_corner-radius_outer: var(--spc-7x);
 
-	--tabbed-wrapper_background-color: var(--surface_primary_emphasis-none);
+	--tabbed-wrapper_background-color: var(--tint_primary_none);
 
 	--tab_min-size: var(--min-target-size_m);
 	--tab_padding-horizontal: var(--spc-5x);
 	--tab_padding-vertical: var(--spc-2x);
 	--tab_corner-radius: var(--tabbed-wrapper_corner-radius_inner);
 
-	--tab_background-color_hovered: var(--surface_primary_emphasis-low);
-	--tab_background-color_pressed: var(--surface_primary_emphasis-high);
-	--tab_background-color_selected: var(--surface_primary_emphasis-medium);
+	--tab_background-color_hovered: var(--tint_primary_low);
+	--tab_background-color_pressed: var(--tint_primary_high);
+	--tab_background-color_selected: var(--tint_primary_medium);
 	--tab_background-color_focused: var(--background_focus);
 
-	--tab_foreground-color: var(--foreground_emphasis-medium);
-	--tab_foreground-color_selected: (--foreground_emphasis-high);
+	--tab_foreground-color: var(--foreground_medium);
+	--tab_foreground-color_selected: var(--foreground_high);
 
 	--tab_focus-outline_width: var(--border-width_focus);
 	--tab_focus-outline_color: var(--focus-outline_primary);

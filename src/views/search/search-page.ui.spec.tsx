@@ -34,6 +34,7 @@ import {
 import type { PersonInfo } from "#types/PersonInfo.ts";
 import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type SearchContext, SearchClient } from "./services.tsx";
 import {
@@ -53,10 +54,11 @@ import type {
 import { collectionSchema, postSchema } from "#utils/search.ts";
 
 const user = userEvent.setup();
+const initialPathname = window.location.pathname;
 
 beforeEach(() => {
 	// Reset URL after each test
-	window.history.replaceState({}, "", window.location.pathname);
+	window.history.replaceState({}, "", initialPathname);
 });
 
 interface FnReply {
@@ -272,6 +274,39 @@ describe("Search page", () => {
 		await user.type(searchInput, MockPost.title);
 		await user.type(searchInput, "{enter}");
 		await waitFor(() => expect(getByText(MockPost.title)).toBeInTheDocument());
+	});
+
+	test("preserves the UI locale for search links and authored locales for content links", async () => {
+		window.history.replaceState(
+			{},
+			"",
+			`/fr/search?${buildSearchQuery({ searchQuery: MockPost.title })}`,
+		);
+		mockPeopleIndex([MockPerson]);
+		const client = mockClient(() => ({
+			posts: [MockPost],
+			totalPosts: 1,
+			totalCollections: 0,
+			collections: [],
+		}));
+
+		const { getByRole } = render(<SearchPage mockClient={client} />);
+
+		await waitFor(() =>
+			expect(getByRole("link", { name: MockPost.title })).toBeInTheDocument(),
+		);
+		expect(getByRole("link", { name: MockPost.title })).toHaveAttribute(
+			"href",
+			`/posts/${MockPost.slug}`,
+		);
+		expect(getByRole("link", { name: MockPerson.name })).toHaveAttribute(
+			"href",
+			`/people/${MockPerson.id}`,
+		);
+		expect(getByRole("link", { name: MockPost.tags[0] })).toHaveAttribute(
+			"href",
+			expect.stringMatching(/^\/fr\/search\?/),
+		);
 	});
 
 	test("Should show search results for collections", async () => {

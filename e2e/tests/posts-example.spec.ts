@@ -51,8 +51,15 @@ test("posts/example renders dark mode", async ({ page }) => {
 	await forceLoadLazyImages(page);
 	await waitForMermaidDiagrams(page);
 
-	await page.click('button[data-theme-toggle="true"]');
-	await expect(page.locator("html")).toHaveClass("dark");
+	await page
+		.getByRole("button", { name: "Customize theme", exact: true })
+		.click();
+	const themeDialog = page.locator("[data-theme-sidebar]");
+	await themeDialog.locator('label[for="theme-mode-dark"]').click();
+	await themeDialog
+		.getByRole("button", { name: "Save changes", exact: true })
+		.click();
+	await expect(page.locator("html")).toHaveClass(/\bdark\b/);
 
 	await expect(page).toHaveScreenshot({
 		fullPage: true,
