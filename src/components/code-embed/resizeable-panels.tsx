@@ -2,7 +2,7 @@ import type { ComponentChildren } from "preact";
 import style from "./resizeable-panels.module.scss";
 import { useEffect, useRef, useState } from "preact/hooks";
 import type { HTMLAttributes } from "preact/compat";
-import { tabletSmall } from "#src/tokens/breakpoints.ts";
+import { tabletSmall } from "#src/constants/breakpoints.ts";
 
 interface ResizeablePanelsProps extends HTMLAttributes<HTMLDivElement> {
 	panelHeight: number;

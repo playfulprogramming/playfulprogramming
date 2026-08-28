@@ -1,4 +1,4 @@
-@use "src/tokens/index" as *;
+@use "../../styles/tokens/index" as *;
 
 :root {
 	--code-embed_border-radius: var(--corner-radius_l);

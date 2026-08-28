@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "preact/hooks";
 import styles from "./filter-dialog.module.scss";
 import { useWindowSize } from "#src/hooks/use-window-size.tsx";
-import { mobile } from "#src/tokens/breakpoints.ts";
+import { mobile } from "#src/constants/breakpoints.ts";
 import { Dialog } from "#components/dialog/dialog.tsx";
 import { FilterSection } from "./filter-section.tsx";
 import type { ExtendedTag, ExtendedUnicorn } from "./types.ts";

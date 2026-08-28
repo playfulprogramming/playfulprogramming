@@ -1,4 +1,4 @@
-@use "src/tokens/index" as *;
+@use "../../../styles/tokens/index" as *;
 
 :root {
 	--search-page_body_max-width: var(--max-width_l);

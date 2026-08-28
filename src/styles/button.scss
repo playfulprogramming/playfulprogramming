@@ -1,4 +1,4 @@
-@use "src/tokens/index" as *;
+@use "./tokens/index" as *;
 
 // These styles are applied globally because they need to be used outside of the
 // src/components/button.tsx, where the isolated modular CSS isn't possible

@@ -34,7 +34,7 @@ import {
 import { IconOnlyButton } from "#components/button/button.tsx";
 import style from "./calendar.module.scss";
 import { useWindowSize } from "../../../../hooks/use-window-size.tsx";
-import { tabletLarge, tabletSmall } from "../../../../tokens/breakpoints.ts";
+import { tabletLarge, tabletSmall } from "../../../../constants/breakpoints.ts";
 import { type MutableRef, useContext, useMemo, useRef } from "preact/hooks";
 import {
 	type CalendarDate,

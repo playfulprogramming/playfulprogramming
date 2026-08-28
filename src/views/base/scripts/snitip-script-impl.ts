@@ -1,4 +1,4 @@
-import { tabletLarge } from "#src/tokens/breakpoints.ts";
+import { tabletLarge } from "#src/constants/breakpoints.ts";
 
 const anchoredDialogBreakpoint = window.matchMedia(
 	`screen and (min-width: ${tabletLarge + 1}px)`,

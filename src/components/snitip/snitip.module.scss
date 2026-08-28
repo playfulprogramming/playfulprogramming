@@ -1,5 +1,5 @@
 @use "src/styles/text-styles";
-@use "src/tokens/index" as *;
+@use "../../styles/tokens/index" as *;
 
 :root {
 	--snitip_close-btn_margin: var(--spc-2x);
