@@ -3,7 +3,7 @@
 :root {
 	// Padding and gap must be consistent to maintain visual balance
 	--hint-container_padding: var(--spc-1x);
-	--hint-container_gap: var(--hint-container-padding);
+	--hint-container_gap: var(--hint-container_padding);
 
 	--hint-container_corner-radius_collapsed: var(--corner-radius_circular);
 	--hint-container_corner-radius_expanded: var(--corner-radius_m);

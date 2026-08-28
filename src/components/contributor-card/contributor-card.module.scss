@@ -13,7 +13,7 @@
 	--contributor_padding-bottom: var(--spc-4x);
 	--contributor_gap: var(--spc-4x);
 	--contributor_container-offset: calc(var(--contributor_avatar_size) / 2);
-	--contributor_min-width: var(--min-width_xxs);
+	--contributor_min-width: var(--max-width_xxs);
 
 	@include from($tabletSmall) {
 		--contributor_padding-horizontal: var(--spc-6x);

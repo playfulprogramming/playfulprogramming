@@ -34,7 +34,7 @@
 	--toc_divider_color: var(--primary_low);
 
 	--toc_arrow_color: var(--foreground_high);
-	--toc_arrow_color_selected: var(--primary);
+	--toc_arrow_color_selected: var(--primary_medium);
 
 	@include until($tabletLarge) {
 		--toc_list_padding-horizontal: var(--spc-2x);

@@ -7,19 +7,19 @@
 	--snitip_corner-radius: var(--corner-radius_xl);
 	--snitip_border-width: var(--border-width_l);
 	--snitip_background-color: var(--background_primary);
-	--snitip_border-color: var(--primary_variant);
+	--snitip_border-color: var(--primary_low);
 	--snitip_container-shadow: var(--shadow_popup);
 	--snitip_max-width: var(--max-width_xs);
 	--snitip_padding: var(--spc-6x);
 
-	--snitip_sticker_size: var(--icon-size_regular);
+	--snitip_sticker_size: var(--icon-size_default);
 	--snitip_sticker_shadow: var(--shadow_sticker_drop_shadow);
 
-	--snitip_title_color: var(--foreground_emphasis-high);
+	--snitip_title_color: var(--foreground_high);
 	--snitip_title_padding-bottom: var(--spc-3x);
 	--snitip_title_gap: var(--spc-2x);
 
-	--snitip_description_color: var(--foreground_emphasis-medium);
+	--snitip_description_color: var(--foreground_medium);
 
 	--snitip_link-container_margin-top: var(--spc-4x);
 	--snitip_link-container_gap: var(--spc-2x);

@@ -220,7 +220,7 @@
 	outline: none;
 
 	& > .directoryNameAndIcon {
-		background-color: var(--filesystem_item_folder_focus-background_color);
+		background-color: var(--filesystem_item_folder_container_color_focused);
 		outline: var(--filesystem_item_folder_focus-outline_width) solid
 			var(--filesystem_item_folder_focus-outline_color);
 	}
@@ -230,7 +230,7 @@
 	outline: none;
 
 	& > .fileNameAndIcon {
-		background-color: var(--filesystem_item_folder_focus-background_color);
+		background-color: var(--filesystem_item_folder_container_color_focused);
 		outline: var(--filesystem_item_folder_focus-outline_width) solid
 			var(--filesystem_item_folder_focus-outline_color);
 	}
