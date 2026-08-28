@@ -1,4 +1,4 @@
-import { expect, test } from "#src/ui-test-utils/index.ts";
+import { expect, test } from "#utils/ui-test-utils.ts";
 import { renderHook } from "@testing-library/preact";
 import { usePagination } from "./use-pagination.ts";
 

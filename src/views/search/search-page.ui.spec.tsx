@@ -6,7 +6,7 @@ import {
 	vi,
 	worker,
 	type Mock,
-} from "#src/ui-test-utils/index.ts";
+} from "#utils/ui-test-utils.ts";
 import { page } from "vitest/browser";
 import {
 	findByText as findByTextFrom,
