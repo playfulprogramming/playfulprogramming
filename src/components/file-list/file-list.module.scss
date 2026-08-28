@@ -220,6 +220,7 @@
 	outline: none;
 
 	& > .directoryNameAndIcon {
+		// TODO(undefined-css-vars): found --filesystem_item_folder_focus-background_color, code expects --filesystem_item_folder_container_color_focused
 		background-color: var(--filesystem_item_folder_focus-background_color);
 		outline: var(--filesystem_item_folder_focus-outline_width) solid
 			var(--filesystem_item_folder_focus-outline_color);
@@ -230,6 +231,7 @@
 	outline: none;
 
 	& > .fileNameAndIcon {
+		// TODO(undefined-css-vars): found --filesystem_item_folder_focus-background_color, code expects --filesystem_item_folder_container_color_focused
 		background-color: var(--filesystem_item_folder_focus-background_color);
 		outline: var(--filesystem_item_folder_focus-outline_width) solid
 			var(--filesystem_item_folder_focus-outline_color);

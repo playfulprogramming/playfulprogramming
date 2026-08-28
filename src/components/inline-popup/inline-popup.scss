@@ -30,6 +30,7 @@
 
 	border: var(--inline-popup_border-width) solid
 		var(--inline-popup_border-color);
+	// TODO(undefined-css-vars): no similar token found for --icon-size_dense or --icon-size-dense-padding
 	border-radius: calc(
 		var(--inline-popup_border-width) + var(--inline-popup_padding-vertical) +
 			var(--icon-size_dense) / 2
@@ -57,6 +58,7 @@
 	display: flex;
 	align-items: center;
 
+	// TODO(undefined-css-vars): no similar token found for --icon-size_dense or --icon-size-dense-padding
 	padding: var(--icon-size-dense-padding);
 	height: var(--icon-size_dense);
 	width: var(--icon-size_dense);

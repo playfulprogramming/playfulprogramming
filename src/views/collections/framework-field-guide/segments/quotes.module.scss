@@ -8,6 +8,7 @@
 	flex-direction: column;
 	gap: var(--section-gap);
 	padding: var(--section-ver-padding) var(--section-hor-padding);
+	// TODO(undefined-css-vars): found --on-dark-emphasis_high, code expects --on-dark-emphasis-high
 	color: var(--on-dark-emphasis_high);
 	transition: color var(--color-transition-time) var(--color-transition-ease);
 	will-change: transition;

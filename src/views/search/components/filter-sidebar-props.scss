@@ -30,6 +30,7 @@
 	--search-page_filter_list_header_background-color_pressed: var(
 		--tint_primary_low
 	);
+	// TODO(undefined-css-vars): found --background_focused, code expects --background_focus
 	--search-page_filter_list_header_background-color_focused: var(
 		--background_focused
 	);
