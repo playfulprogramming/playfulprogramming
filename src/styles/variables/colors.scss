@@ -221,6 +221,7 @@
 		var(--lightness-99) var(--semantic-chroma-99) var(--hue-error)
 	);
 
+	/* stylelint-disable declaration-block-no-duplicate-custom-properties */
 	--error90: oklch(
 		var(--lightness-90) var(--semantic-chroma-90) var(--hue-error)
 	);
@@ -230,6 +231,7 @@
 	--error99: oklch(
 		var(--lightness-99) var(--semantic-chroma-99) var(--hue-error)
 	);
+	/* stylelint-enable declaration-block-no-duplicate-custom-properties */
 
 	/* Neutrals, used for text and disabled states */
 

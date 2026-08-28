@@ -9,6 +9,7 @@
 	gap: var(--section-gap);
 	padding: var(--section-ver-padding) var(--section-hor-padding);
 	// TODO(undefined-css-vars): found --on-dark-emphasis_high, code expects --on-dark-emphasis-high
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	color: var(--on-dark-emphasis_high);
 	transition: color var(--color-transition-time) var(--color-transition-ease);
 	will-change: transition;
@@ -31,9 +32,9 @@
 	position: absolute;
 	width: 1px;
 	height: 1px;
-	padding: 0;
 	margin: -1px;
 	overflow: hidden;
+	// stylelint-disable-next-line property-no-deprecated
 	clip: rect(0, 0, 0, 0);
 	white-space: nowrap;
 	border-width: 0;

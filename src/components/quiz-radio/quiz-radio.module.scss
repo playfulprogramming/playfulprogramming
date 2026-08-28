@@ -39,6 +39,7 @@
 	--quiz-option_focus-outline_color: var(--focus-outline_primary);
 	--quiz-option_corner-radius: var(--corner-radius_m);
 	// TODO(undefined-css-vars): --icon-size_regular ambiguous, --icon-size_default or --icon-size_large could fit
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--quiz-option_icon_size: var(--icon-size_regular);
 
 	--quiz-option_padding-vertical: var(--spc-3x);

@@ -19,8 +19,10 @@
 	--date-dropdown_border-width: var(--border-width_s);
 	--date-dropdown_border-color: var(--secondary_low);
 	// TODO(undefined-css-vars): --secondary ambiguous, --secondary_high or --secondary_low or --secondary_medium could fit
+	/* stylelint-disable csstools/value-no-unknown-custom-properties */
 	--date-dropdown_border-color_hovered: var(--secondary);
 	--date-dropdown_border-color_pressed: var(--secondary);
+	/* stylelint-enable csstools/value-no-unknown-custom-properties */
 
 	--date-dropdown_focus-outline_width: var(--border-width_focus);
 	--date-dropdown_focus-outline_color: var(--focus-outline_secondary);

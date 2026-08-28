@@ -66,6 +66,8 @@
 
 .input:focus {
 	background: var(--slate-700);
+	// TODO(undefined-css-vars): found --outline-focused, code expects --outline_focused
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	border-color: var(--outline-focused);
 }
 

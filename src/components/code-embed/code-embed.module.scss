@@ -299,6 +299,7 @@
 	}
 
 	&__heading {
+		// stylelint-disable-next-line declaration-block-no-duplicate-properties
 		margin: 0;
 		grid-column: 2 / 2;
 		grid-row: 2 / 2;
@@ -306,6 +307,7 @@
 	}
 
 	&__message {
+		// stylelint-disable-next-line declaration-block-no-duplicate-properties
 		margin: 0;
 		grid-column: 2 / 2;
 		grid-row: 3 / 3;

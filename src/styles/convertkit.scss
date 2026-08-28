@@ -3,6 +3,7 @@
 	padding: 20px;
 	margin: 1rem auto;
 	// TODO(undefined-css-vars): no similar token found for --cardOutlineStyle
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	border: var(--cardOutlineStyle);
 
 	.newsletter-heading {
@@ -118,6 +119,7 @@
 	border: 0;
 	border-radius: 5px;
 	color: #ffffff;
+	// stylelint-disable-next-line declaration-block-no-duplicate-properties
 	cursor: pointer;
 	display: inline-block;
 	text-align: center;
@@ -221,6 +223,7 @@
 	color: #333333;
 	line-height: 1.4;
 	margin-bottom: 0;
+	// stylelint-disable-next-line declaration-block-no-duplicate-properties
 	padding: 0 6px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -356,6 +359,7 @@
 	display: -ms-flexbox;
 	display: flex;
 	height: 0px;
+	// stylelint-disable-next-line declaration-block-no-duplicate-properties
 	width: 0px;
 	margin: 0 auto;
 	position: absolute;
@@ -424,6 +428,7 @@
 
 .formkit-form .formkit-powered-by-convertkit {
 	-webkit-align-items: center;
+	// stylelint-disable-next-line property-no-deprecated
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;

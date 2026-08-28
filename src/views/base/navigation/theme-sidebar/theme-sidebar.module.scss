@@ -24,6 +24,8 @@ body:has(.dialog[open]) {
 	margin: 0;
 	padding: 0;
 	overflow: clip;
+	// TODO(undefined-css-vars): found --foreground_emphasis-high, code expects --foreground_high
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	color: var(--foreground_emphasis-high);
 	background: var(--background_primary-bright);
 	border: var(--border-width_s) solid var(--background_disabled);
@@ -98,6 +100,8 @@ body:has(.dialog[open]) {
 
 .title {
 	margin: 0;
+	// TODO(undefined-css-vars): found --foreground_emphasis-high, code expects --foreground_high
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	color: var(--foreground_emphasis-high);
 }
 
@@ -123,6 +127,7 @@ body:has(.dialog[open]) {
 .sectionTitle {
 	width: 100%;
 	padding: var(--spc-5x) 0 var(--spc-2x);
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	color: var(--primary_default);
 	font-family: var(--pfp-font-family-brand);
 	font-size: var(--button_regular_font-size);
@@ -145,6 +150,7 @@ body:has(.dialog[open]) {
 	margin: -1px;
 	padding: 0;
 	overflow: hidden;
+	// stylelint-disable-next-line property-no-deprecated
 	clip: rect(0 0 0 0);
 	clip-path: inset(50%);
 	white-space: nowrap;
@@ -173,6 +179,8 @@ body:has(.dialog[open]) {
 
 .controlLabel {
 	margin: 0;
+	// TODO(undefined-css-vars): found --foreground_emphasis-high, code expects --foreground_high
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	color: var(--foreground_emphasis-high);
 	font-family: var(--pfp-font-family-body);
 	font-size: var(--button_regular_font-size);

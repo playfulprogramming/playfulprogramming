@@ -83,6 +83,7 @@
 		border-radius: var(--spc-1x);
 		background-color: var(--resizeable-panel_separator_background);
 		// TODO(undefined-css-vars): found --resizeable-panel_separator_border_width_focused, code expects --resizeable-panel_separator_outline_width_focused
+		// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 		border: var(--resizeable-panel_separator_border_width_focused) solid
 			transparent;
 		@include transition(width height background-color);

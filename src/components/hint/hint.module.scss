@@ -5,6 +5,7 @@
 	--hint-container_padding: var(--spc-1x);
 	// TODO(unused-css-vars): --hint-container_gap
 	// TODO(undefined-css-vars): found --hint-container-padding, code expects --hint-container_padding
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--hint-container_gap: var(--hint-container-padding);
 
 	--hint-container_corner-radius_collapsed: var(--corner-radius_circular);

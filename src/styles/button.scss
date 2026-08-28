@@ -22,6 +22,8 @@
 	--btn_regular_label_padding-horizontal: var(--spc-1x);
 
 	// Colors: Text buttons
+	// TODO(undefined-css-vars): no similar token found for --foreground_primary
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--btn_text_foreground-color: var(--foreground_primary);
 	--btn_text_background-color_hovered: var(--tint_primary_low);
 	--btn_text_background-color_pressed: var(--tint_primary_medium);

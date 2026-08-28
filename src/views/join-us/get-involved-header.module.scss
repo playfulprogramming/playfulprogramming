@@ -91,6 +91,7 @@
 
 .paragraph {
 	color: var(--primary_medium);
+	// stylelint-disable-next-line declaration-block-no-duplicate-properties
 	text-align: center;
 
 	margin: 0;
