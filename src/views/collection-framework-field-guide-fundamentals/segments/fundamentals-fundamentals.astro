@@ -1,0 +1,26 @@
+---
+import "#src/views/collection-framework-field-guide/styles/shared-section-styling.scss";
+import FundamentalsBookCover from "#src/views/collection-framework-field-guide/components/book-cover/fundamentals/fundamentals-book-cover.astro";
+import WhatYouNeed from "../components/what-you-need.astro";
+import WhatYoullLearn from "../components/what-youll-learn.astro";
+import CollectionTableOfContents from "../components/collection-table-of-contents-fundamentals.astro";
+import { getPostsByCollection } from "#utils/api.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
+
+const chapterList = getPostsByCollection(
+	"framework-field-guide-fundamentals",
+	baseLocale,
+);
+---
+
+<section data-change-color-to="fund">
+	<FundamentalsBookCover />
+
+	<div class="class-book-1">
+		<div class={`book-section`} style="background: var(--section-background);">
+			<WhatYouNeed />
+			<CollectionTableOfContents posts={chapterList} />
+			<WhatYoullLearn />
+		</div>
+	</div>
+</section>

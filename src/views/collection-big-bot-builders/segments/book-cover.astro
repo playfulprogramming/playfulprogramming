@@ -1,0 +1,78 @@
+---
+import BookCoverContainer from "#src/views/collection-framework-field-guide/components/book-cover/book-cover-container.astro";
+import BookCoverLayer from "#src/views/collection-framework-field-guide/components/book-cover/book-cover-layer.astro";
+import { FourthCenter } from "../cover-layers/fourth-center.tsx";
+import { FourthLoop } from "../cover-layers/fourth-loop.tsx";
+import { ThirdCenter } from "../cover-layers/third-center.tsx";
+import { ThirdLoop } from "../cover-layers/third-loop.tsx";
+import { SecondCenter } from "../cover-layers/second-center.tsx";
+import { SecondLoop } from "../cover-layers/second-loop.tsx";
+import { FirstCenter } from "../cover-layers/first-center.tsx";
+import { FirstLoop } from "../cover-layers/first-loop.tsx";
+---
+
+<style is:global>
+	.big-bot-builders-book-cover .background-repeat-layer {
+		grid-template-columns: 1fr auto 1fr !important;
+	}
+
+	.big-bot-builders-book-cover .unclipped-center svg {
+		overflow: visible;
+	}
+</style>
+
+<BookCoverContainer class="big-bot-builders-book-cover">
+	<BookCoverLayer
+		moveOnScrollBy={0.3}
+		name="fourth"
+		class="background-repeat-layer"
+	>
+		<div slot="left"><FourthLoop client:load /></div>
+		<div
+			slot="center"
+			style="max-width: min(var(--max-width_small),100vw,100vh); width: 100vw;"
+		>
+			<FourthCenter />
+		</div>
+		<div slot="right"><FourthLoop client:load /></div>
+	</BookCoverLayer>
+	<BookCoverLayer
+		moveOnScrollBy={0.2}
+		name="third"
+		class="background-repeat-layer"
+	>
+		<div slot="left"><ThirdLoop client:load /></div>
+		<div
+			slot="center"
+			style="max-width: min(var(--max-width_small),100vw,100vh); width: 100vw;"
+		>
+			<ThirdCenter />
+		</div>
+		<div slot="right"><ThirdLoop client:load /></div>
+	</BookCoverLayer>
+	<BookCoverLayer
+		moveOnScrollBy={0.1}
+		name="second"
+		class="background-repeat-layer"
+	>
+		<div slot="left"><SecondLoop side="left" client:load /></div>
+		<div
+			slot="center"
+			class="unclipped-center"
+			style="max-width: min(var(--max-width_small),100vw,100vh); width: 100vw;"
+		>
+			<SecondCenter />
+		</div>
+		<div slot="right"><SecondLoop side="right" client:load /></div>
+	</BookCoverLayer>
+	<BookCoverLayer name="first" class="background-repeat-layer">
+		<div slot="left"><FirstLoop client:load /></div>
+		<div
+			slot="center"
+			style="max-width: min(var(--max-width_small),100vw,100vh); width: 100vw;"
+		>
+			<FirstCenter />
+		</div>
+		<div slot="right"><FirstLoop client:load /></div>
+	</BookCoverLayer>
+</BookCoverContainer>

@@ -1,0 +1,37 @@
+---
+import "#src/views/collection-framework-field-guide/styles/shared-section-styling.scss";
+import EcosystemBookCover from "#src/views/collection-framework-field-guide/components/book-cover/ecosystem/ecosystem-book-cover.astro";
+import styles from "./ecosystem-fundamentals.module.scss";
+import BigFilledButton from "#src/views/collection-framework-field-guide/components/button/big-filled-button.astro";
+---
+
+<section data-change-color-to="ecos">
+	<div class="class-book-2">
+		<div class="book-section" style="background: var(--section-background);">
+			<h2
+				data-no-max-width
+				id="ecosystem-title"
+				class={`text-style-headline-1 book-title`}
+			>
+				Ready for the next step?
+			</h2>
+			<p class={`text-style-headline-6 ${styles.subtext}`}>
+				Are you familiar with the fundamentals and want to learn more?
+				<br />
+				Then, it's time for <a
+					class={`${styles.links}`}
+					href="/collections/framework-field-guide#ecosystem-title">Ecosystem</a
+				>, the next part of the
+				<a class={`${styles.links}`} href="/collections/framework-field-guide"
+					>Framework Field Guide</a
+				>.
+			</p>
+			<div>
+				<BigFilledButton href="/collections/framework-field-guide-ecosystem">
+					Read now
+				</BigFilledButton>
+			</div>
+		</div>
+	</div>
+	<EcosystemBookCover />
+</section>

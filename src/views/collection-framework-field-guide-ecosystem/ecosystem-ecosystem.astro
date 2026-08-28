@@ -1,0 +1,40 @@
+---
+import "#src/views/collection-framework-field-guide/styles/shared-section-styling.scss";
+import EcosystemBookCover from "#src/views/collection-framework-field-guide/components/book-cover/ecosystem/ecosystem-book-cover.astro";
+import WhatYouNeed from "./components/what-you-need/what-you-need.astro";
+import CollectionTableOfContents from "./components/table-of-contents/collection-table-of-contents-ecosystem.astro";
+import BottomContents from "./components/table-of-contents/bottom-contents.astro";
+import { getCollectionBySlug, getPostsByCollection } from "#utils/api.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
+import type { FuturePost } from "#types/CollectionInfo.ts";
+
+const collection = getCollectionBySlug(
+	"framework-field-guide-ecosystem",
+	baseLocale,
+);
+
+const chapterList = getPostsByCollection(
+	"framework-field-guide-ecosystem",
+	baseLocale,
+);
+---
+
+<section data-change-color-to="ecos">
+	<EcosystemBookCover />
+
+	<div class="class-book-2">
+		<div
+			class={`book-section`}
+			style="background: var(--section-background); color: var(--on-dark-emphasis-high)"
+		>
+			<WhatYouNeed />
+			<CollectionTableOfContents
+				title="Chapters*"
+				chaptersToShow={5}
+				chapterList={collection!.chapterList as FuturePost[]}
+				posts={chapterList}
+			/>
+			<BottomContents />
+		</div>
+	</div>
+</section>

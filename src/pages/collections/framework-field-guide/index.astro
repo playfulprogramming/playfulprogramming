@@ -1,41 +1,41 @@
 ---
 import Barebones from "#components/layouts/barebones/barebones.astro";
 import { baseLocale } from "#src/paraglide/runtime.js";
-import "../../../views/collections/framework-field-guide/fonts/fira-code.css";
-import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
-import "../../../views/collections/framework-field-guide/fonts/changa-one.css";
-import "../../../views/collections/framework-field-guide/fonts/playpen-sans.css";
-import "../../../views/collections/framework-field-guide/tokens/dimensions.scss";
-import "../../../views/collections/framework-field-guide/tokens/colors.scss";
-import "../../../views/collections/framework-field-guide/tokens/text-styles.scss";
-import "../../../views/collections/framework-field-guide/tokens/themes.scss";
-import "../../../views/collections/framework-field-guide/tokens/adventure.scss";
-import "../../../views/collections/framework-field-guide/tokens/buttons.scss";
-import "../../../views/collections/framework-field-guide/tokens/code-block.scss";
-import "../../../views/collections/framework-field-guide/tokens/book-sections.scss";
-import "../../../views/collections/framework-field-guide/tokens/transition-timer.scss";
-import "../../../views/collections/framework-field-guide/tokens/quotes.scss";
-import "../../../views/collections/framework-field-guide/tokens/sign-up.scss";
-import "../../../views/collections/framework-field-guide/tokens/forms.scss";
-import "../../../views/collections/framework-field-guide/styles/global-ffg.css";
-import "../../../views/collections/framework-field-guide/styles/buttons.css";
-import "../../../views/collections/framework-field-guide/styles/focus.css";
-import "../../../views/collections/framework-field-guide/styles/svg-layers.css";
-import "../../../views/collections/framework-field-guide/styles/shiki.scss";
+import "#src/views/collection-framework-field-guide/styles/fonts/fira-code.css";
+import "#src/views/collection-framework-field-guide/styles/fonts/plus-jakarta-sans.css";
+import "#src/views/collection-framework-field-guide/styles/fonts/changa-one.css";
+import "#src/views/collection-framework-field-guide/styles/fonts/playpen-sans.css";
+import "#src/views/collection-framework-field-guide/styles/tokens/dimensions.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/colors.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/text-styles.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/themes.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/adventure.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/buttons.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/code-block.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/book-sections.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/transition-timer.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/quotes.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/sign-up.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/forms.scss";
+import "#src/views/collection-framework-field-guide/styles/global-ffg.css";
+import "#src/views/collection-framework-field-guide/styles/buttons.css";
+import "#src/views/collection-framework-field-guide/styles/focus.css";
+import "#src/views/collection-framework-field-guide/styles/svg-layers.css";
+import "#src/views/collection-framework-field-guide/styles/shiki.scss";
 import SEO from "#src/components/seo/seo.astro";
-import Header from "#src/views/collections/framework-field-guide/segments/header.astro";
-import Hero from "#src/views/collections/framework-field-guide/segments/hero.astro";
-import Fundamentals from "#src/views/collections/framework-field-guide/segments/fundamentals.astro";
-import Ecosystem from "#src/views/collections/framework-field-guide/segments/ecosystem.astro";
-import Internals from "#src/views/collections/framework-field-guide/segments/internals.astro";
-import Quotes from "#src/views/collections/framework-field-guide/segments/quotes.astro";
-import AdventureContinues from "#src/views/collections/framework-field-guide/segments/adventure-continues.astro";
-import YourGuide from "#src/views/collections/framework-field-guide/segments/your-guide.astro";
-import CodeBlock from "#src/views/collections/framework-field-guide/segments/code-block.astro";
-import TheRestContainer from "#src/views/collections/framework-field-guide/segments/the-rest-container.astro";
-import SignUp from "#src/views/collections/framework-field-guide/segments/sign-up.astro";
-import WhyLearnAllThree from "#src/views/collections/framework-field-guide/segments/why-learn-all-three.astro";
-import WhatDoIGet from "#src/views/collections/framework-field-guide/segments/what-do-i-get.astro";
+import Header from "#src/views/collection-framework-field-guide/components/header.astro";
+import Hero from "#src/views/collection-framework-field-guide/components/hero/hero.astro";
+import Fundamentals from "#src/views/collection-framework-field-guide/components/fundamentals.astro";
+import Ecosystem from "#src/views/collection-framework-field-guide/components/ecosystem.astro";
+import Internals from "#src/views/collection-framework-field-guide/components/internals.astro";
+import Quotes from "#src/views/collection-framework-field-guide/components/quotes/quotes.astro";
+import AdventureContinues from "#src/views/collection-framework-field-guide/components/adventure-continues/adventure-continues.astro";
+import YourGuide from "#src/views/collection-framework-field-guide/components/your-guide/your-guide.astro";
+import CodeBlock from "#src/views/collection-framework-field-guide/components/code-block/code-block.astro";
+import TheRestContainer from "#src/views/collection-framework-field-guide/components/the-rest-container/the-rest-container.astro";
+import SignUp from "#src/views/collection-framework-field-guide/components/sign-up/sign-up.astro";
+import WhyLearnAllThree from "#src/views/collection-framework-field-guide/components/why-learn-all-three/why-learn-all-three.astro";
+import WhatDoIGet from "#src/views/collection-framework-field-guide/components/what-do-i-get/what-do-i-get.astro";
 import { getCollectionBySlug, getPersonById } from "#utils/api.ts";
 import BlockingTabsSignalScript from "#components/tabs/blocking-tabs-signal-script.astro";
 
@@ -74,11 +74,11 @@ const collection = getCollectionBySlug("framework-field-guide", baseLocale)!;
 	enableSmoothScrollForAnchorsToCurrentPage();
 </script>
 <script>
-	import { enableColorChangeListeners } from "../../../views/collections/framework-field-guide/scripts/color-change-listener.ts";
+	import { enableColorChangeListeners } from "#src/views/collection-framework-field-guide/utils/color-change-listener.ts";
 	enableColorChangeListeners();
 </script>
 <script>
-	import { enableParallaxScrolling } from "../../../views/collections/framework-field-guide/scripts/parallax-scrolling.ts";
+	import { enableParallaxScrolling } from "#src/views/collection-framework-field-guide/utils/parallax-scrolling.ts";
 	enableParallaxScrolling();
 </script>
 <BlockingTabsSignalScript />

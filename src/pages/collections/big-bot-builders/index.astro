@@ -4,33 +4,33 @@ import { baseLocale } from "#src/paraglide/runtime.js";
 
 // Stylesheets must be imported before any component, so that component styles
 // are ordered after them in the bundled build
-import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
-import "../../../views/collections/framework-field-guide/fonts/changa-one.css";
-import "../../../views/collections/framework-field-guide/tokens/buttons.scss";
-import "../../../views/collections/framework-field-guide/tokens/book-sections.scss";
-import "../../../views/collections/framework-field-guide/tokens/dimensions.scss";
-import "../../../views/collections/framework-field-guide/tokens/text-styles.scss";
-import "../../../views/collections/framework-field-guide/styles/buttons.css";
-import "../../../views/collections/framework-field-guide/styles/focus.css";
-import "../../../views/collections/framework-field-guide/styles/svg-layers.css";
-import "../../../views/collections/framework-field-guide/tokens/forms.scss";
-import "../../../views/collections/framework-field-guide/tokens/sign-up.scss";
-import "../../../views/collections/big-bot-builders/tokens/colors.scss";
-import "../../../views/collections/big-bot-builders/styles/global-bbb.css";
+import "#src/views/collection-framework-field-guide/styles/fonts/plus-jakarta-sans.css";
+import "#src/views/collection-framework-field-guide/styles/fonts/changa-one.css";
+import "#src/views/collection-framework-field-guide/styles/tokens/buttons.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/book-sections.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/dimensions.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/text-styles.scss";
+import "#src/views/collection-framework-field-guide/styles/buttons.css";
+import "#src/views/collection-framework-field-guide/styles/focus.css";
+import "#src/views/collection-framework-field-guide/styles/svg-layers.css";
+import "#src/views/collection-framework-field-guide/styles/tokens/forms.scss";
+import "#src/views/collection-framework-field-guide/styles/tokens/sign-up.scss";
+import "#src/views/collection-big-bot-builders/tokens/colors.scss";
+import "#src/views/collection-big-bot-builders/styles/global-bbb.css";
 
 import SEO from "#src/components/seo/seo.astro";
-import Header from "#src/views/collections/framework-field-guide/segments/header.astro";
-import Hero from "../../../views/collections/big-bot-builders/segments/hero.astro";
+import Header from "#src/views/collection-framework-field-guide/components/header.astro";
+import Hero from "#src/views/collection-big-bot-builders/segments/hero.astro";
 import {
 	getPersonById,
 	getCollectionBySlug,
 	getPostsByCollection,
 } from "#utils/api.ts";
 
-import Rest from "../../../views/collections/big-bot-builders/segments/rest.astro";
-import TopContents from "../../../views/collections/big-bot-builders/segments/top-contents.astro";
-import BottomContents from "../../../views/collections/big-bot-builders/segments/bottom-contents.astro";
-import CollectionTableOfContents from "../../../views/collections/framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
+import Rest from "#src/views/collection-big-bot-builders/segments/rest.astro";
+import TopContents from "#src/views/collection-big-bot-builders/segments/top-contents.astro";
+import BottomContents from "#src/views/collection-big-bot-builders/segments/bottom-contents.astro";
+import CollectionTableOfContents from "#src/views/collection-framework-field-guide-fundamentals/components/collection-table-of-contents-fundamentals.astro";
 
 const collection = getCollectionBySlug("big-bot-builders", baseLocale);
 const chapterList = getPostsByCollection("big-bot-builders", baseLocale);
@@ -85,6 +85,6 @@ const comingSoon = [
 	enableSmoothScrollForAnchorsToCurrentPage();
 </script>
 <script>
-	import { enableParallaxScrolling } from "../../../views/collections/framework-field-guide/scripts/parallax-scrolling.ts";
+	import { enableParallaxScrolling } from "#src/views/collection-framework-field-guide/utils/parallax-scrolling.ts";
 	enableParallaxScrolling();
 </script>
