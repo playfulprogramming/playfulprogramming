@@ -38,11 +38,10 @@
 	--toc-mobile_focus-outline_width: var(--border-width_focus);
 
 	--toc-mobile_divider_width: var(--border-width_s);
-	// --background_disabled applied to background
-	--toc-mobile_divider_color: #cddbe7;
+	--toc-mobile_divider_color: var(--primary_low);
 
 	--toc-mobile_arrow_color: var(--foreground_high);
-	--toc-mobile_arrow_color_selected: var(--primary);
+	--toc-mobile_arrow_color_selected: var(--primary_medium);
 
 	@include until($tabletLarge) {
 		--toc-mobile_list_padding-horizontal: var(--spc-2x);

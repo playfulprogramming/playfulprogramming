@@ -98,7 +98,7 @@ body:has(.dialog[open]) {
 
 .title {
 	margin: 0;
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 }
 
 .content {
@@ -123,7 +123,7 @@ body:has(.dialog[open]) {
 .sectionTitle {
 	width: 100%;
 	padding: var(--spc-5x) 0 var(--spc-2x);
-	color: var(--primary_default);
+	color: var(--primary_medium);
 	font-family: var(--pfp-font-family-brand);
 	font-size: var(--button_regular_font-size);
 	font-weight: var(--weight_semibold);
@@ -173,7 +173,7 @@ body:has(.dialog[open]) {
 
 .controlLabel {
 	margin: 0;
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 	font-family: var(--pfp-font-family-body);
 	font-size: var(--button_regular_font-size);
 	font-weight: var(--weight_semibold);

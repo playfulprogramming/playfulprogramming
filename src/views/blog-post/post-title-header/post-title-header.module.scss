@@ -14,7 +14,7 @@
 	--article-header_details_icon_color: var(--foreground_disabled);
 	--article-header_details_date_color: var(--foreground_high);
 	--article-header_details_date_edited_color: var(--foreground_medium);
-	--article-header_details_author_color: var(--link-color);
+	--article-header_details_author_color: var(--primary_medium_semantic);
 
 	@include from($desktopSmall) {
 		--article-header_details_gap: var(--spc-3x);
