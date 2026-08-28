@@ -1,10 +1,10 @@
 ---
-import PostTitleHeader from "./post-title-header/post-title-header.astro";
-import TableOfContentsMobile from "./table-of-contents/mobile/table-of-contents-mobile.astro";
-import TableOfContents from "./table-of-contents/table-of-contents.astro";
+import PostTitleHeader from "#src/views/blog-post/components/post-title-header/post-title-header.astro";
+import TableOfContentsMobile from "#src/views/blog-post/components/table-of-contents-mobile/table-of-contents-mobile.astro";
+import TableOfContents from "#src/views/blog-post/components/table-of-contents/table-of-contents.astro";
 import MailingList from "../../components/mailing-list/mailing-list.astro";
 import TranslationsHeader from "#components/translations-header/translations-header.astro";
-import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
+import BlogPostLayout from "#src/views/blog-post/components/blog-post-layout/blog-post-layout.astro";
 import HeadingLinkScript from "#components/heading-link/heading-link-script.astro";
 import BlockingTabsSignalScript from "#components/tabs/blocking-tabs-signal-script.astro";
 import { Icon } from "astro-icon/components";
@@ -20,16 +20,16 @@ import type {
 import { siteMetadata } from "#src/constants/site-config.ts";
 import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
-import SeriesToC from "./series/series-toc.astro";
-import { ArticleNav } from "./article-nav/article-nav.tsx";
+import SeriesToC from "#src/views/blog-post/components/series/series-toc.astro";
+import { ArticleNav } from "#src/views/blog-post/components/article-nav/article-nav.tsx";
 import RelatedPosts from "#components/related-posts/related-posts.astro";
 import { LargeButton } from "../../components/button/button.tsx";
 
 import styles from "./blog-post.module.scss";
 import type { MarkdownHtml } from "#utils/markdown/index.ts";
 import Content from "#utils/markdown/components/content.astro";
-import KatexCss from "./katex.astro";
-import MermaidAssets from "./mermaid-assets.astro";
+import KatexCss from "./components/katex.astro";
+import MermaidAssets from "./components/mermaid-assets.astro";
 import { m } from "#src/paraglide/messages.js";
 
 export interface Props {

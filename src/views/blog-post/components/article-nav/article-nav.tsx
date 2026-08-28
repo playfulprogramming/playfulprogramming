@@ -1,8 +1,8 @@
-import type { PostInfo, CollectionInfo } from "#types/index.ts";
+import type { PostInfo, CollectionInfo } from "#src/types";
 import style from "./article-nav.module.scss";
 import arrow_left from "#src/assets/icons/arrow_left.svg?raw";
 import arrow_right from "#src/assets/icons/arrow_right.svg?raw";
-import { getShortTitle } from "../../../utils/remove-article-collection-prefix.ts";
+import { getShortTitle } from "#utils/remove-article-collection-prefix.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
 import { localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
