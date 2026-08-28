@@ -153,6 +153,7 @@ $changaOne:
 }
 .text-style-code {
 	font-size: 0.75rem;
+	// stylelint-disable-next-line font-family-no-missing-generic-family-keyword
 	font-family: "Fira Code";
 	line-height: 1rem;
 	text-decoration: none;
