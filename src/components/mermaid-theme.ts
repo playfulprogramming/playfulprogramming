@@ -1,12 +1,12 @@
 const GIT_THEME_TOKENS = [
-	["--primary_default", "--primary_on-default"],
-	["--primary_variant", "--primary_on-variant"],
-	["--secondary_default", "--secondary_on-default"],
-	["--secondary_variant", "--secondary_on-variant"],
-	["--error_default", "--error_on-default"],
-	["--error_variant", "--error_on-variant"],
-	["--positive_default", "--positive_on-default"],
-	["--positive_variant", "--positive_on-variant"],
+	["--primary_medium", "--primary_on-medium"],
+	["--primary_low", "--primary_on-low"],
+	["--secondary_medium", "--secondary_on-medium"],
+	["--secondary_low", "--secondary_on-low"],
+	["--error_medium", "--error_on-medium"],
+	["--error_low", "--error_on-low"],
+	["--positive_medium", "--positive_on-medium"],
+	["--positive_low", "--positive_on-low"],
 ] as const;
 
 const GIT_THEME_CSS = GIT_THEME_TOKENS.map(([color, onColor], index) => {

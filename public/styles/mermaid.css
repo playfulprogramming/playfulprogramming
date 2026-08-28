@@ -7,14 +7,14 @@
 		var(--primary80) 50%
 	);
 	--mermaid-tertiary-color: var(--primary80);
-	--mermaid-text-color: var(--foreground_emphasis-high);
-	--mermaid-muted-text-color: var(--foreground_emphasis-medium);
-	--mermaid-line-color: var(--foreground_emphasis-high);
+	--mermaid-text-color: var(--foreground_high);
+	--mermaid-muted-text-color: var(--foreground_medium);
+	--mermaid-line-color: var(--foreground_high);
 	--mermaid-border-color: var(--background_disabled);
 	--mermaid-label-background: var(--background_primary-bright);
-	--mermaid-note-border-color: var(--secondary_default);
-	--mermaid-activation-color: var(--surface_secondary_emphasis-low);
-	--mermaid-activation-border-color: var(--surface_secondary_emphasis-high);
+	--mermaid-note-border-color: var(--secondary_medium);
+	--mermaid-activation-color: var(--tint_secondary_low);
+	--mermaid-activation-border-color: var(--tint_secondary_high);
 }
 
 html.dark,
@@ -33,7 +33,7 @@ pre.mermaid {
 	text-align: center;
 
 	background-color: var(--background_primary);
-	border: var(--border-width_l) solid var(--primary_variant);
+	border: var(--border-width_l) solid var(--primary_low);
 	border-radius: var(--corner-radius_l);
 }
 
