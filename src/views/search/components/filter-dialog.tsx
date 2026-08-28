@@ -12,7 +12,7 @@ import {
 import { FilterSectionItem } from "./filter-section-item.tsx";
 import { Picture as UUPicture } from "#components/image/picture.tsx";
 import { DEFAULT_TAG_EMOJI } from "./constants.ts";
-import close from "#src/icons/close.svg?raw";
+import close from "#src/assets/icons/close.svg?raw";
 import { type FilterState, useFilterState } from "../use-filter-state.ts";
 import { m } from "#src/paraglide/messages.js";
 

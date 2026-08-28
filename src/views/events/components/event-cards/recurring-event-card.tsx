@@ -1,7 +1,7 @@
 import { Button } from "#components/button/button.tsx";
 import type { RecurringEventsCardProps } from "./types.ts";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
-import date from "#src/icons/date.svg?raw";
+import date from "#src/assets/icons/date.svg?raw";
 import style from "./recurring-event-card.module.scss";
 import { EventChip } from "../event-chip/event-chip.tsx";
 import { m } from "#src/paraglide/messages.js";

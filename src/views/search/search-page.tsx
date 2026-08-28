@@ -23,7 +23,7 @@ import { useElementSize } from "../../hooks/use-element-size.tsx";
 import { SearchTopbar } from "./components/search-topbar.tsx";
 import { SearchHero } from "./components/search-hero.tsx";
 import { LargeButton } from "#components/button/button.tsx";
-import retry from "#src/icons/refresh.svg?raw";
+import retry from "#src/assets/icons/refresh.svg?raw";
 import sadUnicorn from "../../assets/unicorn_sad.svg";
 import happyUnicorn from "../../assets/unicorn_happy.svg";
 import scaredUnicorn from "../../assets/unicorn_scared.svg";

@@ -1,7 +1,7 @@
 import style from "./404-embed.module.scss";
 import { LargeButton } from "#components/button/button.tsx";
 import { RawSvg } from "#components/image/raw-svg.tsx";
-import LaunchIcon from "#src/icons/launch.svg?raw";
+import LaunchIcon from "#src/assets/icons/launch.svg?raw";
 
 import { m } from "#src/paraglide/messages.js";
 

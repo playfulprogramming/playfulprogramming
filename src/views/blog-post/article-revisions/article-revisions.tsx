@@ -2,7 +2,7 @@ import { getLocale } from "#src/paraglide/runtime.js";
 import { useEffect, useRef, useState } from "preact/hooks";
 import style from "./article-revisions.module.scss";
 import listStyle from "#components/select/select.module.scss";
-import down from "#src/icons/chevron_down.svg?raw";
+import down from "#src/assets/icons/chevron_down.svg?raw";
 import { debounce } from "#utils/debounce.ts";
 import type { PostInfo, PostVersion } from "#types/PostInfo.ts";
 import { siteMetadata } from "#src/constants/site-config.ts";

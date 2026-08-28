@@ -1,6 +1,6 @@
 import styles from "./pagination.module.scss";
-import forward from "#src/icons/arrow_right.svg?raw";
-import back from "#src/icons/arrow_left.svg?raw";
+import forward from "#src/assets/icons/arrow_right.svg?raw";
+import back from "#src/assets/icons/arrow_left.svg?raw";
 import { PaginationMenuAndPopover } from "#components/pagination/pagination-popover.tsx";
 import type {
 	PaginationButtonProps,

@@ -2,9 +2,9 @@ import { Button } from "#components/button/button.tsx";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import type { HTMLAttributes } from "preact/compat";
 import { useState } from "preact/hooks";
-import LaunchIcon from "#src/icons/launch.svg?raw";
-import PlayIcon from "#src/icons/play.svg?raw";
-import FallbackPageIcon from "#src/icons/website.svg?raw";
+import LaunchIcon from "#src/assets/icons/launch.svg?raw";
+import PlayIcon from "#src/assets/icons/play.svg?raw";
+import FallbackPageIcon from "#src/assets/icons/website.svg?raw";
 
 import { m } from "#src/paraglide/messages.js";
 import style from "./iframe-placeholder.module.scss";

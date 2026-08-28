@@ -1,9 +1,9 @@
 import { getLocale } from "#src/paraglide/runtime.js";
 import { Button, IconOnlyButton } from "#components/button/button.tsx";
-import discussion from "#src/icons/discussion.svg?raw";
-import repost from "#src/icons/repost.svg?raw";
-import heart from "#src/icons/heart.svg?raw";
-import launch from "#src/icons/launch.svg?raw";
+import discussion from "#src/assets/icons/discussion.svg?raw";
+import repost from "#src/assets/icons/repost.svg?raw";
+import heart from "#src/assets/icons/heart.svg?raw";
+import launch from "#src/assets/icons/launch.svg?raw";
 import style from "./x-embed.module.scss";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import { toDate } from "#utils/date.ts";

@@ -239,9 +239,9 @@ body:has(.dialog[open]) {
 	content: "";
 	opacity: 0;
 	transform: scale(0.6);
-	-webkit-mask: url("../../../../icons/checkmark.svg") center / contain
+	-webkit-mask: url("../../../../assets/icons/checkmark.svg") center / contain
 		no-repeat;
-	mask: url("../../../../icons/checkmark.svg") center / contain no-repeat;
+	mask: url("../../../../assets/icons/checkmark.svg") center / contain no-repeat;
 	@include transition(opacity transform);
 }
 

@@ -1,9 +1,9 @@
-import PlayIcon from "#src/icons/play.svg?raw";
-import EditIcon from "#src/icons/edit.svg?raw";
-import RefreshIcon from "#src/icons/refresh.svg?raw";
-import DotIcon from "#src/icons/dot.svg?raw";
-import LoadingIcon from "#src/icons/loading.svg?raw";
-import CheckmarkIcon from "#src/icons/checkmark.svg?raw";
+import PlayIcon from "#src/assets/icons/play.svg?raw";
+import EditIcon from "#src/assets/icons/edit.svg?raw";
+import RefreshIcon from "#src/assets/icons/refresh.svg?raw";
+import DotIcon from "#src/assets/icons/dot.svg?raw";
+import LoadingIcon from "#src/assets/icons/loading.svg?raw";
+import CheckmarkIcon from "#src/assets/icons/checkmark.svg?raw";
 import type { PropsWithChildren } from "#components/types.ts";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import { Button, IconOnlyButton } from "#components/button/button.tsx";

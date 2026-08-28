@@ -1,12 +1,12 @@
 import { useRef, useState } from "preact/hooks";
 import { type RefObject, Fragment } from "preact";
 import mainStyles from "./pagination.module.scss";
-import more from "#src/icons/more_horiz.svg?raw";
+import more from "#src/assets/icons/more_horiz.svg?raw";
 import type { PaginationProps } from "#components/pagination/types.ts";
 import style from "./pagination-popover.module.scss";
 import { Button, IconOnlyButton } from "#components/button/button.tsx";
-import subtract from "../../icons/subtract.svg?raw";
-import add from "../../icons/add.svg?raw";
+import subtract from "#src/assets/icons/subtract.svg?raw";
+import add from "#src/assets/icons/add.svg?raw";
 import { Input } from "#components/input/input.tsx";
 import {
 	useDialog,

@@ -2,9 +2,9 @@ import { getLocale } from "#src/paraglide/runtime.js";
 import { useCallback, useMemo } from "preact/hooks";
 import style from "./quiz-results.module.scss";
 import { Button } from "#components/button/button.tsx";
-import QuizIcon from "#src/icons/quiz.svg?raw";
-import CorrectIcon from "#src/icons/correct.svg?raw";
-import IncorrectIcon from "#src/icons/incorrect.svg?raw";
+import QuizIcon from "#src/assets/icons/quiz.svg?raw";
+import CorrectIcon from "#src/assets/icons/correct.svg?raw";
+import IncorrectIcon from "#src/assets/icons/incorrect.svg?raw";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 
 import { m } from "#src/paraglide/messages.js";

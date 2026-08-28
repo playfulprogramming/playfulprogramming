@@ -15,7 +15,7 @@ import type { FileEntry } from "./types.ts";
 import { Dialog } from "#components/dialog/dialog.tsx";
 import style from "./file-picker.module.scss";
 import { IconOnlyButton } from "#components/button/button.tsx";
-import CloseIcon from "#src/icons/close.svg?raw";
+import CloseIcon from "#src/assets/icons/close.svg?raw";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 
 import { m } from "#src/paraglide/messages.js";

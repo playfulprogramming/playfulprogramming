@@ -1,6 +1,6 @@
 import { RawSvg } from "#components/image/raw-svg.tsx";
-import InfoIcon from "#src/icons/info.svg?raw";
-import WarningIcon from "#src/icons/warning.svg?raw";
+import InfoIcon from "#src/assets/icons/info.svg?raw";
+import WarningIcon from "#src/assets/icons/warning.svg?raw";
 import style from "./tooltip.module.scss";
 import type { JSXNode } from "#components/types.ts";
 

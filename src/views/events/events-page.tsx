@@ -8,7 +8,7 @@ import { useElementSize } from "../../hooks/use-element-size.tsx";
 
 import { Calendar } from "./components/calendar/calendar.tsx";
 import { LongWave } from "./components/long-wave/long-wave.tsx";
-import filter from "#src/icons/filter.svg?raw";
+import filter from "#src/assets/icons/filter.svg?raw";
 import style from "./events-page.module.scss";
 import type { LatestEventBlockLocationMetadataType } from "./components/event-cards/types.ts";
 import { RecurringEventsCard } from "./components/event-cards/recurring-event-card.tsx";

@@ -58,7 +58,9 @@ export default defineConfig({
 		},
 	},
 	integrations: [
-		icon(),
+		icon({
+			iconDir: "src/assets/icons",
+		}),
 		preact({
 			compat: true,
 			babel: {

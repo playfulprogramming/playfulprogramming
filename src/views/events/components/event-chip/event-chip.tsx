@@ -1,6 +1,6 @@
-import location from "#src/icons/location.svg?raw";
-import wifi from "#src/icons/wifi.svg?raw";
-import repeat from "#src/icons/repeat.svg?raw";
+import location from "#src/assets/icons/location.svg?raw";
+import wifi from "#src/assets/icons/wifi.svg?raw";
+import repeat from "#src/assets/icons/repeat.svg?raw";
 import style from "./event-chip.module.scss";
 import { m } from "#src/paraglide/messages.js";
 

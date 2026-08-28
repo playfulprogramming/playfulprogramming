@@ -1,7 +1,7 @@
 import type { ComponentChild } from "preact";
 import styles from "./gist-placeholder.module.scss";
 import { Button } from "#components/button/button.tsx";
-import github from "#src/icons/github.svg?raw";
+import github from "#src/assets/icons/github.svg?raw";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 
 import { m } from "#src/paraglide/messages.js";

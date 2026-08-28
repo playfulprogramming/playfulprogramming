@@ -15,8 +15,8 @@ import {
 	useRenderProps,
 	I18nProvider,
 } from "react-aria-components";
-import arrow_left from "../../../../icons/arrow_left.svg?raw";
-import arrow_right from "../../../../icons/arrow_right.svg?raw";
+import arrow_left from "#src/assets/icons/arrow_left.svg?raw";
+import arrow_right from "#src/assets/icons/arrow_right.svg?raw";
 import { type ForwardedRef, forwardRef } from "preact/compat";
 import {
 	DismissButton,
@@ -56,8 +56,8 @@ import {
 	useOverlayTriggerState,
 } from "react-stately";
 import type { DOMProps } from "@react-types/shared";
-import author from "#src/icons/authors.svg?raw";
-import wifi from "#src/icons/wifi.svg?raw";
+import author from "#src/assets/icons/authors.svg?raw";
+import wifi from "#src/assets/icons/wifi.svg?raw";
 import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 

@@ -5,8 +5,8 @@ import {
 	IconOnlyButton,
 	LargeButton,
 } from "#components/button/button.tsx";
-import filter from "#src/icons/filter.svg?raw";
-import forward from "#src/icons/arrow_right.svg?raw";
+import filter from "#src/assets/icons/filter.svg?raw";
+import forward from "#src/assets/icons/arrow_right.svg?raw";
 import { Item, Select } from "#components/select/select.tsx";
 import {
 	RadioButton,
