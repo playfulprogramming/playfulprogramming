@@ -84,8 +84,6 @@
 		width: var(--resizeable-panel_icon_height);
 		border-radius: var(--spc-1x);
 		background-color: var(--resizeable-panel_separator_background);
-		border: var(--resizeable-panel_separator_outline_width_focused) solid
-			transparent;
 		@include transition(width height background-color);
 
 		@include from($tabletSmall) {
