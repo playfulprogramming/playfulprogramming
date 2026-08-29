@@ -1,6 +1,8 @@
 @use "src/tokens/index" as *;
 
 :root {
+	// TODO(undefined-css-vars): no similar token found for --surface_primary_emphasis-none
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--snitip-card_background: var(--surface_primary_emphasis-none);
 	--snitip-card_corner-radius: var(--corner-radius_xl);
 }

@@ -8,13 +8,21 @@
 
 	--inline-popup_content_padding-horizontal: var(--spc-1x);
 
+	// TODO(undefined-css-vars): no similar token found for --secondary_variant
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--inline-popup_border-color: var(--secondary_variant);
 	--inline-popup_border-width: 1px;
 
 	--inline-popup_background: var(--background_secondary);
+	// TODO(undefined-css-vars): no similar token found for --secondary_on-variant
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--inline-popup_color: var(--secondary_on-variant);
 
+	// TODO(undefined-css-vars): no similar token found for --secondary_default
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--inline-popup_icon-color: var(--secondary_default);
+	// TODO(undefined-css-vars): no similar token found for --secondary_on-variant
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--inline-popup_icon-color_copied: var(--secondary_on-variant);
 }
 
@@ -30,10 +38,13 @@
 
 	border: var(--inline-popup_border-width) solid
 		var(--inline-popup_border-color);
+	// TODO(undefined-css-vars): no similar token found for --icon-size_dense or --icon-size-dense-padding
+	/* stylelint-disable csstools/value-no-unknown-custom-properties */
 	border-radius: calc(
 		var(--inline-popup_border-width) + var(--inline-popup_padding-vertical) +
 			var(--icon-size_dense) / 2
 	);
+	/* stylelint-enable csstools/value-no-unknown-custom-properties */
 
 	box-shadow: var(--shadow_sticker);
 
@@ -57,9 +68,12 @@
 	display: flex;
 	align-items: center;
 
+	// TODO(undefined-css-vars): no similar token found for --icon-size_dense or --icon-size-dense-padding
+	/* stylelint-disable csstools/value-no-unknown-custom-properties */
 	padding: var(--icon-size-dense-padding);
 	height: var(--icon-size_dense);
 	width: var(--icon-size_dense);
+	/* stylelint-enable csstools/value-no-unknown-custom-properties */
 
 	svg {
 		width: 100%;

@@ -26,6 +26,8 @@
 	--form-field_outline_color_disabled: var(--background_disabled);
 
 	--form-field_halo_color: var(--secondary_low);
+	// TODO(undefined-css-vars): --error_variant ambiguous, --error_low_semantic or --error_medium_semantic could fit
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--form-field_halo_color_error: var(--error_variant);
 }
 

@@ -4,6 +4,8 @@
 	--snitip_focus-outline_width: var(--border-width_focus);
 	--snitip_focus-outline_color: var(--focus-outline_secondary);
 
+	// TODO(undefined-css-vars): --primary_default ambiguous, --primary_high or --primary_medium or --primary_low could fit
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--snitip_trigger_color: var(--primary_default);
 	--snitip_trigger_gap: 0.3ch;
 }

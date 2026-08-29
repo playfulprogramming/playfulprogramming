@@ -221,16 +221,6 @@
 		var(--lightness-99) var(--semantic-chroma-99) var(--hue-error)
 	);
 
-	--error90: oklch(
-		var(--lightness-90) var(--semantic-chroma-90) var(--hue-error)
-	);
-	--error95: oklch(
-		var(--lightness-95) var(--semantic-chroma-95) var(--hue-error)
-	);
-	--error99: oklch(
-		var(--lightness-99) var(--semantic-chroma-99) var(--hue-error)
-	);
-
 	/* Neutrals, used for text and disabled states */
 
 	--neutral10: oklch(var(--lightness-10) 0.05 var(--hue-primary));

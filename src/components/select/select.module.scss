@@ -19,6 +19,8 @@
 }
 
 .visibleLabel {
+	// TODO(undefined-css-vars): found --search-page_filter_list_controls_label, code expects --search-page_filter_list_controls_label-color
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	color: var(--search-page_filter_list_controls_label);
 }
 
@@ -39,6 +41,8 @@
 	border: unset;
 	outline: none;
 	display: flex;
+	// TODO(undefined-css-vars): no similar token found for --popup_item_gap
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	gap: var(--popup_item_gap);
 	align-items: center;
 	min-height: var(--popup_item_min-height);

@@ -13,6 +13,8 @@
 	--contributor_padding-bottom: var(--spc-4x);
 	--contributor_gap: var(--spc-4x);
 	--contributor_container-offset: calc(var(--contributor_avatar_size) / 2);
+	// TODO(undefined-css-vars): no similar token found for --min-width_xxs
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--contributor_min-width: var(--min-width_xxs);
 
 	@include from($tabletSmall) {

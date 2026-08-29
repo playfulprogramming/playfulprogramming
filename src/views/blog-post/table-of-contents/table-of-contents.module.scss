@@ -34,6 +34,8 @@
 	--toc_divider_color: var(--primary_low);
 
 	--toc_arrow_color: var(--foreground_high);
+	// TODO(undefined-css-vars): --primary ambiguous, --primary_high or --primary_low or --primary_medium could fit
+	// stylelint-disable-next-line csstools/value-no-unknown-custom-properties
 	--toc_arrow_color_selected: var(--primary);
 
 	@include until($tabletLarge) {

@@ -45,13 +45,13 @@
 	@include from($tabletSmall) {
 		grid-template-columns: min-content 1fr;
 		grid-template-rows: repeat(2, min-content);
-		grid-column-gap: var(--collection-page_gap);
+		column-gap: var(--collection-page_gap);
 	}
 
 	@include from($desktopSmall) {
 		grid-template-columns: min-content 1fr;
 		grid-template-rows: min-content 1fr;
-		grid-column-gap: var(--collection-page_gap);
+		column-gap: var(--collection-page_gap);
 	}
 }
 

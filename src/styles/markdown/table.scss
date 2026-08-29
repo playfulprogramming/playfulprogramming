@@ -184,6 +184,7 @@
 
 	th > code,
 	td > code {
+		// stylelint-disable-next-line declaration-property-value-keyword-no-deprecated
 		word-break: break-word;
 	}
 }
