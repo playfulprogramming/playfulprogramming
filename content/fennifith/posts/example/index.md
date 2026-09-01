@@ -251,6 +251,40 @@ I found a trend line of $$\left(x\log_{10} x \cdot 16\right) + 101$$ was reasona
 
 Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\times10^{17}$$ MB, or 315 ZB
 
+## Font families
+
+- Main/Math (default): $$x + y = z$$, *italic variables* like $$a, b, \theta$$
+- Bold: $$\mathbf{v} = \boldsymbol{v}$$
+- Text italic: $$\text{\textit{annotation}}$$
+- Text bold italic: $$\text{\textbf{\textit{note}}}$$
+- Blackboard bold (AMS): $$\mathbb{R}, \mathbb{N}, \mathbb{Z}, \mathbb{Q}, \mathbb{C}$$
+- Calligraphic: $$\mathcal{A}, \mathcal{L}, \mathcal{O}(n \log n)$$
+- Script: $$\mathscr{F}, \mathscr{H}$$
+- Fraktur: $$\mathfrak{g}, \mathfrak{su}(2)$$
+- Sans-serif: $$\mathsf{sans}, \mathsf{ABC}$$
+- Typewriter: $$\mathtt{monospace}, \mathtt{ABC}$$
+- AMS symbols (used even without `\mathbb`): $$\leq, \geq, \neq, \in, \notin, \subset, \subseteq, \emptyset, \nabla, \partial, \infty, \aleph, \therefore, \because$$
+
+## Delimiters and operators (Size1-4 fonts)
+
+Large auto-sized delimiters, sums, products, and nested fractions all scale through KaTeX's Size1-4 fonts:
+
+$$\left( \frac{1}{1 + \frac{1}{1 + \frac{1}{x}}} \right)$$
+
+$$\sum_{i=1}^{n} i^2 = \frac{n(n+1)(2n+1)}{6} \qquad \prod_{k=1}^{n} k = n! \qquad \bigcup_{i=1}^{n} A_i$$
+
+$$\sqrt{\frac{a^2 + b^2}{\sqrt{c^2 + \sqrt{d^2}}}}$$
+
+## Matrices, cases, and accents
+
+$$\begin{pmatrix} a & b \\ c & d \end{pmatrix} \qquad f(x) = \begin{cases} 1 & x > 0 \\ 0 & x = 0 \\ -1 & x < 0 \end{cases}$$
+
+Accents and vectors: $$\vec{v}, \hat{x}, \bar{y}, \dot{z}, \tilde{n}$$
+
+Greek letters: $$\alpha, \beta, \gamma, \Delta, \pi, \Sigma, \omega, \Omega$$
+
+Limits and binomials: $$\lim_{x \to \infty} \frac{1}{x} = 0 \qquad \binom{n}{k}$$
+
 # Users
 
 <!-- ::user id="crutchcorn" -->
