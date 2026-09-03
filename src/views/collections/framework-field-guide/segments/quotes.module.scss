@@ -8,7 +8,7 @@
 	flex-direction: column;
 	gap: var(--section-gap);
 	padding: var(--section-ver-padding) var(--section-hor-padding);
-	color: var(--on-dark-emphasis_high);
+	color: var(--on-dark-emphasis-high);
 	transition: color var(--color-transition-time) var(--color-transition-ease);
 	will-change: transition;
 }
@@ -30,9 +30,9 @@
 	position: absolute;
 	width: 1px;
 	height: 1px;
-	padding: 0;
 	margin: -1px;
 	overflow: hidden;
+	// stylelint-disable-next-line property-no-deprecated
 	clip: rect(0, 0, 0, 0);
 	white-space: nowrap;
 	border-width: 0;

@@ -7,15 +7,13 @@
 	--inline-popup_gap: var(--spc-1x);
 
 	--inline-popup_content_padding-horizontal: var(--spc-1x);
-
-	--inline-popup_border-color: var(--secondary_variant);
+	--inline-popup_border-color: var(--secondary_low);
 	--inline-popup_border-width: 1px;
 
 	--inline-popup_background: var(--background_secondary);
-	--inline-popup_color: var(--secondary_on-variant);
-
-	--inline-popup_icon-color: var(--secondary_default);
-	--inline-popup_icon-color_copied: var(--secondary_on-variant);
+	--inline-popup_color: var(--secondary_high);
+	--inline-popup_icon-color: var(--secondary_medium);
+	--inline-popup_icon-color_copied: var(--secondary_high);
 }
 
 .inline-popup {
@@ -32,9 +30,8 @@
 		var(--inline-popup_border-color);
 	border-radius: calc(
 		var(--inline-popup_border-width) + var(--inline-popup_padding-vertical) +
-			var(--icon-size_dense) / 2
+			var(--icon-size_default) / 2
 	);
-
 	box-shadow: var(--shadow_sticker);
 
 	@include transition(transform opacity border-color background-color);
@@ -56,10 +53,8 @@
 
 	display: flex;
 	align-items: center;
-
-	padding: var(--icon-size-dense-padding);
-	height: var(--icon-size_dense);
-	width: var(--icon-size_dense);
+	height: var(--icon-size_default);
+	width: var(--icon-size_default);
 
 	svg {
 		width: 100%;

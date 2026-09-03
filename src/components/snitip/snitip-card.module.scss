@@ -1,7 +1,7 @@
 @use "src/tokens/index" as *;
 
 :root {
-	--snitip-card_background: var(--surface_primary_emphasis-none);
+	--snitip-card_background: var(--tint_primary_none);
 	--snitip-card_corner-radius: var(--corner-radius_xl);
 }
 

@@ -299,14 +299,12 @@
 	}
 
 	&__heading {
-		margin: 0;
 		grid-column: 2 / 2;
 		grid-row: 2 / 2;
 		margin: var(--spc-6x) var(--spc-6x) var(--spc-2x) var(--spc-6x) !important;
 	}
 
 	&__message {
-		margin: 0;
 		grid-column: 2 / 2;
 		grid-row: 3 / 3;
 		margin: 0 var(--spc-6x) var(--spc-6x) var(--spc-6x) !important;

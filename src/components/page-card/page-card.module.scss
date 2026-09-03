@@ -46,7 +46,7 @@
 	display: grid;
 	border-radius: var(--page-card_container_corner-radius);
 	grid-template-columns: 1fr;
-	grid-row-gap: var(--page-card_container_padding);
+	row-gap: var(--page-card_container_padding);
 	padding: 0 var(--page-card_container_padding)
 		var(--page-card_container_padding) var(--page-card_container_padding);
 
@@ -56,8 +56,8 @@
 		max-width: var(--page-card_max-width);
 		grid-template-columns: auto 1fr;
 		grid-template-rows: auto auto auto;
-		grid-row-gap: var(--page-card_container_padding);
-		grid-column-gap: var(--page-card_container_padding);
+		row-gap: var(--page-card_container_padding);
+		column-gap: var(--page-card_container_padding);
 		padding: var(--page-card_container_padding)
 			var(--page-card_container_compound-padding)
 			var(--page-card_container_compound-padding)
@@ -67,8 +67,8 @@
 	@include from($tabletLarge) {
 		grid-template-columns: auto 1fr;
 		grid-template-rows: 1fr 1fr var(--page-card_container_padding) auto;
-		grid-row-gap: unset;
-		grid-column-gap: var(--page-card_container_padding);
+		row-gap: unset;
+		column-gap: var(--page-card_container_padding);
 		padding: var(--page-card_container_padding)
 			var(--page-card_container_compound-padding);
 	}
@@ -77,8 +77,8 @@
 		margin-top: unset;
 		grid-template-columns: auto 1fr;
 		grid-template-rows: auto auto 1fr auto;
-		grid-column-gap: var(--page-card_container_padding);
-		grid-row-gap: var(--page-card_description_padding-top);
+		column-gap: var(--page-card_container_padding);
+		row-gap: var(--page-card_description_padding-top);
 		padding: var(--page-card_container_padding)
 			var(--page-card_container_compound-padding)
 			var(--page-card_container_padding) 0;

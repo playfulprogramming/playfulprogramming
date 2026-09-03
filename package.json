@@ -41,9 +41,10 @@
 		"paraglide:compile": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations --strategy url globalVariable baseLocale",
 		"format": "prettier -w . --cache --plugin-search-dir=.",
 		"prelint": "pnpm run paraglide:compile",
-		"lint": "eslint \"**/*.{js,ts,tsx,jsx,astro}\"",
+		"lint": "eslint \"**/*.{js,ts,tsx,jsx,astro}\" && pnpm run lint:css",
+		"lint:css": "stylelint \"src/**/*.{scss,astro,css}\"",
 		"prelint:fix": "pnpm run paraglide:compile",
-		"lint:fix": "eslint --cache --fix \"**/*.{js,ts,tsx,jsx,astro}\"",
+		"lint:fix": "eslint --cache --fix \"**/*.{js,ts,tsx,jsx,astro}\" && stylelint --fix \"src/**/*.{scss,astro,css}\"",
 		"preknip": "pnpm run paraglide:compile",
 		"knip": "knip",
 		"presearch-index:deploy": "pnpm run paraglide:compile",
@@ -124,6 +125,8 @@
 		"octokit": "^5.0.5",
 		"openapi-typescript": "^7.13.0",
 		"playwright": "1.60.0",
+		"postcss-html": "^2.0.0",
+		"postcss-scss": "^4.0.9",
 		"prettier": "^3.8.3",
 		"prettier-plugin-astro": "^0.14.1",
 		"react": "npm:@preact/compat@18.3.1",
@@ -143,6 +146,9 @@
 		"sharp": "^0.34.5",
 		"shiki": "^4.1.0",
 		"sitemap": "^9.0.1",
+		"stylelint": "^17.14.1",
+		"stylelint-config-recommended-scss": "^17.0.1",
+		"stylelint-value-no-unknown-custom-properties": "^6.1.1",
 		"symlink-dir": "^10.0.1",
 		"terser": "^5.48.0",
 		"tiny-async-pool": "^2.1.0",
@@ -158,7 +164,8 @@
 	},
 	"lint-staged": {
 		"*.{js,ts,tsx,astro}": "eslint --cache --fix",
-		"*.{js,ts,tsx,astro,jsx}": "prettier --write"
+		"*.{js,ts,tsx,astro,jsx}": "prettier --write",
+		"*.{scss,astro,css}": "stylelint"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.29.7",

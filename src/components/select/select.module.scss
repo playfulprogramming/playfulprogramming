@@ -19,7 +19,7 @@
 }
 
 .visibleLabel {
-	color: var(--search-page_filter_list_controls_label);
+	color: var(--search-page_filter_list_controls_label-color);
 }
 
 .downSpan {
@@ -39,7 +39,6 @@
 	border: unset;
 	outline: none;
 	display: flex;
-	gap: var(--popup_item_gap);
 	align-items: center;
 	min-height: var(--popup_item_min-height);
 	border-radius: var(--popup_item_corner-radius);

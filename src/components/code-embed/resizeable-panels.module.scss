@@ -1,8 +1,10 @@
 @use "src/tokens/index" as *;
 
 :root {
-	--resizeable-panel_separator_background: var(--tint_primary_medium);
-	--resizeable-panel_separator_background_hovered: var(--tint_primary_high);
+	--resizeable-panel_separator_background: var(--primary_container);
+	--resizeable-panel_separator_background_hovered: var(
+		--primary_container_hover
+	);
 	--resizeable-panel_separator_background_focused: var(--background_focus);
 	--resizeable-panel_separator_outline_color_focused: var(
 		--focus-outline_primary
@@ -82,8 +84,6 @@
 		width: var(--resizeable-panel_icon_height);
 		border-radius: var(--spc-1x);
 		background-color: var(--resizeable-panel_separator_background);
-		border: var(--resizeable-panel_separator_border_width_focused) solid
-			transparent;
 		@include transition(width height background-color);
 
 		@include from($tabletSmall) {
