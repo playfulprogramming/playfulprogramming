@@ -8,8 +8,13 @@ import type { AstroUserConfig } from "astro";
 import node from "@astrojs/node";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import projectSettings from "./project.inlang/settings.json" with { type: "json" };
+import browserslist from "browserslist";
+import { browserslistToTargets } from "lightningcss";
 
 await symlinkDir(path.resolve("content"), path.resolve("public/content"));
+
+// Reads the "browserslist" field in package.json.
+const lightningcssTargets = browserslistToTargets(browserslist());
 
 const isServerBuild = process.env.BUILD_OUTPUT === "server";
 
@@ -72,6 +77,15 @@ export default defineConfig({
 	vite: {
 		define: {
 			__PARAGLIDE_SERVER_OUTPUT__: JSON.stringify(isServerBuild),
+		},
+		css: {
+			transformer: "lightningcss",
+			lightningcss: {
+				targets: lightningcssTargets,
+			},
+		},
+		build: {
+			cssMinify: "lightningcss",
 		},
 		plugins: [
 			paraglideVitePlugin({
