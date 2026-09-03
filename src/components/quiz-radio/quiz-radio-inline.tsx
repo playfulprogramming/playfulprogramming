@@ -10,6 +10,7 @@ export interface QuizRadioInlineProps {
 	id: string;
 	quizId?: string;
 	title: string;
+	titleId?: string;
 	options: QuizRadioOption[];
 	questionNum: number;
 	totalNum: number;
@@ -76,6 +77,7 @@ export function QuizRadioInline(props: QuizRadioInlineProps) {
 		<QuizRadio
 			id={props.id}
 			title={props.title}
+			titleId={props.titleId}
 			options={options}
 			questionNum={props.questionNum}
 			totalNum={props.totalNum}

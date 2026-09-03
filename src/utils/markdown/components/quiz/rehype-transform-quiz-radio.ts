@@ -56,6 +56,10 @@ export const transformQuizRadio: RehypeFunctionComponent = ({
 		return [];
 	}
 	const title = toString(titleNode);
+	const titleId =
+		typeof titleNode.properties["id"] === "string"
+			? titleNode.properties["id"]
+			: undefined;
 
 	const listNode = findListNode(children);
 	if (!listNode) {
@@ -120,19 +124,23 @@ export const transformQuizRadio: RehypeFunctionComponent = ({
 		(child) => child.type != "text" || child.value.trim().length > 0,
 	);
 
-	return [
-		createComponent(
-			"QuizRadio",
-			{
-				id: attributes.id,
-				quizId,
-				title,
-				options,
-				questionNum: Number(attributes["question-num"]),
-				totalNum: Number(attributes["total-num"]),
-				isIndividualSubmit: quizId === undefined,
-			},
-			hasChildren ? localChildren : undefined,
-		),
-	];
+	const component = createComponent(
+		"QuizRadio",
+		{
+			id: attributes.id,
+			quizId,
+			title,
+			titleId,
+			options,
+			questionNum: Number(attributes["question-num"]),
+			totalNum: Number(attributes["total-num"]),
+			isIndividualSubmit: quizId === undefined,
+		},
+		hasChildren ? localChildren : undefined,
+	);
+	component.fragmentIds = [attributes.id, titleId].filter(
+		(id): id is string => typeof id === "string",
+	);
+
+	return [component];
 };

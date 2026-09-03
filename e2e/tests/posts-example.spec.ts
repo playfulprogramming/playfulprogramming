@@ -66,3 +66,39 @@ test("posts/example renders dark mode", async ({ page }) => {
 		maxDiffPixels: MAX_DIFF_PIXELS,
 	});
 });
+
+test("posts/example fragment links resolve", async ({ page }) => {
+	await page.goto("/posts/example", { waitUntil: "networkidle" });
+
+	const unresolvedFragments = await page
+		.getByTestId("post-body-div")
+		.locator('a[href^="#"]')
+		.evaluateAll((links) =>
+			links.flatMap((link) => {
+				const href = link.getAttribute("href");
+				if (!href || href === "#") return [];
+
+				const fragment = href.slice(1);
+				let decodedFragment = fragment;
+				try {
+					decodedFragment = decodeURIComponent(fragment);
+				} catch {
+					// A malformed escape cannot match a decoded ID.
+				}
+
+				return document.getElementById(fragment) ||
+					document.getElementById(decodedFragment)
+					? []
+					: [href];
+			}),
+		);
+
+	expect(unresolvedFragments).toEqual([]);
+	await expect(page.locator("#why-does-js")).toHaveText(
+		"Based on what you’ve seen: Why does JS?",
+	);
+	await expect(page.locator("#why-does-js")).toBeVisible();
+	await expect(page.getByRole("radiogroup").first()).toHaveAccessibleName(
+		"Based on what you’ve seen: Why does JS?",
+	);
+});
