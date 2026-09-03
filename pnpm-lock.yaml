@@ -244,6 +244,9 @@ importers:
       postcss-html:
         specifier: ^2.0.0
         version: 2.0.0(postcss@8.5.26)
+      postcss-scss:
+        specifier: ^4.0.9
+        version: 4.0.9(postcss@8.5.26)
       prettier:
         specifier: ^3.8.3
         version: 3.8.4
