@@ -3,6 +3,7 @@ import preact from "@astrojs/preact";
 import icon from "astro-icon";
 import { symlinkDir } from "symlink-dir";
 import * as path from "path";
+import * as os from "os";
 import type { AstroUserConfig } from "astro";
 import node from "@astrojs/node";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
@@ -11,6 +12,10 @@ import projectSettings from "./project.inlang/settings.json" with { type: "json"
 await symlinkDir(path.resolve("content"), path.resolve("public/content"));
 
 const isServerBuild = process.env.BUILD_OUTPUT === "server";
+
+// Astro warns that high concurrency increases memory use and can
+// destabilize builds, so cap it rather than trust the raw core count.
+const buildConcurrency = Math.min(os.availableParallelism(), 8);
 
 export default defineConfig({
 	// import.meta.env does not resolve to env variables in the config script!
@@ -22,6 +27,9 @@ export default defineConfig({
 			: undefined) ??
 		"https://playfulprogramming.com",
 	output: isServerBuild ? "server" : "static",
+	build: {
+		concurrency: buildConcurrency,
+	},
 	i18n: {
 		defaultLocale: projectSettings.baseLocale,
 		locales: projectSettings.locales,
