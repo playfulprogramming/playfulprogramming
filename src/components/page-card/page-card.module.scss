@@ -41,7 +41,6 @@
 	}
 }
 
-/* stylelint-disable property-no-deprecated -- grid-row-gap/grid-column-gap */
 .pageCardContainer {
 	background: var(--page-card_container_background-color);
 	display: grid;
@@ -85,7 +84,6 @@
 			var(--page-card_container_padding) 0;
 	}
 }
-/* stylelint-enable property-no-deprecated */
 
 .imageContainer {
 	display: inline-block;
