@@ -1,5 +1,5 @@
-@use "../../collection-framework-field-guide/styles/tokens/utils" as *;
-@use "../../collection-framework-field-guide/styles/tokens/breakpoints" as *;
+@use "../../../collection-framework-field-guide/styles/tokens/utils" as *;
+@use "../../../collection-framework-field-guide/styles/tokens/breakpoints" as *;
 
 .heroContainer {
 	padding: var(--spc-6x) var(--section-hor-padding);
