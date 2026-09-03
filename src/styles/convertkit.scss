@@ -116,7 +116,6 @@
 	border: 0;
 	border-radius: 5px;
 	color: #ffffff;
-	cursor: pointer;
 	display: inline-block;
 	text-align: center;
 	font-size: 15px;
@@ -219,7 +218,6 @@
 	color: #333333;
 	line-height: 1.4;
 	margin-bottom: 0;
-	padding: 0 6px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
@@ -354,7 +352,6 @@
 	display: -ms-flexbox;
 	display: flex;
 	height: 0px;
-	width: 0px;
 	margin: 0 auto;
 	position: absolute;
 	top: 0;
@@ -422,7 +419,7 @@
 
 .formkit-form .formkit-powered-by-convertkit {
 	-webkit-align-items: center;
-	-webkit-box-align: center;
+	align-items: center;
 	-ms-flex-align: center;
 	align-items: center;
 	background-color: #ffffff;

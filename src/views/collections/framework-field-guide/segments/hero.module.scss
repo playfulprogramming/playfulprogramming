@@ -45,7 +45,6 @@ body {
 }
 
 .titleContainer {
-	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
 
@@ -106,7 +105,6 @@ body {
 	}
 
 	.heroLineBottomHider {
-		position: relative;
 		left: -50%;
 		height: 1rem;
 		background: var(--fund-200);
