@@ -1,0 +1,57 @@
+---
+import * as api from "#utils/api.ts";
+import { getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
+import ContributorCard from "#components/contributor-card/contributor-card.astro";
+import style from "./contributors-and-partners.module.scss";
+
+const locale = getLocale();
+const people = api.getPeopleByLang(locale);
+
+const { partners, nonPartners } = people.reduce(
+	(prev, person) => {
+		if (person.achievements.includes("partner")) {
+			prev.partners.push(person);
+		} else {
+			prev.nonPartners.push(person);
+		}
+		return prev;
+	},
+	{
+		partners: [] as typeof people,
+		nonPartners: [] as typeof people,
+	},
+);
+---
+
+<section>
+	<div class={style.becomeAPartnerContainer}>
+		<h2 class={`text-style-headline-1 ${style.becomeAPartnerTitle}`}>
+			<span>{m.join_us_partners_title()}</span>
+		</h2>
+		<p class={`text-style-body-large ${style.becomeAPartnerBody}`}>
+			{m.join_us_partners_description()}
+		</p>
+	</div>
+</section>
+
+<div class={style.allPeopleContainer}>
+	<ul class={style.peopleContainer} role="list" aria-label={m.label_partners()}>
+		{partners.map((person) => <ContributorCard person={person} />)}
+	</ul>
+	<section>
+		<h2
+			class={`text-style-headline-3 ${style.contributorsTitle}`}
+			id="contributors"
+		>
+			{m.title_contributors()}
+		</h2>
+		<ul
+			class={style.peopleContainer}
+			role="list"
+			aria-labelledby="contributors"
+		>
+			{nonPartners.map((person) => <ContributorCard person={person} />)}
+		</ul>
+	</section>
+</div>

@@ -1,0 +1,143 @@
+@use "sass:math";
+@use "./tokens/index" as *;
+@use "./variables/brand";
+@use "./variables/colors";
+@use "./variables/themes";
+@use "./variables/fonts";
+@use "./variables/corner_radius";
+@use "./variables/border_widths";
+@use "./variables/icons";
+@use "./variables/shadows";
+@use "./variables/spacing";
+@use "./variables/target_sizes";
+@use "./variables/max_widths";
+
+@use "./text-styles";
+@use "./button";
+@use "./container";
+@use "./post-body";
+@use "./utilities";
+
+:root {
+	scrollbar-gutter: stable;
+	scrollbar-color: var(--focus-outline_primary) transparent;
+	@include transition(scrollbar-color);
+
+	box-sizing: border-box;
+
+	/* Sticker logo variables */
+	--sticker_bg: var(--primary50);
+	--sticker_flap: var(--neutral80);
+	--sticker_bowtie: var(--primary20);
+	--sticker_bowtie-dot: var(--primary50);
+	--sticker_back-ear: var(--primary90);
+	--sticker_unicorn-gradient: var(--primary95);
+	--sticker_horn: var(--secondary80);
+}
+
+* {
+	box-sizing: inherit;
+}
+
+// <details> appears to invisibly reset the box-sizing to "content-box"
+// for all its descendants... so we set it back to border-box here.
+details > * {
+	box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	code[class*="language-"] {
+		font-size: inherit;
+	}
+}
+
+:focus {
+	outline-color: var(--focus-outline_primary);
+}
+
+//without this all <button>s have bad outline colors in firefox
+:focus::-moz-focus-inner {
+	padding: 0; //prevent weirdness just in case
+	border-color: var(--focus-outline_primary);
+}
+
+*::-webkit-scrollbar {
+	width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+	background-color: transparent;
+	border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: var(--focus-outline_primary);
+}
+
+body {
+	background-color: var(--background_primary);
+	margin: 0;
+	padding: 0;
+	color: var(--foreground_high);
+	@include transition(color background-color);
+}
+
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+	z-index: 999;
+}
+
+.medium-zoom-overlay {
+	background: var(--background_primary) !important;
+}
+
+/* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+.visually-hidden {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	/* stylelint-disable-next-line property-no-deprecated */
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	// stylelint-disable-next-line property-no-deprecated
+	clip: rect(1px, 1px, 1px, 1px);
+}
+
+.visually-hidden a:focus,
+.visually-hidden input:focus,
+.visually-hidden button:focus {
+	position: static;
+	width: auto;
+	height: auto;
+}
+
+img.circleImg,
+.circleImg img {
+	flex-shrink: 0;
+	flex-grow: 0;
+	border-radius: 50%;
+}
+
+.dark .hide-on-dark {
+	display: none;
+}
+
+.light .show-on-dark {
+	display: none;
+}
+
+// use currentColor for fill on astro-icon svgs
+svg[astro-icon]:not(.strokeicon):not(.nofill) {
+	@include transition(fill);
+	fill: currentColor;
+
+	* {
+		fill: inherit;
+	}
+}

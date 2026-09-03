@@ -1,0 +1,173 @@
+---
+import styles from "./profile-section.module.scss";
+import { Picture as UUPicture } from "#src/components/index.ts";
+import type { PersonInfo } from "#src/types";
+import { Icon } from "astro-icon/components";
+import * as api from "#utils/api.ts";
+import { isDefined } from "#utils/is-defined.ts";
+import { desktopSmall, tabletSmall } from "#src/constants/breakpoints.ts";
+import { m } from "#src/paraglide/messages.js";
+
+interface Props {
+	person: PersonInfo;
+}
+
+const { person } = Astro.props;
+
+const iconSize = 20;
+
+interface SocialInfo {
+	icon: string;
+	name: string;
+	href: (socials: PersonInfo["socials"]) => string | undefined;
+}
+
+const socials: SocialInfo[] = [
+	{
+		icon: "website",
+		name: m.social_website(),
+		href: (s) => s.website,
+	},
+	{
+		icon: "github",
+		name: m.social_github(),
+		href: (s) => s.github && `https://github.com/${s.github}`,
+	},
+	{
+		icon: "gitlab",
+		name: m.social_gitlab(),
+		href: (s) => s.gitlab && `https://gitlab.com/${s.gitlab}`,
+	},
+	{
+		icon: "twitter",
+		name: m.social_twitter(),
+		href: (s) => s.twitter && `https://twitter.com/${s.twitter}`,
+	},
+	{
+		icon: "twitch",
+		name: m.social_twitch(),
+		href: (s) => s.twitch && `https://www.twitch.tv/${s.twitch}`,
+	},
+	{
+		icon: "dribbble",
+		name: m.social_dribbble(),
+		href: (s) => s.dribbble && `https://dribbble.com/${s.dribbble}`,
+	},
+	{
+		icon: "linkedin",
+		name: m.social_linkedin(),
+		href: (s) => s.linkedIn && `https://www.linkedin.com/in/${s.linkedIn}`,
+	},
+	{
+		icon: "mastodon",
+		name: m.social_mastodon(),
+		href: (s) => s.mastodon,
+	},
+	{
+		icon: "threads",
+		name: m.social_threads(),
+		href: (s) => s.threads && `https://www.threads.net/${s.threads}`,
+	},
+	{
+		icon: "youtube",
+		name: m.social_youtube(),
+		href: (s) => s.youtube && s.youtube,
+	},
+	{
+		icon: "cohost",
+		name: m.social_cohost(),
+		href: (s) => s.cohost && `https://cohost.org/${s.cohost}`,
+	},
+	{
+		icon: "bluesky",
+		name: m.social_bluesky(),
+		href: (s) => s.bluesky,
+	},
+];
+
+const roles = person.roles
+	.map((roleId) => api.getRoleById(roleId, person.locale))
+	.filter(isDefined);
+---
+
+<section class={styles.container}>
+	<div class={styles.cardContainer}>
+		<div class={styles.nameAndDesc}>
+			<UUPicture
+				src={person.profileImgMeta.relativeServerPath}
+				width={192}
+				height={192}
+				sizes={{
+					96: { maxWidth: tabletSmall },
+					128: { maxWidth: desktopSmall },
+				}}
+				alt=""
+				class={styles.authorImage}
+			/>
+			<div>
+				<div class={styles.nameAndPronouns}>
+					<h1 class={`text-style-headline-4 ${styles.name}`}>{person.name}</h1>
+					{
+						person.pronouns && (
+							<h2 class={`text-style-body-medium-bold ${styles.pronouns}`}>
+								{person.pronouns}
+							</h2>
+						)
+					}
+				</div>
+				<p class={`text-style-body-medium ${styles.bio}`}>
+					{person.description}
+				</p>
+			</div>
+		</div>
+		<ul
+			class={styles.socialLinkContainer}
+			role="list"
+			aria-label={m.label_social_media_links_for({ name: person.name })}
+		>
+			{
+				socials.map((social) => {
+					const href = social.href(person.socials);
+					if (!href) return [];
+					return (
+						<li>
+							<a
+								rel="me"
+								href={href}
+								class={`text-style-button-regular ${styles.socialLink}`}
+							>
+								<Icon
+									width={iconSize}
+									height={iconSize}
+									name={social.icon as never}
+									class={styles.linkIcon}
+								/>
+								{social.name}
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
+		<ul
+			class={styles.rolesList}
+			role="list"
+			aria-label={m.label_contributor_roles()}
+		>
+			{
+				roles.map((role) => (
+					<li class={styles.role}>
+						<img
+							src={`/stickers/role_${role.id}.svg`}
+							alt=""
+							class={`${styles.rolePic}`}
+						/>
+						<span class={`text-style-body-small-bold ${styles.roleName}`}>
+							{role.prettyname}
+						</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>

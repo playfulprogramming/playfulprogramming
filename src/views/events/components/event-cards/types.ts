@@ -1,4 +1,4 @@
-import type { Event, EventBlock } from "../../types.ts";
+import type { Event, EventBlock } from "../../types";
 import type { UrlMetadataResponse } from "#utils/hoof/index.ts";
 
 export interface RecurringEventsCardProps {

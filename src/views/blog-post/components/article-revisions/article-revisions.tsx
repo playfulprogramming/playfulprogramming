@@ -1,0 +1,147 @@
+import { getLocale } from "#src/paraglide/runtime.js";
+import { useEffect, useRef, useState } from "preact/hooks";
+import style from "./article-revisions.module.scss";
+import listStyle from "#components/select/select.module.scss";
+import down from "#src/assets/icons/chevron_down.svg?raw";
+import { debounce } from "#utils/debounce.ts";
+import type { PostInfo, PostVersion } from "#types/PostInfo.ts";
+import { siteMetadata } from "#src/constants/site-config.ts";
+import { Option } from "#components/select/basic-option.tsx";
+
+import { m } from "#src/paraglide/messages.js";
+
+interface PopOverLocation {
+	x: number;
+	y: number;
+}
+
+interface ArticleRevisionDropdownProps {
+	post: PostInfo;
+	versions: PostVersion[];
+}
+
+const supportsAnchors =
+	import.meta.env.SSR ||
+	(CSS.supports("top: anchor(bottom)") &&
+		CSS.supports("position-anchor: auto"));
+
+export function ArticleRevisionDropdown({
+	post,
+	versions,
+}: ArticleRevisionDropdownProps) {
+	const locale = getLocale();
+	const { slug, published, version } = post;
+	const buttonRef = useRef<HTMLButtonElement>(null);
+	const dateFormatter = new Intl.DateTimeFormat(locale, {
+		dateStyle: "long",
+		timeZone: "UTC",
+	});
+
+	const currentPostVersion = versions.filter(({ href }) => href.endsWith(slug));
+
+	const date = dateFormatter.format(
+		new Date(
+			currentPostVersion.length
+				? currentPostVersion[0]["published"]
+				: published,
+		),
+	);
+
+	const buttonVersion = currentPostVersion.length
+		? currentPostVersion[0]["version"]
+		: version
+			? version
+			: "";
+
+	const postHistory = `https://github.com/${siteMetadata.repoPath}/commits/main/content/${post.path}/index.md`;
+
+	// TODO: This should be a CSS defined value
+	const SPACING = 8;
+
+	const [popOverXY, setPopOverXY] = useState<PopOverLocation>({
+		x: 0,
+		y: 0,
+	});
+
+	useEffect(() => {
+		if (buttonRef.current) {
+			const buttonRect = buttonRef.current.getBoundingClientRect();
+			const x = buttonRect.left - 12;
+			const y = buttonRect.bottom + SPACING;
+
+			setPopOverXY({ x, y });
+		}
+
+		const setPopOverLocation = debounce(
+			() => {
+				if (buttonRef.current) {
+					const buttonRect = buttonRef.current.getBoundingClientRect();
+					const x = buttonRect.left - 12;
+					const y = buttonRect.bottom + SPACING;
+					setPopOverXY({ x, y });
+				}
+			},
+			100,
+			false,
+		);
+
+		window.addEventListener("resize", setPopOverLocation);
+
+		return () => window.removeEventListener("resize", setPopOverLocation);
+	}, []);
+
+	return (
+		<div>
+			<button
+				class={style.button}
+				type="button"
+				popovertarget="article-versions-list"
+				ref={supportsAnchors ? undefined : buttonRef}
+				aria-controls="article-versions-list"
+				aria-haspopup="menu"
+			>
+				<span class={style.date}>{date}</span>
+				<span class={style.dot}>{buttonVersion ? "•" : ""}</span>
+				<span class={style.version}>{buttonVersion}</span>
+				<span class={style.down} dangerouslySetInnerHTML={{ __html: down }} />
+			</button>
+			<ul
+				id="article-versions-list"
+				popover
+				class={`${style.popover} ${listStyle.optionsList} ${supportsAnchors ? style.anchored : ""}`}
+				style={
+					supportsAnchors
+						? ""
+						: { left: `${popOverXY.x}px`, top: `${popOverXY.y}px` }
+				}
+			>
+				{versions.map(({ href, published, version }) => (
+					<Option key={href} isSelected={href.endsWith(slug)}>
+						<a
+							class={style.item}
+							aria-current={href.endsWith(slug) ? "page" : undefined}
+							href={href}
+						>
+							<span class={`text-style-button-regular ${style.date}`}>
+								{dateFormatter.format(new Date(published))}
+							</span>
+							<span
+								class={`text-style-button-regular ${style.version} ${href.endsWith(slug) ? style.selected : ""}`}
+							>
+								{version}
+							</span>
+						</a>
+					</Option>
+				))}
+				<li class={style.changelog}>
+					<hr />
+					<a href={postHistory} target="_blank" rel="noreferrer">
+						<span class="text-style-button-regular">
+							{m.action_view_changelog()}
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	);
+}

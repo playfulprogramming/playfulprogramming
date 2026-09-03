@@ -1,5 +1,12 @@
 ---
 import NotFoundPage from "#src/views/not-found/not-found-page.astro";
+import Document from "#components/layouts/document/document.astro";
+import SEO from "#components/seo/seo.astro";
+
+import { m } from "#src/paraglide/messages.js";
 ---
 
-<NotFoundPage />
+<Document>
+	<SEO slot="head" title={m.title_error_404()} noindex />
+	<NotFoundPage />
+</Document>

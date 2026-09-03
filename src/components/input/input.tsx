@@ -1,7 +1,7 @@
 import style from "./input.module.scss";
 import { type InputHTMLAttributes, type JSX, Fragment } from "preact";
-import search from "../../icons/search.svg?raw";
-import close from "../../icons/close.svg?raw";
+import search from "#src/assets/icons/search.svg?raw";
+import close from "#src/assets/icons/close.svg?raw";
 import {
 	type ButtonProps,
 	type AllowedTags,

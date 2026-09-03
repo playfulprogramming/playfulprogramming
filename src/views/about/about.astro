@@ -4,17 +4,17 @@ import style from "./about.module.scss";
 import "../../styles/shiki.scss";
 import * as data from "#utils/data.ts";
 import { m } from "#src/paraglide/messages.js";
-import TranslationsHeader from "#src/views/base/translations/translations-header.astro";
-import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
-import { License } from "./license.tsx";
-import BannerSvg from "./banner-svg.astro";
+import TranslationsHeader from "#components/translations-header/translations-header.astro";
+import HeadingLinkScript from "#components/heading-link/heading-link-script.astro";
+import { License } from "./components/license/license.tsx";
+import BannerSvg from "./components/banner-svg/banner-svg.astro";
 import * as api from "#utils/api.ts";
 
 import { VFile } from "vfile";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
 import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
 import type { MarkdownFileInfo, MarkdownVFile } from "#utils/markdown/types.ts";
-import { Links } from "./components.tsx";
+import { Links } from "./components/links.tsx";
 import ContributorCard from "../../components/contributor-card/contributor-card.astro";
 import Content from "#utils/markdown/components/content.astro";
 

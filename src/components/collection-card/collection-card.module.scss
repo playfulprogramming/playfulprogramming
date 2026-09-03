@@ -1,4 +1,4 @@
-@use "src/tokens/index" as *;
+@use "../../styles/tokens/index" as *;
 
 :root {
 	--collection-card_corner-radius: var(--corner-radius_xl);

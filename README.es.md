@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Playful Programming logo" width="256" src="./src/assets/playfulprogramming_logo_512.png"/>
+    <img alt="Playful Programming logo" width="256" src="./src/assets/logo/playfulprogramming_logo_512.png"/>
 </p>
 <h1 align="center">
   Página Web de Playful Programming

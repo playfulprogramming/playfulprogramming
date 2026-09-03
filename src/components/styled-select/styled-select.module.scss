@@ -1,4 +1,4 @@
-@use "src/tokens/index" as *;
+@use "../../styles/tokens/index" as *;
 @use "../select/popup.module";
 
 .root {
@@ -183,8 +183,9 @@
 		margin-inline-start: auto;
 		background-color: var(--popup_item_check-icon_color);
 		content: "";
-		-webkit-mask: url("../../icons/checkmark.svg") center / contain no-repeat;
-		mask: url("../../icons/checkmark.svg") center / contain no-repeat;
+		-webkit-mask: url("../../assets/icons/checkmark.svg") center / contain
+			no-repeat;
+		mask: url("../../assets/icons/checkmark.svg") center / contain no-repeat;
 	}
 
 	.root:has(.select:open) {

@@ -1,8 +1,8 @@
 ---
-import Document from "#src/layouts/document.astro";
+import Document from "#components/layouts/document/document.astro";
 import { getCollectionsByLang, getPostsByLang } from "#utils/api.ts";
 import SEO from "#components/seo/seo.astro";
-import Homepage from "#src/views/explore/homepage.astro";
+import Homepage from "#src/views/homepage/homepage.astro";
 import NotFoundPage from "#src/views/not-found/not-found-page.astro";
 import {
 	getStaticLocalePaths,

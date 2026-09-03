@@ -1,0 +1,48 @@
+---
+import type { TagList } from "#src/views/collection-framework-field-guide/components/chip-group/chip-group.astro";
+import ChipGroup from "#src/views/collection-framework-field-guide/components/chip-group/chip-group.astro";
+import "#src/views/collection-framework-field-guide/styles/shared-section-styling.scss";
+
+const tags: TagList = [
+	"Tokens",
+	"Embeddings",
+	"Context windows",
+	"Next-token prediction",
+	"Transformers",
+	"Training data",
+	"Memory",
+	"RAG",
+	"Tool calling",
+	"MCP",
+	"Agents",
+	"Subagents",
+	"Reasoning models",
+	"Multimodal input",
+	"Prompting",
+] as unknown as TagList;
+---
+
+<h2 id="bbb-sub-title" class={`text-style-headline-3 book-title`}>
+	Modern AI is not magic.
+</h2>
+<p class={`text-style-body-large book-bio`}>
+	Nearly everyone uses AI now. Far fewer can say what happens between typing a
+	question and reading an answer.
+	<br />
+	<br />
+	That gap is where the surprises come from: the confident wrong answer, the detail
+	it forgot, the tool it ran that you never asked for.
+	<br />
+	<br />
+	This interactive course takes the whole thing apart. How models are trained, how
+	they write a response one token at a time, and how the products around them use
+	memory, retrieval, tools, and agents; starting from zero and going as deep as you'd
+	like.
+</p>
+<div class="section-chip-group-container" data-no-max-width>
+	<ChipGroup
+		tags={tags}
+		rows={1}
+		ariaLabel="Subjects taught in Big Bot Builders"
+	/>
+</div>

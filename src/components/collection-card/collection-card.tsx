@@ -1,7 +1,7 @@
 import style from "./collection-card.module.scss";
 import { Button } from "#components/index.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
-import forward from "#src/icons/arrow_right.svg?raw";
+import forward from "#src/assets/icons/arrow_right.svg?raw";
 import { Picture as UUPicture } from "#components/image/picture.tsx";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 

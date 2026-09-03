@@ -1,5 +1,5 @@
 ---
-import Document from "#src/layouts/document.astro";
+import Document from "#components/layouts/document/document.astro";
 import SEO from "#components/seo/seo.astro";
 import AboutView from "#src/views/about/about.astro";
 import NotFoundPage from "#src/views/not-found/not-found-page.astro";
@@ -11,7 +11,7 @@ import {
 	createAboutProps,
 	getAboutFiles,
 	type AboutPageProps,
-} from "#src/views/about/route-data.ts";
+} from "#src/views/about/utils/route-data.ts";
 import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 

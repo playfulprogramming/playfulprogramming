@@ -1,6 +1,6 @@
 import { IconOnlyButton } from "#components/button/button.tsx";
 import { RawSvg } from "#components/image/raw-svg.tsx";
-import iconClose from "#src/icons/close.svg?raw";
+import iconClose from "#src/assets/icons/close.svg?raw";
 import { SnitipContent, type SnitipProps } from "./snitip.tsx";
 import style from "./snitip.module.scss";
 import { m } from "#src/paraglide/messages.js";

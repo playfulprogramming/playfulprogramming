@@ -1,4 +1,4 @@
-@use "src/tokens/index" as *;
+@use "../../styles/tokens/index" as *;
 
 :root {
 	--resizeable-panel_separator_background: var(--primary_container);

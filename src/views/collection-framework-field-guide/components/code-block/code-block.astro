@@ -1,0 +1,48 @@
+---
+import { getMarkdownHtml } from "#utils/markdown/index.ts";
+import "../../../../styles/shiki.scss";
+import "./code-block.scss";
+import styles from "./code-block.module.scss";
+import index from "#src/views/collection-framework-field-guide/assets/code-block/index.md?raw";
+import indexPath from "#src/views/collection-framework-field-guide/assets/code-block/index.md?url";
+import { VFile } from "vfile";
+import type { MarkdownVFile } from "#utils/markdown/types.ts";
+import Content from "#utils/markdown/components/content.astro";
+
+const vfileData: MarkdownVFile["data"] = {
+	kind: "page",
+	file: "",
+	headingsWithIds: [],
+	snitips: new Map(),
+};
+
+const { content } = await getMarkdownHtml(
+	{
+		kind: "page",
+		file: "",
+	},
+	Promise.resolve(
+		new VFile({
+			value: index,
+			path: new URL(indexPath, "http://localhost").pathname,
+			data: vfileData,
+		}) as MarkdownVFile,
+	),
+);
+---
+
+<section
+	class={`${styles.blockContainer} ffg-code-block-container`}
+	aria-labelledby="code-block"
+>
+	<h2 id="code-block" class={`text-style-headline-4 ${styles.sectionTitle}`}>
+		Don't want to learn all three? No problem!
+	</h2>
+	<p class={`text-style-body-large ${styles.sectionContent}`}>
+		You can easily select a single framework and use this series to learn it
+		front-and-back.
+	</p>
+	<div class="darkTheme dark">
+		<Content content={content} />
+	</div>
+</section>

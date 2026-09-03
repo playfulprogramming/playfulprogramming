@@ -1,0 +1,133 @@
+---
+import styles from "./series-toc.module.scss";
+import type { PostInfo } from "#src/types";
+
+import { Button } from "#components/index.ts";
+import { findActivePost } from "./base.ts";
+import type { CollectionInfo } from "#types/CollectionInfo.ts";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
+import { getShortTitle } from "#utils/remove-article-collection-prefix.ts";
+
+interface Props {
+	post: PostInfo;
+	postSeries: PostInfo[];
+	collection?: CollectionInfo;
+}
+
+const { post, postSeries, collection } = Astro.props;
+
+const activePostsMeta = findActivePost(post, postSeries);
+const locale = getLocale();
+
+const showMoreText = m.action_view_all_chapters({
+	count: activePostsMeta.length.toLocaleString(locale),
+});
+const showLessText = m.action_view_less_chapters();
+---
+
+<div class={styles.seriesTableOfContent}>
+	<div class={styles.seriesHeader}>
+		{
+			(
+				<h2
+					class={styles.titleContainer}
+					id="series-header"
+					data-no-heading-link
+				>
+					<span class={`text-style-body-medium-bold ${styles.partOfSeries}`}>
+						{m.blog_post_series_intro()}
+					</span>
+					{collection ? (
+						<a
+							class={`text-style-headline-4 ${styles.articleTitle}`}
+							href={localizeHref(
+								`/collections/${collection.upToDateSlug ?? collection.slug}`,
+								{ locale: collection.locale },
+							)}
+						>
+							{collection.title}
+						</a>
+					) : (
+						<span class={`text-style-headline-4 ${styles.articleTitle}`}>
+							{post.collection}
+						</span>
+					)}
+				</h2>
+			)
+		}
+	</div>
+	<div class={styles.contentsContainer}>
+		<ol
+			aria-labelledby="series-header"
+			role="list"
+			class={styles.listContainer}
+		>
+			{
+				activePostsMeta.length !== 0 ? (
+					<>
+						{activePostsMeta.map((seriesPost) => (
+							<li
+								class={styles.navigationItemOuter}
+								data-dont-show-initially={!seriesPost.shouldShowInitially}
+							>
+								<a
+									href={localizeHref(`/posts/${seriesPost.slug}`, {
+										locale: seriesPost.locale,
+									})}
+									class={`text-style-body-large-bold ${styles.navigationItem}`}
+									data-is-active={seriesPost.isActive}
+								>
+									{m.blog_post_series_part({
+										partNumber: seriesPost.order?.toLocaleString(locale) ?? "",
+										title: getShortTitle(seriesPost, collection),
+									})}
+								</a>
+							</li>
+						))}
+					</>
+				) : null
+			}
+		</ol>
+		{
+			activePostsMeta.length >= 4 ? (
+				<div class={styles.buttonContainer}>
+					<Button
+						id="toggleAllButton"
+						tag="button"
+						data-show-more-text={showMoreText}
+						data-show-less-text={showLessText}
+					>
+						{showMoreText}
+					</Button>
+				</div>
+			) : null
+		}
+	</div>
+</div>
+
+<script>
+	const toggleButton =
+		document.querySelector<HTMLButtonElement>("#toggleAllButton")!;
+	const toggleButtonLabel = toggleButton.children[0] as HTMLElement;
+	const showHideChapters = Array.from(
+		document.querySelectorAll<HTMLElement>("[data-dont-show-initially='true']"),
+	);
+
+	let expanded = false;
+
+	toggleButton.addEventListener("click", () => {
+		if (!expanded) {
+			showHideChapters.forEach((chapter) => {
+				chapter.style.display = "block";
+			});
+			toggleButtonLabel.innerText = toggleButton.dataset.showLessText!;
+		} else {
+			showHideChapters.forEach((chapter) => {
+				chapter.style.display = "none";
+			});
+			toggleButtonLabel.innerText = toggleButton.dataset.showMoreText!;
+		}
+		expanded = !expanded;
+	});
+</script>

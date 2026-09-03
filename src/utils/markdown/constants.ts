@@ -1,4 +1,4 @@
-import { mobile, tabletSmall } from "#src/tokens/breakpoints.ts";
+import { mobile, tabletSmall } from "#src/constants/breakpoints.ts";
 import type { GetPictureSizes } from "#utils/get-picture/index.ts";
 
 // default sizing used for iframes (MarkdownRenderer/media.tsx)

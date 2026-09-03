@@ -15,8 +15,8 @@ import {
 	useRenderProps,
 	I18nProvider,
 } from "react-aria-components";
-import arrow_left from "../../../../icons/arrow_left.svg?raw";
-import arrow_right from "../../../../icons/arrow_right.svg?raw";
+import arrow_left from "#src/assets/icons/arrow_left.svg?raw";
+import arrow_right from "#src/assets/icons/arrow_right.svg?raw";
 import { type ForwardedRef, forwardRef } from "preact/compat";
 import {
 	DismissButton,
@@ -34,7 +34,7 @@ import {
 import { IconOnlyButton } from "#components/button/button.tsx";
 import style from "./calendar.module.scss";
 import { useWindowSize } from "../../../../hooks/use-window-size.tsx";
-import { tabletLarge, tabletSmall } from "../../../../tokens/breakpoints.ts";
+import { tabletLarge, tabletSmall } from "../../../../constants/breakpoints.ts";
 import { type MutableRef, useContext, useMemo, useRef } from "preact/hooks";
 import {
 	type CalendarDate,
@@ -48,16 +48,16 @@ import {
 	toCalendarDate,
 } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
-import type { Event } from "../../types.ts";
+import type { Event } from "../../types";
 import { useIsOnClient } from "../../../../hooks/use-is-on-client.ts";
-import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScrollGutterHack.ts";
+import { useReactAriaScrollGutterHack } from "../../../../hooks/use-react-aria-scroll-gutter-hack.ts";
 import {
 	type OverlayTriggerState,
 	useOverlayTriggerState,
 } from "react-stately";
 import type { DOMProps } from "@react-types/shared";
-import author from "#src/icons/authors.svg?raw";
-import wifi from "#src/icons/wifi.svg?raw";
+import author from "#src/assets/icons/authors.svg?raw";
+import wifi from "#src/assets/icons/wifi.svg?raw";
 import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 

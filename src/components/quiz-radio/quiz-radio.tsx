@@ -4,10 +4,10 @@ import { RawSvg } from "#components/image/raw-svg.tsx";
 import style from "./quiz-radio.module.scss";
 import { Button } from "#components/button/button.tsx";
 import { Form, Label, Radio, RadioGroup } from "react-aria-components";
-import RadioButtonIcon from "#src/icons/radio_button.svg?raw";
-import RadioButtonSelectedIcon from "#src/icons/radio_button_selected.svg?raw";
-import RadioButtonCorrectIcon from "#src/icons/radio_button_correct_filled.svg?raw";
-import RadioButtonIncorrectIcon from "#src/icons/radio_button_incorrect_filled.svg?raw";
+import RadioButtonIcon from "#src/assets/icons/radio_button.svg?raw";
+import RadioButtonSelectedIcon from "#src/assets/icons/radio_button_selected.svg?raw";
+import RadioButtonCorrectIcon from "#src/assets/icons/radio_button_correct_filled.svg?raw";
+import RadioButtonIncorrectIcon from "#src/assets/icons/radio_button_incorrect_filled.svg?raw";
 import type { ComponentChildren } from "preact";
 
 import { m } from "#src/paraglide/messages.js";

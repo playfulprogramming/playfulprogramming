@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/vitest";
-import { afterEach } from "#src/ui-test-utils/index.ts";
+import { afterEach } from "#utils/ui-test-utils.ts";
 import { cleanup } from "@testing-library/preact";
 
 Object.defineProperties(window, {

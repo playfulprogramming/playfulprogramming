@@ -1,0 +1,49 @@
+---
+import style from "./ready-to-level-up.module.scss";
+import { Button } from "#src/components/index.ts";
+import { m } from "#src/paraglide/messages.js";
+---
+
+<section class={style.container}>
+	<h2 class={`text-style-headline-1 ${style.header}`}>
+		{m.join_us_ready_title()}
+	</h2>
+	<div class={style.typesContainer}>
+		<section class={style.typeContainer}>
+			<div class={style.badgesContainer}>
+				<img class={style.sticker} src="/stickers/role_author.svg" alt="" />
+				<img class={style.sticker} src="/stickers/role_community.svg" alt="" />
+				<img class={style.sticker} src="/stickers/role_translator.svg" alt="" />
+			</div>
+			<h3 class={`text-style-headline-3 ${style.typeTitle}`}>
+				{m.join_us_publish_title()}
+			</h3>
+			<p class={`text-style-body-large ${style.typeBody}`}>
+				{m.join_us_publish_description()}
+			</p>
+			<Button
+				tag="a"
+				href="https://github.com/playfulprogramming/playfulprogramming/blob/main/CONTRIBUTING.md#writing-a-new-post"
+				>{m.action_submit_article()}</Button
+			>
+		</section>
+		<section class={style.typeContainer}>
+			<div class={style.badgesContainer}>
+				<img class={style.sticker} src="/stickers/role_devops.svg" alt="" />
+				<img class={style.sticker} src="/stickers/role_developer.svg" alt="" />
+				<img class={style.sticker} src="/stickers/role_designer.svg" alt="" />
+			</div>
+			<h3 class={`text-style-headline-3 ${style.typeTitle}`}>
+				{m.join_us_improve_title()}
+			</h3>
+			<p class={`text-style-body-large ${style.typeBody}`}>
+				{m.join_us_improve_description()}
+			</p>
+			<Button
+				tag="a"
+				href="https://github.com/playfulprogramming/playfulprogramming"
+				>{m.action_view_repository()}</Button
+			>
+		</section>
+	</div>
+</section>

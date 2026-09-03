@@ -1,9 +1,9 @@
 ---
 import EventsPage from "#src/views/events/events-page.tsx";
-import Document from "#src/layouts/document.astro";
+import Document from "#components/layouts/document/document.astro";
 import SEO from "#components/seo/seo.astro";
-import { events } from "#src/views/events/constants.ts";
-import { getLatestEventBlockLocationMetadata } from "#src/views/events/get-latest-event-block-location-metadata.ts";
+import { events } from "#src/views/events/constants/index.ts";
+import { getLatestEventBlockLocationMetadata } from "#src/views/events/utils/get-latest-event-block-location-metadata.ts";
 import type { LatestEventBlockLocationMetadataType } from "#src/views/events/components/event-cards/types.ts";
 import {
 	getStaticLocalePaths,

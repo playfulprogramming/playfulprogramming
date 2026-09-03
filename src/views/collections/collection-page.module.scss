@@ -1,4 +1,4 @@
-@use "src/tokens/index" as *;
+@use "../../styles/tokens/index" as *;
 
 :root {
 	--collection-page_banner_corner-radius: var(--corner-radius_l);

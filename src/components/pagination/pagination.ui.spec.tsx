@@ -1,4 +1,4 @@
-import { vi, expect, test } from "#src/ui-test-utils/index.ts";
+import { vi, expect, test } from "#utils/ui-test-utils.ts";
 import { render } from "@testing-library/preact";
 import { userEvent } from "@testing-library/user-event";
 import { Pagination } from "./pagination.tsx";
