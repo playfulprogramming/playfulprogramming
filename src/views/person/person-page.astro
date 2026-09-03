@@ -1,11 +1,11 @@
 ---
-import ProfileSection from "./components/profile-section.astro";
+import ProfileSection from "./components/profile-section/profile-section.astro";
 import { SubHeader } from "../../components/subheader/subheader.tsx";
 import { PostCardGrid } from "#components/post-card/post-card-grid.tsx";
 import type { PersonInfo, PostInfo } from "#types/index.ts";
 import { Button } from "#components/button/button.tsx";
 import styles from "./person-page.module.scss";
-import AchievementCard from "./components/achievement-card.astro";
+import AchievementCard from "./components/achievement-card/achievement-card.astro";
 import { buildSearchQuery } from "../search/search.ts";
 import { getAchievements } from "#src/utils/achievements/index.ts";
 import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
