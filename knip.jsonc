@@ -6,8 +6,8 @@
 	"ignoreIssues": {
 		"src/paraglide/runtime.js": ["exports"],
 		"src/components/select/select.tsx": ["exports"],
-		"src/tokens/breakpoints.ts": ["exports"],
-		"src/ui-test-utils/index.ts": ["exports"],
+		"src/constants/breakpoints.ts": ["exports"],
+		"src/utils/ui-test-utils.ts": ["exports"],
 		"src/utils/markdown/components/code-embed/webcontainer-script.ts": [
 			"exports",
 		],

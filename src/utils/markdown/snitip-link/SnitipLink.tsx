@@ -14,7 +14,7 @@ interface LinkProps {
 	children: ElementContent[];
 }
 
-const info = await fs.readFile("src/icons/info.svg", "utf8");
+const info = await fs.readFile("src/assets/icons/info.svg", "utf8");
 
 const InfoIcon = fromHtml(info, { fragment: true }).children[0] as Element;
 InfoIcon.properties["aria-hidden"] = "true";
