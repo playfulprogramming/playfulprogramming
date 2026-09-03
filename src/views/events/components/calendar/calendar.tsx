@@ -50,7 +50,7 @@ import {
 import { filterDOMProps } from "@react-aria/utils";
 import type { Event } from "../../types";
 import { useIsOnClient } from "../../../../hooks/use-is-on-client.ts";
-import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScrollGutterHack.ts";
+import { useReactAriaScrollGutterHack } from "../../../../hooks/use-react-aria-scroll-gutter-hack.ts";
 import {
 	type OverlayTriggerState,
 	useOverlayTriggerState,

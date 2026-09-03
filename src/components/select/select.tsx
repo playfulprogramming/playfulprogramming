@@ -25,7 +25,7 @@ import checkmark from "#src/assets/icons/checkmark.svg?raw";
 import { useRef } from "preact/hooks";
 import type { RefObject } from "preact";
 import type { Node } from "@react-types/shared";
-import { useReactAriaScrollGutterHack } from "#src/hooks/useReactAriaScrollGutterHack.ts";
+import { useReactAriaScrollGutterHack } from "#src/hooks/use-react-aria-scroll-gutter-hack.ts";
 
 export { Item, Section } from "react-stately";
 

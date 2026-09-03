@@ -22,7 +22,7 @@ import {
 	useOverlayTriggerState,
 } from "react-stately";
 import type { DOMProps } from "@react-types/shared";
-import { useReactAriaScrollGutterHack } from "#src/hooks/useReactAriaScrollGutterHack.ts";
+import { useReactAriaScrollGutterHack } from "#src/hooks/use-react-aria-scroll-gutter-hack.ts";
 import { m } from "#src/paraglide/messages.js";
 
 function PopupContents(
