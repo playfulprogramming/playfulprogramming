@@ -4,7 +4,7 @@ import type { PostInfo, PersonInfo, PostVersion } from "#src/types";
 import { Icon } from "astro-icon/components";
 import { Chip } from "#src/components/index.ts";
 import { toDate } from "#utils/date.ts";
-import { buildSearchQuery } from "../../../search/search.ts";
+import { buildSearchQuery } from "../../../search/utils/index.ts";
 import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 import { ArticleRevisionDropdown } from "../article-revisions/article-revisions.tsx";

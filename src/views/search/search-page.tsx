@@ -7,7 +7,7 @@ import {
 	useState,
 } from "preact/hooks";
 import { Pagination } from "#components/pagination/pagination.tsx";
-import { useSearchParams } from "./use-search-params.ts";
+import { useSearchParams } from "./hooks/use-search-params.ts";
 import {
 	QueryClient,
 	QueryClientProvider,
@@ -20,8 +20,8 @@ import { Fragment } from "preact";
 import { CollectionCard } from "#components/collection-card/collection-card.tsx";
 import { FilterDisplay } from "./components/filter-display.tsx";
 import { useElementSize } from "../../hooks/use-element-size.tsx";
-import { SearchTopbar } from "./components/search-topbar.tsx";
-import { SearchHero } from "./components/search-hero.tsx";
+import { SearchTopbar } from "#src/views/search/components/topbar/search-topbar.tsx";
+import { SearchHero } from "./components/hero/search-hero.tsx";
 import { LargeButton } from "#components/button/button.tsx";
 import retry from "#src/assets/icons/refresh.svg?raw";
 import sadUnicorn from "../../assets/emotes/unicorn_sad.svg";
@@ -35,16 +35,16 @@ import {
 	serializeParams,
 	deserializeParams,
 	PAGE_KEY,
-} from "./search.ts";
-import { SearchResultCount } from "./components/search-result-count.tsx";
+} from "./utils/index.ts";
+import { SearchResultCount } from "./components/result-count/search-result-count.tsx";
 import { isDefined } from "#utils/is-defined.ts";
-import { SearchProvider, useSearch } from "./services.tsx";
+import { SearchProvider, useSearch } from "./services/index.tsx";
 import {
 	MAX_COLLECTIONS_PER_PAGE,
 	MAX_POSTS_PER_PAGE,
 	// HYBRID_SEARCH_ACTIVATION_THRESHOLD,
-} from "./constants.ts";
-import { useFilterState } from "./use-filter-state.ts";
+} from "./constants/index.ts";
+import { useFilterState } from "./hooks/use-filter-state.ts";
 import { SnitipCardGrid } from "#components/snitip/snitip-card.tsx";
 import { m } from "#src/paraglide/messages.js";
 

@@ -3,7 +3,7 @@ import type { CollectionInfo } from "#types/CollectionInfo.ts";
 import type { PropsWithChildren } from "#components/types.ts";
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
-import type { SearchQuery } from "./search.ts";
+import type { SearchQuery } from "../utils";
 import {
 	// HYBRID_SEARCH_ACTIVATION_THRESHOLD,
 	MAX_POSTS_PER_PAGE,
@@ -12,7 +12,7 @@ import {
 	PUBLIC_SEARCH_ENDPOINT_PORT,
 	PUBLIC_SEARCH_ENDPOINT_HOST,
 	PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
-} from "./constants.ts";
+} from "../constants/index.ts";
 import Typesense from "typesense";
 import {
 	type CollectionDocument,

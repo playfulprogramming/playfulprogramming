@@ -1,5 +1,5 @@
-@use "../../../styles/tokens/index" as *;
-@use "./filter-sidebar-props";
+@use "../../../../styles/tokens/index" as *;
+@use "filter-sidebar-props";
 
 .sidebarContainer {
 	width: var(--search-page_filter_sidebar_width);

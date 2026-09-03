@@ -1,4 +1,4 @@
-@use "../../../styles/tokens/index" as *;
+@use "../../../../styles/tokens/index" as *;
 
 :root {
 	--search-hero_container_padding: calc(var(--site-spacing) * 2);

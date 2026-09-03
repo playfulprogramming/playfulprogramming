@@ -1,6 +1,6 @@
 import type { ComponentChildren } from "preact";
 import { useState, useRef } from "preact/hooks";
-import { useElementSize } from "../../../hooks/use-element-size.tsx";
+import { useElementSize } from "../../../../hooks/use-element-size.tsx";
 import styles from "./filter-section.module.scss";
 import { Chip } from "#components/chip/chip.tsx";
 import type { HTMLAttributes } from "preact/compat";

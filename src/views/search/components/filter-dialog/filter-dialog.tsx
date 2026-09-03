@@ -3,17 +3,20 @@ import styles from "./filter-dialog.module.scss";
 import { useWindowSize } from "#src/hooks/use-window-size.tsx";
 import { mobile } from "#src/constants/breakpoints.ts";
 import { Dialog } from "#components/dialog/dialog.tsx";
-import { FilterSection } from "./filter-section.tsx";
-import type { ExtendedTag, ExtendedUnicorn } from "./types.ts";
+import { FilterSection } from "../filter-section/filter-section.tsx";
+import type { ExtendedTag, ExtendedUnicorn } from "../../types";
 import {
 	LargeButton,
 	LargeIconOnlyButton,
 } from "#components/button/button.tsx";
-import { FilterSectionItem } from "./filter-section-item.tsx";
+import { FilterSectionItem } from "../filter-section/filter-section-item.tsx";
 import { Picture as UUPicture } from "#components/image/picture.tsx";
-import { DEFAULT_TAG_EMOJI } from "./constants.ts";
+import { DEFAULT_TAG_EMOJI } from "../../constants/emoji.ts";
 import close from "#src/assets/icons/close.svg?raw";
-import { type FilterState, useFilterState } from "../use-filter-state.ts";
+import {
+	type FilterState,
+	useFilterState,
+} from "../../hooks/use-filter-state.ts";
 import { m } from "#src/paraglide/messages.js";
 
 interface FilterDialogProps {

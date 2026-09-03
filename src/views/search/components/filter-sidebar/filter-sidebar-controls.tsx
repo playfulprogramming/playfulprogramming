@@ -1,5 +1,5 @@
 import style from "./filter-sidebar-controls.module.scss";
-import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
+import type { DisplayContentType, SortType } from "#src/views/search/utils";
 import { Item, SelectWithLabel } from "#components/select/select.tsx";
 import { RadioButtonGroup } from "#components/button-radio-group/button-radio-group.tsx";
 import { RadioListButton } from "#components/button-radio-group/button-radio-list.tsx";

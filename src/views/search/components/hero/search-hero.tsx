@@ -1,6 +1,6 @@
 import type { JSXNode } from "#components/types.ts";
 import styles from "./search-hero.module.scss";
-import tags from "../../../../content/data/tags.json";
+import tags from "../../../../../content/data/tags.json";
 
 const stickers = Object.values(tags)
 	.filter(

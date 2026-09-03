@@ -3,7 +3,7 @@ import { Chip } from "#components/chip/chip.tsx";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import iconLink from "#src/assets/icons/link.svg?raw";
 import iconSearch from "#src/assets/icons/search.svg?raw";
-import { buildSearchQuery } from "#src/views/search/search.ts";
+import { buildSearchQuery } from "#src/views/search/utils/index.ts";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import style from "./snitip.module.scss";
 import { getLocale, localizeHref } from "#src/paraglide/runtime.js";

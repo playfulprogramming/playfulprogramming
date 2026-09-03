@@ -12,9 +12,9 @@ import {
 	RadioButton,
 	RadioButtonGroup,
 } from "#components/button-radio-group/button-radio-group.tsx";
-import type { DisplayContentType, SortType } from "#src/views/search/search.ts";
+import type { DisplayContentType, SortType } from "#src/views/search/utils";
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { useDebouncedCallback } from "../use-debounced-value.ts";
+import { useDebouncedCallback } from "../../hooks/use-debounced-value.ts";
 import { m } from "#src/paraglide/messages.js";
 
 interface SearchTopbarProps {

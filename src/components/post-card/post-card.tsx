@@ -4,7 +4,7 @@ import { Chip } from "#components/index.ts";
 import date from "#src/assets/icons/date.svg?raw";
 import authorsSvg from "#src/assets/icons/authors.svg?raw";
 import { getHrefContainerProps } from "#utils/href-container-script.ts";
-import { buildSearchQuery } from "#src/views/search/search.ts";
+import { buildSearchQuery } from "#src/views/search/utils/index.ts";
 import type { PostInfoWithBanner } from "./types.ts";
 import { m } from "#src/paraglide/messages.js";
 import { getLocale, localizeHref } from "#src/paraglide/runtime.js";

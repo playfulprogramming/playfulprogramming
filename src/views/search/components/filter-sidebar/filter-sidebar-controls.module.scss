@@ -1,5 +1,5 @@
-@use "../../../styles/tokens/index" as *;
-@use "./filter-sidebar-props";
+@use "../../../../styles/tokens/index" as *;
+@use "filter-sidebar-props";
 
 :root {
 	--search-page_filter_list_controls_padding-start: var(--spc-4x);

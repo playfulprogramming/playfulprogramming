@@ -12,7 +12,7 @@ import {
 	PUBLIC_SEARCH_ENDPOINT_HOST,
 	PUBLIC_SEARCH_ENDPOINT_PORT,
 	PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
-} from "../src/views/search/constants.ts";
+} from "#src/views/search/constants/index.ts";
 import {
 	type PostDocument,
 	collectionSchema,

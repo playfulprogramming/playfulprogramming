@@ -30,13 +30,13 @@ import {
 	buildSearchQuery,
 	type SearchFiltersData,
 	type SearchSnitipInfo,
-} from "#src/views/search/search.ts";
+} from "#src/views/search/utils/index.ts";
 import type { PersonInfo } from "#types/PersonInfo.ts";
 import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { type SearchContext, SearchClient } from "./services.tsx";
+import { type SearchContext, SearchClient } from "./services/index.tsx";
 import {
 	MAX_COLLECTIONS_PER_PAGE,
 	MAX_POSTS_PER_PAGE,
@@ -44,7 +44,7 @@ import {
 	PUBLIC_SEARCH_ENDPOINT_PORT,
 	PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
 	PUBLIC_SEARCH_KEY,
-} from "./constants.ts";
+} from "./constants/index.ts";
 import type Typesense from "typesense";
 import type Documents from "typesense/lib/Typesense/Documents";
 import type {

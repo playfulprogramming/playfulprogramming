@@ -1,9 +1,6 @@
 import * as api from "#utils/api.ts";
 import tagsObj from "../../content/data/tags.json" with { type: "json" };
-import type {
-	SearchFiltersData,
-	TagFilterInfo,
-} from "#src/views/search/search.ts";
+import type { SearchFiltersData, TagFilterInfo } from "#src/views/search/utils";
 import { baseLocale } from "#src/paraglide/runtime.js";
 
 export const GET = async () => {
