@@ -10,7 +10,7 @@ import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
 import { Readable } from "stream";
 import { siteUrl } from "#src/constants/site-config.ts";
-import { events } from "#src/views/events/constants.ts";
+import { events } from "#src/views/events/constants/index.ts";
 import {
 	baseLocale,
 	locales as configuredLocales,

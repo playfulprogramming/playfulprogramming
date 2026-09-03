@@ -2,7 +2,7 @@ import { useLayoutEffect, useMemo } from "preact/hooks";
 
 import { useElementSize } from "../../hooks/use-element-size.tsx";
 import { LongWave } from "../events/components/long-wave/long-wave.tsx";
-import type { EventBlock } from "../events/types.ts";
+import type { EventBlock } from "../events/types";
 import type { UrlMetadataResponse } from "#utils/hoof/index.ts";
 import { EventChip } from "../events/components/event-chip/event-chip.tsx";
 import { LargeButton } from "#components/button/button.tsx";

@@ -1,7 +1,7 @@
 import { getUrlMetadata } from "#utils/hoof/index.ts";
-import { events } from "./constants.ts";
-import type { EventBlock } from "./types.ts";
-import type { LatestEventBlockLocationMetadataType } from "./components/event-cards/types.ts";
+import { events } from "../constants/index.ts";
+import type { EventBlock } from "../types";
+import type { LatestEventBlockLocationMetadataType } from "../components/event-cards/types.ts";
 
 export async function getLatestEventBlockLocationMetadata() {
 	// We only need the latest event block location metadata to show on the list view

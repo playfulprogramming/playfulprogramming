@@ -1,4 +1,4 @@
-import type { Event, EventBlock } from "./types.ts";
+import type { Event, EventBlock } from "../types";
 import { fromDate, parseDate, parseDateTime } from "@internationalized/date";
 
 const eventTimeZone = "America/Los_Angeles";

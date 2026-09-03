@@ -48,7 +48,7 @@ import {
 	toCalendarDate,
 } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
-import type { Event } from "../../types.ts";
+import type { Event } from "../../types";
 import { useIsOnClient } from "../../../../hooks/use-is-on-client.ts";
 import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScrollGutterHack.ts";
 import {

@@ -2,10 +2,10 @@
 import BookClubPage from "../../views/book-club/book-club.tsx";
 import Document from "#components/layouts/document/document.astro";
 import SEO from "../../components/seo/seo.astro";
-import { events } from "../../views/events/constants.ts";
+import { events } from "../../views/events/constants/index.ts";
 import type { UrlMetadataResponse } from "#utils/hoof/index.ts";
 import { getUrlMetadata } from "#utils/hoof/index.ts";
-import type { Event, EventBlock } from "../../views/events/types.ts";
+import type { Event, EventBlock } from "../../views/events/types";
 import { baseLocale } from "#src/paraglide/runtime.js";
 
 const event: Event = events.find((e) => e.slug === "book-club")!;

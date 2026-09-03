@@ -13,7 +13,7 @@ import style from "./events-page.module.scss";
 import type { LatestEventBlockLocationMetadataType } from "./components/event-cards/types.ts";
 import { RecurringEventsCard } from "./components/event-cards/recurring-event-card.tsx";
 import { NonRecurringEventsCard } from "./components/event-cards/non-recurring-event-card.tsx";
-import type { Event } from "./types.ts";
+import type { Event } from "./types";
 import { m } from "#src/paraglide/messages.js";
 
 type EventType = "all" | "online" | "in-person";
