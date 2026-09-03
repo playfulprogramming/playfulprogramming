@@ -29,6 +29,7 @@ import styles from "./blog-post.module.scss";
 import type { MarkdownHtml } from "#utils/markdown/index.ts";
 import Content from "#utils/markdown/components/content.astro";
 import KatexCss from "./katex.astro";
+import MermaidAssets from "./mermaid-assets.astro";
 import { m } from "#src/paraglide/messages.js";
 
 export interface Props {
@@ -56,6 +57,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 ---
 
 {postHtml.isKatexMathUsed && <KatexCss />}
+{postHtml.isMermaidUsed && <MermaidAssets />}
 
 <script>
 	import mediumZoom from "medium-zoom";

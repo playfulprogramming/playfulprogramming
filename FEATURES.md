@@ -197,6 +197,22 @@ The filetree component supports the following:
 
 While not 1:1, the filetree component is inspired by the [Astro Starlight `file-tree` component](https://starlight.astro.build/components/file-tree/)
 
+### Mermaid Diagrams
+
+You can render [Mermaid diagrams](https://mermaid.js.org/intro/) by wrapping a `mermaid` fenced code block in the Mermaid component comments:
+
+````markdown
+<!-- ::start:mermaid -->
+```mermaid
+flowchart LR
+    Markdown["Markdown source"] --> Transform["Mermaid component"]
+    Transform --> Diagram["Rendered diagram"]
+```
+<!-- ::end:mermaid -->
+````
+
+Both the `<!-- ::start:mermaid -->` / `<!-- ::end:mermaid -->` comments and the `mermaid` code-block language are required. Mermaid's CSS and JavaScript are loaded only on blog post pages that use this component.
+
 ### In-Content Ads
 
 ![](./assets/donation.png)

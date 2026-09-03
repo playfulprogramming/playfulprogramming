@@ -33,6 +33,7 @@ import {
 	transformSnitip,
 	transformLinkPreview,
 	transformNoop,
+	transformMermaid,
 	transformTabs,
 	transformVoid,
 } from "./components/index.ts";
@@ -109,6 +110,7 @@ export function createHtmlPlugins(unified: Processor) {
 					hint: transformDetails,
 					"in-content-ad": transformInContentAd,
 					"link-preview": transformLinkPreview,
+					mermaid: transformMermaid,
 					"no-ebook": transformNoop,
 					"only-ebook": transformVoid,
 					snitip: transformSnitip,

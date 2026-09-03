@@ -26,10 +26,18 @@ async function forceLoadLazyImages(page: Page): Promise<void> {
 	await page.waitForLoadState("networkidle");
 }
 
+async function waitForMermaidDiagrams(page: Page): Promise<void> {
+	const diagrams = page.locator("pre.mermaid");
+	const diagramCount = await diagrams.count();
+	expect(diagramCount).toBeGreaterThan(0);
+	await expect(page.locator("pre.mermaid > svg")).toHaveCount(diagramCount);
+}
+
 test("posts/example renders light mode", async ({ page }) => {
 	await page.goto("/posts/example", { waitUntil: "networkidle" });
 
 	await forceLoadLazyImages(page);
+	await waitForMermaidDiagrams(page);
 
 	await expect(page).toHaveScreenshot({
 		fullPage: true,
@@ -41,6 +49,7 @@ test("posts/example renders dark mode", async ({ page }) => {
 	await page.goto("/posts/example", { waitUntil: "networkidle" });
 
 	await forceLoadLazyImages(page);
+	await waitForMermaidDiagrams(page);
 
 	await page
 		.getByRole("button", { name: "Customize theme", exact: true })
@@ -50,6 +59,7 @@ test("posts/example renders dark mode", async ({ page }) => {
 	await themeDialog
 		.getByRole("button", { name: "Save changes", exact: true })
 		.click();
+	await expect(page.locator("html")).toHaveClass(/\bdark\b/);
 
 	await expect(page).toHaveScreenshot({
 		fullPage: true,

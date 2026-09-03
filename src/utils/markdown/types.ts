@@ -23,6 +23,7 @@ export interface MarkdownVFile extends VFile {
 		snitips: Map<string, SnitipInfo>;
 		collectionLinks?: CollectionLinks[];
 		isKatexMathUsed?: boolean;
+		isMermaidUsed?: boolean;
 	};
 }
 

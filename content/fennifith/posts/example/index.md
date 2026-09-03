@@ -251,6 +251,165 @@ I found a trend line of $$\left(x\log_{10} x \cdot 16\right) + 101$$ was reasona
 
 Plugging in the safe integer range size ($$1.80\cdot10^{16}$$) yields $$3.15\times10^{17}$$ MB, or 315 ZB
 
+# Mermaid Charts
+
+## Flowchart
+
+<!-- ::start:mermaid -->
+```mermaid
+flowchart LR
+
+A[Hard] -->|Text| B(Round)
+B --> C{Decision}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
+```
+<!-- ::end:mermaid -->
+
+## Sequence
+
+<!-- ::start:mermaid -->
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+    Client->>Server: Request
+    Server->>Database: Query
+    Database-->>Server: Results
+    Server-->>Client: Response
+    Client->>Server: Update
+    Server->>Database: Write
+    Database-->>Server: Confirm
+    Server-->>Client: Success
+```
+<!-- ::end:mermaid -->
+
+<!-- ::start:mermaid -->
+```mermaid
+sequenceDiagram
+  participant Client
+  participant API
+  participant DB
+
+  Client->>API: Request
+  activate API
+  API->>DB: Query
+  activate DB
+  DB-->>API: Rows
+  deactivate DB
+  alt success
+    API-->>Client: 200 OK
+  else failure
+    API-->>Client: 500 Error
+  end
+  deactivate API
+```
+<!-- ::end:mermaid -->
+
+## Pie
+
+<!-- ::start:mermaid -->
+```mermaid
+pie showData
+  title Pets
+  "Dogs" : 10
+  "Cats" : 5
+```
+<!-- ::end:mermaid -->
+
+## Git Graph
+
+<!-- ::start:mermaid -->
+```mermaid
+gitGraph
+  commit id:"C0"
+  branch feature
+  checkout feature
+  commit id:"F1"
+  commit id:"F2"
+  checkout main
+  commit id:"C1"
+  merge feature id:"M0"
+```
+<!-- ::end:mermaid -->
+
+<!-- ::start:mermaid -->
+```mermaid
+      gitGraph
+        commit id:"C0"
+        branch hotfix
+        checkout hotfix
+        commit id:"H1"
+        branch develop
+        checkout develop
+        commit id:"ash" tag:"abc"
+        branch featureB
+        checkout featureB
+        commit id:"B1" type:HIGHLIGHT
+        checkout main
+        checkout hotfix
+        commit id:"H2" type:NORMAL
+        checkout develop
+        commit id:"D1" type:REVERSE
+        checkout featureB
+        commit id:"B2"
+        checkout main
+        merge hotfix id:"M1"
+        checkout featureB
+        commit id:"B3"
+        checkout develop
+        branch featureA
+        commit id:"A1"
+        checkout develop
+        merge hotfix id:"M2"
+        checkout featureA
+        commit id:"A2"
+        checkout featureB
+        commit id:"B4"
+        checkout develop
+        merge featureA id:"M3"
+        branch release
+        checkout release
+        commit id:"R1"
+        checkout main
+        commit id:"C1"
+        checkout release
+        merge main id:"M4"
+        checkout develop
+        merge release id:"M5"
+```
+<!-- ::end:mermaid -->
+
+## Entity Relationship
+
+<!-- ::start:mermaid -->
+```mermaid
+erDiagram
+CUSTOMER ||--o{ ORDER : places
+CUSTOMER {
+string id
+string name
+}
+ORDER {
+string id
+date created_at
+}
+```
+<!-- ::end:mermaid -->
+
+## State Diagram
+
+<!-- ::start:mermaid -->
+```mermaid
+stateDiagram-v2
+[*] --> Idle
+Idle --> Active : start
+state "Waiting" as Wait
+Wait --> Active
+```
+<!-- ::end:mermaid -->
+
 # Users
 
 <!-- ::user id="crutchcorn" -->

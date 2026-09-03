@@ -66,6 +66,7 @@ export function createEpubPlugins(unified: Processor) {
 					filetree: transformNoop,
 					"in-content-ad": transformNoop,
 					"link-preview": transformNoop,
+					mermaid: transformNoop,
 					"no-ebook": transformVoid,
 					"only-ebook": transformNoop,
 					snitip: transformNoop,

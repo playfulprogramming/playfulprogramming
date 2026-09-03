@@ -1,0 +1,45 @@
+:root {
+	/* Match the light opaque surface tiers from the server-rendered theme. */
+	--mermaid-primary-color: var(--primary90);
+	--mermaid-secondary-color: color-mix(
+		in oklch,
+		var(--primary90) 50%,
+		var(--primary80) 50%
+	);
+	--mermaid-tertiary-color: var(--primary80);
+	--mermaid-text-color: var(--foreground_high);
+	--mermaid-muted-text-color: var(--foreground_medium);
+	--mermaid-line-color: var(--foreground_high);
+	--mermaid-border-color: var(--background_disabled);
+	--mermaid-label-background: var(--background_primary-bright);
+	--mermaid-note-border-color: var(--secondary_medium);
+	--mermaid-activation-color: var(--tint_secondary_low);
+	--mermaid-activation-border-color: var(--tint_secondary_high);
+}
+
+html.dark,
+body.dark,
+.darkTheme {
+	/* Match the dark opaque surface tiers from the server-rendered theme. */
+	--mermaid-primary-color: var(--primary20);
+	--mermaid-secondary-color: var(--primary30);
+	--mermaid-tertiary-color: var(--primary40);
+}
+
+pre.mermaid {
+	margin: var(--site-spacing) 0;
+	padding: var(--spc-4x);
+	overflow-x: auto;
+	text-align: center;
+
+	background-color: var(--background_primary);
+	border: var(--border-width_l) solid var(--primary_low);
+	border-radius: var(--corner-radius_l);
+}
+
+pre.mermaid > svg {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin: 0 auto;
+}
