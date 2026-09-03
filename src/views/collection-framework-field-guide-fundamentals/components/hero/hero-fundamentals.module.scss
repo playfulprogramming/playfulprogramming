@@ -1,5 +1,5 @@
-@use "../../../styles/tokens/index" as *;
-@use "../../collection-framework-field-guide/styles/tokens/breakpoints" as *;
+@use "../../../../styles/tokens/index" as *;
+@use "../../../collection-framework-field-guide/styles/tokens/breakpoints" as *;
 
 body {
 	--backgroundColor: var(--fund-200) !important;

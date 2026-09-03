@@ -1,5 +1,5 @@
-@use "../../../styles/tokens/index" as *;
-@use "../../collection-framework-field-guide/styles/tokens/breakpoints" as *;
+@use "../../../../styles/tokens/index" as *;
+@use "../../../collection-framework-field-guide/styles/tokens/breakpoints" as *;
 
 :root {
 	--step-num-size: calc((56px / 16) * 1rem);
@@ -103,7 +103,7 @@
 	width: var(--detail-item-chevron-size);
 	padding: 2px;
 	box-sizing: border-box;
-	background-image: url("../../collection-framework-field-guide/assets/icons/arrow.svg");
+	background-image: url("../../../collection-framework-field-guide/assets/icons/arrow.svg");
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-right: var(--spc-2x);

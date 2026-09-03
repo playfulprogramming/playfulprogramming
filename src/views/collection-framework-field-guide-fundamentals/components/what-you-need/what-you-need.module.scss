@@ -1,5 +1,5 @@
-@use "../../../styles/tokens/index" as *;
-@use "../../collection-framework-field-guide/styles/tokens/breakpoints" as *;
+@use "../../../../styles/tokens/index" as *;
+@use "../../../collection-framework-field-guide/styles/tokens/breakpoints" as *;
 
 :root {
 	--article-link-padding-ver: var(--spc-1x);
@@ -104,7 +104,7 @@
 	width: var(--article-link-icon-size);
 	padding: 2px;
 	box-sizing: border-box;
-	background-image: url("../../collection-framework-field-guide/assets/icons/link.svg");
+	background-image: url("../../../collection-framework-field-guide/assets/icons/link.svg");
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-right: var(--spc-2x);

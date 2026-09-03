@@ -20,9 +20,9 @@ import "#src/views/collection-framework-field-guide/styles/tokens/sign-up.scss";
 
 import SEO from "#src/components/seo/seo.astro";
 import Header from "#src/views/collection-framework-field-guide/components/header.astro";
-import Hero from "#src/views/collection-framework-field-guide-fundamentals/segments/hero-fundamentals.astro";
-import Fundamentals from "#src/views/collection-framework-field-guide-fundamentals/segments/fundamentals-fundamentals.astro";
-import Ecosystem from "#src/views/collection-framework-field-guide-fundamentals/segments/ecosystem-fundamentals.astro";
+import Hero from "#src/views/collection-framework-field-guide-fundamentals/components/hero/hero-fundamentals.astro";
+import Fundamentals from "#src/views/collection-framework-field-guide-fundamentals/fundamentals-fundamentals.astro";
+import NextSteps from "#src/views/collection-framework-field-guide-fundamentals/components/next-steps/next-steps.astro";
 import { getCollectionBySlug, getPersonById } from "#utils/api.ts";
 
 const collection = getCollectionBySlug(
@@ -45,7 +45,7 @@ const collection = getCollectionBySlug(
 	<main>
 		<Hero />
 		<Fundamentals />
-		<Ecosystem />
+		<NextSteps />
 	</main>
 </Barebones>
 <script>
