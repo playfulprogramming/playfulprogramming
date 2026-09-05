@@ -1,6 +1,6 @@
 # Component Storybook
 
-Visual `.astro` and `.tsx` components under `src/components` have colocated
+Storybook covers selected `.astro` and `.tsx` components with colocated
 story files. Related exports from the same file (such as button sizes, tab panels,
 file lists, and code preview states) are demonstrated together. Types, stores,
 stylesheets, non-component utilities, SEO metadata components, the Mermaid
@@ -50,7 +50,6 @@ links, and no story starts a WebContainer or calls an application backend.
   restoration. Resize the Canvas to try the mobile modal layout.
 - Dialog examples have open/close controls. File picking, resizable code
   panels, quiz submission, and results can be exercised directly.
-- Inline quizzes use isolated question IDs and reset their store on unmount.
 - Layouts and script-only Astro components use small fixtures in `fixtures/`.
   The theme sidebar includes its trigger, and heading links include article headings.
 

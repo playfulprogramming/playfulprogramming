@@ -23,7 +23,7 @@ function Demo(args: ComponentProps<typeof Tabs>) {
 	);
 }
 const meta = preview.type<{ args: ComponentProps<typeof Tabs> }>().meta({
-	title: "components/Tabs/Controlled Tabs",
+	title: "components/Tabs",
 	component: Tabs,
 	args: {
 		id: "storybook-tabs",
