@@ -1,9 +1,10 @@
 # Component Storybook
 
-Every `.astro` and `.tsx` component file under `src/components` has a colocated
-story file. Related exports from the same file (such as button sizes, tab panels,
+Visual `.astro` and `.tsx` components under `src/components` have colocated
+story files. Related exports from the same file (such as button sizes, tab panels,
 file lists, and code preview states) are demonstrated together. Types, stores,
-stylesheets, and non-component utilities do not have standalone stories.
+stylesheets, non-component utilities, and SEO metadata components do not have
+standalone stories.
 
 ```sh
 nvm use
@@ -42,8 +43,7 @@ links, and no story starts a WebContainer or calls an application backend.
 - Layouts and script-only Astro components use small fixtures in `fixtures/`.
   The theme sidebar includes its trigger, heading links include article headings,
   and the blocking tab script includes hydrated tabs.
-- SEO stories display the actual emitted metadata tags in a code block after
-  rendering. The Mermaid story includes a diagram for the renderer to process.
+- The Mermaid story includes a diagram for the renderer to process.
 
 The preview imports the site's global tokens and typography. `site-integration.ts`
 adds Preact and the site's Astro icons to the adapter's isolated render server.
