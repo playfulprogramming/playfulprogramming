@@ -5,7 +5,7 @@ import { IFramePlaceholder } from "./iframe-placeholder.tsx";
 const meta = preview
 	.type<{ args: ComponentProps<typeof IFramePlaceholder> }>()
 	.meta({
-		title: "Components/IFramePlaceholder",
+		title: "components/Iframe",
 		component: IFramePlaceholder,
 		args: {
 			width: "640",

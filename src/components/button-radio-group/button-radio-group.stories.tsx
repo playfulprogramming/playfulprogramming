@@ -5,7 +5,7 @@ import { RadioButtonGroup, RadioButton } from "./button-radio-group.tsx";
 const meta = preview
 	.type<{ args: ComponentProps<typeof RadioButtonGroup> }>()
 	.meta({
-		title: "Components/RadioButtonGroup",
+		title: "components/Radio Button Group",
 		component: RadioButtonGroup,
 		args: {
 			label: "Choose a framework",

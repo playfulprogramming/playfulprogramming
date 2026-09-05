@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { SubHeader } from "./subheader.tsx";
 
 const meta = preview.type<{ args: ComponentProps<typeof SubHeader> }>().meta({
-	title: "Components/SubHeader",
+	title: "components/Subheader",
 	component: SubHeader,
 	args: { tag: "h2", text: "Latest articles" },
 });

@@ -16,6 +16,10 @@ Build the static Storybook with `pnpm build:storybook`.
 
 ## Story conventions
 
+All stories appear under `components`, regardless of renderer. Use readable display
+names with spaces (such as `Radio Button Group` and `X Embed`) and omit the
+`Placeholder` suffix from story titles.
+
 Stories use Storybook's CSF Next factory API: `preview.type`, `preview.meta`, and
 `meta.story`. Astro stories import the default `.storybook/preview.ts` export.
 Preact stories import its named `preactPreview` export; it composes the official
@@ -37,8 +41,8 @@ links, and no story starts a WebContainer or calls an application backend.
   examples and relevant disabled, selected, expanded, or content variants.
 - Radio buttons and options render in their required groups and lists. Tabs include
   their panels. Pagination updates local state without leaving Storybook.
-- Snitips demonstrates the full interaction alongside the standalone SnitipDialog
-  and SnitipContent stories. It hardcodes the inline references emitted by
+- Snitips demonstrates the full interaction alongside the standalone Snitip Dialog
+  and Snitip Content stories. It hardcodes the inline references emitted by
   [SnitipLink.tsx](../src/utils/markdown/snitip-link/SnitipLink.tsx) and loads the
   same styles and interaction script as
   [snitip-template.astro](../src/utils/markdown/components/snitip/snitip-template.astro). Its two references

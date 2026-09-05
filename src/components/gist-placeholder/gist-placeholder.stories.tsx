@@ -5,7 +5,7 @@ import { GistPlaceholder } from "./gist-placeholder.tsx";
 const meta = preview
 	.type<{ args: ComponentProps<typeof GistPlaceholder> }>()
 	.meta({
-		title: "Components/GistPlaceholder",
+		title: "components/Gist",
 		component: GistPlaceholder,
 		args: {
 			username: "example",

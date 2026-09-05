@@ -6,7 +6,7 @@ import { illustration } from "../../../.storybook/fixtures.ts";
 const meta = preview
 	.type<{ args: ComponentProps<typeof XEmbedPlaceholder> }>()
 	.meta({
-		title: "Components/XEmbedPlaceholder",
+		title: "components/X Embed",
 		component: XEmbedPlaceholder,
 		args: {
 			name: "Alex Example",

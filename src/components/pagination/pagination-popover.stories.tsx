@@ -21,7 +21,7 @@ function Demo(args: ComponentProps<typeof PaginationMenuAndPopover>) {
 const meta = preview
 	.type<{ args: ComponentProps<typeof PaginationMenuAndPopover> }>()
 	.meta({
-		title: "Components/PaginationMenuAndPopover",
+		title: "components/Pagination Menu and Popover",
 		component: PaginationMenuAndPopover,
 		args: { page: { currentPage: 5, lastPage: 20 } },
 		render: (args) => (

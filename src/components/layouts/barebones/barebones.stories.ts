@@ -6,7 +6,7 @@ type Args = ComponentProps<typeof Barebones> & {
 	slots?: Record<string, string>;
 };
 const meta = preview.type<{ args: Args }>().meta({
-	title: "Astro/Barebones",
+	title: "components/Barebones",
 	component: Barebones,
 	args: {
 		lang: "en",

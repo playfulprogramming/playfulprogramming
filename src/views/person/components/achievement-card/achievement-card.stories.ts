@@ -5,7 +5,7 @@ import AchievementCard, {
 } from "./achievement-card.astro";
 
 const meta = preview.type<{ args: AchievementCardProps }>().meta({
-	title: "Astro/Achievement Card",
+	title: "components/Achievement Card",
 	component: AchievementCard,
 	parameters: {
 		layout: "centered",

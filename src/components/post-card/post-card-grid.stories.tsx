@@ -6,7 +6,7 @@ import { post, person } from "../../../.storybook/fixtures.ts";
 const meta = preview
 	.type<{ args: ComponentProps<typeof PostCardGrid> }>()
 	.meta({
-		title: "Components/PostCardGrid",
+		title: "components/Post Card Grid",
 		component: PostCardGrid,
 		args: {
 			postsToDisplay: Array.from({ length: 6 }, (_, i) => ({

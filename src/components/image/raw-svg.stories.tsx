@@ -4,7 +4,7 @@ import { RawSvg } from "./raw-svg.tsx";
 import icon from "#src/assets/icons/arrow_right.svg?raw";
 
 const meta = preview.type<{ args: ComponentProps<typeof RawSvg> }>().meta({
-	title: "Components/RawSvg",
+	title: "components/Raw SVG",
 	component: RawSvg,
 	args: { icon, width: 48, height: 48, role: "img", "aria-label": "Continue" },
 });

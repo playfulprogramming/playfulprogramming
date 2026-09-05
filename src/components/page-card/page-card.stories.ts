@@ -22,7 +22,7 @@ const secondaryAction = `
 `;
 
 const meta = preview.type<{ args: PageCardStoryArgs }>().meta({
-	title: "Astro/Page Card",
+	title: "components/Page Card",
 	component: PageCard,
 	parameters: {
 		layout: "centered",

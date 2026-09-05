@@ -5,7 +5,7 @@ import MailingList, {
 } from "./mailing-list.astro";
 
 const meta = preview.type<{ args: MailingListProps }>().meta({
-	title: "Astro/Mailing List",
+	title: "components/Mailing List",
 	component: MailingList,
 	parameters: {
 		layout: "padded",

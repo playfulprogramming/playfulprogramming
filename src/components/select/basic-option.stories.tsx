@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { Option } from "./basic-option.tsx";
 
 const meta = preview.type<{ args: ComponentProps<typeof Option> }>().meta({
-	title: "Components/Select/Basic Option",
+	title: "components/Select/Basic Option",
 	component: Option,
 	args: { children: "Preact", isSelected: true },
 	decorators: [

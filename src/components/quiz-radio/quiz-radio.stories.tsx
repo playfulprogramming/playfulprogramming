@@ -24,7 +24,7 @@ function Demo(args: ComponentProps<typeof QuizRadio>) {
 	);
 }
 const meta = preview.type<{ args: ComponentProps<typeof QuizRadio> }>().meta({
-	title: "Components/QuizRadio",
+	title: "components/Quiz Radio",
 	component: QuizRadio,
 	args: {
 		title: "Which element is best for an action?",

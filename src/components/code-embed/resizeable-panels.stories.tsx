@@ -5,7 +5,7 @@ import { ResizeablePanels } from "./resizeable-panels.tsx";
 const meta = preview
 	.type<{ args: ComponentProps<typeof ResizeablePanels> }>()
 	.meta({
-		title: "Components/ResizeablePanels",
+		title: "components/Resizable Panels",
 		component: ResizeablePanels,
 		args: {
 			panelHeight: 350,

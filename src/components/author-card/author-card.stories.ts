@@ -6,7 +6,7 @@ type Args = ComponentProps<typeof AuthorCard> & {
 	slots?: Record<string, string>;
 };
 const meta = preview.type<{ args: Args }>().meta({
-	title: "Astro/AuthorCard",
+	title: "components/Author Card",
 	component: AuthorCard,
 	args: { author: person },
 	argTypes: { slots: { control: false, table: { disable: true } } },

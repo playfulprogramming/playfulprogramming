@@ -11,7 +11,7 @@ import { RawSvg } from "../image/raw-svg.tsx";
 import icon from "#src/assets/icons/arrow_right.svg?raw";
 
 const meta = preview.type<{ args: ComponentProps<typeof Button> }>().meta({
-	title: "Components/Button",
+	title: "components/Button",
 	component: Button,
 	args: { tag: "button", children: "Explore components", variant: "primary" },
 });

@@ -6,7 +6,7 @@ import { collection, person } from "../../../.storybook/fixtures.ts";
 const meta = preview
 	.type<{ args: ComponentProps<typeof CollectionCard> }>()
 	.meta({
-		title: "Components/CollectionCard",
+		title: "components/Collection Card",
 		component: CollectionCard,
 		args: { collection, authors: [person] },
 		decorators: [

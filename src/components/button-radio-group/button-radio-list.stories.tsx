@@ -6,7 +6,7 @@ import { RadioButtonGroup } from "./button-radio-group.tsx";
 const meta = preview
 	.type<{ args: ComponentProps<typeof RadioListButton> }>()
 	.meta({
-		title: "Components/RadioListButton",
+		title: "components/Radio List Button",
 		component: RadioListButton,
 		args: { value: "compact", children: "Compact layout" },
 		decorators: [

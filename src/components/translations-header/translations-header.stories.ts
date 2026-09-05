@@ -6,7 +6,7 @@ type Args = ComponentProps<typeof TranslationsHeader> & {
 	slots?: Record<string, string>;
 };
 const meta = preview.type<{ args: Args }>().meta({
-	title: "Astro/TranslationsHeader",
+	title: "components/Translations Header",
 	component: TranslationsHeader,
 	args: { locales: ["en", "es", "fr"] },
 	argTypes: { slots: { control: false, table: { disable: true } } },

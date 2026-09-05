@@ -18,7 +18,7 @@ function Demo(args: ComponentProps<typeof Pagination>) {
 	);
 }
 const meta = preview.type<{ args: ComponentProps<typeof Pagination> }>().meta({
-	title: "Components/Pagination",
+	title: "components/Pagination",
 	component: Pagination,
 	args: { page: { currentPage: 5, lastPage: 20 } },
 	render: (args) => (

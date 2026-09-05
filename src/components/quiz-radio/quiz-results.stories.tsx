@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { QuizResults } from "./quiz-results.tsx";
 
 const meta = preview.type<{ args: ComponentProps<typeof QuizResults> }>().meta({
-	title: "Components/QuizResults",
+	title: "components/Quiz Results",
 	component: QuizResults,
 	args: {
 		questions: [

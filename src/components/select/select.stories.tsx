@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { Select, Item, SelectWithLabel } from "./select.tsx";
 
 const meta = preview.type<{ args: ComponentProps<typeof Select> }>().meta({
-	title: "Components/Select",
+	title: "components/Select",
 	component: Select,
 	args: {
 		label: "Framework",

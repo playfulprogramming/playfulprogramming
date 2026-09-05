@@ -7,7 +7,7 @@ import icon from "#src/assets/icons/launch.svg?raw";
 const meta = preview
 	.type<{ args: ComponentProps<typeof AnchoredTooltip> }>()
 	.meta({
-		title: "Components/AnchoredTooltip",
+		title: "components/Anchored Tooltip",
 		component: AnchoredTooltip,
 		args: {
 			type: "primary",

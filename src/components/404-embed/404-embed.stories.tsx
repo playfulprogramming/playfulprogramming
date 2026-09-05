@@ -5,7 +5,7 @@ import { FourOFourEmbed } from "./404-embed.tsx";
 const meta = preview
 	.type<{ args: ComponentProps<typeof FourOFourEmbed> }>()
 	.meta({
-		title: "Components/FourOFourEmbed",
+		title: "components/404 Embed",
 		component: FourOFourEmbed,
 		args: { url: "https://example.com/missing-demo" },
 	});

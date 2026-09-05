@@ -4,7 +4,7 @@ import { LinkPreview } from "./link-preview.tsx";
 import { illustration } from "../../../.storybook/fixtures.ts";
 
 const meta = preview.type<{ args: ComponentProps<typeof LinkPreview> }>().meta({
-	title: "Components/LinkPreview",
+	title: "components/Link Preview",
 	component: LinkPreview,
 	args: {
 		type: "link",

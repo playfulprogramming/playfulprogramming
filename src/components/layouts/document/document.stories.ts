@@ -6,7 +6,7 @@ type Args = ComponentProps<typeof Document> & {
 	slots?: Record<string, string>;
 };
 const meta = preview.type<{ args: Args }>().meta({
-	title: "Astro/Document",
+	title: "components/Document",
 	component: Document,
 	args: {
 		size: "l",

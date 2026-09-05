@@ -6,7 +6,7 @@ type Args = ComponentProps<typeof BowtieButton> & {
 	slots?: Record<string, string>;
 };
 const meta = preview.type<{ args: Args }>().meta({
-	title: "Astro/BowtieButton",
+	title: "components/Bowtie Button",
 	component: BowtieButton,
 	args: {
 		href: "https://playfulprogramming.com/donate",

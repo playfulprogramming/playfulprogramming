@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { Tooltip } from "./tooltip.tsx";
 
 const meta = preview.type<{ args: ComponentProps<typeof Tooltip> }>().meta({
-	title: "Components/Tooltip",
+	title: "components/Tooltip",
 	component: Tooltip,
 	args: {
 		icon: "info",

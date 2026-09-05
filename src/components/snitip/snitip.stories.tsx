@@ -6,7 +6,7 @@ import { snitip } from "../../../.storybook/fixtures.ts";
 const meta = preview
 	.type<{ args: ComponentProps<typeof SnitipContent> }>()
 	.meta({
-		title: "Components/SnitipContent",
+		title: "components/Snitip Content",
 		component: SnitipContent,
 		args: { snitip },
 	});

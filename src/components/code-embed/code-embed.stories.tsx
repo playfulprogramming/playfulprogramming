@@ -51,7 +51,7 @@ function AddressDemo() {
 	);
 }
 const meta = preview.type<{ args: ComponentProps<typeof Container> }>().meta({
-	title: "Components/Code Embed",
+	title: "components/Code Embed",
 	component: Container,
 	args: {
 		title: "A small TypeScript example",

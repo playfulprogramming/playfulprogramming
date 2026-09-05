@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { Chip } from "./chip.tsx";
 
 const meta = preview.type<{ args: ComponentProps<typeof Chip> }>().meta({
-	title: "Components/Chip",
+	title: "components/Chip",
 	component: Chip,
 	args: { tag: "button", children: "JavaScript" },
 });

@@ -20,7 +20,7 @@ function Demo(args: ComponentProps<typeof Dialog>) {
 	);
 }
 const meta = preview.type<{ args: ComponentProps<typeof Dialog> }>().meta({
-	title: "Components/Dialog",
+	title: "components/Dialog",
 	component: Dialog,
 	args: {
 		open: false,

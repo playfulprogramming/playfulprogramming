@@ -5,7 +5,7 @@ import { SnitipCard, SnitipCardGrid } from "./snitip-card.tsx";
 import { snitip } from "../../../.storybook/fixtures.ts";
 
 const meta = preview.type<{ args: ComponentProps<typeof SnitipCard> }>().meta({
-	title: "Components/SnitipCard",
+	title: "components/Snitip Card",
 	component: SnitipCard,
 	args: { snitip },
 });

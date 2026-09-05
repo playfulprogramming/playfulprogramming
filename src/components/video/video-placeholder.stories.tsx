@@ -6,7 +6,7 @@ import { illustration } from "../../../.storybook/fixtures.ts";
 const meta = preview
 	.type<{ args: ComponentProps<typeof VideoPlaceholder> }>()
 	.meta({
-		title: "Components/VideoPlaceholder",
+		title: "components/Video",
 		component: VideoPlaceholder,
 		args: {
 			width: 640,

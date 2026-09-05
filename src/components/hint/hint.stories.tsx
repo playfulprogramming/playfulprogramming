@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { Hint } from "./hint.tsx";
 
 const meta = preview.type<{ args: ComponentProps<typeof Hint> }>().meta({
-	title: "Components/Hint",
+	title: "components/Hint",
 	component: Hint,
 	args: {
 		title: "Need a hint?",

@@ -32,7 +32,7 @@ function Demo() {
 	);
 }
 const meta = preview.type<{ args: Record<string, never> }>().meta({
-	title: "Components/QuizResultsInline",
+	title: "components/Quiz Results Inline",
 	component: Demo,
 	args: {},
 	render: () => <Demo />,

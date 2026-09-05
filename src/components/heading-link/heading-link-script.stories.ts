@@ -1,7 +1,7 @@
 import preview from "../../../.storybook/preview.ts";
 import Demo from "../../../.storybook/fixtures/heading-link.astro";
 const meta = preview.meta({
-	title: "Astro/Heading Link Script",
+	title: "components/Heading Link Script",
 	component: Demo,
 	play: async ({ canvasElement }) => {
 		// This legacy component initializes on window.load, which has already fired

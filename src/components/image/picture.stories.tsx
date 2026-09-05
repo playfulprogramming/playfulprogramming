@@ -4,7 +4,7 @@ import { Picture } from "./picture.tsx";
 import { illustration } from "../../../.storybook/fixtures.ts";
 
 const meta = preview.type<{ args: ComponentProps<typeof Picture> }>().meta({
-	title: "Components/Picture",
+	title: "components/Picture",
 	component: Picture,
 	args: {
 		src: illustration,

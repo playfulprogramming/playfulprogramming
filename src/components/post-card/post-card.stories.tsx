@@ -5,7 +5,7 @@ import { PostCard, PostCardExpanded } from "./post-card.tsx";
 import { post, person } from "../../../.storybook/fixtures.ts";
 
 const meta = preview.type<{ args: ComponentProps<typeof PostCard> }>().meta({
-	title: "Components/PostCard",
+	title: "components/Post Card",
 	component: PostCard,
 	args: { post, authors: [person] },
 	decorators: [

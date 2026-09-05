@@ -82,7 +82,7 @@ function Demo(args: Args) {
 const meta = preview
 	.type<{ args: ComponentProps<typeof SnitipDialog> }>()
 	.meta({
-		title: "Components/Snitips",
+		title: "components/Snitips",
 		component: SnitipDialog,
 		args: {
 			id: "snitip-dialog-storybook-components",

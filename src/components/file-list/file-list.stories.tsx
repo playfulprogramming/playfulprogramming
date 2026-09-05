@@ -5,7 +5,7 @@ import { FileList, File, FileListList } from "./file-list.tsx";
 import { file, files } from "../../../.storybook/fixtures.ts";
 
 const meta = preview.type<{ args: ComponentProps<typeof FileList> }>().meta({
-	title: "Components/FileList",
+	title: "components/File List",
 	component: FileList,
 	args: { items: files },
 });

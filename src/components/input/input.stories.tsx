@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { Input, SearchInput } from "./input.tsx";
 
 const meta = preview.type<{ args: ComponentProps<typeof Input> }>().meta({
-	title: "Components/Input",
+	title: "components/Input",
 	component: Input,
 	args: { label: "Your name", placeholder: "Alex Example" },
 });

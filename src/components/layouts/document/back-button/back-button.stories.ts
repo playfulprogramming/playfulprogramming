@@ -6,7 +6,7 @@ type Args = ComponentProps<typeof BackButton> & {
 	slots?: Record<string, string>;
 };
 const meta = preview.type<{ args: Args }>().meta({
-	title: "Astro/BackButton",
+	title: "components/Back Button",
 	component: BackButton,
 	args: {},
 	argTypes: { slots: { control: false, table: { disable: true } } },

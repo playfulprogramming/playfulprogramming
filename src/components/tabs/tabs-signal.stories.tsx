@@ -15,7 +15,7 @@ function Demo(args: ComponentProps<typeof Tabs>) {
 	);
 }
 const meta = preview.type<{ args: ComponentProps<typeof Tabs> }>().meta({
-	title: "Components/Tabs/Signal Tabs",
+	title: "components/Tabs/Signal Tabs",
 	component: Tabs,
 	args: { id: "storybook-signal-tabs", tabs, children: <></> },
 	render: (args) => <Demo {...args} />,

@@ -27,7 +27,7 @@ function Demo(args: Omit<ComponentProps<typeof CheckboxBox>, "wrapper">) {
 const meta = preview
 	.type<{ args: Omit<ComponentProps<typeof CheckboxBox>, "wrapper"> }>()
 	.meta({
-		title: "Components/CheckboxBox",
+		title: "components/Checkbox Box",
 		component: Demo,
 		args: { selected: false },
 		render: (args) => (

@@ -13,7 +13,7 @@ function Demo(args: ComponentProps<typeof FilePicker>) {
 	);
 }
 const meta = preview.type<{ args: ComponentProps<typeof FilePicker> }>().meta({
-	title: "Components/FilePicker",
+	title: "components/File Picker",
 	component: FilePicker,
 	args: { entries, file: entries[0].name },
 	render: (args) => <Demo {...args} />,

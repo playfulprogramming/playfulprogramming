@@ -5,7 +5,7 @@ import Demo, {
 
 // Keep option elements in an Astro fixture: the adapter sanitizes slot HTML.
 const meta = preview.type<{ args: Props }>().meta({
-	title: "Astro/StyledSelect",
+	title: "components/Styled Select",
 	component: Demo,
 	args: { "aria-label": "Framework" },
 });

@@ -3,7 +3,7 @@ import type { ComponentProps } from "preact";
 import { InContentAd } from "./ad.tsx";
 
 const meta = preview.type<{ args: ComponentProps<typeof InContentAd> }>().meta({
-	title: "Components/InContentAd",
+	title: "components/In Content Ad",
 	component: InContentAd,
 	args: {
 		title: "Help keep learning free",
