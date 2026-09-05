@@ -1,4 +1,5 @@
 import preview from "../../../.storybook/preview.ts";
+import { illustration } from "../../../.storybook/fixtures.ts";
 
 import PageCard, { type Props as PageCardProps } from "./page-card.astro";
 
@@ -31,7 +32,7 @@ const meta = preview.type<{ args: PageCardStoryArgs }>().meta({
 		title: "Learn together",
 		description:
 			"Meet kind people, share what you know, and make programming feel a bit more playful.",
-		imageSrc: "/illustrations/illustration-community.svg",
+		imageSrc: illustration,
 		imageAlt: "Three people smiling together",
 		numberOfButtons: 1,
 		slots: {

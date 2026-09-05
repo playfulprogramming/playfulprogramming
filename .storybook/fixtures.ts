@@ -8,13 +8,14 @@ import type {
 	FileProps,
 } from "#components/file-list/file-list.tsx";
 
+export const unicornImage = "/unicorn_happy.svg";
 export const illustration = "/illustrations/illustration-community.svg";
 export const imageMeta = {
-	relativePath: illustration,
-	relativeServerPath: illustration,
+	relativePath: unicornImage,
+	relativeServerPath: unicornImage,
 	absoluteFSPath: "",
-	width: 480,
-	height: 320,
+	width: 512,
+	height: 512,
 };
 export const person = {
 	kind: "person",
@@ -27,7 +28,7 @@ export const person = {
 		"A developer who loves making programming approachable, one small example at a time.",
 	socials: {},
 	pronouns: "they/them",
-	profileImg: illustration,
+	profileImg: unicornImage,
 	profileImgMeta: imageMeta,
 	color: "#9562ff",
 	roles: [],
@@ -65,7 +66,7 @@ export const collection = {
 		"Learn to build accessible interfaces with examples you can try.",
 	authors: [person.id],
 	tags: ["javascript"],
-	coverImg: illustration,
+	coverImg: unicornImage,
 	coverImgMeta: imageMeta,
 	published: "2026-01-15",
 	locale: "en",

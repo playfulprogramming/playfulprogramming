@@ -31,7 +31,9 @@ Astro stories use component-owned props, either exported `Props` or Astro's
 slot HTML. Preact stories derive their args from `ComponentProps` and use small
 stateful demos when a component requires a controller or parent context.
 
-Shared sample content lives in `fixtures.ts`. Cards use local public artwork;
+Shared sample content lives in `fixtures.ts`. Sample avatars and the collection
+cover use `unicorn_happy.svg`, shared from the site's emote assets. Image previews,
+post banners, video thumbnails, and community content use the community illustration;
 embedded frames use local `srcDoc` content or `about:blank`. External links remain
 links, and no story starts a WebContainer or calls an application backend.
 
