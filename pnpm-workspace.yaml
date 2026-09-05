@@ -3,6 +3,10 @@ packages:
   - e2e
   - .
 minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - "@vitest/*"
+  - "vitest"
+  - "tinyexec"
 overrides:
   "@playwright/test": 1.62.1
   playwright: 1.62.1
