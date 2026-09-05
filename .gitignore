@@ -1,5 +1,6 @@
 # build output
 dist/
+storybook-static/
 .tmp*
 
 # dependencies
@@ -28,4 +29,3 @@ pnpm-debug.log*
 .vercel
 .astro
 .vscode
-
