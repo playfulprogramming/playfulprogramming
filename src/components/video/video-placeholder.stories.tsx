@@ -12,7 +12,7 @@ const meta = preview
 			width: 640,
 			height: 360,
 			src: "https://www.youtube.com/embed/example",
-			webUrl: "https://www.youtube.com/@playfulprogramming",
+			webUrl: "https://www.youtube.com/@playful-programming",
 			pageTitle: "Learning together",
 			pageThumbnail: illustration,
 			iframeAttrs: { title: "Learning together" },
