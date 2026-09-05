@@ -2,9 +2,32 @@
 import HeadingLink from "#components/heading-link/heading-link-script.astro";
 ---
 
-<article class="post-body">
-	<h2 id="story-heading">A heading with a permalink</h2><p>
-		Hover or focus the heading to copy its link.
+<!-- Match the heading markup emitted by the Markdown pipeline. -->
+<article
+	class="post-body"
+	style="max-width: 48rem; margin: 4rem auto; padding: 2rem;"
+>
+	<h2
+		id="story-heading"
+		class="text-style-headline-2"
+		data-header-text="A heading with a permalink"
+	>
+		<span>A heading with a permalink</span>
+	</h2>
+	<p>
+		Hover over the heading to reveal its copy button. Click the heading or Tab
+		to the button and press Enter to copy a link to this section.
+	</p>
+	<h3
+		id="story-subheading"
+		class="text-style-headline-3"
+		data-header-text="Another section"
+	>
+		<span>Another section</span>
+	</h3>
+	<p>
+		Each heading has its own permalink. After copying, the button briefly
+		confirms that the link is ready to share.
 	</p>
 </article>
 <HeadingLink />

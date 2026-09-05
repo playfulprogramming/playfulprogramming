@@ -59,8 +59,9 @@ Its Storybook environment uses direct image URLs, avoiding the production image
 CDN and the development-only `/_image` endpoint. The main preview build uses the
 same environment. `astro-scripts.ts` bundles hoisted component scripts and repairs
 the adapter’s static script URLs. `astro-styles.ts` preserves frontmatter
-stylesheet imports omitted by the adapter’s browser stubs. The heading-link story also runs its legacy
-load-event initialization after the script is ready. Sass receives the site's `src` alias and `SASS_PATH`.
+stylesheet imports omitted by the adapter’s browser stubs. The heading-link story
+initializes each render directly and uses the Markdown pipeline's heading markup
+for hover and keyboard focus styles. Sass receives the site's `src` alias and `SASS_PATH`.
 
 ## Adapter boundaries
 
