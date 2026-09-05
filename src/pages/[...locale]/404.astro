@@ -1,10 +1,14 @@
 ---
 import NotFoundPage from "#src/views/not-found/not-found-page.astro";
+import Document from "#components/layouts/document/document.astro";
+import SEO from "#components/seo/seo.astro";
+
 import {
 	getStaticLocalePaths,
 	isValidLocaleRouteParam,
 } from "#utils/locales.ts";
 import { baseLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 export function getStaticPaths() {
 	return getStaticLocalePaths().filter(
@@ -18,4 +22,7 @@ if (!isValidLocaleRouteParam(localeParam)) {
 }
 ---
 
-<NotFoundPage />
+<Document>
+	<SEO slot="head" title={m.title_error_404()} noindex />
+	<NotFoundPage />
+</Document>
