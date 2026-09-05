@@ -37,7 +37,14 @@ links, and no story starts a WebContainer or calls an application backend.
   examples and relevant disabled, selected, expanded, or content variants.
 - Radio buttons and options render in their required groups and lists. Tabs include
   their panels. Pagination updates local state without leaving Storybook.
-- Dialog and snitip examples have open/close controls. File picking, resizable code
+- Snitips demonstrates the full interaction alongside the standalone SnitipDialog
+  and SnitipContent stories. It hardcodes the inline references emitted by
+  [SnitipLink.tsx](../src/utils/markdown/snitip-link/SnitipLink.tsx) and loads the
+  same styles and interaction script as
+  [snitip-template.astro](../src/utils/markdown/components/snitip/snitip-template.astro). Its two references
+  share a dialog and support hover, click, keyboard navigation, dismissal, and focus
+  restoration. Resize the Canvas to try the mobile modal layout.
+- Dialog examples have open/close controls. File picking, resizable code
   panels, quiz submission, and results can be exercised directly.
 - Inline quizzes use isolated question IDs and reset their store on unmount.
 - Layouts and script-only Astro components use small fixtures in `fixtures/`.
