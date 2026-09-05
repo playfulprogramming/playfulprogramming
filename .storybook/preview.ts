@@ -6,6 +6,12 @@ import "./astro-styles.ts";
 
 export default definePreview({
 	addons: [addonA11y()],
+	beforeAll: async () => {
+		// React Aria captures HTMLElement.prototype.focus during initialization.
+		// Load it before Storybook installs its focus getter in the story loaders;
+		// otherwise navigating to the first React Aria story throws Illegal invocation.
+		await import("react-aria");
+	},
 	parameters: {
 		controls: {
 			matchers: {
