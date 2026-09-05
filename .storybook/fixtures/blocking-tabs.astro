@@ -1,0 +1,8 @@
+---
+import BlockingTabs from "#components/tabs/blocking-tabs-signal-script.astro";
+import TabsDemo from "./blocking-tabs.tsx";
+---
+
+<p>Select a tab, then reload to preview restoration before hydration.</p>
+<TabsDemo client:load />
+<BlockingTabs />

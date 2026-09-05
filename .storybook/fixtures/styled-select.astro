@@ -1,0 +1,11 @@
+---
+import StyledSelect from "#components/styled-select/styled-select.astro";
+import type { ComponentProps } from "astro/types";
+export type Props = ComponentProps<typeof StyledSelect>;
+---
+
+<StyledSelect {...Astro.props}>
+	<option value="preact">Preact</option>
+	<option value="astro">Astro</option>
+	<option value="vue">Vue</option>
+</StyledSelect>

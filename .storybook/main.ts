@@ -1,7 +1,9 @@
 import { delimiter, resolve } from "node:path";
 
-import { preact } from "@storybook-astro/framework/integrations";
+import { siteIntegration, storybookDefines } from "./site-integration.ts";
 import { defineMain } from "@storybook-astro/framework/node";
+
+import { astroStoryScripts } from "./astro-scripts.ts";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 
@@ -18,12 +20,16 @@ export default defineMain({
 	framework: {
 		name: "@storybook-astro/framework",
 		options: {
-			integrations: [preact({ compat: true })],
+			integrations: [siteIntegration()],
 		},
 	},
-	staticDirs: ["../public"],
+	staticDirs: ["../public", "./public"],
 	viteFinal(config) {
 		config.resolve ??= {};
+		config.plugins ??= [];
+		config.plugins.push(astroStoryScripts());
+		config.define = { ...config.define, ...storybookDefines };
+		config.cacheDir = resolve(projectRoot, ".tmp-storybook-cache");
 
 		const srcPath = resolve(projectRoot, "src");
 		config.resolve.alias = Array.isArray(config.resolve.alias)

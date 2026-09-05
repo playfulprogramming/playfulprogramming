@@ -2,6 +2,7 @@ import addonA11y from "@storybook/addon-a11y";
 import { definePreview } from "@storybook-astro/framework";
 
 import "../src/styles/global.scss";
+import "./astro-styles.ts";
 
 export default definePreview({
 	addons: [addonA11y()],
@@ -14,3 +15,5 @@ export default definePreview({
 		},
 	},
 });
+
+export { default as preactPreview } from "./preview-preact.ts";
