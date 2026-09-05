@@ -97,7 +97,7 @@
 		"@types/node": "25.9.1",
 		"@types/tiny-async-pool": "^2.0.3",
 		"@types/unist": "^3.0.3",
-		"@vitest/browser-playwright": "^4.1.7",
+		"@vitest/browser-playwright": "^5.0.0",
 		"astro": "^7.2.9",
 		"astro-eslint-parser": "^3.1.0",
 		"astro-icon": "^1.2.0",
@@ -167,7 +167,7 @@
 		"unist-util-is": "^6.0.1",
 		"unist-util-visit": "^5.1.0",
 		"vfile": "^6.0.3",
-		"vitest": "^4.1.7"
+		"vitest": "^5.0.0"
 	},
 	"lint-staged": {
 		"*.{js,ts,tsx,astro}": "eslint --cache --fix",
