@@ -1,0 +1,12 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "./tsconfig.json",
+	"exclude": [
+		"dist",
+		"content",
+		// `astro check` validates these first with Astro's language tooling. Bare
+		// `tsc` cannot resolve named type exports from `.astro` modules.
+		"**/*.stories.ts",
+		"**/*.stories.tsx"
+	]
+}
