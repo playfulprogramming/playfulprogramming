@@ -1,0 +1,31 @@
+---
+import BlockingThemeChangerScript from "./blocking-theme-changer-script.astro";
+import "../../../styles/global.scss";
+import Barebones from "../barebones/barebones.astro";
+import Header from "#components/layouts/document/header/header.astro";
+import { getLocale } from "#src/paraglide/runtime.js";
+
+const lang = getLocale();
+
+const props = Astro.props as {
+	size: undefined | "l" | "xl";
+	disableDiscord?: boolean;
+};
+---
+
+<Barebones lang={lang}>
+	<!-- This must load before any CSS or there will be a flicker -->
+	<BlockingThemeChangerScript slot="first" />
+	<slot slot="head" name="head" />
+	<Header size={props.size} disableDiscord={props.disableDiscord} />
+	<slot />
+	<slot name="post-body" />
+
+	<script>
+		import "#utils/href-container-script.ts";
+	</script>
+	<script>
+		import { enableStickyScrollListener } from "#utils/sticky-scroll-script.ts";
+		enableStickyScrollListener();
+	</script>
+</Barebones>

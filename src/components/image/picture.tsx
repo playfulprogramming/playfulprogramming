@@ -1,10 +1,10 @@
 import {
+	type GetPictureOptions,
+	type GetPictureUrls,
 	getPictureAttrs,
 	getPictureUrls,
-	GetPictureOptions,
-	GetPictureUrls,
-} from "#utils/get-picture";
-import { HTMLAttributes } from "preact";
+} from "#utils/get-picture/index.ts";
+import type { HTMLAttributes } from "preact";
 
 interface PictureProps extends GetPictureOptions {
 	urls?: GetPictureUrls;
@@ -26,8 +26,8 @@ export const Picture = ({
 	const pictureResult = getPictureAttrs(props, pictureUrls);
 	return (
 		<picture class={className} {...pictureAttrs}>
-			{pictureResult.sources.map((attrs) => (
-				<source key={attrs.srcset} {...attrs} />
+			{pictureResult.sources.map((attrs, i) => (
+				<source key={i} {...attrs} />
 			))}
 			<img
 				crossorigin="anonymous"

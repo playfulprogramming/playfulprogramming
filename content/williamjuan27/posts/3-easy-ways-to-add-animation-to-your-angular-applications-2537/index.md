@@ -3,7 +3,7 @@
 title: "3 Easy Ways to Add Animation to your Angular Applications",
 published: "2021-09-14T12:50:18Z",
 edited: "2021-09-22T13:22:11Z",
-tags: ["angular", "animations", "css"],
+tags: ["angular", "animation", "css"],
 description: "Animations add life to your application and can greatly increase your app's overall user experience....",
 originalLink: "https://williamjuan.dev/blog/3-easy-ways-to-add-animation-to-your-angular-applications",
 coverImg: "cover-image.png",

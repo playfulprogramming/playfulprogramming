@@ -11,7 +11,7 @@
 
 After a year at a company we'll call "PDRT," I did what I believe more engineers should be doing annually: I asked for a raise. I was doing my due diligence in running our frontend efforts, and it was beginning to show through metrics and overall team velocity.
 
-But while I was loosely interested in a comp increase, I was much more interested in a title increase. I had lofty goals for my career that saw me leading larger teams — something that would eventually come true with my VP title.
+But while I was loosely interested in a comp increase, I was much more interested in a title increase. I had lofty goals for my career that saw me leading larger teams — something that would eventually come true with my [VP title](pfp-snitip:#vp-engineering).
 
 See, when I was hired at the company, I was brought on at a "Senior" level. But now that we had another senior on the team that I was directly responsible for, I thought it was appropriate to be also moved up a level.
 
@@ -21,7 +21,7 @@ I was elated when I found out that they had accepted my request - I was being gi
 
 See, relevant to this discussion, there are two predominant "tracks" of software engineering:
 
-1) Individual contributor (IC)
+1) [Individual contributor (IC)](pfp-snitip:#individual-contributor)
 2) Engineering leader (EL)
 
 ICs are often more directly involved in the code while ELs are more management focused. Each comes with their own set of skills and growth terms:
@@ -94,9 +94,15 @@ Why? Because if you only looked at my résumé on paper during this time, you'd 
 
 - Senior Engineer
 - Senior Engineer
-- DevRel
+- [DevRel](pfp-snitip:#devrel)
 - Senior Engineer
 - Principal Engineer
+
+<!-- ::start:snitip id="devrel" tags="documentation,leadership" -->
+## Developer Relations
+
+Developer Relations, often shortened to DevRel, connects an organization with the developers who use or contribute to its technology. The work can include education, documentation, community programs, advocacy, and relaying developer feedback to product teams.
+<!-- ::end:snitip -->
 
 This alone is a major red flag to hiring managers and the sort; it indicates that there's something going on that doesn't fit the pattern for most employees. This isn't simply a promotion, it's a drastic increase in responsibility and expectation that usually only comes with time.
 

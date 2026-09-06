@@ -2,9 +2,9 @@
 {
 title: "Implicit Dependencies Management with Nx: A Practical Guide through Real-World Case Studies",
 published: "2024-02-19T19:38:25Z",
-tags: ["node", "tutorial", "nx", "javascript"],
+tags: ["nodejs", "tutorial", "nx", "javascript"],
 description: "In this article, I will present two concrete cases of implicit dependencies and show you how to...",
-originalLink: "https://https://dev.to/playfulprogramming/implicit-dependencies-management-with-nx-a-practical-guide-through-real-world-case-studies-59kd",
+originalLink: "https://dev.to/playfulprogramming/implicit-dependencies-management-with-nx-a-practical-guide-through-real-world-case-studies-59kd",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

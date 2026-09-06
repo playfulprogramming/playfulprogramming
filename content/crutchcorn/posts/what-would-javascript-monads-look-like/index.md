@@ -8,13 +8,13 @@
 }
 ---
 
-Recently, [in our Discord's book club](https://discord.gg/FMcvc6T), we read [an awesome article by Ryan Marcus called "No, really, what's a monad?"](https://rmarcus.info/blog/2016/12/14/monads.html)
+Recently, [in our Discord's book club](https://discord.playfulprogramming.com), we read [an awesome article by Ryan Marcus called "No, really, what's a monad?"](https://rmarcus.info/blog/2016/12/14/monads.html)
 
 This article tracked well in my mind, but led to some confusion towards the end. To quote the article:
 
 > Hopefully you have now gained at least a little sympathy for the Haskell purist who laments JavaScript’s lack of 1st class support for monads.
 
-Not having much Haskell experience, this made me wonder "What does first-class support for monads _even look like_?"
+Not having much Haskell experience, this made me wonder "What does first-class support for [monads](pfp-snitip:#monad) _even look like_?"
 
 # Exploring Haskell and Scala Monad support
 
@@ -310,6 +310,6 @@ Hopefully this has been a helpful look at what first-class support for Monads *c
 
 Admittedly, there's a number of flaws in this API around composition with other JavaScript features, but it demonstrates what I set out to teach well enough.
 
-What are your favorite languages that have first-class monad support? [Let us know in our Discord server](https://discord.gg/FMcvc6T).
+What are your favorite languages that have first-class monad support? [Let us know in our Discord server](https://discord.playfulprogramming.com).
 
 Until next time!

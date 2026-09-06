@@ -2,7 +2,7 @@
 {
 title: "Where's the Hacktoberfest 2023 T-Shirt?",
 published: "2023-09-12T11:14:51Z",
-tags: ["hacktoberfest23", "opensource", "hacktoberfest"],
+tags: ["open source"],
 description: "Hacktoberfest 2023 will NOT have the usual tshirt and stickers as a reward.  This has been announced...",
 originalLink: "https://leonardomontini.dev/hacktoberfest-swag-2023",
 coverImg: "cover-image.png",

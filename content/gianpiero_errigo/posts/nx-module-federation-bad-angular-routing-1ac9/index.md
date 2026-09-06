@@ -3,7 +3,7 @@
 title: "Nx Module Federation bad Angular routing",
 published: "2023-01-22T12:37:33Z",
 edited: "2023-01-23T18:19:00Z",
-tags: ["angular", "nx", "typescript", "webpack"],
+tags: ["angular", "nx", "typescript", "tools"],
 description: "While puzzling around with Nx' Webpack Module Federation support, I stumbled upon an issue that...",
 originalLink: "https://dev.to/playfulprogramming-angular/nx-module-federation-bad-angular-routing-1ac9",
 coverImg: "cover-image.png",

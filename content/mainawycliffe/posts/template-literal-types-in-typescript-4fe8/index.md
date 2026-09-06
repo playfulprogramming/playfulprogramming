@@ -2,7 +2,7 @@
 {
 title: "Template Literal Types in TypeScript",
 published: "2021-06-24T06:39:45Z",
-tags: ["typescript", "webdev", "javascript", "programming"],
+tags: ["typescript", "webdev", "javascript"],
 description: "In this article, we will take a closer look at template literal types and how you can take advantage...",
 originalLink: "https://mainawycliffe.dev/blog/template-literal-types-in-typescript",
 coverImg: "cover-image.png",

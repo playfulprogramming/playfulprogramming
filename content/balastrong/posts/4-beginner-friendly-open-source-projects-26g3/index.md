@@ -3,7 +3,7 @@
 title: "4 Beginner Friendly Open Source Projects",
 published: "2022-12-01T15:28:20Z",
 edited: "2022-12-05T12:51:30Z",
-tags: ["beginners", "opensource", "javascript", "typescript"],
+tags: ["beginner", "open source", "javascript", "typescript"],
 description: "If you're familiar with my content, you know I often talk about how to find new Open Source projects...",
 originalLink: "https://leonardomontini.dev/beginner-friendly-open-source-projects/",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "Beginner-friendly Open Source projects to learn Web Development",
 published: "2024-01-25T13:34:27Z",
-tags: ["opensource", "beginners", "codenewbie", "webdev"],
+tags: ["open source", "beginner", "webdev"],
 description: "I'm launching a GitHub organization to host community projects. The mission is to learn Web...",
 originalLink: "https://leonardomontini.dev/webdev-open-source-community",
 coverImg: "cover-image.png",

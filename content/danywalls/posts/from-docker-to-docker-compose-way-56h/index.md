@@ -3,9 +3,9 @@
 title: "From Docker to Docker compose way!",
 published: "2021-11-24T17:30:34Z",
 edited: "2021-11-25T08:20:47Z",
-tags: ["devops", "docker", "beginners"],
+tags: ["devops", "docker", "beginner"],
 description: "If you work with docker, typing for every action is not a good deal, and sometimes it can be a...",
-originalLink: "https://https://dev.to/playfulprogramming/from-docker-to-docker-compose-way-56h",
+originalLink: "https://dev.to/playfulprogramming/from-docker-to-docker-compose-way-56h",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }
@@ -25,7 +25,7 @@ The scope of the article is:
 
 The idea is to move all our commands, and everyday tasks from the docker command line to docker-compose using a docker-compose.yml file and speed up our productivity.
 
-If you don't have an idea about docker, please read the preview post about [docker from zero to survives](https://https://dev.to/playfulprogramming/docker-from-zero-to-survive-40ho)
+If you don't have an idea about docker, please read the preview post about [docker from zero to survives](https://dev.to/playfulprogramming/docker-from-zero-to-survive-40ho)
 
 ## Why docker-compose?
 

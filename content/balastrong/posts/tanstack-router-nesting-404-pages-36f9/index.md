@@ -3,7 +3,7 @@
 title: "TanStack Router: Nesting & 404 pages",
 published: "2024-04-09T17:27:47Z",
 edited: "2024-04-23T10:53:46Z",
-tags: ["typescript", "react", "tutorial", "codenewbie"],
+tags: ["typescript", "react", "tutorial", "beginner"],
 description: "Welcome to the fifth article of a series where we will explore TanStack Router, the new typesafe...",
 originalLink: "https://leonardomontini.dev/tanstack-nesting-404/",
 coverImg: "cover-image.png",

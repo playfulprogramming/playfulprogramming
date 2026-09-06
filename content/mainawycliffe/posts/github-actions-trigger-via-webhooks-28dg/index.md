@@ -2,7 +2,7 @@
 {
 title: "GitHub Actions Trigger Via Webhooks",
 published: "2021-03-29T12:01:29Z",
-tags: ["github", "devops", "action"],
+tags: ["github", "devops", "github actions"],
 description: "In this article, we are going to look at how we can build a webhook to trigger a GitHub action workfl...",
 originalLink: "https://mainawycliffe.dev/blog/github-actions-trigger-via-webhooks",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Contributing to HUGE Open Source Projects",
 published: "2023-10-12T10:05:36Z",
 edited: "2023-10-12T10:08:19Z",
-tags: ["opensource", "github", "codenewbie", "tutorial"],
+tags: ["open source", "github", "beginner", "tutorial"],
 description: "Let's say you want to contribute to a large Open Source project like React or VSCode: are you...",
 originalLink: "https://leonardomontini.dev/large-open-source-projects",
 coverImg: "cover-image.png",

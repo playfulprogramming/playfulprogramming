@@ -1,11 +1,10 @@
 import { defineConfig } from "vitest/config";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { playwright } from "@vitest/browser-playwright";
 import preact from "@preact/preset-vite";
 import path from "path";
 
 export default defineConfig({
-	plugins: [tsconfigPaths(), preact()],
+	plugins: [preact()],
 	test: {
 		name: "ui",
 		include: ["**/*.ui.spec.{ts,tsx}"],
@@ -17,6 +16,7 @@ export default defineConfig({
 		setupFiles: ["__mocks__/setup.ts"],
 	},
 	resolve: {
+		tsconfigPaths: true,
 		alias: {
 			src: path.resolve(__dirname, "src"),
 			react: "preact/compat",

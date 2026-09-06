@@ -346,7 +346,15 @@ As you can see, we're able to add in the functionality for the score-keeping rel
 
 # Adding a Database {#mongodb}
 
-Even though the bot works well so far, it's not ideal to keep a score in memory. If your server crashes or if there's any other form of interruption in the process running, you'll lose all of your data. As such, we'll be replacing our local store with a database. As our data needs are simple and I want to keep this article relatively short, let's use a NoSQL database to avoid having to structure tables. We'll use MongoDB in order to keep our data stored.
+Even though the bot works well so far, it's not ideal to keep a score in memory. If your server crashes or if there's any other form of interruption in the process running, you'll lose all of your data. As such, we'll be replacing our local store with a database. As our data needs are simple and I want to keep this article relatively short, let's use a NoSQL database to avoid having to structure tables. We'll use [MongoDB](pfp-snitip:#mongodb) in order to keep our data stored.
+
+<!-- ::start:snitip id="mongodb" tags="mongodb" -->
+## <picture><img src="/stickers/mongodb.svg" alt=""></picture>MongoDB
+
+MongoDB is a document-oriented database that stores records as flexible, JSON-like BSON documents rather than rows in relational tables.
+
+- [MongoDB documentation](https://www.mongodb.com/docs/)
+<!-- ::end:snitip -->
 
 > This section will cover the setup of MongoDB Atlas, if you'd like to [skip ahead to the code section where we switch our in-memory store with a MongoDB database, you can click here](#mongodb-code)
 
@@ -609,4 +617,4 @@ Run that last `git commit` and `git push heroku master` and congrats! You should
 
 Slack provides a feature-rich, very useful chat application. Being able to add in your own functionality to said application only makes things more powerful for either your group or your end users. I know many businesses will use Slack bots as another experience for their business users. Now you've been able to see the power of their Node SDK and how easy it is to setup and deploy your very own Slack app using MongoDB and Heroku!
 
-Any questions or comments we didn't touch on here? Let us know down below or [in our Discord](https://discord.gg/FMcvc6T) where you can ask questions in real time with folks from our community!
+Any questions or comments we didn't touch on here? Let us know down below or [in our Discord](https://discord.playfulprogramming.com) where you can ask questions in real time with folks from our community!

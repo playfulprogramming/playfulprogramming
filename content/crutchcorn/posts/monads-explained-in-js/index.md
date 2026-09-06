@@ -8,7 +8,7 @@
 }
 ---
 
-I dunno about you, but I'm sick of hearing people obsessed with functional programming talking about "monads".
+I dunno about you, but I'm sick of hearing people obsessed with [functional programming](pfp-snitip:#functional-programming) talking about "[monads](pfp-snitip:#monad)".
 
 Like, I've been an engineer for **years** and never understood them.
 

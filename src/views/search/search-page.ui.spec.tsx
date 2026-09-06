@@ -6,7 +6,7 @@ import {
 	vi,
 	worker,
 	type Mock,
-} from "#src/ui-test-utils";
+} from "#utils/ui-test-utils.ts";
 import { page } from "vitest/browser";
 import {
 	findByText as findByTextFrom,
@@ -14,18 +14,29 @@ import {
 	waitFor,
 	cleanup,
 } from "@testing-library/preact";
-import { SearchPageBase } from "./search-page";
+import { SearchPageBase } from "./search-page.tsx";
 import { http, HttpResponse } from "msw";
-import { MockCanonicalPost, MockPost } from "../../../__mocks__/data/mock-post";
+import {
+	MockCanonicalPost,
+	MockPost,
+} from "../../../__mocks__/data/mock-post.ts";
 import userEvent from "@testing-library/user-event";
-import { MockCollection } from "../../../__mocks__/data/mock-collection";
-import { MockPerson, MockPersonTwo } from "../../../__mocks__/data/mock-person";
-import { buildSearchQuery } from "#src/views/search/search";
-import { PersonInfo } from "#types/PersonInfo.ts";
-import { PostInfo } from "#types/PostInfo.ts";
-import { CollectionInfo } from "#types/CollectionInfo.ts";
+import { MockCollection } from "../../../__mocks__/data/mock-collection.ts";
+import {
+	MockPerson,
+	MockPersonTwo,
+} from "../../../__mocks__/data/mock-person.ts";
+import {
+	buildSearchQuery,
+	type SearchFiltersData,
+	type SearchSnitipInfo,
+} from "#src/views/search/utils/index.ts";
+import type { PersonInfo } from "#types/PersonInfo.ts";
+import type { PostInfo } from "#types/PostInfo.ts";
+import type { CollectionInfo } from "#types/CollectionInfo.ts";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SearchClient, SearchContext } from "./services";
+import { type SearchContext, SearchClient } from "./services/index.tsx";
 import {
 	MAX_COLLECTIONS_PER_PAGE,
 	MAX_POSTS_PER_PAGE,
@@ -33,17 +44,21 @@ import {
 	PUBLIC_SEARCH_ENDPOINT_PORT,
 	PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
 	PUBLIC_SEARCH_KEY,
-} from "./constants";
-import Typesense from "typesense";
-import Collection from "typesense/lib/Typesense/Collection";
-import Documents from "typesense/lib/Typesense/Documents";
-import { collectionSchema, postSchema } from "#utils/search";
+} from "./constants/index.ts";
+import type Typesense from "typesense";
+import type Documents from "typesense/lib/Typesense/Documents";
+import type {
+	SearchResponse,
+	DocumentSchema,
+} from "typesense/lib/Typesense/Documents";
+import { collectionSchema, postSchema } from "#utils/search.ts";
 
 const user = userEvent.setup();
+const initialPathname = window.location.pathname;
 
 beforeEach(() => {
 	// Reset URL after each test
-	window.history.replaceState({}, "", window.location.pathname);
+	window.history.replaceState({}, "", initialPathname);
 });
 
 interface FnReply {
@@ -56,107 +71,57 @@ interface FnReply {
 }
 
 type DocumentSearchMethod = Documents["search"];
-type DocumentSearchReturn = ReturnType<DocumentSearchMethod>;
 type DocumentSearchParams = Parameters<DocumentSearchMethod>[0];
 type DocumentSearchOptions = Parameters<DocumentSearchMethod>[1];
 
-type ApiCall = ConstructorParameters<typeof Documents>[1];
-type Configuration = ConstructorParameters<typeof Documents>[2];
 type MockSearchFn = (
 	collectionName: string,
 	searchParameters: DocumentSearchParams,
 	searchOptions: DocumentSearchOptions,
-) => DocumentSearchReturn;
+) => Promise<SearchResponse<DocumentSchema>>;
 
-function getClientCollectionDocumentMock(
-	client: InstanceType<typeof Typesense.Client>,
-	collectionName: string,
-) {
-	const documents = client.collections(collectionName).documents();
-	return (
-		documents as unknown as {
-			__spy: Mock;
-		}
-	).__spy;
-}
+function mockTypeSenseClient(searchFn: MockSearchFn) {
+	const spyRecord = new Map<string, Mock<MockSearchFn>>();
 
-function mockTypeSenseClient(searchFn: MockSearchFn): typeof Typesense.Client {
-	const spyRecord = new Map<string, MockSearchFn>();
-
-	class MockDocuments extends Documents {
-		__collectionName: string;
-		__spy: MockSearchFn;
-
-		constructor(
-			collectionName: string,
-			apiCall: ApiCall,
-			configuration: Configuration,
-		) {
-			super(collectionName, apiCall, configuration);
-			this.__collectionName = collectionName;
-			if (spyRecord.has(collectionName)) {
-				this.__spy = spyRecord.get(collectionName)!;
-			} else {
-				const mockSearchFn = vi.fn().mockImplementation(searchFn);
-				spyRecord.set(collectionName, mockSearchFn);
-				this.__spy = mockSearchFn;
-			}
-		}
-
-		async search(
-			searchParameters: DocumentSearchParams,
-			searchOptions: DocumentSearchOptions,
-		): DocumentSearchReturn {
-			return this.__spy(this.__collectionName, searchParameters, searchOptions);
-		}
+	function MockDocuments(collectionName: string) {
+		const spy =
+			spyRecord.get(collectionName) ??
+			vi.fn<MockSearchFn>().mockImplementation(searchFn);
+		spyRecord.set(collectionName, spy);
+		return {
+			search: (
+				searchParameters: DocumentSearchParams,
+				searchOptions: DocumentSearchOptions,
+			) => spy(collectionName, searchParameters, searchOptions),
+		};
 	}
 
-	class MockCollection extends Collection {
-		__name: string;
-		__apiCall: ApiCall;
-		__configuration: Configuration;
-
-		constructor(name: string, apiCall: ApiCall, configuration: Configuration) {
-			super(name, apiCall, configuration);
-			this.__name = name;
-			this.__apiCall = apiCall;
-			this.__configuration = configuration;
-		}
-
-		documents(): never;
-		documents(documentId?: string) {
-			if (!documentId) {
-				return new MockDocuments(
-					this.__name,
-					this.__apiCall,
-					this.__configuration,
-				);
-			}
-
-			return super.documents(documentId);
-		}
+	function MockCollection(name: string) {
+		return {
+			documents(documentId?: string) {
+				if (!documentId) {
+					return MockDocuments(name);
+				}
+			},
+		};
 	}
 
-	class MockClient extends Typesense.Client {
+	class MockClient {
 		collections(): never;
 		collections(collectionName?: string) {
-			if (collectionName === undefined) {
-				return super.collections();
-			}
-
-			return new MockCollection(
-				collectionName,
-				this.apiCall,
-				this.configuration,
-			);
+			if (collectionName === undefined) return undefined;
+			return MockCollection(collectionName);
 		}
 	}
 
-	return MockClient;
+	return {
+		ClientClass: MockClient as never as typeof Typesense.Client,
+		spyRecord,
+	};
 }
 
-function mockClient(fn: (searchStr: string) => FnReply): SearchContext {
-	const clientClass = mockTypeSenseClient(
+function mockClient(fn: (searchStr: string) => FnReply) {
+	const { ClientClass, spyRecord } = mockTypeSenseClient(
 		async (collectionName, searchParameters) => {
 			const isPostSearch = collectionName === postSchema.name;
 			const searchString = searchParameters.q!;
@@ -165,24 +130,19 @@ function mockClient(fn: (searchStr: string) => FnReply): SearchContext {
 				? res.posts.length
 				: res.collections.length;
 			const out_of = isPostSearch ? res.totalPosts : res.totalCollections;
-			let id = 1;
 			const hits = isPostSearch
-				? res.posts.map((post) => {
-						return {
-							id: ++id,
-							document: post,
-							highlight: null as never,
-							text_match: 0,
-						};
-					}) || []
-				: res.collections.map((collection) => {
-						return {
-							id: ++id,
-							document: collection,
-							highlight: null as never,
-							text_match: 0,
-						};
-					}) || [];
+				? res.posts.map((post, i) => ({
+						id: i + 1,
+						document: post,
+						highlight: {},
+						text_match: 0,
+					}))
+				: res.collections.map((collection, i) => ({
+						id: i + 1,
+						document: collection,
+						highlight: {},
+						text_match: 0,
+					}));
 
 			return {
 				hits,
@@ -190,11 +150,16 @@ function mockClient(fn: (searchStr: string) => FnReply): SearchContext {
 				found_docs,
 				out_of,
 				page: 1,
-				request_params: searchParameters as never,
+				request_params: {
+					q: searchParameters.q,
+					page: searchParameters.page,
+					per_page: searchParameters.per_page,
+					collection_name: collectionName,
+				},
 				search_time_ms: 0,
 				facet_counts: [
 					{
-						field_name: "tags" as never,
+						field_name: "tags",
 						sampled: false,
 						stats: {},
 						counts: res.tags
@@ -206,7 +171,7 @@ function mockClient(fn: (searchStr: string) => FnReply): SearchContext {
 							: [],
 					},
 					{
-						field_name: "authors" as never,
+						field_name: "authors",
 						sampled: false,
 						stats: {},
 						counts: res.authors
@@ -218,11 +183,11 @@ function mockClient(fn: (searchStr: string) => FnReply): SearchContext {
 							: [],
 					},
 				],
-			} as const;
+			};
 		},
 	);
 
-	const client = new clientClass({
+	const client = new ClientClass({
 		// Not used
 		nodes: [
 			{
@@ -235,10 +200,16 @@ function mockClient(fn: (searchStr: string) => FnReply): SearchContext {
 		connectionTimeoutSeconds: 2,
 	});
 
-	return { client };
+	return {
+		client,
+		getDocumentSpy: (collectionName: string) => spyRecord.get(collectionName)!,
+	};
 }
 
-function mockPeopleIndex(people: PersonInfo[]) {
+function mockPeopleIndex(
+	people: PersonInfo[],
+	snitips: SearchSnitipInfo[] = [],
+) {
 	worker.use(
 		http.get(`*/searchFilters.json`, async () => {
 			return HttpResponse.json({
@@ -252,7 +223,8 @@ function mockPeopleIndex(people: PersonInfo[]) {
 						totalPostCount: 32,
 					},
 				],
-			});
+				snitips,
+			} satisfies SearchFiltersData);
 		}),
 	);
 }
@@ -302,6 +274,39 @@ describe("Search page", () => {
 		await user.type(searchInput, MockPost.title);
 		await user.type(searchInput, "{enter}");
 		await waitFor(() => expect(getByText(MockPost.title)).toBeInTheDocument());
+	});
+
+	test("preserves the UI locale for search links and authored locales for content links", async () => {
+		window.history.replaceState(
+			{},
+			"",
+			`/fr/search?${buildSearchQuery({ searchQuery: MockPost.title })}`,
+		);
+		mockPeopleIndex([MockPerson]);
+		const client = mockClient(() => ({
+			posts: [MockPost],
+			totalPosts: 1,
+			totalCollections: 0,
+			collections: [],
+		}));
+
+		const { getByRole } = render(<SearchPage mockClient={client} />);
+
+		await waitFor(() =>
+			expect(getByRole("link", { name: MockPost.title })).toBeInTheDocument(),
+		);
+		expect(getByRole("link", { name: MockPost.title })).toHaveAttribute(
+			"href",
+			`/posts/${MockPost.slug}`,
+		);
+		expect(getByRole("link", { name: MockPerson.name })).toHaveAttribute(
+			"href",
+			`/people/${MockPerson.id}`,
+		);
+		expect(getByRole("link", { name: MockPost.tags[0] })).toHaveAttribute(
+			"href",
+			expect.stringMatching(/^\/fr\/search\?/),
+		);
 	});
 
 	test("Should show search results for collections", async () => {
@@ -410,9 +415,7 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledTimes(1),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledTimes(1),
 		);
 
 		expect(queryByTestId("articles-header")).not.toBeInTheDocument();
@@ -450,6 +453,97 @@ describe("Search page", () => {
 		await user.click(tag);
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 		expect(queryByTestId("Two blog post")).not.toBeInTheDocument();
+	});
+
+	test("Shows the highest-scoring selected-tag snitip", async () => {
+		window.history.replaceState(
+			{},
+			"",
+			`?${buildSearchQuery({
+				searchQuery: "framework",
+				filterTags: ["angular", "typescript"],
+			})}`,
+		);
+
+		const angularSnitip: SearchSnitipInfo = {
+			id: "typescript",
+			title: "Angular snitip",
+			content: "<p>Angular description</p>",
+			links: [],
+			tags: ["angular"],
+		};
+		const typescriptSnitip: SearchSnitipInfo = {
+			id: "angular",
+			title: "TypeScript snitip",
+			content: "<p>TypeScript description</p>",
+			links: [],
+			tags: ["typescript"],
+		};
+
+		mockPeopleIndex([], [angularSnitip, typescriptSnitip]);
+		const client = mockClient(() => ({
+			posts: [MockPost],
+			totalPosts: 1,
+			collections: [],
+			totalCollections: 0,
+			// More than five high-count facets causes the filter UI to hide both
+			// selected low-count tags. Snitip scoring must still use raw facets.
+			tags: {
+				angular: 1,
+				typescript: 2,
+				react: 10,
+				vue: 10,
+				svelte: 10,
+				solid: 10,
+				qwik: 10,
+				astro: 10,
+			},
+		}));
+
+		const { getByText, queryByText } = render(
+			<SearchPage mockClient={client} />,
+		);
+
+		await waitFor(() =>
+			expect(getByText("TypeScript snitip")).toBeInTheDocument(),
+		);
+		expect(queryByText("Angular snitip")).not.toBeInTheDocument();
+	});
+
+	test("Does not show a selected-tag snitip after page one", async () => {
+		window.history.replaceState(
+			{},
+			"",
+			`?${buildSearchQuery({
+				searchQuery: "framework",
+				filterTags: ["typescript"],
+				page: 2,
+			})}`,
+		);
+
+		const snitip: SearchSnitipInfo = {
+			id: "typescript",
+			title: "TypeScript snitip",
+			content: "<p>TypeScript description</p>",
+			links: [],
+			tags: ["typescript"],
+		};
+
+		mockPeopleIndex([], [snitip]);
+		const client = mockClient(() => ({
+			posts: [MockPost],
+			totalPosts: 1,
+			collections: [],
+			totalCollections: 0,
+			tags: { typescript: 5 },
+		}));
+
+		const { getByText, queryByText } = render(
+			<SearchPage mockClient={client} />,
+		);
+
+		await waitFor(() => expect(getByText(MockPost.title)).toBeInTheDocument());
+		expect(queryByText("TypeScript snitip")).not.toBeInTheDocument();
 	});
 
 	test("Filter by author works on desktop sidebar", async () => {
@@ -565,9 +659,7 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledTimes(1),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledTimes(1),
 		);
 
 		const container = getByTestId("sort-order-group-sidebar");
@@ -580,13 +672,9 @@ describe("Search page", () => {
 		await user.selectOptions(select, "newest");
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledTimes(2),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledTimes(2),
 		);
-		expect(
-			getClientCollectionDocumentMock(client.client, postSchema.name),
-		).toHaveBeenLastCalledWith(
+		expect(client.getDocumentSpy(postSchema.name)).toHaveBeenLastCalledWith(
 			postSchema.name,
 			expect.objectContaining({
 				q: "*",
@@ -601,13 +689,9 @@ describe("Search page", () => {
 		await user.selectOptions(select, "oldest");
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledTimes(3),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledTimes(3),
 		);
-		expect(
-			getClientCollectionDocumentMock(client.client, postSchema.name),
-		).toHaveBeenLastCalledWith(
+		expect(client.getDocumentSpy(postSchema.name)).toHaveBeenLastCalledWith(
 			postSchema.name,
 			expect.objectContaining({
 				q: "*",
@@ -651,9 +735,7 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledTimes(1),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledTimes(1),
 		);
 
 		const container = getByTestId("sort-order-group-topbar");
@@ -666,13 +748,9 @@ describe("Search page", () => {
 		user.selectOptions(select, "newest");
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledTimes(2),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledTimes(2),
 		);
-		expect(
-			getClientCollectionDocumentMock(client.client, postSchema.name),
-		).toHaveBeenLastCalledWith(
+		expect(client.getDocumentSpy(postSchema.name)).toHaveBeenLastCalledWith(
 			postSchema.name,
 			expect.objectContaining({
 				q: "*",
@@ -687,13 +765,9 @@ describe("Search page", () => {
 		user.selectOptions(select, "oldest");
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledTimes(3),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledTimes(3),
 		);
-		expect(
-			getClientCollectionDocumentMock(client.client, postSchema.name),
-		).toHaveBeenLastCalledWith(
+		expect(client.getDocumentSpy(postSchema.name)).toHaveBeenLastCalledWith(
 			postSchema.name,
 			expect.objectContaining({
 				q: "*",
@@ -738,13 +812,9 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledOnce(),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledOnce(),
 		);
-		expect(
-			getClientCollectionDocumentMock(client.client, postSchema.name),
-		).toHaveBeenLastCalledWith(
+		expect(client.getDocumentSpy(postSchema.name)).toHaveBeenLastCalledWith(
 			postSchema.name,
 			expect.objectContaining({
 				q: "*",
@@ -766,13 +836,9 @@ describe("Search page", () => {
 		await user.click(page2);
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledTimes(2),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledTimes(2),
 		);
-		expect(
-			getClientCollectionDocumentMock(client.client, postSchema.name),
-		).toHaveBeenLastCalledWith(
+		expect(client.getDocumentSpy(postSchema.name)).toHaveBeenLastCalledWith(
 			postSchema.name,
 			expect.objectContaining({
 				q: "*",
@@ -892,9 +958,7 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() => {
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenLastCalledWith(
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenLastCalledWith(
 				postSchema.name,
 				expect.objectContaining({
 					q: "*",
@@ -914,9 +978,7 @@ describe("Search page", () => {
 
 		await waitFor(() => {
 			// Verify search call with filter and reset offset
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenLastCalledWith(
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenLastCalledWith(
 				postSchema.name,
 				expect.objectContaining({
 					q: "*",
@@ -1067,12 +1129,8 @@ describe("Search page", () => {
 		expect(searchInput).toHaveValue("blog");
 
 		// Invokes the expected post query
-		expect(
-			getClientCollectionDocumentMock(client.client, postSchema.name),
-		).toHaveBeenCalledOnce();
-		expect(
-			getClientCollectionDocumentMock(client.client, postSchema.name),
-		).toHaveBeenCalledWith(
+		expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledOnce();
+		expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledWith(
 			postSchema.name,
 			expect.objectContaining({
 				q: "blog",
@@ -1085,12 +1143,8 @@ describe("Search page", () => {
 		);
 
 		// Invokes the expected collections query
-		expect(
-			getClientCollectionDocumentMock(client.client, collectionSchema.name),
-		).toHaveBeenCalledOnce();
-		expect(
-			getClientCollectionDocumentMock(client.client, collectionSchema.name),
-		).toHaveBeenCalledWith(
+		expect(client.getDocumentSpy(collectionSchema.name)).toHaveBeenCalledOnce();
+		expect(client.getDocumentSpy(collectionSchema.name)).toHaveBeenCalledWith(
 			collectionSchema.name,
 			expect.objectContaining({
 				q: "blog",
@@ -1322,9 +1376,7 @@ describe("Search page", () => {
 		);
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledOnce(),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledOnce(),
 		);
 
 		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
@@ -1336,14 +1388,10 @@ describe("Search page", () => {
 		await user.type(searchInput, "{enter}");
 
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, postSchema.name),
-			).toHaveBeenCalledTimes(2),
+			expect(client.getDocumentSpy(postSchema.name)).toHaveBeenCalledTimes(2),
 		);
 
-		expect(
-			getClientCollectionDocumentMock(client.client, postSchema.name),
-		).toHaveBeenLastCalledWith(
+		expect(client.getDocumentSpy(postSchema.name)).toHaveBeenLastCalledWith(
 			postSchema.name,
 			expect.objectContaining({
 				q: "blogother",
@@ -1598,9 +1646,7 @@ describe("Search page", () => {
 
 		// Verify initial collection client call
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, collectionSchema.name),
-			).toHaveBeenCalledWith(
+			expect(client.getDocumentSpy(collectionSchema.name)).toHaveBeenCalledWith(
 				collectionSchema.name,
 				expect.objectContaining({
 					q: "*",
@@ -1627,9 +1673,7 @@ describe("Search page", () => {
 
 		// Verify collection client called with correct offset for page 2
 		await waitFor(() =>
-			expect(
-				getClientCollectionDocumentMock(client.client, collectionSchema.name),
-			).toHaveBeenCalledWith(
+			expect(client.getDocumentSpy(collectionSchema.name)).toHaveBeenCalledWith(
 				collectionSchema.name,
 				expect.objectContaining({
 					q: "*",

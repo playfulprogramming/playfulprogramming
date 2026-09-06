@@ -1,6 +1,8 @@
-import { RawSvg } from "#components/image/raw-svg";
-import { getIcon } from "./file-tree-icons";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+import { getIcon } from "./file-tree-icons.ts";
 import style from "./file-list.module.scss";
+
+import { m } from "#src/paraglide/messages.js";
 
 const FolderIcon = `
 <svg viewBox="0 0 20 20">
@@ -71,7 +73,7 @@ function Directory(props: DirectoryProps) {
 					className={`${style.directoryNameAndIcon} text-style-body-small-bold`}
 					data-highlighted={props.isHighlighted}
 				>
-					<span class={style.directoryIcon} aria-label="Directory">
+					<span class={style.directoryIcon} aria-label={m.label_directory()}>
 						<RawSvg icon={FolderIcon} aria-hidden />
 					</span>
 					{props.name}

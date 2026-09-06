@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { codeToHtml } from "./code-embed-shiki";
+import { codeToHtml } from "./code-embed-shiki.ts";
 
 interface CodeEmbedContentProps {
 	code: string;

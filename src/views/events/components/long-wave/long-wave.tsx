@@ -1,5 +1,5 @@
 import style from "./long-wave.module.scss";
-import longWave from "src/assets/patterns/long_wave.svg?raw";
+import longWave from "#src/assets/patterns/long_wave.svg?raw";
 
 export function LongWave() {
 	return (

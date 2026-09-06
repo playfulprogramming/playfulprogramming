@@ -2,7 +2,7 @@
 {
 title: "Restore deleted/lost files with git",
 published: "2024-02-06T12:50:28Z",
-tags: ["git", "tutorial", "codenewbie"],
+tags: ["git", "tutorial", "beginner"],
 description: "Remember that file you deleted last week? Too bad, now you need it. Let's see how git restore can...",
 originalLink: "https://leonardomontini.dev/git-restore-deleted-file",
 coverImg: "cover-image.png",

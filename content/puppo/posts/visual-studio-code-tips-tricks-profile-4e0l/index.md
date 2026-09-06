@@ -2,7 +2,7 @@
 {
 title: "Visual Studio Code - Tips & Tricks - Profile",
 published: "2023-01-10T09:00:42Z",
-tags: ["vscode", "code"],
+tags: ["vscode"],
 description: "Intro   During my daily work, sometimes I have to switch between different projects: backend...",
 originalLink: "https://blog.delpuppo.net/visual-studio-code-tips-tricks-profile",
 coverImg: "cover-image.png",

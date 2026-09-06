@@ -72,7 +72,7 @@ Notice how, by default, the correct HTML tags show bullet points next to the lis
 
 This is because the browser knows what a `button` is, and will apply default styling and behavior to the element, that you can then overwrite if need be. Without this information, it doesn't know how to handle a `div` in any special kind of way.
 
-Similarly, a screen-reader doesn't know that our first `<div class="todos">` was a list, and as such wouldn't indicate to the user that it has a list of items, or how many items are in the list. By using an `ul`, it will do all of that for us, without any additional code on our end.
+Similarly, a [screen reader](pfp-snitip:#screen-reader) doesn't know that our first `<div class="todos">` was a list, and as such wouldn't indicate to the user that it has a list of items, or how many items are in the list. By using an `ul`, it will do all of that for us, without any additional code on our end.
 
 We can see a before and after of this in action using the macOS voiceover screen-reader:
 
@@ -85,7 +85,7 @@ These HTML elements are not just supported in `.html` files; **React, Angular, a
 
 # Page Structure
 
-While individual elements like `button` or `ul` provide context on a micro-level, there's also a broader understanding of a page's layout you can convey to the user via proper semantic markup.
+While individual elements like `button` or `ul` provide context on a micro-level, there's also a broader understanding of a page's layout you can convey to the user via proper [semantic markup](pfp-snitip:#semantic-html).
 
 Take a homepage like ours:
 
@@ -187,7 +187,7 @@ Other parts of this UI are unclear how to communicate to the user at first glanc
 
 How do we indicate to the user that the suggestion dropdown is active? How can we associate the text input element with the suggestion list element for screen readers?
 
-This type of ultra-custom UI is where ARIA comes into play.
+This type of ultra-custom UI is where [ARIA](pfp-snitip:#aria) comes into play.
 
 ARIA is an acronym for "Accessible Rich Internet Applications", and is a collection of HTML attributes that help provide additional UI information to the end user.
 
@@ -867,4 +867,3 @@ Yay, we did it! 🎉 (For real this time.)
 <!-- ::end:tabs -->
 
 Now _these_ are some tabs we can work with.
-

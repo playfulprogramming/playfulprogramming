@@ -2,7 +2,7 @@
 {
 title: "Filtering Protractor end-to-end tests with Angular CLI",
 published: "2021-08-25T20:01:40Z",
-tags: ["angular", "testing", "protractor"],
+tags: ["angular", "testing"],
 description: "Demonstrating the \"grep\" and \"invertGrep\" test filtering options of Angular CLI's Protractor builder.",
 originalLink: "https://dev.to/playfulprogramming-angular/filtering-protractor-end-to-end-tests-with-angular-cli-1don",
 coverImg: "cover-image.png",

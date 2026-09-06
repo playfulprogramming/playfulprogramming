@@ -9,11 +9,11 @@
 }
 ---
 
-[GitHub Copilot](https://copilot.github.com/) was recently announced! In the past few years, we’ve seen artificial intelligence (AI) revolutionize aspects of technology such as image recognition, recommendation algorithms, and more. With Copilot, GitHub is hoping to add “code generation” to that list of items. In this article, we’ll explain what GitHub Copilot is, why some people are concerned with allowing its usage in technical interviews, and how to build your interviews to be better in general and therefore more resilient to auto-generated code.
+[GitHub Copilot](https://copilot.github.com/) was recently announced! In the past few years, we’ve seen [artificial intelligence (AI)](pfp-snitip:#ai) revolutionize aspects of technology such as image recognition, recommendation algorithms, and more. With Copilot, GitHub is hoping to add “code generation” to that list of items. In this article, we’ll explain what GitHub Copilot is, why some people are concerned with allowing its usage in technical interviews, and how to build your interviews to be better in general and therefore more resilient to auto-generated code.
 
 ## What is GitHub Copilot?
 
-GitHub Copilot is a VSCode extension that’s able to autocomplete code snippets. While we've had some form of code completion for some time now, they've been relatively limited in one way or another. Usually, they tend to rely on existing code in your files or can only suggest a tiny amount of code per suggestion. Other times, code completion can be no more than a predefined snippet of code without considering any additional context.
+[GitHub Copilot](pfp-snitip:#github-copilot) is a VSCode extension that’s able to autocomplete code snippets. While we've had some form of code completion for some time now, they've been relatively limited in one way or another. Usually, they tend to rely on existing code in your files or can only suggest a tiny amount of code per suggestion. Other times, code completion can be no more than a predefined snippet of code without considering any additional context.
 
 Copilot offers the ability to suggest multi-line and contextually aware code suggestions - powered by AI. GitHub says this tool is available for most programming languages and can implement entire functions off of their names alone.
 

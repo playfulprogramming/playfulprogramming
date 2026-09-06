@@ -6,7 +6,7 @@ import type {
 import { resolvePath } from "../url-paths.ts";
 import { getImageSize } from "../get-image-size.ts";
 import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
-import { MarkdownVFile } from "../markdown/types.ts";
+import type { MarkdownVFile } from "../markdown/types.ts";
 import { parseFrontmatter } from "./parseFrontmatter.ts";
 import { logError } from "../markdown/logger.ts";
 import { Value } from "typebox/value";
@@ -33,10 +33,9 @@ export const readPerson = cache(
 			);
 		}
 
-		const profileImgSize = await getImageSize(
-			frontmatter.profileImg,
-			personPath,
-		);
+		const profileImgSize = frontmatter.profileImg
+			? await getImageSize(frontmatter.profileImg, personPath)
+			: undefined;
 		if (!profileImgSize || !profileImgSize.width || !profileImgSize.height) {
 			logError(vfile, frontmatterNode, "Unable to parse profile image size");
 		}

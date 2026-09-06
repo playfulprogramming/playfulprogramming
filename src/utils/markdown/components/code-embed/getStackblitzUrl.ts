@@ -1,5 +1,5 @@
-import env from "#src/constants/env";
-import { siteMetadata } from "#src/constants/site-config";
+import env from "#src/constants/env/index.ts";
+import { siteMetadata } from "#src/constants/site-config.ts";
 import GitBranch from "git-branch";
 
 type StackblitzOpts = {
@@ -7,7 +7,19 @@ type StackblitzOpts = {
 	file?: string;
 };
 
-const currentBranch = env.GIT_COMMIT_REF ?? (await GitBranch());
+let currentBranch: string | undefined;
+
+try {
+	currentBranch = env.GIT_COMMIT_REF ?? (await GitBranch());
+} catch (error) {
+	// In a worktree, this will fail, so we default to "main" to avoid breaking the embed functionality.
+	console.error("Error getting current Git branch:", error);
+	currentBranch = "main";
+	// But only for development, in production we should throw an error to avoid unexpected behavior.
+	if (env.MODE === "production") {
+		throw error;
+	}
+}
 
 export function getStackblitzUrl(projectDir: string, opts: StackblitzOpts) {
 	if (projectDir.startsWith("/")) {

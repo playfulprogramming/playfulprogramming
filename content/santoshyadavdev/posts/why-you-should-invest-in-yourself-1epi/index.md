@@ -5,7 +5,7 @@ published: "2019-08-20T19:18:21Z",
 edited: "2021-04-06T11:09:06Z",
 tags: [],
 description: "Why You Should Invest In Yourself?   If you like stories, then this is for you, and more...",
-originalLink: "https://https://dev.to/playfulprogramming/why-you-should-invest-in-yourself-1epi"
+originalLink: "https://dev.to/playfulprogramming/why-you-should-invest-in-yourself-1epi"
 }
 ---
 

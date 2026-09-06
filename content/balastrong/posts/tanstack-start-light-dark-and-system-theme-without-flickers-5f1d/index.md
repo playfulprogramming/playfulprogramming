@@ -2,7 +2,7 @@
 {
 title: "TanStack Start: light, dark, and system theme without flickers",
 published: "2025-08-25T12:33:00Z",
-tags: ["react", "ssr", "tailwindcss", "tutorial"],
+tags: ["react", "ssr", "css", "tutorial"],
 description: "Having multiple themes is a common request on (web) applications nowadays, at least having light,...",
 originalLink: "https://leonardomontini.dev/tanstack-start-theme/",
 coverImg: "cover-image.png",

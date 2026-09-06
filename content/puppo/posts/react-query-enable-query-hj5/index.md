@@ -2,7 +2,7 @@
 {
 title: "React Query - Enable Query",
 published: "2023-04-26T05:30:42Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey folks, Do you know that you can enable or disable a query in react query? Noooo! Ok, it's time to...",
 originalLink: "https://blog.delpuppo.net/react-query-enable-query",
 coverImg: "cover-image.png",

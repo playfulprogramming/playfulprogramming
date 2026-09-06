@@ -3,9 +3,9 @@
 title: "Node.js & Azure Blob: Unleashing Scalable Storage in the Cloud",
 published: "2025-03-06T09:43:01Z",
 edited: "2025-03-06T09:56:53Z",
-tags: ["azure", "node", "programming", "backend"],
+tags: ["azure", "nodejs", "webdev"],
 description: "Azure Blob Storage is a cost-effective and scalable cloud storage solution for storing unstructured...",
-originalLink: "https://https://dev.to/playfulprogramming/nodejs-azure-blob-unleashing-scalable-storage-in-the-cloud-a9n",
+originalLink: "https://dev.to/playfulprogramming/nodejs-azure-blob-unleashing-scalable-storage-in-the-cloud-a9n",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

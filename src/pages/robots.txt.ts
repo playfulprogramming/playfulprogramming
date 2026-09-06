@@ -1,4 +1,4 @@
-import { siteUrl } from "#src/constants/site-config";
+import { siteUrl } from "#src/constants/site-config.ts";
 
 export const GET = () => {
 	const body = `

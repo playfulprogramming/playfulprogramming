@@ -3,7 +3,7 @@
 title: "How to run a GitHub Action in local - LIVE DEMO",
 published: "2022-12-18T18:26:08Z",
 edited: "2023-01-03T15:13:10Z",
-tags: ["emptystring"],
+tags: ["github actions"],
 description: "GitHub Actions are so cool, you can automate your workflow for free and they’re really easy to set...",
 originalLink: "https://leonardomontini.dev/run-github-action-in-local/",
 coverImg: "cover-image.png",

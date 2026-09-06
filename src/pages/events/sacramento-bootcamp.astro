@@ -1,10 +1,11 @@
 ---
 import SacramentoBootcampPage from "../../views/sacramento-bootcamp/sacramento-bootcamp.astro";
-import Document from "../../layouts/document.astro";
+import Document from "#components/layouts/document/document.astro";
 import SEO from "../../components/seo/seo.astro";
+import { baseLocale } from "#src/paraglide/runtime.js";
 ---
 
-<Document lang={"en"} size="l" disableDiscord>
+<Document lang={baseLocale} size="l" disableDiscord>
 	<SEO
 		title="Playful Sacramento — Code Bootcamp"
 		description="Welcome to Playful Programming's first bootcamp!"

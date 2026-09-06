@@ -3,7 +3,7 @@
 title: "Custom Type Guards in Typescript",
 published: "2021-09-16T07:53:40Z",
 edited: "2021-09-16T14:41:39Z",
-tags: ["typescript", "javascript", "webdev", "node"],
+tags: ["typescript", "javascript", "webdev", "nodejs"],
 description: "Previously, we covered various approaches that you can take to narrowing types in Typescript. Type...",
 originalLink: "https://mainawycliffe.dev/blog/custom-type-guards-in-typescript",
 coverImg: "cover-image.png",

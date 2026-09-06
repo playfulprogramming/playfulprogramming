@@ -1,8 +1,8 @@
-import { Root } from "hast";
-import { Plugin } from "unified";
+import type { Root } from "hast";
+import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
-import { isMarkdownVFile } from "./types";
-import { logError } from "./logger";
+import { isMarkdownVFile } from "./types.ts";
+import { logError } from "./logger.ts";
 
 /**
  * Plugin to validate anchor links to headings and ensure their case matches their target heading IDs.

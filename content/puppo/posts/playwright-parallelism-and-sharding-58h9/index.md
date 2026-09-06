@@ -3,7 +3,7 @@
 title: "Playwright - Parallelism and sharding",
 published: "2023-02-09T07:00:39Z",
 edited: "2023-02-21T07:22:51Z",
-tags: ["playwright", "e2e"],
+tags: ["playwright", "testing"],
 description: "Hey Folks,  Today I'll speak about parallelism and sharding with Playwright, so don't waste time and...",
 originalLink: "https://blog.delpuppo.net/playwright-parallelism-and-sharding",
 coverImg: "cover-image.png",

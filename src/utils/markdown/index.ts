@@ -1,1 +1,1 @@
-export * from "./getMarkdownHtml";
+export * from "./getMarkdownHtml.ts";

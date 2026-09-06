@@ -3,7 +3,7 @@
 title: "Why I love GitLens in my VsCode - Blame & Compare",
 published: "2023-02-21T07:00:39Z",
 edited: "2023-02-28T18:19:45Z",
-tags: ["git", "vscode", "gitlens", "gitkraken"],
+tags: ["git", "vscode"],
 description: "When you work with git, you want to get info about commits and who changed the codebase...",
 originalLink: "https://blog.delpuppo.net/why-i-love-gitlens-in-my-vscode-blame-compare",
 coverImg: "cover-image.png",

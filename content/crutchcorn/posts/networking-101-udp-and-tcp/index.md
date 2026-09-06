@@ -10,7 +10,19 @@
 }
 ---
 
-In the last article in the series, we outlined what a packet architected network was, what the OSI layers represent, and demonstrated how we could use physical mail as an analogy for how packet-based networks function. Since we've gone to a hundred-mile view in the last series, I figured we'd take a look at what we deliver in an HTTP network. You see, the internet, as you know it, is merely a large scale HTTP network; it's built upon the packet architecture. There are two common types of packets that are delivered in the HTTP network: UDP and TCP.
+In the last article in the series, we outlined what a packet architected network was, what the OSI layers represent, and demonstrated how we could use physical mail as an analogy for how packet-based networks function. Since we've gone to a hundred-mile view in the last series, I figured we'd take a look at what we deliver in an HTTP network. You see, the internet, as you know it, is merely a large scale HTTP network; it's built upon the packet architecture. There are two common types of packets that are delivered in the HTTP network: [UDP](pfp-snitip:#udp) and [TCP](pfp-snitip:#tcp).
+
+<!-- ::start:snitip id="udp" tags="networking" -->
+## User Datagram Protocol (UDP)
+
+UDP is a transport protocol that sends independent datagrams without establishing a connection or guaranteeing delivery, ordering, or duplicate protection. It preserves datagram boundaries and leaves any recovery behavior to the application, providing low overhead for workloads that can tolerate loss or manage delivery themselves.
+<!-- ::end:snitip -->
+
+<!-- ::start:snitip id="tcp" tags="networking" -->
+## Transmission Control Protocol (TCP)
+
+TCP is a connection-oriented transport protocol that provides applications with a reliable, ordered, error-checked stream of bytes between network endpoints.
+<!-- ::end:snitip -->
 
 # Commonalities {#udp-and-tcp-both}
 
@@ -20,7 +32,7 @@ Since they're both packet-based, they both require an "address" of sorts to infe
 
 ## IP Addresses {#ip-address}
 
-The "address" used to identify the "to" and "from" metadata about a packet is an "IP Address." When you send a packet of data out, you label it with an IP address to go to; then, through a process of various other utilities processing that data, it's sent! An IP address might look something like this: `127.0.0.0`, or something like this: `0:0:0:0:0:0:0:1`
+The "address" used to identify the "to" and "from" metadata about a packet is an "[IP Address](pfp-snitip:#ip-address)." When you send a packet of data out, you label it with an IP address to go to; then, through a process of various other utilities processing that data, it's sent! An IP address might look something like this: `127.0.0.0`, or something like this: `0:0:0:0:0:0:0:1`
 
 This IP address is then stored in a packet's header ([if you recall, that's where the metadata about the packet lives](/posts/basic-overview-of-packets-and-osi/#packet-metadata)), and that's then used to direct the packet to its correct recipient.
 
@@ -47,7 +59,7 @@ As mentioned previously, the Internet Engineering Task Force manages various spe
 
 Continuing with the mail analogy, just like an apartment complex can have a single mailbox for multiple apartments living within the same building, so too can a single machine have multiple landing sites for network packets.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 These separated landing sites are called "ports"; called as such because they operate very similarly to the seaside "ports" that are used to dock ships. You're able to "open" a port to start engaging in network activity through that port, or "close" it to stop communication from flowing through that port. A single machine may choose to open a myriad of ports ranging anywhere from `0` to `65,535`. Any one of these ports can receive a different stream of information in-bound and out-bound alike.
 
@@ -107,4 +119,4 @@ Because of this more robust delivery pattern, TCP is often used for most high-le
 
 This has been a brief overview of UDP and TCP! In this series, we're hoping to introduce the fundamentals of networking. While UDP/TCP is not often seen in higher-level coding directly, it's usage is integral to understand many other aspects of networking. In the next article in the series, we'll explain how IP addresses are assigned by using UDP thanks to DHCP.  Even further into the series, we'll walk through how the domain name URLs you type into your web browser are resolved into IP addresses through the domain name system (DNS).
 
-To make sure you don't miss any of these articles, you may want to subscribe to our newsletter. We promise not to spam you with unrelated stuff and keep emails to a minimum. Otherwise, [we also have a Discord](https://discord.gg/FMcvc6T) you can join to see announcements for new articles, ask questions of the posts' authors, and engage in general community chatter
+To make sure you don't miss any of these articles, you may want to subscribe to our newsletter. We promise not to spam you with unrelated stuff and keep emails to a minimum. Otherwise, [we also have a Discord](https://discord.playfulprogramming.com) you can join to see announcements for new articles, ask questions of the posts' authors, and engage in general community chatter

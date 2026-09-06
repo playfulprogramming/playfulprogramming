@@ -3,7 +3,7 @@
 title: "Playwright - Fixtures",
 published: "2023-01-05T09:00:42Z",
 edited: "2023-02-21T07:20:05Z",
-tags: ["playwright", "e2e"],
+tags: ["playwright", "testing"],
 description: "Hey there, Today I want to speak about Fixtures, a vital friend if you're going to work with...",
 originalLink: "https://blog.delpuppo.net/playwright-fixtures",
 coverImg: "cover-image.png",

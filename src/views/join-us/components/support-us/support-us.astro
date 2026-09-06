@@ -1,0 +1,64 @@
+---
+import style from "./support-us.module.scss";
+import { LargeButton } from "#components/button/button.tsx";
+
+import * as data from "#utils/data.ts";
+import { m } from "#src/paraglide/messages.js";
+---
+
+<section>
+	<div class={style.supportUsTextContainer}>
+		<h2 class={`text-style-headline-1 ${style.supportUsTitle}`}>
+			{m.join_us_support_title()}
+		</h2>
+		<p class={`text-style-body-large ${style.supportUsBody}`}>
+			{m.join_us_support_description_before_link()}
+			{" "}
+			<a
+				href="https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed"
+			>
+				{m.action_disclosed_publicly()}</a
+			>
+		</p>
+		<LargeButton
+			tag="a"
+			href="https://donate.playfulprogramming.com"
+			variant="primary-emphasized">{m.action_donate()}</LargeButton
+		>
+	</div>
+	<div class={style.restContainer}>
+		<h3
+			id="our-sponsors"
+			class={`text-style-body-large-bold ${style.supportedByBody}`}
+		>
+			{m.join_us_support_sponsors_intro()}
+		</h3>
+		<div>
+			<ul
+				class={style.sponsorsContainer}
+				role="list"
+				aria-labelledby="our-sponsors"
+			>
+				{
+					Object.values(data.about.sponsors).map(({ name, logo, url }) => (
+						<li class={style.sponsorItemContainer}>
+							<a href={url} class={style.sponsorItem}>
+								<img
+									class={style.partnerImg}
+									height="300"
+									width="122"
+									alt=""
+									src={logo}
+									loading="lazy"
+								/>
+								<span class={`text-style-body-large-bold ${style.sponsorName}`}>
+									{name}
+								</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+</section>

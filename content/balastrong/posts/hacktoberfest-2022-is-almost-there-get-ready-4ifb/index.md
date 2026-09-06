@@ -3,7 +3,7 @@
 title: "Hacktoberfest 2022 is almost there! Get ready!",
 published: "2022-09-21T14:18:43Z",
 edited: "2023-09-11T21:16:48Z",
-tags: ["hacktoberfest", "github", "opensource", "tutorial"],
+tags: ["open source", "github", "tutorial"],
 description: "September is almost over and Hacktoberfest is to begin soon!  But what is Hacktoberfest? It is not an...",
 originalLink: "https://leonardomontini.dev/hacktoberfest-starter-guide/",
 coverImg: "cover-image.png",
@@ -19,7 +19,7 @@ But what is [Hacktoberfest](https://hacktoberfest.com/)? It is not an Anonymous 
 
 Hacktoberfest also comes with a challenge and the first 40.000 participants to complete it, will be eligible to decide between two prizes: the official Hacktoberfest 2022 t-shirt, or a tree planted in their name.
 
-Participation is bound to Open Source contributions, and starting from this year not only from code but also all the [other ways](https://https://dev.to/playfulprogramming/open-source-is-not-only-writing-code-2hpj) we know are counting as contributes.
+Participation is bound to Open Source contributions, and starting from this year not only from code but also all the [other ways](https://dev.to/playfulprogramming/open-source-is-not-only-writing-code-2hpj) we know are counting as contributes.
 
 ---
 

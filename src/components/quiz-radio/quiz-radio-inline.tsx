@@ -1,8 +1,10 @@
 import { useCallback, useMemo, useState } from "preact/hooks";
-import { QuizRadio, QuizRadioOption } from "./quiz-radio";
+import { type QuizRadioOption, QuizRadio } from "./quiz-radio.tsx";
 import { useStore } from "@nanostores/preact";
-import { $quizState } from "./atom";
-import { ComponentChildren } from "preact";
+import { $quizState } from "./atom.ts";
+import type { ComponentChildren } from "preact";
+
+import { m } from "#src/paraglide/messages.js";
 
 export interface QuizRadioInlineProps {
 	id: string;
@@ -61,10 +63,10 @@ export function QuizRadioInline(props: QuizRadioInlineProps) {
 			explanation: isSubmitted
 				? option.isCorrect
 					? option.id === questionState?.selectedAnswer
-						? "You got it!"
-						: "The correct answer"
+						? m.quiz_feedback_correct_selected()
+						: m.quiz_feedback_correct_answer()
 					: option.id === questionState?.selectedAnswer
-						? "You answered"
+						? m.quiz_feedback_incorrect_selected()
 						: undefined
 				: undefined,
 		}));

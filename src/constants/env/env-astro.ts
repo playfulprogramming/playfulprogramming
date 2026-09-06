@@ -1,4 +1,4 @@
-import { Environment } from "./types";
+import type { Environment } from "./types.ts";
 
 export default {
 	CI: Boolean(import.meta.env.CI),

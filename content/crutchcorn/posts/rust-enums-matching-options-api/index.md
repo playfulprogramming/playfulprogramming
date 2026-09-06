@@ -9,11 +9,11 @@
 }
 ---
 
-If you’ve been active in the programming community within the past few years, you’ve undoubtedly heard of [Rust](https://www.rust-lang.org/). Its technical foundation and vibrant community have proven themselves to be a good benchmark for quick language growth.
+If you’ve been active in the programming community within the past few years, you’ve undoubtedly heard of [Rust](pfp-snitip:#rust). Its technical foundation and vibrant community have proven themselves to be a good benchmark for quick language growth.
 
 But what does Rust do that has garnered such a positive response from the community? Not only does Rust provide a great deal of memory safety (something that’s rare in low-level languages in the past), but also includes powerful features that make development much nicer.
 
-One of the many features that highlights Rust’s capabilities is its handling of enums and matching.
+One of the many features that highlights Rust’s capabilities is its handling of [enums](pfp-snitip:#enum) and matching.
 
 # Enums
 

@@ -3,7 +3,7 @@
 title: "Open Visual Studio Code from the Terminal",
 published: "2022-10-14T17:30:08Z",
 edited: "2022-11-23T11:14:39Z",
-tags: ["productivity", "programming", "discuss", "tutorial"],
+tags: ["productivity", "opinion", "tutorial"],
 description: "Ok, it's not a super secret feature, but I noticed some of my colleagues and friends do not use it at...",
 originalLink: "https://leonardomontini.dev/open-vscode-from-terminal/",
 coverImg: "cover-image.png",

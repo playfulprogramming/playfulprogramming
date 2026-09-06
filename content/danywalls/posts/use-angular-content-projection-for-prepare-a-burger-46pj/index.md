@@ -3,7 +3,7 @@
 title: "How to use Angular content projection to prepare a burger",
 published: "2021-09-27T15:13:40Z",
 edited: "2021-11-03T18:33:11Z",
-tags: ["angular", "codenewbie", "javascript"],
+tags: ["angular", "beginner", "javascript"],
 description: "One of the easiest things is a burger. The burger has the same base but changes its content, so let's...",
 originalLink: "https://dev.to/playfulprogramming-angular/use-angular-content-projection-for-prepare-a-burger-46pj",
 coverImg: "cover-image.png",

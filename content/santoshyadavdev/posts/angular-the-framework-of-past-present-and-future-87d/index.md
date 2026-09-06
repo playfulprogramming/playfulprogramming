@@ -3,7 +3,7 @@
 title: "Angular: The Framework of Past, Present, and Future",
 published: "2023-04-06T22:34:23Z",
 edited: "2023-04-07T07:40:37Z",
-tags: ["angular", "webdev", "programming"],
+tags: ["angular", "webdev"],
 description: "Photo by Drew Beamer on Unsplash  I started using Angular in 2017 when version 4 was released. And I...",
 originalLink: "https://dev.to/playfulprogramming-angular/angular-the-framework-of-past-present-and-future-87d",
 coverImg: "cover-image.png",

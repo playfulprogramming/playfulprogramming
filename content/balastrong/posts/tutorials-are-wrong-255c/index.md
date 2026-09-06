@@ -3,7 +3,7 @@
 title: "Tutorials are Wrong",
 published: "2022-09-17T12:01:11Z",
 edited: "2023-02-08T17:19:19Z",
-tags: ["tutorial", "beginners", "productivity", "codenewbie"],
+tags: ["tutorial", "beginner", "productivity"],
 description: "Is the title a clickbait? Nope, let me explain.  Learning new stuff is amazing and courses and...",
 originalLink: "https://leonardomontini.dev/tutorials-are-wrong/",
 coverImg: "cover-image.png",

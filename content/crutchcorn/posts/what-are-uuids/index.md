@@ -12,7 +12,7 @@
 
 Oftentimes, in computer programming, you'll find yourself needing a way to give a unique identifier to a digital asset. For example, items such as books in your "to read" digital bookshelf, computers on your network, or rows in your database need a quick and easy way to access them. This is typically done with a distinct ID for each item.
 
-If you've done much research on this problem, you'll likely have heard of a "universally unique identifier" (UUID) or "globally unique identifier" (GUID); a way to generate IDs for these assets quickly. After all, UUID usage is wide-reaching in the software industry.
+If you've done much research on this problem, you'll likely have heard of a "[universally unique identifier (UUID)](pfp-snitip:#uuid)" or "globally unique identifier" (GUID); a way to generate IDs for these assets quickly. After all, UUID usage is wide-reaching in the software industry.
 
 While it's good to recognize popular technologies, a few questions remain:
 
@@ -82,7 +82,7 @@ At the time of writing, [there are 5 different types of UUIDs](https://ietf-wg-u
 - [UUIDv5](#UUIDv3and5)
   - UUIDv3 but more secure (uses SHA-1)
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 ## Track Network Systems Using UUIDv1 {#UUIDv1}
 
@@ -188,7 +188,7 @@ framework-guide.playfulprogramming.com
 
 To host a preview of the [Framework Field Guide book](https://framework.guide) early access.
 
-> This isn't the real URL, just an example. Want to have the real early access link? [Join our Discord](https://discord.gg/FMcvc6T) and ask!
+> This isn't the real URL, just an example. Want to have the real early access link? [Join our Discord](https://discord.playfulprogramming.com) and ask!
 
 As a result of the early access site being a mirror of the main site, many of the URLs might be duplicated. We want to allow seperate comments from the preview site vs. the production site so that issues in preview can be resolved before going live.
 

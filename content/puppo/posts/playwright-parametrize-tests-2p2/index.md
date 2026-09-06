@@ -3,7 +3,7 @@
 title: "Playwright - Parametrize tests",
 published: "2023-02-23T07:00:39Z",
 edited: "2023-03-15T05:45:56Z",
-tags: ["playwright", "e2e"],
+tags: ["playwright", "testing"],
 description: "Hey folks,  Today it's time to speak about how to parametrize tests with Playwright.  There are cases...",
 originalLink: "https://blog.delpuppo.net/playwright-parametrize-tests",
 coverImg: "cover-image.png",

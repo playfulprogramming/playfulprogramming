@@ -1,4 +1,4 @@
-import { Environment } from "./types";
+import type { Environment } from "./types.ts";
 
 let isAstro: boolean;
 try {
@@ -13,9 +13,9 @@ try {
 // Since Vite replaces import.meta.env replaces, runtime logic is not possible here
 let env: Environment;
 if (isAstro) {
-	env = (await import("./env-astro")).default;
+	env = (await import("./env-astro.ts")).default;
 } else {
-	env = (await import("./env-node")).default;
+	env = (await import("./env-node.ts")).default;
 }
 
 export default env;

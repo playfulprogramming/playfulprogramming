@@ -7,12 +7,12 @@ import {
 	PreviewError,
 	PreviewFrame,
 	PreviewPlaceholder,
-} from "#components/code-embed/code-embed";
+} from "#components/code-embed/code-embed.tsx";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
-import { $container, runEmbed } from "./webcontainer-script";
-import { FileEntry } from "#components/code-embed/types";
-import { CodeEmbedContent } from "./code-embed-content";
+import { $container, runEmbed } from "./webcontainer-script.ts";
+import type { FileEntry } from "#components/code-embed/types.ts";
+import { CodeEmbedContent } from "./code-embed-content.tsx";
 
 // Given the base webcontainer URL, modify it with any changes made in the address bar
 function modifyProcessUrl(processUrl: string, addressUrl: string) {

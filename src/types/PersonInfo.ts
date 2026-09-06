@@ -1,13 +1,13 @@
-import { WarningInfo } from "#src/utils/markdown/types.ts";
-import { Languages } from ".";
+import type { WarningInfo } from "#src/utils/markdown/types.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
 
 export interface PersonStub {
 	kind: "person";
 	id: string;
 	slug: string;
 	file: string;
-	locale: Languages;
-	locales: Languages[];
+	locale: Locale;
+	locales: Locale[];
 	warnings: WarningInfo[];
 }
 
@@ -43,8 +43,8 @@ export interface RawPersonInfo {
 export interface PersonInfo extends Required<RawPersonInfo>, PersonStub {
 	id: string;
 	file: string;
-	locale: Languages;
-	locales: Languages[];
+	locale: Locale;
+	locales: Locale[];
 	totalPostCount: number;
 	totalWordCount: number;
 	profileImgMeta: {

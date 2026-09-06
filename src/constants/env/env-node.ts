@@ -1,4 +1,4 @@
-import { Environment } from "./types";
+import type { Environment } from "./types.ts";
 
 const MODE = process.env.MODE ?? "development";
 

@@ -3,7 +3,7 @@
 title: "Playwright - Generate tests' code",
 published: "2022-12-29T09:00:46Z",
 edited: "2023-02-21T07:19:39Z",
-tags: ["playwright", "e2e"],
+tags: ["playwright", "testing"],
 description: "Hi there, today you will learn how to generate the code for your tests.  First of all, you have to...",
 originalLink: "https://blog.delpuppo.net/playwright-generate-tests-code",
 coverImg: "cover-image.png",

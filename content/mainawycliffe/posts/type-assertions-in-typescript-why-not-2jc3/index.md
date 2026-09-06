@@ -3,7 +3,7 @@
 title: "Type Assertions in TypeScript - why not?",
 published: "2021-12-30T12:43:44Z",
 edited: "2021-12-30T21:57:03Z",
-tags: ["javascript", "webdev", "typescript", "node"],
+tags: ["javascript", "webdev", "typescript", "nodejs"],
 description: "A while back, I had a look at why you should avoid using the any type and instead use the unknown...",
 originalLink: "https://mainawycliffe.dev/blog/type-assertions-in-typescript/",
 coverImg: "cover-image.png",

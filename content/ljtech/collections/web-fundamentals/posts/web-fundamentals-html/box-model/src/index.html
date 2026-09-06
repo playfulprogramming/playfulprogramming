@@ -1,33 +1,40 @@
-<html>
+<!doctype html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
 			rel="stylesheet"
 		/>
 		<link href="stylesheet.css" rel="stylesheet" />
+		<title>Box Model Example</title>
 	</head>
 
 	<body>
-		<div class="box-margin" id="marginBox">
-			<p class="label">Margin</p>
-			<div class="box-border" id="borderBox">
-				<p class="label">Border</p>
-				<div class="box-padding" id="paddingBox">
-					<p class="label">Padding</p>
-					<div class="box-content" id="contentBox" style="overflow: hidden">
-						<p class="label">Content</p>
-						<h2>Discovering Odd Behavior with Angular Error Handling</h2>
-						<p>
-							Angular fairly consistent error handling behavior... Until it
-							doesn't. Here's one place where it's off and why.
-						</p>
+		<div id="box-model-container">
+			<div class="layer layer-margin">
+				<span class="label">Margin</span>
+				<div class="layer layer-border">
+					<span class="label">Border</span>
+					<div class="layer layer-padding">
+						<span class="label">Padding</span>
+						<div class="layer layer-content">
+							<span class="label">Content</span>
+							<div class="content">
+								<h2>Discovering Angular</h2>
+								<p>
+									Angular is a fairly consistent framework... Until it
+									isn't. Here's one place where it's off and why.
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<button id="styleBtn">Switch modes</button>
+		<button id="toggle-button" aria-pressed="false">Toggle box model</button>
 		<script src="script.js"></script>
 	</body>
 </html>

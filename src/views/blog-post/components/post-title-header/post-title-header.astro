@@ -1,0 +1,150 @@
+---
+import style from "./post-title-header.module.scss";
+import type { PostInfo, PersonInfo, PostVersion } from "#src/types";
+import { Icon } from "astro-icon/components";
+import { Chip } from "#src/components/index.ts";
+import { toDate } from "#utils/date.ts";
+import { buildSearchQuery } from "../../../search/utils/index.ts";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
+import { ArticleRevisionDropdown } from "../article-revisions/article-revisions.tsx";
+
+export interface Props {
+	post: PostInfo;
+	versions: PostVersion[];
+	authors: PersonInfo[];
+}
+const { post, versions, authors } = Astro.props;
+const { title, tags } = post;
+
+const locale = getLocale();
+const dateFormat = {
+	month: "long",
+	day: "numeric",
+	year: "numeric",
+} as const satisfies Intl.DateTimeFormatOptions;
+const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
+const publishedStr = dateFormatter.format(toDate(post.published));
+const editedStr = post.edited && dateFormatter.format(toDate(post.edited));
+
+const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
+---
+
+<section aria-labelledby="post-title-header">
+	<div class={style.container}>
+		<h1 id="post-title-header" class={`text-style-headline-1 ${style.title}`}>
+			{title}
+		</h1>
+
+		{
+			post.coverImgMeta?.relativeServerPath ? (
+				<img
+					class={style.coverImg}
+					alt=""
+					src={post.coverImgMeta.relativeServerPath}
+				/>
+			) : null
+		}
+
+		<div class={style.details}>
+			<div class={style.date}>
+				<div class={style.date__published}>
+					<Icon width={24} height={24} name="date" aria-hidden="true" />
+					{
+						versions.length > 1 ? (
+							<ArticleRevisionDropdown
+								client:load
+								versions={versions}
+								post={post}
+							/>
+						) : (
+							<p class="text-style-button-regular">{publishedStr}</p>
+						)
+					}
+				</div>
+
+				{
+					editedStr && editedStr !== publishedStr ? (
+						<p class={`text-style-button-regular ${style.date__edited}`}>
+							{m.label_last_updated({ date: editedStr })}
+						</p>
+					) : null
+				}
+			</div>
+
+			<div class={style.authors}>
+				<Icon width={24} height={24} name="authors" aria-hidden="true" />
+				<ul
+					aria-label={m.label_post_authors()}
+					role="list"
+					class={style.authors__list}
+				>
+					{
+						authors.map((author, i) => (
+							<li class="text-style-button-regular">
+								<a
+									href={localizeHref(`/people/${author.id}`, {
+										locale: author.locale,
+									})}
+								>
+									{[author.name, i + 1 < authors.length ? "," : ""]}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div class={style.wordCount}>
+				<Icon width={24} height={24} name="words" aria-hidden="true" />
+				<p class="text-style-button-regular">
+					{
+						m.title_n_words({
+							count: post.wordCount.toLocaleString(locale),
+						})
+					}
+				</p>
+			</div>
+
+			{
+				post.originalLink ? (
+					<div class={style.originalLink}>
+						<Icon width={24} height={24} name="website" aria-hidden="true" />
+						<p class="text-style-button-regular">
+							{m.desc_original_link()}{" "}
+							<a
+								href={post.originalLink}
+								target="_blank"
+								rel="nofollow noopener noreferrer"
+							>
+								{originalLinkStr}
+							</a>
+						</p>
+					</div>
+				) : null
+			}
+		</div>
+
+		<ul aria-label={m.label_post_tags()} role="list" class={style.tags}>
+			{
+				tags?.map((tag) => (
+					<li>
+						<Chip
+							href={localizeHref(
+								`/search?${buildSearchQuery({
+									searchQuery: "*",
+									filterTags: [tag],
+								})}`,
+								{ locale },
+							)}
+						>
+							{tag}
+						</Chip>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<slot />
+</section>

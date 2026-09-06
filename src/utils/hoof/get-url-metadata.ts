@@ -1,8 +1,8 @@
 import { setTimeout } from "timers/promises";
-import { client } from "./client";
-import { isSocketError } from "./isSocketError";
-import { RETRY_COUNT } from "./common";
-import { paths } from "./schema";
+import { client } from "./client.ts";
+import { isSocketError } from "./isSocketError.ts";
+import { RETRY_COUNT } from "./common.ts";
+import type { paths } from "./schema.d.ts";
 
 export type UrlMetadataResponse =
 	paths["/tasks/url-metadata"]["post"]["responses"][200]["content"]["application/json"];

@@ -3,7 +3,7 @@
 title: "How to find 🔎 an Open Source project to contribute to",
 published: "2022-08-23T14:56:00Z",
 edited: "2022-11-22T22:12:29Z",
-tags: ["opensource", "beginners", "programming", "tutorial"],
+tags: ["open source", "beginner", "tutorial"],
 description: "You can find a video version of this article on my YouTube Channel.   Introduction Opensource...",
 originalLink: "https://leonardomontini.dev/how-to-find-an-open-source-project/",
 coverImg: "cover-image.png",

@@ -1,0 +1,31 @@
+---
+import style from "./blog-post-layout.module.scss";
+
+interface Props {
+	hideLeftSidebar?: boolean;
+}
+
+const { hideLeftSidebar } = Astro.props;
+---
+
+<div class={style.mobileMenu}>
+	<slot name="mobile-menu" />
+</div>
+<article
+	data-article-page-contents
+	data-hide-left-sidebar={hideLeftSidebar}
+	class={style.container}
+>
+	<div class={style.header}>
+		<slot name="header" />
+	</div>
+	<div class={style.sidebarLeft}>
+		<slot name="left" />
+	</div>
+	<div class={style.content}>
+		<slot />
+	</div>
+	<div class={style.sidebarRight}>
+		<slot name="right" />
+	</div>
+</article>

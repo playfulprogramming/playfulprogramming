@@ -3,7 +3,7 @@
 title: "Codemotion Milan 2025: Why Large Tech Conferences Matter",
 published: "2025-10-22T15:52:00Z",
 edited: "2025-10-22T15:52:09Z",
-tags: ["techtalks", "career"],
+tags: ["events", "career"],
 description: "I have wanted to write about tech conferences for a while, and last week I was at Codemotion in...",
 originalLink: "https://leonardomontini.dev/codemotion-milan-25",
 coverImg: "cover-image.png",

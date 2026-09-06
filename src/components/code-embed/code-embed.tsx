@@ -1,18 +1,20 @@
-import PlayIcon from "#src/icons/play.svg?raw";
-import EditIcon from "#src/icons/edit.svg?raw";
-import RefreshIcon from "#src/icons/refresh.svg?raw";
-import DotIcon from "#src/icons/dot.svg?raw";
-import LoadingIcon from "#src/icons/loading.svg?raw";
-import CheckmarkIcon from "#src/icons/checkmark.svg?raw";
-import { PropsWithChildren } from "#components/types";
-import { RawSvg } from "#components/image/raw-svg";
-import { Button, IconOnlyButton } from "#components/button/button";
+import PlayIcon from "#src/assets/icons/play.svg?raw";
+import EditIcon from "#src/assets/icons/edit.svg?raw";
+import RefreshIcon from "#src/assets/icons/refresh.svg?raw";
+import DotIcon from "#src/assets/icons/dot.svg?raw";
+import LoadingIcon from "#src/assets/icons/loading.svg?raw";
+import CheckmarkIcon from "#src/assets/icons/checkmark.svg?raw";
+import type { PropsWithChildren } from "#components/types.ts";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+import { Button, IconOnlyButton } from "#components/button/button.tsx";
 import style from "./code-embed.module.scss";
 import { useCallback, useId, useMemo } from "preact/hooks";
-import { TargetedEvent, ComponentChildren } from "preact";
-import { FilePicker } from "./file-picker";
-import { FileEntry } from "./types";
-import { ResizeablePanels } from "./resizeable-panels";
+import type { TargetedEvent, ComponentChildren } from "preact";
+import { FilePicker } from "./file-picker.tsx";
+import type { FileEntry } from "./types.ts";
+import { ResizeablePanels } from "./resizeable-panels.tsx";
+
+import { m } from "#src/paraglide/messages.js";
 
 interface ContainerProps {
 	title?: string;
@@ -33,7 +35,7 @@ export function Container(props: ContainerProps) {
 						leftIcon={<RawSvg icon={EditIcon} />}
 						href={props.editUrl}
 					>
-						Edit
+						{m.action_edit()}
 					</Button>
 				) : null}
 			</div>
@@ -86,7 +88,7 @@ export function AddressBar({
 				for={`code-embed-input-${id}`}
 				class={`text-style-body-medium ${style.address__input}`}
 			>
-				<span class="visually-hidden">Address</span>
+				<span class="visually-hidden">{m.label_address()}</span>
 				<input
 					id={`code-embed-input-${id}`}
 					name="address"
@@ -99,7 +101,7 @@ export function AddressBar({
 			<IconOnlyButton
 				tag="button"
 				variant="primary"
-				aria-label="Reload"
+				aria-label={m.action_reload()}
 				onClick={onReload}
 			>
 				<RawSvg icon={RefreshIcon} />
@@ -151,7 +153,7 @@ export function PreviewPlaceholder(props: PreviewPlaceholderProps) {
 				leftIcon={<RawSvg icon={PlayIcon} />}
 				onClick={props.onClick}
 			>
-				Run
+				{m.action_run()}
 			</Button>
 		</div>
 	);
@@ -182,17 +184,21 @@ export function LoadingPlaceholder(props: LoadingPlaceholderProps) {
 				<ol>
 					<li>
 						<LoadingStepIcon index={0} current={current} />
-						<span class="text-style-body-medium-bold">Downloading sources</span>
+						<span class="text-style-body-medium-bold">
+							{m.code_embed_loading_download_sources()}
+						</span>
 					</li>
 					<li>
 						<LoadingStepIcon index={1} current={current} />
 						<span class="text-style-body-medium-bold">
-							Installing dependencies
+							{m.code_embed_loading_install_dependencies()}
 						</span>
 					</li>
 					<li>
 						<LoadingStepIcon index={2} current={current} />
-						<span class="text-style-body-medium-bold">Starting up</span>
+						<span class="text-style-body-medium-bold">
+							{m.code_embed_loading_starting_up()}
+						</span>
 					</li>
 				</ol>
 				<span class={`${style.loader__command} text-style-body-small-bold`}>
@@ -233,11 +239,13 @@ export function PreviewError() {
 		<div class={style.error}>
 			<div class={style.error__grid}>
 				<div class={style.error__background} />
-				<p class={`${style.error__heading} text-style-headline-3`}>Oh, no!</p>
+				<p class={`${style.error__heading} text-style-headline-3`}>
+					{m.code_embed_error_title()}
+				</p>
 				<p class={`${style.error__message} text-style-body-large`}>
-					This project failed to load. Try using the Edit button, or switch to{" "}
+					{m.code_embed_error_description_before_link()}{" "}
 					<a href="https://webcontainers.io/guides/browser-support">
-						a supported browser
+						{m.code_embed_error_supported_browser()}
 					</a>
 					.
 				</p>
@@ -248,7 +256,7 @@ export function PreviewError() {
 						target="_blank"
 						variant="secondary"
 					>
-						Report an issue
+						{m.action_report_issue()}
 					</Button>
 				</div>
 			</div>

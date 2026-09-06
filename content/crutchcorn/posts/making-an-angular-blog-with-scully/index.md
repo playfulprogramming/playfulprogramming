@@ -14,7 +14,15 @@ For a long time, React and Vue have had all of the SSG fun... Until now.
 
 Recently, a group of extremely knowledgeable developers has created [Scully, a static site generator for Angular projects](https://github.com/scullyio/scully). If you prefer Angular for your stack, you too can join in the fun! You can even trivially migrate existing Angular projects to use Scully!
 
-In this article, we'll outline how to set up a new blog post site using Scully. If you have an existing blog site that you'd like to migrate to use Scully, the blog post should help you understand some of the steps you'll need to take as well.
+In this article, we'll outline how to set up a new blog post site using [Scully](pfp-snitip:#scully). If you have an existing blog site that you'd like to migrate to use Scully, the blog post should help you understand some of the steps you'll need to take as well.
+
+<!-- ::start:snitip id="scully" tags="scully,angular,ssg" -->
+## <picture><img src="/stickers/scully.svg" alt=""></picture>Scully
+
+Scully is a static site generator for Angular applications. It pre-renders application routes as HTML at build time while allowing the Angular application to run after loading.
+
+- [Scully documentation](https://scully.io/docs/learn/introduction/)
+<!-- ::end:snitip -->
 
 Without further ado, let's jump in, shall we?
 
@@ -474,4 +482,4 @@ While this blog site is far from ready from release, it's functional. It's missi
 
 All in all, Scully proves to be a powerful tool in any Angular developer's toolkit, and knowing how to make a blog with it is just one use case for such a tool.
 
-As always, I'd love to hear from you down below in our comments or even [in our community Discord](https://discord.gg/FMcvc6T). Also, don't forget to subscribe to our newsletter so you don't miss more content like this in the future!
+As always, I'd love to hear from you down below in our comments or even [in our community Discord](https://discord.playfulprogramming.com). Also, don't forget to subscribe to our newsletter so you don't miss more content like this in the future!

@@ -3,7 +3,7 @@
 title: "Dynamic Island Animations with Popmotion in Angular",
 published: "2022-09-26T06:03:41Z",
 edited: "2022-09-26T06:05:55Z",
-tags: ["angular", "animation", "popmotion", "dynamicisland"],
+tags: ["angular", "animation"],
 description: "The introduction of dynamic islands in iPhone 14 piqued the interest of many designers and developers...",
 originalLink: "https://williamjuan.dev/blog/dynamic-island-animations-with-popmotion-in-angular",
 coverImg: "cover-image.png",

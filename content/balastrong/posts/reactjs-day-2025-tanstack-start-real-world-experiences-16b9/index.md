@@ -2,7 +2,7 @@
 {
 title: "ReactJS Day 2025: TanStack Start & Real World Experiences",
 published: "2025-10-20T18:32:45Z",
-tags: ["react", "community", "techtalks"],
+tags: ["react", "community", "events"],
 description: "When I'm writing this I'm still on the train back from ReactJSDay, the largest conference on ReactJS...",
 originalLink: "https://leonardomontini.dev/react-js-day-2025/",
 coverImg: "cover-image.png",

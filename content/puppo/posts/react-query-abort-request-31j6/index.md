@@ -3,7 +3,7 @@
 title: "React Query - Abort Request",
 published: "2023-05-17T05:29:28Z",
 edited: "2023-05-17T06:52:24Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey Folks,  Today it's time to learn how you can abort an ongoing request with ReactQuery.  Before...",
 originalLink: "https://blog.delpuppo.net/react-query-abort-request",
 coverImg: "cover-image.png",

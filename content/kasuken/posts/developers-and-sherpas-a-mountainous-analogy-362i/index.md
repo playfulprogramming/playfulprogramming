@@ -2,9 +2,9 @@
 {
 title: "Developers and Sherpas: A Mountainous Analogy",
 published: "2023-11-26T19:22:04Z",
-tags: ["developers", "productivity", "programming"],
+tags: ["productivity"],
 description: "Have you ever wondered what it takes to be a successful software developer? Do you think you have the...",
-originalLink: "https://https://dev.to/playfulprogramming/developers-and-sherpas-a-mountainous-analogy-362i",
+originalLink: "https://dev.to/playfulprogramming/developers-and-sherpas-a-mountainous-analogy-362i",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

@@ -1,0 +1,25 @@
+---
+// The same as `select` but using the new styled select component.
+// This has safe fallbacks for browsers that don't support the `appearance` property, and also has a custom icon for the dropdown arrow.
+// It's supported today in Chrome, flagged in Firefox, and landing in Safari 27.
+import { Icon } from "astro-icon/components";
+import styles from "./styled-select.module.scss";
+
+type Props = Omit<
+	astroHTML.JSX.SelectHTMLAttributes,
+	"class" | "multiple" | "size"
+> & {
+	class?: string;
+	multiple?: never;
+	size?: never;
+};
+
+const { class: className, ...selectProps } = Astro.props;
+---
+
+<div class:list={[styles.root, className]} data-styled-select>
+	<select {...selectProps} class={styles.select}>
+		<slot />
+	</select>
+	<Icon class={styles.icon} name="chevron_down" aria-hidden="true" />
+</div>

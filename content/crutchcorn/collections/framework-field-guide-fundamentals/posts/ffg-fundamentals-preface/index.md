@@ -16,7 +16,7 @@ Welcome to the first Framework Field Guide book titled "Fundamentals." This book
 
 This series will teach you how to build applications, the concepts under the hood of modern web frameworks, and the advanced coding patterns to help you level up your engineering.
 
-While other resources can help you learn these concepts for one framework at a time, **this series will help you learn three different frameworks at once: React, Angular, and Vue.**
+While other resources can help you learn these concepts for one framework at a time, **this series will help you learn three different frameworks at once: React, Angular, and [Vue](pfp-snitip:#vue).**
 
 Namely, we'll be looking at the most modern iterations of these frameworks: React 18, Angular 19, and Vue 3.
 
@@ -118,7 +118,7 @@ But here's the thing: these tools are widely backed and used by some of the bigg
 
 These types of tools don't disappear overnight, nor do the jobs associated with these tools.
 
-Take ColdFusion, for example. If you ask most frontend developers, they will likely either not know of ColdFusion or assume it is dead. After all, ColdFusion goes back to 1995 and remains a proprietary paid programming language — yes, those exist — to this day.
+Take [ColdFusion](pfp-snitip:#coldfusion), for example. If you ask most frontend developers, they will likely either not know of ColdFusion or assume it is dead. After all, ColdFusion goes back to 1995 and remains a proprietary paid web application platform — yes, those exist — to this day.
 
 But ColdFusion isn't dead! (I can hear my friend Mark holler with excitement and agreement from miles away.) [It's still used by as many websites](https://w3techs.com/technologies/details/pl-coldfusion) [as Angular is](https://w3techs.com/technologies/details/js-angularjs) in 2024 and maintains an ecosystem of a respectable size that's big enough to allow Adobe to sustain the development of the language 27 years later.
 
@@ -266,7 +266,7 @@ Here are a few nuances we should keep in mind about this book's teachings of Ang
 
 [Early in 2023, the Angular team announced that they would be introducing a new method of programming in Angular called "Signals"](https://angular.dev/guide/signals). Since then, they've become the de-facto way of writing performant and optimized Angular code.
 
-As such, **we will be using Signals throughout this book**, including some newer APIs like `effect` and `linkedSignal`. That said, [there's an earlier version of this book that did not use signals that can be read on Playful Programming.](/posts/ffg-fundamentals-v1-1-preface)
+As such, **we will be using [Signals](pfp-snitip:#signals) throughout this book**, including some newer APIs like `effect` and `linkedSignal`. That said, [there's an earlier version of this book that did not use signals that can be read on Playful Programming.](/posts/ffg-fundamentals-v1-1-preface)
 
 #### We're Not Using Zone.js {#zonejs}
 
@@ -278,7 +278,7 @@ While using Angular without Zone.js is still _technically_ experimental, [Google
 
 #### We're Defaulting to `OnPush` {#onpush}
 
-Angular has two methods of detecting changes in your template: 
+Angular has two methods of [detecting changes](pfp-snitip:#change-detection) in your template:
 
 - `CheckAlways`: The default
 - `OnPush`: Opt-in on a per-component level that's [more performant](https://angular.dev/best-practices/skipping-subtrees)

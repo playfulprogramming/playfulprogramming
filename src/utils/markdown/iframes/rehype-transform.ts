@@ -4,8 +4,8 @@ import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants.ts";
 import {
-	ComponentMarkupNode,
-	ComponentNode,
+	type ComponentMarkupNode,
+	type ComponentNode,
 	createComponent,
 	isComponentMarkup,
 } from "../components/index.ts";

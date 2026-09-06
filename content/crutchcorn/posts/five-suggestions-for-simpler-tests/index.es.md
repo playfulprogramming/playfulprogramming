@@ -336,4 +336,4 @@ Al utilizar grandes cantidades de datos sobre una red que te gustaría simular, 
 
 Utilizando estos métodos, tus tests pueden ser simplificados, y en muchas ocasiones puede correr mas rápido, y acortar el tamaño de tu test. Aunque puede sonar muy simple, la escritura de tests es una habilidad que se mejora como cualquier otra. La practica fomenta el crecimiento, asi que no te desilusiones cuando tus tests no son tan simples como te gustaría que fueran al principio.
 
-Si tienes alguna pregunta sobre la escritura de tests, o si tienes un test que no estas seguro de como simplificar, únete a [nuestro servido de Discord](https://discord.gg/FMcvc6T). Nos metemos en un montón de debates sobre el desarrollo y la ingeniería software, y a veces hasta hacemos programación por parejas cuando se puede.
+Si tienes alguna pregunta sobre la escritura de tests, o si tienes un test que no estas seguro de como simplificar, únete a [nuestro servido de Discord](https://discord.playfulprogramming.com). Nos metemos en un montón de debates sobre el desarrollo y la ingeniería software, y a veces hasta hacemos programación por parejas cuando se puede.

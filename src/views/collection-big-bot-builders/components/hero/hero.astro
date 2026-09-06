@@ -1,0 +1,44 @@
+---
+import BookCover from "#src/views/collection-big-bot-builders/components/book-cover/book-cover.astro";
+import style from "./hero.module.scss";
+import BigFilledButton from "#src/views/collection-framework-field-guide/components/button/big-filled-button.astro";
+import ribbon from "../../assets/ribbon.svg";
+---
+
+<section aria-labelledby="book-title">
+	<div class={style.heroContainer}>
+		<div class={style.bannerContainer}>
+			<p class={`text-style-body-large-bold ${style.introducing}`}>
+				Welcome to the AI build site
+			</p>
+			<h1 id="book-title" class={`text-style-display-1 ${style.seriesTitle}`}>
+				The Big Bot Builders
+			</h1>
+			<div class={style.readNowContainer}>
+				<div class={style.ribbonContainer}>
+					<img src={ribbon.src} alt="" class={style.leftRibbon} />
+					<p class={`${style.ribbonText} text-style-button`}>In early access</p>
+					<img src={ribbon.src} alt="" class={style.rightRibbon} />
+				</div>
+				<p class={`text-style-headline-6 ${style.description}`}>
+					A beginner-to-advanced guide to how modern AI actually works: how
+					models are trained, how the models themselves operate, and how the
+					products around them add further capabilities.
+					<br /><br />From the author of <a
+						href="/collections/framework-field-guide"
+						class={style.ffgWord}>The Framework Field Guide</a
+					>.
+				</p>
+				<div class={style.buttonReadNow}>
+					<BigFilledButton
+						href="#chapter-listing-heading"
+						data-scroll-block="start"
+					>
+						Sign up for updates
+					</BigFilledButton>
+				</div>
+			</div>
+		</div>
+	</div>
+	<BookCover />
+</section>

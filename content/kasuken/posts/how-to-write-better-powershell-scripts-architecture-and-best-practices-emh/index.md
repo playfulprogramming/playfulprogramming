@@ -3,9 +3,9 @@
 title: "How to Write Better PowerShell Scripts: Architecture and Best Practices",
 published: "2023-05-23T08:22:56Z",
 edited: "2023-05-23T08:23:52Z",
-tags: ["powershell", "bestpractices", "cleancode"],
+tags: ["powershell", "architecture"],
 description: "PowerShell is a powerful scripting language that can automate tasks, manage configuration, and...",
-originalLink: "https://https://dev.to/playfulprogramming/how-to-write-better-powershell-scripts-architecture-and-best-practices-emh",
+originalLink: "https://dev.to/playfulprogramming/how-to-write-better-powershell-scripts-architecture-and-best-practices-emh",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

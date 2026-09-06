@@ -11,7 +11,7 @@
 
 "I did it! I can't believe that I did it!"
 
-After 10 years in the programming field — years of working through complex coding problems, managing teams, learning the project management process, groking the business problems to solve — I'd finally made it into a "VP" role. "VP of Software Engineering," nonetheless!
+After 10 years in the programming field — years of working through complex coding problems, managing teams, learning the project management process, groking the business problems to solve — I'd finally made it into a ["VP" role](pfp-snitip:#vp-engineering). "VP of Software Engineering," nonetheless!
 
 The feeling was exhilarating. Sure, it came with the typical promotion benefits that yielded a pay increase, but that's not what I was excited about.
 
@@ -54,7 +54,7 @@ As weird as this may sound, this new set of responsibilities reminded me of a pe
 
 In nature, the multicolored nature of these frogs flags a warning to potential predators: Stay away or else meet your doom.
 
-This mirrored my conversations with many of my family and friends; many of whom explicitly told me they do not want to get into leadership. The onus of failure and potential for blame shifted them away from owning more in their respective fields.
+This mirrored my conversations with many of my family and friends; many of whom explicitly told me they do not want to get into [leadership](pfp-snitip:#leadership). The onus of failure and potential for blame shifted them away from owning more in their respective fields.
 
 But that same color that imposes risk also satisfies another constraint that led to my roommate keeping one as a pet: It was a beautiful specimen.
 

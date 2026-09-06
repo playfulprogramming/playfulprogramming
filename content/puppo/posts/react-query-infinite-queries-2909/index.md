@@ -2,7 +2,7 @@
 {
 title: "React Query - Infinite Queries",
 published: "2023-06-07T05:30:39Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey Folks,  Today it's time to learn how you can build an infinite query with React Query.  To build...",
 originalLink: "https://blog.delpuppo.net/react-query-infinite-queries",
 coverImg: "cover-image.png",

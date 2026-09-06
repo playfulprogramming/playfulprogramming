@@ -3,7 +3,7 @@
     title: 'AI Context as Configuration, Not Prompts',
     description: "Stop repeating yourself in every prompt. Use files like agents.md to define project conventions, rules for universal constraints, and skills for optional capabilities. Prompts stay focused on the task, context lives where it belongs, and behaviour becomes predictable.",
     published: '2026-01-21',
-    tags: ['AI', 'Agents']
+    tags: ['ai']
 }
 ---
 

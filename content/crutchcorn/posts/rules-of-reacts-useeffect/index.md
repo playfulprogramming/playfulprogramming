@@ -15,7 +15,7 @@ The good news is that if you follow a set of rules designated to protect you dur
 
 No, we’re not talking about React’s “[Rules of Hooks](https://reactjs.org/docs/hooks-rules.html)”, which includes rules such as:
 
-- No conditionally calling hooks
+- No conditionally calling [hooks](pfp-snitip:#react-hooks)
 - Only calling hooks inside of hooks or component
 - Always having items inside of the dependency array
 
@@ -23,7 +23,7 @@ These rules are good, but can be detected automatically with linting rules. It's
 
 Specifically, I want to talk about the rules that can only be caught during manual code review processes:
 
-- Keep all side effects inside `useEffect`
+- Keep all [side effects](pfp-snitip:#side-effect) inside `useEffect`
 - Properly clean up side effects
 - Don't use `ref` in `useEffect`
 - Don't use `[]` as a guarantee that something only happens once

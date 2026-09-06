@@ -2,7 +2,7 @@
 {
 title: "What's gonna change in 2025",
 published: "2025-01-06T14:46:50Z",
-tags: ["career", "codenewbie"],
+tags: ["career", "beginner"],
 description: "I just realized that I should probably open source my mind. I wrote this script and recorded a video,...",
 originalLink: "https://leonardomontini.dev/opensource-my-mind/",
 coverImg: "cover-image.png",

@@ -8,9 +8,9 @@
 }
 ---
 
-When I started learning Angular, I was taught about Angular's components like this:
+When I started learning [Angular](pfp-snitip:#angular), I was taught about Angular's components like this:
 
-> Angular's components have a template that is part of a component and a selector that indicates where the template should go. The way Angular adds this template in is by using a compiler to turn the template into a function that is then executed to generate the DOM nodes.
+> Angular's components have a template that is part of a component and a selector that indicates where the template should go. The way Angular adds this template in is by using a compiler to turn the template into a function that is then executed to generate the [DOM](pfp-snitip:#dom) nodes.
 
  My thinking when learning about this went something like this:
 
@@ -82,7 +82,7 @@ class DoNothingComponent {}
 
 While there _is_ a template compiler in Angular, it's only really there for [reactivity](/posts/what-is-reactivity). Otherwise, it injects the results of `template` in the `selector`'s (by default empty) children array.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 This is why when people ask me:
 

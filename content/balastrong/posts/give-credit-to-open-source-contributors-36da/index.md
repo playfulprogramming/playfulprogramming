@@ -2,7 +2,7 @@
 {
 title: "Give credit to Open Source Contributors",
 published: "2023-10-04T14:58:50Z",
-tags: ["opensource", "github", "hacktoberfest23"],
+tags: ["open source", "github"],
 description: "Tables like this one are in a lot of repositories, giving well deserved credit to their...",
 originalLink: "https://leonardomontini.dev/credit-all-contributors",
 coverImg: "cover-image.png",

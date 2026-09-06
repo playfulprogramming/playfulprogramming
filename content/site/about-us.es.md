@@ -4,7 +4,7 @@ Qué es un bucle for? Cómo creo animaciones en CSS? Cómo se almacena la memori
 
 Nuestro contenido tendrá un amplio rango de temáticas, curvas de dificultad, y (esperamos) perspectivas. Queremos crear recursos para un desarrollador de tiempo completo experimentado, así como lo haríamos para un aficionado novato y todos los roles entre estos dos.
 
-Sin embargo, sabemos que este es un objetivo ambicioso, y no queremos hacerlo solos. Si estás interesado en ayudar, [abre un pull request](https://github.com/playfulprogramming/playfulprogramming/pulls) y ayúdanos a llegar a otros al aportar traducciones, [ayuda con el mantenimiento del código del sitio](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [escribe una publicación para nosotros](https://github.com/playfulprogramming/playfulprogramming#blog-posts), o [participa en debates y ayuda a otros lectores en nuestro Discord](https://discord.gg/FMcvc6T).
+Sin embargo, sabemos que este es un objetivo ambicioso, y no queremos hacerlo solos. Si estás interesado en ayudar, [abre un pull request](https://github.com/playfulprogramming/playfulprogramming/pulls) y ayúdanos a llegar a otros al aportar traducciones, [ayuda con el mantenimiento del código del sitio](https://github.com/playfulprogramming/playfulprogramming/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), [escribe una publicación para nosotros](https://github.com/playfulprogramming/playfulprogramming#blog-posts), o [participa en debates y ayuda a otros lectores en nuestro Discord](https://discord.playfulprogramming.com).
 
 ---
 

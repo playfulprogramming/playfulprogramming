@@ -1,8 +1,8 @@
-import { ImgHTMLAttributes, SourceHTMLAttributes } from "preact";
+import type { ImgHTMLAttributes, SourceHTMLAttributes } from "preact";
 import type { ImageMetadata } from "astro";
-import { siteUrl } from "../../constants/site-config";
-import { SUPPORTED_IMAGE_SIZES } from "./constants";
-import env from "#src/constants/env";
+import { siteUrl } from "../../constants/site-config.ts";
+import { SUPPORTED_IMAGE_SIZES } from "./constants.ts";
+import env from "#src/constants/env/index.ts";
 
 export interface GetPictureSizes {
 	[size: number]: {

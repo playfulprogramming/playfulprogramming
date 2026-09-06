@@ -3,7 +3,7 @@
 title: "Chrome Debugger is easier to use than you might think",
 published: "2023-08-02T07:03:17Z",
 edited: "2023-08-03T09:54:19Z",
-tags: ["debug", "webdev", "javascript", "tutorial"],
+tags: ["chrome", "webdev", "javascript", "tutorial"],
 description: "Please, don’t tell me you’re still using console.log to debug your application.  Ok, everyone does...",
 originalLink: "https://leonardomontini.dev/chrome-debugger/",
 coverImg: "cover-image.png",

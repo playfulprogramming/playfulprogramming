@@ -3,7 +3,7 @@
 title: "No, I don't want to become an Angular GDE",
 published: "2020-07-21T10:57:15Z",
 edited: "2020-11-19T20:10:19Z",
-tags: ["angular", "gde", "community"],
+tags: ["angular", "community"],
 description: "An opinion piece on the Angular team and GDE program management.",
 originalLink: "https://dev.to/playfulprogramming-angular/no-i-don-t-want-to-become-an-angular-gde-2576",
 coverImg: "cover-image.png",

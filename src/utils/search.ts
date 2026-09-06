@@ -1,5 +1,5 @@
-import { Client } from "typesense";
-import { OverloadReturnType } from "./types";
+import type { Client } from "typesense";
+import type { OverloadReturnType } from "./types.ts";
 
 type CollectionsOverload = Client["collections"];
 type Collections = OverloadReturnType<CollectionsOverload, []>;

@@ -1,5 +1,5 @@
 import { setTimeout } from "node:timers/promises";
-import { Middleware } from "openapi-fetch";
+import type { Middleware } from "openapi-fetch";
 
 const detailsMap: Map<
 	string,

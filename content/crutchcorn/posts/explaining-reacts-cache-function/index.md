@@ -85,7 +85,7 @@ Now if we force a re-render without changing `count`, it will no longer `alert`:
 
 This is because the `cache` function is [_memoizing_](https://whatthefuck.is/memoization) the usage of the function and eagerly opting out of execution as a result.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # How does `cache` differ from `useMemo` or `memo`?
 
@@ -221,7 +221,7 @@ function ThemePreviewRow({ type, themeColor }) {
 }
 ```
 
-This allows us to avoid passing down the entire theme for each `ThemePreviewRow` components, instead relying on `cache`'s memoization to allow multiple components to access the values each.
+This allows us to avoid passing down the entire theme for each `ThemePreviewRow` components, instead relying on `cache`'s [memoization](pfp-snitip:#memoization) to allow multiple components to access the values each.
 
 <iframe data-frame-title="React Theme Cache - StackBlitz" src="pfp-code:./react-theme-cache?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 

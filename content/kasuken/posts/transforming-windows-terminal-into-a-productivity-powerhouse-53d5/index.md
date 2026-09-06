@@ -2,9 +2,9 @@
 {
 title: "Transforming Windows Terminal into a Productivity Powerhouse",
 published: "2024-12-27T11:16:13Z",
-tags: ["windows", "terminal", "cli"],
+tags: ["windows", "tools"],
 description: "Everything is started from this post on bluesky, by Thomas - ...",
-originalLink: "https://https://dev.to/playfulprogramming/transforming-windows-terminal-into-a-productivity-powerhouse-53d5",
+originalLink: "https://dev.to/playfulprogramming/transforming-windows-terminal-into-a-productivity-powerhouse-53d5",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

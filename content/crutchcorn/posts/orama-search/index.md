@@ -67,7 +67,7 @@ We did this through a faily trivial pipeline:
 
 ![Vercel's dashboard showing "/api/search" and some metrics](./vercel_search.png)
 
-This worked well for an initial implementation, but to keep things simple for an MVP, we initially avoided:
+This worked well for an initial implementation, but to keep things simple for an [MVP](pfp-snitip:#minimum-viable-product), we initially avoided:
 
 - Sever-side pagination
 - Server-side filtering
@@ -158,11 +158,17 @@ After all, if I know that I want to search `"React Side Effect"`, looking for a 
 
 # Takeaways
 
-Ultimately, we're very happy with our decision to go with Orama for our semantic search experience. They provided incredible support, a good product, and our users are happier as a result.
+Ultimately, we're very happy with our decision to go with Orama for our [semantic search](pfp-snitip:#semantic-search) experience. They provided incredible support, a good product, and our users are happier as a result.
+
+<!-- ::start:snitip id="semantic-search" tags="ai,webdev" -->
+## Semantic Search
+
+Semantic search tries to retrieve results by the meaning and intent of a query instead of relying only on exact keyword matches. Many implementations compare vector representations called embeddings.
+<!-- ::end:snitip -->
 
 > **Story Time:**
 > True story, after our first call with Orama, they had a proof-of-concept up and running against our API in 5 minutes
 
 What do you think about our search page? We'd love to hear from you! 
 
-[Let us know in our Discord](https://discord.gg/FMcvc6T); we hope to see you soon!
+[Let us know in our Discord](https://discord.playfulprogramming.com); we hope to see you soon!

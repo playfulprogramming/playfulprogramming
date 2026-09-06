@@ -3,7 +3,7 @@
 title: "Introduction to Angular Language Service",
 published: "2022-09-16T16:12:28Z",
 edited: "2022-11-10T11:35:12Z",
-tags: ["angular", "typescript", "codecompletion", "webdev"],
+tags: ["angular", "typescript", "tools", "webdev"],
 description: "Working with Angular has its gotchas, but what makes it really a joy to start off, is its language...",
 originalLink: "https://medium.com/@eneajahollari/introduction-to-angular-language-service-4d3e67901a77",
 coverImg: "cover-image.png",

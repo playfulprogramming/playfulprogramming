@@ -2,7 +2,7 @@
 {
 title: "The Reflect API: The Swiss Army Knife Every JavaScript Developer Needs",
 published: "2023-11-09T07:18:26Z",
-tags: ["javascript", "reflect"],
+tags: ["javascript"],
 description: "Ever wished for a magical toolkit that gives you superhero-like control over JavaScript objects? Say...",
 originalLink: "https://blog.delpuppo.net/the-reflect-api-the-swiss-army-knife-every-javascript-developer-needs",
 coverImg: "cover-image.png",

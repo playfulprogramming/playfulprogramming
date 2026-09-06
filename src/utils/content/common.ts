@@ -1,6 +1,6 @@
 import { join } from "path";
 import { Settings } from "typebox/system";
-import { MarkdownVFile } from "../markdown/types";
+import type { MarkdownVFile } from "../markdown/types";
 
 Settings.Set({ correctiveParse: true });
 

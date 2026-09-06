@@ -1,13 +1,14 @@
-import * as api from "#utils/api";
-import tagsObj from "../../content/data/tags.json";
-import { SearchFiltersData, TagFilterInfo } from "#src/views/search/search";
+import * as api from "#utils/api.ts";
+import tagsObj from "../../content/data/tags.json" with { type: "json" };
+import type { SearchFiltersData, TagFilterInfo } from "#src/views/search/utils";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 export const GET = async () => {
-	const people = (await api.getPeopleByLang("en")).filter(
+	const people = (await api.getPeopleByLang(baseLocale)).filter(
 		(person) => person.totalPostCount > 0,
 	);
 
-	const posts = await api.getPostsByLang("en");
+	const posts = await api.getPostsByLang(baseLocale);
 
 	const tags = Object.entries(tagsObj).map(([tag, value]) => {
 		return {
@@ -17,6 +18,10 @@ export const GET = async () => {
 		} satisfies TagFilterInfo;
 	});
 
-	const response = { people, tags } satisfies SearchFiltersData;
+	// Maps do not have a JSON representation, and search cards do not render
+	// the tag metadata. Keep the endpoint's wire shape honest by omitting it.
+	const snitips = api.getSnitips().map(({ tagsMeta: _, ...snitip }) => snitip);
+
+	const response = { people, tags, snitips } satisfies SearchFiltersData;
 	return new Response(JSON.stringify(response));
 };

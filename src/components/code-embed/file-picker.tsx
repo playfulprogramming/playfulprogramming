@@ -1,9 +1,9 @@
 import {
-	DirectoryProps,
-	FileProps,
+	type DirectoryProps,
+	type FileProps,
 	File,
 	FileListList,
-} from "#components/file-list/file-list";
+} from "#components/file-list/file-list.tsx";
 import {
 	useCallback,
 	useEffect,
@@ -11,12 +11,14 @@ import {
 	useRef,
 	useState,
 } from "preact/hooks";
-import { FileEntry } from "./types";
-import { Dialog } from "#components/dialog/dialog";
+import type { FileEntry } from "./types.ts";
+import { Dialog } from "#components/dialog/dialog.tsx";
 import style from "./file-picker.module.scss";
-import { IconOnlyButton } from "#components/button/button";
-import CloseIcon from "#src/icons/close.svg?raw";
-import { RawSvg } from "#components/image/raw-svg";
+import { IconOnlyButton } from "#components/button/button.tsx";
+import CloseIcon from "#src/assets/icons/close.svg?raw";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+
+import { m } from "#src/paraglide/messages.js";
 
 interface FilePickerProps {
 	entries: Array<FileEntry>;
@@ -158,11 +160,13 @@ export function FilePicker(props: FilePickerProps) {
 				)}
 			>
 				<div class={style.header}>
-					<h1 class={`${style.title} text-style-headline-5`}>Files</h1>
+					<h1 class={`${style.title} text-style-headline-5`}>
+						{m.title_files()}
+					</h1>
 					<IconOnlyButton
 						tag="button"
 						class={style.closeButton}
-						aria-label="Close"
+						aria-label={m.action_close()}
 					>
 						<RawSvg icon={CloseIcon} />
 					</IconOnlyButton>

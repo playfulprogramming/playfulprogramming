@@ -1,13 +1,13 @@
-import { WarningInfo } from "#src/utils/markdown/types.ts";
-import type { Languages } from "#types/index";
-import type { LocalFile } from "#types/LocalFile";
+import type { WarningInfo } from "#src/utils/markdown/types.ts";
+import type { Locale } from "#src/paraglide/runtime.js";
+import type { LocalFile } from "#types/LocalFile.ts";
 
 export interface PostStub {
 	kind: "post";
 	slug: string;
 	file: string;
-	locales: Languages[];
-	locale: Languages;
+	locales: Locale[];
+	locale: Locale;
 	authors: string[];
 	collection?: string;
 	warnings: WarningInfo[];
@@ -62,5 +62,6 @@ export interface PostHeadingInfo {
 export interface PostVersion {
 	href: string;
 	version: PostInfo["version"];
+	published: PostInfo["published"];
 	publishedMeta: PostInfo["publishedMeta"];
 }

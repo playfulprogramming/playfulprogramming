@@ -2,7 +2,7 @@
 {
 title: "React Query - Filter Your Data",
 published: "2023-04-19T05:55:52Z",
-tags: ["react", "reactquery", "reacthooks"],
+tags: ["react", "tanstack query"],
 description: "Hey folks, Did you know that you can filter your data in react query? Noooo! Ok, it's time to learn...",
 originalLink: "https://blog.delpuppo.net/react-query-filter-your-data",
 coverImg: "cover-image.png",

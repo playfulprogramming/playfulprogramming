@@ -3,7 +3,7 @@
 title: "Testing Angular routing components with the RouterTestingModule",
 published: "2020-11-16T20:06:22Z",
 edited: "2023-02-08T23:40:30Z",
-tags: ["angular", "testing", "router"],
+tags: ["angular", "testing"],
 description: "Learn how to implement shallow and integrated routing component tests with the RouterTestingModule. Explore the Location service and its dependencies.",
 originalLink: "https://dev.to/playfulprogramming-angular/testing-angular-routing-components-with-the-routertestingmodule-4cj0",
 coverImg: "cover-image.png",

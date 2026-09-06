@@ -3,7 +3,7 @@
 title: "Copilot Chat writes Unit Tests for you!",
 published: "2023-05-18T06:53:23Z",
 edited: "2024-04-29T16:39:13Z",
-tags: ["github", "testing", "ai", "githubcopilot"],
+tags: ["github", "testing", "ai", "copilot"],
 description: "We don't write tests because we don't have time.   How many times have you heard that? Or maybe you...",
 originalLink: "https://leonardomontini.dev/copilot-x-chat-unit-test/",
 coverImg: "cover-image.png",

@@ -1,13 +1,13 @@
 import { useRef, useState } from "preact/hooks";
-import { Fragment, RefObject } from "preact";
+import { type RefObject, Fragment } from "preact";
 import mainStyles from "./pagination.module.scss";
-import more from "#src/icons/more_horiz.svg?raw";
-import { PaginationProps } from "#components/pagination/types";
+import more from "#src/assets/icons/more_horiz.svg?raw";
+import type { PaginationProps } from "#components/pagination/types.ts";
 import style from "./pagination-popover.module.scss";
-import { Button, IconOnlyButton } from "#components/button/button";
-import subtract from "../../icons/subtract.svg?raw";
-import add from "../../icons/add.svg?raw";
-import { Input } from "#components/input/input";
+import { Button, IconOnlyButton } from "#components/button/button.tsx";
+import subtract from "#src/assets/icons/subtract.svg?raw";
+import add from "#src/assets/icons/add.svg?raw";
+import { Input } from "#components/input/input.tsx";
 import {
 	useDialog,
 	useOverlayTrigger,
@@ -17,9 +17,13 @@ import {
 	useButton,
 	useFocusVisible,
 } from "react-aria";
-import { OverlayTriggerState, useOverlayTriggerState } from "react-stately";
-import { DOMProps } from "@react-types/shared";
-import { useReactAriaScrollGutterHack } from "#src/hooks/useReactAriaScrollGutterHack";
+import {
+	type OverlayTriggerState,
+	useOverlayTriggerState,
+} from "react-stately";
+import type { DOMProps } from "@react-types/shared";
+import { useReactAriaScrollGutterHack } from "#src/hooks/use-react-aria-scroll-gutter-hack.ts";
+import { m } from "#src/paraglide/messages.js";
 
 function PopupContents(
 	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> & {
@@ -54,7 +58,7 @@ function PopupContents(
 						setCount((v) => v - 1);
 					}}
 					aria-disabled={count <= 1}
-					aria-label="Decrement page"
+					aria-label={m.pagination_decrement()}
 					class={style.iconButton}
 				>
 					<div
@@ -89,7 +93,7 @@ function PopupContents(
 						setCount((v) => v + 1);
 					}}
 					aria-disabled={count >= props.page.lastPage}
-					aria-label="Increment page"
+					aria-label={m.pagination_increment()}
 					class={style.iconButton}
 				>
 					<div
@@ -104,7 +108,7 @@ function PopupContents(
 				type="submit"
 				variant="primary"
 			>
-				Go to page
+				{m.pagination_go_to_page()}
 			</Button>
 		</form>
 	);
@@ -176,7 +180,7 @@ function PaginationPopover({
 					data-focus-visible={isFocusVisible}
 				>
 					<h1 {...titleProps} className="visually-hidden">
-						Go to page
+						{m.pagination_go_to_page()}
 					</h1>
 					<PopupContents
 						{...props}
@@ -211,7 +215,7 @@ export function PaginationMenuAndPopover(
 				<button
 					ref={triggerRef}
 					{...buttonProps}
-					aria-label="Go to page"
+					aria-label={m.pagination_go_to_page()}
 					data-testid="pagination-menu"
 					data-focus-visible={isFocusVisible}
 					className={`text-style-body-medium-bold ${mainStyles.extendPageButton} ${mainStyles.paginationButton} ${mainStyles.paginationIconButton}`}

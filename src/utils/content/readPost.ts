@@ -3,13 +3,13 @@ import { getExcerpt } from "#utils/markdown/get-excerpt.ts";
 import { resolveImageFile } from "./resolveImageFile.ts";
 import { contentDirectory, cache } from "./common.ts";
 import * as path from "path";
-import dayjs from "dayjs";
-import { MarkdownVFile } from "../markdown/types.ts";
+import type { MarkdownVFile } from "../markdown/types.ts";
 import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
 import { parseFrontmatter } from "./parseFrontmatter.ts";
 import { ParseError, Value } from "typebox/value";
 import { PostInfoSchema } from "./schema/PostInfoSchema.ts";
 import { logError } from "../markdown/logger.ts";
+import { formatDate } from "../date.ts";
 
 export const readPost = cache(
 	async (
@@ -86,9 +86,18 @@ export const readPost = cache(
 			excerpt,
 			publishedMeta:
 				frontmatter.published &&
-				dayjs(frontmatter.published).format("MMMM D, YYYY"),
+				formatDate(frontmatter.published, {
+					month: "long",
+					day: "numeric",
+					year: "numeric",
+				}),
 			editedMeta:
-				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
+				frontmatter.edited &&
+				formatDate(frontmatter.edited, {
+					month: "long",
+					day: "numeric",
+					year: "numeric",
+				}),
 			coverImgMeta,
 			socialImgMeta,
 		};

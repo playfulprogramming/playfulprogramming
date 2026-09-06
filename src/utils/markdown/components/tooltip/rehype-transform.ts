@@ -1,7 +1,7 @@
 import { visit } from "unist-util-visit";
-import { Plugin } from "unified";
+import type { Plugin } from "unified";
 import { toString } from "hast-util-to-string";
-import { createComponent, PlayfulRoot } from "../components.ts";
+import { type PlayfulRoot, createComponent } from "../components.ts";
 import { trimElements } from "#utils/markdown/unist-trim-elements.ts";
 import { isValidComponentParent } from "../rehype-validate-components.ts";
 

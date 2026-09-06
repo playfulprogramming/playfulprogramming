@@ -19,7 +19,13 @@ He answered:
 
 This answer from my then newly minted CTO reminded me of guidance on hiring I was provided by a past Director of Technology I had at a company we'll call `"PDRT"`:
 
-"We want to look for T-shaped individuals. Not only do they have breadth in generalized topics of technology, but they have depth in a few key areas they've invested in previously."
+"We want to look for [T-shaped individuals](pfp-snitip:#t-shaped-professional). Not only do they have breadth in generalized topics of technology, but they have depth in a few key areas they've invested in previously."
+
+<!-- ::start:snitip id="t-shaped-professional" tags="leadership" -->
+## T-Shaped Professional
+
+A T-shaped professional combines broad working knowledge across many areas—the horizontal bar of the “T”—with deep expertise in one or more specialties—the vertical bar. The model emphasizes both collaboration across disciplines and focused skill.
+<!-- ::end:snitip -->
 
 > "What does a T-shaped individual look like?"
 
@@ -61,7 +67,7 @@ As a result, many dig themselves in an ever-growing pit of failure where they sp
 
 Because of this looming threat of burnout, it becomes increasingly important to prioritize the work you do. The marriage of ever-increasing user requests and limited resources means that most teams will never need for additional work on their plates.
 
-For many, this means that there are tradeoffs one must make between technical debt and net-new development. I've often heard this tradeoff discussed as different levels of a teams' ability to ship code. In ["An Elegant Puzzle: Systems of Engineering Management" by Will Larson](https://press.stripe.com/an-elegant-puzzle), he outlines that a team's ability to ship can be represented by one of four states:
+For many, this means that there are tradeoffs one must make between [technical debt](pfp-snitip:#technical-debt) and net-new development. I've often heard this tradeoff discussed as different levels of a teams' ability to ship code. In ["An Elegant Puzzle: Systems of Engineering Management" by Will Larson](https://press.stripe.com/an-elegant-puzzle), he outlines that a team's ability to ship can be represented by one of four states:
 
 1) Falling behind
 2) Treading water

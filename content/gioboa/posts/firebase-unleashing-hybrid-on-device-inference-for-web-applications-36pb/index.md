@@ -2,9 +2,9 @@
 {
 title: "Firebase: Unleashing Hybrid On-Device Inference for Web Applications",
 published: "2025-07-04T14:16:18Z",
-tags: ["firebase", "webdev", "ai", "programming"],
+tags: ["firebase", "webdev", "ai"],
 description: "The realm of Artificial Intelligence (AI) is rapidly evolving, bringing with it exciting new...",
-originalLink: "https://https://dev.to/playfulprogramming/firebase-unleashing-hybrid-on-device-inference-for-web-applications-36pb",
+originalLink: "https://dev.to/playfulprogramming/firebase-unleashing-hybrid-on-device-inference-for-web-applications-36pb",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

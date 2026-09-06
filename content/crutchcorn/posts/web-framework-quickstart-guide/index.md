@@ -24,7 +24,7 @@ Instead, we can use a tool built by the Vue maintainers (of all things!) that su
 
 ![The Vite logo: A "V" with a lightning strike in the middle](./vite_og.png)
 
-Using Vite, we can quickly generate a React project.
+Using [Vite](pfp-snitip:#vite), we can quickly generate a React project.
 
 ### Pre-requisites
 
@@ -82,7 +82,7 @@ npm run dev
 
 Now when you modify `src/App.jsx` (or `src/App.tsx` if you selected TypeScript) it will refresh the screen for you and preview your changes immediately.
 
-> This auto-refresh on code change is called "HMR" or "Hot Module Reloading"
+> This code-updating behavior is called ["HMR" or "Hot Module Replacement"](pfp-snitip:#hmr)
 
 # Angular
 

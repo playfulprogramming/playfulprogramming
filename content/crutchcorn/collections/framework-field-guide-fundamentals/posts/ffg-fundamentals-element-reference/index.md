@@ -238,7 +238,7 @@ In this chapter, we'll learn:
 
 ## React
 
-In React, there's no simpler demonstration of an element reference than passing a function to an element's `ref` property.
+In React, there's no simpler demonstration of an [element reference](pfp-snitip:#react-refs) than passing a function to an element's `ref` property.
 
 ```jsx
 const RenderParagraph = () => {

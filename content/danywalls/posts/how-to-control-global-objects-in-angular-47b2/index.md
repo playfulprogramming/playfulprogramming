@@ -3,7 +3,7 @@
 title: "How to control global objects in Angular.",
 published: "2021-10-05T13:31:55Z",
 edited: "2021-10-27T15:15:23Z",
-tags: ["angular", "codenewbie", "javascript"],
+tags: ["angular", "beginner", "javascript"],
 description: "When we use external libraries, it is very common to declare a global object and use it.  But the...",
 originalLink: "https://dev.to/playfulprogramming-angular/how-to-control-global-objects-in-angular-47b2",
 coverImg: "cover-image.png",

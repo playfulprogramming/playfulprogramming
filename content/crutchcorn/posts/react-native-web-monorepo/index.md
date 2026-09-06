@@ -19,7 +19,7 @@ Here, we showed a Windows, macOS, Android, and iOS app that all share from the s
 
 What if I told you that this isn't where things stopped?
 
-Let's look at how each of these platforms are supported in React Native:
+Let's look at how each of these platforms are supported in [React Native](pfp-snitip:#react-native):
 
 - [iOS (maintained from Meta)](https://reactnative.dev/)
 - [Android (maintained by Meta)](https://reactnative.dev/)
@@ -35,7 +35,7 @@ So, how do we do this?
 
 # Creating a Vite Project
 
-While there's more to the monorepo aspect of the monorepo, let's talk about how to set up a web project using Vite and React Native first without worrying about the monorepo parts too much.
+While there's more to the [monorepo](pfp-snitip:#monorepo) aspect of the monorepo, let's talk about how to set up a web project using Vite and React Native first without worrying about the monorepo parts too much.
 
 ## Setting Up the Initial Vite Project
 

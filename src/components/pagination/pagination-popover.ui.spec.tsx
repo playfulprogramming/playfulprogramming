@@ -1,6 +1,6 @@
-import { vi, expect, test } from "#src/ui-test-utils";
+import { vi, expect, test } from "#utils/ui-test-utils.ts";
 import { render, waitFor } from "@testing-library/preact";
-import { PaginationMenuAndPopover } from "./pagination-popover";
+import { PaginationMenuAndPopover } from "./pagination-popover.tsx";
 
 test("when the menu button is clicked, the menu popup is opened", async () => {
 	const { getByTestId, findAllByTestId } = render(

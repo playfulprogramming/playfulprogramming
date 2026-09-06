@@ -1,27 +1,31 @@
-import { ListState, OverlayTriggerState, useSelectState } from "react-stately";
 import {
-	AriaSelectProps,
+	type ListState,
+	type OverlayTriggerState,
+	useSelectState,
+} from "react-stately";
+import {
+	type AriaSelectProps,
+	type AriaListBoxOptions,
+	type AriaPopoverProps,
 	HiddenSelect,
 	useListBox,
 	useOption,
 	useSelect,
-	AriaListBoxOptions,
 	DismissButton,
 	Overlay,
 	usePopover,
-	AriaPopoverProps,
 	useButton,
 	useFocusRing,
 } from "react-aria";
-import { PropsWithChildren } from "preact/compat";
-import down from "#src/icons/chevron_down.svg?raw";
-import { Button } from "#components/button/button";
+import type { PropsWithChildren } from "preact/compat";
+import down from "#src/assets/icons/chevron_down.svg?raw";
+import { Button } from "#components/button/button.tsx";
 import styles from "./select.module.scss";
-import checkmark from "#src/icons/checkmark.svg?raw";
+import checkmark from "#src/assets/icons/checkmark.svg?raw";
 import { useRef } from "preact/hooks";
 import type { RefObject } from "preact";
-import { Node } from "@react-types/shared";
-import { useReactAriaScrollGutterHack } from "#src/hooks/useReactAriaScrollGutterHack";
+import type { Node } from "@react-types/shared";
+import { useReactAriaScrollGutterHack } from "#src/hooks/use-react-aria-scroll-gutter-hack.ts";
 
 export { Item, Section } from "react-stately";
 

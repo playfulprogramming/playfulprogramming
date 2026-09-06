@@ -3,7 +3,7 @@
 title: "Angular Revisited: Standalone components and optional NgModules",
 published: "2020-11-20T21:24:56Z",
 edited: "2022-08-28T18:11:57Z",
-tags: ["angular", "ivy", "components", "designpatterns"],
+tags: ["angular", "webdev", "architecture"],
 description: "NgModule is arguably one of the most confusing Angular concepts.",
 originalLink: "https://dev.to/playfulprogramming-angular/angular-revisited-tree-shakable-components-and-optional-ngmodules-36d2",
 coverImg: "cover-image.png",

@@ -1,9 +1,9 @@
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
 import type { Element } from "hast";
 import { toString } from "hast-util-to-string";
-import { RehypeFunctionComponent } from "../types.ts";
-import { TabInfo } from "./types.ts";
-import { createComponent, PlayfulRoot } from "../components.ts";
+import type { RehypeFunctionComponent } from "../types.ts";
+import type { TabInfo } from "./types.ts";
+import { type PlayfulRoot, createComponent } from "../components.ts";
 import {
 	findLargestHeading,
 	isNodeLargestHeading,

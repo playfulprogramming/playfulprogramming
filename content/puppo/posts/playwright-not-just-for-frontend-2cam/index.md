@@ -3,7 +3,7 @@
 title: "Playwright - Not just for Frontend",
 published: "2023-02-16T07:00:38Z",
 edited: "2023-02-21T07:23:26Z",
-tags: ["playwright", "apitesting"],
+tags: ["playwright", "testing"],
 description: "In this path with Playwright we spent a lot of time speaking about e2e tests and component testing in...",
 originalLink: "https://blog.delpuppo.net/playwright-not-just-for-frontend",
 coverImg: "cover-image.png",

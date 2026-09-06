@@ -13,7 +13,7 @@
 
 Modern web development is awesome. We've never had a period of time where our tools enable us to move faster, ship less bugs, and make great web apps.
 
-But while tools like Vite and Webpack are extremely powerful and can provide a better user experience (UX), they can often feel like they're getting in the way of rapid prototyping.
+But while tools like [Vite](pfp-snitip:#vite) and Webpack are extremely powerful and can provide a better user experience (UX), they can often feel like they're getting in the way of rapid prototyping.
 
 Let's explore how we can build a website using many of the conveniences of a Vite app while remaining buildless.
 
@@ -109,7 +109,7 @@ root.innerHTML = template;
 
 # Introducing HMR for Vanilla JavaScript Apps {#hmr}
 
-It's neat that we're able to load JavaScript files without a bundler, but if you spend much time in our environment you'll likely yearn for a solution that reloads the page whenever you modify the files in use.
+It's neat that we're able to load JavaScript files without a bundler, but if you spend much time in our environment you'll likely yearn for a solution that reloads the page whenever you modify the files in use. While this is not true [hot module replacement (HMR)](pfp-snitip:#hmr), it provides similarly fast feedback during development.
 
 Luckily for us, there's a different web server that can handle this for us: `browser-sync`.
 
@@ -137,7 +137,7 @@ And see as the page refreshed while we modify any of the files in `src`:
 
 Most apps require a fair number of libraries to get up-and-running. Let's load in a date library, [Luxon](https://moment.github.io/luxon/), to handle our dates in a nicer way.
 
-To do this, we can use a CDN like [unpkg.com](https://unpkg.com/) to load in the files required to run the library in our app.
+To do this, we can use a [CDN](pfp-snitip:#cdn) like [unpkg.com](https://unpkg.com/) to load in the files required to run the library in our app.
 
 If we go to [https://unpkg.com/luxon](https://unpkg.com/luxon), we'll see a loaded bit of JavaScript:
 
@@ -607,7 +607,7 @@ customElements.define("simple-greeting", SimpleGreeting);
 
 # Using Prettier, ESLint, and TypeScript {#tooling}
 
-Using Prettier and ESLint in a buildless system have nearly identical setup processes as they would in a bundled situation.
+Using the [formatter](pfp-snitip:#formatter) Prettier and the linter ESLint in a buildless system has nearly identical setup processes as it would in a bundled situation.
 
 You can use ESLint's CLI to setup ESLint:
 
@@ -792,4 +792,3 @@ src/script.js:11:8 - error TS2345: Argument of type 'string' is not assignable t
 
 Found 1 error in src/script.js:11
 ```
-

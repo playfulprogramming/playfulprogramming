@@ -2,7 +2,7 @@
 {
 title: "🏆 My journey to the MVP Award 🏆",
 published: "2023-06-09T05:30:39Z",
-tags: ["mvp", "award", "microsoft", "journey"],
+tags: ["microsoft", "career"],
 description: "This history started many years ago! I was a student, and I was going to the ITS in Pordenone. I...",
 originalLink: "https://blog.delpuppo.net/my-journey-to-the-mvp-award",
 coverImg: "cover-image.png",

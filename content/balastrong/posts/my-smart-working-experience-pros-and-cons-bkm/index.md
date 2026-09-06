@@ -2,7 +2,7 @@
 {
 title: "My Smart Working Experience: Pros and Cons",
 published: "2023-08-28T08:47:00Z",
-tags: ["remote", "career", "motivation"],
+tags: ["career"],
 description: "I’m doing smart working in a full remote company for a couple of years. These are the pros and cons...",
 originalLink: "https://leonardomontini.dev/smartworking-full-remote-company/",
 coverImg: "cover-image.png",

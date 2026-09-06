@@ -14,7 +14,7 @@
 
 Towards the end of that post, I touched on how each of these frameworks' mechanisms for reactivity work under-the-hood through external links.
 
-One of those mechanisms used by frameworks like React and Vue is called the "Virtual DOM" (Also known as the "VDOM") and use a process called "Reconciliation" to reflect the changes made to this "VDOM" to the real DOM.
+One of those mechanisms used by frameworks like React and Vue is called the "[Virtual DOM](pfp-snitip:#virtual-dom)" (Also known as the "VDOM") and use a process called "Reconciliation" to reflect the changes made to this "VDOM" to the real DOM.
 
 Let's take a look at how this works in practical terms.
 
@@ -60,7 +60,7 @@ You'll end up with a VDOM that mirrors the markup you've written in JSX. This JS
 
 The process of how these changes are mirrored is called "Reconciliation".
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # What is "Reconciliation"?
 
@@ -179,4 +179,4 @@ These two combined build the foundation for how React works behind the scenes. I
 
 Eventually, this series will show you how to use React Server Actions in-depth and how you can utilize your React knowledge to become a full-stack developer.
 
-Sound like fun? We hope so! [Join us in our Discord](https://discord.gg/FMcvc6T) and let us know what other topics you'd like to see on the site.
+Sound like fun? We hope so! [Join us in our Discord](https://discord.playfulprogramming.com) and let us know what other topics you'd like to see on the site.

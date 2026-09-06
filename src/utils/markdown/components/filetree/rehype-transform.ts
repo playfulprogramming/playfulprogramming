@@ -22,7 +22,7 @@ import { toString } from "hast-util-to-string";
 import type { Element, ElementContent } from "hast";
 import { visit } from "unist-util-visit";
 import JSON5 from "json5";
-import { RehypeFunctionComponent } from "../types.ts";
+import type { RehypeFunctionComponent } from "../types.ts";
 import { logError } from "#utils/markdown/logger.ts";
 import type {
 	DirectoryProps,
@@ -35,7 +35,6 @@ interface DirectoryMetadata {
 	open?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface FileMetadata {}
 
 const isNodeElement = (node: unknown): node is Element =>

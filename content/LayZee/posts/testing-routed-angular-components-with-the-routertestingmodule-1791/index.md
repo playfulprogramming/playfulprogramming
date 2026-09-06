@@ -3,7 +3,7 @@
 title: "Testing routed Angular components with the RouterTestingModule",
 published: "2020-11-16T21:05:34Z",
 edited: "2023-02-08T21:23:18Z",
-tags: ["angular", "testing", "router"],
+tags: ["angular", "testing"],
 description: "Learn how to stub the ActivatedRoute for shallow routed component tests. Also learn to use the RouterTestingModule for integrated routed component tests.",
 originalLink: "https://dev.to/playfulprogramming-angular/testing-routed-angular-components-with-the-routertestingmodule-1791",
 coverImg: "cover-image.png",

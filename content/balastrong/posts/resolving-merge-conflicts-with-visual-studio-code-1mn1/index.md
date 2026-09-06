@@ -3,7 +3,7 @@
 title: "Resolving Merge Conflicts with Visual Studio Code",
 published: "2022-11-22T17:45:40Z",
 edited: "2022-12-05T12:51:45Z",
-tags: ["tutorial", "vscode", "productivity", "codenewbie"],
+tags: ["tutorial", "vscode", "productivity", "beginner"],
 description: "Today I launched my Discord server to talk about Open Source and Web Development, feel free to join:...",
 originalLink: "https://leonardomontini.dev/merge-conflict-vscode/",
 coverImg: "cover-image.png",

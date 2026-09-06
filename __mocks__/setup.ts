@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/vitest";
-import { afterEach } from "#src/ui-test-utils";
+import { afterEach } from "#utils/ui-test-utils.ts";
 import { cleanup } from "@testing-library/preact";
 
 Object.defineProperties(window, {
@@ -7,5 +7,8 @@ Object.defineProperties(window, {
 	inTestSuite: { value: true },
 	plausible: { value: null },
 });
+
+window.scroll = () => {};
+window.scrollTo = () => {};
 
 afterEach(() => cleanup());

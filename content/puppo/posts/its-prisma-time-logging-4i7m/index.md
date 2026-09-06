@@ -2,9 +2,9 @@
 {
 title: "It's Prisma Time - Logging",
 published: "2022-01-26T06:50:45Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hi Guys 👋  Today we are going to see how to enable logging in Prisma, so don't waste time and let's...",
-originalLink: "https://https://dev.to/playfulprogramming/its-prisma-time-logging-4i7m",
+originalLink: "https://dev.to/playfulprogramming/its-prisma-time-logging-4i7m",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "It's Prisma Time",

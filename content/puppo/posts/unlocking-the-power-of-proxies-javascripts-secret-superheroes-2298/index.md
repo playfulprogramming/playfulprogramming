@@ -3,7 +3,7 @@
 title: "Unlocking the Power of Proxies: JavaScript's Secret Superheroes",
 published: "2023-10-18T06:03:05Z",
 edited: "2023-10-18T09:27:19Z",
-tags: ["javascript", "es6", "proxy", "proxies"],
+tags: ["javascript"],
 description: "JavaScript's Proxy object is a powerful feature that enables you to intercept and customize...",
 originalLink: "https://blog.delpuppo.net/unlocking-the-power-of-proxies-javascripts-secret-superheroes",
 coverImg: "cover-image.png",

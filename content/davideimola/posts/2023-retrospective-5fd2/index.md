@@ -3,7 +3,7 @@
 title: "2023 Retrospective",
 published: "2023-12-28T10:18:00Z",
 edited: "2023-12-28T14:25:52Z",
-tags: ["retrospective", "2024", "2023", "yearinreview"],
+tags: ["opinion"],
 description: "Here it is, the end of 2023. What a year it has been. I've been thinking about what I want to do in...",
 originalLink: "https://davideimola.dev/blog/2023-retrospective/"
 }

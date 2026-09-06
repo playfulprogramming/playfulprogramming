@@ -3,7 +3,7 @@
 title: "Testing routed components with RouterTestingHarness",
 published: "2023-12-07T00:00:00Z",
 edited: "2023-12-12T11:48:42Z",
-tags: ["angular", "router", "testing"],
+tags: ["angular", "testing"],
 description: "RouterTestingHarness uses the actual Angular Router API in our routed component tests.",
 originalLink: "https://dev.to/playfulprogramming-angular/testing-routed-components-with-routertestingharness-22dl",
 coverImg: "cover-image.png",

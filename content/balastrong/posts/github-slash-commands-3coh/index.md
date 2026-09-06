@@ -2,7 +2,7 @@
 {
 title: "GitHub Slash Commands!",
 published: "2023-04-16T19:02:00Z",
-tags: ["github", "opensource", "productivity"],
+tags: ["github", "open source", "productivity"],
 description: "Wait, what? Slash commands are available on GitHub?  I recorded a two minutes video to showcase how...",
 originalLink: "https://leonardomontini.dev/github-slash-commands/",
 coverImg: "cover-image.png",

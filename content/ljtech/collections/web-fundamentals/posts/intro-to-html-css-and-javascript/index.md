@@ -101,6 +101,6 @@ JavaScript is a powerful tool that can be used to create everything from useful 
 
 Now you should have a better conceptual understanding of the primary web technologies, what they do, and how they work together to create the internet that we see and use every day. Once you learn the basics of HTML, CSS, and JavaScript, you will have a firm foundation to build on to create your own websites and applications.
 
-Finally, you're always able to [**join our Discord**](https://discord.gg/FMcvc6T) if you have any questions or comments while you're learning. All are welcome!
+Finally, you're always able to [**join our Discord**](https://discord.playfulprogramming.com) if you have any questions or comments while you're learning. All are welcome!
 
 ---

@@ -3,7 +3,7 @@
 title: "A Promise is forever",
 published: "2024-02-06T06:13:01Z",
 edited: "2024-02-07T21:46:31Z",
-tags: ["javascript", "es6", "promise", "abotwrotethis"],
+tags: ["javascript"],
 description: "In the ever-evolving world of web development, mastering asynchronous operations is a crucial skill...",
 originalLink: "https://blog.delpuppo.net/a-promise-is-forever",
 coverImg: "cover-image.png",

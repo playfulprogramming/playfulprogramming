@@ -3,7 +3,7 @@
 title: "Type Narrowing in TypeScript",
 published: "2021-08-26T09:41:32Z",
 edited: "2021-08-26T10:04:14Z",
-tags: ["typescript", "webdev", "javascript", "programming"],
+tags: ["typescript", "webdev", "javascript"],
 description: "In the spirit of my last few articles, where we have looked into Template Literal Types and Types and...",
 originalLink: "https://mainawycliffe.dev/blog/type-guards-and-narrowing-in-typescript",
 coverImg: "cover-image.png",

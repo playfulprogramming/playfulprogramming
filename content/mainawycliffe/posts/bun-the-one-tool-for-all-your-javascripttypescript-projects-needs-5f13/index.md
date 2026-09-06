@@ -2,7 +2,7 @@
 {
 title: "Bun - The One Tool for All Your JavaScript/Typescript Project's Needs?",
 published: "2024-04-02T17:27:06Z",
-tags: ["javascript", "webdev", "bunjs", "typescript"],
+tags: ["javascript", "webdev", "typescript"],
 description: "In most issues for this newsletter, I have focussed on Typescript and its type system, which I will...",
 originalLink: "https://www.allthingstypescript.dev/p/bun-one-tool-for-all-your-javascripttypescript"
 }

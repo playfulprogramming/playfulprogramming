@@ -3,7 +3,7 @@
 title: "New way of passing data to dynamically created components (New Feature 🎉)",
 published: "2023-04-19T15:11:15Z",
 edited: "2023-04-19T15:15:00Z",
-tags: ["angular", "input", "v16", "dynamiccomponents"],
+tags: ["angular"],
 description: "Topics covered in this article:    How it works today How it can be done in Angular v16 How...",
 originalLink: "https://eneajahollari.medium.com/new-way-of-passing-data-to-dynamically-created-components-new-feature-1d7e807b30f5",
 coverImg: "cover-image.png",

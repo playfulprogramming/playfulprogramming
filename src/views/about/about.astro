@@ -1,29 +1,30 @@
 ---
+import { getLocale, type Locale } from "#src/paraglide/runtime.js";
 import style from "./about.module.scss";
 import "../../styles/shiki.scss";
-import * as data from "#src/utils/data";
-import { translate } from "#src/utils/translations";
-import TranslationsHeader from "#src/views/base/translations/translations-header.astro";
-import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
-import { License } from "./license";
-import BannerSvg from "./banner-svg.astro";
-import * as api from "#utils/api";
-import { Languages } from "#types/index";
+import * as data from "#utils/data.ts";
+import { m } from "#src/paraglide/messages.js";
+import TranslationsHeader from "#components/translations-header/translations-header.astro";
+import HeadingLinkScript from "#components/heading-link/heading-link-script.astro";
+import { License } from "./components/license/license.tsx";
+import BannerSvg from "./components/banner-svg/banner-svg.astro";
+import * as api from "#utils/api.ts";
+
 import { VFile } from "vfile";
-import { getMarkdownHtml } from "#utils/markdown";
-import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile";
-import { MarkdownFileInfo, MarkdownVFile } from "#utils/markdown/types";
-import { Links } from "./components";
+import { getMarkdownHtml } from "#utils/markdown/index.ts";
+import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
+import type { MarkdownFileInfo, MarkdownVFile } from "#utils/markdown/types.ts";
+import { Links } from "./components/links.tsx";
 import ContributorCard from "../../components/contributor-card/contributor-card.astro";
 import Content from "#utils/markdown/components/content.astro";
 
 interface Props {
-	locales: Languages[];
-	locale: Languages;
+	locales: Locale[];
 	file: string;
 }
 
-const { locales, locale, file } = Astro.props as Props;
+const { locales, file } = Astro.props as Props;
+const locale = getLocale();
 const fileInfo: MarkdownFileInfo = { kind: "page", file, warnings: [] };
 const vfile = await getMarkdownVFile(fileInfo);
 
@@ -34,7 +35,15 @@ const [content1, content2, content3] = await Promise.all(
 		.map((value) =>
 			getMarkdownHtml(
 				fileInfo,
-				new VFile({ ...vfile, value }) as MarkdownVFile,
+				new VFile({
+					...vfile,
+					value,
+					data: {
+						...vfile.data,
+						headingsWithIds: [],
+						snitips: new Map(),
+					},
+				}) as MarkdownVFile,
 			),
 		),
 );
@@ -63,7 +72,7 @@ const tags = [
 ---
 
 <main class="container">
-	<h1 class="visually-hidden">About Us</h1>
+	<h1 class="visually-hidden">{m.title_about_us()}</h1>
 	<div class={style.banner}>
 		<BannerSvg />
 	</div>
@@ -78,7 +87,7 @@ const tags = [
 					<ContributorCard
 						overrides={{
 							isPartner: false,
-							roles: ["Board Member", ...(person.boardRoles ?? [])],
+							roles: [m.role_board_member(), ...(person.boardRoles ?? [])],
 						}}
 						person={person}
 					/>
@@ -89,7 +98,7 @@ const tags = [
 		<hr />
 
 		<h2 id="licenses">
-			<span>{translate(Astro, "title.licenses")}</span>
+			<span>{m.title_licenses()}</span>
 		</h2>
 
 		<ul class={style.licenses} role="list" aria-labelledby="licenses">
@@ -103,17 +112,17 @@ const tags = [
 							image={tag.image}
 							action={
 								tag.explainerType === "license"
-									? translate(Astro, "action.view_license")
-									: translate(Astro, "action.view_attribution")
+									? m.action_view_license()
+									: m.action_view_attribution()
 							}
 							actionLabel={
 								tag.explainerType === "license"
-									? translate(Astro, "label.view_license_for", tag.displayName)
-									: translate(
-											Astro,
-											"label.view_attribution_for",
-											tag.displayName,
-										)
+									? m.label_view_license_for({
+											displayName: tag.displayName,
+										})
+									: m.label_view_attribution_for({
+											displayName: tag.displayName,
+										})
 							}
 						/>
 					</li>
@@ -122,9 +131,9 @@ const tags = [
 		</ul>
 
 		<p>
-			{translate(Astro, "desc.licenses_request_removal")}
+			{m.desc_licenses_request_removal()}
 			<a id="email-licenses" href="#">
-				<noscript>JavaScript required</noscript>
+				<noscript>{m.desc_javascript_required()}</noscript>
 			</a>
 			<script>
 				{

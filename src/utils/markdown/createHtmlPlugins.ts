@@ -15,7 +15,7 @@ import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform.ts";
 import { rehypeHeaderText } from "./rehype-header-text.ts";
 import { rehypeValidateHeadingLinks } from "./rehype-validate-heading-links.ts";
 import { rehypeHeaderClass } from "./rehype-header-class.ts";
-import { Processor } from "unified";
+import type { Processor } from "unified";
 import { rehypeShikiUU } from "./shiki/rehype-transform.ts";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta.ts";
 import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform.ts";
@@ -30,11 +30,17 @@ import {
 	transformDetails,
 	transformFileTree,
 	transformInContentAd,
+	transformSnitip,
 	transformLinkPreview,
 	transformNoop,
+	transformMermaid,
 	transformTabs,
 	transformVoid,
 } from "./components/index.ts";
+import {
+	rehypeSnitipLinks,
+	rehypeSnitipTemplates,
+} from "./snitip-link/rehype-transform.ts";
 import {
 	rehypeCodeEmbed,
 	transformCodeEmbed,
@@ -104,14 +110,19 @@ export function createHtmlPlugins(unified: Processor) {
 					hint: transformDetails,
 					"in-content-ad": transformInContentAd,
 					"link-preview": transformLinkPreview,
+					mermaid: transformMermaid,
 					"no-ebook": transformNoop,
 					"only-ebook": transformVoid,
+					snitip: transformSnitip,
 					tabs: transformTabs,
 					"quiz-radio": transformQuizRadio,
 					quiz: transformQuiz,
 					user: transformUser,
 				},
 			})
+			// Resolve local definitions after component transforms have populated
+			// the VFile's snitip map, even when a link appears first in the document.
+			.use(rehypeSnitipLinks)
 			// rehypeHeaderText must occur AFTER rehypeTransformComponents to correctly ignore headings in role="tabpanel" and <details> elements
 			.use(rehypeHeaderText)
 			.use(rehypeValidateHeadingLinks)
@@ -122,6 +133,7 @@ export function createHtmlPlugins(unified: Processor) {
 				className: (depth: number) =>
 					`text-style-headline-${Math.min(depth + 1, 6)}`,
 			})
+			.use(rehypeSnitipTemplates)
 			.use(rehypePluginComponents, {
 				htmlOptions: {
 					allowDangerousHtml: true,

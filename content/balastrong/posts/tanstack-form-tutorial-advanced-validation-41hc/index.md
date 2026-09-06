@@ -3,7 +3,7 @@
 title: "TanStack Form Tutorial: Advanced Validation",
 published: "2024-05-21T12:05:10Z",
 edited: "2024-05-21T12:08:06Z",
-tags: ["webdev", "typescript", "tutorial", "codenewbie"],
+tags: ["webdev", "typescript", "tutorial", "beginner"],
 description: "Validation is one of the core features of forms, probably the most important one.  In the last...",
 originalLink: "https://leonardomontini.dev/tanstack-form-advanced-validation/",
 coverImg: "cover-image.png",
@@ -15,7 +15,7 @@ order: 2
 
 Validation is one of the core features of forms, probably the most important one.
 
-In [the last article](https://https://dev.to/playfulprogramming/tanstack-form-setup-and-simple-validation-with-shadcnui-1al) we set up together a simple form with TanStack Form and basic validation. Today we'll push it a bit further and see how to handle more complex validation scenarios. In this order:
+In [the last article](https://dev.to/playfulprogramming/tanstack-form-setup-and-simple-validation-with-shadcnui-1al) we set up together a simple form with TanStack Form and basic validation. Today we'll push it a bit further and see how to handle more complex validation scenarios. In this order:
 
 1. Form-level validation
 2. Backend validation

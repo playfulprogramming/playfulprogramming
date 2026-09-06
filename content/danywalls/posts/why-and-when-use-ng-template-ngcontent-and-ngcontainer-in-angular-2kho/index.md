@@ -3,7 +3,7 @@
 title: "Why and When Use Ng-template, NgContent, and NgContainer in Angular",
 published: "2023-04-13T16:48:41Z",
 edited: "2023-06-01T17:29:37Z",
-tags: ["angular", "javascript", "frontend", "programming"],
+tags: ["angular", "javascript", "webdev"],
 description: "When I started to play with templates and dynamic content in angular, I get surprised by multiple...",
 originalLink: "https://www.danywalls.com/why-and-when-use-ng-template-ngcontent-and-ngcontainer-in-angular",
 coverImg: "cover-image.png",

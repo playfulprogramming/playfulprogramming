@@ -1,7 +1,7 @@
 {
-	"title.about_us": "Acerca de nosotros",
-	"title.contributors": "Colaboradores",
-	"title.where_to_find_us": "Dónde encontrarnos",
-	"title.sponsors": "Patrocinadores",
-	"desc.about_us": "Acerca de Playful Programming - quiénes somos, cuáles son nuestros objetivos, y cómo queremos ayudar a que otros aprendan"
+	"title_about_us": "Acerca de nosotros",
+	"title_contributors": "Colaboradores",
+	"title_where_to_find_us": "Dónde encontrarnos",
+	"title_sponsors": "Patrocinadores",
+	"desc_about_us": "Acerca de Playful Programming - quiénes somos, cuáles son nuestros objetivos, y cómo queremos ayudar a que otros aprendan"
 }

@@ -3,14 +3,31 @@ import type {
 	PostInfo,
 	RolesInfo,
 	PersonInfo,
+	TagInfo,
+	SnitipInfo,
 	PostVersion,
-	Languages,
 } from "#types/index.ts";
-import { readCollection } from "./content/readCollection.ts";
-import { readPerson } from "./content/readPerson.ts";
-import { readPost } from "./content/readPost.ts";
-import { roles, people, posts, collections } from "./data.ts";
+import { roles, people, posts, collections, tags, snitips } from "./data.ts";
 import { isDefined } from "./is-defined.ts";
+import {
+	baseLocale,
+	localizeHref,
+	type Locale,
+} from "#src/paraglide/runtime.js";
+import { readPerson } from "./content/readPerson.ts";
+import { readCollection } from "./content/readCollection.ts";
+import { readPost } from "./content/readPost.ts";
+
+function findLocalizedEntry<T extends { locale: Locale }>(
+	locales: T[],
+	language: Locale,
+): T | undefined {
+	return (
+		locales.find((entry) => entry.locale === language) ??
+		locales.find((entry) => entry.locale === baseLocale) ??
+		locales[0]
+	);
+}
 
 function compareByDate(date1: string, date2: string): number {
 	return new Date(date1) > new Date(date2) ? -1 : 1;
@@ -47,22 +64,20 @@ export const getAllPeople = async (): Promise<PersonInfo[]> => {
 
 export const getPersonById = async (
 	id: string,
-	language: Languages,
+	language: Locale,
 ): Promise<PersonInfo | undefined> => {
 	const locales = people.get(id);
 	if (!locales) return undefined;
-	const stub = locales.find((u) => u.locale === language) || locales[0];
+	const stub = findLocalizedEntry(locales, language);
 	return stub ? await readPerson(stub) : undefined;
 };
 
 export const getPeopleByLang = async (
-	language: Languages,
+	language: Locale,
 ): Promise<PersonInfo[]> => {
 	return await Promise.all(
 		[...people.values()]
-			.map(
-				(locales) => locales.find((p) => p.locale === language) || locales[0],
-			)
+			.map((locales) => findLocalizedEntry(locales, language))
 			.filter(isDefined)
 			.map((p) => readPerson(p)),
 	);
@@ -70,21 +85,17 @@ export const getPeopleByLang = async (
 
 export const getPostBySlug = async (
 	slug: string,
-	language: Languages,
+	language: Locale,
 ): Promise<PostInfo | undefined> => {
 	const locales = posts.get(slug) || [];
-	const stub = locales.find((p) => p.locale === language) || locales[0];
+	const stub = findLocalizedEntry(locales, language);
 	return stub ? await readPost(stub) : undefined;
 };
 
-export const getPostsByLang = async (
-	language: Languages,
-): Promise<PostInfo[]> => {
+export const getPostsByLang = async (language: Locale): Promise<PostInfo[]> => {
 	const postsByLang = await Promise.all(
 		[...posts.values()]
-			.map(
-				(locales) => locales.find((p) => p.locale === language) || locales[0],
-			)
+			.map((locales) => findLocalizedEntry(locales, language))
 			.filter(isDefined)
 			.map((p) => readPost(p)),
 	);
@@ -93,14 +104,13 @@ export const getPostsByLang = async (
 
 export const getPostsByCollection = async (
 	collectionSlug: string,
-	language: Languages,
+	language: Locale,
 ): Promise<PostInfo[]> => {
 	const postsByCollection = await Promise.all(
 		[...posts.values()]
-			.map(
-				(locales) => locales.find((p) => p.locale === language) || locales[0],
-			)
-			.filter((p) => p?.collection === collectionSlug)
+			.map((locales) => findLocalizedEntry(locales, language))
+			.filter(isDefined)
+			.filter((p) => p.collection === collectionSlug)
 			.map((p) => readPost(p)),
 	);
 	return postsByCollection.sort((postA, postB) =>
@@ -110,21 +120,20 @@ export const getPostsByCollection = async (
 
 export const getPostVersionsBySlug = async (
 	slug: string,
-	language: Languages,
+	language: Locale,
 ): Promise<PostVersion[]> => {
 	const allPosts = await Promise.all(
 		[...posts.values()]
-			.map(
-				(locales) => locales.find((p) => p.locale === language) || locales[0],
-			)
+			.map((locales) => findLocalizedEntry(locales, language))
 			.filter(isDefined)
 			.map((p) => readPost(p)),
 	);
 	return allPosts
 		.filter((p) => p?.upToDateSlug === slug || p.slug === slug)
 		.sort(compareByPublished)
-		.map(({ locale, publishedMeta, slug, version }) => ({
-			href: locale === "en" ? `/posts/${slug}` : `/${locale}/posts/${slug}`,
+		.map(({ locale, published, publishedMeta, slug, version }) => ({
+			href: localizeHref(`/posts/${slug}`, { locale }),
+			published,
 			publishedMeta,
 			version,
 		}));
@@ -132,13 +141,11 @@ export const getPostVersionsBySlug = async (
 
 export const getPostsByPerson = async (
 	personId: string,
-	language: Languages,
+	language: Locale,
 ): Promise<PostInfo[]> => {
 	const allPosts = await Promise.all(
 		[...posts.values()]
-			.map(
-				(locales) => locales.find((p) => p.locale === language) || locales[0],
-			)
+			.map((locales) => findLocalizedEntry(locales, language))
 			.filter(isDefined)
 			.map((p) => readPost(p)),
 	);
@@ -150,21 +157,19 @@ export const getPostsByPerson = async (
 
 export const getCollectionBySlug = async (
 	slug: string,
-	language: Languages,
+	language: Locale,
 ): Promise<CollectionInfo | undefined> => {
 	const locales = collections.get(slug) || [];
-	const stub = locales.find((c) => c.locale === language) || locales[0];
+	const stub = findLocalizedEntry(locales, language);
 	return stub ? await readCollection(stub) : undefined;
 };
 
 export const getCollectionsByLang = async (
-	language: Languages,
+	language: Locale,
 ): Promise<CollectionInfo[]> => {
 	const collectionsByLang = await Promise.all(
 		[...collections.values()]
-			.map(
-				(locales) => locales.find((p) => p.locale === language) || locales[0],
-			)
+			.map((locales) => findLocalizedEntry(locales, language))
 			.filter(isDefined)
 			.map((c) => readCollection(c)),
 	);
@@ -173,13 +178,11 @@ export const getCollectionsByLang = async (
 
 export const getCollectionsByPerson = async (
 	personId: string,
-	language: Languages,
+	language: Locale,
 ): Promise<CollectionInfo[]> => {
 	const collectionsByLang = await Promise.all(
 		[...collections.values()]
-			.map(
-				(locales) => locales.find((p) => p.locale === language) || locales[0],
-			)
+			.map((locales) => findLocalizedEntry(locales, language))
 			.filter(isDefined)
 			.map((c) => readCollection(c)),
 	);
@@ -191,8 +194,20 @@ export const getCollectionsByPerson = async (
 
 export function getRoleById(
 	roleId: string,
-	_language: Languages,
+	_language: Locale,
 ): RolesInfo | undefined {
 	// TODO: support role name translations
 	return roles.find((r) => r.id === roleId);
+}
+
+export function getTagById(tagId: string): TagInfo | undefined {
+	return tags.get(tagId);
+}
+
+export function getSnitips(): SnitipInfo[] {
+	return [...snitips.values()];
+}
+
+export function getSnitipById(snitipId: string): SnitipInfo | undefined {
+	return snitips.get(snitipId);
 }

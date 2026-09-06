@@ -3,7 +3,7 @@
 title: "How to use Angular resolvers to prefetch beers to the party",
 published: "2021-10-16T07:57:23Z",
 edited: "2021-10-16T10:51:28Z",
-tags: ["angular", "codenewbie", "javascript", "rxjs"],
+tags: ["angular", "beginner", "javascript", "rxjs"],
 description: "When we go to a party, I love to have all beers ready to drink and take  one, but sometimes take time...",
 originalLink: "https://dev.to/playfulprogramming-angular/how-to-use-angular-resolver-to-prefetch-beers-into-the-party-49g3",
 coverImg: "cover-image.png",

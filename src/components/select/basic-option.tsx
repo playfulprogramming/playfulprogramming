@@ -1,4 +1,4 @@
-import { ComponentChildren } from "preact";
+import type { ComponentChildren } from "preact";
 import styles from "./select.module.scss";
 
 interface OptionProps {

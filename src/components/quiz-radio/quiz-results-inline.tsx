@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
-import { $quizState } from "./atom";
-import { QuizQuestion, QuizResults } from "./quiz-results";
+import { $quizState } from "./atom.ts";
+import { type QuizQuestion, QuizResults } from "./quiz-results.tsx";
 
 export interface QuizResultsInlineProps {
 	quizId: string;

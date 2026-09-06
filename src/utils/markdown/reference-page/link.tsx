@@ -1,5 +1,5 @@
 /** @jsxRuntime automatic */
-import { Node, Element } from "hast";
+import type { Node, Element } from "hast";
 
 interface SuperScriptLinkProps {
 	superScriptNumber: number;

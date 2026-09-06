@@ -7,7 +7,7 @@ import * as path from "path";
 import * as fs from "fs/promises";
 import { resolveImageFile } from "./resolveImageFile.ts";
 import { isNotJunk } from "./isNotJunk.ts";
-import { MarkdownVFile } from "../markdown/types.ts";
+import type { MarkdownVFile } from "../markdown/types.ts";
 import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
 import { Value } from "typebox/value";
 import { parseFrontmatter } from "./parseFrontmatter.ts";

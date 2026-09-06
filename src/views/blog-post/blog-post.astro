@@ -1,34 +1,36 @@
 ---
-import PostTitleHeader from "./post-title-header/post-title-header.astro";
-import TableOfContentsMobile from "./table-of-contents/mobile/table-of-contents-mobile.astro";
-import TableOfContents from "./table-of-contents/table-of-contents.astro";
-import MailingList from "../../components/mailing-list/mailing-list.astro";
-import TranslationsHeader from "../base/translations/translations-header.astro";
-import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
-import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
+import PostTitleHeader from "#src/views/blog-post/components/post-title-header/post-title-header.astro";
+import TableOfContentsMobile from "#src/views/blog-post/components/table-of-contents-mobile/table-of-contents-mobile.astro";
+import TableOfContents from "#src/views/blog-post/components/table-of-contents/table-of-contents.astro";
+import MailingList from "#src/views/blog-post/components/mailing-list/mailing-list.astro";
+import TranslationsHeader from "#components/translations-header/translations-header.astro";
+import BlogPostLayout from "#src/views/blog-post/components/blog-post-layout/blog-post-layout.astro";
+import HeadingLinkScript from "#components/heading-link/heading-link-script.astro";
 import BlockingTabsSignalScript from "#components/tabs/blocking-tabs-signal-script.astro";
 import { Icon } from "astro-icon/components";
 
-import {
+import type {
 	CollectionInfo,
 	LicenseInfo,
 	PostInfo,
 	PersonInfo,
 	PostVersion,
-} from "#types/index";
+} from "#types/index.ts";
 
-import { siteMetadata } from "#src/constants/site-config";
+import { siteMetadata } from "#src/constants/site-config.ts";
 import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
-import SeriesToC from "./series/series-toc.astro";
-import { ArticleNav } from "./article-nav/article-nav";
-import RelatedPosts from "#components/related-posts/related-posts.astro";
-import { LargeButton } from "../../components/button/button";
+import SeriesToC from "#src/views/blog-post/components/series/series-toc.astro";
+import { ArticleNav } from "#src/views/blog-post/components/article-nav/article-nav.tsx";
+import RelatedPosts from "#src/views/blog-post/components/related-posts/related-posts.astro";
+import { LargeButton } from "../../components/button/button.tsx";
 
 import styles from "./blog-post.module.scss";
-import { MarkdownHtml } from "#utils/markdown";
+import type { MarkdownHtml } from "#utils/markdown/index.ts";
 import Content from "#utils/markdown/components/content.astro";
-import KatexCss from "./katex.astro";
+import KatexCss from "./components/katex.astro";
+import MermaidAssets from "./components/mermaid-assets.astro";
+import { m } from "#src/paraglide/messages.js";
 
 export interface Props {
 	post: PostInfo;
@@ -55,6 +57,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 ---
 
 {postHtml.isKatexMathUsed && <KatexCss />}
+{postHtml.isMermaidUsed && <MermaidAssets />}
 
 <script>
 	import mediumZoom from "medium-zoom";
@@ -62,15 +65,15 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 	mediumZoom(".post-body img:not([data-nozoom])");
 </script>
 <script>
-	import { enableStickyScrollListener } from "../../utils/sticky-scroll-script";
+	import { enableStickyScrollListener } from "../../utils/sticky-scroll-script.ts";
 	enableStickyScrollListener();
 </script>
 <script>
-	import { enableSmoothScrollForAnchorsToCurrentPage } from "../../utils/smooth-scroll-for-anchors-to-current-page";
+	import { enableSmoothScrollForAnchorsToCurrentPage } from "../../utils/smooth-scroll-for-anchors-to-current-page.ts";
 	enableSmoothScrollForAnchorsToCurrentPage();
 </script>
 <script>
-	import { enableStickyTableHeaderListener } from "../../utils/sticky-table-header-script";
+	import { enableStickyTableHeaderListener } from "../../utils/sticky-table-header-script.ts";
 	enableStickyTableHeaderListener();
 </script>
 <HeadingLinkScript />
@@ -95,7 +98,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 				post.collection ? (
 					<SeriesToC
 						post={post}
-						postSeries={collectionPosts}
+						postSeries={collectionPosts!}
 						collection={collection}
 					/>
 				) : null
@@ -117,7 +120,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 			aria-labelledby="blog-post-contents"
 		>
 			<h2 id="blog-post-contents" class="visually-hidden" data-no-heading-link>
-				Post contents
+				{m.title_post_contents()}
 			</h2>
 			<Content content={postHtml.content} />
 			{
@@ -137,7 +140,9 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 			{
 				license ? (
 					<a
-						aria-label={`Post licensed with ${license.displayName}`}
+						aria-label={m.label_post_licensed_with({
+							license: license.displayName,
+						})}
 						href={license.explainLink}
 						class={styles.licenseImageContainer}
 					>
@@ -157,11 +162,11 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 						style="width: 100%; height: 100%;"
 						name="github"
 					/>
-					View this post on GitHub
+					{m.action_view_post_on_github()}
 				</LargeButton>
 				<LargeButton
 					tag="a"
-					href="https://discord.gg/FMcvc6T"
+					href="https://discord.playfulprogramming.com"
 					variant="primary-emphasized"
 				>
 					<Icon
@@ -169,7 +174,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main/content/${
 						style="width: 100%; height: 100%;"
 						name="discord"
 					/>
-					Join our Discord server
+					{m.action_join_discord_server()}
 				</LargeButton>
 			</div>
 		</footer>

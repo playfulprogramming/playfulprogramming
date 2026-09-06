@@ -1,14 +1,26 @@
 import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import icon from "astro-icon";
-import symlink from "symlink-dir";
+import { symlinkDir } from "symlink-dir";
 import * as path from "path";
-import { AstroUserConfig } from "astro";
+import * as os from "os";
+import type { AstroUserConfig } from "astro";
 import node from "@astrojs/node";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
+import projectSettings from "./project.inlang/settings.json" with { type: "json" };
+import browserslist from "browserslist";
+import { browserslistToTargets } from "lightningcss";
 
-await symlink(path.resolve("content"), path.resolve("public/content"));
+await symlinkDir(path.resolve("content"), path.resolve("public/content"));
+
+// Reads the "browserslist" field in package.json.
+const lightningcssTargets = browserslistToTargets(browserslist());
 
 const isServerBuild = process.env.BUILD_OUTPUT === "server";
+
+// Astro warns that high concurrency increases memory use and can
+// destabilize builds, so cap it rather than trust the raw core count.
+const buildConcurrency = Math.min(os.availableParallelism(), 8);
 
 export default defineConfig({
 	// import.meta.env does not resolve to env variables in the config script!
@@ -20,6 +32,18 @@ export default defineConfig({
 			: undefined) ??
 		"https://playfulprogramming.com",
 	output: isServerBuild ? "server" : "static",
+	build: {
+		concurrency: buildConcurrency,
+	},
+	i18n: {
+		defaultLocale: projectSettings.baseLocale,
+		locales: projectSettings.locales,
+		routing: isServerBuild
+			? "manual"
+			: {
+					prefixDefaultLocale: false,
+				},
+	},
 	adapter: isServerBuild
 		? node({
 				mode: "standalone",
@@ -33,7 +57,19 @@ export default defineConfig({
 			},
 		},
 	},
-	integrations: [icon(), preact({ compat: true })],
+	integrations: [
+		icon({
+			iconDir: "src/assets/icons",
+		}),
+		preact({
+			compat: true,
+			babel: {
+				generatorOpts: {
+					importAttributesKeyword: "with",
+				},
+			},
+		}),
+	],
 	server: {
 		headers: {
 			"Cross-Origin-Embedder-Policy": "require-corp",
@@ -41,6 +77,26 @@ export default defineConfig({
 		},
 	},
 	vite: {
+		define: {
+			__PARAGLIDE_SERVER_OUTPUT__: JSON.stringify(isServerBuild),
+		},
+		css: {
+			transformer: "lightningcss",
+			lightningcss: {
+				targets: lightningcssTargets,
+			},
+		},
+		build: {
+			cssMinify: "lightningcss",
+		},
+		plugins: [
+			paraglideVitePlugin({
+				project: "./project.inlang",
+				outdir: "./src/paraglide",
+				emitTsDeclarations: true,
+				strategy: ["url", "globalVariable", "baseLocale"],
+			}),
+		],
 		server: {
 			allowedHosts: ["localhost", "web"],
 		},
@@ -49,11 +105,6 @@ export default defineConfig({
 		},
 		resolve: {
 			alias: {
-				// Forgive me, friends, for I have sinned
-				"@react-aria/calendar/dist/utils.mjs": path.resolve(
-					import.meta.dirname,
-					"./node_modules/@react-aria/calendar/dist/utils.mjs",
-				),
 				src: path.resolve(import.meta.dirname, "./src"),
 			},
 		},

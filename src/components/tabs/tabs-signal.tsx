@@ -1,6 +1,6 @@
-import { JSXNode } from "#components/types";
+import type { JSXNode } from "#components/types.ts";
 import { signal } from "@preact/signals";
-import { Tabs as InnerTabs, TabsItem as InnerTabsItem } from "./tabs";
+import { Tabs as InnerTabs, TabsItem as InnerTabsItem } from "./tabs.tsx";
 
 const LOCAL_STORAGE_KEY = "tabs-selection";
 

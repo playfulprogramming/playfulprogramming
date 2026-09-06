@@ -2,9 +2,9 @@
 {
 title: "It's Prisma Time - Create Table",
 published: "2021-12-21T07:02:02Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hello Folks 👋  and welcome back to this series, today it's time to create your first table with...",
-originalLink: "https://https://dev.to/playfulprogramming/its-prisma-time-create-table-3911",
+originalLink: "https://dev.to/playfulprogramming/its-prisma-time-create-table-3911",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "It's Prisma Time",

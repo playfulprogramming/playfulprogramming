@@ -1,11 +1,11 @@
 import { unified } from "unified";
 import type { Node } from "mdast";
-import { MarkdownVFile } from "../markdown/types";
+import type { MarkdownVFile } from "../markdown/types";
 import remarkParse from "remark-parse";
 import { visit } from "unist-util-visit";
 import remarkFrontmatter from "remark-frontmatter";
 import JSON5 from "json5";
-import { logError } from "../markdown/logger";
+import { logError } from "../markdown/logger.ts";
 
 const TYPE_FRONTMATTER = "frontmatter";
 

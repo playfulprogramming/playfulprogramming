@@ -1,4 +1,4 @@
-@use "src/tokens/index" as *;
+@use "../../styles/tokens/index" as *;
 
 :root {
 	// Utility tokens
@@ -17,7 +17,7 @@
 	);
 	--filesystem_inner_padding: var(--spc-2x);
 	--filesystem_border_width: var(--border-width_l);
-	--filesystem_border_color: var(--primary_variant);
+	--filesystem_border_color: var(--primary_low);
 
 	// Tokens for items
 	--filesystem_item_container_padding-start: var(--spc-1x);
@@ -28,40 +28,36 @@
 	--filesystem_item_icon_size: var(--icon-size_default);
 
 	--filesystem_item_annotation_padding-horizontal: var(--spc-2x);
-	--filesystem_item_annotation_label_color: var(--foreground_emphasis-medium);
+	--filesystem_item_annotation_label_color: var(--foreground_medium);
 
 	// Colors for folders
 	--filesystem_item_folder_container_color: var(--transparent);
-	--filesystem_item_folder_container_color_hovered: var(
-		--surface_secondary_emphasis-low
-	);
+	--filesystem_item_folder_container_color_hovered: var(--tint_secondary_low);
 	--filesystem_item_folder_container_color_pressed: var(
-		--surface_secondary_emphasis-medium
+		--tint_secondary_medium
 	);
 	--filesystem_item_folder_container_color_focused: var(--background_focus);
 	--filesystem_item_folder_container_corner-radius: var(
 		--corner-radius_circular
 	);
-	--filesystem_item_folder_icon-arrow_color: var(--secondary_on-variant);
-	--filesystem_item_folder_icon-folder_color: var(--secondary_default);
-	--filesystem_item_folder_label_color: var(--secondary_on-variant);
+	--filesystem_item_folder_icon-arrow_color: var(--secondary_on-low);
+	--filesystem_item_folder_icon-folder_color: var(--secondary_medium);
+	--filesystem_item_folder_label_color: var(--secondary_on-low);
 	--filesystem_item_folder_focus-outline_width: var(--border-width_focus);
 	--filesystem_item_folder_focus-outline_color: var(--focus-outline_secondary);
 	--filesystem_item_folder_highlight_border_width: var(--border-width_s);
-	--filesystem_item_folder_highlight_border_color: var(--secondary_default);
+	--filesystem_item_folder_highlight_border_color: var(--secondary_medium);
 	--filesystem_item_folder_highlight_background-color: var(
-		--surface_secondary_emphasis-low
+		--tint_secondary_low
 	);
 
 	// Colors for files
-	--filesystem_item_file_icon_color: var(--primary_default);
+	--filesystem_item_file_icon_color: var(--primary_medium);
 	--filesystem_item_file_container_corner-radius: var(--corner-radius_s);
-	--filesystem_item_file_label_color: var(--foreground_emphasis-high);
+	--filesystem_item_file_label_color: var(--foreground_high);
 	--filesystem_item_file_highlight_border_width: var(--border-width_s);
-	--filesystem_item_file_highlight_border_color: var(--primary_default);
-	--filesystem_item_file_highlight_background-color: var(
-		--surface_primary_emphasis-low
-	);
+	--filesystem_item_file_highlight_border_color: var(--primary_medium);
+	--filesystem_item_file_highlight_background-color: var(--tint_primary_low);
 
 	// Tokens for the level inset dividers
 	--filesystem_item_inset_margin-start: calc(
@@ -149,12 +145,14 @@
 	display: block;
 	height: var(--filesystem_item_icon_size);
 	width: var(--filesystem_item_icon_size);
+	/* stylelint-disable declaration-block-no-shorthand-property-overrides */
 	mask-position: center center !important;
 	mask-repeat: no-repeat !important;
 	mask-size: contain;
 	background: var(--filesystem_item_folder_icon-folder_color);
 	content: " ";
 	mask: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.96967 14.0303C6.67678 13.7374 6.67678 13.2626 6.96967 12.9697L10.9393 9L6.96967 5.03033C6.67678 4.73744 6.67678 4.26256 6.96967 3.96967C7.26256 3.67678 7.73744 3.67678 8.03033 3.96967L12 7.93934C12.5858 8.52513 12.5858 9.47487 12 10.0607L8.03033 14.0303C7.73744 14.3232 7.26256 14.3232 6.96967 14.0303Z" fill="%23380037"/></svg>');
+	/* stylelint-enable declaration-block-no-shorthand-property-overrides */
 }
 
 .fileNameAndIcon,
@@ -224,7 +222,7 @@
 	outline: none;
 
 	& > .directoryNameAndIcon {
-		background-color: var(--filesystem_item_folder_focus-background_color);
+		background-color: var(--filesystem_item_folder_container_color_focused);
 		outline: var(--filesystem_item_folder_focus-outline_width) solid
 			var(--filesystem_item_folder_focus-outline_color);
 	}
@@ -234,7 +232,7 @@
 	outline: none;
 
 	& > .fileNameAndIcon {
-		background-color: var(--filesystem_item_folder_focus-background_color);
+		background-color: var(--filesystem_item_folder_container_color_focused);
 		outline: var(--filesystem_item_folder_focus-outline_width) solid
 			var(--filesystem_item_folder_focus-outline_color);
 	}

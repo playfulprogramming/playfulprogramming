@@ -3,7 +3,7 @@
 title: "How to contribute to Visual Studio Code on GitHub",
 published: "2022-10-12T16:04:30Z",
 edited: "2022-11-23T11:14:23Z",
-tags: ["webdev", "opensource", "vscode", "tutorial"],
+tags: ["webdev", "open source", "vscode", "tutorial"],
 description: "Do you want to add a new feature on Visual Studio Code, or fix an existing bug? Here’s how to do...",
 originalLink: "https://leonardomontini.dev/contribute-to-visual-studio-code/",
 coverImg: "cover-image.png",

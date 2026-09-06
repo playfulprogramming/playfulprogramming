@@ -3,7 +3,7 @@
 title: "Add Router Animation Transitions for Navigation in Angular 17",
 published: "2023-12-13T15:03:34Z",
 edited: "2023-12-13T15:03:44Z",
-tags: ["angular", "typescript", "frontend", "webdev"],
+tags: ["angular", "typescript", "webdev"],
 description: "I'm constantly exploring ways to improve user interaction on websites. Recently, while building a...",
 originalLink: "https://www.danywalls.com/add-router-animation-transitions-for-navigation-in-angular-17",
 coverImg: "cover-image.png",

@@ -3,7 +3,7 @@
 title: "Be aware of your codebase with Nx",
 published: "2022-11-29T09:00:45Z",
 edited: "2022-11-29T09:10:43Z",
-tags: ["nx", "monorepo", "onboarding", "graph"],
+tags: ["nx", "monorepo", "productivity"],
 description: "Preface   Is your team aware of the relations between your modules? Is a team member able to...",
 originalLink: "https://blog.delpuppo.net/be-aware-of-your-codebase-with-nx",
 coverImg: "cover-image.png",

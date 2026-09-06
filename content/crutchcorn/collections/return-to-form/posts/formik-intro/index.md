@@ -312,7 +312,7 @@ const FormComp = () => {
 
 ## Complex Data Schema
 
-Formik's `validate` function passing works quite well for basic usage. That said, let's introduce a better way to do form validation that scales a little better when dealing with more complex data.
+Formik's `validate` function passing works quite well for basic usage. That said, let's introduce a better way to do [form validation](pfp-snitip:#form-validation) that scales a little better when dealing with more complex data.
 
 There are multiple different libraries that will integrate with Formik to add dedicated complex validation functionality. [`yup` is one such library](https://github.com/jquense/yup).
 

@@ -2,7 +2,7 @@
 {
 title: "Fantastic JSON Schemas and where to find them",
 published: "2024-01-16T13:04:41Z",
-tags: ["webdev", "opensource", "codenewbie", "json"],
+tags: ["webdev", "open source", "beginner", "javascript"],
 description: "Everytime you write a config for a common tool, for example you're writing a GitHub Action in Visual...",
 originalLink: "https://leonardomontini.dev/json-schema",
 coverImg: "cover-image.png",

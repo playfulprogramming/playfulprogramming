@@ -1,7 +1,8 @@
 import { Octokit } from "octokit";
-import { GraphqlResponseError } from "@octokit/graphql";
-import { getPeopleByLang } from "#utils/api";
-import env from "#src/constants/env";
+import type { GraphqlResponseError } from "@octokit/graphql";
+import { getPeopleByLang } from "#utils/api.ts";
+import env from "#src/constants/env/index.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 const octokit = env.GITHUB_TOKEN
 	? new Octokit({
@@ -22,7 +23,7 @@ export const contributorYears: number[] = [];
 for (let year = 2019; year <= new Date().getFullYear(); year++)
 	contributorYears.push(year);
 
-const userLogins = (await getPeopleByLang("en"))
+const userLogins = (await getPeopleByLang(baseLocale))
 	.filter((person) => !!person.socials.github)
 	.map((person) => person.socials.github);
 

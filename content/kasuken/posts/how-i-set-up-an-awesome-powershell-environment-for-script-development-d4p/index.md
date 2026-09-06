@@ -3,9 +3,9 @@
 title: "How I Set Up an Awesome PowerShell Environment for Script Development",
 published: "2025-01-09T13:25:02Z",
 edited: "2025-01-11T10:52:40Z",
-tags: ["powershell", "vscode", "development"],
+tags: ["powershell", "vscode"],
 description: "Over the past few years, I’ve had the opportunity to help colleagues write and refine PowerShell...",
-originalLink: "https://https://dev.to/playfulprogramming/how-i-set-up-an-awesome-powershell-environment-for-script-development-d4p",
+originalLink: "https://dev.to/playfulprogramming/how-i-set-up-an-awesome-powershell-environment-for-script-development-d4p",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

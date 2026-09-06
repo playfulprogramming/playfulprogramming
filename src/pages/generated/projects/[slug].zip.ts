@@ -1,13 +1,14 @@
 import type { APIRoute } from "astro";
-import { getAllPosts, getPostBySlug } from "#utils/api";
+import { getAllPosts, getPostBySlug } from "#utils/api.ts";
 import path from "path";
-import { contentDirectory } from "#utils/data";
+import { contentDirectory } from "#utils/data.ts";
 import fs from "fs/promises";
 import { zip } from "fflate";
+import { baseLocale } from "#src/paraglide/runtime.js";
 
 export async function findProjectDir(slug: string): Promise<string> {
 	const [postSlug, projectId] = slug.split("_");
-	const post = await getPostBySlug(postSlug, "en");
+	const post = await getPostBySlug(postSlug, baseLocale);
 	if (!post) throw new Error(`Post ${postSlug} does not exist!`);
 
 	const postDir = path.join(contentDirectory, post.path);

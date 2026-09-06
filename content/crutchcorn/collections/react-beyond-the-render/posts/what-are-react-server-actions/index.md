@@ -95,13 +95,13 @@ Now that we've seen how `<form>` actions work on the client, let's move back to 
 
 # What are React Server Actions?
 
-In short; React Server Actions are a way to call server-side code in React's client-side rendering. If asynchronous server components with `await` in them allow you to pass server data to the client, server actions enable you to pass data back from the client to the server.
+In short, React Server Actions are a way for React Client Components to call server-side code. If asynchronous server components with `await` in them allow you to pass server data to the client, server actions enable you to pass data back from the client to the server.
 
 ![The server passes down data via async server components and is passed back data via server actions](back-and-forth-server-actions.svg)
 
 However, to pass a function from a server component down to the client we must designate our functions we want to pass with a special boundary string.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # What is `"use server"`?
 
@@ -378,7 +378,7 @@ Error:
 
 # Why are React Server Actions significant?
 
-React Server Actions not only make it easier to call data from the server from the client, but they play an important role in providing your applications ["progressive enhancement"](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement); they enable your server actions to call a server's function even when the user has JavaScript disabled in their browser.
+React Server Actions not only make it easier to call data from the server from the client, but they play an important role in providing your applications ["progressive enhancement"](pfp-snitip:#progressive-enhancement); they enable your server actions to call a server's function even when the user has JavaScript disabled in their browser.
 
 > Keep in mind that while your server action will go through, any client-ran React code (IE `useEffect`) will still fail to execute when JavaScript is disabled.
 
@@ -408,4 +408,4 @@ React Server Actions make for a wonderful way of intermingling server and client
 
 But there's one more thing I still want to cover about React Server Components left... Let's look at `useFormState` and `useFormStatus` next time!
 
-Until then, [drop by our Discord server](https://discord.gg/FMcvc6T) and tell us what you think of React Server Actions - we'd love to hear your thoughts!
+Until then, [drop by our Discord server](https://discord.playfulprogramming.com) and tell us what you think of React Server Actions - we'd love to hear your thoughts!

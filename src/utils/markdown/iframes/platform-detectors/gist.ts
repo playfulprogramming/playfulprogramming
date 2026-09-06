@@ -1,6 +1,9 @@
-import { ComponentNode, createComponent } from "#utils/markdown/components";
-import { GistCodeBlock } from "#utils/markdown/iframes/hastscript-components/GistCodeBlock";
-import type { RehypeEmbedTransformProps } from "./types";
+import {
+	type ComponentNode,
+	createComponent,
+} from "#utils/markdown/components/index.ts";
+import { GistCodeBlock } from "#utils/markdown/iframes/hastscript-components/GistCodeBlock.tsx";
+import type { RehypeEmbedTransformProps } from "./types.ts";
 
 export async function rehypeTransformGist({
 	src,
@@ -29,7 +32,7 @@ export async function rehypeTransformGist({
 			{
 				username: gist.username,
 				href: src,
-				filename: file.filename ?? "Untitled",
+				filename: file.filename,
 			},
 			[
 				GistCodeBlock({

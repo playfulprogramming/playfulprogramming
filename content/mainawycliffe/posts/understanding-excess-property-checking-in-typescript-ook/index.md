@@ -2,7 +2,7 @@
 {
 title: "Understanding Excess Property Checking in Typescript",
 published: "2022-08-17T09:06:00Z",
-tags: ["typescript", "webdev", "javascript", "node"],
+tags: ["typescript", "webdev", "javascript", "nodejs"],
 description: "This post was first posted in my newsletter All Things Typescript focused on teaching developers how...",
 originalLink: "https://www.allthingstypescript.dev/p/mid-week-scoop-understanding-excess/comments"
 }

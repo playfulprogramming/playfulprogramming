@@ -1,5 +1,5 @@
-import { mobile, tabletSmall } from "#src/tokens/breakpoints";
-import { GetPictureSizes } from "#utils/get-picture";
+import { mobile, tabletSmall } from "#src/constants/breakpoints.ts";
+import type { GetPictureSizes } from "#utils/get-picture/index.ts";
 
 // default sizing used for iframes (MarkdownRenderer/media.tsx)
 export const EMBED_SIZE = { w: "100%", h: 500 };
@@ -13,9 +13,3 @@ export const IMAGE_SIZES: GetPictureSizes = {
 	356: { maxWidth: mobile },
 	596: { maxWidth: tabletSmall },
 };
-
-export interface MarkdownConfig {
-	format: "html" | "epub";
-	// fs path for any static files (used primarily for epub / rehype-absolute-paths)
-	path?: string;
-}

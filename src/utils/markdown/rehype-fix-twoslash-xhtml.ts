@@ -1,6 +1,6 @@
-import { Element, Root } from "hast";
+import type { Element, Root } from "hast";
 import { visit } from "unist-util-visit";
-import { Plugin } from "unified";
+import type { Plugin } from "unified";
 
 export const rehypeFixTwoSlashXHTML: Plugin<[], Root> = () => {
 	return (tree) => {

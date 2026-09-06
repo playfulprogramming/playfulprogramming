@@ -1,10 +1,11 @@
 import type { Root, Node } from "hast";
-import { Plugin } from "unified";
-import { PostInfo } from "#types/PostInfo.ts";
+import type { Plugin } from "unified";
+import type { PostInfo } from "#types/PostInfo.ts";
 import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
 import { SuperScriptLink } from "./link.tsx";
 import * as api from "#utils/api.ts";
+import { baseLocale } from "#src/paraglide/runtime.js";
 import { isMarkdownVFile } from "../types.ts";
 
 export interface CollectionLinks {
@@ -39,10 +40,10 @@ export const rehypeReferencePage: Plugin<
 
 		const post = vfile.data.frontmatter as PostInfo;
 		const collection = post.collection
-			? await api.getCollectionBySlug(post.collection, "en")
+			? await api.getCollectionBySlug(post.collection, baseLocale)
 			: undefined;
 		const collectionPosts = post.collection
-			? await api.getPostsByCollection(post.collection, "en")
+			? await api.getPostsByCollection(post.collection, baseLocale)
 			: [];
 		if (!collection || !collectionPosts.length) return;
 

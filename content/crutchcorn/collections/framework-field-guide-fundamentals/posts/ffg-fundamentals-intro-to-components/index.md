@@ -210,7 +210,7 @@ While this SFC looks precisely like standard HTML with nothing special added, th
 
 <!-- ::end:tabs -->
 
-These are called "components." Components have various aspects to them, which we'll learn about throughout the course of this book.
+These are called "[components](pfp-snitip:#component)." Components have various aspects to them, which we'll learn about throughout the course of this book.
 
 We can see that each framework has its own syntax to display these components, but they often share more similarities than you might think.
 

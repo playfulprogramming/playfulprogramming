@@ -3,7 +3,7 @@
 title: "You don't need importProvidersFrom with Angular Material",
 published: "2025-02-18T22:38:00Z",
 edited: "2025-03-30T20:38:26Z",
-tags: ["angular", "material", "providers", "standalone"],
+tags: ["angular"],
 description: "Cover photo generated with Microsoft Designer.  Traditionally, we had to import mixed Angular modules...",
 originalLink: "https://dev.to/playfulprogramming-angular/you-dont-need-importprovidersfrom-with-angular-material-3nih",
 coverImg: "cover-image.png",

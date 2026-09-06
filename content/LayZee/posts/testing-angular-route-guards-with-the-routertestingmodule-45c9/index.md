@@ -3,7 +3,7 @@
 title: "Testing Angular route guards with the RouterTestingModule",
 published: "2020-11-16T21:05:46Z",
 edited: "2023-02-08T21:23:17Z",
-tags: ["angular", "testing", "router"],
+tags: ["angular", "testing"],
 description: "Learn how to test route guards in isolated unit tests. Also learn how to test route guards in practice with RouterTestingModule.",
 originalLink: "https://dev.to/playfulprogramming-angular/testing-angular-route-guards-with-the-routertestingmodule-45c9",
 coverImg: "cover-image.png",

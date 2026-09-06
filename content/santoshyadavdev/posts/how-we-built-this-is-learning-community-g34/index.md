@@ -2,9 +2,9 @@
 {
 title: "How we built This is Learning Community",
 published: "2023-02-27T00:15:51Z",
-tags: ["authentication", "programming", "productivity", "csharp"],
+tags: ["auth", "productivity", "csharp"],
 description: "Photo by Clay Banks on Unsplash  This is Learning was started in 2020 by @layzee. I presented how we...",
-originalLink: "https://https://dev.to/playfulprogramming/how-we-built-this-is-learning-community-g34",
+originalLink: "https://dev.to/playfulprogramming/how-we-built-this-is-learning-community-g34",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

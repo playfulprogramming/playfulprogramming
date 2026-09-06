@@ -1,7 +1,8 @@
-@use "src/tokens/index" as *;
+@use "../../../../styles/tokens/index" as *;
 
 .recurringEventCard {
-	background: var(--surface_primary_emphasis-none);
+	@include transition(background-color);
+	background: var(--tint_primary_none);
 	border-radius: var(--corner-radius_xl);
 	padding: var(--spc-4x);
 	display: flex;
@@ -11,11 +12,24 @@
 
 .recurringEventCardTitleLink {
 	text-decoration: none;
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 }
 
 .recurringEventCardTitle {
 	margin: 0;
+}
+
+.recurringEventCard[onclick]:hover {
+	background: var(--tint_primary_low);
+
+	.recurringEventCardTitle {
+		text-decoration: underline;
+	}
+}
+
+.recurringEventCard[onclick]:has(.recurringEventCardTitleLink:focus-visible) {
+	background: var(--background_focus);
+	outline: var(--border-width_focus) solid var(--focus-outline_primary);
 }
 
 .cardInnerContainer {
@@ -44,7 +58,7 @@
 }
 
 .eventDescription {
-	color: var(--foreground_emphasis-high);
+	color: var(--foreground_high);
 }
 
 .eventIcon {
@@ -56,7 +70,7 @@
 }
 
 .eventDate {
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_medium);
 	display: flex;
 	align-items: center;
 	gap: var(--spc-2x);

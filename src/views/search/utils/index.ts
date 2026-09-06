@@ -1,0 +1,105 @@
+import type { PersonInfo } from "#types/PersonInfo.ts";
+import type { SnitipInfo } from "#types/SnitipInfo.ts";
+import type { TagInfo } from "#types/TagInfo.ts";
+
+export const SEARCH_QUERY_KEY = "q";
+export const PAGE_KEY = "page";
+export const CONTENT_TO_DISPLAY_KEY = "display";
+export const FILTER_TAGS_KEY = "filterTags";
+export const FILTER_AUTHOR_KEY = "filterAuthors";
+export const SORT_KEY = "sort";
+export const SEARCH_PAGE_KEY = "page";
+
+export type SortType = "relevance" | "newest" | "oldest";
+
+export type DisplayContentType = "articles" | "collections";
+
+export interface TagFilterInfo extends TagInfo {
+	id: string;
+	totalPostCount: number;
+}
+
+export type SearchSnitipInfo = Omit<SnitipInfo, "tagsMeta">;
+
+export interface SearchFiltersData {
+	people: PersonInfo[];
+	tags: TagFilterInfo[];
+	snitips: SearchSnitipInfo[];
+}
+
+export interface SearchQuery {
+	searchQuery: string;
+	page: number;
+	filterTags: string[];
+	filterAuthors: string[];
+	display: DisplayContentType;
+	sort: SortType;
+}
+
+const defaultQuery: SearchQuery = {
+	searchQuery: "",
+	page: 1,
+	display: "articles",
+	filterTags: [],
+	filterAuthors: [],
+	sort: "relevance",
+};
+
+export function serializeParams(query: SearchQuery): URLSearchParams {
+	const obj: Record<string, string | undefined> = {
+		[SEARCH_QUERY_KEY]: query.searchQuery ? query.searchQuery : undefined,
+		[PAGE_KEY]: query.page > 1 ? query.page.toString() : undefined,
+		[CONTENT_TO_DISPLAY_KEY]:
+			query.display === defaultQuery.display ? undefined : query.display,
+		[FILTER_TAGS_KEY]: query.filterTags.length
+			? query.filterTags.join(",")
+			: undefined,
+		[FILTER_AUTHOR_KEY]: query.filterAuthors.length
+			? query.filterAuthors.join(",")
+			: undefined,
+		[SORT_KEY]: query.sort === defaultQuery.sort ? undefined : query.sort,
+	};
+
+	// Remove any undefined entries from the object
+	for (const [key, value] of Object.entries(obj)) {
+		if (typeof value === "undefined") delete obj[key];
+	}
+
+	return new URLSearchParams(obj as Record<string, string>);
+}
+
+export function deserializeParams(params: URLSearchParams): SearchQuery {
+	const searchQuery = params.get(SEARCH_QUERY_KEY);
+	const page = params.get(PAGE_KEY);
+	const display = params.get(CONTENT_TO_DISPLAY_KEY);
+	const filterTags = params.get(FILTER_TAGS_KEY);
+	const filterAuthors = params.get(FILTER_AUTHOR_KEY);
+	const sort = params.get(SORT_KEY);
+
+	// Handle legacy page parameter if it exists
+	const legacyPage = params.get(SEARCH_PAGE_KEY);
+	const defaultPageNum = legacyPage ? Number(legacyPage) : 1;
+
+	return {
+		searchQuery: searchQuery ?? "",
+		page: page ? Number(page) : defaultPageNum,
+		display:
+			display && ["all", "articles", "collections"].includes(display)
+				? (display as DisplayContentType)
+				: defaultQuery.display,
+		filterTags: filterTags ? filterTags.split(",").filter(Boolean) : [],
+		filterAuthors: filterAuthors
+			? filterAuthors.split(",").filter(Boolean)
+			: [],
+		sort:
+			sort && ["relevance", "newest", "oldest"].includes(sort)
+				? (sort as SortType)
+				: defaultQuery.sort,
+	};
+}
+
+export const buildSearchQuery = (query: Partial<SearchQuery>) => {
+	const params = serializeParams(Object.assign({}, defaultQuery, query));
+	// Returned without a question mark
+	return params.toString();
+};

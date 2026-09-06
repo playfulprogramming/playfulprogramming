@@ -65,7 +65,7 @@ UUIDv2 is almost identical to [UUIDv1](/posts/what-are-uuids#UUIDv1). It contain
 
 However, there are a few small differences. Namely:
 
-- The "Clock Sequence" from UUIDv1 is changed from 3 characters to 1 as the last 2 characters are replaced with a new "Local Domain" enum value.
+- The "Clock Sequence" from UUIDv1 is changed from 3 characters to 1 as the last 2 characters are replaced with a new "Local Domain" [enum](pfp-snitip:#enum) value.
 
 - The "Low Time" is replaced with a "Local Domain Number."
 
@@ -81,7 +81,7 @@ Well, to answer this, we have to take a short detour to explain what UUIDv2 was 
 
 In [Unix-like operating systems](https://en.wikipedia.org/wiki/Unix-like) such as Linux and macOS, your machine needs a way to keep track of the users on its system. The primary way computers in this family of OSes do this is by assigning you a ["User ID", or "UID"](https://en.wikipedia.org/wiki/User_identifier).
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 This is what the "Local Domain" refers to. The `0` in the "Local Domain" field says that the "Local Domain Number" is tracking the UID of a Unix-like system's user. The "Local Domain Number" is the UID itself.
 

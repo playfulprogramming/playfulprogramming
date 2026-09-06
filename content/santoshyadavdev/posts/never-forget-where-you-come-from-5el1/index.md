@@ -3,7 +3,7 @@
 title: "Never forget where you come from",
 published: "2023-09-10T19:55:42Z",
 edited: "2023-09-10T20:04:20Z",
-tags: ["life", "career", "personal"],
+tags: ["opinion", "career"],
 description: "Photo by ROCCO STOPPOLONI on Unsplash  Last week, I was traveling to speak at CityJs + HalfStack Conf...",
 originalLink: "https://www.santoshyadav.dev/blog/2023-09-10-never-forget-where-you-come-from/",
 coverImg: "cover-image.png",

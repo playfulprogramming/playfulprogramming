@@ -1,12 +1,12 @@
 ---
-import {
-	QuizRadioInline as PreactQuizRadio,
-	QuizRadioInlineProps,
-} from "#components/quiz-radio/quiz-radio-inline";
-import { PlayfulNode } from "../components";
+import type { QuizRadioInlineProps } from "#components/quiz-radio/quiz-radio-inline.tsx";
+import { QuizRadioInline as PreactQuizRadio } from "#components/quiz-radio/quiz-radio-inline.tsx";
+import type { PlayfulNode } from "../components.ts";
 import Content from "../content.astro";
 
-export type Props = QuizRadioInlineProps & { children: PlayfulNode[] };
+export type Props = QuizRadioInlineProps & {
+	children: PlayfulNode[];
+};
 const { children, ...props } = Astro.props;
 ---
 

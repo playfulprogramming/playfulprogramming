@@ -3,7 +3,7 @@
 title: "How AI is changing my development workflow and I am excited about it",
 published: "2026-02-09T00:07:31.869Z",
 edited: "2026-02-09T00:07:31.869Z",
-tags: ["AI","AI Development","Developer Experience","Workflow","Claude Code","CodeRabbit","GitHub Copilot","Anthropic"],
+tags: ["ai", "productivity", "copilot"],
 description: "If you are here, I am sure either you are excited about AI or you are scared about it. I am in the first category and super excited about AI and how it's changing my development workflow",
 originalLink: "https://www.santoshyadav.dev/blog/how-ai-is-changing-my-development-workflow-and-i-am-excited-about-it/",
 coverImg: "ai-cover-image.png",

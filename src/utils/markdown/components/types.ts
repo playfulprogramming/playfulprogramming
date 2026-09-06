@@ -1,12 +1,8 @@
 import type * as hast from "hast";
 import type { VFile } from "vfile";
-import * as components from "./components.ts";
+import type * as components from "./components.ts";
 
 type MaybePromise<T> = Promise<T> | T;
-
-export type RehypeComponentsProps = {
-	components: Record<string, RehypeFunctionComponent>;
-};
 
 export type RehypeFunctionProps = {
 	vfile: VFile;

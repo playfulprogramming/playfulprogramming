@@ -3,7 +3,7 @@
 title: "10 more Javascript Challenges!",
 published: "2023-04-24T12:06:46Z",
 edited: "2023-04-26T07:57:05Z",
-tags: ["webdev", "javascript", "challenge", "codenewbie"],
+tags: ["webdev", "javascript", "learning", "beginner"],
 description: "Do you know Javascript? After the success of the previous video, I've decided to make a second one...",
 originalLink: "https://leonardomontini.dev/javascript-10-challenges/",
 coverImg: "cover-image.png",

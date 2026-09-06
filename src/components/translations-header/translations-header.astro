@@ -1,0 +1,49 @@
+---
+import { languages } from "#src/constants/index.ts";
+import {
+	deLocalizeHref,
+	getLocale,
+	localizeHref,
+	type Locale,
+} from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
+import style from "./translations-header.module.scss";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	locales: Locale[];
+}
+
+const props = Astro.props;
+const path = deLocalizeHref(Astro.url.pathname);
+const currentLocale = getLocale();
+
+const titleId = "translations-header-title";
+---
+
+<div>
+	<div class={style.card}>
+		<div class={style.title}>
+			<Icon width={24} height={24} name="translate" aria-hidden="true" />
+			<span id={titleId} class="text-style-body-large">
+				{m.desc_translated_into()}
+			</span>
+		</div>
+		<ul class={style.links} role="list" aria-labelledby={titleId}>
+			{
+				props.locales.sort().map((locale) => (
+					<li>
+						<a
+							lang={locale}
+							href={localizeHref(path, { locale })}
+							aria-current={locale === currentLocale ? "page" : undefined}
+							class="text-style-body-large-bold"
+						>
+							{languages[locale]}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</div>

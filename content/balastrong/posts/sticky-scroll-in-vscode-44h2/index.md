@@ -3,7 +3,7 @@
 title: "🧲 Sticky Scroll in vscode",
 published: "2022-09-24T10:47:03Z",
 edited: "2022-11-23T11:12:26Z",
-tags: ["vscode", "tutorial", "productivity", "programming"],
+tags: ["vscode", "tutorial", "productivity"],
 description: "Classes and methods might get really long, making you lose context of what the code is about.  Visual...",
 originalLink: "https://leonardomontini.dev/sticky-scroll-vscode/",
 coverImg: "cover-image.png",

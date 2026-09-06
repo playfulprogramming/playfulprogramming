@@ -2,7 +2,7 @@
 {
 title: "Mastering JavaScript Async Iterators: Unlocking Asynchronous Magic",
 published: "2023-09-08T05:16:06Z",
-tags: ["javascript", "iterators", "async"],
+tags: ["javascript"],
 description: "In the ever-evolving landscape of JavaScript, staying up-to-date with its latest features is crucial...",
 originalLink: "https://blog.delpuppo.net/mastering-javascript-async-iterators-unlocking-asynchronous-magic",
 coverImg: "cover-image.png",

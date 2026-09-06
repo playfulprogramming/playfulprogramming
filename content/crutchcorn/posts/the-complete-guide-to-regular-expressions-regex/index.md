@@ -9,7 +9,7 @@
 }
 ---
 
-A Regular Expression – or regex for short– is a syntax that allows you to match strings with specific patterns. Think of it as a suped-up text search shortcut, but a regular expression adds the ability to use quantifiers, pattern collections, special characters, and capture groups to create extremely advanced search patterns.
+A [Regular Expression](pfp-snitip:#regex) – or regex for short – is a syntax that allows you to match strings with specific patterns. Think of it as a suped-up text search shortcut, but a regular expression adds the ability to use quantifiers, pattern collections, special characters, and capture groups to create extremely advanced search patterns.
 Regex can be used any time you need to query string-based data, such as:
 
 - Analyzing command line output

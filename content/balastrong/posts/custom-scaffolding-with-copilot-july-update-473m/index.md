@@ -3,7 +3,7 @@
 title: "Custom scaffolding with Copilot - July 2023 Update",
 published: "2023-07-24T11:58:20Z",
 edited: "2024-04-29T16:39:22Z",
-tags: ["githubcopilot", "github", "news", "vscode"],
+tags: ["copilot", "github", "announcements", "vscode"],
 description: "You got the idea for a new and fun side project which you will abandon after a few weeks, but that's...",
 originalLink: "https://leonardomontini.dev/copilot-create-workspace/",
 coverImg: "cover-image.png",

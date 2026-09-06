@@ -3,10 +3,10 @@ import type { RehypeFunctionComponent } from "./types.ts";
 import { logError } from "../logger.ts";
 import type { VFile } from "vfile";
 import {
+	type PlayfulNode,
+	type PlayfulRoot,
 	isComponentMarkup,
 	isComponentNode,
-	PlayfulNode,
-	PlayfulRoot,
 } from "./components.ts";
 
 type RehypeComponentsProps = {

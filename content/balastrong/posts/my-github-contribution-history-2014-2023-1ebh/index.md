@@ -3,7 +3,7 @@
 title: "My GitHub Contribution History (2014-2023)",
 published: "2023-01-05T16:01:05Z",
 edited: "2023-04-17T10:49:33Z",
-tags: ["github", "career", "opensource"],
+tags: ["github", "career", "open source"],
 description: "Green squares on GitHub aren't just a mere activity indicator. Move a step back and look at the...",
 originalLink: "https://leonardomontini.dev/github-contribution-history/",
 coverImg: "cover-image.png",

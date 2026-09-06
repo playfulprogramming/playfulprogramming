@@ -2,7 +2,7 @@
 {
 title: "I vibe coded an online visitors counter for my blog",
 published: "2025-07-16T09:56:21Z",
-tags: ["webdev", "githubcopilot", "astro", "netlify"],
+tags: ["webdev", "copilot", "astro", "cloud"],
 description: "You know that old-style \"X users online\" counter on a website? I've recently seen it on roe.dev's...",
 originalLink: "https://leonardomontini.dev/online-badge/",
 coverImg: "cover-image.png",

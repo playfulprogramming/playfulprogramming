@@ -1,5 +1,5 @@
 import { visit } from "unist-util-visit";
-import { Element, Root } from "hast";
+import type { Element, Root } from "hast";
 
 const unicodeElement: Element = {
 	type: "element",

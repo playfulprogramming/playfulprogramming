@@ -1,13 +1,13 @@
-import { WarningInfo } from "#src/utils/markdown/types.ts";
-import { Languages } from "#types/index";
-import { LocalFile } from "#types/LocalFile";
+import type { Locale } from "#src/paraglide/runtime.js";
+import type { WarningInfo } from "#src/utils/markdown/types.ts";
+import type { LocalFile } from "#types/LocalFile.ts";
 
 export interface CollectionStub {
 	kind: "collection";
 	slug: string;
 	file: string;
-	locales: Languages[];
-	locale: Languages;
+	locales: Locale[];
+	locale: Locale;
 	authors: string[];
 	warnings: WarningInfo[];
 }

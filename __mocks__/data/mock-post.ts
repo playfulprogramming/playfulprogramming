@@ -1,6 +1,6 @@
-import { MockPerson, MockPersonTwo } from "./mock-person";
-import { MockLicense } from "./mock-license";
-import { PostInfo } from "#types/index";
+import { MockPerson, MockPersonTwo } from "./mock-person.ts";
+import { MockLicense } from "./mock-license.ts";
+import type { PostInfo } from "#types/index.ts";
 
 export const MockPost: PostInfo = {
 	kind: "post",

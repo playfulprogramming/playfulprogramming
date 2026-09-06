@@ -5,9 +5,9 @@ import { getStackblitzUrl } from "./getStackblitzUrl.ts";
 import { logError } from "#utils/markdown/logger.ts";
 import type { Plugin } from "unified";
 import {
-	ComponentMarkupNode,
+	type ComponentMarkupNode,
+	type PlayfulRoot,
 	createComponent,
-	PlayfulRoot,
 } from "../components.ts";
 import { visit } from "unist-util-visit";
 import type { FileEntry } from "#components/code-embed/types.ts";

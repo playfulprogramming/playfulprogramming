@@ -8,7 +8,7 @@
 }
 ---
 
-Programming terminology can be rather confusing. The first time I'd heard about "React Refs", it was in the context of [getting a reference to a DOM node](#dom-ref). However, with the introduction of hooks, the `useRef` hook has expanded the definition of "refs".
+Programming terminology can be rather confusing. The first time I'd heard about "[React Refs](pfp-snitip:#react-refs)", it was in the context of [getting a reference to a DOM node](#dom-ref). However, with the introduction of hooks, the `useRef` hook has expanded the definition of "refs".
 
 Today, we'll be walking through two definitions of refs:
 
@@ -145,7 +145,7 @@ Now, we'd expect to see the timer update from `1` to `2` (and beyond) as the tim
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-mutable-buggy-code?embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-This is because [the closure](https://whatthefuck.is/closure) that's passed to the `setInterval` has grown stale. This is a common problem when using React Hooks. While there's a simple solution hidden in `useState`'s API, let's solve this problem using mutations and `useRef`.
+This is because [the closure](https://whatthefuck.is/closure) that's passed to the `setInterval` has grown stale. This is a common problem when using React Hooks. While there's a simple solution hidden in `useState`'s API, let's solve this problem using [mutations](pfp-snitip:#mutation) and `useRef`.
 
 Because `useRef` relies on passing by reference and mutating that reference, if we simply introduce a second `useRef` and mutate it on every render to match the `useState` value, we can work around the limitations with the stale closure.
 
@@ -246,7 +246,7 @@ It's worth noting that the `ref` attribute also accepts a function. While [we'll
   )
 ```
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 #  Component References {#forward-ref}
 
@@ -983,4 +983,4 @@ However, this comes at an offset cost of performance. Because you're causing a r
 
 # Conclusion
 
-As with most engineering work, knowing an API's limitations, strengths, and workarounds can increase performance, cause fewer bugs in production, and make the organization of code more readily available. Now that you know the whole story surrounding refs, what will you do with that knowledge? We'd love to hear from you! Drop a comment down below or [join us in our community Discord](https://discord.gg/FMcvc6T)!
+As with most engineering work, knowing an API's limitations, strengths, and workarounds can increase performance, cause fewer bugs in production, and make the organization of code more readily available. Now that you know the whole story surrounding refs, what will you do with that knowledge? We'd love to hear from you! Drop a comment down below or [join us in our community Discord](https://discord.playfulprogramming.com)!

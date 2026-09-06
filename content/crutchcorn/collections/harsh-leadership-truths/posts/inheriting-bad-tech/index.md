@@ -11,9 +11,9 @@
 
 During a kickoff call with PDRT's recruiter, they had mentioned a strong emphasis on mentorship. Once I had joined the company, I found out why:
 
-They had two junior frontend engineers on staff, but their sole senior engineer on the frontend left within a few meager months after they had joined. The search for a new frontend lead had taken the company some time — half a year — and, up until this point, the juniors were left with mostly high-level tasks that did little to move the needle on business needs.
+They had two junior frontend engineers on staff, but [their sole senior engineer on the frontend left](pfp-snitip:#bus-factor) within a few meager months after they had joined. The search for a new frontend lead had taken the company some time — half a year — and, up until this point, the juniors were left with mostly high-level tasks that did little to move the needle on business needs.
 
-Moreover, it was clear one of PDRT's larger projects was left in a rough state. It was rebuilt a number of times and — from what I was told was due to time constraints — was built upon a shaky foundation from a previous rewrite while still missing many features an earlier iteration had.
+Moreover, it was clear one of PDRT's larger projects was left in a rough state with significant [technical debt](pfp-snitip:#technical-debt). It was rebuilt a number of times and — from what I was told was due to time constraints — was built upon a shaky foundation from a previous rewrite while still missing many features an earlier iteration had.
 
 It was clear they needed someone to come in and help mitigate the problems set forth.
 
@@ -220,7 +220,7 @@ To solve _this_ problem, I borrowed a slightly different philosophy: Why use mul
             - `...`
 <!-- ::end:filetree -->
 
-This practice is used widely in larger organizations and is called a "monorepo." This idea might sound obtuse, but comes with a number of benefits:
+This practice is used widely in larger organizations and is called a ["monorepo"](pfp-snitip:#monorepo). This idea might sound obtuse, but comes with a number of benefits:
 
 - Single choke-point of communication
 

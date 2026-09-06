@@ -3,7 +3,7 @@
 title: "Tree-shakable dependencies in Angular projects",
 published: "2020-11-22T22:37:58Z",
 edited: "2021-03-26T14:20:43Z",
-tags: ["angular", "dependencyinjection", "treeshaking"],
+tags: ["angular", "performance"],
 description: "Since Angular version 6, we can create tree-shakable dependencies and even leave out Angular modules.",
 originalLink: "https://dev.to/playfulprogramming-angular/tree-shakable-dependencies-in-angular-projects-1ifg",
 coverImg: "cover-image.png",

@@ -2,7 +2,7 @@
 {
 title: "Lazy loading services in Angular. What?! Yes, we can.",
 published: "2023-04-26T07:25:51Z",
-tags: ["angular", "javascript", "lazyloading", "webdev"],
+tags: ["angular", "javascript", "performance", "webdev"],
 description: "We’re used to lazy loading modules or components in Angular. But what about lazy loading services?...",
 originalLink: "https://itnext.io/lazy-loading-services-in-angular-what-yes-we-can-cfbaf586d54e",
 coverImg: "cover-image.png",

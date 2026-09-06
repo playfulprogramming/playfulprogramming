@@ -3,9 +3,9 @@
 title: "The Dilemma of Perfection: Balancing Timeliness and Quality in Product Development",
 published: "2024-02-19T13:12:00Z",
 edited: "2024-02-19T11:32:33Z",
-tags: ["saas", "startup", "development", "webdev"],
+tags: ["startup", "webdev"],
 description: "In the fast-paced world of technology and innovation, product development teams often face a critical...",
-originalLink: "https://https://dev.to/playfulprogramming/the-dilemma-of-perfection-balancing-timeliness-and-quality-in-product-development-4jlj",
+originalLink: "https://dev.to/playfulprogramming/the-dilemma-of-perfection-balancing-timeliness-and-quality-in-product-development-4jlj",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

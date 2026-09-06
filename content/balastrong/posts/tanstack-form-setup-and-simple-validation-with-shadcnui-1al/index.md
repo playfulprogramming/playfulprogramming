@@ -3,7 +3,7 @@
 title: "TanStack Form Tutorial: Setup and simple validation (with shadcn/ui)",
 published: "2024-05-07T13:40:41Z",
 edited: "2024-05-21T19:22:37Z",
-tags: ["react", "typescript", "tutorial", "codenewbie"],
+tags: ["react", "typescript", "tutorial", "beginner"],
 description: "Forms are not an easy business 🤯  Luckily there are many libraries helping out with that and today...",
 originalLink: "https://leonardomontini.dev/tanstack-form-setup-validation/",
 coverImg: "cover-image.png",

@@ -3,9 +3,9 @@ import type { Plugin } from "unified";
 import { logError } from "../logger.ts";
 import { visit } from "unist-util-visit";
 import {
+	type PlayfulRoot,
 	isComponentMarkup,
 	isComponentNode,
-	PlayfulRoot,
 } from "./components.ts";
 import { isRoot } from "../unist-is-element.ts";
 

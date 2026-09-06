@@ -2,9 +2,9 @@
 {
 title: "It's Prisma Time - Migrations",
 published: "2022-02-02T07:36:09Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hello Guys 👋, Today it's time to speak about migrations.  Migrations in Prisma are managed by Prisma...",
-originalLink: "https://https://dev.to/playfulprogramming/its-prisma-time-migrations-7pk",
+originalLink: "https://dev.to/playfulprogramming/its-prisma-time-migrations-7pk",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "It's Prisma Time",

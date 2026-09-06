@@ -32,7 +32,7 @@ Since that time, however, there [was an RFC that was accepted](https://www.ietf.
 - [UUIDv8](#UUIDv8)
   - An intentionally broad UUID spec for all non-standard UUIDs - make up your own UUIDs
 
-Let's explore each of these UUID systems individually to understand them better.
+Let's explore each of these [UUID](pfp-snitip:#uuid) systems individually to understand them better.
 
 
 

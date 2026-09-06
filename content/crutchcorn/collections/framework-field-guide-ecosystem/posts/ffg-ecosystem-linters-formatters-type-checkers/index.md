@@ -96,7 +96,7 @@ Let's explore each of these tools, how to use them in our codebase, and what the
 
 # Formatters
 
-As mentioned earlier, a formatter allows you to take messy code:
+As mentioned earlier, a [formatter](pfp-snitip:#formatter) allows you to take messy code:
 
 ```javascript
 function test(
@@ -214,7 +214,7 @@ Worse than the difficulties visually seeing code changes; this same problem make
 
 While formatting is important to a well-organized codebase, it doesn't directly find bugs in your codebase.
 
-Instead, this responsibility often comes down to a bit of tooling that evaluates your source code and detects common mistakes and patterns to avoid. This bit of tooling is called a "linter."
+Instead, this responsibility often comes down to a bit of tooling that evaluates your source code and detects common mistakes and patterns to avoid. This bit of tooling is called a "[linter](pfp-snitip:#linter)."
 
 For example, we might have a bit of code that looks like this:
 
@@ -891,4 +891,3 @@ console.log('End');
 > ```
 
 > You can [learn more about the TypeScript ESLint project on their website.](https://typescript-eslint.io/)
-

@@ -2,9 +2,9 @@
 {
 title: "It's Prisma Time - Select",
 published: "2022-01-11T07:03:04Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Welcome back Guys, Today it's time to get our record using the select command.  Let's start with a...",
-originalLink: "https://https://dev.to/playfulprogramming/its-prisma-time-select-3lie",
+originalLink: "https://dev.to/playfulprogramming/its-prisma-time-select-3lie",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "It's Prisma Time",

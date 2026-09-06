@@ -8,7 +8,7 @@ import {
 import { getHeaderNodeId } from "rehype-slug-custom-id";
 import type { Element, ElementContent } from "hast";
 import { toString } from "hast-util-to-string";
-import { createComponent, PlayfulNode } from "../components.ts";
+import { type PlayfulNode, createComponent } from "../components.ts";
 import { toHtml } from "hast-util-to-html";
 import { isElement } from "#utils/markdown/unist-is-element.ts";
 import { logError } from "#utils/markdown/logger.ts";

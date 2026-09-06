@@ -3,7 +3,7 @@
 title: "Emulating standalone components using single component Angular modules (SCAMs)",
 published: "2020-11-20T21:54:12Z",
 edited: "2022-08-28T18:11:59Z",
-tags: ["angular", "ivy", "components"],
+tags: ["angular", "webdev"],
 description: "SCAMs are a safe, View Engine-compatible migration path towards standalone components.",
 originalLink: "https://dev.to/playfulprogramming-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do",
 coverImg: "cover-image.png",

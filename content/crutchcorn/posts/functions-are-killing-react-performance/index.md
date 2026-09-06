@@ -294,7 +294,7 @@ const addToCart = useCallback((item) => {
 }, []);
 ```
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 # Render functions are expensive {#render-functions}
 
@@ -367,7 +367,7 @@ Now, let's take a step even further within the `renderContents` function:
 return bool ? <div/> : <p/>
 ```
 
-Here, JSX might be transformed into the following:
+Here, [JSX](pfp-snitip:#jsx) might be transformed into the following:
 
 ```jsx
 return bool ? React.createElement('div') : React.createElement('p')

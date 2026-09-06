@@ -2,9 +2,9 @@
 {
 title: "From Hello World to Hello Customers: Why Programs Aren’t Products",
 published: "2025-04-25T09:14:12Z",
-tags: ["vibecoding", "webdev"],
+tags: ["ai", "webdev"],
 description: "We’ve all been there. You knock out a script in an hour, it runs, it works, and you feel like a...",
-originalLink: "https://https://dev.to/playfulprogramming/from-hello-world-to-hello-customers-why-programs-arent-products-imp",
+originalLink: "https://dev.to/playfulprogramming/from-hello-world-to-hello-customers-why-programs-arent-products-imp",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

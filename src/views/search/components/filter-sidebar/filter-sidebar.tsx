@@ -1,0 +1,189 @@
+import styles from "./filter-sidebar.module.scss";
+import { LargeButton } from "#components/button/button.tsx";
+import type { CSSProperties } from "preact";
+import { FilterSection } from "../filter-section/filter-section.tsx";
+import { FilterSectionItem } from "../filter-section/filter-section-item.tsx";
+import { Picture as UUPicture } from "#components/image/picture.tsx";
+import type { ExtendedTag, ExtendedUnicorn } from "../../types";
+import type { DisplayContentType, SortType } from "#src/views/search/utils";
+import { DEFAULT_TAG_EMOJI } from "../../constants/emoji.ts";
+import { FilterSidebarControls } from "./filter-sidebar-controls.tsx";
+import type { FilterState } from "../../hooks/use-filter-state.ts";
+import { useState, useMemo, useEffect } from "preact/hooks";
+import { SearchInput } from "#components/input/input.tsx";
+import { m } from "#src/paraglide/messages.js";
+
+interface FilterSidebarProps {
+	desktopStyle?: CSSProperties;
+	sort: SortType;
+	setSort: (sortBy: SortType) => void;
+	tags: ExtendedTag[];
+	authors: ExtendedUnicorn[];
+	filterState: FilterState;
+	searchString: string;
+	setContentToDisplay: (content: DisplayContentType) => void;
+	contentToDisplay: DisplayContentType;
+	isHybridSearch: boolean;
+	numberOfPosts: number | null;
+	numberOfCollections: number | null;
+}
+
+export const FilterSidebar = ({
+	sort,
+	setSort,
+	desktopStyle,
+	authors,
+	tags,
+	filterState,
+	searchString,
+	setContentToDisplay,
+	contentToDisplay,
+	isHybridSearch,
+	numberOfPosts,
+	numberOfCollections,
+}: FilterSidebarProps) => {
+	const hideSearchbar = !searchString;
+
+	const [tagQuery, setTagQuery] = useState("");
+	const [authorQuery, setAuthorQuery] = useState("");
+
+	useEffect(() => {
+		if (hideSearchbar) {
+			setTagQuery("");
+			setAuthorQuery("");
+		}
+	}, [hideSearchbar]);
+
+	const filteredTags = useMemo(() => {
+		const q = tagQuery.trim().toLowerCase();
+		if (!q) return tags;
+		return tags.filter((tag) =>
+			(tag.displayName ?? tag.tag).toLowerCase().includes(q),
+		);
+	}, [tags, tagQuery]);
+
+	const filteredAuthors = useMemo(() => {
+		const q = authorQuery.trim().toLowerCase();
+		if (!q) return authors;
+		return authors.filter((author) => author.name.toLowerCase().includes(q));
+	}, [authors, authorQuery]);
+
+	return (
+		<aside
+			className={`${styles.sidebarContainer}`}
+			style={{
+				...desktopStyle,
+			}}
+			inert={hideSearchbar}
+		>
+			<h2 className="visually-hidden">{m.title_filters()}</h2>
+			<LargeButton
+				tag="button"
+				type="button"
+				class={styles.jumpToContents}
+				onClick={() =>
+					(document.querySelector("#search-bar") as HTMLInputElement).focus()
+				}
+			>
+				{m.action_jump_to_search_bar()}
+			</LargeButton>
+
+			<FilterSidebarControls
+				sort={sort}
+				setSort={setSort}
+				setContentToDisplay={setContentToDisplay}
+				contentToDisplay={contentToDisplay}
+				numberOfPosts={numberOfPosts}
+				numberOfCollections={numberOfCollections}
+			/>
+			<FilterSection
+				title={m.title_tag()}
+				selectedLabel={m.search_filter_selected_tags()}
+				data-testid="tag-filter-section-sidebar"
+				selectedNumber={filterState.tags.length}
+				onClear={() => filterState.setTags([])}
+				searchSlot={
+					<SearchInput
+						usedInPreact
+						variant="dense"
+						placeholder={m.search_placeholder_tags()}
+						value={tagQuery}
+						onInput={(e) =>
+							setTagQuery((e.currentTarget as HTMLInputElement).value)
+						}
+						className={styles.sidebarSearch}
+					/>
+				}
+			>
+				{filteredTags.map((tag, i) => {
+					return (
+						<FilterSectionItem
+							key={tag.tag}
+							count={tag.numPosts}
+							icon={
+								tag.image ? (
+									<img src={tag.image} alt="" className={styles.tagImage} />
+								) : tag.emoji ? (
+									<span className={styles.tagEmoji}>{tag.emoji}</span>
+								) : (
+									<span className={styles.tagEmoji}>
+										{DEFAULT_TAG_EMOJI[i % DEFAULT_TAG_EMOJI.length]}
+									</span>
+								)
+							}
+							label={tag?.displayName ?? tag.tag}
+							selected={filterState.tags.includes(tag.tag)}
+							onChange={(selected) =>
+								filterState.onTagChange(tag.tag, selected)
+							}
+							isHybridSearch={isHybridSearch}
+						/>
+					);
+				})}
+			</FilterSection>
+			<FilterSection
+				title={m.title_author()}
+				selectedLabel={m.search_filter_selected_authors()}
+				data-testid="author-filter-section-sidebar"
+				selectedNumber={filterState.authors.length}
+				onClear={() => filterState.setAuthors([])}
+				searchSlot={
+					<SearchInput
+						usedInPreact
+						variant="dense"
+						placeholder={m.search_placeholder_authors()}
+						value={authorQuery}
+						onInput={(e) =>
+							setAuthorQuery((e.currentTarget as HTMLInputElement).value)
+						}
+						className={styles.sidebarSearch}
+					/>
+				}
+			>
+				{filteredAuthors.map((author) => {
+					return (
+						<FilterSectionItem
+							key={author.id}
+							count={author.numPosts}
+							icon={
+								<UUPicture
+									src={author.profileImgMeta.relativeServerPath}
+									width={24}
+									height={24}
+									alt={""}
+									class={styles.authorIcon}
+								/>
+							}
+							label={author.name}
+							selected={filterState.authors.includes(author.id)}
+							onChange={(selected) =>
+								filterState.onAuthorChange(author.id, selected)
+							}
+							isHybridSearch={isHybridSearch}
+						/>
+					);
+				})}
+			</FilterSection>
+		</aside>
+	);
+};

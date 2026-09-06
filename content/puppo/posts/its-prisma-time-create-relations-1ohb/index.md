@@ -2,9 +2,9 @@
 {
 title: "It's Prisma Time - Create Relations",
 published: "2021-12-28T07:21:03Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hi Folks 👋 today I'll show you how to create relations among your entities. So don't waste time and...",
-originalLink: "https://https://dev.to/playfulprogramming/its-prisma-time-create-relations-1ohb",
+originalLink: "https://dev.to/playfulprogramming/its-prisma-time-create-relations-1ohb",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "It's Prisma Time",

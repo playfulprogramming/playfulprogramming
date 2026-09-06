@@ -44,7 +44,7 @@ A little easier to see? Good! That's the point. Sufficient contrast can help man
 
 ## WCAG AA vs AAA
 
-[As mentioned in the preface](/posts/art-of-a11y-preface), there are three levels of compliance with the "Web Content Accessibility Guidelines" (WCAG) - the industry standard guidelines on accessibility: A, AA, and AAA.
+[As mentioned in the preface](/posts/art-of-a11y-preface), there are three levels of compliance with the ["Web Content Accessibility Guidelines" (WCAG)](pfp-snitip:#wcag) - the industry standard guidelines on accessibility: A, AA, and AAA.
 
 While there are no rules in WCAG's A ruleset, AA and AAA both have different requirements for color contrast between a foreground color and background color:
 

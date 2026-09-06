@@ -2,9 +2,9 @@
 {
 title: "It's Prisma Time - Update",
 published: "2022-01-07T08:00:45Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hi Folks 👋 Today it's time to learn something about the update operation, so don't waste time and...",
-originalLink: "https://https://dev.to/playfulprogramming/its-prisma-time-update-1mmi",
+originalLink: "https://dev.to/playfulprogramming/its-prisma-time-update-1mmi",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "It's Prisma Time",

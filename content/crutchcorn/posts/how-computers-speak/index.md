@@ -25,7 +25,7 @@ We'll ask and answer the following questions:
 - [Why do some programming languages have different rules and look different from one another?](#parser)
 - [Why can't we simply give the computer English instructions and have it run those with a special program?](#english-vs-ast)
 
->  I'm writing this article as a starting point to a developer's journey or even just to learn more about how computers work under-the-hood. I'll make sure to cover as many of the basics as possible before diving into the more complex territory. That said, we all learn in different ways, and I am not a perfect author. If you have questions or find yourself stuck reading through this, drop a comment down below or [join our Discord](https://discord.gg/FMcvc6T) and ask questions there. We have a very friendly and understanding community that would love to explain more in-depth.
+>  I'm writing this article as a starting point to a developer's journey or even just to learn more about how computers work under-the-hood. I'll make sure to cover as many of the basics as possible before diving into the more complex territory. That said, we all learn in different ways, and I am not a perfect author. If you have questions or find yourself stuck reading through this, drop a comment down below or [join our Discord](https://discord.playfulprogramming.com) and ask questions there. We have a very friendly and understanding community that would love to explain more in-depth.
 
 # Source Code {#source-code}
 
@@ -303,7 +303,7 @@ In fact, many J.I.T languages - like Python - contain a way to optimize your cod
 
 While we've talked about compiled languages (A.O.T. and J.I.T. alike), we haven't yet talked about how computers can convert high-level language source code into assembly. How does it know what commands to map to which instructions?
 
-I'm glad you asked! Inside of **every compiler** is a piece of software that **turns your source code into something called an "Abstract Syntax Tree" (AST)**. An AST takes the human-readable text and turns it into machine-understandable data using a rigid set of rules. Once in this state, an AST is easier to map and match to the related instructions.
+I'm glad you asked! Inside of **every compiler** is a piece of software that **turns your source code into something called an [Abstract Syntax Tree (AST)](pfp-snitip:#abstract-syntax-tree)**. An AST takes the human-readable text and turns it into machine-understandable data using a rigid set of rules. Once in this state, an AST is easier to map and match to the related instructions.
 
 Let's take the following JavaScript variable assignment:
 
@@ -440,4 +440,4 @@ Only time travelers will know precisely how AI will play out with using English 
 
 While computers can be incredibly complex, most of their foundation can be understood. We've touched on a lot in this article: a bit about hardware, some language design, even some linguistical parsing! This is both the blessing and the curse when it comes to a field as large as computer science: there are so many avenues to go down. If the path you're looking for is more in-depth explanations of how languages are parsed and understood by the computer, be sure to sign up for our newsletter down below! We're wanting to write an article explaining what "grammars" languages can follow.
 
-If you have any questions about the article or CS in general, drop a comment down below or [join our community Discord](https://discord.gg/FMcvc6T).
+If you have any questions about the article or CS in general, drop a comment down below or [join our community Discord](https://discord.playfulprogramming.com).

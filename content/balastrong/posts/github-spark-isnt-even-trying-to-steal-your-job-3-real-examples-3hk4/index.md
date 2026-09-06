@@ -2,7 +2,7 @@
 {
 title: "GitHub Spark ✨ isn't even trying to steal your job - 3 Real Examples",
 published: "2024-11-12T11:52:03Z",
-tags: ["github", "githubcopilot", "webdev", "ai"],
+tags: ["github", "copilot", "webdev", "ai"],
 description: "Spark is the latest creation from the GitHub Next team, which was announced on stage at GitHub...",
 originalLink: "https://leonardomontini.dev/github-spark-reviews/",
 coverImg: "cover-image.png",

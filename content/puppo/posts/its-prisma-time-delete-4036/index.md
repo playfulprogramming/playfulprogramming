@@ -2,9 +2,9 @@
 {
 title: "It's Prisma Time - Delete",
 published: "2022-01-05T07:20:02Z",
-tags: ["javascript", "typescript", "database", "orm"],
+tags: ["javascript", "typescript", "database"],
 description: "Hi Guys 👋  today we are going to see the delete operation.  Before moving to the delete operation, in...",
-originalLink: "https://https://dev.to/playfulprogramming/its-prisma-time-delete-4036",
+originalLink: "https://dev.to/playfulprogramming/its-prisma-time-delete-4036",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "It's Prisma Time",

@@ -1,8 +1,10 @@
-import { ComponentChild } from "preact";
+import type { ComponentChild } from "preact";
 import styles from "./gist-placeholder.module.scss";
-import { Button } from "#components/button/button";
-import github from "#src/icons/github.svg?raw";
-import { RawSvg } from "#components/image/raw-svg";
+import { Button } from "#components/button/button.tsx";
+import github from "#src/assets/icons/github.svg?raw";
+import { RawSvg } from "#components/image/raw-svg.tsx";
+
+import { m } from "#src/paraglide/messages.js";
 
 export interface GistPlaceholderProps {
 	username: string;
@@ -35,7 +37,7 @@ export function GistPlaceholder({
 					</span>
 				</p>
 				<Button href={href} leftIcon={<RawSvg icon={github} />}>
-					View Gist
+					{m.action_view_gist()}
 				</Button>
 			</div>
 		</div>

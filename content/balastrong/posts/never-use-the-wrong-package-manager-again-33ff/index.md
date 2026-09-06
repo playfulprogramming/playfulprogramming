@@ -2,7 +2,7 @@
 {
 title: "Never Use the WRONG Package Manager Again!",
 published: "2023-04-11T09:09:37Z",
-tags: ["webdev", "node", "codenewbie", "opensource"],
+tags: ["webdev", "nodejs", "beginner", "open source"],
 description: "npm or yarn, what does this project use? Or maybe it's pnpm? Or Bun? Well, let's just use ni!  Is...",
 originalLink: "https://leonardomontini.dev/npm-yarn-ni-package-manager/",
 coverImg: "cover-image.png",

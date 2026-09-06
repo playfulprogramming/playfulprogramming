@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
-import * as api from "#utils/api";
-import { CollectionInfo, PersonInfo, PostInfo } from "../../types";
-import { getLanguageFromFilename } from "../../utils";
+import * as api from "#utils/api.ts";
+import type { CollectionInfo, PersonInfo, PostInfo } from "#src/types";
 import { getMarkdownHtml } from "#src/utils/markdown/getMarkdownHtml.ts";
+import { getLanguageFromFilename } from "#src/utils/locales.ts";
 
 export const GET: APIRoute = async ({ url }) => {
 	const file = url.searchParams.get("file");

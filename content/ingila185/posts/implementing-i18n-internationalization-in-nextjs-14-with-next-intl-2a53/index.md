@@ -3,9 +3,9 @@
 title: "Implementing i18n Internationalization in Next.js 14 with Next-Intl",
 published: "2024-07-15T04:05:34Z",
 edited: "2024-07-24T13:10:20Z",
-tags: ["nextjs", "vercel", "react", "javascript"],
+tags: ["nextjs", "cloud", "react", "javascript"],
 description: "As a full-stack developer, I strive to create applications that cater to a global audience. This...",
-originalLink: "https://https://dev.to/playfulprogramming/implementing-i18n-internationalization-in-nextjs-14-with-next-intl-2a53"
+originalLink: "https://dev.to/playfulprogramming/implementing-i18n-internationalization-in-nextjs-14-with-next-intl-2a53"
 }
 ---
 

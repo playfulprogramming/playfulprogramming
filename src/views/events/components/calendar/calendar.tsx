@@ -1,22 +1,23 @@
 import {
+	type ButtonProps,
+	type CalendarGridProps,
+	type CalendarState,
+	type CalendarCellProps,
+	type CalendarCellRenderProps,
 	ButtonContext,
-	ButtonProps,
 	Calendar as AriaCalendar,
 	CalendarGrid,
 	CalendarGridBody,
 	CalendarGridHeader,
-	CalendarGridProps,
 	CalendarHeaderCell,
 	useContextProps,
-	CalendarState,
-	CalendarCellProps,
 	CalendarStateContext,
 	useRenderProps,
-	CalendarCellRenderProps,
+	I18nProvider,
 } from "react-aria-components";
-import arrow_left from "../../../../icons/arrow_left.svg?raw";
-import arrow_right from "../../../../icons/arrow_right.svg?raw";
-import { ForwardedRef, forwardRef } from "preact/compat";
+import arrow_left from "#src/assets/icons/arrow_left.svg?raw";
+import arrow_right from "#src/assets/icons/arrow_right.svg?raw";
+import { type ForwardedRef, forwardRef } from "preact/compat";
 import {
 	DismissButton,
 	mergeProps,
@@ -32,28 +33,33 @@ import {
 } from "react-aria";
 import { IconOnlyButton } from "#components/button/button.tsx";
 import style from "./calendar.module.scss";
-import { useWindowSize } from "../../../../hooks/use-window-size";
-import { tabletLarge, tabletSmall } from "../../../../tokens/breakpoints";
-import { MutableRef, useContext, useMemo, useRef } from "preact/hooks";
+import { useWindowSize } from "../../../../hooks/use-window-size.tsx";
+import { tabletLarge, tabletSmall } from "../../../../constants/breakpoints.ts";
+import { type MutableRef, useContext, useMemo, useRef } from "preact/hooks";
 import {
-	CalendarDate,
+	type CalendarDate,
 	fromDate,
+	getLocalTimeZone,
+	isSameDay,
 	isSameMonth,
 	isToday,
+	startOfMonth,
+	today,
+	toCalendarDate,
 } from "@internationalized/date";
 import { filterDOMProps } from "@react-aria/utils";
-// @ts-expect-error This enables us to reach into the private API of react-aria-components
-// 	and access the hookData map. It only works when Vite aliases this, as otherwise the bundle
-// 	will differ from the lookup table of the server and cause runtime bugs due to the mismatch.
-import { hookData } from "@react-aria/calendar/dist/utils.mjs";
-import { Event } from "../../types";
-import dayjs from "dayjs";
-import { useIsOnClient } from "../../../../hooks/use-is-on-client";
-import { useReactAriaScrollGutterHack } from "../../../../hooks/useReactAriaScrollGutterHack";
-import { OverlayTriggerState, useOverlayTriggerState } from "react-stately";
-import { DOMProps } from "@react-types/shared";
-import author from "#src/icons/authors.svg?raw";
-import wifi from "#src/icons/wifi.svg?raw";
+import type { Event } from "../../types";
+import { useIsOnClient } from "../../../../hooks/use-is-on-client.ts";
+import { useReactAriaScrollGutterHack } from "../../../../hooks/use-react-aria-scroll-gutter-hack.ts";
+import {
+	type OverlayTriggerState,
+	useOverlayTriggerState,
+} from "react-stately";
+import type { DOMProps } from "@react-types/shared";
+import author from "#src/assets/icons/authors.svg?raw";
+import wifi from "#src/assets/icons/wifi.svg?raw";
+import { getLocale } from "#src/paraglide/runtime.js";
+import { m } from "#src/paraglide/messages.js";
 
 const CustomButton = forwardRef(
 	(
@@ -79,59 +85,25 @@ const CustomButton = forwardRef(
 );
 
 interface CustomCalendarCellProps extends CalendarCellProps {
-	events: Event[];
 	// It's a long story
-	monthDate: Date;
-	isSelected: boolean;
+	monthDate: CalendarDate;
 	popupTriggerButtonProps: DOMProps;
 }
 
-// Note: This is a custom fork of the CalendarCell component from react-aria-components to
-// 	overwrite functionality for `value` to enable multiple dates being selected
+// This mirrors CalendarCell so popup trigger props can be merged into the interactive element.
 export const CustomCalendarCell = forwardRef(
 	(
 		{
 			date,
-			events,
 			monthDate,
-			isSelected,
 			popupTriggerButtonProps,
 			...otherProps
 		}: CustomCalendarCellProps,
 		ref: ForwardedRef<HTMLTableCellElement>,
 	) => {
-		const baseState: CalendarState = useContext(CalendarStateContext);
-		const state: CalendarState = useMemo(() => {
-			return {
-				...baseState,
-				isSelected(_date: CalendarDate): boolean {
-					return isSelected;
-				},
-			};
-		}, [baseState, isSelected]);
+		const state: CalendarState = useContext(CalendarStateContext);
 
-		// Do our best to preserve the base state's hook data when it is requested
-		const proxy = new Proxy(
-			{},
-			{
-				// When "get", mirror the base state
-				get: (_target, prop) => {
-					const baseStateHookData = hookData.get(baseState) || {};
-					return baseStateHookData[prop as keyof typeof baseState];
-				},
-				// When "set", do nothing
-				set: () => false,
-			},
-		);
-
-		// This is required, since usually you're not supposed to mutate the base state
-		// as `hookData` is a WeakMap
-		hookData.set(state, proxy as never);
-
-		const isOutsideMonth = !isSameMonth(
-			date,
-			fromDate(monthDate, state.timeZone),
-		);
+		const isOutsideMonth = !isSameMonth(date, monthDate);
 		const istoday = isToday(date, state.timeZone);
 
 		const buttonRef = useRef<HTMLDivElement>(null);
@@ -193,7 +165,7 @@ export const CustomCalendarCell = forwardRef(
 						dataAttrs,
 						renderProps,
 						focusProps,
-						isSelected ? popupTriggerButtonProps : {},
+						states.isSelected ? popupTriggerButtonProps : {},
 					) as unknown as Record<string, never>)}
 					ref={buttonRef}
 				/>
@@ -218,6 +190,7 @@ function CalendarDayPopup({
 	date,
 }: CalendarDayPopupProps) {
 	const state: CalendarState = useContext(CalendarStateContext);
+	const locale = getLocale();
 
 	/* Setup popover */
 	const popoverRef = useRef<HTMLDivElement>(null);
@@ -270,15 +243,15 @@ function CalendarDayPopup({
 					data-focus-visible={isFocusVisible}
 				>
 					<h1 {...titleProps} className="visually-hidden">
-						Events on this day
+						{m.events_calendar_events_on_day()}
 					</h1>
 					<div className={style.popupContents}>
 						<ul role={"list"} className={style.popupContentContainer}>
 							{eventsForDate.map((event) => {
 								const firstBlockOfDay = event.blocks.find((block) => {
-									return dayjs(date.toDate(state.timeZone)).isSame(
-										block.starts_at,
-										"date",
+									return isSameDay(
+										date,
+										fromDate(block.starts_at, state.timeZone),
 									);
 								});
 
@@ -288,16 +261,22 @@ function CalendarDayPopup({
 								return (
 									<li key={event.slug}>
 										<a
-											href={`/events/${event.slug}`}
+											href={
+												event.has_event_page
+													? `/events/${event.slug}`
+													: undefined
+											}
 											className={style.popupContentLineContainer}
 										>
 											<span className={style.popupContentLine}>
 												<span
 													className={`text-style-body-small ${style.popupContentTime}`}
 												>
-													{dayjs(firstBlockOfDay.starts_at).format(
-														"hh:mm A",
-													)}{" "}
+													{new Intl.DateTimeFormat(locale, {
+														hour: "numeric",
+														minute: "2-digit",
+														timeZone: state.timeZone,
+													}).format(firstBlockOfDay.starts_at)}{" "}
 												</span>
 												<span className={`text-style-body-small-bold`}>
 													{event.title}
@@ -322,10 +301,10 @@ function CalendarDayPopup({
 	);
 }
 
-interface CustomCalendarCellWrapperProps extends CalendarCellProps {
+type CustomCalendarCellWrapperProps = CalendarCellProps & {
 	events: Event[];
-	monthDate: Date;
-}
+	monthDate: CalendarDate;
+};
 
 function CustomCalendarCellWrapper({
 	events,
@@ -348,21 +327,17 @@ function CustomCalendarCellWrapper({
 	const eventsForDate = useMemo(() => {
 		return events.filter((event) =>
 			event.blocks.some((block) =>
-				dayjs(date.toDate(state.timeZone)).isSame(block.starts_at, "date"),
+				isSameDay(date, fromDate(block.starts_at, state.timeZone)),
 			),
 		);
 	}, [events, state, date]);
-
-	const isSelected = eventsForDate.length > 0;
 
 	return (
 		<CustomCalendarCell
 			{...props}
 			date={date}
-			isSelected={isSelected}
 			popupTriggerButtonProps={buttonProps}
 			ref={triggerRef}
-			events={events}
 			monthDate={monthDate}
 			className={style.calendarCell}
 		>
@@ -393,17 +368,16 @@ function CustomCalendarCellWrapper({
 	);
 }
 
-interface CustomCalendarGridProps extends CalendarGridProps {
+type CustomCalendarGridProps = CalendarGridProps & {
 	events: Event[];
-}
+};
 
 function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 	const state: CalendarState = useContext(CalendarStateContext);
 
-	const monthDate = dayjs(state.visibleRange.start.toDate(state.timeZone))
-		.startOf("month")
-		.add(props.offset?.months ?? 0, "month")
-		.toDate();
+	const monthDate = startOfMonth(state.visibleRange.start).add({
+		months: props.offset?.months ?? 0,
+	});
 
 	return (
 		<CalendarGrid {...props} className={style.grid}>
@@ -431,18 +405,31 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 
 function CustomHeading() {
 	const state: CalendarState = useContext(CalendarStateContext);
+	const locale = getLocale();
 
 	const firstMonthName = useMemo(
-		() => dayjs(state.visibleRange.start.toDate(state.timeZone)).format("MMMM"),
-		[state],
+		() =>
+			new Intl.DateTimeFormat(locale, {
+				month: "long",
+				timeZone: state.timeZone,
+			}).format(state.visibleRange.start.toDate(state.timeZone)),
+		[state, locale],
 	);
 	const lastMonthName = useMemo(
-		() => dayjs(state.visibleRange.end.toDate(state.timeZone)).format("MMMM"),
-		[state],
+		() =>
+			new Intl.DateTimeFormat(locale, {
+				month: "long",
+				timeZone: state.timeZone,
+			}).format(state.visibleRange.end.toDate(state.timeZone)),
+		[state, locale],
 	);
 	const lastYearName = useMemo(
-		() => dayjs(state.visibleRange.end.toDate(state.timeZone)).format("YYYY"),
-		[state],
+		() =>
+			new Intl.DateTimeFormat(locale, {
+				year: "numeric",
+				timeZone: state.timeZone,
+			}).format(state.visibleRange.end.toDate(state.timeZone)),
+		[state, locale],
 	);
 
 	const shouldShowSecondMonth = useMemo(
@@ -455,13 +442,12 @@ function CustomHeading() {
 			aria-hidden={true}
 			className={`_text-style-headline-6 ${style.calendarHeading}`}
 		>
-			{firstMonthName}{" "}
-			{shouldShowSecondMonth ? (
-				<>
-					<span className={style.calendarHeadingDisabled}> to </span>{" "}
-					{lastMonthName}
-				</>
-			) : null}
+			{shouldShowSecondMonth
+				? m.events_calendar_month_range({
+						startMonth: firstMonthName,
+						endMonth: lastMonthName,
+					})
+				: firstMonthName}
 			<span className={style.calendarHeadingDisabled}> {lastYearName}</span>
 		</h2>
 	);
@@ -473,6 +459,7 @@ interface CalendarProps {
 
 export function Calendar({ events }: CalendarProps) {
 	const isClient = useIsOnClient();
+	const locale = getLocale();
 
 	const windowSize = useWindowSize();
 
@@ -489,42 +476,62 @@ export function Calendar({ events }: CalendarProps) {
 		return { months: 3 };
 	}, [isMobile, isTablet]);
 
+	const selectedEventDates = useMemo(() => {
+		const selectedDates = new Map<string, CalendarDate>();
+
+		for (const event of events) {
+			for (const block of event.blocks) {
+				const date = toCalendarDate(
+					fromDate(block.starts_at, getLocalTimeZone()),
+				);
+				selectedDates.set(date.toString(), date);
+			}
+		}
+
+		return [...selectedDates.values()];
+	}, [events]);
+
 	// If we do an SSR pass on this component, the timezone may mismatch the client,
 	// and as a result, cause SSR errors and therefore break many assumptions about
 	// how the calendar should work.
 	if (!isClient) return null;
 
 	return (
-		<AriaCalendar
-			className={style.calendar}
-			aria-label="Events calendar"
-			visibleDuration={visibleDuration}
-			isReadOnly
-		>
-			<header className={style.calendarHeader}>
-				<CustomButton
-					slot="previous"
-					className={style.arrowButton}
-					type="submit"
-					dangerouslySetInnerHTML={{ __html: arrow_left }}
-				/>
-				<CustomHeading />
-				<CustomButton
-					slot="next"
-					className={style.arrowButton}
-					type="submit"
-					dangerouslySetInnerHTML={{ __html: arrow_right }}
-				/>
-			</header>
-			<div className={style.gridContainer}>
-				<CustomCalendarGrid events={events} />
-				{isMobile ? null : (
-					<CustomCalendarGrid events={events} offset={{ months: 1 }} />
-				)}
-				{isTablet ? null : (
-					<CustomCalendarGrid events={events} offset={{ months: 2 }} />
-				)}
-			</div>
-		</AriaCalendar>
+		<I18nProvider locale={locale}>
+			<AriaCalendar
+				className={style.calendar}
+				aria-label={m.events_calendar_label()}
+				visibleDuration={visibleDuration}
+				selectionMode="multiple"
+				value={selectedEventDates}
+				defaultFocusedValue={today(getLocalTimeZone())}
+				isReadOnly
+			>
+				<header className={style.calendarHeader}>
+					<CustomButton
+						slot="previous"
+						className={style.arrowButton}
+						type="submit"
+						dangerouslySetInnerHTML={{ __html: arrow_left }}
+					/>
+					<CustomHeading />
+					<CustomButton
+						slot="next"
+						className={style.arrowButton}
+						type="submit"
+						dangerouslySetInnerHTML={{ __html: arrow_right }}
+					/>
+				</header>
+				<div className={style.gridContainer}>
+					<CustomCalendarGrid events={events} />
+					{isMobile ? null : (
+						<CustomCalendarGrid events={events} offset={{ months: 1 }} />
+					)}
+					{isTablet ? null : (
+						<CustomCalendarGrid events={events} offset={{ months: 2 }} />
+					)}
+				</div>
+			</AriaCalendar>
+		</I18nProvider>
 	);
 }

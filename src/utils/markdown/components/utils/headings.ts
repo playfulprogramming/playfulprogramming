@@ -1,4 +1,4 @@
-import { Element } from "hast";
+import type { Element } from "hast";
 
 export const isNodeHeading = (n: Element) =>
 	n.type === "element" && /^h[1-6]$/.test(n.tagName);

@@ -2,7 +2,7 @@
 {
 title: "🌈 2 Colors Extensions to make Visual Studio Code even better!",
 published: "2024-05-28T11:09:48Z",
-tags: ["vscode", "programming", "productivity"],
+tags: ["vscode", "productivity"],
 description: "Colors 🌈 help us identify things in our surroundings, including Visual Studio Code instances and...",
 originalLink: "https://leonardomontini.dev/vscode-folder-path-color-peacock/",
 coverImg: "cover-image.png",

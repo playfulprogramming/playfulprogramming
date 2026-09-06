@@ -1,7 +1,7 @@
-import { LargeButton } from "#components/button/button";
+import { LargeButton } from "#components/button/button.tsx";
 import DonateSvg from "../../../public/stickers/donate.svg?raw";
 import style from "./ad.module.scss";
-import { RawSvg } from "#components/image/raw-svg";
+import { RawSvg } from "#components/image/raw-svg.tsx";
 
 interface InContentAdProps {
 	title: string;

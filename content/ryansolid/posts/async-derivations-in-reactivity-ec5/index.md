@@ -3,9 +3,9 @@
 title: "Async Derivations in Reactivity",
 published: "2024-08-06T17:10:48Z",
 edited: "2024-08-06T20:28:58Z",
-tags: ["javascript", "webdev", "signals", "solidjs"],
+tags: ["javascript", "webdev", "reactivity", "solidjs"],
 description: "Congratulations on making it through the series thus far. But this is where things start to go off...",
-originalLink: "https://https://dev.to/playfulprogramming/async-derivations-in-reactivity-ec5",
+originalLink: "https://dev.to/playfulprogramming/async-derivations-in-reactivity-ec5",
 coverImg: "cover-image.png",
 socialImg: "social-image.png",
 collection: "Derivations in Reactivity",
@@ -239,7 +239,7 @@ When it comes to templating we are used to treating everything as reactive as th
 
 <iframe src="https://x.com/devongovett/status/1629545561635389440"></iframe>
 
-While I disagree that this has anything to do with [locality of thinking](https://https://dev.to/playfulprogramming/thinking-locally-with-signals-3b7h), it can lead to confusion at first when things don't work. We have ESLint rules for that but Solid isn't so strict here as to error. Maybe it should be?
+While I disagree that this has anything to do with [locality of thinking](https://dev.to/playfulprogramming/thinking-locally-with-signals-3b7h), it can lead to confusion at first when things don't work. We have ESLint rules for that but Solid isn't so strict here as to error. Maybe it should be?
 
 ### Deriving Signals from `props`
 

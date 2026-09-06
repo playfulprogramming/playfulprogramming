@@ -3,7 +3,7 @@
 title: "Why you should be using it Test Driven Development (TDD)",
 published: "2022-07-26T11:21:00Z",
 edited: "2022-07-27T06:59:10Z",
-tags: ["tooling", "testing", "devops", "beginners"],
+tags: ["tools", "testing", "devops", "beginner"],
 description: "This post is an extract from my new newsletter The Pragmatic Dev focused on covering developer tools,...",
 originalLink: "https://newsletter.pragmaticdevx.dev/p/why-you-should-be-using-it-test-driven",
 coverImg: "cover-image.png",

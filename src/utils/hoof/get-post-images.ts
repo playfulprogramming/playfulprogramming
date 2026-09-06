@@ -1,11 +1,11 @@
 import { setTimeout } from "timers/promises";
-import { client } from "./client";
-import { isSocketError } from "./isSocketError";
-import { PostInfo } from "#types/PostInfo";
+import { client } from "./client.ts";
+import { isSocketError } from "./isSocketError.ts";
+import type { PostInfo } from "#types/PostInfo.ts";
 import { relative } from "path";
 import fs from "fs/promises";
 import { createHash } from "crypto";
-import { RETRY_COUNT } from "./common";
+import { RETRY_COUNT } from "./common.ts";
 
 interface PostImagesResponse {
 	banner?: string;

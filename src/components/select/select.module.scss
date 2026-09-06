@@ -1,11 +1,9 @@
-@use "src/tokens/index" as *;
+@use "../../styles/tokens/index" as *;
 @use "./popup.module";
 
 :root {
 	--popup_min-width: 192px;
-	--search-page_filter_list_controls_label-color: var(
-		--foreground_emphasis-medium
-	);
+	--search-page_filter_list_controls_label-color: var(--foreground_medium);
 }
 
 .transparentBackground:not(:hover):not(:active) {
@@ -21,7 +19,7 @@
 }
 
 .visibleLabel {
-	color: var(--search-page_filter_list_controls_label);
+	color: var(--search-page_filter_list_controls_label-color);
 }
 
 .downSpan {
@@ -41,7 +39,6 @@
 	border: unset;
 	outline: none;
 	display: flex;
-	gap: var(--popup_item_gap);
 	align-items: center;
 	min-height: var(--popup_item_min-height);
 	border-radius: var(--popup_item_corner-radius);

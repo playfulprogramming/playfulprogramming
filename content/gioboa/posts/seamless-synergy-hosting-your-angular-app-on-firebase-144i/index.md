@@ -3,7 +3,7 @@
 title: "Seamless Synergy: Hosting Your Angular App on Firebase",
 published: "2025-10-03T14:47:20Z",
 edited: "2025-10-08T05:23:45Z",
-tags: ["firebase", "angular", "webdev", "programming"],
+tags: ["firebase", "angular", "webdev"],
 description: "In the world of web development, building dynamic and engaging user interfaces often leads developers...",
 originalLink: "https://dev.to/playfulprogramming-angular/seamless-synergy-hosting-your-angular-app-on-firebase-144i",
 coverImg: "cover-image.png",

@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 960 48" overflow="hidden">
+  <view id="frame0" viewBox="0 0 48 48"/>
+  <view id="frame1" viewBox="48 0 48 48"/>
+  <view id="frame2" viewBox="96 0 48 48"/>
+  <view id="frame3" viewBox="144 0 48 48"/>
+  <view id="frame4" viewBox="192 0 48 48"/>
+  <view id="frame5" viewBox="240 0 48 48"/>
+  <view id="frame6" viewBox="288 0 48 48"/>
+  <view id="frame7" viewBox="336 0 48 48"/>
+  <view id="frame8" viewBox="384 0 48 48"/>
+  <view id="frame9" viewBox="432 0 48 48"/>
+  <view id="dark-frame0" viewBox="480 0 48 48"/>
+  <view id="dark-frame1" viewBox="528 0 48 48"/>
+  <view id="dark-frame2" viewBox="576 0 48 48"/>
+  <view id="dark-frame3" viewBox="624 0 48 48"/>
+  <view id="dark-frame4" viewBox="672 0 48 48"/>
+  <view id="dark-frame5" viewBox="720 0 48 48"/>
+  <view id="dark-frame6" viewBox="768 0 48 48"/>
+  <view id="dark-frame7" viewBox="816 0 48 48"/>
+  <view id="dark-frame8" viewBox="864 0 48 48"/>
+  <view id="dark-frame9" viewBox="912 0 48 48"/>
+  <defs>
+    <clipPath id="tile-clip">
+      <path d="M0 0h48v48H0z"/>
+    </clipPath>
+    <g id="bow-shape" stroke-width="1">
+      <path d="M 29.939 18.396 C 27.169 19.582 24 21.489 24 24 C 24 21.489 20.831 19.582 18.061 18.396 C 15.663 17.369 12.918 18.385 12.34 20.933 C 12.137 21.825 12 22.852 12 24 C 12 25.148 12.137 26.175 12.34 27.067 C 12.918 29.615 15.663 30.631 18.061 29.604 C 20.831 28.418 24 26.511 24 24 C 24 26.511 27.169 28.418 29.939 29.604 C 32.337 30.631 35.082 29.615 35.66 27.067 C 35.863 26.175 36 25.148 36 24 C 36 22.852 35.863 21.825 35.66 20.933 C 35.082 18.385 32.337 17.369 29.939 18.396 Z" fill="#55b4ed"/>
+      <path d="M 29.316 22.949 C 29.84 22.774 30.123 22.208 29.948 21.684 C 29.774 21.16 29.207 20.877 28.684 21.051 L 25.684 22.051 C 25.16 22.226 24.877 22.792 25.051 23.316 C 25.188 23.727 25.567 23.99 25.977 24 C 25.567 24.01 25.188 24.273 25.051 24.684 C 24.877 25.208 25.16 25.774 25.684 25.949 L 28.684 26.949 C 29.207 27.123 29.774 26.84 29.948 26.316 C 30.123 25.792 29.84 25.226 29.316 25.051 L 26.316 24.051 C 26.219 24.019 26.12 24.002 26.023 24 C 26.12 23.998 26.219 23.981 26.316 23.949 L 29.316 22.949 Z M 18.051 21.684 C 17.877 22.208 18.16 22.774 18.684 22.949 L 21.684 23.949 C 21.781 23.981 21.879 23.998 21.977 24 C 21.879 24.002 21.781 24.019 21.684 24.051 L 18.684 25.051 C 18.16 25.226 17.877 25.792 18.051 26.316 C 18.226 26.84 18.792 27.123 19.316 26.949 L 22.316 25.949 C 22.84 25.774 23.123 25.208 22.948 24.684 C 22.811 24.273 22.433 24.01 22.023 24 C 22.433 23.99 22.811 23.727 22.948 23.316 C 23.123 22.792 22.84 22.226 22.316 22.051 L 19.316 21.051 C 18.792 20.877 18.226 21.16 18.051 21.684 Z" fill="#007fb4"/>
+    </g>
+    <g id="bow-shape-dark" stroke-width="1">
+      <path d="M 29.939 18.396 C 27.169 19.582 24 21.489 24 24 C 24 21.489 20.831 19.582 18.061 18.396 C 15.663 17.369 12.918 18.385 12.34 20.933 C 12.137 21.825 12 22.852 12 24 C 12 25.148 12.137 26.175 12.34 27.067 C 12.918 29.615 15.663 30.631 18.061 29.604 C 20.831 28.418 24 26.511 24 24 C 24 26.511 27.169 28.418 29.939 29.604 C 32.337 30.631 35.082 29.615 35.66 27.067 C 35.863 26.175 36 25.148 36 24 C 36 22.852 35.863 21.825 35.66 20.933 C 35.082 18.385 32.337 17.369 29.939 18.396 Z" fill="#004c6d"/>
+      <path d="M 29.316 22.949 C 29.84 22.774 30.123 22.208 29.948 21.684 C 29.774 21.16 29.207 20.877 28.684 21.051 L 25.684 22.051 C 25.16 22.226 24.877 22.792 25.051 23.316 C 25.188 23.727 25.567 23.99 25.977 24 C 25.567 24.01 25.188 24.273 25.051 24.684 C 24.877 25.208 25.16 25.774 25.684 25.949 L 28.684 26.949 C 29.207 27.123 29.774 26.84 29.948 26.316 C 30.123 25.792 29.84 25.226 29.316 25.051 L 26.316 24.051 C 26.219 24.019 26.12 24.002 26.023 24 C 26.12 23.998 26.219 23.981 26.316 23.949 L 29.316 22.949 Z M 18.051 21.684 C 17.877 22.208 18.16 22.774 18.684 22.949 L 21.684 23.949 C 21.781 23.981 21.879 23.998 21.977 24 C 21.879 24.002 21.781 24.019 21.684 24.051 L 18.684 25.051 C 18.16 25.226 17.877 25.792 18.051 26.316 C 18.226 26.84 18.792 27.123 19.316 26.949 L 22.316 25.949 C 22.84 25.774 23.123 25.208 22.948 24.684 C 22.811 24.273 22.433 24.01 22.023 24 C 22.433 23.99 22.811 23.727 22.948 23.316 C 23.123 22.792 22.84 22.226 22.316 22.051 L 19.316 21.051 C 18.792 20.877 18.226 21.16 18.051 21.684 Z" fill="#007fb4"/>
+    </g>
+    <path id="dot-shape" d="M 24 20 C 22.94 20 21.921 20.422 21.172 21.172 C 20.422 21.921 20 22.94 20 24 C 20 25.06 20.422 26.079 21.172 26.828 C 21.921 27.578 22.94 28 24 28 C 25.06 28 26.079 27.578 26.828 26.828 C 27.578 26.079 28 25.06 28 24 C 28 22.94 27.578 21.921 26.828 21.172 C 26.079 20.422 25.06 20 24 20 Z" stroke-width="1"/>
+  </defs>
+
+  <g transform="translate(0 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1) translate(-24 -24)">
+      <g transform="translate(24 24) scale(0.4167 0.4167) translate(-24 -24)"><use href="#bow-shape" fill-opacity="0"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(4 4) translate(-24 -24)" fill="#006590"/>
+    </g>
+  </g>
+  <g transform="translate(48 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.0477) translate(-24 -24)">
+      <g transform="rotate(-5.412119421498073 24 24) translate(24 24) scale(0.444 0.444) translate(-24 -24)"><use href="#bow-shape" fill-opacity="0.1751682975396242"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(3.7921345603796697 3.7921345603796697) translate(-24 -24)" fill="#0c6d97"/>
+    </g>
+  </g>
+  <g transform="translate(96 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.1842) translate(-24 -24)">
+      <g transform="rotate(-28.902769094037993 24 24) translate(24 24) scale(0.5627 0.5627) translate(-24 -24)"><use href="#bow-shape" fill-opacity="0.6952348396452721"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(2.8590526719596374 2.8590526719596374) translate(-24 -24)" fill="#2e83a9"/>
+    </g>
+  </g>
+  <g transform="translate(144 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.3764) translate(-24 -24)">
+      <g transform="rotate(-75.4465370697838 24 24) translate(24 24) scale(0.7977 0.7977) translate(-24 -24)"><use href="#bow-shape" fill-opacity="0.9207757834293515"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.9546907958212003 1.9546907958212003) translate(-24 -24)" fill="#5da1c3"/>
+    </g>
+  </g>
+  <g transform="translate(192 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.5765) translate(-24 -24)">
+      <g transform="rotate(-114.7137485414699 24 24) translate(24 24) scale(0.9961 0.9961) translate(-24 -24)"><use href="#bow-shape" fill-opacity="0.9929626732598482"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.5216257939763609 1.5216257939763609) translate(-24 -24)" fill="#8dc0de"/>
+    </g>
+  </g>
+  <g transform="translate(240 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.7461) translate(-24 -24)">
+      <g transform="rotate(-138.12672167542237 24 24) translate(24 24) scale(1.1143 1.1143) translate(-24 -24)"><use href="#bow-shape"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.3228498621384226 1.3228498621384226) translate(-24 -24)" fill="#b4d9f4"/>
+    </g>
+  </g>
+  <g transform="translate(288 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.8689) translate(-24 -24)">
+      <g transform="rotate(-151.928004265843 24 24) translate(24 24) scale(1.184 1.184) translate(-24 -24)"><use href="#bow-shape"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.2533713043908152 1.2533713043908152) translate(-24 -24)" fill="#c7e5fe"/>
+    </g>
+  </g>
+  <g transform="translate(336 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.9466) translate(-24 -24)">
+      <g transform="rotate(-159.85056626515922 24 24) translate(24 24) scale(1.224 1.224) translate(-24 -24)"><use href="#bow-shape"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.25 1.25) translate(-24 -24)" fill="#c8e6ff"/>
+    </g>
+  </g>
+  <g transform="translate(384 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.9876) translate(-24 -24)">
+      <g transform="rotate(-163.83884108787495 24 24) translate(24 24) scale(1.2442 1.2442) translate(-24 -24)"><use href="#bow-shape"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.25 1.25) translate(-24 -24)" fill="#c8e6ff"/>
+    </g>
+  </g>
+  <g transform="translate(432 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 2) translate(-24 -24)">
+      <g transform="rotate(-165 24 24) translate(24 24) scale(1.25 1.25) translate(-24 -24)"><use href="#bow-shape"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.25 1.25) translate(-24 -24)" fill="#c8e6ff"/>
+    </g>
+  </g>
+
+  <g transform="translate(480 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1) translate(-24 -24)">
+      <g transform="translate(24 24) scale(0.4167 0.4167) translate(-24 -24)"><use href="#bow-shape-dark" fill-opacity="0"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(4 4) translate(-24 -24)" fill="#3399d1"/>
+    </g>
+  </g>
+  <g transform="translate(528 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.0477) translate(-24 -24)">
+      <g transform="rotate(-5.412119421498073 24 24) translate(24 24) scale(0.444 0.444) translate(-24 -24)"><use href="#bow-shape-dark" fill-opacity="0.1751682975396242"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(3.7921345603796697 3.7921345603796697) translate(-24 -24)" fill="#3092c7"/>
+    </g>
+  </g>
+  <g transform="translate(576 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.1842) translate(-24 -24)">
+      <g transform="rotate(-28.902769094037993 24 24) translate(24 24) scale(0.5627 0.5627) translate(-24 -24)"><use href="#bow-shape-dark" fill-opacity="0.6952348396452721"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(2.8590526719596374 2.8590526719596374) translate(-24 -24)" fill="#277dac"/>
+    </g>
+  </g>
+  <g transform="translate(624 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.3764) translate(-24 -24)">
+      <g transform="rotate(-75.4465370697838 24 24) translate(24 24) scale(0.7977 0.7977) translate(-24 -24)"><use href="#bow-shape-dark" fill-opacity="0.9207757834293515"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.9546907958212003 1.9546907958212003) translate(-24 -24)" fill="#1b6085"/>
+    </g>
+  </g>
+  <g transform="translate(672 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.5765) translate(-24 -24)">
+      <g transform="rotate(-114.7137485414699 24 24) translate(24 24) scale(0.9961 0.9961) translate(-24 -24)"><use href="#bow-shape-dark" fill-opacity="0.9929626732598482"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.5216257939763609 1.5216257939763609) translate(-24 -24)" fill="#0f425e"/>
+    </g>
+  </g>
+  <g transform="translate(720 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.7461) translate(-24 -24)">
+      <g transform="rotate(-138.12672167542237 24 24) translate(24 24) scale(1.1143 1.1143) translate(-24 -24)"><use href="#bow-shape-dark"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.3228498621384226 1.3228498621384226) translate(-24 -24)" fill="#052a3e"/>
+    </g>
+  </g>
+  <g transform="translate(768 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.8689) translate(-24 -24)">
+      <g transform="rotate(-151.928004265843 24 24) translate(24 24) scale(1.184 1.184) translate(-24 -24)"><use href="#bow-shape-dark"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.2533713043908152 1.2533713043908152) translate(-24 -24)" fill="#001f2f"/>
+    </g>
+  </g>
+  <g transform="translate(816 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.9466) translate(-24 -24)">
+      <g transform="rotate(-159.85056626515922 24 24) translate(24 24) scale(1.224 1.224) translate(-24 -24)"><use href="#bow-shape-dark"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.25 1.25) translate(-24 -24)" fill="#001e2e"/>
+    </g>
+  </g>
+  <g transform="translate(864 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 1.9876) translate(-24 -24)">
+      <g transform="rotate(-163.83884108787495 24 24) translate(24 24) scale(1.2442 1.2442) translate(-24 -24)"><use href="#bow-shape-dark"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.25 1.25) translate(-24 -24)" fill="#001e2e"/>
+    </g>
+  </g>
+  <g transform="translate(912 0)">
+    <g clip-path="url(#tile-clip)" transform="translate(24 24) scale(1 2) translate(-24 -24)">
+      <g transform="rotate(-165 24 24) translate(24 24) scale(1.25 1.25) translate(-24 -24)"><use href="#bow-shape-dark"/></g>
+      <use href="#dot-shape" transform="translate(24 24) scale(1.25 1.25) translate(-24 -24)" fill="#001e2e"/>
+    </g>
+  </g>
+</svg>

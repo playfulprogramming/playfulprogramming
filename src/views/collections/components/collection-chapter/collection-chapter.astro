@@ -1,0 +1,53 @@
+---
+import styles from "./collection-chapter.module.scss";
+import { getHrefContainerProps } from "#utils/href-container-script.ts";
+import type { CollectionInfo } from "#src/types";
+import { getShortTitle } from "#utils/remove-article-collection-prefix.ts";
+
+export interface Props {
+	collection: CollectionInfo;
+	num: number;
+	title: string;
+	description: string;
+	href?: string;
+	externalLink?: boolean;
+}
+
+const {
+	num,
+	title,
+	description,
+	href,
+	collection,
+	externalLink = false,
+} = Astro.props as Props;
+const hrefProps = href ? getHrefContainerProps(href) : {};
+const shortTitle = getShortTitle(
+	{ title, collection: collection.title },
+	collection,
+);
+---
+
+<div class={styles.container} {...hrefProps}>
+	<div class={styles.numAndTitleContainer}>
+		<div class={styles.numContainer}>
+			<p class={`text-style-headline-6 ${styles.num}`} aria-hidden="true">
+				{num}
+			</p>
+		</div>
+		<h3 class={`text-style-headline-5 ${styles.title}`}>
+			{
+				href ? (
+					<a href={href} target={externalLink ? "_blank" : "_self"}>
+						{shortTitle}
+					</a>
+				) : (
+					shortTitle
+				)
+			}
+		</h3>
+	</div>
+	<p class={`text-style-body-large ${styles.description}`}>
+		{description}
+	</p>
+</div>

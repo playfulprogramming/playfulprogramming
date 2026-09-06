@@ -223,7 +223,7 @@ While many versions of the "Smart" vs "Dumb" component arguments have different 
 
 ## Defining Utilities vs Services {#utils-vs-services}
 
-In 2015 Promises were introduced into JavaScript. While they were a good solution to the problem of [the Christmas tree callback problem](/posts/async-and-promises#Callbacks), they weren't intuitive to use until `async` and `await` were implemented in the ecosystem around 2017.
+In 2015 [Promises](pfp-snitip:#promise) were introduced into JavaScript. While they were a good solution to the problem of [the Christmas tree callback problem](/posts/async-and-promises#Callbacks), they weren't intuitive to use until `async` and `await` were implemented in the ecosystem around 2017.
 
 ```javascript
 function main() {

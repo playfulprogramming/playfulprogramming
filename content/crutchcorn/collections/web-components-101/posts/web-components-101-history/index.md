@@ -114,7 +114,7 @@ Here, we can see that it introduced a concept of controllers into the document, 
 
 While Angular was the last of the three mentioned here, it had a huge impact. It was the first time Google released a JavaScript-based MVC based library into the wild.
 
-Not only did they build the library, [they used it to build Google’s Feedback tool](https://www.youtube.com/watch?v=r1A1VR0ibIQ) - which powers almost all of Google’s products today. This represented a shift from their prior Java-based “[Google Web Toolkit” (GWT)](http://www.gwtproject.org/) that was widely used before.
+Not only did they build the library, [they used it to build Google’s Feedback tool](https://www.youtube.com/watch?v=r1A1VR0ibIQ) - which powers almost all of Google’s products today. This represented a shift from their prior [Java](pfp-snitip:#java)-based “[Google Web Toolkit” (GWT)](http://www.gwtproject.org/) that was widely used before.
 
 Later, with the [acquisition of DoubleClick](https://www.nytimes.com/2007/04/14/technology/14DoubleClick.html), the team that was working on the [migration of the DoubleClick platform for Google decided to use Angular.js as well](https://www.youtube.com/watch?v=r1A1VR0ibIQ).
 

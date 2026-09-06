@@ -1,7 +1,7 @@
 import createClient from "openapi-fetch";
-import type { paths } from "./schema";
-import env from "#src/constants/env";
-import { ratelimitMiddleware } from "./ratelimitMiddleware";
+import type { paths } from "./schema.d.ts";
+import env from "#src/constants/env/index.ts";
+import { ratelimitMiddleware } from "./ratelimitMiddleware.ts";
 
 if (env.MODE === "production" && !env.HOOF_AUTH_TOKEN) {
 	throw new Error("Environment variable HOOF_AUTH_TOKEN is missing!");

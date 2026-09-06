@@ -3,9 +3,9 @@
 title: "The Secret Life of a Microsoft MVP",
 published: "2024-12-10T10:30:00Z",
 edited: "2025-06-16T08:11:18Z",
-tags: ["microsoft", "devlife"],
+tags: ["microsoft", "career"],
 description: "For over a decade now (11 years right now), I’ve carried the title of Microsoft Most Valuable...",
-originalLink: "https://https://dev.to/playfulprogramming/the-secret-life-of-a-microsoft-mvp-3dal",
+originalLink: "https://dev.to/playfulprogramming/the-secret-life-of-a-microsoft-mvp-3dal",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

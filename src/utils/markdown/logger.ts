@@ -1,10 +1,10 @@
 import type * as mdast from "mdast";
 import type * as hast from "hast";
-import { VFile } from "vfile";
+import type { VFile } from "vfile";
 import * as kleur from "kleur/colors";
 import env from "#src/constants/env/index.ts";
 import * as path from "path";
-import { isMarkdownVFile, WarningInfo } from "./types";
+import { isMarkdownVFile, type WarningInfo } from "./types.ts";
 
 /**
  * A utility function for printing readable errors out of the hast/mdast nodes in a markdown file

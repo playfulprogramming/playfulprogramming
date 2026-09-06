@@ -8,9 +8,17 @@
 }
 ---
 
-Working on mobile games with Unity, you may come across some instances where you'll want to run native code. Whether it be to access specific sensors, run code in the background, or other closer-to-hardware mobile-specific actions, knowing how to call native code from within your Unity's C# environment can be a great boon to your developmental efforts.
+Working on mobile games with Unity, you may come across some instances where you'll want to run native code. Whether it be to access specific sensors, run code in the background, or other closer-to-hardware mobile-specific actions, knowing how to call native code from within your Unity's [C#](pfp-snitip:#csharp) environment can be a great boon to your developmental efforts.
 
-Luckily for us, Unity has a system of "plugins" that allow us to do just that. Unity contains the ability to map code between C# and Java by using in-house-developed helper classes to cross-talk between the two languages. This article will outline [how to set up a development environment](#set-up-a-development-environment), [how to manage Android dependencies in Unity](#android-dependencies), and finally [how to call Android-specific code from C#](#call-android-from-c-sharp). Without further ado, let's dive in! 🏊‍♂️
+<!-- ::start:snitip id="csharp" tags="csharp,dotnet" -->
+## <picture><img src="/stickers/csharp.svg" alt=""></picture>C#
+
+C# is a modern, type-safe programming language for the .NET platform. It supports object-oriented, functional, and other programming styles.
+
+- [C# documentation - Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/)
+<!-- ::end:snitip -->
+
+Luckily for us, Unity has a system of "plugins" that allow us to do just that. Unity contains the ability to map code between C# and [Java](pfp-snitip:#java) by using in-house-developed helper classes to cross-talk between the two languages. This article will outline [how to set up a development environment](#set-up-a-development-environment), [how to manage Android dependencies in Unity](#android-dependencies), and finally [how to call Android-specific code from C#](#call-android-from-c-sharp). Without further ado, let's dive in! 🏊‍♂️
 
 > ⚠️ Be aware that this information is based on Unity 2018 versions. While this might be relevant for older versions of Unity, I have not tested much of this methodology of integration with older versions.
 
@@ -123,7 +131,7 @@ For example, take the following library: https://github.com/jaredrummler/Android
 
 That library allows you to grab metadata about a user's device. This might be useful for analytics or bug reporters you may be developing yourself. Let's see how we're able to integrate this Java library in our C# code when building for the Android platform.
 
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 
 ## Introduction {#intro-call-android-from-c-sharp}
 

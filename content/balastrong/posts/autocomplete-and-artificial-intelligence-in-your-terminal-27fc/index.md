@@ -3,7 +3,7 @@
 title: "Autocomplete and Artificial Intelligence in your Terminal",
 published: "2023-02-01T21:08:36Z",
 edited: "2023-02-02T08:38:44Z",
-tags: ["blockchain", "cryptocurrency", "web3", "crypto"],
+tags: ["ai"],
 description: "I get asked on every single video what is this autocomplete I’ve got on my terminal, and the answer...",
 originalLink: "https://leonardomontini.dev/autocomplete-ai-terminal/",
 coverImg: "cover-image.png",

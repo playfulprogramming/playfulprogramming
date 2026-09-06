@@ -3,7 +3,7 @@
 title: "How to find a repository for Hacktoberfest 2022",
 published: "2022-09-27T14:33:01Z",
 edited: "2023-09-11T21:16:57Z",
-tags: ["opensource", "hacktoberfest", "github", "tutorial"],
+tags: ["open source", "github", "tutorial"],
 description: "Hacktoberfest will start in a few days, are you ready??  Let me check my gear... git updated to the...",
 originalLink: "https://leonardomontini.dev/hacktoberfest-find-a-repository/",
 coverImg: "cover-image.png",

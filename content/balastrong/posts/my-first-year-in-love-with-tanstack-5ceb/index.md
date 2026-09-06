@@ -3,7 +3,7 @@
 title: "My First Year in Love with TanStack",
 published: "2025-02-20T15:58:34Z",
 edited: "2025-02-20T15:58:33Z",
-tags: ["webdev", "opensource", "career"],
+tags: ["webdev", "open source", "career"],
 description: "I had no idea how much would have happened in 365 days 🤯  One year ago, on February 20th, 2024, I...",
 originalLink: "https://leonardomontini.dev/one-year-of-tanstack/",
 coverImg: "cover-image.png",

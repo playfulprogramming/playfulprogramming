@@ -20,7 +20,7 @@ This component works great, but after some time of the company using it you get 
 
 While you could break out the styling and behavior of `<OurButton>` to a new component - say `<OurLinkButton>` - you remember that [React has a way to change the rendered HTML element to another one using an `as` property](/posts/react-as-prop).
 
-> I wonder if there's a way to do this in Vue as well?
+> I wonder if there's a way to do this in [Vue](pfp-snitip:#vue) as well?
 
 Luckily for us, there is!
 
@@ -80,7 +80,7 @@ const props = {href: "https://playfulprogramming.com"};
 
 Great question!
 
-Let's start by understanding what built-in types TypeScript's `dom` API has built-in. While looking into the supported types, we can find ourselves a list of all [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)'s tag names and their associated properties and methods: 
+Let's start by understanding what built-in types [TypeScript's](pfp-snitip:#typescript) `dom` API has built-in. While looking into the supported types, we can find ourselves a list of all [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)'s tag names and their associated properties and methods:
 
 ```typescript
 interface HTMLElementTagNameMap {
@@ -93,7 +93,7 @@ interface HTMLElementTagNameMap {
 }
 ```
 
-We can then use this, in combination with Vue's `generic`'s support to build out this API:
+We can then use this, in combination with Vue's [generic support](pfp-snitip:#generics) to build out this API:
 
 ```vue
 <!-- OurButton.vue -->

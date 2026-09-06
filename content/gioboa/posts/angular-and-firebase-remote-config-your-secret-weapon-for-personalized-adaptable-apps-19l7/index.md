@@ -3,7 +3,7 @@
 title: "Angular and Firebase Remote Config: Your Secret Weapon for Personalized & Adaptable Apps",
 published: "2025-03-11T06:46:00Z",
 edited: "2025-03-14T08:24:48Z",
-tags: ["firebase", "angular", "frontend", "webdev"],
+tags: ["firebase", "angular", "webdev"],
 description: "In today's rapidly evolving digital landscape, adaptability is key to success. Applications need to...",
 originalLink: "https://dev.to/playfulprogramming-angular/angular-and-firebase-remote-config-your-secret-weapon-for-personalized-adaptable-apps-19l7",
 coverImg: "cover-image.png",

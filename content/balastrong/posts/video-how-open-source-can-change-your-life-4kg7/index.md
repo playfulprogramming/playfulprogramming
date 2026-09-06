@@ -3,9 +3,9 @@
 title: "[Video] How Open Source can change your life",
 published: "2022-07-30T09:57:00Z",
 edited: "2022-09-11T12:09:25Z",
-tags: ["opensource", "github", "discuss", "career"],
+tags: ["open source", "github", "opinion", "career"],
 description: "Hello everyone!  I recently posted an Article about benefits and advantages from contributing in Open...",
-originalLink: "https://https://dev.to/playfulprogramming/video-how-open-source-can-change-your-life-4kg7",
+originalLink: "https://dev.to/playfulprogramming/video-how-open-source-can-change-your-life-4kg7",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

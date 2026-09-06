@@ -2,7 +2,7 @@
 {
 title: "Take control of your job with GitLens Launchpad",
 published: "2025-12-23T07:00:00Z",
-tags: ["gitkraken", "tooling"],
+tags: ["git", "tools"],
 description: "As a developer, you have to take control of your projects every day. Whether it is a company...",
 originalLink: "https://blog.delpuppo.net/take-control-of-your-job-with-gitlens-launchpad",
 coverImg: "cover-image.png",

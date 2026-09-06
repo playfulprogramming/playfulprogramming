@@ -3,7 +3,7 @@
 title: "Update your GitHub profile with your chess.com games with a GitHub Action",
 published: "2022-07-27T10:51:00Z",
 edited: "2022-11-22T22:16:32Z",
-tags: ["github", "tutorial", "opensource", "typescript"],
+tags: ["github", "tutorial", "open source", "typescript"],
 description: "When navigating through GitHub you may land on awesome profiles with \"live\" content being updated...",
 originalLink: "https://leonardomontini.dev/chess-stats-on-github-action/",
 coverImg: "cover-image.png",

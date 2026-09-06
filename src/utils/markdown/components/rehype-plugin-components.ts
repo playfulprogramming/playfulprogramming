@@ -1,12 +1,12 @@
 import type * as hast from "hast";
 import type { Plugin } from "unified";
 import {
+	type PlayfulRoot,
+	type PlayfulNode,
 	isComponentNode,
 	isHtmlNode,
-	PlayfulRoot,
-	PlayfulNode,
 } from "./components.ts";
-import { toHtml, Options as HtmlOptions } from "hast-util-to-html";
+import { type Options as HtmlOptions, toHtml } from "hast-util-to-html";
 import { isRoot } from "../unist-is-element.ts";
 
 interface ComponentsOptions {

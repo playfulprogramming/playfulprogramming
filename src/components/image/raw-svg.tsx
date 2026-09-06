@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "preact/compat";
+import type { HTMLAttributes } from "preact/compat";
 import { useMemo } from "preact/hooks";
 import type { Element } from "hast";
 

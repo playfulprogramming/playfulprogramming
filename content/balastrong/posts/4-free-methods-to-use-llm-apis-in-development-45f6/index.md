@@ -2,7 +2,7 @@
 {
 title: "4 Free Methods to use LLM APIs in Development",
 published: "2025-09-09T10:16:55Z",
-tags: ["ai", "llm", "node", "github"],
+tags: ["ai", "nodejs", "github"],
 description: "You might be in the situation I was the other day: I wanted to develop a small AI feature for...",
 originalLink: "https://leonardomontini.dev/free-llm-api/",
 coverImg: "cover-image.png",

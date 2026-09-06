@@ -3,7 +3,7 @@
 title: "Automate UI Bug Fixing with Chrome MCP Server and Copilot",
 published: "2025-11-24T20:03:04Z",
 edited: "2025-11-24T22:27:34Z",
-tags: ["mcp", "githubcopilot", "ai", "vscode"],
+tags: ["ai", "copilot", "vscode"],
 description: "I recently had a look at the Chrome MCP server and it looks really cool. So, let me show you a quick...",
 originalLink: "https://leonardomontini.dev/chrome-mcp-server-guide/",
 coverImg: "cover-image.png",

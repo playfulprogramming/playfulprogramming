@@ -9,7 +9,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import {
 	remarkProcessFrontmatter,
 	TYPE_FRONTMATTER,
-} from "./remark-process-frontmatter";
+} from "./remark-process-frontmatter.ts";
 
 const unifiedChain = unified()
 	.use(remarkParse, { fragment: true } as never)

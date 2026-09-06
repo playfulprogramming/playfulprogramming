@@ -5,9 +5,9 @@ import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
 import type { RehypeFunctionComponent } from "../types.ts";
 import {
-	ComponentMarkupNode,
+	type ComponentMarkupNode,
+	type PlayfulRoot,
 	createComponent,
-	PlayfulRoot,
 } from "../components.ts";
 import { isValidComponentParent } from "../rehype-validate-components.ts";
 

@@ -197,6 +197,22 @@ The filetree component supports the following:
 
 While not 1:1, the filetree component is inspired by the [Astro Starlight `file-tree` component](https://starlight.astro.build/components/file-tree/)
 
+### Mermaid Diagrams
+
+You can render [Mermaid diagrams](https://mermaid.js.org/intro/) by wrapping a `mermaid` fenced code block in the Mermaid component comments:
+
+````markdown
+<!-- ::start:mermaid -->
+```mermaid
+flowchart LR
+    Markdown["Markdown source"] --> Transform["Mermaid component"]
+    Transform --> Diagram["Rendered diagram"]
+```
+<!-- ::end:mermaid -->
+````
+
+Both the `<!-- ::start:mermaid -->` / `<!-- ::end:mermaid -->` comments and the `mermaid` code-block language are required. Mermaid's CSS and JavaScript are loaded only on blog post pages that use this component.
+
 ### In-Content Ads
 
 ![](./assets/donation.png)
@@ -204,7 +220,7 @@ While not 1:1, the filetree component is inspired by the [Astro Starlight `file-
 We support showing ads in the content of the article. This is useful for promoting products, services, or donations.
 
 ```html
-<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Open Collective" button-href="https://opencollective.com/playfulprogramming" -->
+<!-- ::in-content-ad title="Consider supporting" body="Donating any amount will help towards further development of articles like this." button-text="Visit our Donation Page" button-href="https://donate.playfulprogramming.com" -->
 ```
 
 We support the following properties:
@@ -229,6 +245,60 @@ These can also be created manually by wrapping an image inside a link, optionall
 ```markdown
 [Example Title ![](./link-preview.png)](https://example.com)
 ```
+
+### Snitips
+
+![](./assets/snitip.png)
+
+Snitips add supplemental definitions or context to an inline phrase without interrupting the article. Reference a snitip by linking to its ID with the `pfp-snitip:` protocol:
+
+```markdown
+Learn more about [Node](pfp-snitip:#nodejs).
+```
+
+A post can define that snitip locally with a component block:
+
+```markdown
+<!-- ::start:snitip id="nodejs" tags="javascript,nodejs" -->
+## NodeJS
+
+NodeJS is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+
+- [Node.js documentation](https://nodejs.org/en/docs)
+<!-- ::end:snitip -->
+```
+
+Local snitips support the following:
+
+- `id`: The required ID used by `pfp-snitip:#id` references.
+- `tags`: An optional comma-separated list of tag IDs.
+- The first heading supplies the snitip title.
+- A final unordered list containing only links is displayed as the snitip's related links.
+- Other Markdown between the heading and related links becomes the description.
+
+Reusable global snitips live in [`content/data/snitips`](./content/data/snitips). Their ID is the filename without `.md`, and they use frontmatter for their metadata:
+
+```markdown
+---
+title: JavaScript
+icon: /stickers/javascript.svg
+links:
+  - name: Documentation - MDN Web Docs
+    href: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+tags:
+  - javascript
+---
+
+JavaScript is a programming language and core technology of the Web.
+```
+
+This global snitip can be referenced in a post with:
+
+```markdown
+Learn more about [JavaScript](pfp-snitip:#javascript).
+```
+
+Local definitions take precedence over global snitips with the same ID. On the website, a reference opens an accessible dialog and can also preview on hover-capable devices. In EPUB output, the reference remains as plain inline text because the interactive dialog is unavailable.
 
 ### Tabs
 

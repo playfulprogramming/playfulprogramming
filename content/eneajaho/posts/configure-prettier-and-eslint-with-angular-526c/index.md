@@ -3,7 +3,7 @@
 title: "Configure Prettier and ESLint with Angular",
 published: "2022-02-19T19:48:34Z",
 edited: "2022-11-10T11:17:08Z",
-tags: ["angular", "typescript", "eslint", "prettier"],
+tags: ["angular", "typescript", "tools"],
 description: "Everyone wants to write code in a fast bug-free way without thinking about its style most of the...",
 originalLink: "https://itnext.io/configure-prettier-and-eslint-with-angular-e7b4ce979cd8",
 coverImg: "cover-image.png",

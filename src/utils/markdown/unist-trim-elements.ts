@@ -1,4 +1,4 @@
-import * as hast from "hast";
+import type * as hast from "hast";
 
 export function trimElements(
 	elements: hast.ElementContent[],

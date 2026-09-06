@@ -1,3 +1,3 @@
-export * from "./button/button";
-export * from "./chip/chip";
-export * from "./image/picture";
+export * from "./button/button.tsx";
+export * from "./chip/chip.tsx";
+export * from "./image/picture.tsx";
