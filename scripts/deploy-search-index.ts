@@ -1,6 +1,6 @@
 import * as api from "#utils/api.ts";
-import type { PostInfo, SearchPostInfo } from "#types/PostInfo";
-import type { SearchCollectionInfo } from "#types/CollectionInfo";
+import type { PostInfo, SearchPostInfo } from "#types/PostInfo.ts";
+import type { SearchCollectionInfo } from "#types/CollectionInfo.ts";
 import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
 import { getExcerpt } from "#utils/markdown/get-excerpt.ts";
 import matter from "gray-matter";
@@ -14,8 +14,8 @@ import {
 	PUBLIC_SEARCH_ENDPOINT_PROTOCOL,
 } from "#src/views/search/constants/index.ts";
 import {
-	collectionSchema,
 	type PostDocument,
+	collectionSchema,
 	postSchema,
 } from "#utils/search.ts";
 import { baseLocale } from "#src/paraglide/runtime.js";
