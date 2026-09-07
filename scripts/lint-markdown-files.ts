@@ -5,39 +5,11 @@ import { setTimeout } from "node:timers/promises";
 import type { WarningInfo } from "#src/utils/markdown/types.ts";
 import { getLanguageFromFilename } from "#src/utils/locales.ts";
 
-const changedFiles = ((await json(process.stdin)) as string[]).filter(
-	(path) =>
-		path.startsWith("content/") &&
-		!path.startsWith("content/site/") &&
-		!path.startsWith("content/data/"),
-);
-if (changedFiles.length === 0) {
-	console.log("No changes to lint.");
-	process.exit(0);
-}
-
-const devProcess = spawn("pnpm", ["run", "dev", "--port=5432"], {
-	env: {
-		...process.env,
-		CI: "1",
-		BUILD_OUTPUT: "server",
-	},
-	stdio: ["pipe", 1, 2],
-	detached: true,
-});
-
 const baseUrl = "http://localhost:5432";
-
-console.log("[script] Waiting for dev server...");
-while (true) {
-	const result = await fetch(`${baseUrl}/healthz.json`).catch((_) => undefined);
-	if (result && result.status === 200) break;
-	await setTimeout(100);
-}
 
 type LintResponse = { warnings: WarningInfo[] };
 
-for (const file of changedFiles) {
+async function processFile(file: string) {
 	const locale = getLanguageFromFilename(file);
 	const warnings: WarningInfo[] = [];
 
@@ -101,5 +73,41 @@ for (const file of changedFiles) {
 	}
 }
 
-console.log("[script] Stopping the dev server...");
-if (devProcess.pid) kill(-devProcess.pid);
+const changedFiles = ((await json(process.stdin)) as string[]).filter(
+	(path) =>
+		path.startsWith("content/") &&
+		!path.startsWith("content/site/") &&
+		!path.startsWith("content/data/"),
+);
+if (changedFiles.length === 0) {
+	console.log("No changes to lint.");
+	process.exit(0);
+}
+
+const devProcess = spawn("pnpm", ["run", "dev", "--port=5432"], {
+	env: {
+		...process.env,
+		CI: "1",
+		BUILD_OUTPUT: "server",
+	},
+	stdio: ["pipe", 1, 2],
+	detached: true,
+});
+
+try {
+	console.log("[script] Waiting for dev server...");
+	while (true) {
+		const result = await fetch(`${baseUrl}/healthz.json`).catch(
+			(_) => undefined,
+		);
+		if (result && result.status === 200) break;
+		await setTimeout(100);
+	}
+
+	for (const file of changedFiles) {
+		await processFile(file);
+	}
+} finally {
+	console.log("[script] Stopping the dev server...");
+	if (devProcess.pid) kill(-devProcess.pid);
+}
