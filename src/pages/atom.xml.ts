@@ -3,6 +3,7 @@ import { siteUrl } from "#src/constants/site-config.ts";
 import { getPostsByLang, getPersonById } from "#utils/api.ts";
 import licenses from "../../content/data/licenses.json" with { type: "json" };
 import { baseLocale } from "#src/paraglide/runtime.js";
+import { isDefined } from "#src/utils/is-defined.ts";
 
 export const GET = async () => {
 	const feed = new Feed({
@@ -28,12 +29,14 @@ export const GET = async () => {
 			await Promise.all(
 				post.authors.map((id) => getPersonById(id, post.locale)),
 			)
-		).map((author) => {
-			return {
-				name: author!.name,
-				link: `${siteUrl}/unicorns/${author!.id}`,
-			};
-		});
+		)
+			.filter(isDefined)
+			.map((author) => {
+				return {
+					name: author.name,
+					link: `${siteUrl}/unicorns/${author.id}`,
+				};
+			});
 
 		feed.addItem({
 			title: post.title,
