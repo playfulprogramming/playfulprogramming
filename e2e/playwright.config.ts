@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const defaultBaseURL = "http://web:4321";
+const defaultBaseURL = "http://localhost:4321";
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? defaultBaseURL;
 const resultsDir =
 	process.env.PLAYWRIGHT_RESULTS_DIR ?? ".playwright/test-results";

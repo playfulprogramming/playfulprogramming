@@ -10,6 +10,8 @@ services:
     command: node --experimental-strip-types src/server.ts
 
   web:
+    depends_on:
+      - fakeserver
     working_dir: /work
     build:
       target: server
@@ -45,7 +47,7 @@ services:
       target: e2e
     working_dir: /work/e2e
     volumes:
-      - ./.playwright:/work/e2e/.playwright:rw
+      - ./.playwright-docker:/work/e2e/.playwright:rw
       - ./tests:/work/e2e/tests:rw
     ipc: host
     environment:

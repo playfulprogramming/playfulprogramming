@@ -5,6 +5,7 @@
 /playwright/.cache/
 /playwright/.auth/
 .playwright/
+.playwright-docker/
 
 /node_modules
 
