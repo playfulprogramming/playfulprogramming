@@ -1,22 +1,44 @@
 import { join } from "path";
 import { Settings } from "typebox/system";
-import type { MarkdownVFile } from "../markdown/types";
+import type { MarkdownFileInfo, MarkdownVFile } from "../markdown/types.ts";
+import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
+import { watch } from "fs/promises";
+import env from "#src/constants/env/index.ts";
 
 Settings.Set({ correctiveParse: true });
 
 export const contentDirectory = join(process.cwd(), "content");
 
-export function cache<Arg1 extends { file: string }, Ret>(
-	callback: (arg1: Arg1, arg2?: Promise<MarkdownVFile>) => Promise<Ret>,
+export function cache<Arg1 extends MarkdownFileInfo, Ret>(
+	callback: (arg1: Arg1, vfile: MarkdownVFile) => Promise<Ret>,
 ) {
-	const map = new Map<string, Ret>();
-	return async (arg1: Arg1, arg2?: Promise<MarkdownVFile>) => {
+	const map = new Map<string, { result?: Promise<Ret> }>();
+	return async (arg1: Arg1) => {
 		const key = arg1.file;
-		const ret = map.get(key);
-		if (ret) return ret;
+		let entry = map.get(key);
+		if (entry?.result) return entry.result;
 
-		const result = await callback(arg1, arg2);
-		map.set(key, result);
-		return result;
+		if (entry === undefined) {
+			entry = {};
+			map.set(key, entry);
+
+			if (env.DEV) {
+				(async () => {
+					for await (const _ of watch(arg1.file)) {
+						entry.result = undefined;
+					}
+				})();
+			}
+		}
+
+		const vfile = await getMarkdownVFile(arg1);
+		const promise = callback(arg1, vfile);
+		entry.result = promise;
+		try {
+			return await promise;
+		} catch (e) {
+			entry.result = undefined;
+			throw e;
+		}
 	};
 }

@@ -8,7 +8,6 @@ import * as fs from "fs/promises";
 import { resolveImageFile } from "./resolveImageFile.ts";
 import { isNotJunk } from "./isNotJunk.ts";
 import type { MarkdownVFile } from "../markdown/types.ts";
-import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
 import { Value } from "typebox/value";
 import { parseFrontmatter } from "./parseFrontmatter.ts";
 import { CollectionInfoSchema } from "./schema/CollectionInfoSchema.ts";
@@ -18,9 +17,8 @@ import { cache } from "./common.ts";
 export const readCollection = cache(
 	async (
 		stub: CollectionStub,
-		vfilePromise: Promise<MarkdownVFile> = getMarkdownVFile(stub),
+		vfile: MarkdownVFile,
 	): Promise<CollectionInfo> => {
-		const vfile = await vfilePromise;
 		const collectionPath = stub.file.split("/").slice(0, -1).join("/");
 		const { frontmatter, frontmatterNode } =
 			await parseFrontmatter<RawCollectionInfo>(vfile);

@@ -4,7 +4,6 @@ import { resolveImageFile } from "./resolveImageFile.ts";
 import { contentDirectory, cache } from "./common.ts";
 import * as path from "path";
 import type { MarkdownVFile } from "../markdown/types.ts";
-import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
 import { parseFrontmatter } from "./parseFrontmatter.ts";
 import { ParseError, Value } from "typebox/value";
 import { PostInfoSchema } from "./schema/PostInfoSchema.ts";
@@ -12,11 +11,7 @@ import { logError } from "../markdown/logger.ts";
 import { formatDate } from "../date.ts";
 
 export const readPost = cache(
-	async (
-		stub: PostStub,
-		vfilePromise: Promise<MarkdownVFile> = getMarkdownVFile(stub),
-	): Promise<PostInfo> => {
-		const vfile = await vfilePromise;
+	async (stub: PostStub, vfile: MarkdownVFile): Promise<PostInfo> => {
 		const vfileContent = vfile.value as string;
 		const postPath = stub.file.split("/").slice(0, -1).join("/");
 		const { frontmatter, frontmatterNode } =

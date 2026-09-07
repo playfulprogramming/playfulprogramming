@@ -5,7 +5,6 @@ import type {
 } from "#types/PersonInfo.ts";
 import { resolvePath } from "../url-paths.ts";
 import { getImageSize } from "../get-image-size.ts";
-import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
 import type { MarkdownVFile } from "../markdown/types.ts";
 import { parseFrontmatter } from "./parseFrontmatter.ts";
 import { logError } from "../markdown/logger.ts";
@@ -14,11 +13,7 @@ import { PersonInfoSchema } from "./schema/PersonInfoSchema.ts";
 import { cache } from "./common.ts";
 
 export const readPerson = cache(
-	async (
-		stub: PersonStub,
-		vfilePromise: Promise<MarkdownVFile> = getMarkdownVFile(stub),
-	): Promise<PersonInfo> => {
-		const vfile = await vfilePromise;
+	async (stub: PersonStub, vfile: MarkdownVFile): Promise<PersonInfo> => {
 		const personPath = stub.file.split("/").slice(0, -1).join("/");
 		const { frontmatter, frontmatterNode } =
 			await parseFrontmatter<RawPersonInfo>(vfile);

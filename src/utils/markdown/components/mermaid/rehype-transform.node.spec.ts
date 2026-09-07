@@ -43,8 +43,8 @@ function createVFile(value: string) {
 		data: {
 			...fileInfo,
 			headingsWithIds: [],
+			warnings: [],
 		},
-		warnings: [],
 	}) as MarkdownVFile;
 }
 
