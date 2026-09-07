@@ -76,6 +76,10 @@ export default defineConfig({
 			"Cross-Origin-Opener-Policy": "same-origin",
 		},
 	},
+	security: {
+		// This prevents lint-markdown-files.ts from invoking the POST endpoints under /api/lint
+		checkOrigin: process.env.CI !== "1",
+	},
 	vite: {
 		define: {
 			__PARAGLIDE_SERVER_OUTPUT__: JSON.stringify(isServerBuild),
