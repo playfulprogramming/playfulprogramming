@@ -1,5 +1,4 @@
 import type { Locale } from "#src/paraglide/runtime.js";
-import type { WarningInfo } from "#src/utils/markdown/types.ts";
 import type { LocalFile } from "#types/LocalFile.ts";
 import { Type, type Static } from "typebox";
 
@@ -104,7 +103,6 @@ export interface CollectionStub {
 	locales: Locale[];
 	locale: Locale;
 	authors: string[];
-	warnings: WarningInfo[];
 }
 
 export interface FuturePost {

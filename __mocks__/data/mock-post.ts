@@ -32,7 +32,6 @@ export const MockPost: PostInfo = {
 		relativeServerPath: "",
 		width: 0,
 	},
-	warnings: [],
 };
 
 export const MockMultiAuthorPost: PostInfo = {
@@ -67,7 +66,6 @@ export const MockMultiAuthorPost: PostInfo = {
 		relativeServerPath: "",
 		width: 0,
 	},
-	warnings: [],
 };
 
 export const MockMuliLanguagePost: PostInfo = {
@@ -102,7 +100,6 @@ export const MockMuliLanguagePost: PostInfo = {
 		relativeServerPath: "",
 		width: 0,
 	},
-	warnings: [],
 };
 
 export const MockCanonicalPost: PostInfo = {
@@ -138,5 +135,4 @@ export const MockCanonicalPost: PostInfo = {
 		relativeServerPath: "",
 		width: 0,
 	},
-	warnings: [],
 };

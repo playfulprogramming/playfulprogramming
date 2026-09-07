@@ -1,9 +1,11 @@
 import type { APIRoute } from "astro";
-import * as api from "#utils/api.ts";
 import { getMarkdownHtml } from "#src/utils/markdown/getMarkdownHtml.ts";
 import Type from "typebox";
 import Value from "typebox/value";
 import type { Locale } from "#src/paraglide/runtime.js";
+import { people } from "#src/utils/data.ts";
+import { getMarkdownVFile } from "#src/utils/markdown/getMarkdownVFile.ts";
+import { readPerson } from "#src/utils/content/readPerson.ts";
 
 const RequestSchema = Type.Object({
 	author: Type.String(),
@@ -12,16 +14,18 @@ const RequestSchema = Type.Object({
 
 export const POST: APIRoute = async ({ request }) => {
 	const body = Value.Parse(RequestSchema, await request.json());
-	const entity = await api.getPersonById(body.author, body.locale);
+	const stub = people.get(body.author)?.find((p) => p.locale === body.locale);
 
-	if (!entity) {
+	if (!stub) {
 		console.log(`No match for author ${body.author}`);
 		return Response.json({ warnings: [] });
 	}
 
-	const data = await getMarkdownHtml(entity);
+	const vfile = await getMarkdownVFile(stub);
+	const post = await readPerson(stub, vfile);
+	await getMarkdownHtml(post);
 
 	return Response.json({
-		warnings: data.warnings,
+		warnings: vfile.data.warnings,
 	});
 };

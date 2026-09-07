@@ -22,5 +22,4 @@ export const MockCollection: CollectionInfo = {
 	coverImg: "img.png",
 	published: "10-10-2010T00:00:00.000Z",
 	buttons: [],
-	warnings: [],
 };

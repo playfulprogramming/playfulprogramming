@@ -39,7 +39,6 @@ export const person = {
 	locales: ["en"],
 	totalPostCount: 12,
 	totalWordCount: 24000,
-	warnings: [],
 } satisfies PersonInfo;
 export const post = {
 	kind: "post",
@@ -58,7 +57,6 @@ export const post = {
 	locales: ["en"],
 	wordCount: 1800,
 	banner: illustration,
-	warnings: [],
 } satisfies PostInfoWithBanner;
 export const collection = {
 	kind: "collection",
@@ -75,7 +73,6 @@ export const collection = {
 	locale: "en",
 	locales: ["en"],
 	postCount: 8,
-	warnings: [],
 } satisfies CollectionInfo;
 export const snitip = {
 	id: "storybook-snitip",

@@ -13,10 +13,10 @@ export function cache<Arg1 extends MarkdownFileInfo, Ret>(
 	callback: (arg1: Arg1, vfile: MarkdownVFile) => Promise<Ret>,
 ) {
 	const map = new Map<string, { result?: Promise<Ret> }>();
-	return async (arg1: Arg1) => {
+	return async (arg1: Arg1, vfile?: MarkdownVFile) => {
 		const key = arg1.file;
 		let entry = map.get(key);
-		if (entry?.result) return entry.result;
+		if (entry?.result && vfile === undefined) return entry.result;
 
 		if (entry === undefined) {
 			entry = {};
@@ -31,7 +31,10 @@ export function cache<Arg1 extends MarkdownFileInfo, Ret>(
 			}
 		}
 
-		const vfile = await getMarkdownVFile(arg1);
+		if (vfile === undefined) {
+			vfile = await getMarkdownVFile(arg1);
+		}
+
 		const promise = callback(arg1, vfile);
 		entry.result = promise;
 		try {

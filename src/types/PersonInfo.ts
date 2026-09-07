@@ -1,4 +1,3 @@
-import type { WarningInfo } from "#src/utils/markdown/types.ts";
 import type { Locale } from "#src/paraglide/runtime.js";
 import { Type, type Static } from "typebox";
 
@@ -49,7 +48,6 @@ export interface PersonStub {
 	file: string;
 	locale: Locale;
 	locales: Locale[];
-	warnings: WarningInfo[];
 }
 
 export type RawPersonInfo = Static<typeof PersonInfoSchema>;

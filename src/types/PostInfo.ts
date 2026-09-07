@@ -1,4 +1,3 @@
-import type { WarningInfo } from "#src/utils/markdown/types.ts";
 import type { Locale } from "#src/paraglide/runtime.js";
 import type { LocalFile } from "#types/LocalFile.ts";
 import { Type, type Static } from "typebox";
@@ -50,7 +49,6 @@ export interface PostStub {
 	locale: Locale;
 	authors: string[];
 	collection?: string;
-	warnings: WarningInfo[];
 }
 
 export type RawPostInfo = Static<typeof PostInfoSchema>;
