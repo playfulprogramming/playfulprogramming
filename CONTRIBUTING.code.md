@@ -61,6 +61,38 @@ To test the interaction of the backend with the frontend you need to set up the 
       - The first build will take +40 minutes to cache in the DB locally. We may want a Seed Script in the future.
    - Run `pnpm preview` to preview the built app
 
+### Temporary SSR and SSG deployment modes
+
+We are migrating server rendering to feature parity and testing its performance before enabling it in production. `BUILD_OUTPUT` selects both Astro's rendering mode and the matching Docker runtime:
+
+| Deployment | `BUILD_OUTPUT` | Runtime |
+| --- | --- | --- |
+| Staging (Fly PR review apps) | `server` | Astro's standalone Node server |
+| Production (the `main` deployment) | `static` | Prerendered files served by nginx |
+| Local builds, by default | `static` | Prerendered files |
+
+The deployment workflows set this value explicitly. `MODE=preview` still selects preview integrations and behavior; it does not enable SSR by itself. Rendering mode is chosen at build time, so changing it requires rebuilding the image.
+
+To run the staging SSR container locally with the existing Docker Compose environment and secrets setup:
+
+```sh
+BUILD_OUTPUT=server docker compose up --build
+```
+
+To switch back to the static container:
+
+```sh
+BUILD_OUTPUT=static docker compose up --build
+```
+
+Both are available at `http://localhost:8080`. For a build outside Docker, use `BUILD_OUTPUT=server pnpm build --mode preview`, then run `MODE=preview HOST=0.0.0.0 PORT=4321 node dist/server/entry.mjs`. Keep `content`, `public`, `src`, `assets`, and all installed dependencies alongside `dist`: Markdown rendering reads source files and compiles Shiki workers at runtime.
+
+Review builds continue to run without build or runtime credentials. The Node runtime carries the build's public site, commit, Cloudinary, and mode settings; credentials for backend services must be supplied separately at runtime if needed.
+
+Review machines use 1 GB of memory and allow extra time for the first SSR request to load content. The production machine configuration remains sized for nginx.
+
+The SSR container serves requests directly through Node. nginx-specific redirects, cache rules, cross-origin headers, and the analytics proxy still need parity work before production can switch. Keep the production workflow on `BUILD_OUTPUT=static` until that migration and performance testing are complete. Staging can be rolled back by setting its workflow's `BUILD_OUTPUT` to `static` and redeploying.
+
 ## Example workflow
 
 A typical development workflow looks like this:

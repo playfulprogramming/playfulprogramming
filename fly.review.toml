@@ -18,10 +18,13 @@ primary_region = 'sjc'
 
   [[http_service.checks]]
     interval = '30s'
-    timeout = '5s'
-    grace_period = '10s'
+    # The first SSR request loads content and initializes the renderer.
+    timeout = '15s'
+    grace_period = '30s'
     method = 'GET'
     path = '/'
 
 [[vm]]
   size = 'shared-cpu-1x'
+  # SSR content loading exceeds the 256 MB default used by the static server.
+  memory = '1gb'

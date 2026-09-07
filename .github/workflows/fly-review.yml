@@ -85,7 +85,9 @@ jobs:
           push: ${{ github.event_name == 'pull_request_target' }}
           tags: ${{ env.DOCKER_TAG }}
           cache-from: type=gha
+          # Review apps are the staging environment for the temporary SSR migration.
           build-args: |
+            "BUILD_OUTPUT=server"
             "GIT_COMMIT_REF=${{ github.head_ref || github.ref_name }}"
             "SITE_URL=https://playfulprogramming.com"
             "MODE=preview"
