@@ -72,10 +72,12 @@ export const readPerson = cache(
 			if (person.socials.mastodon)
 				person.socials.mastodon = new URL(person.socials.mastodon).toString();
 		} catch (e) {
-			console.error(
-				`'${person.id}' socials.mastodon is not a valid URL: '${person.socials.mastodon}'`,
+			logError(
+				vfile,
+				frontmatterNode,
+				`socials.mastodon is not a valid URL: '${person.socials.mastodon}'`,
 			);
-			throw e;
+			delete person.socials.mastodon;
 		}
 
 		// "bluesky" should be a full URL; this will error if not valid
@@ -83,10 +85,12 @@ export const readPerson = cache(
 			if (person.socials.bluesky)
 				person.socials.bluesky = new URL(person.socials.bluesky).toString();
 		} catch (e) {
-			console.error(
-				`'${person.id}' socials.mastodon is not a valid URL: '${person.socials.bluesky}'`,
+			logError(
+				vfile,
+				frontmatterNode,
+				`socials.bluesky is not a valid URL: '${person.socials.mastodon}'`,
 			);
-			throw e;
+			delete person.socials.bluesky;
 		}
 
 		if (person.socials.youtube) {
