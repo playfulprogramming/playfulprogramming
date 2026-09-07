@@ -233,7 +233,7 @@ for (const personId of [...people.keys()]) {
 
 		if (collections.has(slug)) {
 			throw new Error(
-				`Post slug collision on ${collectionPath} - already exists: ${collections.get(slug)?.at(0)?.file}`,
+				`Collection slug collision on ${collectionPath} - already exists: ${collections.get(slug)?.at(0)?.file}`,
 			);
 		}
 
