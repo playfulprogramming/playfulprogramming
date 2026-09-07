@@ -60,7 +60,7 @@ export async function parseFrontmatter<T extends TSchema>(
 
 	let frontmatter: Static<T> | undefined;
 	try {
-		frontmatter = Value.Parse(schema, frontmatterJson);
+		frontmatter = Value.Parse(schema, Value.Default(schema, frontmatterJson));
 	} catch (e) {
 		if (e instanceof ParseError) {
 			for (const error of e.cause.errors) {
