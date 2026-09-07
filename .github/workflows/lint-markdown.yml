@@ -38,4 +38,6 @@ jobs:
           json: true
 
       - name: Verify changed files
-        run: echo "${{ steps.changed-files.outputs.all_changed_files }}" | node --experimental-strip-types scripts/lint-markdown-files.ts
+        run: echo "$CHANGED_FILES" | node --experimental-strip-types scripts/lint-markdown-files.ts
+        env:
+          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
