@@ -2,32 +2,23 @@
 import Document from "#components/layouts/document/document.astro";
 import SEO from "#components/seo/seo.astro";
 import AboutView from "#src/views/about/about.astro";
-import NotFoundPage from "#src/views/not-found/not-found-page.astro";
-import {
-	getStaticLocalePaths,
-	isValidLocaleRouteParam,
-} from "#utils/locales.ts";
+import { isValidLocaleRouteParam } from "#utils/locales.ts";
 import {
 	createAboutProps,
 	getAboutFiles,
+	getAboutPaths,
 	type AboutPageProps,
 } from "#src/views/about/utils/route-data.ts";
-import { getLocale } from "#src/paraglide/runtime.js";
+import { getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
 export async function getStaticPaths() {
-	const files = await getAboutFiles();
-
-	return getStaticLocalePaths().map(({ params, props }) => ({
-		params,
-		props: createAboutProps(files, props.locale),
-	}));
+	return getAboutPaths();
 }
 
 const localeParam = Astro.params.locale;
-const isLocaleRoute = isValidLocaleRouteParam(localeParam);
-if (!isLocaleRoute) {
-	Astro.response.status = 404;
+if (!isValidLocaleRouteParam(localeParam)) {
+	return Astro.rewrite(localizeHref("/404"));
 }
 
 const locale = getLocale();
@@ -36,26 +27,22 @@ const hasGeneratedProps =
 	typeof generatedProps.file === "string" &&
 	typeof generatedProps.isFallback === "boolean" &&
 	Array.isArray(generatedProps.locales);
-const pageProps = !isLocaleRoute
-	? undefined
-	: hasGeneratedProps
-		? (generatedProps as AboutPageProps)
-		: createAboutProps(await getAboutFiles(), locale);
+const pageProps = hasGeneratedProps
+	? (generatedProps as AboutPageProps)
+	: createAboutProps(await getAboutFiles(), locale);
+
+if (!pageProps) {
+	return Astro.rewrite(localizeHref("/404"));
+}
 ---
 
-{
-	pageProps ? (
-		<Document>
-			<SEO
-				title={m.title_about_us()}
-				description={m.desc_about_us()}
-				providedLangs={pageProps.locales}
-				noindex={pageProps.isFallback}
-				slot="head"
-			/>
-			<AboutView locales={pageProps.locales} file={pageProps.file} />
-		</Document>
-	) : (
-		<NotFoundPage />
-	)
-}
+<Document>
+	<SEO
+		title={m.title_about_us()}
+		description={m.desc_about_us()}
+		providedLangs={pageProps.locales}
+		noindex={pageProps.isFallback}
+		slot="head"
+	/>
+	<AboutView locales={pageProps.locales} file={pageProps.file} />
+</Document>

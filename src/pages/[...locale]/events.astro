@@ -10,6 +10,7 @@ import {
 	isValidLocaleRouteParam,
 } from "#utils/locales.ts";
 import { m } from "#src/paraglide/messages.js";
+import { localizeHref } from "#src/paraglide/runtime.js";
 export async function getStaticPaths() {
 	const latestEventBlockLocationMetadata =
 		await getLatestEventBlockLocationMetadata();
@@ -26,7 +27,7 @@ interface Props {
 
 const localeParam = Astro.params.locale;
 if (!isValidLocaleRouteParam(localeParam)) {
-	return Astro.rewrite("/404");
+	return Astro.rewrite(localizeHref("/404"));
 }
 
 const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);

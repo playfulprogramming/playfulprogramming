@@ -24,7 +24,9 @@ vi.mock("#utils/api.ts", () => {
 vi.mock("#src/paraglide/runtime.js", () => ({ baseLocale: "en" }));
 
 async function download(slug: string) {
-	return await GET({ params: { slug } } as Parameters<typeof GET>[0]);
+	return await GET({ params: { slug } } as unknown as Parameters<
+		typeof GET
+	>[0]);
 }
 
 describe("project downloads", () => {
