@@ -4,8 +4,8 @@ import type { PostInfo } from "#types/PostInfo.ts";
 import type { CollectionInfo } from "#types/CollectionInfo.ts";
 import { localizeHref } from "#src/paraglide/runtime.js";
 
-const noIndexPosts = getAllPosts().filter((post) => post.noindex);
-const noIndexCollection = getAllCollections().filter(
+const noIndexPosts = (await getAllPosts()).filter((post) => post.noindex);
+const noIndexCollection = (await getAllCollections()).filter(
 	(collection) => collection.noindex && collection.pageLayout !== "none",
 );
 

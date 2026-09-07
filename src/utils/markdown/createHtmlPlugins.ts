@@ -63,7 +63,7 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(remarkFrontmatter, {
 				type: TYPE_FRONTMATTER,
 				marker: "-",
-			} as never)
+			})
 			.use(remarkProcessFrontmatter)
 			.use(remarkGfm)
 			/* start remark plugins here */

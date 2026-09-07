@@ -14,7 +14,7 @@ import YourGuideTextContainer from "./your-guide-text-container.astro";
 	<Picture
 		imgAttrs={{ class: styles.guidePicture }}
 		alt=""
-		src={getPersonById("crutchcorn", baseLocale)!.profileImgMeta
+		src={(await getPersonById("crutchcorn", baseLocale))!.profileImgMeta
 			.relativeServerPath}
 		width={96}
 		height={96}

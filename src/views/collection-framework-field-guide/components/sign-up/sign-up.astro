@@ -23,7 +23,7 @@ import { getPersonById } from "#utils/api.ts";
 		<Picture
 			imgAttrs={{ class: styles.avatar }}
 			alt=""
-			src={getPersonById("crutchcorn", baseLocale)!.profileImgMeta
+			src={(await getPersonById("crutchcorn", baseLocale))!.profileImgMeta
 				.relativeServerPath}
 			width={72}
 			height={72}

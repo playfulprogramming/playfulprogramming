@@ -69,8 +69,8 @@ const getOrderRange = (arr: PostInfo[]) => {
 	);
 };
 
-export const getSuggestedArticles = (postNode: PostInfo) => {
-	const suggestedPosts = getPostsByLang(postNode.locale);
+export const getSuggestedArticles = async (postNode: PostInfo) => {
+	const suggestedPosts = await getPostsByLang(postNode.locale);
 
 	const extraSuggestedArticles: PostInfo[] = [];
 	const suggestedArticles: PostInfo[] = [];

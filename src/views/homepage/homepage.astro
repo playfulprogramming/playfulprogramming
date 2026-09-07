@@ -22,10 +22,28 @@ const { posts, collections } = Astro.props;
 const locale = getLocale();
 
 const postAuthors = new Map(
-	[...new Set(posts.flatMap((p) => p.authors))]
-		.map((id) => api.getPersonById(id, locale))
+	(
+		await Promise.all(
+			[...new Set(posts.flatMap((p) => p.authors))].map((id) =>
+				api.getPersonById(id, locale),
+			),
+		)
+	)
 		.filter(isDefined)
 		.map((u) => [u.id, u]),
+);
+
+const collectionsWithAuthors = await Promise.all(
+	collections.map(async (collection) => ({
+		collection,
+		authors: (
+			await Promise.all(
+				collection.authors.map((id) =>
+					api.getPersonById(id, collection.locale),
+				),
+			)
+		).filter(isDefined),
+	})),
 );
 ---
 
@@ -73,12 +91,10 @@ const postAuthors = new Map(
 		class={styles.collectionsGrid}
 	>
 		{
-			collections.map((collection) => (
+			collectionsWithAuthors.map(({ collection, authors }) => (
 				<CollectionCard
 					collection={collection}
-					authors={collection.authors
-						.map((id) => api.getPersonById(id, collection.locale))
-						.filter(isDefined)}
+					authors={authors}
 					headingTag="h3"
 				/>
 			))

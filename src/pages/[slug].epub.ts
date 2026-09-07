@@ -9,8 +9,8 @@ import { baseLocale } from "#src/paraglide/runtime.js";
 
 export const GET: APIRoute = async ({ params }) => {
 	const slug = String(params.slug);
-	const collection = getCollectionBySlug(slug, baseLocale)!;
-	const collectionPosts = getPostsByCollection(slug, baseLocale);
+	const collection = (await getCollectionBySlug(slug, baseLocale))!;
+	const collectionPosts = await getPostsByCollection(slug, baseLocale);
 
 	const epub = await generateCollectionEPub(collection, collectionPosts);
 
@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ params }) => {
 	});
 };
 
-export function getStaticPaths() {
-	const collections = getCollectionsByLang(baseLocale);
+export async function getStaticPaths() {
+	const collections = await getCollectionsByLang(baseLocale);
 	return collections.map((c) => ({ params: { slug: c.slug } }));
 }

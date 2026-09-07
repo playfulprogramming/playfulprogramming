@@ -30,8 +30,13 @@ const showAchievementToggle =
 const showPostsToggle = posts.length > postsToDisplay.length;
 
 const postAuthors = new Map(
-	[...new Set(posts.flatMap((p) => p.authors))]
-		.map((id) => api.getPersonById(id, locale))
+	(
+		await Promise.all(
+			[...new Set(posts.flatMap((p) => p.authors))].map((id) =>
+				api.getPersonById(id, locale),
+			),
+		)
+	)
 		.filter(isDefined)
 		.map((u) => [u.id, u]),
 );

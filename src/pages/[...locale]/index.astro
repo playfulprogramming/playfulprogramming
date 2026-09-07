@@ -24,11 +24,11 @@ if (!isLocaleRoute) {
 const locale = getLocale();
 const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
 
-const posts = isLocaleRoute ? getPostsByLang(locale) : [];
+const posts = isLocaleRoute ? await getPostsByLang(locale) : [];
 const postsToDisplay = posts.slice(0, 4);
 
 const collectionsToDisplay = isLocaleRoute
-	? getCollectionsByLang(locale).slice(0, 4)
+	? (await getCollectionsByLang(locale)).slice(0, 4)
 	: [];
 ---
 

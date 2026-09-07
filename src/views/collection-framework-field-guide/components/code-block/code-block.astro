@@ -12,7 +12,9 @@ import Content from "#utils/markdown/components/content.astro";
 const vfileData: MarkdownVFile["data"] = {
 	kind: "page",
 	file: "",
-	headingsWithIds: [],
+	headingIds: [],
+	tableOfContents: [],
+	warnings: [],
 	snitips: new Map(),
 };
 
@@ -20,6 +22,7 @@ const { content } = await getMarkdownHtml(
 	{
 		kind: "page",
 		file: "",
+		warnings: [],
 	},
 	Promise.resolve(
 		new VFile({

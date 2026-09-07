@@ -22,7 +22,7 @@ const peoplePicturesDir =
 		<ProminentQuote
 			personName={"Lars Gyrup Brink Nielsen"}
 			personLink="https://github.com/LayZeeDK"
-			avatarSrc={getPersonById("LayZee", baseLocale)!.profileImgMeta
+			avatarSrc={(await getPersonById("LayZee", baseLocale))!.profileImgMeta
 				.relativeServerPath}
 			personTitle="GitHub Star, Microsoft MVP, Angular Hero of Education"
 			quote={`
@@ -60,7 +60,7 @@ I am really impressed with "The Framework Field Guide" by Corbin - not only does
 		<QuoteCard
 			personName={`Jessica Temporal`}
 			personLink={"https://twitter.com/jesstemporal"}
-			avatarSrc={getPersonById("jtemporal", baseLocale)!.profileImgMeta
+			avatarSrc={(await getPersonById("jtemporal", baseLocale))!.profileImgMeta
 				.relativeServerPath}
 			personTitle={`PyLady • GitHub Star • Sr Developer Advocate @ Auth0 by Okta`}
 			quote={`
@@ -135,8 +135,8 @@ The Framework Field Guide does a wonderful job of comparing and contrasting thre
 		<QuoteCard
 			personName={`Enea Jahollari`}
 			personLink="https://eneajaho.me/"
-			avatarSrc={getPersonById("eneajahollari", baseLocale)!.profileImgMeta
-				.relativeServerPath}
+			avatarSrc={(await getPersonById("eneajahollari", baseLocale))!
+				.profileImgMeta.relativeServerPath}
 			personTitle={`Angular Developer`}
 			quote={`
 Reading the Framework Field Guide is like boarding the ship of frontend development and sailing through the peaceful and beautiful seas of it, but also the deep oceans of concepts that will make you think twice when you say, I know React, Vue, and Angular.
@@ -154,7 +154,7 @@ Corbin does an amazing job teaching fundamentals that simplify learning React, A
 		<QuoteCard
 			personName={`James Fenn`}
 			personLink="https://jfenn.me/"
-			avatarSrc={getPersonById("fennifith", baseLocale)!.profileImgMeta
+			avatarSrc={(await getPersonById("fennifith", baseLocale))!.profileImgMeta
 				.relativeServerPath}
 			personTitle={`Miscellaneous Software Author, Bug Creator`}
 			quote={`
@@ -202,8 +202,8 @@ Corbin is great at giving new developers the keys to the kingdom. The pictures, 
 		<QuoteCard
 			personName={`Jahir Fiquitiva`}
 			personLink="https://jahir.dev/"
-			avatarSrc={getPersonById("jahirfiquitiva", baseLocale)!.profileImgMeta
-				.relativeServerPath}
+			avatarSrc={(await getPersonById("jahirfiquitiva", baseLocale))!
+				.profileImgMeta.relativeServerPath}
 			personTitle={`Full Stack Engineer, Open Source Maintainer`}
 			quote={`
 Corbin is a really talented expert with deep knowledge in a wide range of tech areas. He's truly capable of providing support and explaining hard concepts in an understandable way.

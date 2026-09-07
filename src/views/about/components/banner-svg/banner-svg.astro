@@ -24,7 +24,7 @@ const sticker_developer = await fs.readFile(
 	"utf-8",
 );
 
-const people = getPeopleByLang(baseLocale)
+const people = (await getPeopleByLang(baseLocale))
 	.sort((_) => 0.5 - Math.random())
 	.slice(0, 28);
 

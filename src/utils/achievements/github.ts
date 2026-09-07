@@ -23,7 +23,7 @@ export const contributorYears: number[] = [];
 for (let year = 2019; year <= new Date().getFullYear(); year++)
 	contributorYears.push(year);
 
-const userLogins = getPeopleByLang(baseLocale)
+const userLogins = (await getPeopleByLang(baseLocale))
 	.filter((person) => !!person.socials.github)
 	.map((person) => person.socials.github);
 

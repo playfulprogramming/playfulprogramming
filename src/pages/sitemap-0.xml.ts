@@ -91,7 +91,7 @@ export const GET = async () => {
 		});
 	}
 
-	for (const post of api.getAllPosts()) {
+	for (const post of await api.getAllPosts()) {
 		if (post.noindex) continue;
 
 		const links =
@@ -110,7 +110,7 @@ export const GET = async () => {
 		});
 	}
 
-	for (const collection of api.getAllCollections()) {
+	for (const collection of await api.getAllCollections()) {
 		if (collection.noindex) continue;
 
 		const links =
@@ -129,7 +129,7 @@ export const GET = async () => {
 	}
 
 	const personLocalesById = new Map<string, Set<Locale>>();
-	for (const person of api.getAllPeople()) {
+	for (const person of await api.getAllPeople()) {
 		const locales = personLocalesById.get(person.id) ?? new Set<Locale>();
 		for (const locale of person.locales) locales.add(locale);
 		personLocalesById.set(person.id, locales);

@@ -35,7 +35,7 @@ export async function getAchievements(
 		? await fetchGitHubData(person.socials.github)
 		: undefined;
 
-	const authoredPosts = getPostsByPerson(person.id, person.locale);
+	const authoredPosts = await getPostsByPerson(person.id, person.locale);
 
 	if (person.achievements.includes("site-redesign")) {
 		achievements.push(
@@ -87,7 +87,7 @@ export async function getAchievements(
 		);
 	}
 
-	if (api.getCollectionsByPerson(person.id, person.locale).length > 0) {
+	if ((await api.getCollectionsByPerson(person.id, person.locale)).length > 0) {
 		achievements.push(
 			createAchievement(
 				person.locale,

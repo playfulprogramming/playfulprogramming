@@ -3,7 +3,6 @@ import type { PostInfo, SearchPostInfo } from "#types/PostInfo.ts";
 import type { SearchCollectionInfo } from "#types/CollectionInfo.ts";
 import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
 import { getExcerpt } from "#utils/markdown/get-excerpt.ts";
-import matter from "gray-matter";
 import { getPostImages } from "#utils/hoof/index.ts";
 import asyncPool from "tiny-async-pool";
 import env from "#src/constants/env/index.ts";
@@ -109,11 +108,13 @@ async function deployCollections(collections: SearchCollectionInfo[]) {
 async function processPost(post: PostInfo): Promise<SearchPostInfo> {
 	// Include complete post content as the excerpt
 	const vfile = await getMarkdownVFile(post);
-	const vfileContent = matter(vfile.value.toString()).content;
-	const excerpt = getExcerpt(vfileContent, undefined);
+	const excerpt = getExcerpt(vfile.value.toString(), undefined);
 	// Collect searchable author info (name, social media handles, etc)
-	const searchMeta = post.authors
-		.map((id) => api.getPersonById(id, baseLocale))
+	const searchMeta = (
+		await Promise.all(
+			post.authors.map((id) => api.getPersonById(id, baseLocale)),
+		)
+	)
 		.filter((a) => !!a)
 		.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
 		.flatMap((set) => Array.from(set))
@@ -140,7 +141,7 @@ async function processPost(post: PostInfo): Promise<SearchPostInfo> {
 const posts: SearchPostInfo[] = [];
 for await (const post of asyncPool(
 	8,
-	api.getPostsByLang(baseLocale),
+	await api.getPostsByLang(baseLocale),
 	processPost,
 )) {
 	posts.push(post);
@@ -148,14 +149,18 @@ for await (const post of asyncPool(
 
 await deployPosts(posts);
 
-const collections = api.getCollectionsByLang(baseLocale).map((collection) => {
-	const chapters = api.getPostsByCollection(collection.slug, baseLocale);
+const collections: SearchCollectionInfo[] = [];
+for (const collection of await api.getCollectionsByLang(baseLocale)) {
+	const chapters = await api.getPostsByCollection(collection.slug, baseLocale);
 	const excerpt = chapters
 		.map((chapter) => `${chapter.title} ${chapter.description}`)
 		.join(" ");
 	// Collect searchable author info (name, social media handles, etc)
-	const searchMeta = collection.authors
-		.map((id) => api.getPersonById(id, baseLocale))
+	const searchMeta = (
+		await Promise.all(
+			collection.authors.map((id) => api.getPersonById(id, baseLocale)),
+		)
+	)
 		.filter((a) => !!a)
 		.map((a) => new Set([a.id, a.name, ...Object.values(a.socials)]))
 		.flatMap((set) => Array.from(set))
@@ -163,13 +168,13 @@ const collections = api.getCollectionsByLang(baseLocale).map((collection) => {
 
 	console.debug("Indexed collection", collection.slug);
 
-	return {
+	collections.push({
 		...collection,
 		id: collection.slug,
 		excerpt,
 		searchMeta,
 		publishedTimestamp: new Date(collection.published).getTime(),
-	} satisfies SearchCollectionInfo;
-});
+	});
+}
 
 await deployCollections(collections);

@@ -7,7 +7,7 @@ import CollectionTableOfContents from "./components/table-of-contents/collection
 import { getPostsByCollection } from "#utils/api.ts";
 import { baseLocale } from "#src/paraglide/runtime.js";
 
-const chapterList = getPostsByCollection(
+const chapterList = await getPostsByCollection(
 	"framework-field-guide-fundamentals",
 	baseLocale,
 );

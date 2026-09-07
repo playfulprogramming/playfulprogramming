@@ -13,9 +13,8 @@ export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 			return;
 		}
 
-		const headings = file.data.headingsWithIds;
 		const headingSlugsMap = new Map<string, string>();
-		for (const { slug } of headings) {
+		for (const slug of file.data.headingIds) {
 			const lowerSlug = slug.toLowerCase();
 			const existingSlug = headingSlugsMap.get(lowerSlug);
 
@@ -35,7 +34,7 @@ export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 			const href = node.properties["href"];
 			if (typeof href !== "string" || !href.startsWith("#")) return;
 
-			const targetHeadingSlug = href.slice(1);
+			const targetHeadingSlug = decodeURIComponent(href.slice(1));
 			const headingSlug = headingSlugsMap.get(targetHeadingSlug.toLowerCase());
 			if (!headingSlug) {
 				logError(

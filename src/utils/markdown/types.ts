@@ -3,12 +3,21 @@ import type { PostHeadingInfo } from "#types/PostInfo.ts";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import type { CollectionLinks } from "./reference-page/rehype-reference-page.ts";
 
-export type MarkdownKind = "post" | "collection" | "unicorn" | "page";
+export type MarkdownKind = "post" | "collection" | "person" | "page" | "snitip";
 
 export type MarkdownFileInfo = {
 	kind: MarkdownKind;
 	file: string;
 	slug?: string;
+	warnings?: WarningInfo[];
+};
+
+export type WarningInfo = {
+	message: string;
+	path: string;
+	offset?: number;
+	col?: number;
+	line?: number;
 };
 
 export interface MarkdownVFile extends VFile {
@@ -18,12 +27,15 @@ export interface MarkdownVFile extends VFile {
 		file: string;
 		slug?: string;
 		frontmatter?: MarkdownFileInfo;
-		frontmatterData?: object;
-		headingsWithIds: PostHeadingInfo[];
+		/** all heading ids that exist anywhere in the document */
+		headingIds: string[];
+		/** list of heading titles that should appear in the table of contents */
+		tableOfContents: PostHeadingInfo[];
 		snitips: Map<string, SnitipInfo>;
 		collectionLinks?: CollectionLinks[];
 		isKatexMathUsed?: boolean;
 		isMermaidUsed?: boolean;
+		warnings: WarningInfo[];
 	};
 }
 

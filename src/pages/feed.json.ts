@@ -4,7 +4,7 @@ import { getPostsByLang, getPersonById } from "#utils/api.ts";
 import licenses from "../../content/data/licenses.json" with { type: "json" };
 import { baseLocale } from "#src/paraglide/runtime.js";
 
-export const GET = () => {
+export const GET = async () => {
 	const feed = new Feed({
 		title: "Playful Programming's JSON Feed",
 		description:
@@ -22,8 +22,18 @@ export const GET = () => {
 		},
 	});
 
-	getPostsByLang(baseLocale).forEach((post) => {
+	for (const post of await getPostsByLang(baseLocale)) {
 		const nodeUrl = `${siteUrl}/posts/${post.slug}`;
+		const author = (
+			await Promise.all(
+				post.authors.map((id) => getPersonById(id, post.locale)),
+			)
+		).map((author) => {
+			return {
+				name: author!.name,
+				link: `${siteUrl}/unicorns/${author!.id}`,
+			};
+		});
 
 		feed.addItem({
 			title: post.title,
@@ -31,19 +41,12 @@ export const GET = () => {
 			link: nodeUrl,
 			description: post.description,
 			content: post.excerpt,
-			author: post.authors
-				.map((id) => getPersonById(id, post.locale))
-				.map((author) => {
-					return {
-						name: author!.name,
-						link: `${siteUrl}/unicorns/${author!.id}`,
-					};
-				}),
+			author,
 			date: new Date(post.published),
 			copyright: licenses.find((l) => l.id === post.license)?.displayName,
 			extensions: [],
 		});
-	});
+	}
 
 	return new Response(feed.json1());
 };

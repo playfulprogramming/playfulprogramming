@@ -2,7 +2,6 @@ import { headingRank } from "hast-util-heading-rank";
 import { hasProperty } from "hast-util-has-property";
 import { toString } from "hast-util-to-string";
 import type { Root, Parent } from "hast";
-import type { PostHeadingInfo } from "#src/types/index.ts";
 import type { Plugin } from "unified";
 import { visit, SKIP } from "unist-util-visit";
 import { isMarkdownVFile } from "./types.ts";
@@ -12,9 +11,9 @@ import { isMarkdownVFile } from "./types.ts";
  */
 export const rehypeHeaderText: Plugin<[], Root> = () => {
 	return (tree, file) => {
-		const headingsWithId: PostHeadingInfo[] = isMarkdownVFile(file)
-			? file.data.headingsWithIds
-			: [];
+		const [headingIds, headingsWithIds] = isMarkdownVFile(file)
+			? [file.data.headingIds, file.data.tableOfContents]
+			: [[], []];
 
 		visit(tree, "element", (node: Parent["children"][number]) => {
 			// Don't descend into tab containers or collapsible <details> elements
@@ -23,6 +22,14 @@ export const rehypeHeaderText: Plugin<[], Root> = () => {
 				(node.properties["role"] === "tabpanel" || node.tagName === "details")
 			) {
 				return SKIP;
+			}
+
+			if (
+				node.type === "element" &&
+				(node.tagName === "a" || node.tagName === "li") &&
+				hasProperty(node, "id")
+			) {
+				headingIds.push(String(node.properties.id));
 			}
 
 			if (
@@ -46,13 +53,15 @@ export const rehypeHeaderText: Plugin<[], Root> = () => {
 					},
 				];
 
+				const slug = String(node.properties["id"]);
 				const headingWithID = {
 					value: headerText,
 					depth: headingRank(node)!,
-					slug: node.properties["id"]! as string,
+					slug,
 				};
 
-				headingsWithId.push(headingWithID);
+				headingIds.push(slug);
+				headingsWithIds.push(headingWithID);
 			}
 		});
 	};

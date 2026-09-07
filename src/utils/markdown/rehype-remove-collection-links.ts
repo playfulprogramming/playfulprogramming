@@ -11,10 +11,10 @@ function normalizeUrl(url: string) {
 }
 
 export const rehypeRemoveCollectionLinks: Plugin<[], Root> = () => {
-	return (tree, vfile) => {
+	return async (tree, vfile) => {
 		const post = (vfile as MarkdownVFile).data.frontmatter as PostInfo;
 		const posts = post.collection
-			? api.getPostsByCollection(post.collection, baseLocale)
+			? await api.getPostsByCollection(post.collection, baseLocale)
 			: [];
 
 		visit(tree, "element", (node, _index, _parent) => {

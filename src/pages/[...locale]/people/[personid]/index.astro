@@ -7,8 +7,8 @@ import * as api from "#utils/api.ts";
 import { isValidLocaleRouteParam } from "#utils/locales.ts";
 import { baseLocale, getLocale } from "#src/paraglide/runtime.js";
 
-export function getStaticPaths() {
-	return api.getAllPeople().map((person) => ({
+export async function getStaticPaths() {
+	return (await api.getAllPeople()).map((person) => ({
 		params: {
 			locale: person.locale === baseLocale ? undefined : person.locale,
 			personid: person.id,
@@ -20,14 +20,18 @@ const localeParam = Astro.params.locale;
 const isLocaleRoute = isValidLocaleRouteParam(localeParam);
 const locale = getLocale();
 const personId = Astro.params.personid!;
-const person = isLocaleRoute ? api.getPersonById(personId, locale) : undefined;
+const person = isLocaleRoute
+	? await api.getPersonById(personId, locale)
+	: undefined;
 const validPerson = person?.locale === locale ? person : undefined;
 
 if (!validPerson) {
 	Astro.response.status = 404;
 }
 
-const posts = validPerson ? api.getPostsByPerson(validPerson.id, locale) : [];
+const posts = validPerson
+	? await api.getPostsByPerson(validPerson.id, locale)
+	: [];
 ---
 
 {

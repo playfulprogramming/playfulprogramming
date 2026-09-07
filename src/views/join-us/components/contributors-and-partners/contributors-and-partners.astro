@@ -6,7 +6,7 @@ import ContributorCard from "#components/contributor-card/contributor-card.astro
 import style from "./contributors-and-partners.module.scss";
 
 const locale = getLocale();
-const people = api.getPeopleByLang(locale);
+const people = await api.getPeopleByLang(locale);
 
 const { partners, nonPartners } = people.reduce(
 	(prev, person) => {

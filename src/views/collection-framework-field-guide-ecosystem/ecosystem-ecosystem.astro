@@ -8,12 +8,12 @@ import { getCollectionBySlug, getPostsByCollection } from "#utils/api.ts";
 import { baseLocale } from "#src/paraglide/runtime.js";
 import type { FuturePost } from "#types/CollectionInfo.ts";
 
-const collection = getCollectionBySlug(
+const collection = await getCollectionBySlug(
 	"framework-field-guide-ecosystem",
 	baseLocale,
 );
 
-const chapterList = getPostsByCollection(
+const chapterList = await getPostsByCollection(
 	"framework-field-guide-ecosystem",
 	baseLocale,
 );

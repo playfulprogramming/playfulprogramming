@@ -3,9 +3,7 @@
   name: "Davide Imola",
   firstName: "Davide",
   lastName: "Imola",
-  description: "Hello there! 👋🏻
-    I'm Davide, a Software Engineer currently immersed in the world of Web, Cloud, and Security.
-    I talk about Golang, DevOps, GitOps, Kubernetes, Open Source and Communities!",
+  description: "Hello there! 👋🏻\n    I'm Davide, a Software Engineer currently immersed in the world of Web, Cloud, and Security.\n    I talk about Golang, DevOps, GitOps, Kubernetes, Open Source and Communities!",
   socials:
     {
       twitter: "DavideImola",

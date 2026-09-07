@@ -11,7 +11,7 @@ export const MockPost: PostInfo = {
 	description: "This is a short description dunno why this would be this short",
 	excerpt: "This is a short description dunno why this would be this short",
 	authors: [MockPerson.id],
-	license: MockLicense.id,
+	license: MockLicense.id as never,
 	locale: "en",
 	locales: ["en", "es"],
 	slug: "this-post-name-here",
@@ -45,7 +45,7 @@ export const MockMultiAuthorPost: PostInfo = {
 	excerpt:
 		"This is another short description dunno why this would be this short",
 	authors: [MockPersonTwo.id, MockPerson.id],
-	license: MockLicense.id,
+	license: MockLicense.id as never,
 	locale: "en",
 	locales: ["en", "es"],
 	slug: "this-other-post-name-here",
@@ -79,7 +79,7 @@ export const MockMuliLanguagePost: PostInfo = {
 	excerpt:
 		"This is another short description dunno why this would be this short",
 	authors: [MockPersonTwo.id, MockPerson.id],
-	license: MockLicense.id,
+	license: MockLicense.id as never,
 	locale: "en",
 	locales: ["en", "es"],
 	slug: "this-other-post-name-here",
@@ -114,7 +114,7 @@ export const MockCanonicalPost: PostInfo = {
 	excerpt:
 		"This is another short description dunno why this would be this short",
 	authors: [MockPersonTwo.id, MockPerson.id],
-	license: MockLicense.id,
+	license: MockLicense.id as never,
 	locale: "en",
 	locales: ["en", "es"],
 	slug: "this-other-post-name-here",

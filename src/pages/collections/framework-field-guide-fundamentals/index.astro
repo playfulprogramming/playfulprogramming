@@ -25,10 +25,10 @@ import Fundamentals from "#src/views/collection-framework-field-guide-fundamenta
 import NextSteps from "#src/views/collection-framework-field-guide-fundamentals/components/next-steps/next-steps.astro";
 import { getCollectionBySlug, getPersonById } from "#utils/api.ts";
 
-const collection = getCollectionBySlug(
+const collection = (await getCollectionBySlug(
 	"framework-field-guide-fundamentals",
 	baseLocale,
-)!;
+))!;
 ---
 
 <Barebones>
@@ -36,7 +36,7 @@ const collection = getCollectionBySlug(
 		slot="head"
 		title={collection.title}
 		description={collection.description}
-		peopleData={[getPersonById("crutchcorn", baseLocale)!]}
+		peopleData={[(await getPersonById("crutchcorn", baseLocale))!]}
 		publishedTime={collection.published}
 		type={"book"}
 		shareImage={collection.socialImgMeta?.relativeServerPath}

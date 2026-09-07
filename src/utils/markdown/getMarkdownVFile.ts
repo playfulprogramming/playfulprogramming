@@ -20,7 +20,9 @@ export async function getMarkdownVFile(
 		file: data.file,
 		slug: data.slug,
 		frontmatter: data,
-		headingsWithIds: [],
+		headingIds: [],
+		tableOfContents: [],
+		warnings: data.warnings ?? [],
 		snitips: new Map(),
 	};
 	return new VFile({

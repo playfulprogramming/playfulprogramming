@@ -37,7 +37,7 @@ export function createEpubPlugins(unified: Processor) {
 			.use(remarkFrontmatter, {
 				type: TYPE_FRONTMATTER,
 				marker: "-",
-			} as never)
+			})
 			.use(remarkProcessFrontmatter)
 			.use(remarkGfm)
 			.use(remarkToRehype, { allowDangerousHtml: true })

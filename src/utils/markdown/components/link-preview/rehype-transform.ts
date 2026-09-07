@@ -46,10 +46,12 @@ export const rehypeLinkPreview: Plugin<[], PlayfulRoot> = () => {
 	};
 };
 
-function getPlayfulUrlBanner(url: URL): UrlMetadataResponse["banner"] {
+async function getPlayfulUrlBanner(
+	url: URL,
+): Promise<UrlMetadataResponse["banner"]> {
 	const [, postSlug] = /^\/posts\/([^\/]+)/.exec(url.pathname) ?? [];
 	if (postSlug) {
-		const post = api.getPostBySlug(postSlug, baseLocale);
+		const post = await api.getPostBySlug(postSlug, baseLocale);
 		if (post?.socialImgMeta) {
 			return {
 				src: post.socialImgMeta.relativeServerPath,
@@ -62,7 +64,10 @@ function getPlayfulUrlBanner(url: URL): UrlMetadataResponse["banner"] {
 	const [, collectionSlug] =
 		/^\/collections\/([^\/]+)/.exec(url.pathname) ?? [];
 	if (collectionSlug) {
-		const collection = api.getCollectionBySlug(collectionSlug, baseLocale);
+		const collection = await api.getCollectionBySlug(
+			collectionSlug,
+			baseLocale,
+		);
 		if (collection?.socialImgMeta) {
 			return {
 				src: collection.socialImgMeta.relativeServerPath,
@@ -112,7 +117,7 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 	const result = pictureNode
 		? undefined
 		: isPlayfulDomain
-			? getPlayfulUrlBanner(url)
+			? await getPlayfulUrlBanner(url)
 			: (await getUrlMetadata(url.toString()).catch(() => undefined))?.banner;
 	if (!pictureNode && !result) {
 		logError(vfile, anchorNode, "Link preview could not find a banner image.");

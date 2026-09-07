@@ -20,6 +20,7 @@ export const imageMeta = {
 export const person = {
 	kind: "person",
 	id: "storybook-author",
+	slug: "storybook-author",
 	file: "",
 	name: "Alex Example",
 	firstName: "Alex",

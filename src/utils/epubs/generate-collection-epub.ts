@@ -141,8 +141,12 @@ export async function generateCollectionEPub(
 	const fileTmpDir = await fs.mkdtemp(`${tmpdir() + path.sep}pfp-collection-`);
 	const fileLocation = path.join(fileTmpDir, `${collection.slug}.epub`);
 
-	const authors = collection.authors
-		.map((id) => getPersonById(id, collection.locale)?.name)
+	const authors = (
+		await Promise.all(
+			collection.authors.map((id) => getPersonById(id, collection.locale)),
+		)
+	)
+		.map((author) => author?.name)
 		.filter((name): name is string => !!name);
 
 	const referenceTitle = "References";

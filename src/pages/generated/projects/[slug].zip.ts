@@ -8,7 +8,7 @@ import { baseLocale } from "#src/paraglide/runtime.js";
 
 export async function findProjectDir(slug: string): Promise<string> {
 	const [postSlug, projectId] = slug.split("_");
-	const post = getPostBySlug(postSlug, baseLocale);
+	const post = await getPostBySlug(postSlug, baseLocale);
 	if (!post) throw new Error(`Post ${postSlug} does not exist!`);
 
 	const postDir = path.join(contentDirectory, post.path);
@@ -52,7 +52,7 @@ export const GET: APIRoute = async ({ params }) => {
 export async function getStaticPaths() {
 	const projects = new Set<string>();
 
-	for (const post of getAllPosts()) {
+	for (const post of await getAllPosts()) {
 		const postDir = path.join(contentDirectory, post.path);
 		for (const entry of await fs.readdir(postDir, { withFileTypes: true })) {
 			if (entry.isDirectory()) {
