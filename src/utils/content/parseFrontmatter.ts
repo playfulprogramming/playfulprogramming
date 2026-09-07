@@ -60,7 +60,10 @@ export async function parseFrontmatter<T extends TSchema>(
 
 	let frontmatter: Static<T> | undefined;
 	try {
-		frontmatter = Value.Parse(schema, Value.Default(schema, frontmatterJson));
+		frontmatter = Value.Parse(
+			schema,
+			Value.Default(schema, Value.Clone(frontmatterJson)),
+		);
 	} catch (e) {
 		if (e instanceof ParseError) {
 			for (const error of e.cause.errors) {
@@ -75,5 +78,8 @@ export async function parseFrontmatter<T extends TSchema>(
 		}
 	}
 
-	return { frontmatter: frontmatter ?? ({} as Static<T>), frontmatterNode };
+	return {
+		frontmatter: frontmatter ?? (frontmatterJson as Static<T>),
+		frontmatterNode,
+	};
 }
