@@ -1,11 +1,20 @@
+import Type, { type Static } from "typebox";
 import type { TagInfo } from "./TagInfo.ts";
 
-export interface RawSnitipInfo {
-	icon?: string;
-	title: string;
-	links?: SnitipLink[];
-	tags: string[];
-}
+export const SnitipInfoSchema = Type.Object({
+	icon: Type.Optional(Type.String()),
+	title: Type.String(),
+	links: Type.Array(
+		Type.Object({
+			name: Type.String(),
+			href: Type.String(),
+		}),
+		{ default: [] },
+	),
+	tags: Type.Array(Type.String(), { default: [] }),
+});
+
+export type RawSnitipInfo = Static<typeof SnitipInfoSchema>;
 
 export interface SnitipInfo extends Omit<RawSnitipInfo, "links"> {
 	id: string;

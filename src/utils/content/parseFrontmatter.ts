@@ -6,6 +6,8 @@ import { visit } from "unist-util-visit";
 import remarkFrontmatter from "remark-frontmatter";
 import JSON5 from "json5";
 import { logError } from "../markdown/logger.ts";
+import type { Static, TSchema } from "typebox";
+import Value, { ParseError } from "typebox/value";
 
 const TYPE_FRONTMATTER = "frontmatter";
 
@@ -26,9 +28,10 @@ const unifiedChain = unified()
 		marker: "-",
 	} as never);
 
-export async function parseFrontmatter<T>(
+export async function parseFrontmatter<T extends TSchema>(
 	vfile: MarkdownVFile,
-): Promise<{ frontmatter: T; frontmatterNode: Node }> {
+	schema: T,
+): Promise<{ frontmatter: Static<T>; frontmatterNode: Node }> {
 	const tree: Node = unifiedChain.parse(vfile);
 
 	let frontmatterNode: FrontMatterNode | undefined;
@@ -44,9 +47,9 @@ export async function parseFrontmatter<T>(
 		throw new Error(`${vfile.data.file}: Missing frontmatter!`);
 	}
 
-	let frontmatter: T | undefined;
+	let frontmatterJson: unknown;
 	try {
-		frontmatter = JSON5.parse(frontmatterNode.value);
+		frontmatterJson = JSON5.parse(frontmatterNode.value);
 	} catch (e) {
 		logError(
 			vfile,
@@ -55,5 +58,22 @@ export async function parseFrontmatter<T>(
 		);
 	}
 
-	return { frontmatter: frontmatter ?? ({} as T), frontmatterNode };
+	let frontmatter: Static<T> | undefined;
+	try {
+		frontmatter = Value.Parse(schema, frontmatterJson);
+	} catch (e) {
+		if (e instanceof ParseError) {
+			for (const error of e.cause.errors) {
+				logError(
+					vfile,
+					frontmatterNode,
+					`${error.schemaPath}: ${error.message}`,
+				);
+			}
+		} else {
+			logError(vfile, frontmatterNode, String(e));
+		}
+	}
+
+	return { frontmatter: frontmatter ?? ({} as Static<T>), frontmatterNode };
 }

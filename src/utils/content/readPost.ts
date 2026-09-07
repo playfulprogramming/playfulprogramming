@@ -1,37 +1,21 @@
-import type { PostInfo, PostStub, RawPostInfo } from "#types/PostInfo.ts";
+import {
+	PostInfoSchema,
+	type PostInfo,
+	type PostStub,
+} from "#types/PostInfo.ts";
 import { getExcerpt } from "#utils/markdown/get-excerpt.ts";
 import { resolveImageFile } from "./resolveImageFile.ts";
 import { contentDirectory, cache } from "./common.ts";
 import * as path from "path";
 import type { MarkdownVFile } from "../markdown/types.ts";
 import { parseFrontmatter } from "./parseFrontmatter.ts";
-import { ParseError, Value } from "typebox/value";
-import { PostInfoSchema } from "./schema/PostInfoSchema.ts";
-import { logError } from "../markdown/logger.ts";
 import { formatDate } from "../date.ts";
 
 export const readPost = cache(
 	async (stub: PostStub, vfile: MarkdownVFile): Promise<PostInfo> => {
 		const vfileContent = vfile.value as string;
 		const postPath = stub.file.split("/").slice(0, -1).join("/");
-		const { frontmatter, frontmatterNode } =
-			await parseFrontmatter<RawPostInfo>(vfile);
-
-		try {
-			Value.Parse(PostInfoSchema, frontmatter);
-		} catch (e) {
-			if (e instanceof ParseError) {
-				for (const error of e.cause.errors) {
-					logError(
-						vfile,
-						frontmatterNode,
-						`${error.schemaPath}: ${error.message}`,
-					);
-				}
-			} else {
-				logError(vfile, frontmatterNode, String(e));
-			}
-		}
+		const { frontmatter } = await parseFrontmatter(vfile, PostInfoSchema);
 
 		// Look... Okay? Just.. Look.
 		// Yes, we could use rehypeRetext and then XYZW but jeez there's so many edgecases.

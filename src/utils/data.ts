@@ -1,10 +1,10 @@
-import type {
-	TagInfo,
-	PersonStub,
-	CollectionStub,
-	PostStub,
-	SnitipInfo,
-	RawSnitipInfo,
+import {
+	type TagInfo,
+	type PersonStub,
+	type CollectionStub,
+	type PostStub,
+	type SnitipInfo,
+	SnitipInfoSchema,
 } from "#src/types/index.ts";
 import * as fs from "fs/promises";
 import path, { join } from "path";
@@ -94,7 +94,7 @@ for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
 		kind: "snitip",
 		file: filePath,
 	});
-	const { frontmatter } = await parseFrontmatter<RawSnitipInfo>(vfile);
+	const { frontmatter } = await parseFrontmatter(vfile, SnitipInfoSchema);
 
 	const snitipHtml = (await minimalParser.process(vfile)).toString();
 	const tagsMeta = new Map();

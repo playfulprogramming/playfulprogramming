@@ -1,5 +1,46 @@
 import type { WarningInfo } from "#src/utils/markdown/types.ts";
 import type { Locale } from "#src/paraglide/runtime.js";
+import { Type, type Static } from "typebox";
+
+export const PersonInfoSchema = Type.Object(
+	{
+		name: Type.String(),
+		firstName: Type.Optional(Type.String()),
+		lastName: Type.Optional(Type.String()),
+		description: Type.String({ default: "" }),
+		profileImg: Type.String(),
+		color: Type.Optional(Type.String()),
+		socials: Type.Partial(
+			Type.Record(
+				Type.Enum([
+					"twitter",
+					"github",
+					"gitlab",
+					"website",
+					"linkedIn",
+					"twitch",
+					"dribbble",
+					"mastodon",
+					"threads",
+					"youtube",
+					"cohost",
+					"bluesky",
+				]),
+				Type.String(),
+			),
+			{ default: {} },
+		),
+		pronouns: Type.Optional(Type.String()),
+		// Raw id of the roles
+		roles: Type.Array(Type.String(), { default: [] }),
+		achievements: Type.Array(Type.String(), { default: [] }),
+		// Pretty name for the role
+		boardRoles: Type.Array(Type.String(), { default: [] }),
+	},
+	{
+		additionalProperties: false,
+	},
+);
 
 export interface PersonStub {
 	kind: "person";
@@ -11,34 +52,7 @@ export interface PersonStub {
 	warnings: WarningInfo[];
 }
 
-export interface RawPersonInfo {
-	name: string;
-	firstName: string;
-	lastName: string;
-	description: string;
-	socials: {
-		twitter?: string;
-		github?: string;
-		gitlab?: string;
-		website?: string;
-		linkedIn?: string;
-		twitch?: string;
-		dribbble?: string;
-		mastodon?: string;
-		threads?: string;
-		youtube?: string;
-		cohost?: string;
-		bluesky?: string;
-	};
-	pronouns?: string;
-	profileImg: string;
-	color?: string;
-	// Raw id of the roles
-	roles?: Array<string>;
-	achievements?: string[];
-	// Pretty name for the role
-	boardRoles?: Array<string>;
-}
+export type RawPersonInfo = Static<typeof PersonInfoSchema>;
 
 export interface PersonInfo extends Required<RawPersonInfo>, PersonStub {
 	id: string;

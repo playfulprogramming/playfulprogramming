@@ -1,15 +1,13 @@
-import type {
-	PersonInfo,
-	PersonStub,
-	RawPersonInfo,
+import {
+	PersonInfoSchema,
+	type PersonInfo,
+	type PersonStub,
 } from "#types/PersonInfo.ts";
 import { resolvePath } from "../url-paths.ts";
 import { getImageSize } from "../get-image-size.ts";
 import type { MarkdownVFile } from "../markdown/types.ts";
 import { parseFrontmatter } from "./parseFrontmatter.ts";
 import { logError } from "../markdown/logger.ts";
-import { Value } from "typebox/value";
-import { PersonInfoSchema } from "./schema/PersonInfoSchema.ts";
 import { cache } from "./common.ts";
 import { posts } from "../data.ts";
 import { isDefined } from "../is-defined.ts";
@@ -18,18 +16,10 @@ import { readPost } from "./readPost.ts";
 export const readPerson = cache(
 	async (stub: PersonStub, vfile: MarkdownVFile): Promise<PersonInfo> => {
 		const personPath = stub.file.split("/").slice(0, -1).join("/");
-		const { frontmatter, frontmatterNode } =
-			await parseFrontmatter<RawPersonInfo>(vfile);
-
-		try {
-			Value.Parse(PersonInfoSchema, frontmatter);
-		} catch (e) {
-			logError(
-				vfile,
-				frontmatterNode,
-				e instanceof Error ? e.message : String(e),
-			);
-		}
+		const { frontmatter, frontmatterNode } = await parseFrontmatter(
+			vfile,
+			PersonInfoSchema,
+		);
 
 		const profileImgSize = frontmatter.profileImg
 			? await getImageSize(frontmatter.profileImg, personPath)
@@ -49,11 +39,10 @@ export const readPerson = cache(
 		).reduce((prev, curr) => prev + curr, 0);
 
 		const person: PersonInfo = {
+			firstName: "",
+			lastName: "",
 			pronouns: "",
 			color: "",
-			roles: [],
-			achievements: [],
-			boardRoles: [],
 			...frontmatter,
 			...stub,
 			totalPostCount: totalPostStubs.length,

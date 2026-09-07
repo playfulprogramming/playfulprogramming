@@ -1,17 +1,14 @@
-import type {
-	CollectionInfo,
-	CollectionStub,
-	RawCollectionInfo,
+import {
+	CollectionInfoSchema,
+	type CollectionInfo,
+	type CollectionStub,
 } from "#types/CollectionInfo.ts";
 import * as path from "path";
 import * as fs from "fs/promises";
 import { resolveImageFile } from "./resolveImageFile.ts";
 import { isNotJunk } from "./isNotJunk.ts";
 import type { MarkdownVFile } from "../markdown/types.ts";
-import { Value } from "typebox/value";
 import { parseFrontmatter } from "./parseFrontmatter.ts";
-import { CollectionInfoSchema } from "./schema/CollectionInfoSchema.ts";
-import { logError } from "../markdown/logger.ts";
 import { cache } from "./common.ts";
 
 export const readCollection = cache(
@@ -20,18 +17,7 @@ export const readCollection = cache(
 		vfile: MarkdownVFile,
 	): Promise<CollectionInfo> => {
 		const collectionPath = stub.file.split("/").slice(0, -1).join("/");
-		const { frontmatter, frontmatterNode } =
-			await parseFrontmatter<RawCollectionInfo>(vfile);
-
-		try {
-			Value.Parse(CollectionInfoSchema, frontmatter);
-		} catch (e) {
-			logError(
-				vfile,
-				frontmatterNode,
-				e instanceof Error ? e.message : String(e),
-			);
-		}
+		const { frontmatter } = await parseFrontmatter(vfile, CollectionInfoSchema);
 
 		const coverImgMeta = await resolveImageFile(
 			frontmatter.coverImg,
