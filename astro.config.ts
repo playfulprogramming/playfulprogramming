@@ -82,9 +82,6 @@ export default defineConfig({
 		checkOrigin: process.env.CI !== "1",
 	},
 	vite: {
-		define: {
-			__PARAGLIDE_SERVER_OUTPUT__: JSON.stringify(isServerBuild),
-		},
 		css: {
 			transformer: "lightningcss",
 			lightningcss: {
