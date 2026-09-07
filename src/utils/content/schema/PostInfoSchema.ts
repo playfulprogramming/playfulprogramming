@@ -12,7 +12,12 @@ export const PostInfoSchema = Type.Object(
 		noindex: Type.Optional(Type.Boolean({ default: false })),
 		authors: Type.Optional(Type.Array(Type.String())),
 		tags: Type.Optional(Type.Array(Type.String())),
-		edited: Type.Optional(Type.String({ format: "date-time" })),
+		edited: Type.Optional(
+			Type.Union([
+				Type.String({ format: "date" }),
+				Type.String({ format: "date-time" }),
+			]),
+		),
 		socialImg: Type.Optional(Type.String()),
 		bannerImg: Type.Optional(Type.String()),
 		originalLink: Type.Optional(Type.String({ format: "url" })),
