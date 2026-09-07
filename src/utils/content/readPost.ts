@@ -44,6 +44,7 @@ export const readPost = cache(
 		 */
 		const wordCount = vfileContent
 			.replace(/^---[\W\w]*?\n---/, "")
+			.trimStart()
 			.split(/\s+/).length;
 
 		// get an excerpt of the post markdown no longer than 150 chars
