@@ -115,11 +115,6 @@ export interface CurrentPost {
 	post: string;
 }
 
-export interface CollectionButton {
-	text: string;
-	url: string;
-}
-
 export type RawCollectionInfo = Static<typeof CollectionInfoSchema>;
 
 export interface CollectionInfo extends RawCollectionInfo, CollectionStub {
