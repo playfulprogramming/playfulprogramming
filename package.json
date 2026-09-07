@@ -112,7 +112,6 @@
 		"feed": "^5.2.1",
 		"git-branch": "^2.0.1",
 		"globals": "^17.6.0",
-		"gray-matter": "^4.0.3",
 		"hast-util-from-html": "^2.0.3",
 		"hast-util-has-property": "^3.0.0",
 		"hast-util-heading-rank": "^3.0.0",

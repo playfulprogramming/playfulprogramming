@@ -3,13 +3,13 @@ import type { PostHeadingInfo } from "#types/PostInfo.ts";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import type { CollectionLinks } from "./reference-page/rehype-reference-page.ts";
 
-export type MarkdownKind = "post" | "collection" | "person" | "page";
+export type MarkdownKind = "post" | "collection" | "person" | "page" | "snitip";
 
 export type MarkdownFileInfo = {
 	kind: MarkdownKind;
 	file: string;
 	slug?: string;
-	warnings: WarningInfo[];
+	warnings?: WarningInfo[];
 };
 
 export type WarningInfo = {

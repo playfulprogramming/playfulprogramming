@@ -3,7 +3,6 @@ import type { PostInfo, SearchPostInfo } from "#types/PostInfo.ts";
 import type { SearchCollectionInfo } from "#types/CollectionInfo.ts";
 import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
 import { getExcerpt } from "#utils/markdown/get-excerpt.ts";
-import matter from "gray-matter";
 import { getPostImages } from "#utils/hoof/index.ts";
 import asyncPool from "tiny-async-pool";
 import env from "#src/constants/env/index.ts";
@@ -109,8 +108,7 @@ async function deployCollections(collections: SearchCollectionInfo[]) {
 async function processPost(post: PostInfo): Promise<SearchPostInfo> {
 	// Include complete post content as the excerpt
 	const vfile = await getMarkdownVFile(post);
-	const vfileContent = matter(vfile.value.toString()).content;
-	const excerpt = getExcerpt(vfileContent, undefined);
+	const excerpt = getExcerpt(vfile.value.toString(), undefined);
 	// Collect searchable author info (name, social media handles, etc)
 	const searchMeta = (
 		await Promise.all(

@@ -9,8 +9,6 @@ import type {
 import * as fs from "fs/promises";
 import path, { join } from "path";
 import { isNotJunk as baseIsNotJunk } from "junk";
-import matter from "gray-matter";
-
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
@@ -20,6 +18,13 @@ import { getLanguageFromFilename } from "./locales.ts";
 import aboutRaw from "../../content/data/about.json" with { type: "json" };
 import rolesRaw from "../../content/data/roles.json" with { type: "json" };
 import tagsRaw from "../../content/data/tags.json" with { type: "json" };
+import remarkFrontmatter from "remark-frontmatter";
+import {
+	remarkProcessFrontmatter,
+	TYPE_FRONTMATTER,
+} from "./markdown/remark-process-frontmatter.ts";
+import { parseFrontmatter } from "./content/parseFrontmatter.ts";
+import { getMarkdownVFile } from "./markdown/getMarkdownVFile.ts";
 
 function isNotJunk(name: string): boolean {
 	// Ignore VSCode and JetBrains project files
@@ -35,6 +40,11 @@ const tags = new Map<string, TagInfo>();
 // file due to the hastscript JSX
 const minimalParser = unified()
 	.use(remarkParse, { fragment: true } as never)
+	.use(remarkFrontmatter, {
+		type: TYPE_FRONTMATTER,
+		marker: "-",
+	})
+	.use(remarkProcessFrontmatter)
 	.use(remarkToRehype, { allowDangerousHtml: true })
 	.use(rehypePlayfulElementMap)
 	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
@@ -80,10 +90,13 @@ const snitipsDirectory = join(process.cwd(), "content/data/snitips");
 for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
 	const snitipId = file.split(".")[0];
 	const filePath = join(snitipsDirectory, file);
-	const fileContents = await fs.readFile(filePath, "utf-8");
-	const { data: frontmatter, content } = matter(fileContents);
+	const vfile = await getMarkdownVFile({
+		kind: "snitip",
+		file: filePath,
+	});
+	const { frontmatter } = await parseFrontmatter<RawSnitipInfo>(vfile);
 
-	const snitipHtml = (await minimalParser.process(content)).toString();
+	const snitipHtml = (await minimalParser.process(vfile)).toString();
 	const tagsMeta = new Map();
 	for (const tag of frontmatter.tags) {
 		const tagMeta = tags.get(tag);
@@ -95,7 +108,7 @@ for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
 	}
 
 	const snitip: SnitipInfo = {
-		...(frontmatter as RawSnitipInfo),
+		...frontmatter,
 		id: snitipId,
 		links: frontmatter.links ?? [],
 		tagsMeta,
