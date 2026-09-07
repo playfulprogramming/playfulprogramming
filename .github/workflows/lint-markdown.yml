@@ -36,6 +36,7 @@ jobs:
         uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
           json: true
+          escape_json: false
 
       - name: Verify changed files
         run: echo "$CHANGED_FILES" | node --experimental-strip-types scripts/lint-markdown-files.ts
