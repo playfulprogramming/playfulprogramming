@@ -11,6 +11,9 @@ import { logError } from "../markdown/logger.ts";
 import { Value } from "typebox/value";
 import { PersonInfoSchema } from "./schema/PersonInfoSchema.ts";
 import { cache } from "./common.ts";
+import { posts } from "../data.ts";
+import { isDefined } from "../is-defined.ts";
+import { readPost } from "./readPost.ts";
 
 export const readPerson = cache(
 	async (stub: PersonStub, vfile: MarkdownVFile): Promise<PersonInfo> => {
@@ -35,6 +38,16 @@ export const readPerson = cache(
 			logError(vfile, frontmatterNode, "Unable to parse profile image size");
 		}
 
+		const totalPostStubs = [...posts.values()]
+			.flatMap((locales) => locales.find((p) => p.locale == stub.locale))
+			.filter(isDefined)
+			.filter((p) => p.authors.includes(stub.id));
+		const totalWordCount = (
+			await Promise.all(
+				totalPostStubs.map((p) => readPost(p).then((p) => p.wordCount)),
+			)
+		).reduce((prev, curr) => prev + curr, 0);
+
 		const person: PersonInfo = {
 			pronouns: "",
 			color: "",
@@ -43,8 +56,8 @@ export const readPerson = cache(
 			boardRoles: [],
 			...frontmatter,
 			...stub,
-			totalPostCount: 0,
-			totalWordCount: 0,
+			totalPostCount: totalPostStubs.length,
+			totalWordCount,
 			profileImgMeta: {
 				height: profileImgSize?.height ?? 0,
 				width: profileImgSize?.width ?? 0,
