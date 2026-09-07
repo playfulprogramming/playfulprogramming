@@ -27,7 +27,10 @@ export interface MarkdownVFile extends VFile {
 		file: string;
 		slug?: string;
 		frontmatter?: MarkdownFileInfo;
-		headingsWithIds: PostHeadingInfo[];
+		/** all heading ids that exist anywhere in the document */
+		headingIds: string[];
+		/** list of heading titles that should appear in the table of contents */
+		tableOfContents: PostHeadingInfo[];
 		snitips: Map<string, SnitipInfo>;
 		collectionLinks?: CollectionLinks[];
 		isKatexMathUsed?: boolean;

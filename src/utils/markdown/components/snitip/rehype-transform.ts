@@ -7,7 +7,7 @@ import { isElement } from "#utils/markdown/unist-is-element.ts";
 import { isNodeHeading } from "../utils/headings.ts";
 import { logError } from "#utils/markdown/logger.ts";
 import type { SnitipInfo, SnitipLink } from "#types/SnitipInfo.ts";
-import type { MarkdownVFile } from "#utils/markdown/types.ts";
+import { isMarkdownVFile, type MarkdownVFile } from "#utils/markdown/types.ts";
 import type { TagInfo } from "#types/TagInfo.ts";
 import { getTagById } from "#utils/api.ts";
 
@@ -36,6 +36,10 @@ export const transformSnitip: RehypeFunctionComponent = ({
 	if (!snitipId) {
 		logError(vfile, node, "Snitip must have an id!");
 		return;
+	}
+
+	if (isMarkdownVFile(vfile)) {
+		vfile.data.headingIds.push(snitipId);
 	}
 
 	const headingIndex = children.findIndex(

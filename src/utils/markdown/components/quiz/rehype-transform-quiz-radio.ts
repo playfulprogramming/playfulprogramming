@@ -13,6 +13,7 @@ import { toHtml } from "hast-util-to-html";
 import { isElement } from "#utils/markdown/unist-is-element.ts";
 import { logError } from "#utils/markdown/logger.ts";
 import { visit } from "unist-util-visit";
+import { isMarkdownVFile } from "../../types.ts";
 
 const ALLOWED_OPTION_TAGS = new Set(["em", "strong", "code"]);
 

@@ -7,12 +7,14 @@ import {
 } from "../components.ts";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
+import { findTitleNode } from "./rehype-transform-quiz-radio.ts";
+import { isMarkdownVFile } from "../../types.ts";
 
 /**
  * Adds question-num and total-num attributes onto each quiz-radio node in the document.
  */
 export const rehypeQuizIndexes: Plugin<[], PlayfulRoot> = () => {
-	return (tree, _) => {
+	return (tree, vfile) => {
 		let quizCount = 0;
 		const quizzes: {
 			default: {
@@ -47,7 +49,11 @@ export const rehypeQuizIndexes: Plugin<[], PlayfulRoot> = () => {
 		Object.entries(quizzes).forEach(([quizId, quizData]) => {
 			const questionIds: string[] = [];
 			quizData.questions.forEach((question, questionIndex) => {
-				const id = `${quizId}-question-${questionIndex + 1}`;
+				const titleNode = findTitleNode(question.children);
+				const id = titleNode?.properties.id
+					? String(titleNode.properties.id)
+					: `${quizId}-question-${questionIndex + 1}`;
+
 				question.attributes["id"] = id;
 				question.attributes["question-num"] = String(questionIndex + 1);
 				question.attributes["total-num"] = String(quizData.questions.length);
@@ -59,6 +65,10 @@ export const rehypeQuizIndexes: Plugin<[], PlayfulRoot> = () => {
 
 			if (quizData.quiz) {
 				quizData.quiz.attributes.questions = questionIds.join();
+			}
+
+			if (isMarkdownVFile(vfile)) {
+				vfile.data.headingIds.push(...questionIds);
 			}
 		});
 	};
