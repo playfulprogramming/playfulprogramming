@@ -6,18 +6,46 @@ import fs from "fs/promises";
 import { zip } from "fflate";
 import { baseLocale } from "#src/paraglide/runtime.js";
 
-export async function findProjectDir(slug: string): Promise<string> {
-	const [postSlug, projectId] = slug.split("_");
+export async function findProjectDir(
+	slug: string,
+): Promise<string | undefined> {
+	const [postSlug, projectId, extraPart] = slug.split("_");
+	if (
+		!postSlug ||
+		!projectId ||
+		extraPart !== undefined ||
+		projectId === "." ||
+		projectId === ".." ||
+		/[\\/\0]/.test(projectId)
+	) {
+		return undefined;
+	}
+
 	const post = await getPostBySlug(postSlug, baseLocale);
-	if (!post) throw new Error(`Post ${postSlug} does not exist!`);
+	if (!post) return undefined;
 
 	const postDir = path.join(contentDirectory, post.path);
-	return path.join(postDir, projectId);
+	const projectDir = path.join(postDir, projectId);
+	try {
+		// Match getStaticPaths: only actual child directories are downloadable.
+		// In SSR, arbitrary requests can also name files or directory symlinks.
+		return (await fs.lstat(projectDir)).isDirectory() ? projectDir : undefined;
+	} catch (error) {
+		if (
+			(error as NodeJS.ErrnoException).code === "ENOENT" ||
+			(error as NodeJS.ErrnoException).code === "ENOTDIR"
+		) {
+			return undefined;
+		}
+		throw error;
+	}
 }
 
 export const GET: APIRoute = async ({ params }) => {
 	const slug = String(params.slug);
 	const dir = await findProjectDir(slug);
+	if (!dir) return new Response("Not found", { status: 404 });
+
 	const files = await fs.readdir(dir, { recursive: true });
 	const zipFiles: Record<string, Buffer> = {};
 	for (const file of files) {
