@@ -24,7 +24,12 @@ export function cache<Arg1 extends MarkdownFileInfo, Ret>(
 
 			if (env.DEV) {
 				(async () => {
-					for await (const _ of watch(arg1.file)) {
+					try {
+						for await (const _ of watch(arg1.file)) {
+							entry.result = undefined;
+						}
+					} catch {
+						// The file was removed or renamed; drop the cached result.
 						entry.result = undefined;
 					}
 				})();
