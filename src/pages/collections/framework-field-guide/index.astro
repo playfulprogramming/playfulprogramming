@@ -39,7 +39,10 @@ import WhatDoIGet from "#src/views/collection-framework-field-guide/components/w
 import { getCollectionBySlug, getPersonById } from "#utils/api.ts";
 import BlockingTabsSignalScript from "#components/tabs/blocking-tabs-signal-script.astro";
 
-const collection = await getCollectionBySlug("framework-field-guide", baseLocale);
+const collection = await getCollectionBySlug(
+	"framework-field-guide",
+	baseLocale,
+);
 const author = await getPersonById("crutchcorn", baseLocale);
 if (!collection || !author) {
 	return Astro.rewrite(localizeHref("/404"));
