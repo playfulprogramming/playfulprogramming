@@ -129,7 +129,7 @@
 		"msw": "^2.14.6",
 		"octokit": "^5.0.5",
 		"openapi-typescript": "^7.13.0",
-		"playwright": "1.60.0",
+		"playwright": "1.62.1",
 		"postcss-html": "^2.0.0",
 		"postcss-scss": "^4.0.9",
 		"prettier": "^3.8.3",
