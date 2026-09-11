@@ -6,7 +6,11 @@ import {
 
 import { useElementSize } from "../../hooks/use-element-size.tsx";
 
-import { Calendar } from "./components/calendar/calendar.tsx";
+import {
+	Calendar,
+	type CalendarVisibleRange,
+} from "./components/calendar/calendar.tsx";
+import { Button } from "#components/button/button.tsx";
 import { LongWave } from "./components/long-wave/long-wave.tsx";
 import filter from "#src/assets/icons/filter.svg?raw";
 import style from "./events-page.module.scss";
@@ -28,6 +32,9 @@ export default function EventsPage({
 	events,
 }: EventsPageProps) {
 	const [eventTypesToShow, setEventTypesToShow] = useState("all" as EventType);
+	const [visibleRange, setVisibleRange] = useState<CalendarVisibleRange | null>(
+		null,
+	);
 
 	const filteredEvents = useMemo(() => {
 		if (eventTypesToShow === "all") {
@@ -41,13 +48,37 @@ export default function EventsPage({
 		return events.filter((event) => event.in_person);
 	}, [eventTypesToShow, events]);
 
+	const visibleEvents = useMemo(() => {
+		if (!visibleRange) return [];
+
+		return filteredEvents.filter((event) =>
+			event.blocks.some(
+				(block) =>
+					block.starts_at.getTime() < visibleRange.end &&
+					block.ends_at.getTime() > visibleRange.start,
+			),
+		);
+	}, [filteredEvents, visibleRange]);
+
 	const recurringEvents = useMemo(() => {
-		return filteredEvents.filter((event) => event.is_recurring);
-	}, [filteredEvents]);
+		return visibleEvents.filter((event) => event.is_recurring);
+	}, [visibleEvents]);
 
 	const nonRecurringEvents = useMemo(() => {
-		return filteredEvents.filter((event) => !event.is_recurring);
-	}, [filteredEvents]);
+		return visibleEvents.filter((event) => !event.is_recurring);
+	}, [visibleEvents]);
+
+	const visibleEventBlockLocationMetadata = useMemo(() => {
+		if (!visibleRange) return {};
+
+		return Object.fromEntries(
+			Object.entries(latestEventBlockLocationMetadata).filter(
+				([, block]) =>
+					block.starts_at.getTime() < visibleRange.end &&
+					block.ends_at.getTime() > visibleRange.start,
+			),
+		);
+	}, [latestEventBlockLocationMetadata, visibleRange]);
 
 	/**
 	 * Styles for header bar
@@ -107,25 +138,10 @@ export default function EventsPage({
 				<LongWave />
 			</div>
 			<div className={style.listsContainer}>
-				<Calendar events={filteredEvents} />
-				{recurringEvents.length ? (
-					<div className={style.listContainer}>
-						<h2 className={`text-style-headline-5 ${style.listHeading}`}>
-							{m.events_section_recurring()}
-						</h2>
-						<ul className={style.list} role={"list"}>
-							{recurringEvents.map((event) => (
-								<RecurringEventsCard
-									key={event.slug}
-									event={event}
-									latestEventBlockLocationMetadata={
-										latestEventBlockLocationMetadata
-									}
-								/>
-							))}
-						</ul>
-					</div>
-				) : null}
+				<Calendar
+					events={filteredEvents}
+					onVisibleRangeChange={setVisibleRange}
+				/>
 				{nonRecurringEvents.length ? (
 					<div className={style.listContainer}>
 						<h2 className={`text-style-headline-5 ${style.listHeading}`}>
@@ -138,7 +154,35 @@ export default function EventsPage({
 						</ul>
 					</div>
 				) : null}
-				{/*	TODO: Make empty state if neither is present */}
+				{recurringEvents.length ? (
+					<div className={style.listContainer}>
+						<h2 className={`text-style-headline-5 ${style.listHeading}`}>
+							{m.events_section_recurring()}
+						</h2>
+						<ul className={style.list} role={"list"}>
+							{recurringEvents.map((event) => (
+								<RecurringEventsCard
+									key={event.slug}
+									event={event}
+									latestEventBlockLocationMetadata={
+										visibleEventBlockLocationMetadata
+									}
+								/>
+							))}
+						</ul>
+					</div>
+				) : null}
+				{visibleRange && !visibleEvents.length && (
+					<div className={style.emptyState}>
+						<h2 className="text-style-headline-5">{m.events_empty_title()}</h2>
+						<p className="text-style-body-large">
+							{m.events_empty_description()}
+						</p>
+						<Button href="https://discord.playfulprogramming.com">
+							{m.action_join_discord()}
+						</Button>
+					</div>
+				)}
 			</div>
 		</div>
 	);

@@ -34,5 +34,8 @@
 	"label_dark_mode": "Modo escuro",
 	"alt_playfulprogramming_logo": "Unicórnio sorridente com um laço",
 	"title_looking_for_more": "Querendo mais?",
-	"desc_looking_for_more": "Pesquise pelo seu framework favorito ou linguagem mais amada; vamos compartilhar o que sabemos."
+	"desc_looking_for_more": "Pesquise pelo seu framework favorito ou linguagem mais amada; vamos compartilhar o que sabemos.",
+	"events_calendar_today": "Hoje",
+	"events_empty_title": "Não há eventos neste período",
+	"events_empty_description": "Quer que a gente organize um evento? Peça no nosso Discord! Também fazemos chamadas regulares por lá que podem não aparecer no nosso calendário."
 }

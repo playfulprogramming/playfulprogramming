@@ -31,11 +31,17 @@ import {
 	useOverlayTrigger,
 	usePopover,
 } from "react-aria";
-import { IconOnlyButton } from "#components/button/button.tsx";
+import { Button, IconOnlyButton } from "#components/button/button.tsx";
 import style from "./calendar.module.scss";
 import { useWindowSize } from "../../../../hooks/use-window-size.tsx";
 import { tabletLarge, tabletSmall } from "../../../../constants/breakpoints.ts";
-import { type MutableRef, useContext, useMemo, useRef } from "preact/hooks";
+import {
+	type MutableRef,
+	useContext,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+} from "preact/hooks";
 import {
 	type CalendarDate,
 	fromDate,
@@ -461,11 +467,68 @@ function CustomHeading() {
 	);
 }
 
-interface CalendarProps {
-	events: Event[];
+export interface CalendarVisibleRange {
+	/** Local midnight at the start of the first visible month, in milliseconds. */
+	start: number;
+	/** Local midnight after the last visible month, in milliseconds (exclusive). */
+	end: number;
 }
 
-export function Calendar({ events }: CalendarProps) {
+interface CalendarProps {
+	events: Event[];
+	onVisibleRangeChange: (range: CalendarVisibleRange) => void;
+}
+
+function CalendarNavigation({
+	onVisibleRangeChange,
+}: Pick<CalendarProps, "onVisibleRangeChange">) {
+	const state: CalendarState = useContext(CalendarStateContext);
+	const currentDate = today(state.timeZone);
+	const start = state.visibleRange.start.toDate(state.timeZone).getTime();
+	const end = state.visibleRange.end
+		.add({ days: 1 })
+		.toDate(state.timeZone)
+		.getTime();
+
+	useLayoutEffect(() => {
+		onVisibleRangeChange({ start, end });
+	}, [start, end, onVisibleRangeChange]);
+
+	return (
+		<div className={style.calendarNavigation}>
+			<header className={style.calendarHeader}>
+				<CustomButton
+					slot="previous"
+					className={style.arrowButton}
+					type="button"
+					dangerouslySetInnerHTML={{ __html: arrow_left }}
+				/>
+				<CustomHeading />
+				<CustomButton
+					slot="next"
+					className={style.arrowButton}
+					type="button"
+					dangerouslySetInnerHTML={{ __html: arrow_right }}
+				/>
+			</header>
+			{!isSameMonth(state.focusedDate, currentDate) && (
+				<Button
+					tag="button"
+					type="button"
+					variant="secondary"
+					onClick={() => {
+						state.setFocusedDate(currentDate);
+						state.setFocused(true);
+					}}
+				>
+					{m.events_calendar_today()}
+				</Button>
+			)}
+		</div>
+	);
+}
+
+export function Calendar({ events, onVisibleRangeChange }: CalendarProps) {
 	const isClient = useIsOnClient();
 	const locale = getLocale();
 
@@ -515,21 +578,7 @@ export function Calendar({ events }: CalendarProps) {
 				defaultFocusedValue={today(getLocalTimeZone())}
 				isReadOnly
 			>
-				<header className={style.calendarHeader}>
-					<CustomButton
-						slot="previous"
-						className={style.arrowButton}
-						type="submit"
-						dangerouslySetInnerHTML={{ __html: arrow_left }}
-					/>
-					<CustomHeading />
-					<CustomButton
-						slot="next"
-						className={style.arrowButton}
-						type="submit"
-						dangerouslySetInnerHTML={{ __html: arrow_right }}
-					/>
-				</header>
+				<CalendarNavigation onVisibleRangeChange={onVisibleRangeChange} />
 				<div className={style.gridContainer}>
 					<CustomCalendarGrid events={events} />
 					{isMobile ? null : (

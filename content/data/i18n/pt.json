@@ -3,5 +3,8 @@
 	"title_contributors": "Contribuidores",
 	"title_where_to_find_us": "Onde nos podes encontrar?",
 	"title_sponsors": "Patrocinadores",
-	"desc_about_us": "Sobre Playful Programming - quem somos nós, quais são os nossos objetivos e como queremos ajudar no processo de aprendizagem dos outros"
+	"desc_about_us": "Sobre Playful Programming - quem somos nós, quais são os nossos objetivos e como queremos ajudar no processo de aprendizagem dos outros",
+	"events_calendar_today": "Hoje",
+	"events_empty_title": "Não há eventos neste período",
+	"events_empty_description": "Queres que organizemos um evento? Pede-nos no nosso Discord! Também fazemos chamadas regulares por lá que podem não aparecer no nosso calendário."
 }

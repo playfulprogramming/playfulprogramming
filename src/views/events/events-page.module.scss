@@ -71,6 +71,27 @@
 	gap: var(--site-spacing);
 }
 
+.emptyState {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--spc-4x);
+	padding: var(--site-spacing);
+	border-radius: var(--corner-radius_l);
+	background: var(--tint_primary_none);
+	text-align: center;
+
+	h2,
+	p {
+		margin: 0;
+	}
+
+	p {
+		max-width: 40rem;
+		color: var(--foreground_medium);
+	}
+}
+
 .eventTypesToShowGroup {
 	display: flex;
 	gap: 1rem;
