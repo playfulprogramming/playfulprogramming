@@ -1,6 +1,7 @@
+import type { JSX } from "preact";
 import type { Node as TiptapNode } from "@tiptap/pm/model";
-import type { Transaction } from "@tiptap/pm/state";
 import {
+	type Transaction,
 	AllSelection,
 	NodeSelection,
 	Selection,
@@ -39,9 +40,12 @@ const SR_ONLY = {
 } as const;
 
 export function cn(
-	...classes: (string | boolean | undefined | null)[]
+	...classes: JSX.Signalish<string | boolean | undefined | null>[]
 ): string {
-	return classes.filter(Boolean).join(" ");
+	return classes
+		.map((value) => (value && typeof value === "object" ? value.value : value))
+		.filter(Boolean)
+		.join(" ");
 }
 
 /**
@@ -77,9 +81,9 @@ const formatShortcutKey = (
 
 /**
  * Parses a shortcut key string into an array of formatted key symbols
- * @param shortcutKeys - The string of shortcut keys (e.g., "ctrl-alt-shift")
- * @param delimiter - The delimiter used to split the keys (default: "-")
- * @param capitalize - Whether to capitalize the keys (default: true)
+ * @param props.shortcutKeys - The string of shortcut keys (e.g., "ctrl-alt-shift")
+ * @param props.delimiter - The delimiter used to split the keys (default: "-")
+ * @param props.capitalize - Whether to capitalize the keys (default: true)
  * @returns Array of formatted shortcut key symbols
  */
 export const parseShortcutKeys = (props: {
@@ -407,10 +411,7 @@ const ATTR_WHITESPACE =
 	// eslint-disable-next-line no-control-regex
 	/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g;
 
-function isAllowedUri(
-	uri: string | undefined,
-	protocols?: ProtocolConfig,
-) {
+function isAllowedUri(uri: string | undefined, protocols?: ProtocolConfig) {
 	const allowedProtocols: string[] = [
 		"http",
 		"https",
@@ -437,13 +438,14 @@ function isAllowedUri(
 
 	return (
 		!uri ||
-		uri.replace(ATTR_WHITESPACE, "").match(
-			new RegExp(
-				// eslint-disable-next-line no-useless-escape
-				`^(?:(?:${allowedProtocols.join("|")}):|[^a-z]|[a-z0-9+.\-]+(?:[^a-z+.\-:]|$))`,
-				"i",
-			),
-		)
+		uri
+			.replace(ATTR_WHITESPACE, "")
+			.match(
+				new RegExp(
+					`^(?:(?:${allowedProtocols.join("|")}):|[^a-z]|[a-z0-9+.\-]+(?:[^a-z+.\-:]|$))`,
+					"i",
+				),
+			)
 	);
 }
 

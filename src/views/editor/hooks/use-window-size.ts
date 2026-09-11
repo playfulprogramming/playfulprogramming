@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { useThrottledCallback } from "./use-throttled-callback";
+import { useThrottledCallback } from "./use-throttled-callback.ts";
 
 interface WindowSizeState {
 	/**

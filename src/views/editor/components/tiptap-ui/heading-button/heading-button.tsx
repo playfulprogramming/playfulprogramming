@@ -2,18 +2,18 @@ import type { JSX } from "preact";
 import { useCallback } from "preact/hooks";
 
 // --- Tiptap UI ---
-import type { UseHeadingConfig } from "./index";
-import { useHeading } from "./index";
+import { type UseHeadingConfig, useHeading } from "./index.tsx";
 
 // --- UI Primitives ---
-import type { ButtonProps } from "../../tiptap-ui-primitive/button";
-import { Button } from "../../tiptap-ui-primitive/button";
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
+import {
+	type ButtonProps,
+	Button,
+} from "../../tiptap-ui-primitive/button/index.tsx";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
 import { forwardRef } from "preact/compat";
 
 interface HeadingButtonProps
-	extends Omit<ButtonProps, "type">,
-		UseHeadingConfig {
+	extends Omit<ButtonProps, "type">, UseHeadingConfig {
 	/**
 	 * Optional text to display alongside the icon.
 	 */

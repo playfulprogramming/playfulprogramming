@@ -2,20 +2,20 @@ import type { JSX } from "preact";
 import { useCallback } from "preact/hooks";
 
 // --- Tiptap UI ---
-import type { UseBlockquoteConfig } from "./index";
-import { useBlockquote } from "./index";
+import { type UseBlockquoteConfig, useBlockquote } from "./index.tsx";
 
 // --- Hooks ---
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
 
 // --- UI Primitives ---
-import type { ButtonProps } from "../../tiptap-ui-primitive/button";
-import { Button } from "../../tiptap-ui-primitive/button";
+import {
+	type ButtonProps,
+	Button,
+} from "../../tiptap-ui-primitive/button/index.tsx";
 import { forwardRef } from "preact/compat";
 
 interface BlockquoteButtonProps
-	extends Omit<ButtonProps, "type">,
-		UseBlockquoteConfig {
+	extends Omit<ButtonProps, "type">, UseBlockquoteConfig {
 	/**
 	 * Optional text to display alongside the icon.
 	 */

@@ -1,6 +1,6 @@
 import type { JSX } from "preact";
 import "./toolbar.scss";
-import { cn } from "../../../lib/tiptap-utils";
+import { cn } from "../../../lib/tiptap-utils.ts";
 import { forwardRef } from "preact/compat";
 
 type BaseProps = JSX.HTMLAttributes<HTMLDivElement>;

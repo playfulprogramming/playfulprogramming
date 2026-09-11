@@ -1,9 +1,9 @@
 import type { JSX } from "preact";
 import { memo } from "preact/compat";
 
-type SvgProps = JSX.HTMLAttributes<SVGElement>;
+type SvgProps = JSX.SVGAttributes<SVGSVGElement>;
 
-export const CloseIcon = memo(({ className, ...props }: SvgProps) => {
+export const CloseIcon = memo<SvgProps>(({ className, ...props }) => {
 	return (
 		<svg
 			width="24"

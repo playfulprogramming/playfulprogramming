@@ -1,12 +1,11 @@
 import type { JSX, FunctionComponent, ComponentChildren } from "preact";
 
 import { useRef, useState } from "preact/hooks";
-import type { NodeViewProps } from "@tiptap/react";
-import { NodeViewWrapper } from "@tiptap/react";
-import { Button } from "../../tiptap-ui-primitive/button";
-import { CloseIcon } from "../../tiptap-icons/close-icon";
+import { type NodeViewProps, NodeViewWrapper } from "@tiptap/react";
+import { Button } from "../../tiptap-ui-primitive/button/index.tsx";
+import { CloseIcon } from "../../tiptap-icons/close-icon.tsx";
 import "./image-upload-node.scss";
-import { focusNextNode, isValidPosition } from "../../../lib/tiptap-utils";
+import { focusNextNode, isValidPosition } from "../../../lib/tiptap-utils.ts";
 
 interface FileItem {
 	/**
@@ -291,13 +290,13 @@ const ImageUploadDragArea: FunctionComponent<ImageUploadDragAreaProps> = ({
 	const [isDragOver, setIsDragOver] = useState(false);
 	const [isDragActive, setIsDragActive] = useState(false);
 
-	const handleDragEnter = (e: JSX.TargetedDragEvent) => {
+	const handleDragEnter = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		setIsDragActive(true);
 	};
 
-	const handleDragLeave = (e: JSX.TargetedDragEvent) => {
+	const handleDragLeave = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		if (!e.currentTarget.contains(e.relatedTarget as Node)) {
@@ -306,19 +305,19 @@ const ImageUploadDragArea: FunctionComponent<ImageUploadDragAreaProps> = ({
 		}
 	};
 
-	const handleDragOver = (e: JSX.TargetedDragEvent) => {
+	const handleDragOver = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		setIsDragOver(true);
 	};
 
-	const handleDrop = (e: JSX.TargetedDragEvent) => {
+	const handleDrop = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		setIsDragActive(false);
 		setIsDragOver(false);
 
-		const files = Array.from(e.dataTransfer.files);
+		const files = Array.from(e.dataTransfer?.files ?? []);
 		if (files.length > 0) {
 			onFile(files);
 		}
@@ -484,7 +483,7 @@ export const ImageUploadNode: FunctionComponent<NodeViewProps> = (props) => {
 	};
 
 	const handleChange = (e: JSX.TargetedEvent<HTMLInputElement>) => {
-		const files = e.target.files;
+		const files = e.currentTarget.files;
 		if (!files || files.length === 0) {
 			extension.options.onError?.(new Error("No file selected"));
 			return;

@@ -1,31 +1,35 @@
 import { useCallback, useState } from "preact/hooks";
 
 // --- Icons ---
-import { ChevronDownIcon } from "../../tiptap-icons/chevron-down-icon";
+import { ChevronDownIcon } from "../../tiptap-icons/chevron-down-icon.tsx";
 
 // --- Hooks ---
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
 
 // --- Tiptap UI ---
-import { HeadingButton } from "../heading-button";
-import type { UseHeadingDropdownMenuConfig } from "./index";
-import { useHeadingDropdownMenu } from "./index";
+import { HeadingButton } from "../heading-button/index.tsx";
+import {
+	type UseHeadingDropdownMenuConfig,
+	useHeadingDropdownMenu,
+} from "./index.tsx";
 
 // --- UI Primitives ---
-import type { ButtonProps } from "../../tiptap-ui-primitive/button";
-import { Button, ButtonGroup } from "../../tiptap-ui-primitive/button";
+import {
+	type ButtonProps,
+	Button,
+	ButtonGroup,
+} from "../../tiptap-ui-primitive/button/index.tsx";
 import {
 	DropdownMenu,
 	DropdownMenuTrigger,
 	DropdownMenuContent,
 	DropdownMenuItem,
-} from "../../tiptap-ui-primitive/dropdown-menu";
-import { Card, CardBody } from "../../tiptap-ui-primitive/card";
+} from "../../tiptap-ui-primitive/dropdown-menu/index.tsx";
+import { Card, CardBody } from "../../tiptap-ui-primitive/card/index.tsx";
 import { forwardRef } from "preact/compat";
 
 interface HeadingDropdownMenuProps
-	extends Omit<ButtonProps, "type">,
-		UseHeadingDropdownMenuConfig {
+	extends Omit<ButtonProps, "type">, UseHeadingDropdownMenuConfig {
 	/**
 	 * Whether to render the dropdown menu in a portal
 	 * @default false
@@ -124,4 +128,3 @@ export const HeadingDropdownMenu = forwardRef<
 );
 
 HeadingDropdownMenu.displayName = "HeadingDropdownMenu";
-

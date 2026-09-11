@@ -1,6 +1,6 @@
 import type { RefObject } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { useThrottledCallback } from "./use-throttled-callback";
+import { useThrottledCallback } from "./use-throttled-callback.ts";
 
 type RectState = Omit<DOMRect, "toJSON">;
 

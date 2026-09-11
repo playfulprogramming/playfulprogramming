@@ -3,7 +3,7 @@ import { type Editor } from "@tiptap/react";
 import { NodeSelection, TextSelection } from "@tiptap/pm/state";
 
 // --- Hooks ---
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
 
 // --- Lib ---
 import {
@@ -12,10 +12,10 @@ import {
 	isNodeTypeSelected,
 	isValidPosition,
 	selectionWithinConvertibleTypes,
-} from "../../../lib/tiptap-utils";
+} from "../../../lib/tiptap-utils.ts";
 
 // --- Icons ---
-import { CodeBlockIcon } from "../../tiptap-icons/code-block-icon";
+import { CodeBlockIcon } from "../../tiptap-icons/code-block-icon.tsx";
 
 const CODE_BLOCK_SHORTCUT_KEY = "mod+alt+c";
 
@@ -41,10 +41,7 @@ export interface UseCodeBlockConfig {
 /**
  * Checks if code block can be toggled in the current editor state
  */
-function canToggle(
-	editor: Editor | null,
-	turnInto: boolean = true,
-): boolean {
+function canToggle(editor: Editor | null, turnInto: boolean = true): boolean {
 	if (!editor || !editor.isEditable) return false;
 	if (
 		!isNodeInSchema("codeBlock", editor) ||

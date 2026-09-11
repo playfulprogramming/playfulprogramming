@@ -3,14 +3,14 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { type Editor } from "@tiptap/react";
 
 // --- Hooks ---
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
-import { useIsBreakpoint } from "../../../hooks/use-is-breakpoint";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
+import { useIsBreakpoint } from "../../../hooks/use-is-breakpoint.ts";
 
 // --- Lib ---
-import { isExtensionAvailable } from "../../../lib/tiptap-utils";
+import { isExtensionAvailable } from "../../../lib/tiptap-utils.ts";
 
 // --- Icons ---
-import { ImagePlusIcon } from "../../tiptap-icons/image-plus-icon";
+import { ImagePlusIcon } from "../../tiptap-icons/image-plus-icon.tsx";
 
 const IMAGE_UPLOAD_SHORTCUT_KEY = "mod+shift+i";
 

@@ -2,10 +2,10 @@ import { useEffect, useState } from "preact/hooks";
 import type { Editor } from "@tiptap/react";
 
 // --- Hooks ---
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
 
 // --- Icons ---
-import { HeadingIcon } from "../../tiptap-icons/heading-icon";
+import { HeadingIcon } from "../../tiptap-icons/heading-icon.tsx";
 
 // --- Tiptap UI ---
 import {
@@ -14,7 +14,7 @@ import {
 	isHeadingActive,
 	canToggle,
 	shouldShowButton,
-} from "../heading-button";
+} from "../heading-button/index.tsx";
 
 /**
  * Configuration for the heading dropdown menu functionality

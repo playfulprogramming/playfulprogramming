@@ -3,7 +3,7 @@ import { type Editor } from "@tiptap/react";
 import { NodeSelection, TextSelection } from "@tiptap/pm/state";
 
 // --- Hooks ---
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
 
 // --- Lib ---
 import {
@@ -12,15 +12,15 @@ import {
 	isNodeTypeSelected,
 	isValidPosition,
 	selectionWithinConvertibleTypes,
-} from "../../../lib/tiptap-utils";
+} from "../../../lib/tiptap-utils.ts";
 
 // --- Icons ---
-import { HeadingOneIcon } from "../../tiptap-icons/heading-one-icon";
-import { HeadingTwoIcon } from "../../tiptap-icons/heading-two-icon";
-import { HeadingThreeIcon } from "../../tiptap-icons/heading-three-icon";
-import { HeadingFourIcon } from "../../tiptap-icons/heading-four-icon";
-import { HeadingFiveIcon } from "../../tiptap-icons/heading-five-icon";
-import { HeadingSixIcon } from "../../tiptap-icons/heading-six-icon";
+import { HeadingOneIcon } from "../../tiptap-icons/heading-one-icon.tsx";
+import { HeadingTwoIcon } from "../../tiptap-icons/heading-two-icon.tsx";
+import { HeadingThreeIcon } from "../../tiptap-icons/heading-three-icon.tsx";
+import { HeadingFourIcon } from "../../tiptap-icons/heading-four-icon.tsx";
+import { HeadingFiveIcon } from "../../tiptap-icons/heading-five-icon.tsx";
+import { HeadingSixIcon } from "../../tiptap-icons/heading-six-icon.tsx";
 
 export type Level = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -128,10 +128,7 @@ export function isHeadingActive(
 /**
  * Toggles heading in the editor
  */
-function toggleHeading(
-	editor: Editor | null,
-	level: Level | Level[],
-): boolean {
+function toggleHeading(editor: Editor | null, level: Level | Level[]): boolean {
 	if (!editor || !editor.isEditable) return false;
 
 	const levels = Array.isArray(level) ? level : [level];

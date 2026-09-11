@@ -1,6 +1,6 @@
 import type { ComponentProps } from "preact";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { cn } from "../../../lib/tiptap-utils";
+import { cn } from "../../../lib/tiptap-utils.ts";
 import "./dropdown-menu.scss";
 import { forwardRef } from "preact/compat";
 
@@ -17,7 +17,7 @@ function DropdownMenuPortal({
 }
 
 const DropdownMenuTrigger = forwardRef<
-	typeof DropdownMenuPrimitive.Trigger,
+	HTMLButtonElement,
 	ComponentProps<typeof DropdownMenuPrimitive.Trigger>
 >(({ ...props }, ref) => (
 	<DropdownMenuPrimitive.Trigger ref={ref} {...props} />
@@ -35,7 +35,7 @@ const DropdownMenuItem = DropdownMenuPrimitive.Item;
 const DropdownMenuSubTrigger = DropdownMenuPrimitive.SubTrigger;
 
 const DropdownMenuSubContent = forwardRef<
-	typeof DropdownMenuPrimitive.SubContent,
+	HTMLDivElement,
 	ComponentProps<typeof DropdownMenuPrimitive.SubContent> & {
 		portal?: boolean | ComponentProps<typeof DropdownMenuPortal>;
 	}
@@ -60,7 +60,7 @@ DropdownMenuSubContent.displayName =
 	DropdownMenuPrimitive.SubContent.displayName;
 
 const DropdownMenuContent = forwardRef<
-	typeof DropdownMenuPrimitive.Content,
+	HTMLDivElement,
 	ComponentProps<typeof DropdownMenuPrimitive.Content> & {
 		portal?: boolean;
 	}
@@ -90,10 +90,4 @@ export {
 	DropdownMenuTrigger,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	
-	
-	
-	
-	
-	
 };

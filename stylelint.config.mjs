@@ -25,6 +25,11 @@ const VARS_USED_AT_RUNTIME = [
 	// infinite-loop-slider.astro style={{}} prop
 	"--duration",
 	"--direction",
+	// Radix Popover and DropdownMenu content positioning set by the primitives
+	"--radix-popover-content-transform-origin",
+	"--radix-popover-content-available-height",
+	"--radix-dropdown-menu-content-transform-origin",
+	"--radix-dropdown-menu-content-available-height",
 ];
 
 // files can't know what files exist without global context

@@ -1,19 +1,23 @@
-import { FunctionComponent, ComponentChildren, JSX } from "preact";
-import { Fragment } from "preact";
+import {
+	type FunctionComponent,
+	type ComponentChildren,
+	type JSX,
+	Fragment,
+} from "preact";
 import { forwardRef } from "preact/compat";
 import { useMemo } from "preact/hooks";
 
 // --- Tiptap UI Primitive ---
-import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip/index.tsx";
 
 // --- Lib ---
-import { cn, parseShortcutKeys } from "../../../lib/tiptap-utils";
+import { cn, parseShortcutKeys } from "../../../lib/tiptap-utils.ts";
 
 import "./button-colors.scss";
 import "./button-group.scss";
 import "./button.scss";
 
-export interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
 	showTooltip?: boolean;
 	tooltip?: ComponentChildren;
@@ -108,4 +112,3 @@ export const ButtonGroup = forwardRef<
 	);
 });
 ButtonGroup.displayName = "ButtonGroup";
-

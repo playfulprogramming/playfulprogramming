@@ -1,9 +1,9 @@
 import type { JSX } from "preact";
 import { memo } from "preact/compat";
 
-type SvgProps = JSX.HTMLAttributes<SVGElement>;
+type SvgProps = JSX.SVGAttributes<SVGSVGElement>;
 
-export const BlockquoteIcon = memo(({ className, ...props }: SvgProps) => {
+export const BlockquoteIcon = memo<SvgProps>(({ className, ...props }) => {
 	return (
 		<svg
 			width="24"

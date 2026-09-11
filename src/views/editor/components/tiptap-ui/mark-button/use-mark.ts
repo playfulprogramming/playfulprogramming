@@ -2,19 +2,22 @@ import { useCallback, useEffect, useState } from "preact/hooks";
 import type { Editor } from "@tiptap/react";
 
 // --- Hooks ---
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
 
 // --- Lib ---
-import { isMarkInSchema, isNodeTypeSelected } from "../../../lib/tiptap-utils";
+import {
+	isMarkInSchema,
+	isNodeTypeSelected,
+} from "../../../lib/tiptap-utils.ts";
 
 // --- Icons ---
-import { BoldIcon } from "../../tiptap-icons/bold-icon";
-import { Code2Icon } from "../../tiptap-icons/code2-icon";
-import { ItalicIcon } from "../../tiptap-icons/italic-icon";
-import { StrikeIcon } from "../../tiptap-icons/strike-icon";
-import { SubscriptIcon } from "../../tiptap-icons/subscript-icon";
-import { SuperscriptIcon } from "../../tiptap-icons/superscript-icon";
-import { UnderlineIcon } from "../../tiptap-icons/underline-icon";
+import { BoldIcon } from "../../tiptap-icons/bold-icon.tsx";
+import { Code2Icon } from "../../tiptap-icons/code2-icon.tsx";
+import { ItalicIcon } from "../../tiptap-icons/italic-icon.tsx";
+import { StrikeIcon } from "../../tiptap-icons/strike-icon.tsx";
+import { SubscriptIcon } from "../../tiptap-icons/subscript-icon.tsx";
+import { SuperscriptIcon } from "../../tiptap-icons/superscript-icon.tsx";
+import { UnderlineIcon } from "../../tiptap-icons/underline-icon.tsx";
 
 type Mark =
 	| "bold"

@@ -1,6 +1,6 @@
 import throttle from "lodash.throttle";
 
-import { useUnmount } from "./use-unmount";
+import { useUnmount } from "./use-unmount.ts";
 import { useMemo } from "preact/hooks";
 
 interface ThrottleSettings {
@@ -44,4 +44,3 @@ export function useThrottledCallback<T extends (...args: any[]) => any>(
 
 	return handler;
 }
-

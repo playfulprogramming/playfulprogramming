@@ -1,2 +1,2 @@
-export * from "./mark-button";
-export * from "./use-mark";
+export * from "./mark-button.tsx";
+export * from "./use-mark.ts";

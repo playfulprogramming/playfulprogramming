@@ -1,4 +1,5 @@
-import { cn } from "../../../lib/tiptap-utils";
+import type { JSX } from "preact";
+import { cn } from "../../../lib/tiptap-utils.ts";
 import "./card.scss";
 import { forwardRef } from "preact/compat";
 
@@ -71,11 +72,4 @@ const CardFooter = forwardRef<
 });
 CardFooter.displayName = "CardFooter";
 
-export {
-	Card,
-	
-	
-	CardBody,
-	CardItemGroup,
-	
-};
+export { Card, CardBody, CardItemGroup };

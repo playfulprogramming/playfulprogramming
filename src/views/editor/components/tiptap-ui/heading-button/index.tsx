@@ -1,2 +1,2 @@
-export * from "./heading-button";
-export * from "./use-heading";
+export * from "./heading-button.tsx";
+export * from "./use-heading.ts";

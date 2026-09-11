@@ -1,34 +1,44 @@
 import type { JSX, FunctionComponent } from "preact";
 import { forwardRef } from "preact/compat";
-import type { Dispatch, StateUpdater } from "preact/hooks";
-import { useCallback, useEffect, useState } from "preact/hooks";
+import {
+	type Dispatch,
+	type StateUpdater,
+	useCallback,
+	useEffect,
+	useState,
+} from "preact/hooks";
 import type { Editor } from "@tiptap/react";
 
 // --- Hooks ---
-import { useIsBreakpoint } from "../../../hooks/use-is-breakpoint";
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
+import { useIsBreakpoint } from "../../../hooks/use-is-breakpoint.ts";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
 
 // --- Icons ---
-import { CornerDownLeftIcon } from "../../tiptap-icons/corner-down-left-icon";
-import { ExternalLinkIcon } from "../../tiptap-icons/external-link-icon";
-import { LinkIcon } from "../../tiptap-icons/link-icon";
-import { TrashIcon } from "../../tiptap-icons/trash-icon";
+import { CornerDownLeftIcon } from "../../tiptap-icons/corner-down-left-icon.tsx";
+import { ExternalLinkIcon } from "../../tiptap-icons/external-link-icon.tsx";
+import { LinkIcon } from "../../tiptap-icons/link-icon.tsx";
+import { TrashIcon } from "../../tiptap-icons/trash-icon.tsx";
 
 // --- Tiptap UI ---
-import type { UseLinkPopoverConfig } from "./index";
-import { useLinkPopover } from "./index";
+import { type UseLinkPopoverConfig, useLinkPopover } from "./index.tsx";
 
 // --- UI Primitives ---
-import type { ButtonProps } from "../../tiptap-ui-primitive/button";
-import { Button, ButtonGroup } from "../../tiptap-ui-primitive/button";
+import {
+	type ButtonProps,
+	Button,
+	ButtonGroup,
+} from "../../tiptap-ui-primitive/button/index.tsx";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from "../../tiptap-ui-primitive/popover";
-import { Separator } from "../../tiptap-ui-primitive/separator";
-import { Card, CardBody, CardItemGroup } from "../../tiptap-ui-primitive/card";
-import { Input, InputGroup } from "../../tiptap-ui-primitive/input";
+} from "../../tiptap-ui-primitive/popover/index.tsx";
+import {
+	Card,
+	CardBody,
+	CardItemGroup,
+} from "../../tiptap-ui-primitive/card/index.tsx";
+import { Input, InputGroup } from "../../tiptap-ui-primitive/input/index.tsx";
 
 interface LinkMainProps {
 	/**
@@ -58,8 +68,7 @@ interface LinkMainProps {
 }
 
 interface LinkPopoverProps
-	extends Omit<ButtonProps, "type">,
-		UseLinkPopoverConfig {
+	extends Omit<ButtonProps, "type">, UseLinkPopoverConfig {
 	/**
 	 * Callback for when the popover opens or closes.
 	 */
@@ -135,7 +144,7 @@ const LinkMain: import("preact").FunctionComponent<LinkMainProps> = ({
 							type="url"
 							placeholder="Paste a link..."
 							value={url}
-							onChange={(e) => setUrl(e.target.value)}
+							onChange={(e) => setUrl(e.currentTarget.value)}
 							onKeyDown={handleKeyDown}
 							autoFocus
 							autoComplete="off"
@@ -300,4 +309,3 @@ export const LinkPopover = forwardRef<HTMLButtonElement, LinkPopoverProps>(
 );
 
 LinkPopover.displayName = "LinkPopover";
-

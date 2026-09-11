@@ -3,20 +3,20 @@ import type { JSX } from "preact";
 import { useCallback } from "preact/hooks";
 
 // --- Hooks ---
-import { useTiptapEditor } from "../../../hooks/use-tiptap-editor";
+import { useTiptapEditor } from "../../../hooks/use-tiptap-editor.ts";
 
 // --- Tiptap UI ---
-import type { UseUndoRedoConfig } from "./index";
-import { useUndoRedo } from "./index";
+import { type UseUndoRedoConfig, useUndoRedo } from "./index.tsx";
 
 // --- UI Primitives ---
-import type { ButtonProps } from "../../tiptap-ui-primitive/button";
-import { Button } from "../../tiptap-ui-primitive/button";
+import {
+	type ButtonProps,
+	Button,
+} from "../../tiptap-ui-primitive/button/index.tsx";
 import { forwardRef } from "preact/compat";
 
 interface UndoRedoButtonProps
-	extends Omit<ButtonProps, "type">,
-		UseUndoRedoConfig {
+	extends Omit<ButtonProps, "type">, UseUndoRedoConfig {
 	/**
 	 * Optional text to display alongside the icon.
 	 */

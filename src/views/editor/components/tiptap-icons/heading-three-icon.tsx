@@ -1,9 +1,9 @@
 import type { JSX } from "preact";
 import { memo } from "preact/compat";
 
-type SvgProps = JSX.HTMLAttributes<SVGElement>;
+type SvgProps = JSX.SVGAttributes<SVGSVGElement>;
 
-export const HeadingThreeIcon = memo(({ className, ...props }: SvgProps) => {
+export const HeadingThreeIcon = memo<SvgProps>(({ className, ...props }) => {
 	return (
 		<svg
 			width="24"
