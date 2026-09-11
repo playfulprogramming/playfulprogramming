@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 4 - Tier 2 Homework",
+  description: "Write a JavaScript palindrome checker using a function, a while loop, and string comparison to test whether a word reads the same backwards.",
   published: "2026-01-28T21:12:03.284Z",
   order: 1,
   noindex: true,

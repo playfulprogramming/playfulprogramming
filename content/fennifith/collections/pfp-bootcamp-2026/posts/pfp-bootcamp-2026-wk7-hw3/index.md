@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 7 - Tier 3 Homework",
+  description: "Use React state, click handlers, and the hidden attribute to toggle answers in your flash card app.",
   published: "2026-02-18T21:00:00.000Z",
   order: 5,
   authors: ['whatade'],

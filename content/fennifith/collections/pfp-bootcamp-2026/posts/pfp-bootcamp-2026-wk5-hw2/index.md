@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 5 - Tier 2 Homework",
+  description: "Practice DOM manipulation by selecting nested HTML elements with querySelector and removing a list item with removeChild.",
   published: "2026-02-04T21:12:03.284Z",
   order: 1,
   noindex: true,

@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 3 - Tier 1 Homework",
+	description: "Build a JavaScript number guessing game using prompts, number conversion, and conditionals, then play it in the browser console.",
 	published: '2026-01-21T21:12:03.284Z',
 	order: 1,
 	noindex: true

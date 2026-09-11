@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 9 - Tier 2 Homework",
+  description: "Add buttons to score your trivia answers and use React effects with localStorage to preserve your score across page refreshes.",
   published: "2026-03-04T21:00:00.000Z",
   order: 10,
   noindex: true

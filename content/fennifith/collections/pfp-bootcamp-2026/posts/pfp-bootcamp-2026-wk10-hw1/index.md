@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 10 - Tier 1 Homework",
+  description: "Build a React shopping app that fetches product data, calculates cart totals, and shares shopping cart state through context.",
   published: "2026-03-11T21:00:00.000Z",
   order: 12,
   noindex: true

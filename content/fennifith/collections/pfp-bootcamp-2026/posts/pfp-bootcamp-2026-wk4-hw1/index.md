@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 4 - Tier 1 Homework",
+  description: "Add a while loop to your JavaScript number guessing game so players can keep guessing until they find the correct number.",
   published: "2026-01-28T21:12:03.284Z",
   order: 1,
   noindex: true,

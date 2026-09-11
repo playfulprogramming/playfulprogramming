@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 4 - Tier 3 Homework",
+  description: "Practice treating JavaScript functions as values by writing a function that accepts another function as an argument.",
   published: "2026-01-28T21:12:03.284Z",
   order: 1,
   noindex: true,

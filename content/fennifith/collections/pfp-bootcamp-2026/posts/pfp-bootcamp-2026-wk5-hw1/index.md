@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 5 - Tier 1 Homework",
+  description: "Use JavaScript click events and HTML attributes to toggle a button's state and change its background color.",
   published: "2026-02-04T21:12:03.284Z",
   order: 1,
   noindex: true,

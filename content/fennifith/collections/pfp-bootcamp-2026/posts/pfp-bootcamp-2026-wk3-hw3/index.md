@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 3 - Tier 2 Homework",
+	description: "Read about JavaScript primitive values and learn how to explain the difference between null and undefined.",
 	published: '2026-01-21T21:12:03.284Z',
 	order: 1,
 	noindex: true

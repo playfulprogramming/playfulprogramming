@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 1 - Tier 1 Homework",
+	description: "Build your first HTML page in VS Code with a heading, an image, and a link, then view it in your browser.",
 	published: '2026-01-01T21:12:03.284Z',
 	order: 1,
 	noindex: true

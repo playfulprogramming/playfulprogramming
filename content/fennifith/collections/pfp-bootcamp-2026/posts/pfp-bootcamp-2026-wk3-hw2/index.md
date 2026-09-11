@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 3 - Tier 2 Homework",
+	description: "Extend your number guessing game with JavaScript's AND and OR operators to check guesses and reject numbers outside the valid range.",
 	published: '2026-01-21T21:12:03.284Z',
 	order: 1,
 	noindex: true

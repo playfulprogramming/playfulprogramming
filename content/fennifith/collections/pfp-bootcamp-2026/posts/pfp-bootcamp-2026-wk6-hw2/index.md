@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 6 - Tier 2 Homework",
+	description: "Create a looping loading animation with JavaScript timers, then simplify its nested callbacks using promises and async/await.",
 	published: '2026-02-11T21:12:03.284Z',
 	order: 1,
 	noindex: true

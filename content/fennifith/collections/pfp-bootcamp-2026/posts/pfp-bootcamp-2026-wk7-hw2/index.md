@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 7 - Tier 2 Homework",
+  description: "Build and style a React flash card app using reusable components, JSX, and props to display questions and answers.",
   published: "2026-02-18T21:00:00.000Z",
   order: 4,
   authors: ['whatade'],

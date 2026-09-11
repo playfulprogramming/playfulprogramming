@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 11 - Tier 2 Homework",
+  description: "Use React Router parameters to give each blog post its own page and link to posts from the homepage.",
   published: "2026-03-18T21:00:00.000Z",
   order: 15,
   noindex: true

@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 11 - Tier 1 Homework",
+  description: "Build a blog site with separate home and about pages, then connect them with navigation links using React Router.",
   published: "2026-03-18T21:00:00.000Z",
   order: 14,
   noindex: true

@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 2 - Tier 1 Homework",
+	description: "Explore CSS fundamentals and hierarchy, then add styling to the website you built in the first week.",
 	published: '2026-01-14T21:12:03.284Z',
 	order: 1,
 	noindex: true

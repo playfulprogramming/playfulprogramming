@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 9 - Tier 3 Homework",
+  description: "Track correct and incorrect trivia answers separately in React state and calculate your accuracy percentage with useMemo.",
   published: "2026-03-04T21:00:00.000Z",
   order: 11,
   noindex: true

@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 8 - Tier 2 Homework",
+  description: "Render your React flash cards from an array of question and answer objects using map and key props.",
   published: "2026-02-24T21:00:00.000Z",
   order: 7,
   authors: ["whatade"],

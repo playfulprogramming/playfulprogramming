@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 9 - Tier 1 Homework",
+  description: "Populate your React flash cards with random trivia questions from an API using fetch, useEffect, and state.",
   published: "2026-03-04T21:00:00.000Z",
   order: 9,
   noindex: true

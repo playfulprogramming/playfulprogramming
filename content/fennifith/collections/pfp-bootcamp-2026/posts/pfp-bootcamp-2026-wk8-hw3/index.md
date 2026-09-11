@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 8 - Tier 3 Homework",
+  description: "Add a form with controlled inputs to your React flash card app so users can create their own cards.",
   published: "2026-02-24T21:00:00.000Z",
   order: 8,
   authors: ["whatade"],

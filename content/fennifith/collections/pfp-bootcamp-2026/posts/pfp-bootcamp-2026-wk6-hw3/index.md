@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 6 - Tier 3 Homework",
+	description: "Fetch sample credit card data from an API and use JavaScript to display the JSON results as a list.",
 	published: '2026-02-11T21:12:03.284Z',
 	order: 2,
 	noindex: true

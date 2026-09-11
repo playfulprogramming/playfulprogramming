@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 5 - Tier 3 Homework",
+  description: "Build a JavaScript to-do list that turns text input into new list items when you press Enter.",
   published: "2026-02-04T21:12:03.284Z",
   order: 1,
   noindex: true,

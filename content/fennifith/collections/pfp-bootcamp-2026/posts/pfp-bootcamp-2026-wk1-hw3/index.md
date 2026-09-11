@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 1 - Tier 3 Homework",
+	description: "Learn how to host your website for free with Netlify and share it using a preview URL.",
 	published: '2026-01-01T21:12:03.284Z',
 	order: 3,
 	noindex: true

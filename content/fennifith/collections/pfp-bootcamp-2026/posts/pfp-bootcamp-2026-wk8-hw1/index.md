@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 8 - Tier 1 Homework",
+  description: "Refactor your React flash cards to use conditional rendering so answers only appear in the DOM when revealed.",
   published: "2026-02-24T21:00:00.000Z",
   order: 6,
   authors: ["whatade"],
