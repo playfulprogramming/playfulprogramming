@@ -2,7 +2,7 @@
 {
 title: "Copilot Workspace - GitHub's latest innovation",
 published: "2024-04-29T16:41:10Z",
-tags: ["github", "copilot", "ai", "announcements"],
+tags: ["github", "copilot", "ai"],
 description: "GitHub just announced Copilot Workspace a new integrated AI feature with Copilot being your companion...",
 originalLink: "https://leonardomontini.dev/copilot-workspace/",
 coverImg: "cover-image.png",
