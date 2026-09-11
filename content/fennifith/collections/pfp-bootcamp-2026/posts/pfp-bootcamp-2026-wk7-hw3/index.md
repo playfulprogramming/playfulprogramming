@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 7 - Tier 3 Homework",
+  description: "Use React state, click handlers, and the hidden attribute to toggle answers in your flash card app.",
   published: "2026-02-18T21:00:00.000Z",
   order: 5,
   authors: ['whatade'],
@@ -33,15 +34,15 @@ Update the `FlashCard` component to track whether the answer is visible:
 
 ```jsx
 function FlashCard(props) {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-  return (
-    <div className="card">
-      <h2>{props.question}</h2>
+	return (
+		<div className="card">
+			<h2>{props.question}</h2>
 
-      <p hidden={!open}>{props.answer}</p>
-    </div>
-  );
+			<p hidden={!open}>{props.answer}</p>
+		</div>
+	);
 }
 ```
 
@@ -60,18 +61,15 @@ Add a click handler to the card so that clicking toggles `open`:
 
 ```jsx
 function FlashCard(props) {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-  return (
-    <div
-      className="card"
-      onClick={() => setOpen(!open)}
-    >
-      <h2>{props.question}</h2>
+	return (
+		<div className="card" onClick={() => setOpen(!open)}>
+			<h2>{props.question}</h2>
 
-      <p hidden={!open}>{props.answer}</p>
-    </div>
-  );
+			<p hidden={!open}>{props.answer}</p>
+		</div>
+	);
 }
 ```
 

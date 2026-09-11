@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 8 - Tier 2 Homework",
+  description: "Render your React flash cards from an array of question and answer objects using map and key props.",
   published: "2026-02-24T21:00:00.000Z",
   order: 7,
   authors: ["whatade"],
@@ -22,15 +23,15 @@ Your `App` might look like:
 
 ```jsx
 function App() {
-  return (
-    <div className="app">
-      <h1>Flash Cards</h1>
+	return (
+		<div className="app">
+			<h1>Flash Cards</h1>
 
-      <FlashCard question="What is React?" answer="..." />
-      <FlashCard question="What is JSX?" answer="..." />
-      <FlashCard question="What is useState?" answer="..." />
-    </div>
-  );
+			<FlashCard question="What is React?" answer="..." />
+			<FlashCard question="What is JSX?" answer="..." />
+			<FlashCard question="What is useState?" answer="..." />
+		</div>
+	);
 }
 ```
 
@@ -42,21 +43,21 @@ function App() {
 
    ```jsx
    const cards = [
-     {
-       id: 1,
-       question: "What is React?",
-       answer: "A JavaScript library for building user interfaces.",
-     },
-     {
-       id: 2,
-       question: "What is JSX?",
-       answer: "A syntax that looks like HTML but works inside JavaScript.",
-     },
-     {
-       id: 3,
-       question: "What is useState?",
-       answer: "A React hook that lets you store and update state.",
-     },
+   	{
+   		id: 1,
+   		question: "What is React?",
+   		answer: "A JavaScript library for building user interfaces.",
+   	},
+   	{
+   		id: 2,
+   		question: "What is JSX?",
+   		answer: "A syntax that looks like HTML but works inside JavaScript.",
+   	},
+   	{
+   		id: 3,
+   		question: "What is useState?",
+   		answer: "A React hook that lets you store and update state.",
+   	},
    ];
    ```
 
@@ -64,15 +65,12 @@ function App() {
 
 3. **Pass a `key` prop** to each `FlashCard` (use `id` or the index). React needs `key` when rendering lists.
 
-
 ```jsx
-{cards.map((card) => (
-  <FlashCard
-    key={card.id}
-    question={card.question}
-    answer={card.answer}
-  />
-))}
+{
+	cards.map((card) => (
+		<FlashCard key={card.id} question={card.question} answer={card.answer} />
+	));
+}
 ```
 
 ---
@@ -87,6 +85,6 @@ function App() {
 <details>
 <summary>Full Code</summary>
 
-<iframe data-frame-title="Flash Card App" src="pfp-code:./pfp-wk8-hw2-project?file=src/App.jsx"></iframe> 
+<iframe data-frame-title="Flash Card App" src="pfp-code:./pfp-wk8-hw2-project?file=src/App.jsx"></iframe>
 
 </details>

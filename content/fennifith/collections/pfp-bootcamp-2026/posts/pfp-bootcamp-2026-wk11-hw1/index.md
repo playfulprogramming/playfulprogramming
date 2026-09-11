@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 11 - Tier 1 Homework",
+  description: "Build a blog site with separate home and about pages, then connect them with navigation links using React Router.",
   published: "2026-03-18T21:00:00.000Z",
   order: 14,
   noindex: true
@@ -34,13 +35,13 @@ In your package.json, you should see the following line appear in the "dependenc
 Then, you can open your `main.jsx` and import the "BrowserRouter" component from react-router. Add this component within the `<StrictMode>`, surrounding your `<App />`:
 
 ```jsx
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
-)
+createRoot(document.getElementById("root")).render(
+	<StrictMode>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</StrictMode>,
+);
 ```
 
 ## Create a home page and an about page
@@ -49,17 +50,21 @@ Next, create two separate components for your "home page" and "about page". Make
 
 ```jsx
 export function HomePage() {
-  // add some home page elements here
-  return <>
-    <h1>Home Page</h1>
-  </>;
+	// add some home page elements here
+	return (
+		<>
+			<h1>Home Page</h1>
+		</>
+	);
 }
 
 export function AboutPage() {
-  // add some about page elements here
-  return <>
-    <h1>About Page</h1>
-  </>;
+	// add some about page elements here
+	return (
+		<>
+			<h1>About Page</h1>
+		</>
+	);
 }
 ```
 
@@ -68,11 +73,11 @@ export function AboutPage() {
 The [Routing] documentation tells you that you can declare a route in your app as follows:
 
 ```jsx
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-    </Routes>
-  </BrowserRouter>
+<BrowserRouter>
+	<Routes>
+		<Route path="/" element={<App />} />
+	</Routes>
+</BrowserRouter>
 ```
 
 Import the `Routes` and `Route` component from react-router. Then, import the `HomePage` and `AboutPage` components you just created.
@@ -83,22 +88,22 @@ Declare one route with the `/` path that renders the `<HomePage />` element, and
 <summary>Hint</summary>
 
 ```jsx
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { HomePage, AboutPage } from './App.jsx'
-import { BrowserRouter, Routes, Route } from 'react-router'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { HomePage, AboutPage } from "./App.jsx";
+import { BrowserRouter, Routes, Route } from "react-router";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>,
-)
+createRoot(document.getElementById("root")).render(
+	<StrictMode>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="/about" element={<AboutPage />} />
+			</Routes>
+		</BrowserRouter>
+	</StrictMode>,
+);
 ```
 
 </details>

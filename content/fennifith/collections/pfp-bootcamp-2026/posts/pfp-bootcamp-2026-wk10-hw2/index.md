@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 10 - Tier 2 Homework",
+  description: "Set up Node.js and npm, initialize a project, and run your first JavaScript program in the terminal.",
   published: "2026-03-11T21:00:00.000Z",
   order: 13,
   noindex: true

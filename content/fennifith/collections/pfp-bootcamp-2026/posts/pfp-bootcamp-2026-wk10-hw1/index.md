@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 10 - Tier 1 Homework",
+  description: "Build a React shopping app that fetches product data, calculates cart totals, and shares shopping cart state through context.",
   published: "2026-03-11T21:00:00.000Z",
   order: 12,
   noindex: true
@@ -17,24 +18,24 @@ Let's start by creating a `products.json` file in the `public/` folder. This fil
 
 ```json
 [
-  {
-    "id": "sunglasses",
-    "name": "Cool Sunglasses",
-    "description": "These sunglasses are very cool and totally worth your money.",
-    "price": 200
-  },
-  {
-    "id": "hat",
-    "name": "Cool Hat",
-    "description": "This hat is very cool and totally worth your money.",
-    "price": 80
-  },
-  {
-    "id": "rubber-ducky",
-    "name": "Rubber Ducky",
-    "description": "This rubber duck is very cool and totally worth your money.",
-    "price": 1000
-  }
+	{
+		"id": "sunglasses",
+		"name": "Cool Sunglasses",
+		"description": "These sunglasses are very cool and totally worth your money.",
+		"price": 200
+	},
+	{
+		"id": "hat",
+		"name": "Cool Hat",
+		"description": "This hat is very cool and totally worth your money.",
+		"price": 80
+	},
+	{
+		"id": "rubber-ducky",
+		"name": "Rubber Ducky",
+		"description": "This rubber duck is very cool and totally worth your money.",
+		"price": 1000
+	}
 ]
 ```
 
@@ -45,9 +46,9 @@ Inside your app component, write a `fetch("/products.json")` call. Place it in a
 
 ```js
 useEffect(() => {
-  fetch("/products.json")
-    .then(response => response.json())
-    .then(json => console.log(json));
+	fetch("/products.json")
+		.then((response) => response.json())
+		.then((json) => console.log(json));
 }, []);
 ```
 
@@ -62,21 +63,21 @@ Next, let's make a `useState` to store the products array, and render the produc
 
 ```jsx
 function App() {
-  const [products, setProducts] = useState([]);
+	const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetch("/products.json")
-      .then(response => response.json())
-      .then(json => setProducts(json));
-  }, []);
+	useEffect(() => {
+		fetch("/products.json")
+			.then((response) => response.json())
+			.then((json) => setProducts(json));
+	}, []);
 
-  return (
-    <div>
-      {products.map((product) => (
-        <p key={product.id}>{product.name}</p>
-      ))}
-    </div>
-  );
+	return (
+		<div>
+			{products.map((product) => (
+				<p key={product.id}>{product.name}</p>
+			))}
+		</div>
+	);
 }
 ```
 
@@ -91,6 +92,7 @@ Next, let's create a new "Product" component to display the full product informa
 Create a new `Product.jsx` file for our component, then write a Product function using `export default function Product() { ... }`.
 
 Our Product component should:
+
 - Accept a `product` property, using `props.product`
 - Display the product name and description
 - Display the price of the product
@@ -114,8 +116,8 @@ Next, let's implement the "Add to Cart" button. Write an `addProductToCart()` fu
 
 ```jsx
 function addProductToCart(product) {
-  console.log("Adding a product to the cart:", product.name);
-  setShoppingCart([product, ...shoppingCart]);
+	console.log("Adding a product to the cart:", product.name);
+	setShoppingCart([product, ...shoppingCart]);
 }
 ```
 
@@ -126,18 +128,18 @@ Pass this function as a property into the `<Product>` component. Then, add an `o
 
 ```jsx
 export default function Product(props) {
-  function handleClick() {
-    props.addProductToCart(props.product);
-  }
+	function handleClick() {
+		props.addProductToCart(props.product);
+	}
 
-  return (
-    <div>
-      <p>{props.product.name}</p>
-      <p>{props.product.description}</p>
-      <p>Price: ${props.product.price}</p>
-      <button onClick={handleClick}>Add to Cart</button>
-    </div>
-  );
+	return (
+		<div>
+			<p>{props.product.name}</p>
+			<p>{props.product.description}</p>
+			<p>Price: ${props.product.price}</p>
+			<button onClick={handleClick}>Add to Cart</button>
+		</div>
+	);
 }
 ```
 
@@ -158,20 +160,20 @@ Write a `useMemo` hook to calculate the total price of the product in the cart.
 
 ```jsx
 export default function ShoppingCart(props) {
-  const totalPrice = useMemo(() => {
-    let price = 0;
-    props.shoppingCart.forEach((product) => {
-      price += product.price;
-    });
-    return price;
-  }, [props.shoppingCart]);
+	const totalPrice = useMemo(() => {
+		let price = 0;
+		props.shoppingCart.forEach((product) => {
+			price += product.price;
+		});
+		return price;
+	}, [props.shoppingCart]);
 
-  return (
-    <div>
-      <p>You have {props.shoppingCart.length} products in your cart.</p>
-      <p>Your bill is ${totalPrice}</p>
-    </div>
-  );
+	return (
+		<div>
+			<p>You have {props.shoppingCart.length} products in your cart.</p>
+			<p>Your bill is ${totalPrice}</p>
+		</div>
+	);
 }
 ```
 
@@ -181,8 +183,8 @@ Also, let's use a [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTM
 
 ```jsx
 <details>
-  <summary>Shopping Cart</summary>
-  {/* this is where we'll list the products that are in the cart */}
+	<summary>Shopping Cart</summary>
+	{/* this is where we'll list the products that are in the cart */}
 </details>
 ```
 
@@ -195,26 +197,26 @@ Use `props.shoppingCart.map` and use our `<Product>` component again to show eac
 
 ```jsx
 export default function ShoppingCart(props) {
-  const totalPrice = useMemo(() => {
-    let price = 0;
-    props.shoppingCart.forEach((product) => {
-      price += product.price;
-    });
-    return price;
-  }, [props.shoppingCart]);
+	const totalPrice = useMemo(() => {
+		let price = 0;
+		props.shoppingCart.forEach((product) => {
+			price += product.price;
+		});
+		return price;
+	}, [props.shoppingCart]);
 
-  return (
-    <div>
-      <p>You have {props.shoppingCart.length} products in your cart.</p>
-      <p>Your bill is ${totalPrice}</p>
-      <details>
-        <summary>Shopping Cart</summary>
-        {props.shoppingCart.map((product, index) => (
-          <Product key={index} product={product} />
-        ))}
-      </details>
-    </div>
-  );
+	return (
+		<div>
+			<p>You have {props.shoppingCart.length} products in your cart.</p>
+			<p>Your bill is ${totalPrice}</p>
+			<details>
+				<summary>Shopping Cart</summary>
+				{props.shoppingCart.map((product, index) => (
+					<Product key={index} product={product} />
+				))}
+			</details>
+		</div>
+	);
 }
 ```
 
@@ -257,4 +259,3 @@ Now that we have an "Add to Cart" button, consider how we might implement a "Rem
 - You should define a `removeProductFromCart(product)` callback in our App.
 - The callback should make a copy of the `shoppingCart` array, then remove the product from that array.
 - Then, it should pass the new array `setShoppingCart()` to update the state.
-

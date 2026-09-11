@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 6 - Tier 3 Homework",
+	description: "Fetch sample credit card data from an API and use JavaScript to display the JSON results as a list.",
 	published: '2026-02-11T21:12:03.284Z',
 	order: 2,
 	noindex: true
@@ -99,31 +100,31 @@ For now, let's just copy and paste this into `fetchCards` to start using it.
 				// Fetch a list of cards from an API, then call buildListOfCards
 
 				const data = {
-					"status": "OK",
-					"code": 200,
-					"locale": "en_US",
-					"seed": null,
-					"total": 10,
-					"data": [
+					status: "OK",
+					code: 200,
+					locale: "en_US",
+					seed: null,
+					total: 10,
+					data: [
 						{
-							"type": "Visa",
-							"number": "6011901571171993",
-							"expiration": "12\/26",
-							"owner": "Trystan Parisian"
+							type: "Visa",
+							number: "6011901571171993",
+							expiration: "12\/26",
+							owner: "Trystan Parisian",
 						},
 						{
-							"type": "MasterCard",
-							"number": "5195699615693770",
-							"expiration": "04\/28",
-							"owner": "Jules Brown"
+							type: "MasterCard",
+							number: "5195699615693770",
+							expiration: "04\/28",
+							owner: "Jules Brown",
 						},
 						{
-							"type": "Visa",
-							"number": "6011409701073402",
-							"expiration": "01\/28",
-							"owner": "Justen Mraz"
-						}
-					]
+							type: "Visa",
+							number: "6011409701073402",
+							expiration: "01\/28",
+							owner: "Justen Mraz",
+						},
+					],
 				};
 				buildListOfCards(data);
 			}
@@ -247,6 +248,7 @@ When you look at the console after reloading this page, you should see every car
 Finally, now that we can fetch and loop over each card, let's use what we learnt last week to create a `<li>` element for each card.
 
 Each list item should show:
+
 - The card type
 - The card number
 - The expiration date
@@ -339,4 +341,3 @@ Congrats!
 ## Above and beyond
 
 If you reach the end of this week's homework, try combining this `fetch()` call with the loading animation from Tier 2. See if you can get the animation to display while the `fetch()` call is being processed, and stop once the call is complete.
-

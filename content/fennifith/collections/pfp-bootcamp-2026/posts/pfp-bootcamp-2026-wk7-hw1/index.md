@@ -1,6 +1,7 @@
 ---
 {
 	title: "Week 7 - Tier 1 Homework",
+	description: "Set up a React project with Vite, start a development server, and view your first page in the browser.",
 	published: '2026-02-13T21:12:03.284Z',
 	order: 3,
 	noindex: true

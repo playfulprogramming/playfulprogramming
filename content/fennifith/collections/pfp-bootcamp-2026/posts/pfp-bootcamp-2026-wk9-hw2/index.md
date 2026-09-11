@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 9 - Tier 2 Homework",
+  description: "Add buttons to score your trivia answers and use React effects with localStorage to preserve your score across page refreshes.",
   published: "2026-03-04T21:00:00.000Z",
   order: 10,
   noindex: true
@@ -27,41 +28,38 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [cards, setCards] = useState([]);
+	const [cards, setCards] = useState([]);
 
-  useEffect(() => {
-    fetch("https://quiet-wildflower-c370.18jafenn90.workers.dev/")
-      .then(res => res.json())
-      .then(body => setCards(body.results));
-  }, []);
+	useEffect(() => {
+		fetch("https://quiet-wildflower-c370.18jafenn90.workers.dev/")
+			.then((res) => res.json())
+			.then((body) => setCards(body.results));
+	}, []);
 
-  return (
-    <div className="app">
-      <h1>Flash Cards</h1>
+	return (
+		<div className="app">
+			<h1>Flash Cards</h1>
 
-      {cards.map((card) => (
-        <FlashCard
-          key={card.id}
-          question={card.question}
-          answer={card.correct_answer}
-        />
-      ))}
-    </div>
-  );
+			{cards.map((card) => (
+				<FlashCard
+					key={card.id}
+					question={card.question}
+					answer={card.correct_answer}
+				/>
+			))}
+		</div>
+	);
 }
 
 function FlashCard(props) {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-  return (
-    <div
-      className="card"
-      onClick={() => setOpen(!open)}
-    >
-      <h2>{props.question}</h2>
-      {open && <p>{props.answer}</p>}
-    </div>
-  );
+	return (
+		<div className="card" onClick={() => setOpen(!open)}>
+			<h2>{props.question}</h2>
+			{open && <p>{props.answer}</p>}
+		</div>
+	);
 }
 
 export default App;
@@ -101,64 +99,65 @@ First, change the props for `FlashCard` so it can receive a callback from `App`:
 
 ```jsx
 function FlashCard(props) {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-  return (
-    <div
-      className="card"
-      onClick={() => setOpen(!open)}
-    >
-      <h2>{props.question}</h2>
-      {open && <p>{props.answer}</p>}
+	return (
+		<div className="card" onClick={() => setOpen(!open)}>
+			<h2>{props.question}</h2>
+			{open && <p>{props.answer}</p>}
 
-      <button
-        type="button"
-        onClick={(event) => {
-          event.stopPropagation(); // don't re-toggle the card
-          if (props.onCorrect) {
-            props.onCorrect();
-          }
-        }}
-      >
-        Correct
-      </button>
+			<button
+				type="button"
+				onClick={(event) => {
+					event.stopPropagation(); // don't re-toggle the card
+					if (props.onCorrect) {
+						props.onCorrect();
+					}
+				}}
+			>
+				Correct
+			</button>
 
-      <button
-        type="button"
-        onClick={(event) => {
-          event.stopPropagation();
-          if (props.onIncorrect) {
-            props.onIncorrect();
-          }
-        }}
-      >
-        Incorrect
-      </button>
-    </div>
-  );
+			<button
+				type="button"
+				onClick={(event) => {
+					event.stopPropagation();
+					if (props.onIncorrect) {
+						props.onIncorrect();
+					}
+				}}
+			>
+				Incorrect
+			</button>
+		</div>
+	);
 }
 ```
 
 Then, when you render each `FlashCard` in `App`, pass in functions that update your score:
 
 ```jsx
-{cards.map((card) => (
-  <FlashCard
-    key={card.id}
-    question={card.question}
-    answer={card.correct_answer}
-    onCorrect={() => setScore((score) => {
-      if (score === undefined) {
-        return 1;
-      }
-      return score + 1;
-    })}
-    onIncorrect={() => {
-      // For Tier 2, you don't need to change the score here.
-      // In Tier 3, you'll track separate correct/incorrect counts.
-    }}
-  />
-))}
+{
+	cards.map((card) => (
+		<FlashCard
+			key={card.id}
+			question={card.question}
+			answer={card.correct_answer}
+			onCorrect={() =>
+				setScore((score) => {
+					if (score === undefined) {
+						return 1;
+					}
+					return score + 1;
+				})
+			}
+			onIncorrect={() => {
+				// For Tier 2, you don't need to change the score here.
+				// In Tier 3, you'll track separate correct/incorrect counts.
+			}}
+		/>
+	));
+}
 ```
 
 ---
@@ -170,19 +169,19 @@ At the top of your `App` JSX (above the list of cards), display the current scor
 ```jsx
 let displayScore = 0;
 if (score !== undefined) {
-  displayScore = score;
+	displayScore = score;
 }
 
 return (
-  <div className="app">
-    <h1>Flash Cards</h1>
+	<div className="app">
+		<h1>Flash Cards</h1>
 
-    <p>Score: {displayScore}</p>
+		<p>Score: {displayScore}</p>
 
-    {cards.map((card) => (
-      {/* ... your FlashCard code from above ... */}
-    ))}
-  </div>
+		{cards.map((card) => ({
+			/* ... your FlashCard code from above ... */
+		}))}
+	</div>
 );
 ```
 
@@ -198,21 +197,21 @@ Finally, use `useEffect` and `localStorage` so that the score is remembered even
 
 ```jsx
 useEffect(() => {
-  try {
-    const storedScore = localStorage.getItem("flashcard-score");
-    if (!storedScore) {
-      setScore(0);
-      return;
-    }
-    const parsed = JSON.parse(storedScore);
-    if (typeof parsed.score === "number") {
-      setScore(parsed.score);
-    } else {
-      setScore(0);
-    }
-  } catch {
-    setScore(0);
-  }
+	try {
+		const storedScore = localStorage.getItem("flashcard-score");
+		if (!storedScore) {
+			setScore(0);
+			return;
+		}
+		const parsed = JSON.parse(storedScore);
+		if (typeof parsed.score === "number") {
+			setScore(parsed.score);
+		} else {
+			setScore(0);
+		}
+	} catch {
+		setScore(0);
+	}
 }, []);
 ```
 
@@ -220,12 +219,12 @@ useEffect(() => {
 
 ```jsx
 useEffect(() => {
-  if (score === undefined) {
-    return;
-  }
+	if (score === undefined) {
+		return;
+	}
 
-  const data = { score };
-  localStorage.setItem("flashcard-score", JSON.stringify(data));
+	const data = { score };
+	localStorage.setItem("flashcard-score", JSON.stringify(data));
 }, [score]);
 ```
 
