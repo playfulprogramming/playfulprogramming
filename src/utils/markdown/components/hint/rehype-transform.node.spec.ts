@@ -83,53 +83,87 @@ function getComponents(nodes: ComponentNode["children"]): ComponentNode[] {
 }
 
 describe("Details markdown component", () => {
-	it.each([
-		{ tagName: "ul", markers: ["-", "-", "-"] },
-		{ tagName: "ol", markers: ["1.", "2.", "3."] },
-	])(
-		"transforms details inside a $tagName list item",
-		async ({ tagName, markers }) => {
-			const indent = " ".repeat(markers[1].length + 1);
-			const source = [
-				`${markers[0]} List item 1`,
-				"",
-				`${markers[1]} List item 2`,
-				`${indent}<details>`,
-				`${indent}  <summary>What's this?</summary>`,
-				`${indent}  OwO`,
-				`${indent}</details>`,
-				"",
-				`${markers[2]} List item 3`,
-			].join("\n");
+	it("transforms details inside an unordered list item", async () => {
+		const source = [
+			"- List item 1",
+			"",
+			"- List item 2",
+			"  <details>",
+			"    <summary>What's this?</summary>",
+			"    OwO",
+			"  </details>",
+			"",
+			"- List item 3",
+		].join("\n");
 
-			const nodes = await processMarkdown(source);
-			expect(getComponents(nodes)).toMatchObject([
-				{ component: "Hint", props: { title: "What's this?" } },
-			]);
+		const nodes = await processMarkdown(source);
+		expect(getComponents(nodes)).toMatchObject([
+			{ component: "Hint", props: { title: "What's this?" } },
+		]);
 
-			const html = renderComponents(nodes);
-			const root = fromHtml(html, { fragment: true });
-			const list = root.children.find(
-				(node): node is Element =>
-					node.type === "element" && node.tagName === tagName,
-			);
-			expect(list).toBeDefined();
-			const items = list!.children.filter(
-				(node): node is Element =>
-					node.type === "element" && node.tagName === "li",
-			);
-			expect(
-				items.map((node) => toString(node).replace(/\s+/g, " ").trim()),
-			).toEqual(["List item 1", "List item 2 OwO", "List item 3"]);
-			expect(
-				items[1].children.filter((node) => node.type === "element"),
-			).toMatchObject([
-				{ tagName: "p" },
-				{ tagName: "hint", properties: { title: "What's this?" } },
-			]);
-			expect(html).not.toContain("<details");
-		},
-	);
+		const html = renderComponents(nodes);
+		const root = fromHtml(html, { fragment: true });
+		const list = root.children.find(
+			(node): node is Element =>
+				node.type === "element" && node.tagName === "ul",
+		);
+		expect(list).toBeDefined();
+		const items = list!.children.filter(
+			(node): node is Element =>
+				node.type === "element" && node.tagName === "li",
+		);
+		expect(
+			items.map((node) => toString(node).replace(/\s+/g, " ").trim()),
+		).toEqual(["List item 1", "List item 2 OwO", "List item 3"]);
+		expect(
+			items[1].children.filter((node) => node.type === "element"),
+		).toMatchObject([
+			{ tagName: "p" },
+			{ tagName: "hint", properties: { title: "What's this?" } },
+		]);
+		expect(html).not.toContain("<details");
+	});
+
+	it("transforms details inside an ordered list item", async () => {
+		const source = [
+			"1. List item 1",
+			"",
+			"2. List item 2",
+			"   <details>",
+			"     <summary>What's this?</summary>",
+			"     OwO",
+			"   </details>",
+			"",
+			"3. List item 3",
+		].join("\n");
+
+		const nodes = await processMarkdown(source);
+		expect(getComponents(nodes)).toMatchObject([
+			{ component: "Hint", props: { title: "What's this?" } },
+		]);
+
+		const html = renderComponents(nodes);
+		const root = fromHtml(html, { fragment: true });
+		const list = root.children.find(
+			(node): node is Element =>
+				node.type === "element" && node.tagName === "ol",
+		);
+		expect(list).toBeDefined();
+		const items = list!.children.filter(
+			(node): node is Element =>
+				node.type === "element" && node.tagName === "li",
+		);
+		expect(
+			items.map((node) => toString(node).replace(/\s+/g, " ").trim()),
+		).toEqual(["List item 1", "List item 2 OwO", "List item 3"]);
+		expect(
+			items[1].children.filter((node) => node.type === "element"),
+		).toMatchObject([
+			{ tagName: "p" },
+			{ tagName: "hint", properties: { title: "What's this?" } },
+		]);
+		expect(html).not.toContain("<details");
+	});
 
 	it("preserves HTML siblings immediately before and after a component", async () => {
 		const nodes = await processMarkdown(
