@@ -25,6 +25,10 @@ export function RecurringEventsCard({
 		? new Intl.DateTimeFormat(locale, {
 				month: "long",
 				day: "numeric",
+				year:
+					latestEventStartsAt?.getFullYear() !== new Date().getFullYear()
+						? "numeric"
+						: undefined,
 			}).format(latestEventStartsAt)
 		: undefined;
 	const latestEventTime = latestEventBlockWithMetadata

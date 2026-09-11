@@ -15,11 +15,18 @@
 	width: 100%;
 }
 
+.calendarNavigation {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--spc-2x);
+	margin-bottom: calc(var(--site-spacing) / 2);
+}
+
 .calendarHeader {
 	display: flex;
 	align-items: center;
-	margin: 0 0 calc(var(--site-spacing) / 2) 0;
-	width: 100%;
+	flex: 1 1 16rem;
 	background: var(--tint_primary_none);
 	padding: var(--spc-2x);
 	border-radius: var(--corner-radius_circular);
