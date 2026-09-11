@@ -203,8 +203,8 @@ export const SacramentoBootcampBlocks = [
 export const Sacramento2027BootcampBlocks = [
 	{
 		slug: "sacramento-bootcamp-2027-01",
-		starts_at: dateInEventTimeZone("2027-01-06"),
-		ends_at: dateInEventTimeZone("2027-03-24"),
+		starts_at: dateInEventTimeZone("2027-01-01"),
+		ends_at: dateInEventTimeZone("2027-04-29"),
 		location_description: "Sacramento, CA",
 		timezone: "America/Los_Angeles",
 		presenters: [],
