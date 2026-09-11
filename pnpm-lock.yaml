@@ -106,6 +106,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  katex: ^0.18.4
   '@playwright/test': 1.63.0
   playwright: 1.63.0
   playwright-core: 1.63.0
@@ -3614,10 +3615,6 @@ packages:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
     engines: {node: '>= 10'}
 
-  commander@8.3.0:
-    resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
-    engines: {node: '>= 12'}
-
   comment-json@4.6.2:
     resolution: {integrity: sha512-R2rze/hDX30uul4NZoIZ76ImSJLFxn/1/ZxtKC1L77y2X1k+yYu1joKbAtMA2Fg3hZrTOiw0I5mwVMo0cf250w==}
     engines: {node: '>= 6'}
@@ -5198,10 +5195,6 @@ packages:
   junk@4.0.1:
     resolution: {integrity: sha512-Qush0uP+G8ZScpGMZvHUiRfI0YBWuB3gVBYlI0v0vvOJt5FLicco+IkP0a50LqTTQhmts/m6tP5SWE+USyIvcQ==}
     engines: {node: '>=12.20'}
-
-  katex@0.16.47:
-    resolution: {integrity: sha512-Eeo8Ys1doU1z+x8AZsPpQu+p/QcZBI5PeOo7QGQdy2x2m0MU/hYagBbGOmXwr5KVbEfVuWv9LpnQWeehogurjg==}
-    hasBin: true
 
   katex@0.18.5:
     resolution: {integrity: sha512-1FU5H3RjGJVj6GT9fMjf2uMIXmPQp232aXS3UEeQzf0dxefHg/CKMvNB3DuOC46LFG/E5PNxrE8dOwB782FDGg==}
@@ -10563,8 +10556,6 @@ snapshots:
 
   commander@7.2.0: {}
 
-  commander@8.3.0: {}
-
   comment-json@4.6.2:
     dependencies:
       array-timsort: 1.0.3
@@ -12404,10 +12395,6 @@ snapshots:
 
   junk@4.0.1: {}
 
-  katex@0.16.47:
-    dependencies:
-      commander: 8.3.0
-
   katex@0.18.5:
     dependencies:
       commander: 15.0.0
@@ -12758,7 +12745,7 @@ snapshots:
       dompurify: 3.4.14
       es-toolkit: 1.51.0
       fastdom: 1.0.12
-      katex: 0.16.47
+      katex: 0.18.5
       khroma: 2.1.0
       marked: 16.4.2
       roughjs: 4.6.6
@@ -12854,7 +12841,7 @@ snapshots:
     dependencies:
       '@types/katex': 0.16.8
       devlop: 1.1.0
-      katex: 0.16.47
+      katex: 0.18.5
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
@@ -13719,7 +13706,7 @@ snapshots:
       '@types/katex': 0.16.8
       hast-util-from-html-isomorphic: 2.0.0
       hast-util-to-text: 4.0.2
-      katex: 0.16.47
+      katex: 0.18.5
       unist-util-visit-parents: 6.0.2
       vfile: 6.0.3
 

@@ -10,7 +10,11 @@ minimumReleaseAgeExclude:
   - "playwright"
   - "playwright-core"
   - "@playwright/test"
+# Keep math renderers and the site's KaTeX stylesheet on the same version.
+catalog:
+  katex: ^0.18.4
 overrides:
+  katex: "catalog:"
   "@playwright/test": 1.63.0
   playwright: 1.63.0
   playwright-core: 1.63.0

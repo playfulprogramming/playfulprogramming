@@ -121,7 +121,7 @@
 		"husky": "^9.1.7",
 		"json5": "^2.2.3",
 		"junk": "^4.0.1",
-		"katex": "^0.18.4",
+		"katex": "catalog:",
 		"kleur": "^4.1.5",
 		"knip": "^6.33.0",
 		"lightningcss": "^1.33.0",
