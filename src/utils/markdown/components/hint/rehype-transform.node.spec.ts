@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import type { Element } from "hast";
 import { fromHtml } from "hast-util-from-html";
 import { toHtml } from "hast-util-to-html";
@@ -19,24 +19,6 @@ import { rehypeValidateComponents } from "../rehype-validate-components.ts";
 import { rehypeTransformComponents } from "../rehype-transform-components.ts";
 import { rehypePluginComponents } from "../rehype-plugin-components.ts";
 import { rehypeDetailsElement, transformDetails } from "./rehype-transform.ts";
-
-vi.mock("../components.ts", () => ({
-	createComponent: (
-		component: string,
-		props: object,
-		children: ComponentNode["children"] = [],
-	) => ({
-		type: "playful-component",
-		component,
-		props,
-		children,
-	}),
-	isComponentMarkup: (node: { type?: string }) =>
-		node?.type === "playful-component-markup",
-	isComponentNode: (node: { type?: string }) =>
-		node?.type === "playful-component",
-	isHtmlNode: (node: { type?: string }) => node?.type === "html",
-}));
 
 async function processMarkdown(value: string, wrapInComponent = false) {
 	const processor = unified()
