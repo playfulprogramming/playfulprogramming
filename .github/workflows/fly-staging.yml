@@ -1,0 +1,62 @@
+name: Fly SSR Preview and Staging
+run-name: Deploy SSR for ${{ inputs.branch || 'main' }}
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Repository branch to preview (main deploys staging)"
+        type: string
+        required: true
+        default: main
+
+permissions: {}
+
+jobs:
+  prepare:
+    name: Select preview app
+    # Run the workflow from main; the input selects only the application source.
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    outputs:
+      app: ${{ steps.target.outputs.app }}
+      environment: ${{ steps.target.outputs.environment }}
+    steps:
+      - id: target
+        name: Identify branch preview
+        env:
+          SOURCE_BRANCH: ${{ inputs.branch || 'main' }}
+        run: |
+          git check-ref-format --branch "$SOURCE_BRANCH" >/dev/null
+          if [ "$SOURCE_BRANCH" = main ]; then
+            app=staging-playfulprogramming
+            environment=staging
+          else
+            # Hash the full repository/branch pair to avoid slug collisions.
+            hash=$(printf '%s\n%s' "$GITHUB_REPOSITORY" "$SOURCE_BRANCH" | sha256sum | cut -c1-12)
+            slug=$(printf '%s' "$SOURCE_BRANCH" | LC_ALL=C tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//' | cut -c1-20 | sed 's/-*$//')
+            app="ssr-${slug:-branch}-${hash}-playfulprogramming"
+            environment=ssr-preview
+          fi
+          echo "app=$app" >> "$GITHUB_OUTPUT"
+          echo "environment=$environment" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    name: Deploy branch preview
+    needs: [prepare]
+    # App names include a hash, so case-distinct branches remain independent.
+    concurrency:
+      group: ssr-deploy-${{ needs.prepare.outputs.app }}
+      cancel-in-progress: true
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/fly-ssr-deploy.yml
+    with:
+      app_name: ${{ needs.prepare.outputs.app }}
+      environment_name: ${{ needs.prepare.outputs.environment }}
+      source_ref: ${{ github.event_name == 'push' && github.sha || format('refs/heads/{0}', inputs.branch) }}
+    secrets:
+      FLY_WEB_PR_REVIEW_TOKEN: ${{ secrets.FLY_WEB_PR_REVIEW_TOKEN }}

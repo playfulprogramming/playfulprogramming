@@ -42,7 +42,7 @@ jobs:
           tags: ${{ env.DOCKER_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          # Keep production static while SSR parity and performance are tested in review apps.
+          # Keep production static while SSR parity and performance are tested in staging.
           build-args: |
             "BUILD_OUTPUT=static"
             "GIT_COMMIT_REF=${{ github.head_ref || github.ref_name }}"
