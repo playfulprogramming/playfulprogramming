@@ -482,7 +482,7 @@ interface CalendarProps {
 function CalendarNavigation({
 	onVisibleRangeChange,
 }: Pick<CalendarProps, "onVisibleRangeChange">) {
-	const state: CalendarState = useContext(CalendarStateContext);
+	const state = useCalendarContext();
 	const currentDate = today(state.timeZone);
 	const start = state.visibleRange.start.toDate(state.timeZone).getTime();
 	const end = state.visibleRange.end
