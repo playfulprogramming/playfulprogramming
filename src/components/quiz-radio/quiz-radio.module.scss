@@ -164,15 +164,15 @@
 		background-color: var(--quiz-option_selected_background-color_default);
 	}
 
-	&[data-hovered]:not([data-disabled]) .optionInner {
+	.optionInner[data-hovered]:not([data-disabled]) {
 		background-color: var(--quiz-option_selected_background-color_hovered);
 	}
 
-	&[data-pressed]:not([data-disabled]) .optionInner {
+	.optionInner[data-pressed]:not([data-disabled]) {
 		background-color: var(--quiz-option_selected_background-color_pressed);
 	}
 
-	&[data-focus-visible] .optionInner {
+	.optionInner[data-focus-visible] {
 		background-color: var(--quiz-option_selected_background-color_focused);
 		outline: var(--quiz-option_focus-outline_width) solid
 			var(--quiz-option_focus-outline_color);
@@ -193,15 +193,15 @@
 		background-color: var(--quiz-option_unselected_background-color_default);
 	}
 
-	&[data-hovered]:not([data-disabled]) .optionInner {
+	.optionInner[data-hovered]:not([data-disabled]) {
 		background-color: var(--quiz-option_unselected_background-color_hovered);
 	}
 
-	&[data-pressed]:not([data-disabled]) .optionInner {
+	.optionInner[data-pressed]:not([data-disabled]) {
 		background-color: var(--quiz-option_unselected_background-color_pressed);
 	}
 
-	&[data-focus-visible] .optionInner {
+	.optionInner[data-focus-visible] {
 		background-color: var(--quiz-option_unselected_background-color_focused);
 		outline: var(--quiz-option_focus-outline_width) solid
 			var(--quiz-option_focus-outline_color);
