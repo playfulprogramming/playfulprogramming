@@ -161,6 +161,8 @@
 	"events_card_date_range": "{startDate} — {endDate}",
 	"events_card_next_event_date": "{date} • Next event",
 	"events_card_next_event_info": "Next event's info",
+	"events_card_event_info": "Event's info",
+	"events_card_event_info_location": "Location:",
 	"events_recurrence_day": "Every day",
 	"events_recurrence_week": "Every week",
 	"events_recurrence_month": "Every month",

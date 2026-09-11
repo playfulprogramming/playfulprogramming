@@ -200,6 +200,17 @@ export const SacramentoBootcampBlocks = [
 	},
 ] satisfies EventBlock[];
 
+export const Sacramento2027BootcampBlocks = [
+	{
+		slug: "sacramento-bootcamp-2027-01",
+		starts_at: dateInEventTimeZone("2027-01-06"),
+		ends_at: dateInEventTimeZone("2027-03-24"),
+		location_description: "Sacramento, CA",
+		timezone: "America/Los_Angeles",
+		presenters: [],
+	},
+] satisfies EventBlock[];
+
 export const events = [
 	{
 		slug: "book-club",
@@ -217,7 +228,7 @@ export const events = [
 	},
 	{
 		slug: "sacramento-bootcamp",
-		title: "Playful Bootcamp",
+		title: "Playful Bootcamp 2026",
 		description:
 			"We are excited to announce our free Web Development Bootcamp!\n" +
 			"Beginning in January 2026. Our mission is to empower adult learners with the fundamentals of modern frontend web development. In this 12 week course, we’ll cover HTML, CSS, JavaScript, and React! Taking this course will provide you with both technical knowledge and hands-on practice and prepare you to contribute to real teams and projects!",
@@ -229,5 +240,21 @@ export const events = [
 		is_online: true,
 		is_recurring: false,
 		has_event_page: true,
+	},
+	{
+		slug: "sacramento-bootcamp-2027",
+		title: "Playful Sacramento Bootcamp 2027",
+		description:
+			"We are excited to announce our free Web Development Bootcamp!\n" +
+			"Beginning in January 2027. Our mission is to empower adult learners with the fundamentals of modern frontend web development. In this 16 week course, we’ll cover HTML, CSS, JavaScript, and React! Taking this course will provide you with both technical knowledge and hands-on practice and prepare you to contribute to real teams and projects!",
+		location_description: "Sacramento, California",
+		location_url: "",
+		blocks: Sacramento2027BootcampBlocks,
+		organizers: [],
+		in_person: true,
+		is_online: false,
+		is_recurring: false,
+		has_event_page: true,
+		event_banner_src: "/custom-content/views/sacramento-bootcamp-2027/tower_bridge.png"
 	},
 ] satisfies Event[];

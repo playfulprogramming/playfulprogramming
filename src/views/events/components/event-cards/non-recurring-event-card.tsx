@@ -10,6 +10,7 @@ import { toDate } from "#utils/date.ts";
 
 export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 	const locale = getLocale();
+
 	// Helps us get the event with the earliest start time
 	const startSortedEventBlocks = useMemo(
 		() =>
@@ -88,6 +89,40 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 						{event.description}
 					</p>
 				</div>
+				{event?.location_description ? (
+					<div className={style.eventRightContainer}>
+						<h3 className={`text-style-body-medium-bold`}>
+							{m.events_card_event_info()}
+						</h3>
+						<div className={style.nextEventInnerCard}>
+							{event.event_banner_src ? (
+								<img
+									alt=""
+									width={80}
+									crossOrigin="anonymous"
+									src={event.event_banner_src}
+									className={style.topicCardImage}
+								/>
+							) : null}
+							<div className={style.topicCardTextContainer}>
+								<p className={`text-style-body-small-bold ${style.topicLocation}`}>
+									{m.events_card_event_info_location()}
+								</p>
+								<p className={`text-style-body-small-bold ${style.topicDesc}`}>
+									{event.location_description}
+								</p>
+								{event?.location_url ? (
+									<a
+										className={`text-style-body-small ${style.topicLink}`}
+										href={event.location_url}
+									>
+										{event.location_url}
+									</a>
+								) : null}
+							</div>
+						</div>
+					</div>
+				) : null}
 			</div>
 		</li>
 	);
