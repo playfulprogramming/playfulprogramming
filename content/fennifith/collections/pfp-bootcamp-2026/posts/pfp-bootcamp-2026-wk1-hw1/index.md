@@ -7,11 +7,11 @@
 }
 ---
 
-# **1\. Open VS Code**
+# 1\. Open VS Code
 
 Launch **Visual Studio Code** on your computer.
 
-# **2\. Create a new HTML file**
+# 2\. Create a new HTML file
 
 Create a new file and save it as:
 
@@ -19,7 +19,7 @@ Create a new file and save it as:
 index.html
 ```
 
-# **3\. Add the `<html>` element**
+# 3\. Add the `<html>` element
 
 This is the root element of every HTML document.
 
@@ -28,7 +28,7 @@ This is the root element of every HTML document.
 </html>
 ```
 
-## **4\. Add a `<body>` element inside `<html>`**
+## 4\. Add a `<body>` element inside `<html>`
 
 All visible content goes inside the body.
 
@@ -39,7 +39,7 @@ All visible content goes inside the body.
 </html>
 ```
 
-# **5\. Add a title using an `<h1>` tag**
+# 5\. Add a title using an `<h1>` tag
 
 This will be the main heading on your page.
 
@@ -57,7 +57,7 @@ Full context:
 </html>
 ```
 
-# **6\. Add an image using an `<img>` tag**
+# 6\. Add an image using an `<img>` tag
 
 Images use the `src` attribute to point to a URL.
 
@@ -65,7 +65,7 @@ Images use the `src` attribute to point to a URL.
 <img src="https://images.dog.ceo/breeds/shiba/shiba-16.jpg" />
 ```
 
-# **7\. Add a link using an `<a>` tag**
+# 7\. Add a link using an `<a>` tag
 
 Links use the `href` attribute to point to a website.
 
@@ -73,7 +73,7 @@ Links use the `href` attribute to point to a website.
 <a href="https://playfulprogramming.com">Visit Playful Programming</a>
 ```
 
-## **8\. Final complete example**
+## 8\. Final complete example
 
 Your finished `index.html` file should look like this:
 

@@ -1,6 +1,6 @@
 ---
 {
-	title: "Week 1 - Tier 2 Homework",
+	title: "Week 1 - Tier 3 Homework",
 	published: '2026-01-01T21:12:03.284Z',
 	order: 3,
 	noindex: true
