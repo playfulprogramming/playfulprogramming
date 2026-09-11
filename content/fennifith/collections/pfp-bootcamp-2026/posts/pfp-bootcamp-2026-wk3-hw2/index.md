@@ -40,8 +40,8 @@ const secretNumber = 5;
 The guess must be correct **and** within the valid range.
 
 ```javascript
-if (guessNumber === secretNumber && guessNumber >= 1 && guessNumber <= 10) {  
-    console.log("Correct! You guessed the number 🎉");
+if (guessNumber === secretNumber && guessNumber >= 1 && guessNumber <= 10) {
+	console.log("Correct! You guessed the number 🎉");
 }
 ```
 

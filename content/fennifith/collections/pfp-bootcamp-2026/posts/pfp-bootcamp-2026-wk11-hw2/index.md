@@ -17,21 +17,22 @@ Start by defining some post data in a `posts.js`:
 
 ```js
 export const posts = [
-  {
-    id: "first-post",
-    title: "My First Post",
-    content: "This is the first post on my new blog."
-  },
-  {
-    id: "react-is-cool",
-    title: "React is Cool",
-    content: "Did you know that this website was built with React?"
-  },
-  {
-    id: "ten-web-frameworks-of-2026",
-    title: "Top 10 frameworks of 2026",
-    content: "These are 10 of the web frameworks you'll see in 2026: React, React, React, React, React, React, React, React, React, React."
-  }
+	{
+		id: "first-post",
+		title: "My First Post",
+		content: "This is the first post on my new blog.",
+	},
+	{
+		id: "react-is-cool",
+		title: "React is Cool",
+		content: "Did you know that this website was built with React?",
+	},
+	{
+		id: "ten-web-frameworks-of-2026",
+		title: "Top 10 frameworks of 2026",
+		content:
+			"These are 10 of the web frameworks you'll see in 2026: React, React, React, React, React, React, React, React, React, React.",
+	},
 ];
 ```
 
@@ -52,12 +53,14 @@ Inside of your BlogPage component, use the `useParams()` hook to get the "id" fr
 
 ```jsx
 export function BlogPage() {
-  const { id } = useParams();
+	const { id } = useParams();
 
-  return <>
-    <h1>Blog Page</h1>
-    <p>id = {id}</p>
-  </>;
+	return (
+		<>
+			<h1>Blog Page</h1>
+			<p>id = {id}</p>
+		</>
+	);
 }
 ```
 
@@ -78,18 +81,20 @@ Once you have the post, replace the `<h1>` tag content with `{post.title}`, and 
 
 ```jsx
 export function BlogPage() {
-  const { id } = useParams();
+	const { id } = useParams();
 
-  const post = useMemo(() => {
-    for (const post of posts) {
-      if (post.id === id) return post;
-    }
-  }, [id]);
+	const post = useMemo(() => {
+		for (const post of posts) {
+			if (post.id === id) return post;
+		}
+	}, [id]);
 
-  return <>
-    <h1>{post.title}</h1>
-    <p>{post.content}</p>
-  </>;
+	return (
+		<>
+			<h1>{post.title}</h1>
+			<p>{post.content}</p>
+		</>
+	);
 }
 ```
 
@@ -107,22 +112,24 @@ Instead, you can wrap the `return` in an if statement, and render a "Not Found" 
 
 ```jsx
 export function BlogPage() {
-  const { id } = useParams();
+	const { id } = useParams();
 
-  const post = useMemo(() => {
-    for (const post of posts) {
-      if (post.id === id) return post;
-    }
-  }, [id]);
+	const post = useMemo(() => {
+		for (const post of posts) {
+			if (post.id === id) return post;
+		}
+	}, [id]);
 
-  if (post) {
-    return <>
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
-    </>;
-  } else {
-    return <p>I couldn't find any post with the id '{id}'.</p>;
-  }
+	if (post) {
+		return (
+			<>
+				<h1>{post.title}</h1>
+				<p>{post.content}</p>
+			</>
+		);
+	} else {
+		return <p>I couldn't find any post with the id '{id}'.</p>;
+	}
 }
 ```
 

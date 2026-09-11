@@ -37,11 +37,11 @@ Now compare the guess to the secret number:
 
 ```javascript
 if (guessNumber === secretNumber) {
-  console.log("Correct! You guessed the number 🎉");
+	console.log("Correct! You guessed the number 🎉");
 } else if (guessNumber < secretNumber) {
-  console.log("Too low! Try again.");
+	console.log("Too low! Try again.");
 } else {
-  console.log("Too high! Try again.");
+	console.log("Too high! Try again.");
 }
 ```
 

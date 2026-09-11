@@ -33,15 +33,15 @@ Update the `FlashCard` component to track whether the answer is visible:
 
 ```jsx
 function FlashCard(props) {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-  return (
-    <div className="card">
-      <h2>{props.question}</h2>
+	return (
+		<div className="card">
+			<h2>{props.question}</h2>
 
-      <p hidden={!open}>{props.answer}</p>
-    </div>
-  );
+			<p hidden={!open}>{props.answer}</p>
+		</div>
+	);
 }
 ```
 
@@ -60,18 +60,15 @@ Add a click handler to the card so that clicking toggles `open`:
 
 ```jsx
 function FlashCard(props) {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-  return (
-    <div
-      className="card"
-      onClick={() => setOpen(!open)}
-    >
-      <h2>{props.question}</h2>
+	return (
+		<div className="card" onClick={() => setOpen(!open)}>
+			<h2>{props.question}</h2>
 
-      <p hidden={!open}>{props.answer}</p>
-    </div>
-  );
+			<p hidden={!open}>{props.answer}</p>
+		</div>
+	);
 }
 ```
 

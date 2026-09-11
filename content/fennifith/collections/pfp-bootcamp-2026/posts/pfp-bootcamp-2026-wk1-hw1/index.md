@@ -24,8 +24,7 @@ index.html
 This is the root element of every HTML document.
 
 ```html
-<html>
-</html>
+<html></html>
 ```
 
 ## 4\. Add a `<body>` element inside `<html>`
@@ -34,8 +33,7 @@ All visible content goes inside the body.
 
 ```html
 <html>
-  <body>
-  </body>
+	<body></body>
 </html>
 ```
 
@@ -51,9 +49,9 @@ Full context:
 
 ```html
 <html>
-  <body>
-    <h1>My First Website</h1>
-  </body>
+	<body>
+		<h1>My First Website</h1>
+	</body>
 </html>
 ```
 
@@ -79,17 +77,13 @@ Your finished `index.html` file should look like this:
 
 ```html
 <html>
+	<body>
+		<h1>My First Website</h1>
 
-  <body>
+		<img src="https://placekitten.com/300/200" />
 
-    <h1>My First Website</h1>
-
-    <img src="https://placekitten.com/300/200" />
-
-    <a href="https://playfulprogramming.com">
-      Visit Playful Programming
-    </a>
-  </body>
+		<a href="https://playfulprogramming.com"> Visit Playful Programming </a>
+	</body>
 </html>
 ```
 

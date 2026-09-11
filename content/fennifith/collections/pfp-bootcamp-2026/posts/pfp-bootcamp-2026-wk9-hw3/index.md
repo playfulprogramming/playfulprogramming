@@ -64,25 +64,31 @@ In `App`, update how you render each `FlashCard` so that:
 - `onIncorrect` **increments** `incorrectCount`
 
 ```jsx
-{cards.map((card) => (
-  <FlashCard
-    key={card.id}
-    question={card.question}
-    answer={card.correct_answer}
-    onCorrect={() => setCorrectCount((count) => {
-      if (count === undefined) {
-        return 1;
-      }
-      return count + 1;
-    })}
-    onIncorrect={() => setIncorrectCount((count) => {
-      if (count === undefined) {
-        return 1;
-      }
-      return count + 1;
-    })}
-  />
-))}
+{
+	cards.map((card) => (
+		<FlashCard
+			key={card.id}
+			question={card.question}
+			answer={card.correct_answer}
+			onCorrect={() =>
+				setCorrectCount((count) => {
+					if (count === undefined) {
+						return 1;
+					}
+					return count + 1;
+				})
+			}
+			onIncorrect={() =>
+				setIncorrectCount((count) => {
+					if (count === undefined) {
+						return 1;
+					}
+					return count + 1;
+				})
+			}
+		/>
+	));
+}
 ```
 
 You don’t need to change the inside of `FlashCard` for this step, as long as it still calls `onCorrect()` and `onIncorrect()` when those buttons are clicked.
@@ -96,24 +102,24 @@ Next, update the JSX inside `App` so that it shows both counts at the top of the
 ```jsx
 let displayCorrect = 0;
 if (correctCount !== undefined) {
-  displayCorrect = correctCount;
+	displayCorrect = correctCount;
 }
 let displayIncorrect = 0;
 if (incorrectCount !== undefined) {
-  displayIncorrect = incorrectCount;
+	displayIncorrect = incorrectCount;
 }
 
 return (
-  <div className="app">
-    <h1>Flash Cards</h1>
+	<div className="app">
+		<h1>Flash Cards</h1>
 
-    <p>Correct: {displayCorrect}</p>
-    <p>Incorrect: {displayIncorrect}</p>
+		<p>Correct: {displayCorrect}</p>
+		<p>Incorrect: {displayIncorrect}</p>
 
-    {cards.map((card) => (
-      {/* ... your FlashCard code from above ... */}
-    ))}
-  </div>
+		{cards.map((card) => ({
+			/* ... your FlashCard code from above ... */
+		}))}
+	</div>
 );
 ```
 
@@ -129,19 +135,19 @@ At the top of your `App` component (near your state declarations), add:
 
 ```jsx
 const accuracyPercent = useMemo(() => {
-  let c = 0;
-  if (correctCount !== undefined) {
-    c = correctCount;
-  }
-  let i = 0;
-  if (incorrectCount !== undefined) {
-    i = incorrectCount;
-  }
-  const total = c + i;
-  if (total === 0) {
-    return 0;
-  }
-  return Math.round((c / total) * 100);
+	let c = 0;
+	if (correctCount !== undefined) {
+		c = correctCount;
+	}
+	let i = 0;
+	if (incorrectCount !== undefined) {
+		i = incorrectCount;
+	}
+	const total = c + i;
+	if (total === 0) {
+		return 0;
+	}
+	return Math.round((c / total) * 100);
 }, [correctCount, incorrectCount]);
 ```
 
@@ -171,28 +177,28 @@ If you want to extend your Tier 2 `localStorage` logic, you can store both count
 
 ```jsx
 useEffect(() => {
-  try {
-    const stored = localStorage.getItem("flashcard-score");
-    if (!stored) {
-      setCorrectCount(0);
-      setIncorrectCount(0);
-      return;
-    }
-    const parsed = JSON.parse(stored);
-    if (typeof parsed.correctCount === "number") {
-      setCorrectCount(parsed.correctCount);
-    } else {
-      setCorrectCount(0);
-    }
-    if (typeof parsed.incorrectCount === "number") {
-      setIncorrectCount(parsed.incorrectCount);
-    } else {
-      setIncorrectCount(0);
-    }
-  } catch {
-    setCorrectCount(0);
-    setIncorrectCount(0);
-  }
+	try {
+		const stored = localStorage.getItem("flashcard-score");
+		if (!stored) {
+			setCorrectCount(0);
+			setIncorrectCount(0);
+			return;
+		}
+		const parsed = JSON.parse(stored);
+		if (typeof parsed.correctCount === "number") {
+			setCorrectCount(parsed.correctCount);
+		} else {
+			setCorrectCount(0);
+		}
+		if (typeof parsed.incorrectCount === "number") {
+			setIncorrectCount(parsed.incorrectCount);
+		} else {
+			setIncorrectCount(0);
+		}
+	} catch {
+		setCorrectCount(0);
+		setIncorrectCount(0);
+	}
 }, []);
 ```
 
@@ -200,17 +206,16 @@ useEffect(() => {
 
 ```jsx
 useEffect(() => {
-  if (correctCount === undefined || incorrectCount === undefined) {
-    return;
-  }
+	if (correctCount === undefined || incorrectCount === undefined) {
+		return;
+	}
 
-  const data = { correctCount, incorrectCount };
-  localStorage.setItem("flashcard-score", JSON.stringify(data));
+	const data = { correctCount, incorrectCount };
+	localStorage.setItem("flashcard-score", JSON.stringify(data));
 }, [correctCount, incorrectCount]);
 ```
 
 With this in place:
 
 - The save effect never runs with the initial `undefined` values, so it never overwrites storage before load.
-- Refreshing the page will *restore* your correct/incorrect counts, and `accuracyPercent` will recompute from the restored values.
-
+- Refreshing the page will _restore_ your correct/incorrect counts, and `accuracyPercent` will recompute from the restored values.

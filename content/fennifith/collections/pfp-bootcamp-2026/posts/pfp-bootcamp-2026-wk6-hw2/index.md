@@ -27,9 +27,9 @@ setTimeout(function () {
 		setTimeout(function () {
 			count = count - 1;
 			buttonEl.innerText = count;
-		}, 1000)
-	}, 1000)
-}, 1000)
+		}, 1000);
+	}, 1000);
+}, 1000);
 ```
 
 Using the "await" keyword, we can change the above code to use promises - and it's a lot easier to read!
@@ -64,10 +64,10 @@ buttonEl.onclick = countdown;
 // Don't worry about this yet
 function sleep(time) {
 	return new Promise(function (resolve) {
-		setTimeout(function() {
+		setTimeout(function () {
 			resolve();
-		}, time)
-	})
+		}, time);
+	});
 }
 ```
 
@@ -154,10 +154,10 @@ Remember to copy this function into your code:
 ```js
 function sleep(time) {
 	return new Promise(function (resolve) {
-		setTimeout(function() {
+		setTimeout(function () {
 			resolve();
-		}, time)
-	})
+		}, time);
+	});
 }
 ```
 
@@ -201,7 +201,6 @@ async function runLoadingAnimation() {
 
 </details>
 
-
 <details>
 <summary>Full Code</summary>
 
@@ -219,10 +218,10 @@ async function runLoadingAnimation() {
 
 			function sleep(time) {
 				return new Promise(function (resolve) {
-					setTimeout(function() {
+					setTimeout(function () {
 						resolve();
-					}, time)
-				})
+					}, time);
+				});
 			}
 
 			async function runLoadingAnimation() {
@@ -245,5 +244,3 @@ async function runLoadingAnimation() {
 ```
 
 </details>
-
-

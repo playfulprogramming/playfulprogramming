@@ -37,26 +37,26 @@ Start with this:
 import "./App.css";
 
 function App() {
-  return (
-    <div className="app">
-      <h1>Flash Cards</h1>
+	return (
+		<div className="app">
+			<h1>Flash Cards</h1>
 
-      <FlashCard
-        question="What is React?"
-        answer="A JavaScript library for building user interfaces."
-      />
+			<FlashCard
+				question="What is React?"
+				answer="A JavaScript library for building user interfaces."
+			/>
 
-      <FlashCard
-        question="What is JSX?"
-        answer="A syntax that looks like HTML but works inside JavaScript."
-      />
+			<FlashCard
+				question="What is JSX?"
+				answer="A syntax that looks like HTML but works inside JavaScript."
+			/>
 
-      <FlashCard
-        question="What is useState?"
-        answer="A React hook that lets you store and update state."
-      />
-    </div>
-  );
+			<FlashCard
+				question="What is useState?"
+				answer="A React hook that lets you store and update state."
+			/>
+		</div>
+	);
 }
 
 export default App;
@@ -77,12 +77,12 @@ In the same file (below `App`), create:
 
 ```jsx
 function FlashCard(props) {
-  return (
-    <div className="card">
-      <h2>{props.question}</h2>
-      <p>{props.answer}</p>
-    </div>
-  );
+	return (
+		<div className="card">
+			<h2>{props.question}</h2>
+			<p>{props.answer}</p>
+		</div>
+	);
 }
 ```
 
@@ -126,20 +126,20 @@ Example:
 
 ```css
 .app {
-  padding: 40px;
-  font-family: Arial, sans-serif;
+	padding: 40px;
+	font-family: Arial, sans-serif;
 }
 
 .card {
-  border: 1px solid #ddd;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  cursor: pointer;
+	border: 1px solid #ddd;
+	padding: 20px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+	cursor: pointer;
 }
 
 .card h2 {
-  margin: 0 0 10px 0;
+	margin: 0 0 10px 0;
 }
 ```
 
@@ -160,8 +160,8 @@ In `App`:
 
 ```jsx
 <FlashCard
-  question="What is React?"
-  answer="A JavaScript library for building user interfaces."
+	question="What is React?"
+	answer="A JavaScript library for building user interfaces."
 />
 ```
 
@@ -169,12 +169,12 @@ In `FlashCard`:
 
 ```jsx
 function FlashCard(props) {
-  return (
-    <div className="card">
-      <h2>{props.question}</h2>
-      <p>{props.answer}</p>
-    </div>
-  );
+	return (
+		<div className="card">
+			<h2>{props.question}</h2>
+			<p>{props.answer}</p>
+		</div>
+	);
 }
 ```
 
@@ -193,10 +193,10 @@ When finished:
 - Each card shows the question and answer
 - Cards are styled using CSS
 - Everything is built using:
-    - Components
-    - JSX
-    - Props
-    - CSS import
+  - Components
+  - JSX
+  - Props
+  - CSS import
 
 <details>
 <summary>Full Code</summary>

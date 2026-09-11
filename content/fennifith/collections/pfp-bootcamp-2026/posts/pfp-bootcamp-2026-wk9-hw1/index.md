@@ -22,35 +22,32 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [cards, setCards] = useState([]);
+	const [cards, setCards] = useState([]);
 
-  return (
-    <div className="app">
-      <h1>Flash Cards</h1>
+	return (
+		<div className="app">
+			<h1>Flash Cards</h1>
 
-      {cards.map((card) => (
-        <FlashCard
-          key={card.id}
-          question={card.question}
-          answer={card.correct_answer}
-        />
-      ))}
-    </div>
-  );
+			{cards.map((card) => (
+				<FlashCard
+					key={card.id}
+					question={card.question}
+					answer={card.correct_answer}
+				/>
+			))}
+		</div>
+	);
 }
 
 function FlashCard(props) {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-  return (
-    <div
-      className="card"
-      onClick={() => setOpen(!open)}
-    >
-      <h2>{props.question}</h2>
-      {open && <p>{props.answer}</p>}
-    </div>
-  );
+	return (
+		<div className="card" onClick={() => setOpen(!open)}>
+			<h2>{props.question}</h2>
+			{open && <p>{props.answer}</p>}
+		</div>
+	);
 }
 
 export default App;
@@ -66,7 +63,7 @@ Remember to pass an empty array as the second "dependencies" argument. This will
 
 ```js
 useEffect(() => {
-  console.log("Hello from useEffect");
+	console.log("Hello from useEffect");
 }, []);
 ```
 
@@ -83,10 +80,10 @@ This time, we're adding the fetch within our `useEffect` callback, and passing t
 ```js
 // Call the Open Trivia Database API
 fetch("https://quiet-wildflower-c370.18jafenn90.workers.dev/")
-  // Read the response body as JSON
-  .then(res => res.json())
-  // Update our state to display the cards it returns
-  .then(body => setCards(body.results));
+	// Read the response body as JSON
+	.then((res) => res.json())
+	// Update our state to display the cards it returns
+	.then((body) => setCards(body.results));
 ```
 
 If you run your code with these changes, you should see all of the cards render with the trivia questions!
@@ -115,13 +112,11 @@ Each trivia question contains a data structure such as:
 Now, look at where we pass this data to our `<FlashCard>` component:
 
 ```jsx
-{cards.map((card) => (
-  <FlashCard
-    key={card.id}
-    question={card.question}
-    answer={card.answer}
-  />
-))}
+{
+	cards.map((card) => (
+		<FlashCard key={card.id} question={card.question} answer={card.answer} />
+	));
+}
 ```
 
 Our code is looking for a `card.answer`, but the JSON data has defined a `"correct_answer"`.

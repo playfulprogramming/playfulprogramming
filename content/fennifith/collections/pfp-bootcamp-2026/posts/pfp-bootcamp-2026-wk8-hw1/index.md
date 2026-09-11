@@ -22,18 +22,15 @@ Your `FlashCard` probably looks something like:
 
 ```jsx
 function FlashCard(props) {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-  return (
-    <div
-      className="card"
-      onClick={() => setOpen(!open)}
-    >
-      <h2>{props.question}</h2>
+	return (
+		<div className="card" onClick={() => setOpen(!open)}>
+			<h2>{props.question}</h2>
 
-      <p hidden={!open}>{props.answer}</p>
-    </div>
-  );
+			<p hidden={!open}>{props.answer}</p>
+		</div>
+	);
 }
 ```
 
@@ -59,6 +56,6 @@ The card should still toggle when clicked; only the **mechanism** for showing/hi
 <details>
 <summary>Full Code</summary>
 
-<iframe data-frame-title="Flash Card App" src="pfp-code:./pfp-wk8-hw1-project?file=src/App.jsx"></iframe> 
+<iframe data-frame-title="Flash Card App" src="pfp-code:./pfp-wk8-hw1-project?file=src/App.jsx"></iframe>
 
 </details>
