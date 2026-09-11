@@ -48,34 +48,31 @@ export default function EventsPage({
 		return events.filter((event) => event.in_person);
 	}, [eventTypesToShow, events]);
 
-	const visibleEvents = useMemo(() => {
+	const timelineEvents = useMemo(() => {
 		if (!visibleRange) return [];
 
+		// Include ongoing events and everything scheduled after this timeline starts.
 		return filteredEvents.filter((event) =>
 			event.blocks.some(
-				(block) =>
-					block.starts_at.getTime() < visibleRange.end &&
-					block.ends_at.getTime() > visibleRange.start,
+				(block) => block.ends_at.getTime() > visibleRange.start,
 			),
 		);
 	}, [filteredEvents, visibleRange]);
 
 	const recurringEvents = useMemo(() => {
-		return visibleEvents.filter((event) => event.is_recurring);
-	}, [visibleEvents]);
+		return timelineEvents.filter((event) => event.is_recurring);
+	}, [timelineEvents]);
 
 	const nonRecurringEvents = useMemo(() => {
-		return visibleEvents.filter((event) => !event.is_recurring);
-	}, [visibleEvents]);
+		return timelineEvents.filter((event) => !event.is_recurring);
+	}, [timelineEvents]);
 
-	const visibleEventBlockLocationMetadata = useMemo(() => {
+	const timelineEventBlockLocationMetadata = useMemo(() => {
 		if (!visibleRange) return {};
 
 		return Object.fromEntries(
 			Object.entries(latestEventBlockLocationMetadata).filter(
-				([, block]) =>
-					block.starts_at.getTime() < visibleRange.end &&
-					block.ends_at.getTime() > visibleRange.start,
+				([, block]) => block.ends_at.getTime() > visibleRange.start,
 			),
 		);
 	}, [latestEventBlockLocationMetadata, visibleRange]);
@@ -165,14 +162,14 @@ export default function EventsPage({
 									key={event.slug}
 									event={event}
 									latestEventBlockLocationMetadata={
-										visibleEventBlockLocationMetadata
+										timelineEventBlockLocationMetadata
 									}
 								/>
 							))}
 						</ul>
 					</div>
 				) : null}
-				{visibleRange && !visibleEvents.length && (
+				{visibleRange && !timelineEvents.length && (
 					<div className={style.emptyState}>
 						<h2 className="text-style-headline-5">{m.events_empty_title()}</h2>
 						<p className="text-style-body-large">
