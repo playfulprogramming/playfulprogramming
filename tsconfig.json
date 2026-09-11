@@ -24,6 +24,10 @@
 		"lib": ["DOM", "es2024"],
 		"types": ["@testing-library/jest-dom"],
 		"paths": {
+			// Match the Preact compatibility aliases used by Astro at runtime.
+			"react": ["./node_modules/preact/compat"],
+			"react-dom": ["./node_modules/preact/compat"],
+			"react/jsx-runtime": ["./node_modules/preact/jsx-runtime"],
 			"#src/*": ["./src/*"],
 			"#types/*": ["./src/types/*"],
 			"#components/*": ["./src/components/*"],
