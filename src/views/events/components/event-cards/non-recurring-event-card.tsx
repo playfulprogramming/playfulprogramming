@@ -29,13 +29,18 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 
 	const startsAt = startSortedEventBlocks[0]?.starts_at;
 	const endsAt = endsSortedEventBlocks[0]?.ends_at;
-	const dateFormatter = useMemo(
-		() => new Intl.DateTimeFormat(locale, { month: "long", day: "numeric" }),
-		[locale],
-	);
+	const currentYear = new Date().getFullYear();
+	const formatEventDate = (value: Date) => {
+		const eventDate = toDate(value);
+		return new Intl.DateTimeFormat(locale, {
+			month: "long",
+			day: "numeric",
+			year: eventDate.getFullYear() !== currentYear ? "numeric" : undefined,
+		}).format(eventDate);
+	};
 	const dateRange = m.events_card_date_range({
-		startDate: dateFormatter.format(toDate(startsAt)),
-		endDate: dateFormatter.format(toDate(endsAt)),
+		startDate: formatEventDate(startsAt),
+		endDate: formatEventDate(endsAt),
 	});
 
 	return (
