@@ -22,7 +22,7 @@ export function rehypeExpandDetailsAndSummary() {
 				node.tagName = "div";
 				node.properties = {
 					...node.properties,
-					className: "hint__container",
+					className: ["hint__container"],
 					open: true,
 				};
 			}
@@ -30,7 +30,7 @@ export function rehypeExpandDetailsAndSummary() {
 				node.tagName = "div";
 				node.properties = {
 					...node.properties,
-					className: "hint__title text-style-body-medium-bold",
+					className: ["hint__title", "text-style-body-medium-bold"],
 				};
 				// for some reason chevron up icon is not showing up in the EPUB format
 				// we have to manually add this whole element as a first child
