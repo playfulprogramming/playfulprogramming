@@ -35,5 +35,5 @@
 		}
 	},
 	"include": [".astro/types.d.ts", ".astro/icon.d.ts", "**/*"],
-	"exclude": ["dist", "content"]
+	"exclude": ["dist", "storybook-static", "content"]
 }
