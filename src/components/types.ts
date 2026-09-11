@@ -1,6 +1,6 @@
-import type { JSX } from "preact";
+import type { ComponentChildren } from "preact";
 
-export type JSXNode = string | JSX.Element | (string | JSX.Element)[];
+export type JSXNode = ComponentChildren;
 
 export type PropsWithChildren<T = {}> = Omit<T, "children"> & {
 	children: JSXNode;
