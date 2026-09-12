@@ -63,7 +63,7 @@ function setup() {
 }
 ```
 
-<figcaption>The setup for our Angular application smoke test.</figcaption>
+> The setup for our Angular application smoke test.
 
 We import the `AppModule` in the Angular testing module and import `RouterTestingModule` to stub the History and Location APIs.
 
@@ -87,7 +87,7 @@ describe('Applicaton smoke test', () => {
 });
 ```
 
-<figcaption>This test case verifies that our Angular application can boot.</figcaption>
+> This test case verifies that our Angular application can boot.
 
 After loading the `AppModule` into the Angular testing module through the `setup` function, it sets up routing and navigates to the default route. The assertion statement verifies that none of this causes a failure to happen.
 
@@ -109,7 +109,7 @@ describe('Applicaton smoke test', () => {
 });
 ```
 
-<figcaption>This test case verifies that navigation works in our Angular application and that the default route can be reached.</figcaption>
+> This test case verifies that navigation works in our Angular application and that the default route can be reached.
 
 `canNavigate` will resolve to `true` if navigation to the default route was allowed and successful. If a route guard rejects access or a route resolver fails, `canNavigate will resolve to `false\` and the assertion will fail.
 
@@ -119,7 +119,8 @@ If most routes in your application are guarded by a login, change `router.naviga
 
 ![Testing pyramid](./91xddn6f195nzowkjz9j.png)
 
-<figcaption>The Angular testing pyramid.</figcaption>
+> The Angular testing pyramid.
+
 Using the `TestBed` for integrated tests is a great compromise between implementation cost and execution speed as it's faster than most end-to-end testing frameworks and close enough to rendering one or more Angular components in a real browser while being fast to implement. This gives us a great value for money.
 
 ## Side effects

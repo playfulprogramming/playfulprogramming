@@ -70,11 +70,7 @@ There are some rules for the tree that's created from these nodes:
 	- A node cannot have more than one parent.
 - **A non-root node may have many siblings as a result of the parent having many children.**
 
-<br>
-
 ![A chart showing the aforementioned rules of the node relationships](./dom_relationship_rules.svg)
-
-<br>
 
 ### How it is used by the browser {#how-the-browser-uses-the-dom}
 
@@ -99,8 +95,6 @@ This tree tells the browser all of the information it needs to execute tasks in 
 ```
 
 While moving through the tree, the browser can keep track of the fact that it needs to find an element with the `ID` of `b` and then mark its `<li>` children with a red background. They're "children" because the DOM tree preserves the relationship defined by the HTML.
-
-<br>
 
 ![A chart showing the 'ul' tag highlighted in green with the children 'li' tags marked in red](./dom_tree_with_css.svg "Diagram showing the above code as a graph")
 

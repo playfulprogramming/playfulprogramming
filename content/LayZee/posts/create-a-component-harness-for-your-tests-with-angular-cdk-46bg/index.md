@@ -54,7 +54,7 @@ it('submits a form when the sign up button is clicked', async () => {
 });
 ```
 
-<figcaption>Listing 1. Selecting a harness for a specific button by using a harness filter.</figcaption>
+> Listing 1. Selecting a harness for a specific button by using a harness filter.
 
 ## How do I create a component harness?
 
@@ -64,11 +64,11 @@ The component's UI and interactions can be seen in Figures 1 and 2.
 
 ![](./7lhlmw98p2kgzbhxvwq2.png)
 
-<figcaption>Figure 1. Favourite ocean creature picked.</figcaption>
+> Figure 1. Favourite ocean creature picked.
 
 ![](./az60nx14jx86wcmb50f6.png)
 
-<figcaption>Figure 2. Favourite ocean creature options.</figcaption>
+> Figure 2. Favourite ocean creature options.
 
 As we'll see when we implement and use the test harness for this component, the implementation details won't matter for the purpose of testing, using a test-as-a-user approach. That is, the shape of the component model, the data binding API, and the DOM structure of the component template are unimportant as we don't directly rely on them in our test cases.
 
@@ -81,7 +81,7 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 }
 ```
 
-<figcaption>Listing 2. Minimal component harness specifying a selector.</figcaption>
+> Listing 2. Minimal component harness specifying a selector.
 
 In Listing 2, we create a minimal component harness which extends the `ComponentHarness` class from `@angular/cdk/testing` and specifies a CSS selector for a top-level DOM element of the component or it's template. In this case, we're targeting `<app-favorite-ocean-creature>` elements.
 
@@ -153,7 +153,7 @@ describe('Favorite ocean creature', () => {
 });
 ```
 
-<figcaption>Listing 3. Staging a test suite that tests our component using its component harness.</figcaption>
+> Listing 3. Staging a test suite that tests our component using its component harness.
 
 Listing 3 shows how we create the test hosting component, configure the Angular testing module by disabling animations, declaring the test host component and importing the declaring module of our component.
 
@@ -184,7 +184,7 @@ it('manta ray is initially picked', async () => {
 });
 ```
 
-<figcaption>Listing 4. Asserting the initially picked ocean creature.</figcaption>
+> Listing 4. Asserting the initially picked ocean creature.
 
 Listing 4 shows the API we want our component harness to support–a method called `getFavoriteOceanCreature` which returns a promise that resolves to a string holding the display name of an ocean creature that can be picked as our favourite.
 
@@ -207,7 +207,7 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 }
 ```
 
-<figcaption>Listing 5. Querying for a child harness to delegate a consumer query.</figcaption>
+> Listing 5. Querying for a child harness to delegate a consumer query.
 
 In Listing 5, we add a protected method that returns a promise that resolves to a component harness. The `MatSelectHarness` represents a `MatSelect` directive. In our case, the select directive used by the favourite ocean picker component.
 
@@ -269,7 +269,7 @@ it('manta ray is initially picked', async () => {
 });
 ```
 
-<figcaption>Listing 4 (repeated). Asserting the initially picked ocean creature.</figcaption>
+> Listing 4 (repeated). Asserting the initially picked ocean creature.
 
 The test case knows nothing about us using Angular Material's select directive and it knows nothing about which elements need to be clicked to open the drop down or pick an option. In fact, we didn't even have to know any of that about `MatSelect` when implementing our component harness.
 
@@ -290,7 +290,7 @@ it('show awesome ocean creatures', async () => {
 });
 ```
 
-<figcaption>Listing 6. Asserting that multiple ocean creatures are presented to the user.</figcaption>
+> Listing 6. Asserting that multiple ocean creatures are presented to the user.
 
 When using a dropdown, we often allow the consumer to pass the options we want to display. However, this component only lists a fixed collection of awesome ocean creatures as seen in Figure 2.
 
@@ -328,7 +328,7 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 }
 ```
 
-<figcaption>Listing 7. Interacting with a child harness.</figcaption>
+> Listing 7. Interacting with a child harness.
 
 In the `getOptions` method, we resolve a select harness like before. But instead of returning a value immediately, we interact with the child select harness.
 
@@ -346,7 +346,7 @@ As you might have noticed in the previous chapter, component harnesses form a hi
 
 ![Alt Text](./c10b7ve5n561fxn76j9a.png)
 
-<figcaption>Figure 3. Our component harness hierarchy.</figcaption>
+> Figure 3. Our component harness hierarchy.
 
 This is illustrated in Figure 3. Our tests use `FavoriteOceanCreatureHarness` that internally uses `MatSelectHarness` which also gives access to its child harnesses, `MatOptionHarness`.
 
@@ -372,7 +372,7 @@ it('pick your favorite ocean creature', async () => {
 });
 ```
 
-<figcaption>Listing 8. Testing user interaction with a component harness.</figcaption>
+> Listing 8. Testing user interaction with a component harness.
 
 As seen in Listing 8, we allow our consumer to specify a text filter to match the display text of the option that they want to pick. In this case, our test case is picking the great white shark option. We consistently use `async-await` for our component harness interactions.
 
@@ -403,7 +403,7 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 }
 ```
 
-<figcaption>Listing 9. Supporting a component harness filter</figcaption>
+> Listing 9. Supporting a component harness filter
 
 Listing 9 shows the relevant methods and properties of the favourite ocean creature harness that supports the test case we wrote in Listing 8.
 
@@ -422,7 +422,7 @@ export interface FavoriteOceanCreatureFilters extends BaseHarnessFilters {
 }
 ```
 
-<figcaption>Listing 10. A custom component harness filter.</figcaption>
+> Listing 10. A custom component harness filter.
 
 Listing 10 shows a basic custom component harness filter. We create an interface that extends `BaseHarnessFilters` from `@angular/cdk/testing`. Previously we mentioned that the base harness filters has optional `ancestor` and a `selector` properties. We don't currently support them as we only pass our `text` filter to the child select harness as seen in Listing 9.
 
@@ -448,7 +448,7 @@ it('put your favorite ocean creature in a sentence', async () => {
 });
 ```
 
-<figcaption>Listing 11. Verifying that our picked favorite ocean creature is used in a sentence.</figcaption>
+> Listing 11. Verifying that our picked favorite ocean creature is used in a sentence.
 
 The test case in Listing 11 first uses the familiar `pickOption` to pick the octopus as our favourite ocean creature. When that is done, we query for the text content of the favourite ocean creature component and assert that it matches the expected format and includes `Octopus`.
 
@@ -483,7 +483,7 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 }
 ```
 
-<figcaption>Listing 12. Filtering queried content to make consumption easy.</figcaption>
+> Listing 12. Filtering queried content to make consumption easy.
 
 Listing 12 include the methods relevant to the sentence test case from Listing 11. We are already familiar with the `pickOption` interaction method, the `getDropDown` locator it uses and the filter it accepts.
 
@@ -564,7 +564,7 @@ describe('Favorite ocean creature', () => {
 });
 ```
 
-<figcaption>Listing 13. The favorite ocean creature test suite.</figcaption>
+> Listing 13. The favorite ocean creature test suite.
 
 For our unit and integration tests, we still configure an Angular testing module through the test bed, but only to be able to create a component fixture for a test host component. We pass the component fixture to the test bed harness environment to get a harness loader.
 
@@ -615,7 +615,7 @@ describe('Favorite ocean creature app', () => {
 });
 ```
 
-<figcaption>Listing 14. End-to-end test suite using the favorite ocean creature component harness.</figcaption>
+> Listing 14. End-to-end test suite using the favorite ocean creature component harness.
 
 The end-to-end test case in Listing 14 is an exact copy-paste from our unit test.
 
@@ -670,7 +670,7 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 }
 ```
 
-<figcaption>Listing 15. Supporting whitespace differences.</figcaption>
+> Listing 15. Supporting whitespace differences.
 
 Remember that the text filter option supports either a `string` or a `RegExp`? This is because the `MatSelect#clickOptions` methods accepts both and now we're going to need the second option.
 
@@ -720,7 +720,7 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
 }
 ```
 
-<figcaption>Listing 16. Forcing NgZone and change detection to stabilize after clicking a dropdown option.</figcaption>
+> Listing 16. Forcing NgZone and change detection to stabilize after clicking a dropdown option.
 
 With those two additions to our component harness, this test case passes with exactly the test and component harness code in both unit tests and end-to-end tests.
 

@@ -250,12 +250,13 @@ Besides that, arrow functions differ in one important area: The context of the `
 
 > **Learn more:**
 > Learn how context matters when using `this` and how standard and arrow functions differ when assigning properties.
-><br>
+>
 > 📃 [**Mastering JavaScript's `this` keyword using `bind`**](/posts/javascript-bind-usage)
 
 ### Calling functions as values
 
-> 📝 **[Functions, in and of themselves, are values.](/posts/javascript-functions-are-values)**<br>
+> 📝 **[Functions, in and of themselves, are values.](/posts/javascript-functions-are-values)**
+>
 > We have an article that goes over this in much more detail. Please check it out to learn more.
 
 We can encapsulate functions and their returns in variables.
@@ -325,7 +326,7 @@ Constructors are used to create properties attached to instances of a particular
 
 For this, we define a `constructor(size)` that attaches the desired size argument to our `this.size`.
 
-**The `this` keyword:**<br> When creating properties for classes, we use the `this` prefix to bind them. If we do not use `this.size`, we cannot retrieve a value with `CoffeeCup.size`.
+**The `this` keyword:** When creating properties for classes, we use the `this` prefix to bind them. If we do not use `this.size`, we cannot retrieve a value with `CoffeeCup.size`.
 
 ## Methods / functions
 

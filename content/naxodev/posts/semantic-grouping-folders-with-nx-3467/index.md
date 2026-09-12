@@ -11,11 +11,7 @@ socialImg: "social-image.png"
 }
 ---
 
-<figcaption>
-
-Photo by [Barn Images](https://unsplash.com/@barnimages) on [Unsplash](https://unsplash.com/s/photos/organization)
-
-</figcaption>
+> Photo by [Barn Images](https://unsplash.com/@barnimages) on [Unsplash](https://unsplash.com/s/photos/organization)
 
 ---
 
@@ -43,7 +39,7 @@ The following folder structure is a snapshot of a fictitious airline software pr
 
 ![Listing 1. Ungrouped libraries workspace](./zevmoj822g36bas1dqb6.png)
 
-<figcaption>Listing 1. Ungrouped libraries workspace</figcaption>
+> Listing 1. Ungrouped libraries workspace
 
 ---
 
@@ -93,7 +89,9 @@ Having our libraries restricted to a single application is a simple and effectiv
 
 It focuses on how libraries collaborate at a higher level, increasing cohesion and readability.
 
-![Listing 2. Grouping folders by scope Application group workspace libraries based on the application where they are used](./rduxs3ferb4dlpbwh3wn.png)<figcaption>Listing 2. Grouping folders by scope Application group workspace libraries based on the application where they are used.</figcaption>
+![Listing 2. Grouping folders by scope Application group workspace libraries based on the application where they are used](./rduxs3ferb4dlpbwh3wn.png)
+
+> Listing 2. Grouping folders by scope Application group workspace libraries based on the application where they are used.
 
 ---
 
@@ -129,7 +127,7 @@ Nonetheless, both concepts are used interchangeably in the current article.
 
 ![Listing 3. Grouping folders by scope Bounded Context group workspace libraries based on the Bounded Context where they are used.](./p0crcid1q5arizj64yxz.png)
 
-<figcaption>Listing 3. Grouping folders by scope Bounded Context group workspace libraries based on the Bounded Context where they are used.</figcaption>
+> Listing 3. Grouping folders by scope Bounded Context group workspace libraries based on the Bounded Context where they are used.
 
 ---
 
@@ -165,7 +163,7 @@ It may only make sense when the same application or bounded context is used diff
 
 ![Listing 4.Grouping folders by Platform group workspace libraries that are specific to a deployment platform.](./8tuk6fudc89ghy6v901p.png)
 
-<figcaption>Listing 4.Grouping folders by Platform group workspace libraries that are specific to a deployment platform.</figcaption>
+> Listing 4.Grouping folders by Platform group workspace libraries that are specific to a deployment platform.
 
 ---
 
@@ -195,7 +193,7 @@ Do not confuse with *Platform Grouping Folders* which only refer to the change o
 
 ![Listing 5. Grouping folders by Technology group workspace libraries that are specific to a development technology.](./y8e4r3h0rcl5bt2z2jfz.png)
 
-<figcaption>Listing 5. Grouping folders by Technology group workspace libraries that are specific to a development technology.</figcaption>
+> Listing 5. Grouping folders by Technology group workspace libraries that are specific to a development technology.
 
 ---
 
@@ -219,7 +217,7 @@ Nonetheless, if the number of libraries inside a Grouping folder increases, addi
 
 ![Listing 6. Type grouping folders organize libraries with the same type classifier](./0ueir4jdxw146xmqeouq.png)
 
-<figcaption>Listing 6. Type grouping folders organize libraries with the same type classifier</figcaption>
+> Listing 6. Type grouping folders organize libraries with the same type classifier
 
 ---
 
@@ -270,7 +268,7 @@ Going back to the Nrwl Airlines example, let's see how we can fix the flat folde
 
 ![Listing 7. Refactored Nrwl Airlines example using all existing Grouping Folders](./oy1p7jxzfeqmm1dej560.png)
 
-<figcaption>Listing 7. Refactored Nrwl Airlines example using all existing Grouping Folders</figcaption>
+> Listing 7. Refactored Nrwl Airlines example using all existing Grouping Folders
 
 ---
 

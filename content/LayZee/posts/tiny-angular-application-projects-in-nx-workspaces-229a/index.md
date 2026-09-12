@@ -37,7 +37,7 @@ npx create-nx-workspace workspace --cli=angular --preset=angular --appName=tiny-
 nx update @angular/cli @angular/core
 ```
 
-<figcaption>Listing 1. Create and update an Nx workspace with a single Angular application.</figcaption>
+> Listing 1. Create and update an Nx workspace with a single Angular application.
 
 We'll create workspace libraries which the application can import through the `@workspace` scope.
 
@@ -59,7 +59,7 @@ npx rimraf ./apps/tiny-app/src/assets ./libs/shared/assets/*.js ./libs/shared/as
 "# shared-assets" > ./libs/shared/assets/README.md
 ```
 
-<figcaption>Listing 2. Generate a shared assets library and clean it from TypeScript files and configurations.</figcaption>
+> Listing 2. Generate a shared assets library and clean it from TypeScript files and configurations.
 
 Execute the commands in Listing 2, then edit `angular.json` to remove all architect targets from the `shared-assets` project to match the configuration structure in Listing 3.
 
@@ -74,7 +74,7 @@ Execute the commands in Listing 2, then edit `angular.json` to remove all archit
 }
 ```
 
-<figcaption>Listing 3. Remove architect targets from the assets library.</figcaption>
+> Listing 3. Remove architect targets from the assets library.
 
 ### Set up common assets folders and move the favicon
 
@@ -92,7 +92,7 @@ npx mkdirp ./libs/shared/assets/src/assets/fonts ./libs/shared/assets/src/assets
 mv ./apps/tiny-app/src/favicon.ico ./libs/shared/assets/src
 ```
 
-<figcaption>Listing 4. Create common assets folders and move the favicon.</figcaption>
+> Listing 4. Create common assets folders and move the favicon.
 
 To configure the Angular application project to use the assets in the workspace library, we navigate to the `tiny-app:build` architect target in `angular.json` and replace the `assets` options with the entries in Listing 5.
 
@@ -124,7 +124,7 @@ To configure the Angular application project to use the assets in the workspace 
 }
 ```
 
-<figcaption>Listing 5. Configuring application assets.</figcaption>
+> Listing 5. Configuring application assets.
 
 We instruct the Angular CLI to copy the favicon file to the `dist/apps/tiny-app` folder when building the application. Additionally, all files and folders in the `libs/shared/assets/src/assets` folder are copied to `dist/apps/tiny-app/assets` by the build process. This will keep our application's assets links working in our non-local environments such as our staging and production web servers.
 
@@ -138,7 +138,7 @@ nx build --prod
 npx http-server dist/apps/tiny-app -o
 ```
 
-<figcaption>Listing 6. Build a production bundle and serve it locally using a static web server.</figcaption>
+> Listing 6. Build a production bundle and serve it locally using a static web server.
 
 ## Bundle an asset
 
@@ -146,7 +146,7 @@ Nx-generated Angular applications show an Nx logo in their app component as seen
 
 ![Partial home page of an Nx-generated Angular application.](./na5y0239xzbyljklz0me.png)
 
-<figcaption>Figure 1. The top of a default home page in an Nx-generated Angular application.</figcaption>
+> Figure 1. The top of a default home page in an Nx-generated Angular application.
 
 If we open `app.component.html`, we see that the logo is linked from [`https://nx.dev/assets/images/nx-logo-white.svg`](https://nx.dev/assets/images/nx-logo-white.svg).
 
@@ -158,7 +158,7 @@ Execute the command in Listing 7 to download the Nx logo and store it in the ass
 npx -p wget-improved nwget https://nx.dev/assets/images/nx-logo-white.svg -O ./libs/shared/assets/src/assets/images/nx-logo-white.svg
 ```
 
-<figcaption>Listing 7. Download the Nx logo and store it in the assets library.</figcaption>
+> Listing 7. Download the Nx logo and store it in the assets library.
 
 Now let's update the image element to reference the logo from our assets library. Edit `app.component.html` as shown in Listing 8.
 
@@ -171,7 +171,7 @@ Now let's update the image element to reference the logo from our assets library
 />
 ```
 
-<figcaption>Listing 8. The image element references the logo from the assets library.</figcaption>
+> Listing 8. The image element references the logo from the assets library.
 
 That's it. We extracted an assets workspace library and bundled static files. Try it out one more time to make sure that everything is set up correctly.
 
@@ -199,7 +199,7 @@ npx rimraf ./libs/shared/styles/*.js ./libs/shared/styles/*.json ./libs/shared/s
 "# shared-styles" > ./libs/shared/styles/README.md
 ```
 
-<figcaption>Listing 9. Generate a shared styles library and clean it from TypeScript files and configurations.</figcaption>
+> Listing 9. Generate a shared styles library and clean it from TypeScript files and configurations.
 
 Execute the commands in Listing 9, then edit `angular.json` to remove all architect targets from the `shared-styles` project to match the configuration structure in Listing 10.
 
@@ -214,7 +214,7 @@ Execute the commands in Listing 9, then edit `angular.json` to remove all archit
 }
 ```
 
-<figcaption>Listing 10. Remove architect targets from the styles library.</figcaption>
+> Listing 10. Remove architect targets from the styles library.
 
 ### Set up an entry point stylesheet
 
@@ -228,7 +228,7 @@ mv ./apps/tiny-app/src/styles.scss ./libs/shared/styles/src/lib/_global.scss
 "@import './lib/global';" > ./libs/shared/styles/src/index.scss
 ```
 
-<figcaption>Listing 11. Convert the application stylesheet to a Sass partial and create an entry point stylesheet.</figcaption>
+> Listing 11. Convert the application stylesheet to a Sass partial and create an entry point stylesheet.
 
 Only one thing left to do. Edit `angular.json` to replace the `styles` option of of the `tiny-app:build` architect target with the entry seen in the structure of Listing 12A.
 
@@ -251,7 +251,7 @@ Only one thing left to do. Edit `angular.json` to replace the `styles` option of
 }
 ```
 
-<figcaption>Listing 12A. Configure the application to include the styles library's entry point stylesheet.</figcaption>
+> Listing 12A. Configure the application to include the styles library's entry point stylesheet.
 
 Note that if we're using Karma and writing component tests that rely on global styles, we'll have to add a similar option to the `test` architect target of our UI workspace libraries as shown in the example in Listing 12B.
 
@@ -275,7 +275,7 @@ Note that if we're using Karma and writing component tests that rely on global s
 }
 ```
 
-<figcaption>Listing 12B. Example Karma `test` architect target with global styles.</figcaption>
+> Listing 12B. Example Karma `test` architect target with global styles.
 
 If a UI library is shared between multiple apps and have tests that rely on their individual global styles, we'd have to create multiple `test` configurations for that project as seen in Listing 12C.
 
@@ -306,7 +306,7 @@ If a UI library is shared between multiple apps and have tests that rely on thei
 }
 ```
 
-<figcaption>Listing 12C. Example Karma `test` architect target with multiple global style configurations.</figcaption>
+> Listing 12C. Example Karma `test` architect target with multiple global style configurations.
 
 ### Try it out locally
 
@@ -320,7 +320,7 @@ nx build --prod
 npx http-server dist/apps/tiny-app -o
 ```
 
-<figcaption>Listing 6 (repeated). Build a production bundle and serve it locally using a static web server.</figcaption>
+> Listing 6 (repeated). Build a production bundle and serve it locally using a static web server.
 
 Run `nx serve --open` to test global styles locally or run the commands in Listing 6 to serve a production bundle on a local static web server.
 
@@ -342,7 +342,7 @@ nx generate library environments --directory=shared --tags="scope:shared,type:en
 npx rimraf ./libs/shared/environments/src/lib/*.*
 ```
 
-<figcaption>Listing 13. Generate a shared environments library and clear it of generated content.</figcaption>
+> Listing 13. Generate a shared environments library and clear it of generated content.
 
 Listing 13 shows that we first generate the environments library. Then we remove the files generated in the `src/lib` subfolder of the library.
 
@@ -358,7 +358,7 @@ mv ./apps/tiny-app/src/environments/*.* ./libs/shared/environments/src/lib
 npx rimraf ./apps/tiny-app/src/environments
 ```
 
-<figcaption>Listing 14. Move the environment files and set up the library entry point.</figcaption>
+> Listing 14. Move the environment files and set up the library entry point.
 
 To configure the Angular application project to use an environment file in the workspace library based on the build configuration, we navigate to the `tiny-app:build` architect target in `angular.json` and replace the `fileReplacements` option of the `production` configuration with the entry in Listing 15.
 
@@ -386,7 +386,7 @@ To configure the Angular application project to use an environment file in the w
 }
 ```
 
-<figcaption>Listing 15. Configure the application's production build configuration to use the production environment file from the environments library.</figcaption>
+> Listing 15. Configure the application's production build configuration to use the production environment file from the environments library.
 
 Only one thing left to do. We need to update the import statement in `main.ts` to use the environments workspace library as seen in Listing 16.
 
@@ -400,7 +400,7 @@ if (environment.production) {
 }
 ```
 
-<figcaption>Listing 16. Importing the `environment` object from the environments workspace library.</figcaption>
+> Listing 16. Importing the `environment` object from the environments workspace library.
 
 ### Try it out locally
 
@@ -414,7 +414,7 @@ nx build --prod
 npx http-server dist/apps/tiny-app -o
 ```
 
-<figcaption>Listing 6 (repeated). Build a production bundle and serve it locally using a static web server.</figcaption>
+> Listing 6 (repeated). Build a production bundle and serve it locally using a static web server.
 
 When running a production bundle locally with the commands in Listing 6, no message should be output in your browser's console.
 
@@ -438,7 +438,7 @@ nx add @ngrx/store --minimal false
 nx add @ngrx/store-devtools
 ```
 
-<figcaption>Listing 17. Add NgRx Store and NgRx Store development tools.</figcaption>
+> Listing 17. Add NgRx Store and NgRx Store development tools.
 
 We'll move the NgRx Store configurations from `AppModule` to `CoreModule` as this is the preferred way to configure the root injector in traditional Angular application projects. `CoreModule` is imported by `AppModule` and can be seen in Listing 18.
 
@@ -465,7 +465,7 @@ import { metaReducers, reducers } from './reducers';
 export class CoreModule {}
 ```
 
-<figcaption>Listing 18. NgRx Store is configured for the the root injector in our core Angular module.</figcaption>
+> Listing 18. NgRx Store is configured for the the root injector in our core Angular module.
 
 In traditional Angular workspaces, this would be fine, but we want to maintain a tiny application project by minimising the amount of logic it contains.
 
@@ -479,7 +479,7 @@ nx generate library data-access --directory=shared --tags="scope:shared,type:dat
 mv ./apps/tiny-app/src/app/reducers ./libs/shared/data-access/src/lib
 ```
 
-<figcaption>Listing 19. Generate a shared data access library, then move the generated reducer folder and file.</figcaption>
+> Listing 19. Generate a shared data access library, then move the generated reducer folder and file.
 
 Execute the commands in Listing 19 to generate a shared data access library and move the subfolder  `src/app/reducers` generated when adding NgRx Store.
 
@@ -517,7 +517,7 @@ export class SharedDataAccessModule {
 }
 ```
 
-<figcaption>Listing 20. Root injector data access configuration module.</figcaption>
+> Listing 20. Root injector data access configuration module.
 
 We follow the `forRoot` pattern to indicate that the dependencies that are provided when importing this Angular module are for the root injector. This is done by creating a static method that returns a `ModuleWithProviders<T>` object.
 
@@ -538,13 +538,13 @@ import { SharedDataAccessModule } from '@workspace/shared/data-access';
 export class CoreModule {}
 ```
 
-<figcaption>Listing 21. A simple core Angular module that only imports workspace library modules.</figcaption>
+> Listing 21. A simple core Angular module that only imports workspace library modules.
 
 After restructuring, we end up with the workspace dependency graph illustrated in Figure 2.
 
 ![](./4jmlotm310jerrn77lbk.png)
 
-<figcaption>Figure 2. Workspace dependency graph after adding a shared data access library.</figcaption>
+> Figure 2. Workspace dependency graph after adding a shared data access library.
 
 Without extracting a shared environments library, we would not have been able to import an environment file in our shared data access library. First of all, the `tiny-app` does not have a scoped path mapping. Secondly, a library project must never depend on an application project.
 
@@ -565,7 +565,7 @@ export const metaReducers: MetaReducer<State>[] =
   !environment.production ? [] : [];
 ```
 
-<figcaption>Listing 22. Meta reducers are production mode aware by default.</figcaption>
+> Listing 22. Meta reducers are production mode aware by default.
 
 Let's use a recipe from the NgRx documentation to add a development only debug meta reducer.
 
@@ -583,7 +583,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
 }
 ```
 
-<figcaption>Listing 23. Debug meta reducer.</figcaption>
+> Listing 23. Debug meta reducer.
 
 The debug meta reducer in Listing 23 logs the NgRx Store state and the dispatched action, every time actions are about to be reduced.
 
@@ -602,7 +602,7 @@ export const metaReducers: MetaReducer<State>[] =
   !environment.production ? [debug] : [];
 ```
 
-<figcaption>Listing 24. The debug meta reducer is enabled in development mode, but not in production mode.</figcaption>
+> Listing 24. The debug meta reducer is enabled in development mode, but not in production mode.
 
 Listing 24 shows how to add the debug meta reducer in development mode only. Note that we import the environment object from the environments library.
 
@@ -623,13 +623,13 @@ import { metaReducers, reducers } from './reducers';
 export class SharedDataAccessRootModule {}
 ```
 
-<figcaption>Listing 25 (excerpt). Root injector data access configuration module. NOTE: Don't overwrite your file with this partial content.</figcaption>
+> Listing 25 (excerpt). Root injector data access configuration module. NOTE: Don't overwrite your file with this partial content.
 
 The exported `metaReducers` array is used to configure the root store as seen in Listing 25.
 
 ![](./yxk94ezvbxmmkf9vf6n0.png)
 
-<figcaption>Figure 3. Shared data access library file and folder structure.</figcaption>
+> Figure 3. Shared data access library file and folder structure.
 
 Figure 3 shows the file and folder structure of our shared data access library which contains the root store configuration and meta reducers.
 
@@ -651,7 +651,7 @@ Nx workspaces have a workspace configuration which can be used to set up restric
 }
 ```
 
-<figcaption>Listing 25. Configure implicit dependencies for the application project.</figcaption>
+> Listing 25. Configure implicit dependencies for the application project.
 
 Listing 25 shows how we configure our application project to have implicit dependencies on the assets and styles libraries. This is necessary since there are no TypeScript import statements referencing either of these workspace libraries.
 
@@ -663,7 +663,7 @@ This will trigger the need to rebuild the application project when running `nx a
 
 ![Angular tiny app workspace dependency graph. The shared styles library is affecting the application project and its end-to-end testing project.](./xgw8wylralwtey78eyfa.png)
 
-<figcaption>Figure 4. Dependency graph with changed global styles. Shared data acess library left out for brevity.</figcaption>
+> Figure 4. Dependency graph with changed global styles. Shared data acess library left out for brevity.
 
 When we make a change to `_global.scss` and run `nx affected:dep-graph`, we get the dependency graph shown in Figure 4. Highlighted nodes (projects) are affected by the change.
 
@@ -673,7 +673,7 @@ After restructuring our application workspace, our dependency graph is a directe
 
 ![Workspace dependency graph.](./uhztb0pntxv8456yhh9u.png)
 
-<figcaption>Figure 5. Workspace dependency graph. Shared data access library left out for brevity.</figcaption>
+> Figure 5. Workspace dependency graph. Shared data access library left out for brevity.
 
 The end-to-end testing project `tiny-app-e2e` depends on the application project, meaning that it is affected by changes in the application project and thus its tests needs to be rerun.
 
@@ -687,13 +687,13 @@ In pull requests, it's easy to see what's being changed or extended by looking a
 
 ![](./xdhh5ebq9b2jn4pfjupv.png)
 
-<figcaption>Figure 6. Default Nx Angular application project file and folder structure.</figcaption>
+> Figure 6. Default Nx Angular application project file and folder structure.
 
 Figure 6 shows the default file and folder structure for an Nx generated Angular application. Configuration files like `tsconfig.json` and `tslint.json` are left out of the illustration, as they remain unchanged by the techniques demonstrated in this article.
 
 ![](./qozf6qjiicu3eukphpo4.png)
 
-<figcaption>Figure 7. Tiny application project file and folder structure.</figcaption>
+> Figure 7. Tiny application project file and folder structure.
 
 In the tiny app project, files in the `src/app` subfolder are untouched when compared to the default application project, except that we added a `CoreModule` in `core.module.ts` when creating the shared data access library.
 
@@ -705,7 +705,7 @@ The `assets` folder has been moved out of the application project and into the `
 
 ![](./aux1dd4zzw4urp782qoi.png)
 
-<figcaption>Figure 8. Shared assets workspace library file and folder structure.</figcaption>
+> Figure 8. Shared assets workspace library file and folder structure.
 
 We created the common assets folders `fonts`, `icons`, and `images` and we bundled the Nx logo as seen in the `src/assets/images` subfolder of the assets library.
 
@@ -723,7 +723,7 @@ The global stylesheet `styles.scss` has been moved from the application project'
 
 ![](./su213pupp7ti6vb2nlkb.png)
 
-<figcaption>Figure 9. Shared styles workspace library file and folder structure.</figcaption>
+> Figure 9. Shared styles workspace library file and folder structure.
 
 `styles.scss` was renamed to `_global.scss` to convert it to a Sass partial. The Sass partial is placed in the `src/lib` subfolder of our styles workspace library. It's imported by the entry point stylesheet `index.scss` in the `src` subfolder.
 
@@ -735,7 +735,7 @@ The environment files have been moved from the application project's `src/enviro
 
 ![](./pbs8r8pb2ygffun6erqm.png)
 
-<figcaption>Figure 10. Shared environments workspace library file and folder structure.</figcaption>
+> Figure 10. Shared environments workspace library file and folder structure.
 
 The environment object is re-exported by the environments library's entry point also known as its public API which is defined in `index.ts`.
 

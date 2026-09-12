@@ -33,7 +33,7 @@ const y: Switch = "Off"
 
 If you tried to assign any other values other than `On` or `Off`, typescript will throw an error:
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/06/Template-Literal-Types-1.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/06/Template-Literal-Types-1.png)
 
 ## Template Literal Types
 
@@ -52,7 +52,7 @@ type X = `This is a concatenated ${tVariable}`
 
 As you can see, they are similar in syntax apart from what they are defined as, the first being a variable and the second being a type. The type of the first definition will be string, while the second one will be of type `This is a concatenated string` and a variable of that type can only be assigned to that string.
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/06/image-2.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/06/image-2.png)
 
 > **NB:** If you tried to use variable instead of a type when defining Template Literal Type, it will throw the following error: `'variable' refers to a value, but is being used as a type here. Did you mean 'typeof variable'?`
 
@@ -69,7 +69,7 @@ type SwitchStatus = `Switch is ${Switch}`;
 
 And this in return gives us the types: `Switch is On` and `Switch is Off`:
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/06/Template-Literal-Types-3.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/06/Template-Literal-Types-3.png)
 
 ## Using To Build Types for Grid Items Coordinates
 
@@ -91,7 +91,7 @@ type SmallerBoxes = `L${length}-H${length}`
 
 And this would yield the same result as before:
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/06/Template-Literal-Types-2.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/06/Template-Literal-Types-2.png)
 
 This makes our work easier and it is more versatile, because if the smaller boxes ever increased or decreased, you only need to adjust the size of the length.
 

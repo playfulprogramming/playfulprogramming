@@ -26,9 +26,7 @@ Is it far-fetched to think that the complexity of authorization logic contribute
 
 Each new policy adds another **conditional branch**, another **database join**, another **custom role**, another **edge case that breaks** during the next feature request. The authorization flow becomes a spaghetti bowl and even experienced developers hesitate before touching it.
 
-<figure>
-  <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/09cwef7zad5jqr7grjz7.png" alt="this is fine"/>
-</figure>
+  <img src="./09cwef7zad5jqr7grjz7.png" alt="this is fine"/>
 
 Traditional approaches quickly hit walls:
 
@@ -72,12 +70,12 @@ Before I grab your attention and your brain 🧠 with the ReBAC concepts and how
 Cat owners own cats. Sitters sit cats. Admins administrate. The authorization model mirrors reality instead of forcing you into artificial role hierarchies. [Demo](#create-basic-relationships)
 
 <figure>
-  <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bg7eguhsxco75yi6g9bi.png" alt="Cat owner relationship diagram"/>
+  <img src="./bg7eguhsxco75yi6g9bi.png" alt="Cat owner relationship diagram"/>
   <figcaption>Direct relations</figcaption>
 </figure>
 
 <figure>
-  <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/oqr497dzgub8p04mru1t.png" alt="Cat sitting scenario diagram"/>
+  <img src="./oqr497dzgub8p04mru1t.png" alt="Cat sitting scenario diagram"/>
   <figcaption>Implied relations</figcaption>
 </figure>
 
@@ -103,12 +101,12 @@ Traditional systems answer "Can Alice do X?" OpenFGA also answers "What can Alic
 [Demo](#check-permissions-and-query-relations)
 
 <figure>
-  <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3gljlmtefso79v0rdas9.png" alt="Is user Jenny related to system development as an admin?"/>
+  <img src="./3gljlmtefso79v0rdas9.png" alt="Is user Jenny related to system development as an admin?"/>
   <figcaption>Tuple Queries from OpenFGA playground</figcaption>
 </figure>
 
 <figure>
-  <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zmmkh9zd1uw4igfawse7.png" alt="Who is Romeo's owner?"/>
+  <img src="./zmmkh9zd1uw4igfawse7.png" alt="Who is Romeo's owner?"/>
   <figcaption>Who has the right to feed Romeo?</figcaption>
 </figure>
 
@@ -396,7 +394,7 @@ Before moving on, make sure you can answer:
 3. When would you use indirect relationships?
 
 <details>
-<summary><b>Answers</b></summary>
+<summary>Answers</summary>
 
 1. **User vs Object**: A user is an entity (like a person), while an object is an instance of a type (like a specific cat or cat sitting arrangement). Users interact with objects through relations.
 2. **Relations vs Roles**: Relations define how entities connect (like "owner of cat"), while roles are broader categories (like "admin" or "sitter") that can have multiple relations.
@@ -601,7 +599,7 @@ Another one of OpenFGA's strengths, is its built-in testing capabilities. The CL
 
 <!-- ##### Who Can Do What - Permission Example
 
-![Diagram showing user permissions](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1zvl0uoy2tdp4fs6p7sw.png) -->
+![Diagram showing user permissions](./1zvl0uoy2tdp4fs6p7sw.png) -->
 
 ### Declarative Testing with YAML
 
@@ -825,7 +823,7 @@ Have you read carefully the previous sections? If so, you should be able to answ
 3. Can you make an object public to all users?
 
 <details>
-<summary><b>Answers</b></summary>
+<summary>Answers</summary>
 
 1. **List Objects**: Yes, you can use the [list-objects](https://openfga.dev/docs/getting-started/perform-list-objects) command to find objects a user has relationships with, like finding all cat sittings where a user is an active sitter.
 
