@@ -82,18 +82,46 @@ Next, I created a JSON containing my skills categorized by 4 main areas of my ex
 
 Once the library is integrated and configured, I just have to hook it into my component.
 
-\`\`    'use client';
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer,
-Tooltip, XAxis, YAxis } from "recharts";
-import { techSkills } from '../api/skills';
+```tsx
+"use client";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { techSkills } from "../api/skills";
 export default function Backendskills() {
-const data = techSkills.backend;
-return ( <ResponsiveContainer width="90%" height={300}> <BarChart data={data}>
-\<XAxis type="category" dataKey="name" padding={{ left:
-20, right: 20 }} /> <YAxis dataKey="years" type="number" />
-\<Tooltip labelStyle={{ color: '#110F50' }} /> <Legend verticalAlign="top" /> <Bar dataKey="years" fill="#C605FA" barSize={40} 
- activeBar={false} name="Backend Frameworks (Years)" /> </BarChart> </ResponsiveContainer>`
-`
+  const data = techSkills.backend;
+  return (
+    <ResponsiveContainer width="90%" height={300}>
+      {" "}
+      <BarChart data={data}>
+        <XAxis
+          type="category"
+          dataKey="name"
+          padding={{ left: 20, right: 20 }}
+        />{" "}
+        <YAxis dataKey="years" type="number" />
+        <Tooltip labelStyle={{ color: "#110F50" }} />{" "}
+        <Legend verticalAlign="top" />{" "}
+        <Bar
+          dataKey="years"
+          fill="#C605FA"
+          barSize={40}
+          activeBar={false}
+          name="Backend Frameworks (Years)"
+        />{" "}
+      </BarChart>{" "}
+    </ResponsiveContainer>
+  );
+}
+```
+
 **Integration**: With Recharts in my toolkit, I seamlessly integrated it into my Next.js 14 project.
 
 **Client-Side Rendering**: Since the charts would be built using user data, I ensured client-side rendering for optimal performance using 'use client';
