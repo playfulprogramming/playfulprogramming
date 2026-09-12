@@ -307,7 +307,7 @@ Good news, yes, it will work without the secondary entry point.
 1. With Latest Angular language service you get warning in IDE if you are importing unused Component
 2. The new Angular compiler can warn you during build if you have unused import
 
-<BlogImage src={buildwarning} alt="The new Angular compiler can warn you during build if you have unused import " />
+![The new Angular compiler can warn you during build if you have unused import](./build-warnign.DvhVExr__241s3v.webp)
 
 > The angular compiler is improving, and it's great to see we dont need to always reach out to secondary-entrypoints with libraries to get the advantage of tree shaking, so what are you waiting for? Adopt a newer version of Angular and get small bundles and better tree shaking.
 

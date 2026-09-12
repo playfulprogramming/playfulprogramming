@@ -144,7 +144,7 @@ The country component needs to be flexible and have a simple and semantic API fo
 
 We need to use content projection to allow the country component to accept content from other components.
 
-Content projection allows the component to get content by adding the <ng-content></ng-content> element into the country component HTML to allow of content from other components.
+Content projection allows the component to get content by adding the `<ng-content></ng-content>` element into the country component HTML to allow of content from other components.
 
 Adding the ng-content element, the country component can render and use the content from those nested components.
 
