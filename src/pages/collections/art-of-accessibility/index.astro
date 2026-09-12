@@ -1,6 +1,6 @@
 ---
 import Barebones from "#components/layouts/barebones/barebones.astro";
-import { baseLocale } from "#src/paraglide/runtime.js";
+import { baseLocale, localizeHref } from "#src/paraglide/runtime.js";
 
 // Stylesheets must be imported before any component, so that component styles
 // are ordered after them in the bundled build
@@ -36,6 +36,11 @@ const collection = await getCollectionBySlug(
 	"art-of-accessibility",
 	baseLocale,
 );
+const author = await getPersonById("crutchcorn", baseLocale);
+if (!collection || !author) {
+	return Astro.rewrite(localizeHref("/404"));
+}
+
 const chapterList = await getPostsByCollection(
 	"art-of-accessibility",
 	baseLocale,
@@ -74,7 +79,7 @@ const comingSoon = [
 		slot="head"
 		title={"The Art of Accessibility"}
 		description={"Learn accessibility for modern web applications."}
-		peopleData={[(await getPersonById("crutchcorn", baseLocale))!]}
+		peopleData={[author]}
 		publishedTime={"2025-01-01T13:45:00.284Z"}
 		type={"book"}
 		shareImage={collection?.socialImgMeta?.relativeServerPath}

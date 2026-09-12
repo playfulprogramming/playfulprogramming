@@ -1,0 +1,26 @@
+# SSR previews override the app name; main always deploys to staging.
+app = 'staging-playfulprogramming'
+primary_region = 'sjc'
+
+[deploy]
+  strategy = 'immediate'
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    interval = '30s'
+    # The first SSR request loads content and initializes the renderer.
+    timeout = '15s'
+    grace_period = '30s'
+    method = 'GET'
+    path = '/'
+
+[[vm]]
+  size = 'shared-cpu-1x'
+  # SSR content loading exceeds the static server's memory requirements.
+  memory = '1gb'

@@ -6,9 +6,12 @@ import { events } from "../../views/events/constants/index.ts";
 import type { UrlMetadataResponse } from "#utils/hoof/index.ts";
 import { getUrlMetadata } from "#utils/hoof/index.ts";
 import type { Event, EventBlock } from "../../views/events/types";
-import { baseLocale } from "#src/paraglide/runtime.js";
+import { baseLocale, localizeHref } from "#src/paraglide/runtime.js";
 
-const event: Event = events.find((e) => e.slug === "book-club")!;
+const event: Event | undefined = events.find((e) => e.slug === "book-club");
+if (!event) {
+	return Astro.rewrite(localizeHref("/404"));
+}
 
 interface EventBlockWithMetadata extends EventBlock {
 	location_metadata?: UrlMetadataResponse;

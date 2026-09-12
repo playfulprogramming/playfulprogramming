@@ -1,17 +1,12 @@
 import { defineMiddleware } from "astro:middleware";
 import { paraglideMiddleware } from "./paraglide/server.js";
-import { assertIsLocale, baseLocale, setLocale } from "./paraglide/runtime.js";
-
-declare const __PARAGLIDE_SERVER_OUTPUT__: boolean;
-
-const useRequestScopedLocales =
-	import.meta.env.DEV || __PARAGLIDE_SERVER_OUTPUT__;
 
 export const onRequest = defineMiddleware((context, next) => {
-	if (useRequestScopedLocales) {
-		return paraglideMiddleware(context.request, () => next());
-	}
-
-	setLocale(assertIsLocale(context.currentLocale ?? baseLocale));
-	return next();
+	// Prerendered pages also run concurrently. Each render needs its own locale
+	// context so an awaited lookup cannot inherit another page's language.
+	// Static builds have a URL but no incoming request headers.
+	const request = context.isPrerendered
+		? new Request(context.request.url)
+		: context.request;
+	return paraglideMiddleware(request, () => next());
 });

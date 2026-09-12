@@ -16,6 +16,7 @@ await symlinkDir(path.resolve("content"), path.resolve("public/content"));
 // Reads the "browserslist" field in package.json.
 const lightningcssTargets = browserslistToTargets(browserslist());
 
+// Temporary migration toggle: manual previews and staging opt into SSR.
 const isServerBuild = process.env.BUILD_OUTPUT === "server";
 
 // Astro warns that high concurrency increases memory use and can
@@ -81,9 +82,6 @@ export default defineConfig({
 		checkOrigin: process.env.CI !== "1",
 	},
 	vite: {
-		define: {
-			__PARAGLIDE_SERVER_OUTPUT__: JSON.stringify(isServerBuild),
-		},
 		css: {
 			transformer: "lightningcss",
 			lightningcss: {

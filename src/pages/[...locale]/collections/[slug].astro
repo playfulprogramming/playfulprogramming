@@ -8,9 +8,9 @@ import { SubHeader } from "#src/components/subheader/subheader.tsx";
 import { isValidLocaleRouteParam } from "#utils/locales.ts";
 import type { CurrentPost, FuturePost } from "#types/index.ts";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
+import { isDefined } from "#utils/is-defined.ts";
 import { baseLocale, getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
-import { isDefined } from "#src/utils/is-defined.ts";
 
 export async function getStaticPaths() {
 	const collections = await api.getAllCollections();
@@ -35,11 +35,19 @@ const params = Astro.params as {
 };
 
 if (!isValidLocaleRouteParam(params.locale)) {
-	return Astro.rewrite("/404");
+	return Astro.rewrite(localizeHref("/404"));
 }
 
 const locale = getLocale();
-const collection = (await api.getCollectionBySlug(params.slug, locale))!;
+const collection = await api.getCollectionBySlug(params.slug, locale);
+if (
+	!collection ||
+	collection.locale !== locale ||
+	collection.pageLayout === "none"
+) {
+	return Astro.rewrite(localizeHref("/404"));
+}
+
 const collectionPosts = await api.getPostsByCollection(params.slug, locale);
 const authors = (
 	await Promise.all(

@@ -11,21 +11,13 @@ import type { CollectionInfo } from "#types/CollectionInfo.ts";
 import { Readable } from "stream";
 import { siteUrl } from "#src/constants/site-config.ts";
 import { events } from "#src/views/events/constants/index.ts";
+import { getAboutPaths } from "#src/views/about/utils/route-data.ts";
 import {
 	baseLocale,
 	locales as configuredLocales,
 	localizeHref,
 	type Locale,
 } from "#src/paraglide/runtime.js";
-
-const About = (await import("./[...locale]/about.astro")) as unknown as {
-	getStaticPaths: () => Promise<
-		Array<{
-			params: { locale?: Locale };
-			props: { isFallback: boolean };
-		}>
-	>;
-};
 
 const sitemapDefaults: Pick<
 	SitemapItemLoose,
@@ -76,7 +68,7 @@ export const GET = async () => {
 		});
 	}
 
-	const aboutPageLocales = (await About.getStaticPaths())
+	const aboutPageLocales = (await getAboutPaths())
 		.filter((page) => !page.props.isFallback)
 		.map((page) => page.params.locale)
 		.sort();

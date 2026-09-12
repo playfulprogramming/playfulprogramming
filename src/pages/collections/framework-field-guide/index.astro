@@ -1,6 +1,6 @@
 ---
 import Barebones from "#components/layouts/barebones/barebones.astro";
-import { baseLocale } from "#src/paraglide/runtime.js";
+import { baseLocale, localizeHref } from "#src/paraglide/runtime.js";
 import "#src/views/collection-framework-field-guide/styles/fonts/fira-code.css";
 import "#src/views/collection-framework-field-guide/styles/fonts/plus-jakarta-sans.css";
 import "#src/views/collection-framework-field-guide/styles/fonts/changa-one.css";
@@ -39,10 +39,14 @@ import WhatDoIGet from "#src/views/collection-framework-field-guide/components/w
 import { getCollectionBySlug, getPersonById } from "#utils/api.ts";
 import BlockingTabsSignalScript from "#components/tabs/blocking-tabs-signal-script.astro";
 
-const collection = (await getCollectionBySlug(
+const collection = await getCollectionBySlug(
 	"framework-field-guide",
 	baseLocale,
-))!;
+);
+const author = await getPersonById("crutchcorn", baseLocale);
+if (!collection || !author) {
+	return Astro.rewrite(localizeHref("/404"));
+}
 ---
 
 <Barebones>
@@ -50,7 +54,7 @@ const collection = (await getCollectionBySlug(
 		slot="head"
 		title={collection.title}
 		description={collection.description}
-		peopleData={[(await getPersonById("crutchcorn", baseLocale))!]}
+		peopleData={[author]}
 		publishedTime={collection.published}
 		type={"book"}
 		shareImage={collection.socialImgMeta?.relativeServerPath}
