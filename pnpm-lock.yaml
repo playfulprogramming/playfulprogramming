@@ -500,6 +500,9 @@ importers:
       mdast-util-to-markdown:
         specifier: ^2.1.2
         version: 2.1.2
+      micromark-core-commonmark:
+        specifier: ^2.0.3
+        version: 2.0.3
       micromark-util-character:
         specifier: ^2.1.1
         version: 2.1.1
