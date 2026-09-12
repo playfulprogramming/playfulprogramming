@@ -48,6 +48,27 @@ const paragraphClosers = new Set([
 	"ul",
 ]);
 
+/** These Markdown blocks produce an HTML element that implicitly closes <p>. */
+export const markdownParagraphClosers = new Set([
+	"atxHeading",
+	"setextHeading",
+	"paragraph",
+	"blockQuote",
+	"listOrdered",
+	"listUnordered",
+	"codeFenced",
+	"codeIndented",
+	"thematicBreak",
+	"table",
+	"mathFlow",
+]);
+
+export function updateMarkdownContext(stack: string[], tokenType: string) {
+	if (!markdownParagraphClosers.has(tokenType)) return;
+	const paragraph = stack.lastIndexOf("p");
+	if (paragraph !== -1) stack.length = paragraph;
+}
+
 /** Track HTML element context across separate Markdown HTML blocks. */
 export function updateHtmlStack(stack: string[], html: string) {
 	const tags =
@@ -73,7 +94,13 @@ export function updateHtmlStack(stack: string[], html: string) {
 				const paragraph = stack.lastIndexOf("p");
 				if (paragraph !== -1) stack.length = paragraph;
 			}
-			if (!voidElements.has(name)) stack.push(name);
+			// Unlike ordinary HTML elements, foreign SVG/MathML roots honor
+			// the self-closing flag. A slash in an unquoted value is not that flag.
+			const foreignSelfClosing =
+				(name === "svg" || name === "math") &&
+				/\/>$/.test(match[0]) &&
+				!/[\w:-]+\s*=\s*[^\s"'=<>`]+\/>$/.test(match[0]);
+			if (!voidElements.has(name) && !foreignSelfClosing) stack.push(name);
 		}
 	}
 }

@@ -10,7 +10,7 @@ import type {
 	Tokenizer,
 } from "micromark-util-types";
 import { parseComponentAttributes } from "./attributes.ts";
-import { updateHtmlStack } from "./html-context.ts";
+import { updateHtmlStack, updateMarkdownContext } from "./html-context.ts";
 
 export interface Marker {
 	kind: "ranged" | "standalone" | "end" | "invalid";
@@ -114,7 +114,7 @@ const componentFollowingLine: Construct = {
 			}
 			if (spaces) effects.exit("linePrefix");
 			return effects.attempt(
-				markerConstruct("playfulComponentMarker", () => {}),
+				openingMarkerConstruct(() => {}),
 				ok,
 				nok,
 			)(code);
@@ -151,7 +151,7 @@ const tokenize: Tokenizer = function (effects, ok, nok) {
 			return nok(code);
 		container = effects.enter("playfulComponent");
 		return effects.attempt(
-			markerConstruct("playfulComponentMarker", (token, value) => {
+			openingMarkerConstruct((token, value) => {
 				opening = token;
 				marker = value;
 			}),
@@ -314,9 +314,29 @@ const tokenize: Tokenizer = function (effects, ok, nok) {
 	}
 };
 
+function openingMarkerConstruct(
+	onMarker: (token: Token, marker: Marker) => void,
+): Construct {
+	return {
+		partial: true,
+		tokenize(effects, ok, nok) {
+			return effects.attempt(
+				markerConstruct("playfulComponentMarker", onMarker),
+				ok,
+				effects.attempt(
+					markerConstruct("playfulComponentMarker", onMarker, true),
+					ok,
+					nok,
+				),
+			);
+		},
+	};
+}
+
 function markerConstruct(
 	type: "playfulComponentMarker" | "playfulComponentClosingMarker",
 	onMarker: (token: Token, marker: Marker) => void,
+	recoverOpeningLine = false,
 ): Construct {
 	return {
 		partial: true,
@@ -339,6 +359,25 @@ function markerConstruct(
 				return index === prefix.length ? inside : before;
 			}
 			function inside(code: Code): State | undefined {
+				if (recoverOpeningLine && (code === null || markdownLineEnding(code))) {
+					const source = self.sliceSerialize({
+						start: token.start,
+						end: self.now(),
+					});
+					if (/^<!--\s*::/.test(source)) {
+						effects.exit("playfulComponentMarkerData");
+						effects.exit(type);
+						const marker: Marker = {
+							kind: "invalid",
+							component: "",
+							attributes: {},
+						};
+						token._commentComponent = marker;
+						onMarker(token, marker);
+						return ok(code);
+					}
+					if (!/^<!--\s*$/.test(source)) return nok(code);
+				}
 				if (code === null) return nok(code);
 				if (code === 62 && dashes >= 2) {
 					effects.consume(code);
@@ -441,6 +480,7 @@ function inHtml(document: TokenizeContext): boolean {
 	const seen = new Set<TokenizeContext>();
 	let depth = 0;
 	for (const [action, token] of document.events) {
+		if (!depth && action === "enter") updateMarkdownContext(stack, token.type);
 		if (token._container) depth += action === "enter" ? 1 : -1;
 		if (
 			depth ||
@@ -454,6 +494,8 @@ function inHtml(document: TokenizeContext): boolean {
 		for (const [action, child, context] of token._tokenizer.events) {
 			if (child.type === "playfulComponent")
 				componentDepth += action === "enter" ? 1 : -1;
+			if (!componentDepth && action === "enter")
+				updateMarkdownContext(stack, child.type);
 			if (!componentDepth && action === "enter" && child.type === "htmlFlow") {
 				const source = context.sliceSerialize({
 					start: child.start,

@@ -212,6 +212,7 @@ describe("native component publishing validation", () => {
 	});
 
 	it.each([
+		["<!-- ::start:tabs\n\nUnrelated content", "invalid-marker"],
 		["<!-- ::start:tabs -->\n\nUnrelated content", "missing-close"],
 		["<!-- ::end:tabs -->\n\nUnrelated content", "unexpected-close"],
 		[

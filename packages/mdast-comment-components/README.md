@@ -118,6 +118,9 @@ Malformed input is preserved and reported on
   closer does not end the currently open component.
 - Invalid component names or closing-marker attributes remain HTML comments
   with an `invalid-marker` diagnostic.
+- An unterminated component comment also produces `invalid-marker`. Its opening
+  line remains HTML while following lines are parsed as ordinary Markdown;
+  unterminated ordinary HTML comments retain CommonMark's behavior.
 
 Parsing itself does not log, throw, or access a VFile. Consumers choose their
 diagnostic policy. The publishing site's adapter turns these entries into
