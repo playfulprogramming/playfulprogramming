@@ -32,7 +32,7 @@ RUN --mount=type=secret,id=GITHUB_TOKEN \
 	ASTRO_TELEMETRY_DISABLED=1 \
 	pnpm build --mode $MODE
 
-FROM nginx:1.29.1-alpine3.22-slim
+FROM nginx:1.30.4-alpine3.24-slim
 
 # Copy the project nginx configuration
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
