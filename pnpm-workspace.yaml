@@ -3,10 +3,14 @@ packages:
   - e2e
   - .
 minimumReleaseAge: 10080
+# Keep math renderers and the site's KaTeX stylesheet on the same version.
+catalog:
+  katex: ^0.18.4
 overrides:
-  "@playwright/test": 1.62.1
-  playwright: 1.62.1
-  playwright-core: 1.62.1
+  katex: "catalog:"
+  "@playwright/test": 1.63.0
+  playwright: 1.63.0
+  playwright-core: 1.63.0
   react: "npm:@preact/compat@18.3.1"
   react-dom: "npm:@preact/compat@18.3.1"
 allowBuilds:

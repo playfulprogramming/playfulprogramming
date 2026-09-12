@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7-labs
 
 # e2e: contains the Playwright test runner
-FROM mcr.microsoft.com/playwright:v1.62.1-resolute AS e2e
+FROM mcr.microsoft.com/playwright:v1.63.0-resolute AS e2e
 
 WORKDIR /work
 
