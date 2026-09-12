@@ -33,7 +33,7 @@ npm run generate-project -- library data-access --scope=check-in --npm-scope=nrw
 yarn generate-project library data-access --scope=check-in --npm-scope=nrwl-airlines --with-state
 ```
 
-<figcaption>Generate check-in data access library with NgRx-based state.</figcaption>
+> Generate check-in data access library with NgRx-based state.
 
 This generates the following file and folder structure.
 
@@ -61,7 +61,7 @@ libs/check-in/data-access
 └── tslint.json
 ```
 
-<figcaption>Generated file and folder structure for the check-in data access library.</figcaption>
+> Generated file and folder structure for the check-in data access library.
 
 How sweet is this? One command and we've got a project-specific data access library set up with project configuration, path mappings, feature store, and feature effects.
 
@@ -73,7 +73,7 @@ ng run check-in-data-access:lint
 ng run check-in-data-access:test --watch=false
 ```
 
-<figcaption>Lint and test the check-in data acess library.</figcaption>
+> Lint and test the check-in data acess library.
 
 ## Check-in feature shell library
 
@@ -85,7 +85,7 @@ npm run generate-project -- library feature feature-shell --scope=check-in --npm
 yarn generate-project library feature feature-shell --scope=check-in --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate check-in feature shell library.</figcaption>
+> Generate check-in feature shell library.
 
 Everything's now set up for us.
 
@@ -109,7 +109,7 @@ libs/check-in/feature-shell
 └── tslint.json
 ```
 
-<figcaption>Generated file and folder structure for the check-in feature shell library.</figcaption>
+> Generated file and folder structure for the check-in feature shell library.
 
 Let's take a quick look at the check-in feature shell Angular module.
 
@@ -136,7 +136,7 @@ const routes: Routes = [
 export class CheckInFeatureShellModule {}
 ```
 
-<figcaption>Check-in feature shell module.</figcaption>
+> Check-in feature shell module.
 
 We need to register the shared data access and check-in data access Angular modules.
 
@@ -181,7 +181,7 @@ npm run generate-project -- application check-in-desktop --scope=check-in --grou
 yarn generate-project application check-in-desktop --scope=check-in --grouping-folder=check-in --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate the check-in desktop application using its feature shell library.</figcaption>
+> Generate the check-in desktop application using its feature shell library.
 
 Let's make sure it worked. Open up the app module of the new application project.
 
@@ -205,7 +205,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-<figcaption>App module of the check-in desktop application.</figcaption>
+> App module of the check-in desktop application.
 
 The app component is generated with the same template as our other apps.
 
@@ -216,7 +216,7 @@ The app component is generated with the same template as our other apps.
 <router-outlet></router-outlet>
 ```
 
-<figcaption>Check-in desktop app component template.</figcaption>
+> Check-in desktop app component template.
 
 As seen in the app module, we eagerly load the check-in feature shell module which routes to its shell component as we saw in the previous section.
 
@@ -261,7 +261,7 @@ describe('AppComponent', () => {
 });
 ```
 
-<figcaption>Test suite for the check-in desktop app component.</figcaption>
+> Test suite for the check-in desktop app component.
 
 Our Angular testing module adds the router module to make us able to render the app component's template. The heading selector and content now reflects the simple template.
 
@@ -284,7 +284,7 @@ platformBrowserDynamic()
   .catch((err) => console.error(err));
 ```
 
-<figcaption>The check-in desktop application main file.</figcaption>
+> The check-in desktop application main file.
 
 The generate project tool detects a shared environments library, changes the import statement in the main file and additionally delete the `src/environments` folder and files which are usually generated as part of an application project.
 
@@ -314,7 +314,7 @@ Now, let's make sure that we're using the shared environments library in the `fi
 }
 ```
 
-<figcaption>File replacements configured to use the shared environments library for the check-in desktop application.</figcaption>
+> File replacements configured to use the shared environments library for the check-in desktop application.
 
 We're looking good!
 
@@ -324,7 +324,7 @@ ng run check-in-desktop:lint
 ng run check-in-desktop:test --watch=false
 ```
 
-<figcaption>Lint and test the check-in desktop application.</figcaption>
+> Lint and test the check-in desktop application.
 
 Lint checks and the unit test suite run as expected.
 
@@ -345,7 +345,7 @@ export class AppPage {
 }
 ```
 
-<figcaption>App page object for the booking desktop application.</figcaption>
+> App page object for the booking desktop application.
 
 For some reason, Angular only leaves out the last name of the project-name for the root element. In this case, event though the application project's name is `check-in-desktop`, the root element name is `check-in-root`. The generate project tool respects this.
 
@@ -357,7 +357,7 @@ ng run check-in-desktop-e2e:lint
 ng run check-in-desktop-e2e:e2e
 ```
 
-<figcaption>Lint and run the end-to-end test suite of the check-in desktop application.</figcaption>
+> Lint and run the end-to-end test suite of the check-in desktop application.
 
 The end-to-end test suite is linted and tested successfully.
 
@@ -365,7 +365,7 @@ The end-to-end test suite is linted and tested successfully.
 ng run check-in-desktop:serve
 ```
 
-<figcaption>Start the development server for the check-in desktop application.</figcaption>
+> Start the development server for the check-in desktop application.
 
 Finally, start the application and verify that it renders the title. As no feature libraries have been added yet, only the title is shown, but no errors are thrown.[](https://bit.ly/39cqbxa)
 
@@ -379,7 +379,7 @@ npm run generate-project -- application check-in-mobile --scope=check-in --group
 yarn generate-project application check-in-mobile --scope=check-in --grouping-folder=check-in --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate the check-in desktop application using its feature shell library.</figcaption>
+> Generate the check-in desktop application using its feature shell library.
 
 The project is generated exactly as described in the previous section.
 
@@ -416,7 +416,7 @@ apps/check-in
     └── tsconfig.json
 ```
 
-<figcaption>The file and folder structure generated for the mobile check-in application.</figcaption>
+> The file and folder structure generated for the mobile check-in application.
 
 With both check-in applications in place, we have the following project folder structure.
 
@@ -430,7 +430,7 @@ nrwl-airlines
          └── check-in-mobile-e2e
 ```
 
-<figcaption>All check-in application and end-to-end testing projects are ready.</figcaption>
+> All check-in application and end-to-end testing projects are ready.
 
 ## Conclusion
 
@@ -438,7 +438,7 @@ Start the mobile check-in application by running the `ng run check-in-mobile:ser
 
 ![](./8moerutajsyc3plfyvmp.png)
 
-<figcaption>The mobile check-in application with the NgRx Store Devtools open.</figcaption>
+> The mobile check-in application with the NgRx Store Devtools open.
 
 At this point, our workspace folder structure looks like the following figure.
 
@@ -470,7 +470,7 @@ nrwl-airlines
 └── tools
 ```
 
-<figcaption>Workspace folder structure after Part 4.</figcaption>
+> Workspace folder structure after Part 4.
 
 In this part of the tutorial, we used our generate project tool to generate the check-in data access library. This time, we added the `--with-state` parameter to automate the generation of feature state that we generate manually in Part 2.
 

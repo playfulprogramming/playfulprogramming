@@ -91,19 +91,19 @@ Because they are pure, they are deterministic in the way they render their DOM a
 
 ![](./tbko7onib7ostf3b4720.png)
 
-<figcaption>Figure 1. DOM rendered based on 2 input values.</figcaption>
+> Figure 1. DOM rendered based on 2 input values.
 
 Figure 1 illustrates that when passed the input values `valueX` and `valueY`, this presentational component's DOM will always be rendered in the composition `AxBy`.
 
 ![](./tx99uzhvg48yr02bwsxb.png)
 
-<figcaption>Figure 2. DOM rendered based on an input value and a user interaction.</figcaption>
+> Figure 2. DOM rendered based on an input value and a user interaction.
 
 In Figure 2, `valueX` is input followed by a user interaction which is intercepted as `Event Y`. This combination of input value and event series leads to the DOM composition `AxEy`. This will always be the case when `Event Y` happens while `valueX` is input.
 
 ![](./h9g8p9tirhlp20jt00be.png)
 
-<figcaption>Figure 3. DOM rendered based on an input value. Event emitted based on input value and user interaction.</figcaption>
+> Figure 3. DOM rendered based on an input value. Event emitted based on input value and user interaction.
 
 The presentational component in Figure 3 has the DOM composition `Ax` based on `valueX` being passed as an input. The user interaction intercepted as `Event Z` leads to the value `eventZ` being emitted through an output property.
 
@@ -138,7 +138,7 @@ export class DashboardComponent {
 }
 ```
 
-<figcaption>Listing 1. Dashboard: Mixed component model after extracting a container component.</figcaption>
+> Listing 1. Dashboard: Mixed component model after extracting a container component.
 
 As a small preparation, we'll change the selector to `'app-dashboard-ui'` as seen in Listing 3 to match the HTML element in our dashboard container component's template (Listing 1). You can use whatever naming, file, folder, and selector convention you think is appropriate for the use case or for your team.
 
@@ -153,7 +153,7 @@ As seen in Listing 2, the dashboard container component expects two input proper
   title="Top Heroes"></app-dashboard-ui>
 ```
 
-<figcaption>Listing 2. Dashboard: Container component template.</figcaption>
+> Listing 2. Dashboard: Container component template.
 
 Why would we want to extract the heading text from the presentational component? If it's a one-off component in our application, we might leave it in the presentational component. However, by extracing the title we have made it reusable. This dashboard component displays an overview of the top heroes. Maybe we need to add a dashboard for female Marvel heroes or British villains. We're now able to do so by using the presentational component in multiple container components which supply different heroes data sets with relevant titles.
 
@@ -178,7 +178,7 @@ export class DashboardComponent {
 }
 ```
 
-<figcaption>Listing 3. Dashboard: Presentational component model after declaring its data binding API.</figcaption>
+> Listing 3. Dashboard: Presentational component model after declaring its data binding API.
 
 We add an `Input` decorator to the existing `heroes` property. We add the missing input property, `title`.
 
@@ -205,7 +205,7 @@ We want our presentational components to be lean. Our templates should have mini
 <app-hero-search></app-hero-search>
 ```
 
-<figcaption>Listing 4. Dashboard: Presentational component template with minimal presentational logic.</figcaption>
+> Listing 4. Dashboard: Presentational component template with minimal presentational logic.
 
 In Listing 4 we see that we have bound a template expression to the `title` property and that we iterate over the `heroes` property to create a master listing with a link for each hero.
 
@@ -239,7 +239,7 @@ export class DashboardComponent {
 }
 ```
 
-<figcaption>Listing 5. Dashboard: Presentational component after the `OnPush` change detection strategy is applied.</figcaption>
+> Listing 5. Dashboard: Presentational component after the `OnPush` change detection strategy is applied.
 
 When Angular visits this component, it checks whether the values passed to the component's input properties have changed since the last change detection cycle. If the input values haven't changed, dirty checking of the bindings of this component and all its descendant components in the component tree are skipped.
 
@@ -277,7 +277,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 6. Heroes: Mixed component model after extracting a container component.</figcaption>
+> Listing 6. Heroes: Mixed component model after extracting a container component.
 
 ### Declare the component's data binding API
 
@@ -299,7 +299,7 @@ How do we know? From the hero container component's template which can be seen i
   (remove)="delete($event)"></app-heroes-ui>
 ```
 
-<figcaption>Listing 7. Heroes: Container component template.</figcaption>
+> Listing 7. Heroes: Container component template.
 
 As a first step in refactoring a mixed component into a presentational component, let's declare its data binding API.
 
@@ -339,7 +339,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 8. Heroes: Mixed component after declaring its data binding API.</figcaption>
+> Listing 8. Heroes: Mixed component after declaring its data binding API.
 
 There was a small problem. An output property was called `add`, but so was one of the component's event handlers.
 
@@ -378,7 +378,7 @@ The `delete` event handler is bound to a user interaction by the component templ
 </ul>
 ```
 
-<figcaption>Listing 9. Heroes: Initial mixed component template.</figcaption>
+> Listing 9. Heroes: Initial mixed component template.
 
 ### Connect the component template to the data binding API
 
@@ -413,7 +413,7 @@ Let's continue by connecting the component template to the component's data bind
 </ul>
 ```
 
-<figcaption>Listing 10. Heroes: Presentational component template after connecting it to the component's data binding API.</figcaption>
+> Listing 10. Heroes: Presentational component template after connecting it to the component's data binding API.
 
 First, we replace the hardcoded heading with a template expression bound to the `title` input property. This makes the component more reusable as we discussed previously.
 
@@ -459,7 +459,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 11. Heroes: Presentational component model after connecting the component template to the data binding API.</figcaption>
+> Listing 11. Heroes: Presentational component model after connecting the component template to the data binding API.
 
 We deleted the `delete` event handler after circumventing it with an inline event handler connected to an output property.
 
@@ -507,7 +507,7 @@ Let's revisit the heroes component template and see whether there's any non-triv
 </ul>
 ```
 
-<figcaption>Listing 12. Heroes: Presentational component template.</figcaption>
+> Listing 12. Heroes: Presentational component template.
 
 First of all, this component still serves many different use cases. It has a creation form, it iterates over heroes,  list their names, links to them and displays their delete buttons.
 
@@ -527,7 +527,7 @@ The `remove.emit(hero)` business logic is so simple that we don't even have to t
 
 ![](./4dlcg43of3bpn8b8e7xy.png)
 
-<figcaption>Figure 4. The remove hero control flow with a presentational component.</figcaption>
+> Figure 4. The remove hero control flow with a presentational component.
 
 Our delete hero control flow now looks like Figure 4.
 
@@ -574,7 +574,7 @@ Let's use reactive forms to extract form validation and UI behaviour logic from 
 </ul>
 ```
 
-<figcaption>Listing 13.1. Heroes: Presentational component template after extracting form validation and UI behaviour.</figcaption>
+> Listing 13.1. Heroes: Presentational component template after extracting form validation and UI behaviour.
 
 ```ts
 // heroes.component.ts
@@ -615,7 +615,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 13.2. Heroes: Presentational component model with form validation and UI behaviour.</figcaption>
+> Listing 13.2. Heroes: Presentational component model with form validation and UI behaviour.
 
 As seen in Listing 13.2, we introduce the UI property `nameControl` which is a form control holding a text string value.
 
@@ -629,7 +629,7 @@ As before, we trim wrapping whitespace away from the entered hero name which bot
 
 ![](./bpieumu3prt5yo0z8sfl.png)
 
-<figcaption>Figure 5. The add hero control flow with a presentational component.</figcaption>
+> Figure 5. The add hero control flow with a presentational component.
 
 The add hero control flow is illustrated in Figure 5.
 
@@ -699,7 +699,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 14. Heroes: Presentational component model using the `OnPush` change detection strategy.</figcaption>
+> Listing 14. Heroes: Presentational component model using the `OnPush` change detection strategy.
 
 The template bindings of the presentational heroes component will only need to be dirty checked whenever the value of one of its input properties has changed since the last change detection cycle.
 

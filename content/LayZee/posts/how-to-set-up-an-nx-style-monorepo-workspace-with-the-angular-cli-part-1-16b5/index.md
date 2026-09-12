@@ -57,7 +57,7 @@ nrwl-airlines
         └── util-formatting
 ```
 
-<figcaption>The workspace project folder structure we're going to build in this tutorial.</figcaption>
+> The workspace project folder structure we're going to build in this tutorial.
 
 The Nrwl Airlines example is discussed in the free e-book "[Enterprise Angular Monorepo Patterns](https://go.nrwl.io/angular-enterprise-monorepo-patterns-new-book)" by Nrwl.
 
@@ -73,7 +73,7 @@ First, we'll generate a new Angular CLI workspace called `nrwl-airlines`. I assu
 ng new nrwl-airlines --strict --create-application=false
 ```
 
-<figcaption>Generate the Angular workspace.</figcaption>
+> Generate the Angular workspace.
 
 The `--strict` flag sets some strict configuration options for the TypeScript compiler.
 
@@ -91,7 +91,7 @@ nrwl-airlines
 └── yarn.lock
 ```
 
-<figcaption>Blank workspace content.</figcaption>
+> Blank workspace content.
 
 Our blank workspace is generated with this file and folder structure.
 
@@ -101,7 +101,7 @@ npm install --save-dev json
 yarn add --dev json
 ```
 
-<figcaption>Install command line utility for editing JSON files.</figcaption>
+> Install command line utility for editing JSON files.
 
 We'll use the `json` package to edit JSON configurations in our workspace. Install it as a development dependency.
 
@@ -113,7 +113,7 @@ npx json -I -f tsconfig.json -e "delete this.angularCompilerOptions.fullTemplate
 npx json -I -f tsconfig.json -e "this.angularCompilerOptions.strictTemplates = true"
 ```
 
-<figcaption>Enable strict template type checking.</figcaption>
+> Enable strict template type checking.
 
 In our TypeScript configuration, we now have these Angular compiler options.
 
@@ -127,7 +127,7 @@ In our TypeScript configuration, we now have these Angular compiler options.
 }
 ```
 
-<figcaption>Strict template type checking enabled.</figcaption>
+> Strict template type checking enabled.
 
 Most of our projects will be workspace libraries. We'll set the default project folder to the `libs` folder which will be created shortly. Do this by running this `ng config` command.
 
@@ -135,7 +135,7 @@ Most of our projects will be workspace libraries. We'll set the default project 
 ng config newProjectRoot libs
 ```
 
-<figcaption>Set default project directory.</figcaption>
+> Set default project directory.
 
 ## Booking desktop application
 
@@ -147,7 +147,7 @@ First, we'll use the built-in Angular application generator schematic with these
 ng generate application booking-desktop --prefix=booking --project-root=apps/booking/booking-desktop --style=css --routing=false
 ```
 
-<figcaption>Generate booking desktop application project.</figcaption>
+> Generate booking desktop application project.
 
 Next, we'll split the project folder and its configuration in `angular.json` into two projects – one for the application and one for the end-to-end tests. Run the following commands.
 
@@ -165,7 +165,7 @@ ng config projects["booking-desktop"].architect.e2e.options.protractorConfig app
 npx json -I -f angular.json -e "this.projects['booking-desktop-e2e'] = this.projects['booking-desktop']"
 ```
 
-<figcaption>Extract end-to-end testing project.</figcaption>
+> Extract end-to-end testing project.
 
 Finally, we'll configure the builders and architect targets for our two booking desktop projects as seen here.
 
@@ -197,7 +197,7 @@ npx json -I -f angular.json -e "delete this.projects['booking-desktop-e2e'].sche
 ng config projects["booking-desktop-e2e"].architect.lint.options.exclude[1] !apps/booking/booking-desktop-e2e/**
 ```
 
-<figcaption>Configure builders and architect targets.</figcaption>
+> Configure builders and architect targets.
 
 Some of the commands are just housekeeping after splitting project folder and workspace configuration entry. Some mimic the configuration we get when using the Nx CLI with the Nrwl schematics for Angular.
 
@@ -236,7 +236,7 @@ apps
         └── tsconfig.json
 ```
 
-<figcaption>Applications folder structure after adding the first application and end-to-end testing projects.</figcaption>
+> Applications folder structure after adding the first application and end-to-end testing projects.
 
 After going through these steps, the file structure of our `apps` directory is as shown in the previous figure.
 
@@ -272,7 +272,7 @@ After going through these steps, the file structure of our `apps` directory is a
 }
 ```
 
-<figcaption>The project configuration for the desktop booking application.</figcaption>
+> The project configuration for the desktop booking application.
 
 As seen in the listing above, the `booking-desktop` application configuration in `angular.json` looks like a default configuration except we removed the `e2e` architect target.
 
@@ -309,7 +309,7 @@ As seen in the listing above, the `booking-desktop` application configuration in
 }
 ```
 
-<figcaption>End-to-end testing project configuration.</figcaption>
+> End-to-end testing project configuration.
 
 The listing above shows the `booking-desktop-e2e` project configuration which has the `e2e` and `lint` architect targets.
 
@@ -321,7 +321,7 @@ ng run booking-desktop-e2e:lint
 ng run booking-desktop-e2e:e2e
 ```
 
-<figcaption>Lint and run the end-to-end booking destop test suite.</figcaption>
+> Lint and run the end-to-end booking destop test suite.
 
 ### Centralise Karma configuration
 
@@ -358,7 +358,7 @@ module.exports = () => ({
 });
 ```
 
-<figcaption>Base Karma configuration in workspace root.</figcaption>
+> Base Karma configuration in workspace root.
 
 We'll replace the desktop application project's Karma configuration with the one shown in the following listing.
 
@@ -380,7 +380,7 @@ module.exports = (config) => {
 };
 ```
 
-<figcaption>Karma configuration for booking desktop application.</figcaption>
+> Karma configuration for booking desktop application.
 
 Make sure the application's unit tests still work by running the following command.
 
@@ -388,7 +388,7 @@ Make sure the application's unit tests still work by running the following comma
 ng run booking-desktop:test --watch=false
 ```
 
-<figcaption>Run the booking desktop application's unit test suite.</figcaption>
+> Run the booking desktop application's unit test suite.
 
 ## Booking feature shell library
 
@@ -400,7 +400,7 @@ npm install --save-dev rimraf
 yarn add --dev rimraf
 ```
 
-<figcaption>Install command line utility for deleting files and folders.</figcaption>
+> Install command line utility for deleting files and folders.
 
 We're going to use the command line utility `rimraf` to remove some of the files that are created when using Angular's library schematic. The reason for this is that the Angular library schematic generates a package library for publishing on a package registry such as NPM.
 
@@ -410,7 +410,7 @@ When using a workspace, we're often creating workspace libraries that might be s
 ng config newProjectRoot libs/booking
 ```
 
-<figcaption>Set the parent folder of the library project.</figcaption>
+> Set the parent folder of the library project.
 
 As seen in the previous listing, we start out by setting the parent folder of the library project, we're going to generate.
 
@@ -420,7 +420,7 @@ Now we use the Angular library schematic to generate a library project with this
 ng generate library feature-shell --prefix=booking --entry-file=index --skip-install --skip-package-json
 ```
 
-<figcaption>Generate library project.</figcaption>
+> Generate library project.
 
 With the Angular library generator schematic, we get the following file and folder structure.
 
@@ -445,7 +445,7 @@ libs/booking/feature-shell
 └── tslint.json
 ```
 
-<figcaption>Default Angular package library file and folder structure.</figcaption>
+> Default Angular package library file and folder structure.
 
 We're going to get rid of the files `ng-package.json`, `package.json`, and `tsconfig.lib.prod.json` as we want this to be a workspace library, not a package library.
 
@@ -457,7 +457,7 @@ npx json -I -f angular.json -e "this.projects['booking-feature-shell'] = this.pr
 npx json -I -f angular.json -e "delete this.projects['feature-shell']"
 ```
 
-<figcaption>Rename workspace library project.</figcaption>
+> Rename workspace library project.
 
 Use the commands above to rename the workspace library project. We passed `feature-shell` as the `name` parameter to the library schematic since that's what we wanted to call the folder since it's already nested in the `libs/booking` folder.
 
@@ -467,7 +467,7 @@ This way, the file paths used in the library project configuration are correct.
 npx json -I -f angular.json -e "delete this.projects['booking-feature-shell'].architect.build"
 ```
 
-<figcaption>Remove the `build` architect target.</figcaption>
+> Remove the `build` architect target.
 
 Run the command above to remove the `build` architect target since we're not going to build this library separately – instead, it'll be built as part of the booking applications.
 
@@ -479,7 +479,7 @@ ng config projects["booking-feature-shell"].architect.lint.options.exclude[1] !l
 npx json -I -f libs/booking/feature-shell/tslint.json -e "this.linterOptions = { exclude: ['!**/*'] }"
 ```
 
-<figcaption>Configure library project linter.</figcaption>
+> Configure library project linter.
 
 We're going to apply linter configurations that are set when using Nrwl's Angular schematics. Run the commands above.
 
@@ -493,7 +493,7 @@ npx rimraf libs/booking/feature-shell/tsconfig.lib.prod.json
 npx rimraf libs/booking/feature-shell/src/lib/*.*
 ```
 
-<figcaption>Clean up library project.</figcaption>
+> Clean up library project.
 
 We generate the feature shell Angular module with a conventional name and export it as shown in the following listing.
 
@@ -503,7 +503,7 @@ ng generate module booking-feature-shell --project=booking-feature-shell --flat 
 "export * from './lib/booking-feature-shell.module';" > libs/booking/feature-shell/src/index.ts
 ```
 
-<figcaption>Generate and export a feature shell Angular module.</figcaption>
+> Generate and export a feature shell Angular module.
 
 Let's also add a test suite for the feature shell Angular module with the content of this listing.
 
@@ -527,7 +527,7 @@ describe('BookingFeatureShellModule', () => {
 });
 ```
 
-<figcaption>Test suite for the feature shell Angular module.</figcaption>
+> Test suite for the feature shell Angular module.
 
 We'll also add a shell component.
 
@@ -537,7 +537,7 @@ ng generate component shell --project=booking-feature-shell --module=booking-fea
 "<router-outlet></router-outlet>" > libs/booking/feature-shell/src/lib/shell/shell.component.html
 ```
 
-<figcaption>Generate booking shell component.</figcaption>
+> Generate booking shell component.
 
 We add the router module to its component test suite.
 
@@ -572,7 +572,7 @@ describe('ShellComponent', () => {
 });
 ```
 
-<figcaption>Booking shell component test suite with router module.</figcaption>
+> Booking shell component test suite with router module.
 
 Now we change the content of the booking feature shell Angular module.
 
@@ -600,7 +600,7 @@ const routes: Routes = [
 export class BookingFeatureShellModule {}
 ```
 
-<figcaption>Booking feature shell module with shell component.</figcaption>
+> Booking feature shell module with shell component.
 
 The shell component is the entry point component of our layout and features. Every additional route is added to the `children` array of the shell component route.
 
@@ -619,7 +619,7 @@ The Angular library schematic set up the path mapping in the following listing.
 }
 ```
 
-<figcaption>Default library path mapping.</figcaption>
+> Default library path mapping.
 
 That path mapping was meant to use a package library after it had been built and output to the `dist` folder.
 
@@ -631,7 +631,7 @@ npx json -I -f tsconfig.json -e "delete this.compilerOptions.paths['feature-shel
 npx json -I -f tsconfig.json -e "this.compilerOptions.paths['@nrwl-airlines/booking/feature-shell'] = ['libs/booking/feature-shell/src/index.ts']"
 ```
 
-<figcaption>Generate booking feature shell library and configure path mappings.</figcaption>
+> Generate booking feature shell library and configure path mappings.
 
 The listing above shows how to set up a path mapping aliased with an NPM scope we pick, namely `@nrwl-airlines`. The mapping points to the library's public API barrel file, `index.ts` as seen in the following listing.
 
@@ -646,7 +646,7 @@ The listing above shows how to set up a path mapping aliased with an NPM scope w
 }
 ```
 
-<figcaption>Workspace-scoped library path mapping.</figcaption>
+> Workspace-scoped library path mapping.
 
 Now applications are able to import the feature shell library by using the `@nrwl-airlines/booking/feature-shell` path.
 
@@ -670,7 +670,7 @@ module.exports = (config) => {
 };
 ```
 
-<figcaption>Karma configuration for booking feature shell library.</figcaption>
+> Karma configuration for booking feature shell library.
 
 Use the following commands to run the linter and the unit test suite make sure we've set everything up right.
 
@@ -680,7 +680,7 @@ ng run booking-feature-shell:lint
 ng run booking-feature-shell:test --watch=false
 ```
 
-<figcaption>Lint and test the booking feature shell library.</figcaption>
+> Lint and test the booking feature shell library.
 
 The following listing shows the generated file and folders structure of the booking feature shell library.
 
@@ -699,7 +699,7 @@ libs/booking/feature-shell
 └── tslint.json
 ```
 
-<figcaption>Feature workspace library file and folder structure.</figcaption>
+> Feature workspace library file and folder structure.
 
 The booking feature shell library has the two architect targets `test` and `lint` as shown in the following listing.
 
@@ -734,7 +734,7 @@ The booking feature shell library has the two architect targets `test` and `lint
 }
 ```
 
-<figcaption>Booking feature shell project configuration.</figcaption>
+> Booking feature shell project configuration.
 
 Now that we've generated and configured the feature shell library project, let's import the feature shell module in the booking desktop application.
 
@@ -755,7 +755,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-<figcaption>Booking desktop application module.</figcaption>
+> Booking desktop application module.
 
 The previous listing shows how we eagerly load the booking feature shell module which is alright, since it'll in turn lazy load feature routes.
 
@@ -766,7 +766,7 @@ The previous listing shows how we eagerly load the booking feature shell module 
 <router-outlet></router-outlet>
 ```
 
-<figcaption>The booking desktop application's root component template.</figcaption>
+> The booking desktop application's root component template.
 
 Remember to put a router outlet in the booking desktop application's root component as seen in the listing above.
 
@@ -808,7 +808,7 @@ describe('AppComponent', () => {
 });
 ```
 
-<figcaption>Revised app component test suite for the booking desktop application.</figcaption>
+> Revised app component test suite for the booking desktop application.
 
 Also update the end-to-end tests. We match the title to `'booking-mobile'` and update the selector to `booking-root h1`.
 
@@ -842,7 +842,7 @@ describe('workspace-project App', () => {
 });
 ```
 
-<figcaption>Updated end-to-end test for the booking desktop application.</figcaption>
+> Updated end-to-end test for the booking desktop application.
 
 ```ts
 // apps/booking/booking-desktop-e2e/src/app.po.ts
@@ -859,7 +859,7 @@ export class AppPage {
 }
 ```
 
-<figcaption>Updated app page object for the booking desktop application.</figcaption>
+> Updated app page object for the booking desktop application.
 
 Lint and test our application and end-to-end projects ot make sure everything works.
 
@@ -877,13 +877,13 @@ ng run booking-feature-shell:lint
 ng run booking-feature-shell:test --watch=false
 ```
 
-<figcaption>Lint and run tests for the booking application project and it's end-to-end test suite as well as the booking feature shell library project.</figcaption>
+> Lint and run tests for the booking application project and it's end-to-end test suite as well as the booking feature shell library project.
 
 Now run `ng run booking-desktop:serve` and navigate to `http://localhost:4200` in your browser to see our application. It should look like the following screenshot.
 
 ![](./9locs8rizerbfkiunm8k.png)
 
-<figcaption>The booking desktop application with the booking shell feature.</figcaption>
+> The booking desktop application with the booking shell feature.
 
 ## Conclusion
 
@@ -900,7 +900,7 @@ nrwl-airlines
          └── feature-shell
 ```
 
-<figcaption>The project folder structure at the end of Part 1.</figcaption>
+> The project folder structure at the end of Part 1.
 
 We started by creating a blank workspace without any application or library projects, using the Angular CLI.
 

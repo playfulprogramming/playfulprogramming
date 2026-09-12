@@ -33,7 +33,7 @@ npm run generate-project -- library feature feature-passenger-info --scope=booki
 yarn generate-project library feature feature-passenger-info --scope=booking --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate passenger info feature library.</figcaption>
+> Generate passenger info feature library.
 
 After generating the project using the previous commands and parameters, we get this file and folder structure.
 
@@ -57,7 +57,7 @@ libs/booking/feature-passenger-info
 └── tslint.json
 ```
 
-<figcaption>The file and folder structure of the booking passenger info feature library.</figcaption>
+> The file and folder structure of the booking passenger info feature library.
 
 This looks a little different from a feature shell library and a data access library.
 
@@ -69,7 +69,7 @@ The generate project tool also removed the `--no-common-module` flag from the `n
 ng generate component passenger-info --project=booking-feature-passenger-info --module=booking-feature-passenger-info.module.ts --display-block
 ```
 
-<figcaption>Generate component command run when generating a feature library.</figcaption>
+> Generate component command run when generating a feature library.
 
 Let's look at the Angular module our tool has generated.
 
@@ -87,7 +87,7 @@ import { PassengerInfoComponent } from './passenger-info/passenger-info.componen
 export class BookingFeaturePassengerInfoModule {}
 ```
 
-<figcaption>Initial entry point Angular module in the passenger info feature library.</figcaption>
+> Initial entry point Angular module in the passenger info feature library.
 
 The entry point Angular module shown in the previous listing is a good starting point. We need to set up the feature routing for our component though. This is done in the next listing.
 
@@ -114,7 +114,7 @@ const routes: Routes = [
 export class BookingFeaturePassengerInfoModule {}
 ```
 
-<figcaption>Passenger info feature Angular module with route configuration for its entry point component.</figcaption>
+> Passenger info feature Angular module with route configuration for its entry point component.
 
 Nice! Now we've prepared our feature library to be hooked up to the feature shell library's routing configuration.
 
@@ -142,7 +142,7 @@ const routes: Routes = [
 ];
 ```
 
-<figcaption>Route configuration for the passenger info feature.</figcaption>
+> Route configuration for the passenger info feature.
 
 ## Flight search feature library
 
@@ -154,7 +154,7 @@ npm run generate-project -- library feature feature-flight-search --scope=bookin
 yarn generate-project library feature feature-flight-search --scope=booking --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate flight search feature library.</figcaption>
+> Generate flight search feature library.
 
 We'll perform the same changes as we did in the passenger info feature library. Configure routing to the entry point component and set up lazy-loaded routing in the feature shell Angular module.
 
@@ -181,7 +181,7 @@ const routes: Routes = [
 export class BookingFeatureFlightSearchModule {}
 ```
 
-<figcaption>Booking flight search feature module with entry point component route.</figcaption>
+> Booking flight search feature module with entry point component route.
 
 ```ts
 // booking-feature-shell.module.ts
@@ -212,7 +212,7 @@ const routes: Routes = [
 ];
 ```
 
-<figcaption>Route configuration for the flight search feature.</figcaption>
+> Route configuration for the flight search feature.
 
 As the previous listing shows, we've also configured the default route to redirect to the flight search path.
 
@@ -235,7 +235,7 @@ nrwl-airlines
          └── environments
 ```
 
-<figcaption>Project folder structure after setting up the flight search feature library.</figcaption>
+> Project folder structure after setting up the flight search feature library.
 
 Now that we have a few routes, try spinning up the booking desktop application with `npm start` or `yarn start`. Try out the routes `http://localhost:4200/flight-search` and `http://localhost:4200/passenger-info`.
 
@@ -253,7 +253,7 @@ npm run generate-project -- application booking-mobile --scope=booking --groupin
 yarn generate-project application booking-mobile --scope=booking --grouping-folder=booking --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate mobile booking application.</figcaption>
+> Generate mobile booking application.
 
 So now we have two identical applications. How does that make sense? Nrwl's book mentions an adaptive layout approach where the application that's served is based on browser sniffing so that the two booking web applications are served on the same URL.
 
@@ -267,7 +267,7 @@ First, create a mobile flight search component template by using this command.
 "<p>mobile flight-search works!</p>" > libs/booking/feature-flight-search/src/lib/flight-search/flight-search.mobile.component.html
 ```
 
-<figcaption>Create mobile flight search component template.</figcaption>
+> Create mobile flight search component template.
 
 Now configure file replacements to use the mobile flight search component template when building and serving the mobile booking application.
 
@@ -285,7 +285,7 @@ ng config projects["booking-mobile"].architect.build.configurations.production.f
 ng config projects["booking-mobile"].architect.build.configurations.production.fileReplacements[1].with "libs/booking/feature-flight-search/src/lib/flight-search/flight-search.mobile.component.html"
 ```
 
-<figcaption>Replace flight search component template with mobile version.</figcaption>
+> Replace flight search component template with mobile version.
 
 Unfortunately, we have to keep the file replacement entries in sync between the development configuration and the production configuration.
 
@@ -327,7 +327,7 @@ We now have these file replacement configurations for the mobile booking applica
 }
 ```
 
-<figcaption>File replacement configuration for the mobile desktop application, enabling the mobile flight search component template.</figcaption>
+> File replacement configuration for the mobile desktop application, enabling the mobile flight search component template.
 
 Run the following commands to verify that it worked. You should see the message `mobile flight-search works!`.
 
@@ -335,7 +335,7 @@ Run the following commands to verify that it worked. You should see the message 
 ng run booking-mobile:serve
 ```
 
-<figcaption>Start development server for the mobile booking application.</figcaption>
+> Start development server for the mobile booking application.
 
 Remember to lint and test our new projects to keep a tidy ship!
 
@@ -349,7 +349,7 @@ ng run booking-mobile-e2e:lint
 ng run booking-mobile-e2e:e2e
 ```
 
-<figcaption>Lint and test the mobile booking application and end-to-end testing projects.</figcaption>
+> Lint and test the mobile booking application and end-to-end testing projects.
 
 Well done, we now have the following application project folder structure in place.
 
@@ -363,7 +363,7 @@ nrwl-airlines
          └── booking-mobile-e2e
 ```
 
-<figcaption>All booking application and end-to-end testing projects are ready.</figcaption>
+> All booking application and end-to-end testing projects are ready.
 
 ## Conclusion
 
@@ -371,7 +371,7 @@ Start the mobile booking application by running the `ng run booking-mobile:serve
 
 ![](./mjqtfopal89dmv14eo5z.png)
 
-<figcaption>The mobile booking application with the mobile version of the flight search feature.</figcaption>
+> The mobile booking application with the mobile version of the flight search feature.
 
 The current folder structure of our workspace is shown in the following figure.
 
@@ -395,7 +395,7 @@ nrwl-airlines
 └── tools
 ```
 
-<figcaption>The workspace folder structure after Part 3.</figcaption>
+> The workspace folder structure after Part 3.
 
 In this part of the tutorial, we used our generate project tool to generate the passenger info feature library.
 

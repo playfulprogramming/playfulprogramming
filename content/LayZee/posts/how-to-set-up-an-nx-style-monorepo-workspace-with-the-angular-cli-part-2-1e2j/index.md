@@ -37,7 +37,7 @@ npm install --save-dev yargs
 yarn add --dev yargs
 ```
 
-<figcaption>Install utility for parsing command line arguments.</figcaption>
+> Install utility for parsing command line arguments.
 
 We'll use the package `yargs` for parsing command line arguments passed to our script.
 
@@ -68,7 +68,7 @@ Options:
   --version, -v    Show version number                                 [boolean]
 ```
 
-<figcaption>Command line instructions for the generate project tool.</figcaption>
+> Command line instructions for the generate project tool.
 
 Let's set up an NPM script for our tool in `package.json`.
 
@@ -81,7 +81,7 @@ Let's set up an NPM script for our tool in `package.json`.
 }
 ```
 
-<figcaption>NPM script for the generate project tool.</figcaption>
+> NPM script for the generate project tool.
 
 ## Booking data access library
 
@@ -93,7 +93,7 @@ npm run generate-project -- library data-access --scope=booking --npm-scope=nrwl
 yarn generate-project library data-access --scope=booking --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate booking data access library.</figcaption>
+> Generate booking data access library.
 
 The generated file and folder structure is shown in this figure.
 
@@ -112,7 +112,7 @@ libs/booking/data-access
 └── tslint.json
 ```
 
-<figcaption>Initial booking data access file and folder structure.</figcaption>
+> Initial booking data access file and folder structure.
 
 Like our other workspace library, this one is configured with `test` and `lint` architect targets.
 
@@ -124,7 +124,7 @@ ng run booking-data-access:lint
 ng run booking-data-access:test --watch=false
 ```
 
-<figcaption>Lint and test the booking data access library.</figcaption>
+> Lint and test the booking data access library.
 
 ### Booking state with NgRx
 
@@ -138,7 +138,7 @@ yarn add @ngrx/store @ngrx/effects
 yarn add --dev @ngrx/schematics
 ```
 
-<figcaption>Install NgRx package dependencies.</figcaption>
+> Install NgRx package dependencies.
 
 First, we install the NgRx packages we're going to use by running the previous commands.
 
@@ -148,7 +148,7 @@ Next, we're going to generate application state management with NgRx Store and N
 ng generate @ngrx/schematics:feature +state/booking --project=booking-data-access --module=booking-data-access.module.ts --creators=true --api=false
 ```
 
-<figcaption>Generate booking feature state.</figcaption>
+> Generate booking feature state.
 
 This generates the folder and files illustrated in the following figure inside `libs/booking/data-access/src/lib`.
 
@@ -164,7 +164,7 @@ libs/booking/data-access/src/lib/+state
 └── booking.selectors.ts
 ```
 
-<figcaption>File and folder structure for booking feature state.</figcaption>
+> File and folder structure for booking feature state.
 
 The NgRx feature schematic registered our booking feature store and effects with the booking data access module as per this listing.
 
@@ -183,7 +183,7 @@ import * as fromBooking from './+state/booking.reducer';
 export class BookingDataAccessModule {}
 ```
 
-<figcaption>Booking data access module with feature store and effects.</figcaption>
+> Booking data access module with feature store and effects.
 
 Finally, we'll register it in the booking feature shell module as shown in the following listing.
 
@@ -216,7 +216,7 @@ const routes: Routes = [
 export class BookingFeatureShellModule {}
 ```
 
-<figcaption>Booking feature shell module with booking data access registered.</figcaption>
+> Booking feature shell module with booking data access registered.
 
 ## Shared data access library
 
@@ -228,7 +228,7 @@ npm run generate-project -- library data-access --scope=shared --npm-scope=nrwl-
 yarn generate-project library data-access --scope=shared --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate shared data access library.</figcaption>
+> Generate shared data access library.
 
 Use the previous commands to generate the shared data access library. By now, you know what this generates and configures.
 
@@ -242,7 +242,7 @@ npm install @ngrx/store-devtools
 yarn add @ngrx/store-devtools
 ```
 
-<figcaption>Install the NgRx Store development tools package.</figcaption>
+> Install the NgRx Store development tools package.
 
 First, we install the NgRx Store development tools package with the previous commands.
 
@@ -250,7 +250,7 @@ First, we install the NgRx Store development tools package with the previous com
 ng generate @ngrx/schematics:store app --project=shared-data-access --module=shared-data-access.module.ts --root --state-path=+state --state-interface=app-state
 ```
 
-<figcaption>Generate the root store in the shared data access library.</figcaption>
+> Generate the root store in the shared data access library.
 
 The previous listing shows how to generate and register the root store in the shared data access library. Unfortunately, we stumble upon a few issues when doing this, at least at the time of writing.
 
@@ -276,7 +276,7 @@ import { reducers, metaReducers } from './+state';
 export class SharedDataAccessModule {}
 ```
 
-<figcaption>Default root store and store development tools registration in the shared data access module.</figcaption>
+> Default root store and store development tools registration in the shared data access module.
 
 There are a few problems in the generated code shown in the previous listing.
 
@@ -306,7 +306,7 @@ import { metaReducers, reducers } from './+state';
 export class SharedDataAccessModule {}
 ```
 
-<figcaption>Shared data access module with corrected store development tools registration.</figcaption>
+> Shared data access module with corrected store development tools registration.
 
 ### Using the environment configuration in a workspace library
 
@@ -334,7 +334,7 @@ mv apps/booking/booking-desktop/src/environments/*.* libs/shared/environments/sr
 npx rimraf apps/booking/booking-desktop/src/environments
 ```
 
-<figcaption>Generate the shared environments library.</figcaption>
+> Generate the shared environments library.
 
 After running the previous commands, our environments library has the file and folder structure shown in this figure.
 
@@ -353,7 +353,7 @@ libs/shared/environments
 └── tslint.json
 ```
 
-<figcaption>The file and folder structure of the shared environments library.</figcaption>
+> The file and folder structure of the shared environments library.
 
 Because we moved the environment file, we have to update the `fileReplacements` option for the `production` configuration of our application's `build` architect target. This is shown in the following listing.
 
@@ -381,7 +381,7 @@ Because we moved the environment file, we have to update the `fileReplacements` 
 }
 ```
 
-<figcaption>Updated `fileReplacements` option which uses the environments library.</figcaption>
+> Updated `fileReplacements` option which uses the environments library.
 
 Now we're ready to correct the dependency in our shared data access module as seen in this code listing.
 
@@ -409,7 +409,7 @@ import { metaReducers, reducers } from './+state';
 export class SharedDataAccessModule {}
 ```
 
-<figcaption>Shared data access module using the shared environments library.</figcaption>
+> Shared data access module using the shared environments library.
 
 Don't forget to update the import statement in the booking desktop application's `main.ts` file. This is shown here.
 
@@ -423,7 +423,7 @@ if (environment.production) {
 }
 ```
 
-<figcaption>Main file using the shared environments library</figcaption>
+> Main file using the shared environments library
 
 To use the shared data access library in the booking desktop application, we need to register our shared data access module in the booking feature shell module.
 
@@ -458,7 +458,7 @@ const routes: Routes = [
 export class BookingFeatureShellModule {}
 ```
 
-<figcaption>Booking feature shell module with shared data access registered.</figcaption>
+> Booking feature shell module with shared data access registered.
 
 Note that we register the shared data access module before the domain-specific data access module `BookingDataAccessModule` as Angular modules import order matters. For example, the root store needs to be registered before any feature store.
 
@@ -466,7 +466,7 @@ Note that we register the shared data access module before the domain-specific d
 ng generate @ngrx/schematics:effect +state/app --project=shared-data-access --module=shared-data-access.module.ts --root --creators=true --api=false
 ```
 
-<figcaption>Generate root effects in the shared data access library.</figcaption>
+> Generate root effects in the shared data access library.
 
 Let's also generate root effects with the commands in the listing above. This will register the root effects in the shared data access module as seen in this listing.
 
@@ -497,7 +497,7 @@ import { AppEffects } from './+state/app.effects';
 export class SharedDataAccessModule {}
 ```
 
-<figcaption>Shared data access with registered root effects.</figcaption>
+> Shared data access with registered root effects.
 
 Our shared data access library ends up having the file and folder structure displayed in the following figure.
 
@@ -520,7 +520,7 @@ libs/shared/data-access
 └── tslint.json
 ```
 
-<figcaption>The file and folder structure of the shared data access library.</figcaption>
+> The file and folder structure of the shared data access library.
 
 If we lint the workspace library now, we have a few code smells to address in the generated code. I'll leave this as an exercise for you to do. Consider circling back and doing the same for the booking data access library.
 
@@ -529,7 +529,8 @@ If we lint the workspace library now, we have a few code smells to address in th
 Start the application by running the `ng run booking-desktop:serve` command.
 
 <figure class="kg-card kg-image-card kg-card-hascaption">![](https://images.indepth.dev/images/2020/05/image-12.png)
-<figcaption>The booking desktop application with the NgRx Store DevTools open.</figcaption>
+
+> The booking desktop application with the NgRx Store DevTools open.
 
 The previous screenshot shows how the booking desktop application looks with the NgRx Store DevTools open.
 
@@ -549,7 +550,7 @@ nrwl-airlines
 └── tools
 ```
 
-<figcaption>Workspace folder structure after Part 2.</figcaption>
+> Workspace folder structure after Part 2.
 
 At this point, our workspace has project folders as seen in the previous figure.
 

@@ -48,13 +48,13 @@ We can think of *separation of concerns* (SoC) as compartmentalisation of our ap
 
 ![](./874g9vnjpi05y7bg1dyy.png)
 
-<figcaption>Example of horizontal layers in a modern web application.</figcaption>
+> Example of horizontal layers in a modern web application.
 
 We can slice our applications vertically, horizontally or both. When slicing vertically, we group software artifacts by *feature*. When slicing horizontally, we group by software *layer*. In our applications, we can categorise the software artifacts into these horizontal layers, or system concerns:
 
 <iframe src="https://gist.github.com/LayZeeDK/e8a312917af9810637dd1330a7ee768c"></iframe>
 
-<figcaption>Horizontal layers of a web application.</figcaption>
+> Horizontal layers of a web application.
 
 The same rule can be applied to our Angular components. They should only be concerned with the *presentation* and *user interaction* layers. The result is that we loosen the coupling between the moving parts of our systems.
 
@@ -76,7 +76,7 @@ The *presenter* batches state changes so that the user filling a form results in
 
 ![](./r58x5gccw5ptb0v67ccw.png)
 
-<figcaption>Model-View-Presenter can be combined with Angular.</figcaption>
+> Model-View-Presenter can be combined with Angular.
 
 Inspired by the original Model-View-Presenter patterns and variations, we will create software artifacts that are well-fitted for the Angular platform and its key UI building block, *the component*.
 
@@ -134,7 +134,7 @@ The presenter is rarely aware of the rest of the application. Usually, only a si
 
 ![Alt Text](./gcwxp1i8k82svjgfafwd.png)
 
-<figcaption>The Model-View-Presenter triad for an Angular application.</figcaption>
+> The Model-View-Presenter triad for an Angular application.
 
 These three software artifacts are combined to what we call a Model-View-Presenter *triad*. The *model*—represented by container components—is the application state that is displayed to the user for them to browse and alter.
 
@@ -150,7 +150,7 @@ Let us visualise how data and events flow through a Model-View-Presenter triad.
 
 ![](./hskavxh9k098dy5lgu2i.gif)
 
-<figcaption>Figure 2. Data flow starting at a service and ending in the DOM.</figcaption>
+> Figure 2. Data flow starting at a service and ending in the DOM.
 
 In Figure 2, an application state change has occured in a service. The container component is notified since it has subscribed to an observable property on the service.
 
@@ -164,7 +164,7 @@ The data has now finished flowing down the component tree and Angular renders th
 
 ![](./53h4q4ym28cqpyys5v43.gif)
 
-<figcaption>Figure 3. Event flow starting with a user interaction and ending in a service.</figcaption>
+> Figure 3. Event flow starting with a user interaction and ending in a service.
 
 In Figure 3 the user clicks a button. Angular directs control to an event handler in the presentational component model because of an event binding in its template.
 
@@ -212,7 +212,7 @@ With the `OnPush` change detection strategy, we minimise the impact that the Ang
 
 ![](./m6vja19a8nd8m30l1u1r.gif)
 
-<figcaption>The “Tour of Heroes” tutorial application.</figcaption>
+> The “Tour of Heroes” tutorial application.
 
 We begin where the Angular.io [“Tour of Heroes” tutorial](https://angular.io/tutorial) ends. It is used as our starting point because it is a tutorial commonly known by Angular developers.
 
