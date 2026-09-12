@@ -42,6 +42,7 @@
 		"hast-util-from-html": "^2.0.3",
 		"mdast-util-from-markdown": "^2.0.3",
 		"mdast-util-to-markdown": "^2.1.2",
+		"micromark-core-commonmark": "^2.0.3",
 		"micromark-util-character": "^2.1.1",
 		"micromark-util-types": "^2.0.2",
 		"property-information": "^7.2.0",
