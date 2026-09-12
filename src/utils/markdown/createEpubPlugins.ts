@@ -1,4 +1,7 @@
 import remarkParse from "remark-parse";
+import { remarkCommentComponents } from "mdast-comment-components";
+import { componentToHast } from "./components/component-to-hast.ts";
+import { remarkComponentDiagnostics } from "./components/remark-component-diagnostics.ts";
 import remarkFrontmatter from "remark-frontmatter";
 import {
 	TYPE_FRONTMATTER,
@@ -22,7 +25,6 @@ import {
 	rehypeTransformComponents,
 	transformNoop,
 	transformVoid,
-	rehypeParseComponents,
 } from "./components/index.ts";
 import { rehypeRemoveCollectionLinks } from "./rehype-remove-collection-links.ts";
 import { rehypeReferencePage } from "./reference-page/rehype-reference-page.ts";
@@ -39,13 +41,19 @@ export function createEpubPlugins(unified: Processor) {
 			})
 			.use(remarkProcessFrontmatter)
 			.use(remarkGfm)
-			.use(remarkToRehype, { allowDangerousHtml: true })
+			.use(remarkCommentComponents)
+			.use(remarkComponentDiagnostics)
+			.use(remarkToRehype, {
+				allowDangerousHtml: true,
+				handlers: { playfulComponent: componentToHast },
+			})
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
-			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] } as never)
+			.use(rehypeRaw, {
+				passThrough: ["mdxjsEsm", "playful-component-markup"],
+			})
 			.use(rehypeRelativePaths)
 			.use(rehypeEpubSnitipLinks)
-			.use(rehypeParseComponents)
 			// When generating an epub, any relative paths need to be made absolute
 			.use(rehypeFixTwoSlashXHTML)
 			.use(rehypeMakeImagePathsAbsolute)

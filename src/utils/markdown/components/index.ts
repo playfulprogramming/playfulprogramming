@@ -1,4 +1,3 @@
-export * from "./rehype-parse-components.ts";
 export * from "./rehype-plugin-components.ts";
 export * from "./rehype-transform-components.ts";
 export * from "./rehype-validate-components.ts";
