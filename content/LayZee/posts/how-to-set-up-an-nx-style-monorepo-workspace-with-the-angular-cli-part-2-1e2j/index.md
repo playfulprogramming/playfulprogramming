@@ -528,7 +528,7 @@ If we lint the workspace library now, we have a few code smells to address in th
 
 Start the application by running the `ng run booking-desktop:serve` command.
 
-<figure class="kg-card kg-image-card kg-card-hascaption">![](https://images.indepth.dev/images/2020/05/image-12.png)
+![](https://images.indepth.dev/images/2020/05/image-12.png)
 
 > The booking desktop application with the NgRx Store DevTools open.
 

@@ -26,9 +26,7 @@ Is it far-fetched to think that the complexity of authorization logic contribute
 
 Each new policy adds another **conditional branch**, another **database join**, another **custom role**, another **edge case that breaks** during the next feature request. The authorization flow becomes a spaghetti bowl and even experienced developers hesitate before touching it.
 
-<figure>
-  <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/09cwef7zad5jqr7grjz7.png" alt="this is fine"/>
-</figure>
+<img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/09cwef7zad5jqr7grjz7.png" alt="this is fine"/>
 
 Traditional approaches quickly hit walls:
 
@@ -396,7 +394,7 @@ Before moving on, make sure you can answer:
 3. When would you use indirect relationships?
 
 <details>
-<summary><b>Answers</b></summary>
+<summary>Answers</summary>
 
 1. **User vs Object**: A user is an entity (like a person), while an object is an instance of a type (like a specific cat or cat sitting arrangement). Users interact with objects through relations.
 2. **Relations vs Roles**: Relations define how entities connect (like "owner of cat"), while roles are broader categories (like "admin" or "sitter") that can have multiple relations.
@@ -825,7 +823,7 @@ Have you read carefully the previous sections? If so, you should be able to answ
 3. Can you make an object public to all users?
 
 <details>
-<summary><b>Answers</b></summary>
+<summary>Answers</summary>
 
 1. **List Objects**: Yes, you can use the [list-objects](https://openfga.dev/docs/getting-started/perform-list-objects) command to find objects a user has relationships with, like finding all cat sittings where a user is an active sitter.
 
