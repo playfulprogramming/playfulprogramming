@@ -8,7 +8,7 @@ WORKDIR /work
 COPY package.json .
 RUN corepack enable && corepack install
 
-COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json .
+COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json packages/mdast-comment-components/package.json .
 
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter e2e
 
@@ -23,7 +23,7 @@ WORKDIR /work
 
 COPY package.json .
 RUN corepack enable && corepack install
-COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json .
+COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json packages/mdast-comment-components/package.json .
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter e2e
 COPY --parents e2e/src .
 
@@ -35,11 +35,11 @@ WORKDIR /work
 COPY package.json .
 RUN corepack enable && corepack install
 
-COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json .
+COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json packages/mdast-comment-components/package.json .
 
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter "!e2e"
 
-COPY --parents content public src project.inlang astro.config.ts tsconfig.json .
+COPY --parents content public src packages project.inlang astro.config.ts tsconfig.json .
 
 ENV MODE=e2e BUILD_OUTPUT=server
 RUN pnpm build --mode $MODE

@@ -12,10 +12,11 @@ RUN corepack install
 # Install dependencies with pnpm
 COPY pnpm-lock.yaml .
 COPY pnpm-workspace.yaml .
+COPY --parents packages/mdast-comment-components/package.json .
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter "!e2e"
 
 # Copy and build the app
-COPY --parents assets content public src project.inlang astro.config.ts tsconfig.json .env .
+COPY --parents assets content public src packages project.inlang astro.config.ts tsconfig.json .env .
 
 # Define build arguments
 ARG GIT_COMMIT_REF
