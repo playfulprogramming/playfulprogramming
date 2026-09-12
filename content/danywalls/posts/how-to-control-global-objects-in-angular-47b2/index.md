@@ -133,4 +133,4 @@ export class MapService {
 
 Hopefully, that will give you a bit of help with how avoid global object and use InjectionToken and @Inject. If you enjoyed this post, share it!
 
-Photo by <a href="https://unsplash.com/@cferdo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Fernando @cferdo</a> on <a href="https://unsplash.com/s/photos/global?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Fernando @cferdo](https://unsplash.com/@cferdo) on [Unsplash](https://unsplash.com/s/photos/global)

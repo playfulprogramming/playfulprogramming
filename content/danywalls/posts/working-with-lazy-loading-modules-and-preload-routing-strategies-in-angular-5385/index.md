@@ -288,7 +288,7 @@ Perfect! We have lazy loading with a custom preload strategy to load specific mo
 
 We learn how to implement lazy loading, preload the modules, and create a custom strategy to have a particular module for loading and speeding the application.
 
-Photo by <a href="https://unsplash.com/@cinusek?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Marcin Simonides</a> on <a href="https://unsplash.com/s/photos/load?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Marcin Simonides](https://unsplash.com/@cinusek) on [Unsplash](https://unsplash.com/s/photos/load)
 
 My recommendation use lazy loading with a custom preload strategy. Pick the modules necessary for the application or high demand by the users, and maybe add some delay in the loading time. I hope it helps to speed up the performance of your Angular Apps.
 

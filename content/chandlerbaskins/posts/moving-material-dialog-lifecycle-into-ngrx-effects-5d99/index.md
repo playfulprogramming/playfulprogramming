@@ -10,7 +10,7 @@ socialImg: "social-image.png"
 }
 ---
 
-*Photo by <a href="https://unsplash.com/@jxb511?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">John Bakator</a> on <a href="https://unsplash.com/s/photos/effects?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>*
+*Photo by [John Bakator](https://unsplash.com/@jxb511) on [Unsplash](https://unsplash.com/s/photos/effects)*
 
 ## NgRx Effects
 

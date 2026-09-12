@@ -11,7 +11,7 @@ socialImg: "social-image.png"
 }
 ---
 
-Photo by <a href="https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Annie Spratt</a> on <a href="https://unsplash.com/s/photos/developer-experience?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Annie Spratt](https://unsplash.com/@anniespratt) on [Unsplash](https://unsplash.com/s/photos/developer-experience)
 
 In the last couple of years, the number of developers contributing to Open Source has grown exponentially. The Github team deserves all praise. The Developer Experience is much better than what it used to be. They are lowering the entry barrier for new developers to come and contribute to Open Source. Let's go through some great tools introduced and some amazing changes around [GitHub](https://github.com/), which improved the Developer Experience and made GitHub an undisputed leader.
 

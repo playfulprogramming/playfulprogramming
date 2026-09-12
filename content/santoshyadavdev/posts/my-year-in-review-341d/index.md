@@ -11,7 +11,7 @@ socialImg: "social-image.png"
 }
 ---
 
-Photo by <a href="https://unsplash.com/@mantashesthaven?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mantas Hesthaven</a> on <a href="https://unsplash.com/s/photos/journey?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Mantas Hesthaven](https://unsplash.com/@mantashesthaven) on [Unsplash](https://unsplash.com/s/photos/journey)
 
 This is going to be challenging to write. This year felt like my last 10 years combined. If you follow me on Twitter, you already know this was not the best year I had. I was expecting things to go right. We (my partner and me) gave it a lot of thought, and we decided to move to a new country. I could get a DevRel job in the future, and we will have a better life for our daughter. End of 2021 was doing all the documentation to move to Germany, which was very stressful.
 

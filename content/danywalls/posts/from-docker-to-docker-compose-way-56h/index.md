@@ -348,4 +348,4 @@ Also, read logs and use docker-compose commands used to start, stop, remove or l
 
 The docker-compose way makes easy our tasks with docker and simplify because we have a context about execution and containers.
 
-Photo by <a href="https://unsplash.com/@frankiefoto?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">frank mckenna</a> on <a href="https://unsplash.com/s/photos/container?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [frank mckenna](https://unsplash.com/@frankiefoto) on [Unsplash](https://unsplash.com/s/photos/container)

@@ -289,4 +289,4 @@ We've covered a basic overview of SSE and its straightforward implementation wit
 
 - NestJS: <https://docs.nestjs.com/techniques/server-sent-events>
 
-Photo by <a href="https://unsplash.com/@jcgellidon?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">JC Gellidon</a> on <a href="https://unsplash.com/photos/people-inside-the-basketball-court-XmYSlYrupL8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+Photo by [JC Gellidon](https://unsplash.com/@jcgellidon) on [Unsplash](https://unsplash.com/photos/people-inside-the-basketball-court-XmYSlYrupL8)

@@ -42,9 +42,9 @@ Pretend this is something very thought provoking[^1][^2]
 
 [^2]: Rust is a must 🦀🦀🦀
 
-# Link to another part of the page
+# Link to another part of the page {#link-to-another-part-of-the-page}
 
-<a id="cool-id🦦🦦🦦" href="#welcome🦀🦀🦀">See you later</a>
+[See you later](#thanks-for-taking-the-trip-down-here)
 
 # Single-level list
 
@@ -452,9 +452,9 @@ With picture:
 
 <iframe src="https://gist.github.com/crutchcorn/36fe5553219c05ea38bacf1c7396085b"></iframe>
 
-# Thanks for taking the trip down here
+# Thanks for taking the trip down here {#thanks-for-taking-the-trip-down-here}
 
-<a href="#cool-id🦦🦦🦦" id="welcome🦀🦀🦀">Go back</a>
+[Go back](#link-to-another-part-of-the-page)
 
 # Quiz Components
 
