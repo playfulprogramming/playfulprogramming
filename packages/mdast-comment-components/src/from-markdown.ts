@@ -2,10 +2,15 @@ import type { Html, Root } from "mdast";
 import type { CompileContext, Extension } from "mdast-util-from-markdown";
 import type { Token } from "micromark-util-types";
 import type { CommentComponentDiagnostic } from "./types.ts";
-import { updateHtmlStack } from "./html-context.ts";
+import {
+	markdownParagraphClosers,
+	updateHtmlStack,
+	updateMarkdownContext,
+} from "./html-context.ts";
 import "./micromark-extension.ts";
 
 const htmlStacks = new WeakMap<object, string[]>();
+const trackedConfigs = new WeakSet<CompileContext["config"]>();
 
 /** Build the nodes directly from token enter/exit events. No tree transform. */
 export function commentComponentsFromMarkdown(): Extension {
@@ -16,6 +21,7 @@ export function commentComponentsFromMarkdown(): Extension {
 			playfulComponentClosingMarker: enterMarker,
 			playfulComponentUnexpectedMarker: enterMarker,
 			htmlFlow(token) {
+				trackMarkdownContext(this);
 				this.enter({ type: "html", value: "" }, token);
 				this.buffer();
 			},
@@ -33,6 +39,24 @@ export function commentComponentsFromMarkdown(): Extension {
 			},
 		},
 	};
+}
+
+/**
+ * Preserve the registered Markdown handlers while observing their block-entry
+ * events. Their eventual HTML can close a raw paragraph before the next marker.
+ */
+function trackMarkdownContext(context: CompileContext) {
+	if (trackedConfigs.has(context.config)) return;
+	trackedConfigs.add(context.config);
+	for (const type of markdownParagraphClosers) {
+		const handler = context.config.enter[type];
+		if (!handler) continue;
+		context.config.enter[type] = function (token) {
+			const stack = htmlStacks.get(this.stack.at(-1)!);
+			if (stack) updateMarkdownContext(stack, token.type);
+			handler.call(this, token);
+		};
+	}
 }
 
 function enterComponent(this: CompileContext, token: Token) {

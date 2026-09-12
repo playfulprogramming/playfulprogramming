@@ -343,4 +343,102 @@ describe("native comment components", () => {
 			{ type: "playfulComponent", attributes: { label: "value/" } },
 		]);
 	});
+	it.each(["<svg/>", '<svg width="20" />', "<math/>"])(
+		"recognizes root markers after self-closing foreign elements: %s",
+		(html) => {
+			const tree = parse(`${html}\n\n<!-- ::user -->`);
+			expect(tree.children).toMatchObject([
+				{ type: "html" },
+				{ type: "playfulComponent", component: "user" },
+			]);
+			expect(tree.data).toBeUndefined();
+		},
+	);
+	it.each(["<div/>", "<svg width=20/>"])(
+		"does not treat an HTML slash as a foreign self-closing flag: %s",
+		(html) => {
+			expect(parse(`${html}\n\n<!-- ::user -->`).children).toMatchObject([
+				{ type: "html" },
+				{ type: "html" },
+			]);
+		},
+	);
+	it.each([
+		"# Heading",
+		"Heading\n---",
+		"Paragraph",
+		"- Item",
+		"> Quote",
+		"```\ncode\n```",
+		"    code",
+		"---",
+		"| A |\n| - |\n| B |",
+		"$$\nx\n$$",
+	])(
+		"recognizes root markers after Markdown implicitly closes a raw paragraph: %s",
+		(block) => {
+			const tree = parse(`<p>Paragraph\n\n${block}\n\n<!-- ::user -->`);
+			expect(tree.children.at(-1)).toMatchObject({
+				type: "playfulComponent",
+				component: "user",
+			});
+			expect(tree.data).toBeUndefined();
+		},
+	);
+	it.each([
+		"<svg/>",
+		"<math/>",
+		"<p>Paragraph\n\n# Heading",
+		"<p>Paragraph\n\n- Item",
+	])("recognizes ranged closers after HTML context repair: %s", (body) => {
+		const tree = parse(
+			`<!-- ::start:hint -->\n\n${body}\n\n<!-- ::end:hint -->`,
+		);
+		expect(tree.children).toMatchObject([
+			{ type: "playfulComponent", component: "hint" },
+		]);
+		expect(tree.data).toBeUndefined();
+	});
+	it("retains ordinary element ancestry when Markdown only closes an inner paragraph", () => {
+		const tree = parse(
+			"<div><p>Paragraph\n\n# Heading\n\n<!-- ::user -->\n\n</div>\n\n<!-- ::user -->",
+		);
+		expect(tree.children).toMatchObject([
+			{ type: "html" },
+			{ type: "heading" },
+			{ type: "html" },
+			{ type: "html" },
+			{ type: "playfulComponent" },
+		]);
+	});
+	it.each(["<!-- ::start:tabs", "<!-- ::user", "<!--\n::start:tabs"])(
+		"recovers an unterminated component comment without swallowing following Markdown: %s",
+		(opening) => {
+			const tree = parse(`${opening}\n\nAn unrelated paragraph.\n\n# Heading`);
+			expect(tree.children).toMatchObject([
+				{ type: "html", value: opening },
+				{ type: "paragraph" },
+				{ type: "heading" },
+			]);
+			expect(tree.data?.commentComponentDiagnostics).toMatchObject([
+				{ ruleId: "invalid-marker" },
+			]);
+		},
+	);
+	it("diagnoses an unterminated component comment following complete HTML", () => {
+		const tree = parse("<br/>\n<!-- ::user\n\nFollowing");
+		expect(tree.children).toMatchObject([
+			{ type: "html", value: "<br/>" },
+			{ type: "html", value: "<!-- ::user" },
+			{ type: "paragraph" },
+		]);
+		expect(tree.data?.commentComponentDiagnostics).toMatchObject([
+			{ ruleId: "invalid-marker" },
+		]);
+	});
+	it("preserves CommonMark handling of unterminated ordinary HTML comments", () => {
+		const source =
+			"<!-- ordinary comment\n\nAn unrelated paragraph.\n\n# Heading";
+		expect(parse(source)).toEqual(unified().use(remarkParse).parse(source));
+	});
 });

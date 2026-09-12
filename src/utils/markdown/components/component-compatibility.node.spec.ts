@@ -198,6 +198,16 @@ describe("legacy component compatibility baseline", () => {
 });
 
 describe("native HAST bridge compatibility", () => {
+	it.each(["<svg/>", "<math/>", "<p>Paragraph\n\n# Heading"])(
+		"keeps a component after HTML that closes before the marker: %s",
+		async (prefix) => {
+			const source = `${prefix}\n\n<!-- ::user -->`;
+			const actual = await native(source);
+			expect(components(actual)).toHaveLength(1);
+			expect(semantics(actual)).toEqual(semantics(await legacy(source)));
+		},
+	);
+
 	it("retains the legacy normalization of a final unquoted attribute", async () => {
 		const source = "<!-- ::user id=unquoted -->";
 		expect(components(await native(source))[0].attributes).toEqual({
