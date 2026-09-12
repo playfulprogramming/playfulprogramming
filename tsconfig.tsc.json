@@ -5,6 +5,7 @@
 		"dist",
 		"storybook-static",
 		"content",
+		"packages",
 		// `astro check` validates these first with Astro's language tooling. Bare
 		// `tsc` cannot resolve named type exports from `.astro` modules.
 		"**/*.stories.ts",

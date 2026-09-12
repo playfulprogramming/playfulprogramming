@@ -58,6 +58,21 @@
 				],
 			},
 		},
+		"packages/mdast-comment-components": {
+			"project": ["src/**/*.ts", "tests/**/*.ts", "vitest.config.ts"],
+			"entry": [
+				"src/index.ts",
+				"src/types.ts",
+				"src/micromark-extension.ts",
+				"src/from-markdown.ts",
+				"src/to-markdown.ts",
+				"src/remark-components.ts",
+			],
+			"includeEntryExports": false,
+			"vitest": {
+				"entry": ["tests/**/*.test.ts"],
+			},
+		},
 		"e2e": {
 			"project": ["**/*.ts"],
 			"entry": [
