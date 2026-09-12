@@ -220,7 +220,7 @@ It's also important to make sure how to format your values. Putting a numerical 
 > **Learn more:**
 > We're just going over the surface of what's available. To learn more, visit the links below.
 >
-> 📚 [**MDN: CSS types**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types)<br>
+> 📚 [**MDN: CSS types**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types)
 > 📚 [**MDN: Units and values**](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
 
 
