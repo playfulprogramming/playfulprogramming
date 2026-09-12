@@ -19,17 +19,18 @@ We're migrating our CI/CD pipelines to AWS Amplify and I will show you how we ca
 
 ---
 
-The example is based on a [Next.js](https://nextjs.org/) application hosted on GitHub.<br>
+The example is based on a [Next.js](https://nextjs.org/) application hosted on GitHub.
 
-![GitHub](./ztpqaq2x8wf2iozb0ix0.png)<br>
+![GitHub](./ztpqaq2x8wf2iozb0ix0.png)
 
 To initialize the application we can use the command:
-`npx create-next-app@latest --typescript`<br>
+`npx create-next-app@latest --typescript`
+
 Once the starter is created, we edit the file
 `pages/index.tsx`
-replacing the boilerplate with this code:<br>
+replacing the boilerplate with this code:
 
-![pages index](./q4u9k0lk1mum9kh7q6dd.png)<br>
+![pages index](./q4u9k0lk1mum9kh7q6dd.png)
 
 An environment variable is used here. We have to configure it in the Next.js configuration file
 `next.config.js`
@@ -42,41 +43,41 @@ const nextConfig = {
 module.exports = nextConfig
 ````
 
-We can test the app locally by creating a `.env.local` file to set the environment variable<br>
+We can test the app locally by creating a `.env.local` file to set the environment variable
 
-![EnvLocal](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/oiiw2gmq2bn5brfa1chm.png)<br>
+![EnvLocal](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/oiiw2gmq2bn5brfa1chm.png)
 
 After we sync the project with remote GitHub, we're ready to move on to the deployment part.
 
 ## AWS Amplify
 
-Once logged into the AWS console, let's search for the Amplify service.<br>
+Once logged into the AWS console, let's search for the Amplify service.
 
-![AWSDash](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0k57xtwmnar2mp6mh64l.png)<br>
+![AWSDash](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0k57xtwmnar2mp6mh64l.png)
 
 ### Configuration
 
-Click on _Host web app_<br>
+Click on _Host web app_
 
-![HostWebApp](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uxbtbjd3c08sbyo4dpbj.png)<br>
+![HostWebApp](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uxbtbjd3c08sbyo4dpbj.png)
 
-here we can connect our GitHub account and select the project we just created<br>
+here we can connect our GitHub account and select the project we just created
 
-![GitHubSelection](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9k9kkyrr47k5yslwhaf8.png)<br>
+![GitHubSelection](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9k9kkyrr47k5yslwhaf8.png)
 
-![GitHubRepo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/st7o8kfa2abxptwlhfq5.png)<br>
+![GitHubRepo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/st7o8kfa2abxptwlhfq5.png)
 
-Click on _Next_, here we can configure the build and we can set our environment variable<br>
+Click on _Next_, here we can configure the build and we can set our environment variable
 
-![Build](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/24l3kju98ntq8j503z4d.png)<br>
+![Build](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/24l3kju98ntq8j503z4d.png)
 
-![Save](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cbcbjmuu7hbpr1soyhlo.png)<br>
+![Save](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cbcbjmuu7hbpr1soyhlo.png)
 
 ### Build & Deploy
 
-🚀 The build and the deployment will be performed automatically<br>
+🚀 The build and the deployment will be performed automatically
 
-![Deploy](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z4485myamsoffdcfawxn.png)<br>
+![Deploy](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z4485myamsoffdcfawxn.png)
 
 ### Final result
 

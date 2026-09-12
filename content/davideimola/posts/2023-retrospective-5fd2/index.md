@@ -35,23 +35,32 @@ I had a few goals for 2023. Let's see how I did. I am going to put a ✅ if I di
 
 For each goal, I am going to write a few words about it.
 
-- ❌ Eat healthier and try to lose some weight 🥒<br/>
+- ❌ Eat healthier and try to lose some weight 🥒
+
   I did not do this. I did not eat healthier, and I did not lose any weight. I tried for a while, but I did not stick with it. I am going to try again in 2024, but for sure I need to go to an expert to help me with this.
-- ✅ Stay healthy (you don't say) 👨🏻‍<br/>
+- ✅ Stay healthy (you don't say) 👨🏻‍
+
   For sure I can improve this by reducing my weight, but I think I did a good job this year. I did not get sick, and I did not have any injuries.
-- 🟡 Read more books 📚<br/>
+- 🟡 Read more books 📚
+
   I read more books than last year, but I did not read as many as I wanted. I would like to read more in 2024.
-- ✅ Improve my Skills (Golang, Kubernetes)👨🏻‍💻<br/>
+- ✅ Improve my Skills (Golang, Kubernetes)👨🏻‍💻
+
   This thing is based on my feelings, but I think I improved my skills this year quite a lot. I have not been certified in Kubernetes yet, but I am working on it.
-- 🟡 Start learning Rust 🦀 <br/>
+- 🟡 Start learning Rust 🦀
+
   I started learning Rust, but I did not do it as much as I wanted. I am going to continue learning it in 2024.
-- ✅ Finish the work in the house and move in with Sara 🏡 <br/>
+- ✅ Finish the work in the house and move in with Sara 🏡
+
   We did it! We finished the work in the house, and we moved in. We are very happy with the result. We still have some things to do, but we are living in the house, and we are very happy.
-- ✅ Make a long trip (January is coming… Emirates-Qatar-Oman… 🛳️🤫) <br/>
+- ✅ Make a long trip (January is coming… Emirates-Qatar-Oman… 🛳️🤫)
+
   I went in a cruise in January in Emirates, and it was amazing. I am going to write a more detailed thing in the travel section.
-- ✅ Try to organize something incredible for the community ❤️ <br/>
+- ✅ Try to organize something incredible for the community ❤️
+
   I organized the [Open Source Day 2023](https://2023.osday.dev/), and it was amazing. I am going to write a more detailed thing in the community section.
-- ✅ Have a speech at a conference or meetup <br/>
+- ✅ Have a speech at a conference or meetup
+
   Oh yes! I did it!!! I had the pleasure to speak to 5 different conferences. I am going to write a more detailed thing in the speaking section.
 
 At the end, I am happy with what I did. I did not do everything I wanted, but I did a lot of things. I am going to try to do better in 2024.
