@@ -3,6 +3,7 @@
 	name: "Evelyn Hathaway",
 	firstName: "Evelyn",
 	lastName: "Hathaway",
+	description: "I'm a software engineer specializing in JavaScript and passionate about usability and inclusivity. 👩‍💻🌈",
 	socials: {
 		github: "evelynhathaway"
 	},
