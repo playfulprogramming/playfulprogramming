@@ -95,6 +95,8 @@ jobs:
 
       - name: Check TypeScript
         run: pnpm run tsc
+      - name: Check Markdown syntax package
+        run: pnpm --filter mdast-comment-components typecheck
   lint:
     env:
       CI: true

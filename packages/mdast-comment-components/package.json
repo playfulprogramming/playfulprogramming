@@ -1,0 +1,59 @@
+{
+	"name": "mdast-comment-components",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Native Markdown parsing and serialization for comment-delimited components",
+	"type": "module",
+	"license": "MPL-2.0",
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"import": "./src/index.ts"
+		},
+		"./micromark-extension": {
+			"types": "./src/micromark-extension.ts",
+			"import": "./src/micromark-extension.ts"
+		},
+		"./from-markdown": {
+			"types": "./src/from-markdown.ts",
+			"import": "./src/from-markdown.ts"
+		},
+		"./to-markdown": {
+			"types": "./src/to-markdown.ts",
+			"import": "./src/to-markdown.ts"
+		},
+		"./remark-components": {
+			"types": "./src/remark-components.ts",
+			"import": "./src/remark-components.ts"
+		},
+		"./types": {
+			"types": "./src/types.ts",
+			"import": "./src/types.ts"
+		}
+	},
+	"scripts": {
+		"test": "vitest run --config vitest.config.ts",
+		"test:watch": "vitest --config vitest.config.ts",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@types/mdast": "^4.0.3",
+		"@types/unist": "^3.0.3",
+		"hast-util-from-html": "^2.0.3",
+		"mdast-util-from-markdown": "^2.0.3",
+		"mdast-util-to-markdown": "^2.1.2",
+		"micromark-util-character": "^2.1.1",
+		"micromark-util-types": "^2.0.2",
+		"property-information": "^7.2.0",
+		"unified": "^11.0.5"
+	},
+	"devDependencies": {
+		"@types/node": "25.9.1",
+		"remark-gfm": "^4.0.1",
+		"remark-math": "^6.0.0",
+		"remark-parse": "^11.0.0",
+		"remark-stringify": "^11.0.0",
+		"typescript": "^6.0.3",
+		"vitest": "^5.0.0"
+	}
+}

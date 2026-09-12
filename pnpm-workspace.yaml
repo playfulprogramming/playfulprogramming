@@ -2,6 +2,7 @@ shamefullyHoist: true
 packages:
   - e2e
   - .
+  - packages/*
 minimumReleaseAge: 10080
 # Keep math renderers and the site's KaTeX stylesheet on the same version.
 catalog:

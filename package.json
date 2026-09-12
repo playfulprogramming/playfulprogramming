@@ -183,6 +183,7 @@
 		"@tanstack/react-query": "^5.102.8",
 		"@webcontainer/api": "^1.6.4",
 		"fflate": "^0.8.3",
+		"mdast-comment-components": "workspace:*",
 		"medium-zoom": "^1.0.8",
 		"mermaid": "^11.17.2",
 		"nanostores": "^1.5.2",

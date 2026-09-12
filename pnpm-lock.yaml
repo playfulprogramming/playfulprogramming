@@ -144,6 +144,9 @@ importers:
       fflate:
         specifier: ^0.8.3
         version: 0.8.3
+      mdast-comment-components:
+        specifier: workspace:*
+        version: link:packages/mdast-comment-components
       medium-zoom:
         specifier: ^1.0.8
         version: 1.1.0
@@ -479,6 +482,58 @@ importers:
       cross-env:
         specifier: ^10.1.0
         version: 10.1.0
+
+  packages/mdast-comment-components:
+    dependencies:
+      '@types/mdast':
+        specifier: ^4.0.3
+        version: 4.0.4
+      '@types/unist':
+        specifier: ^3.0.3
+        version: 3.0.3
+      hast-util-from-html:
+        specifier: ^2.0.3
+        version: 2.0.3
+      mdast-util-from-markdown:
+        specifier: ^2.0.3
+        version: 2.0.3(supports-color@10.2.2)
+      mdast-util-to-markdown:
+        specifier: ^2.1.2
+        version: 2.1.2
+      micromark-util-character:
+        specifier: ^2.1.1
+        version: 2.1.1
+      micromark-util-types:
+        specifier: ^2.0.2
+        version: 2.0.2
+      property-information:
+        specifier: ^7.2.0
+        version: 7.2.0
+      unified:
+        specifier: ^11.0.5
+        version: 11.0.5
+    devDependencies:
+      '@types/node':
+        specifier: 25.9.1
+        version: 25.9.1
+      remark-gfm:
+        specifier: ^4.0.1
+        version: 4.0.1(supports-color@10.2.2)
+      remark-math:
+        specifier: ^6.0.0
+        version: 6.0.0(supports-color@10.2.2)
+      remark-parse:
+        specifier: ^11.0.0
+        version: 11.0.0(supports-color@10.2.2)
+      remark-stringify:
+        specifier: ^11.0.0
+        version: 11.0.0
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: ^5.0.0
+        version: 5.0.0(@types/node@25.9.1)(@vitest/browser-playwright@5.0.0)(@vitest/ui@5.0.0)(msw@2.15.0(@types/node@25.9.1)(typescript@6.0.3))(vite@8.0.16(@types/node@25.9.1)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))
 
 packages:
 

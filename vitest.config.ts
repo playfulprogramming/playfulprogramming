@@ -5,6 +5,9 @@ export default defineConfig({
 		tsconfigPaths: true,
 	},
 	test: {
-		projects: ["./vitest.config.*.ts"],
+		projects: [
+			"./vitest.config.*.ts",
+			"./packages/mdast-comment-components/vitest.config.ts",
+		],
 	},
 });
