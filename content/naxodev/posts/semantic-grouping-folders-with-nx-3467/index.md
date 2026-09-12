@@ -11,8 +11,11 @@ socialImg: "social-image.png"
 }
 ---
 
-<figcaption>Photo by <a href="https://unsplash.com/@barnimages?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Barn Images</a> on <a href="https://unsplash.com/s/photos/organization?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  </figcaption>
+<figcaption>
+
+Photo by [Barn Images](https://unsplash.com/@barnimages) on [Unsplash](https://unsplash.com/s/photos/organization)
+
+</figcaption>
 
 ---
 

@@ -132,4 +132,4 @@ I highly recommend watching a few videos of @deborahk. She explains very well ev
 - [Data Composition with RxJS | Deborah Kurata](https://www.youtube.com/watch?v=Z76QlSpYcck)
 - [Collect, Combine, and Cache RxJS Streams for User-Friendly Results by Deborah Kurata](https://www.youtube.com/watch?v=HE-xh_RBIno)
 
-Photo by <a href="https://unsplash.com/@juliazolotova?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Julia Zolotova</a> on <a href="https://unsplash.com/s/photos/fruits?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Julia Zolotova](https://unsplash.com/@juliazolotova) on [Unsplash](https://unsplash.com/s/photos/fruits)

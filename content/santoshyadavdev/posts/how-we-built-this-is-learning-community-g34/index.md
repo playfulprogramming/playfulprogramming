@@ -10,7 +10,7 @@ socialImg: "social-image.png"
 }
 ---
 
-Photo by <a href="https://unsplash.com/@claybanks?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Clay Banks</a> on <a href="https://unsplash.com/photos/LjqARJaJotc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Clay Banks](https://unsplash.com/@claybanks) on [Unsplash](https://unsplash.com/photos/LjqARJaJotc)
 
 This is Learning was started in 2020 by @layzee. I presented how we built this community at the GDE summit in Berlin in Jan 2023. Over the last 3 years, [this-is-learning](https://dev.to/playfulprogramming) and [this-is-angular](https://dev.to/playfulprogramming-angular) have grown over 150+ contributors and more than 2.5M views.
 

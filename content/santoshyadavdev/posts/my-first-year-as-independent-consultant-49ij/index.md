@@ -11,7 +11,7 @@ socialImg: "social-image.png"
 }
 ---
 
-Photo by <a href="https://unsplash.com/@callumshaw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Callum Shaw</a> on <a href="https://unsplash.com/s/photos/independent-consulatnt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Callum Shaw](https://unsplash.com/@callumshaw) on [Unsplash](https://unsplash.com/s/photos/independent-consulatnt)
 
 Last year around August 2020, I decided to leave my full-time job and started looking for a new job and decided to work as a full-time software consultant. This blog covers how I ended up getting the opportunity and what I learned over the last year.
 

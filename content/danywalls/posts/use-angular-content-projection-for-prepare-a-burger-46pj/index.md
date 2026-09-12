@@ -140,4 +140,4 @@ That's it! Hopefully, give you a bit of help with ng-content and make your compo
 
 If you enjoyed this post, share it!
 
-Photo by <a href="https://unsplash.com/@haseebjkhan?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Haseeb Jamil</a> on <a href="https://unsplash.com/s/photos/burger?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Haseeb Jamil](https://unsplash.com/@haseebjkhan) on [Unsplash](https://unsplash.com/s/photos/burger)
