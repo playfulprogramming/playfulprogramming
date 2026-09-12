@@ -1,4 +1,7 @@
 import remarkParse from "remark-parse";
+import { remarkCommentComponents } from "mdast-comment-components";
+import { componentToHast } from "./components/component-to-hast.ts";
+import { remarkComponentDiagnostics } from "./components/remark-component-diagnostics.ts";
 import remarkFrontmatter from "remark-frontmatter";
 import {
 	TYPE_FRONTMATTER,
@@ -23,7 +26,6 @@ import {
 	rehypeDetailsElement,
 	rehypeLinkPreview,
 	rehypeTooltips,
-	rehypeParseComponents,
 	rehypePluginComponents,
 	rehypeTransformComponents,
 	rehypeValidateComponents,
@@ -66,14 +68,20 @@ export function createHtmlPlugins(unified: Processor) {
 			})
 			.use(remarkProcessFrontmatter)
 			.use(remarkGfm)
+			.use(remarkCommentComponents)
+			.use(remarkComponentDiagnostics)
 			/* start remark plugins here */
-			.use(remarkToRehype, { allowDangerousHtml: true })
+			.use(remarkToRehype, {
+				allowDangerousHtml: true,
+				handlers: { playfulComponent: componentToHast },
+			})
 			// Remove complaining about "div cannot be in p element"
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
-			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] })
+			.use(rehypeRaw, {
+				passThrough: ["mdxjsEsm", "playful-component-markup"],
+			})
 			.use(rehypeRelativePaths)
-			.use(rehypeParseComponents)
 			// Do not add the tabs before the slug. We rely on some of the heading
 			// logic in order to do some of the subheading logic
 			.use(rehypeSlug, {

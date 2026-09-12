@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Element } from "hast";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
+import { remarkCommentComponents } from "mdast-comment-components";
 import remarkToRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import { VFile } from "vfile";
@@ -10,7 +11,8 @@ import { rehypeCodeblockMeta } from "../../shiki/rehype-codeblock-meta.ts";
 import { rehypePostShikiTransform } from "../../shiki/rehype-post-shiki-transform.ts";
 import { rehypeShikiUU } from "../../shiki/rehype-transform.ts";
 import { runShiki } from "../../shiki/shiki-pool.ts";
-import { rehypeParseComponents } from "../rehype-parse-components.ts";
+import { componentToHast } from "../component-to-hast.ts";
+import { remarkComponentDiagnostics } from "../remark-component-diagnostics.ts";
 import { rehypeTransformComponents } from "../rehype-transform-components.ts";
 import { transformMermaid } from "./rehype-transform.ts";
 
@@ -52,9 +54,13 @@ async function processMarkdown(value: string) {
 	const vfile = createVFile(value);
 	const processor = unified()
 		.use(remarkParse)
-		.use(remarkToRehype, { allowDangerousHtml: true })
-		.use(rehypeRaw)
-		.use(rehypeParseComponents)
+		.use(remarkCommentComponents)
+		.use(remarkComponentDiagnostics)
+		.use(remarkToRehype, {
+			allowDangerousHtml: true,
+			handlers: { playfulComponent: componentToHast },
+		})
+		.use(rehypeRaw, { passThrough: ["playful-component-markup"] })
 		.use(rehypeCodeblockMeta)
 		.use(rehypeShikiUU)
 		.use(rehypePostShikiTransform)

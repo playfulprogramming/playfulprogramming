@@ -21,3 +21,14 @@ the first closing comment without counting depth; missing or noncanonical closin
 comments can cause the splice loop to insert nodes indefinitely. The baseline
 tests intentionally do not execute those hanging inputs. The native grammar must
 test and document their safe recovery separately.
+
+The corpus comparator ignores source positions, which now span complete ranges,
+and whitespace-only separators between root/component blocks. The existing
+ecosystem linters chapter has a trailing space after its closing tabs marker at
+line 462; the fundamentals side-effects chapter (and its archived editions) has
+one space before an opening tabs marker at line 2432. Native Markdown block
+parsing removes these invisible spaces around block delimiters.
+Inline text, code, raw HTML whitespace, component attributes and child structure
+are compared exactly. Representative HTML/component compiler output and EPUB
+strings are also compared exactly, with external services and image/highlighting
+workers replaced by deterministic test doubles.

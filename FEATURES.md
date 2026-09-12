@@ -164,6 +164,35 @@ Summary blocks are a way to show a summary of a section of content. They are use
 
 Like MDX, Playful Programming supports the use of components in markdown files. Unlike MDX, we use a different syntax to define components and do not use React or JSX.
 
+Component markers are HTML comments at the document root or directly inside
+another component. Put each marker on its own line; adjacent component comments
+are also supported. Markers inside lists, blockquotes, ordinary HTML elements,
+inline code, or fenced code remain literal comments or code. Up to three spaces
+of indentation are allowed at the document root; four spaces introduce a Markdown
+code block.
+
+Use `<!-- ::name ... -->` for a standalone component, or
+`<!-- ::start:name ... -->` and `<!-- ::end:name -->` around Markdown blocks.
+Ranges can nest, including components with the same name, and each closing marker
+belongs to its matching opener. An empty range remains distinct from a standalone
+component. LF and CRLF line endings are supported, and spaces around the marker
+inside the comment are optional. Whitespace between component blocks may be
+normalized during publishing.
+
+Quote attribute values with single or double quotes when they contain spaces.
+Attributes follow HTML normalization: names are case-insensitive, character
+references such as `&amp;` are decoded, duplicate attributes keep their first
+value, and boolean attributes become strings. The existing `button-text` and
+`button-href` names are preserved. Quoting is recommended: for compatibility with
+existing attribute parsing, a final unquoted attribute value can acquire a
+trailing slash.
+
+Missing, unexpected, mismatched, or invalid markers produce diagnostics with
+source locations and prevent publication. Parsing preserves the malformed comment
+and following content so an error cannot discard the rest of an article. Unknown
+component names remain syntax nodes and are rejected by the publishing pipeline's
+component map. HTML and EPUB keep their separate supported-component maps.
+
 ### Filetree
 
 ![](./assets/file-tree.png)
