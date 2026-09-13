@@ -3,9 +3,8 @@ import { getAllPosts, getPostBySlug } from "#utils/api.ts";
 import path from "path";
 import { contentDirectory } from "#utils/data.ts";
 import fs from "fs/promises";
-import { Zip, type ZipInputFile } from "fflate";
-import { crc32, deflateRaw } from "node:zlib";
-import { promisify } from "node:util";
+import { ZipEntry, createZipArchive } from "node:zlib";
+import { buffer } from "node:stream/consumers";
 import { baseLocale } from "#src/paraglide/runtime.js";
 
 export async function findProjectDir(slug: string): Promise<string> {
@@ -17,40 +16,15 @@ export async function findProjectDir(slug: string): Promise<string> {
 	return path.join(postDir, projectId);
 }
 
-const deflate = promisify(deflateRaw);
-const mtime = new Date("1981-01-01 0:00 UTC");
+const modified = new Date("1981-01-01 0:00 UTC");
 
-// fflate deflates in JS on the calling thread for every file under 160KB, which
-// is all of them; zlib compresses natively on the libuv thread pool instead
-async function createZip(files: Record<string, Buffer>): Promise<Uint8Array> {
-	const compressed = await Promise.all(
-		Object.entries(files).map(async ([filename, data]) => ({
-			filename,
-			data,
-			deflated: await deflate(data, { level: 6 }),
-		})),
+async function createZip(files: Record<string, Buffer>): Promise<Buffer> {
+	const entries = await Promise.all(
+		Object.entries(files).map(([filename, data]) =>
+			ZipEntry.create(filename, data, { modified }),
+		),
 	);
-
-	return new Promise((resolve, reject) => {
-		const chunks: Uint8Array[] = [];
-		const archive = new Zip((err, chunk, final) => {
-			if (err) return reject(err);
-			chunks.push(chunk);
-			if (final) resolve(Buffer.concat(chunks));
-		});
-		for (const { filename, data, deflated } of compressed) {
-			const entry: ZipInputFile = {
-				filename,
-				size: data.length,
-				crc: crc32(data),
-				compression: 8,
-				mtime,
-			};
-			archive.add(entry);
-			entry.ondata?.(null, deflated, true);
-		}
-		archive.end();
-	});
+	return buffer(createZipArchive(entries));
 }
 
 export const GET: APIRoute = async ({ params }) => {
@@ -69,7 +43,7 @@ export const GET: APIRoute = async ({ params }) => {
 		}
 	}
 
-	return new Response(Buffer.from(await createZip(zipFiles)), {
+	return new Response(new Uint8Array(await createZip(zipFiles)), {
 		headers: {
 			"Content-Type": "application/zip",
 		},
