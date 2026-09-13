@@ -25,9 +25,10 @@
             "command": "docker compose -f e2e/docker-compose.e2e.yml up fakeserver web --build --wait"
         },
         "test:e2e:interactive": {
-            "dependsOn": ["test:build", "test:interactive:start"],
+            "dependsOn": ["test:build", "test:e2e:interactive:start"],
             "command": "playwright test --config e2e/playwright.config.ts --ui",
             "continuous": true
         }
-    }
+    },
+    "implicitDependencies": ["playfulprogramming-site"]
 }
