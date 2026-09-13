@@ -42,6 +42,11 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
+      - name: Set Docker UID/GID
+        run: |
+          echo "UID=$(id -u)" >> $GITHUB_ENV
+          echo "GID=$(id -g)" >> $GITHUB_ENV
+
       - name: Test
         run: pnpm run test:unit
         background: true
@@ -60,11 +65,10 @@ jobs:
 
       - name: Run Playwright tests (Docker)
         id: playwright
-        run: UID=$(id -u) GID=$(id -g) pnpm --filter e2e test
+        run: pnpm --filter e2e test
         background: true
 
-      - name: Wait for all tests to complete
-        wait-all:
+      - wait-all:
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ !cancelled() }}
