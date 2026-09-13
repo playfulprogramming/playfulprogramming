@@ -82,13 +82,9 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 	})) {
 		if (file.isFile()) {
 			const parent = path.relative(projectDir, file.parentPath);
-			const name = path.join(parent, file.name);
-			const code = await fs.readFile(path.join(projectDir, name), "utf-8");
-
 			files.push({
 				name: path.join(parent, file.name),
 				filetype: path.extname(file.name).substring(1),
-				code,
 			});
 		}
 	}
@@ -106,13 +102,18 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 	const file = selectedFiles.at(0);
 	const fileEntry = files.find((entry) => entry.name == file);
 	const fileHtml = fileEntry
-		? await codeToHtml(fileEntry.code, fileEntry.filetype)
+		? await codeToHtml(
+				await fs.readFile(path.join(projectDir, fileEntry.name), "utf-8"),
+				fileEntry.filetype,
+			)
 		: undefined;
 
 	return [
 		createComponent("CodeEmbed", {
 			projectId: project,
 			projectZipUrl: `/generated/projects/${post}_${project}.zip`,
+			// project files are served statically from the content directory
+			projectUrl: `/${path.relative(process.cwd(), projectDir)}`,
 			title: props.attributes.title,
 			file,
 			fileHtml,
