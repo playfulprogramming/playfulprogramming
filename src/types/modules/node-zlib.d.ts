@@ -1,4 +1,4 @@
-// @types/node does not describe the ZIP API added in Node 26.8 yet; mirrors doc/api/zlib.md at v26.8.2
+// createZipArchive is experimental, TODO remove when api is stabilized or node types are updated to 26.8
 declare module "node:zlib" {
 	import type { Readable } from "node:stream";
 
