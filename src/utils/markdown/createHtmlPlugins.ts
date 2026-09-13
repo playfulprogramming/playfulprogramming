@@ -1,12 +1,5 @@
-import remarkParse from "remark-parse";
-import remarkFrontmatter from "remark-frontmatter";
-import {
-	TYPE_FRONTMATTER,
-	remarkProcessFrontmatter,
-} from "./remark-process-frontmatter.ts";
-import remarkGfm from "remark-gfm";
 import rehypeUnwrapImages from "rehype-unwrap-images";
-import remarkToRehype from "remark-rehype";
+import { satteriParse } from "./satteri-parse.ts";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
 import { rehypeAstroImageMd } from "./picture/rehype-transform.ts";
@@ -46,7 +39,6 @@ import {
 	transformCodeEmbed,
 } from "./components/code-embed/rehype-transform.ts";
 import { rehypeRelativePaths } from "./rehype-relative-paths.ts";
-import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { setMathProperty } from "./katex-css.ts";
 import {
@@ -59,15 +51,7 @@ import { transformQuizRadio } from "./components/quiz/rehype-transform-quiz-radi
 export function createHtmlPlugins(unified: Processor) {
 	return (
 		unified
-			.use(remarkParse, { fragment: true } as never)
-			.use(remarkFrontmatter, {
-				type: TYPE_FRONTMATTER,
-				marker: "-",
-			})
-			.use(remarkProcessFrontmatter)
-			.use(remarkGfm)
-			/* start remark plugins here */
-			.use(remarkToRehype, { allowDangerousHtml: true })
+			.use(satteriParse)
 			// Remove complaining about "div cannot be in p element"
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
@@ -81,7 +65,6 @@ export function createHtmlPlugins(unified: Processor) {
 				removeAccents: true,
 				enableCustomId: true,
 			})
-			.use(remarkMath)
 			.use(rehypeKatex)
 			.use(setMathProperty)
 			/**
