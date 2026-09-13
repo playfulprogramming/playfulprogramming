@@ -147,7 +147,7 @@
 		"remark-math": "^6.0.0",
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
-		"sass": "^1.103.1",
+		"sass-embedded": "^1.104.0",
 		"sharp": "^0.35.4",
 		"shiki": "^4.4.3",
 		"sitemap": "^9.0.1",
