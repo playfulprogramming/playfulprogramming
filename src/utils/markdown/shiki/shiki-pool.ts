@@ -37,7 +37,7 @@ if (errors.length) {
 const tinypool = new Tinypool({
 	filename: workerFile,
 	minThreads: 0,
-	maxThreads: 4,
+	maxThreads: 3,
 	idleTimeout: 60 * 1000, // 60 seconds
 	maxMemoryLimitBeforeRecycle: 500_000_000, // 500MB
 });
