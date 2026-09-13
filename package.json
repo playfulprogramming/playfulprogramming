@@ -49,8 +49,8 @@
 		"test:unit:ui": "nx run playfulprogramming-site:test -- --project ui",
 		"test:unit:interactive": "nx run test:unit:interactive",
 		"test:e2e": "nx run e2e:test",
-		"test:e2e:update": "pnpm nx run e2e:test:e2e:update-snapshots",
-		"test:e2e:interactive": "pnpm nx run e2e:test:e2e:interactive",
+		"test:e2e:update": "pnpm nx run e2e:update-snapshots",
+		"test:e2e:interactive": "pnpm nx run e2e:test:interactive",
 		"test:debug": "nx run test:debug",
 		"test:stress": "nx run test:stress",
 		"prepare": "husky"

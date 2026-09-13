@@ -6,7 +6,7 @@
         "test:build": {
             "command": "docker compose -f e2e/docker-compose.e2e.yml build"
         },
-        "test:e2e:update-snapshots": {
+        "update-snapshots": {
             "dependsOn": ["test:build"],
             "executor": "nx:run-commands",
             "options": {
@@ -18,14 +18,15 @@
         },
         "test": {
             "dependsOn": ["test:build"],
+            "inputs": [{ "env": "PLAYWRIGHT_ARGS" }],
             "command": "docker compose -f e2e/docker-compose.e2e.yml up --abort-on-container-exit --exit-code-from e2e"
         },
-        "test:e2e:interactive:start": {
+        "test:interactive:start": {
             "dependsOn": ["test:build"],
             "command": "docker compose -f e2e/docker-compose.e2e.yml up fakeserver web --build --wait"
         },
-        "test:e2e:interactive": {
-            "dependsOn": ["test:build", "test:e2e:interactive:start"],
+        "test:interactive": {
+            "dependsOn": ["test:build", "test:interactive:start"],
             "command": "playwright test --config e2e/playwright.config.ts --ui",
             "continuous": true
         }
