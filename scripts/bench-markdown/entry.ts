@@ -14,7 +14,7 @@ import { firstDifference, report } from "./diff.ts";
 
 const Args = Type.Object({
 	targets: Type.Array(Type.String()),
-	iterations: Type.String(),
+	iterations: Type.Integer({ minimum: 1 }),
 	full: Type.Boolean(),
 	mode: Type.Union([
 		Type.Literal("none"),
@@ -27,7 +27,7 @@ const Args = Type.Object({
 const Rounds = Type.Array(Type.Record(Type.String(), Type.Number()));
 
 const args = Value.Parse(Args, JSON.parse(process.env.BENCH_ARGS ?? "{}"));
-const iterations = Number(args.iterations);
+const iterations = args.iterations;
 const warmup = 1;
 if (args.mode === "write") await fs.mkdir(args.snapshot, { recursive: true });
 
@@ -35,13 +35,13 @@ const uuidRe =
 	/[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/gi;
 
 const changed: string[] = [];
-let checked = 0;
+const checkedNames = new Set<string>();
 
 async function snapshot(name: string, output: string) {
 	const file = path.join(args.snapshot, `${name}.json`);
 	if (args.mode === "none") return;
 	if (args.mode === "write") return fs.writeFile(file, output);
-	checked++;
+	checkedNames.add(name);
 	const before = await fs.readFile(file, "utf-8").catch(() => "");
 	if (before === output) return;
 	changed.push(name);
@@ -122,16 +122,20 @@ async function printPasses(passes: Map<string, number>) {
 	const before = args.mode === "compare" ? await rounds("write") : undefined;
 	const header = before ? " before ms   after ms      %" : "   wall ms";
 	console.log(`${"pass".padEnd(34)} ${header}`);
-	for (const [name, ms] of [...passes].toSorted((a, b) => b[1] - a[1])) {
+	const names = new Set([...(before?.keys() ?? []), ...passes.keys()]);
+	for (const name of [...names].toSorted(
+		(a, b) => (passes.get(b) ?? 0) - (passes.get(a) ?? 0),
+	)) {
+		const ms = passes.get(name);
 		const was = before?.get(name);
 		const delta =
-			was === undefined || Math.abs(ms - was) < 0.5
+			ms === undefined || was === undefined || Math.abs(ms - was) < 0.5
 				? ""
 				: `${(((ms - was) / was) * 100).toFixed(0)}%`;
-		const cells =
-			was === undefined
-				? col(ms)
-				: `${col(was)} ${col(ms)} ${delta.padStart(6)}`;
+		const msCell = ms === undefined ? "-".padStart(10) : col(ms);
+		const cells = before
+			? `${was === undefined ? "-".padStart(10) : col(was)} ${msCell} ${delta.padStart(6)}`
+			: msCell;
 		console.log(`${name.padEnd(34)} ${cells}`);
 	}
 }
@@ -233,7 +237,18 @@ if (args.targets.length === 0) {
 }
 if (args.mode === "compare") {
 	console.log();
-	report(changed, checked, "posts");
+	const entries = await fs.readdir(args.snapshot);
+	const onlyBaseline = entries
+		.filter((f) => f.endsWith(".json") && !f.startsWith("passes."))
+		.map((f) => f.slice(0, -".json".length))
+		.filter((name) => !checkedNames.has(name));
+	if (onlyBaseline.length) {
+		console.log(
+			`${onlyBaseline.length} only in baseline: ${onlyBaseline.join(" ")}`,
+		);
+		changed.push(...onlyBaseline);
+	}
+	report(changed, checkedNames.size, "posts");
 	if (changed.length && !args.full)
 		console.log("rerun with --full to see them");
 }

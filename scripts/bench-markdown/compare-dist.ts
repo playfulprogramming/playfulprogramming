@@ -14,29 +14,36 @@ const { values, positionals } = parseArgs({
 		verbose: { type: "boolean", short: "v", default: false },
 	},
 });
-const roots = values.against
-	? [values.against, process.cwd()]
-	: positionals.map((dir) => path.dirname(dir));
-if (roots.length !== 2) {
+function build(root: string) {
+	const result = spawnSync("pnpm", ["build:local"], {
+		cwd: root,
+		stdio: "inherit",
+		env: {
+			...process.env,
+			GIT_COMMIT_REF: process.env.GIT_COMMIT_REF ?? "main",
+		},
+	});
+	if (result.status !== 0) process.exit(result.status ?? 1);
+	return path.join(root, "dist");
+}
+
+const dirs = values.against
+	? [values.against, process.cwd()].map((root) => build(path.resolve(root)))
+	: positionals.map((dir) => path.resolve(dir));
+if (dirs.length !== 2) {
 	throw new Error(
 		"Usage: pnpm compare:dist --against <worktree> | <before/dist> <after/dist>",
 	);
 }
-const [before, after] = roots.map((root) => {
-	root = path.resolve(root);
-	if (values.against) {
-		const build = spawnSync("pnpm", ["build:local"], {
-			cwd: root,
-			stdio: "inherit",
-			env: {
-				...process.env,
-				GIT_COMMIT_REF: process.env.GIT_COMMIT_REF ?? "main",
-			},
-		});
-		if (build.status !== 0) process.exit(build.status ?? 1);
-	}
-	return path.join(root, "dist");
-});
+const [before, after] = dirs;
+
+for (const dir of [before, after]) {
+	const exists = await fs.access(dir).then(
+		() => true,
+		() => false,
+	);
+	if (!exists) throw new Error(`${dir} does not exist`);
+}
 
 const unstable: Array<[RegExp, string]> = [
 	[/U[0-9a-f]{32}/g, "<id>"],
@@ -52,7 +59,10 @@ const unstable: Array<[RegExp, string]> = [
 ];
 
 async function read(dir: string, file: string): Promise<string> {
-	const text = await fs.readFile(path.join(dir, file), "utf-8").catch(() => "");
+	const text = await fs.readFile(path.join(dir, file), "utf-8").catch((e) => {
+		if (e instanceof Error && "code" in e && e.code === "ENOENT") return "";
+		throw e;
+	});
 	return unstable.reduce(
 		(s, [re, to]) => s.replace(re, to),
 		text.replaceAll(path.dirname(dir), "<root>"),
@@ -62,7 +72,13 @@ async function read(dir: string, file: string): Promise<string> {
 const patterns = ["**/*.{html,json,xml}", "api/**"];
 const files = [
 	...new Set(
-		[before, after].flatMap((dir) => globSync(patterns, { cwd: dir })),
+		[before, after].flatMap((dir) =>
+			globSync(patterns, { cwd: dir, withFileTypes: true })
+				.filter((entry) => entry.isFile())
+				.map((entry) =>
+					path.relative(dir, path.join(entry.parentPath, entry.name)),
+				),
+		),
 	),
 ].toSorted();
 const random =

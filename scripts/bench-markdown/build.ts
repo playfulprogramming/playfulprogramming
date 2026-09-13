@@ -73,10 +73,14 @@ async function run(
 	mode: "none" | "write" | "compare",
 	final = true,
 ) {
-	spawnSync("pnpm", ["run", "paraglide:compile"], {
+	const paraglide = spawnSync("pnpm", ["run", "paraglide:compile"], {
 		cwd: root,
-		stdio: "ignore",
+		stdio: ["ignore", "ignore", "inherit"],
 	});
+	if (paraglide.status !== 0) {
+		console.error(`paraglide:compile failed in ${root}`);
+		process.exit(paraglide.status ?? 1);
+	}
 	const pkg = Value.Parse(
 		PackageJson,
 		JSON.parse(await fs.readFile(path.join(root, "package.json"), "utf-8")),
@@ -138,7 +142,7 @@ async function run(
 			GIT_COMMIT_REF: process.env.GIT_COMMIT_REF ?? "main",
 			BENCH_ARGS: JSON.stringify({
 				targets: positionals,
-				iterations: options.iterations,
+				iterations: Number(options.iterations),
 				full: options.full,
 				mode,
 				final,
@@ -165,7 +169,7 @@ if (options.against) {
 		throw new Error(`${against} has no node_modules; run pnpm install there`);
 	}
 	await fs.rm(path.join(tmpDir, "snapshot"), { recursive: true, force: true });
-	const runs = Number(options.runs);
+	const runs = Value.Parse(Type.Integer({ minimum: 1 }), Number(options.runs));
 	for (let i = 1; i <= runs; i++) {
 		console.log(`\n== ${against} (${i}/${runs})`);
 		await run(against, "write", false);
