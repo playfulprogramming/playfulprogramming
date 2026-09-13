@@ -38,6 +38,7 @@ jobs:
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
+      - uses: nrwl/nx-set-shas@afb73a62d26e41464e9254689e1fd6122ee683c1 # v5.0.1
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
@@ -50,20 +51,12 @@ jobs:
       - name: Compile paraglide sources
         run: pnpm nx paraglide:compile
 
-      - name: Test
+      - name: Run Unit Tests
         run: pnpm nx test:unit
         background: true
 
-      - name: Check TypeScript
-        run: pnpm nx tsc
-        background: true
-
       - name: Run Linting
-        run: pnpm nx lint
-        background: true
-
-      - name: Find unused code
-        run: pnpm nx knip
+        run: pnpm nx affected -t check
         background: true
 
       - name: Run Playwright tests (Docker)
