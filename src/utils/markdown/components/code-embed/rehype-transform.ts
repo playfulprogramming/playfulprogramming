@@ -112,7 +112,6 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 		createComponent("CodeEmbed", {
 			projectId: project,
 			projectZipUrl: `/generated/projects/${post}_${project}.zip`,
-			// project files are served statically from the content directory
 			projectUrl: `/${path.relative(process.cwd(), projectDir)}`,
 			title: props.attributes.title,
 			file,

@@ -2,7 +2,6 @@ import { useEffect, useState } from "preact/hooks";
 import { codeToHtml } from "./code-embed-shiki.ts";
 
 interface CodeEmbedContentProps {
-	/** Where the file is served from; only fetched when `codeHtml` is absent. */
 	url: string;
 	codeHtml?: string;
 	lang: string;
@@ -13,7 +12,7 @@ export function CodeEmbedContent(props: CodeEmbedContentProps) {
 	const [codeHtml, setCodeHtml] = useState<string>();
 
 	useEffect(() => {
-		// The initially selected file is rendered on the server as codeHtml
+		// If codeHtml is provided from SSR, do nothing
 		if (props.codeHtml) return;
 
 		let stale = false;
