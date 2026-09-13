@@ -18,7 +18,6 @@ import { rehypeHeaderClass } from "./rehype-header-class.ts";
 import type { Processor } from "unified";
 import { rehypeShikiUU } from "./shiki/rehype-transform.ts";
 import { rehypeCodeblockMeta } from "./shiki/rehype-codeblock-meta.ts";
-import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform.ts";
 import {
 	rehypeDetailsElement,
 	rehypeLinkPreview,
@@ -101,8 +100,7 @@ export function createHtmlPlugins(unified: Processor) {
 			// Shiki is the last plugin before stringify, to avoid performance issues
 			// with node traversal (shiki creates A LOT of element nodes)
 			.use(rehypeCodeblockMeta)
-			.use(rehypeShikiUU)
-			.use(rehypePostShikiTransform)
+			.use(rehypeShikiUU, { serialize: true })
 			.use(rehypeTransformComponents, {
 				components: {
 					"code-embed": transformCodeEmbed,
