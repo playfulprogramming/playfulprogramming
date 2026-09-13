@@ -41,9 +41,6 @@ jobs:
         run: pnpm install --frozen-lockfile --prefer-offline
       - uses: nrwl/nx-set-shas@afb73a62d26e41464e9254689e1fd6122ee683c1 # v5.0.1
 
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
-
       - name: Set Docker UID/GID
         run: |
           echo "UID=$(id -u)" >> $GITHUB_ENV
