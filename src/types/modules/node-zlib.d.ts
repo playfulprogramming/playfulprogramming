@@ -7,18 +7,10 @@ declare module "node:zlib" {
 	}
 	export const ZipEntry: {
 		create(
-			filename: string,
-			data: Buffer | NodeJS.TypedArray | DataView | ArrayBuffer,
-			options?: {
-				comment?: string;
-				mode?: number;
-				modified?: Date;
-				method?: "deflate" | "store" | "zstd";
-			},
+			name: string,
+			data: Uint8Array,
+			options?: { modified?: Date },
 		): Promise<ZipEntry>;
 	};
-	export function createZipArchive(
-		entries: Iterable<ZipEntry> | AsyncIterable<ZipEntry>,
-		options?: string | { comment?: string; baseOffset?: number },
-	): Readable;
+	export function createZipArchive(entries: Iterable<ZipEntry>): Readable;
 }
