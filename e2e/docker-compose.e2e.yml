@@ -12,11 +12,13 @@ services:
   web:
     depends_on:
       - fakeserver
-    working_dir: /work
     build:
       target: server
       context: ..
       dockerfile: e2e/Dockerfile
+    working_dir: /work
+    volumes:
+      - ../content:/work/content:ro
     environment:
       HOOF_URL: http://fakeserver:8080
       GIT_COMMIT_REF: main
