@@ -40,36 +40,28 @@ function compareByPublished<T extends { published: string; slug: string }>(
 	);
 }
 
-// each locale's posts are read and sorted once; every post page previously repeated this
-const postsByLocale = new Map<Locale, Promise<PostInfo[]>>();
-function allPostsByLang(language: Locale): Promise<PostInfo[]> {
-	let result = postsByLocale.get(language);
-	if (result === undefined) {
-		result = Promise.all(
-			[...posts.values()]
-				.map((locales) => findLocalizedEntry(locales, language))
-				.filter(isDefined)
-				.map((p) => readPost(p)),
-		).then((all) => all.sort(compareByPublished));
-		postsByLocale.set(language, result);
-	}
-	return result;
+function readAllByLang<
+	Stub extends { locale: Locale },
+	Info extends { published: string; slug: string },
+>(entries: Map<string, Stub[]>, read: (stub: Stub) => Promise<Info>) {
+	const byLocale = new Map<Locale, Promise<Info[]>>();
+	return (language: Locale): Promise<Info[]> => {
+		let result = byLocale.get(language);
+		if (result === undefined) {
+			result = Promise.all(
+				[...entries.values()]
+					.map((locales) => findLocalizedEntry(locales, language))
+					.filter(isDefined)
+					.map((stub) => read(stub)),
+			).then((all) => all.sort(compareByPublished));
+			byLocale.set(language, result);
+		}
+		return result;
+	};
 }
 
-const collectionsByLocale = new Map<Locale, Promise<CollectionInfo[]>>();
-function allCollectionsByLang(language: Locale): Promise<CollectionInfo[]> {
-	let result = collectionsByLocale.get(language);
-	if (result === undefined) {
-		result = Promise.all(
-			[...collections.values()]
-				.map((locales) => findLocalizedEntry(locales, language))
-				.filter(isDefined)
-				.map((c) => readCollection(c)),
-		).then((all) => all.sort(compareByPublished));
-		collectionsByLocale.set(language, result);
-	}
-	return result;
-}
+const allPostsByLang = readAllByLang(posts, readPost);
+const allCollectionsByLang = readAllByLang(collections, readCollection);
 
 export const getAllPosts = async (): Promise<PostInfo[]> => {
 	return await Promise.all(
