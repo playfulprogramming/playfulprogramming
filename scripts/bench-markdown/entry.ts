@@ -98,8 +98,12 @@ function median(values: number[]): number {
 
 const col = (n: number) => n.toFixed(2).padStart(10);
 
-async function rounds(mode: string, passes?: Map<string, number>) {
-	const file = path.join(args.snapshot, `passes.${mode}.json`);
+async function rounds(
+	label: string,
+	mode: string,
+	passes?: Map<string, number>,
+) {
+	const file = path.join(args.snapshot, `passes.${mode}.${label}.json`);
 	const all = Value.Parse(
 		Rounds,
 		JSON.parse(await fs.readFile(file, "utf-8").catch(() => "[]")),
@@ -116,10 +120,11 @@ async function rounds(mode: string, passes?: Map<string, number>) {
 	);
 }
 
-async function printPasses(passes: Map<string, number>) {
-	if (args.mode !== "none") passes = await rounds(args.mode, passes);
+async function printPasses(label: string, passes: Map<string, number>) {
+	if (args.mode !== "none") passes = await rounds(label, args.mode, passes);
 	if (!args.final) return;
-	const before = args.mode === "compare" ? await rounds("write") : undefined;
+	const before =
+		args.mode === "compare" ? await rounds(label, "write") : undefined;
 	const header = before ? " before ms   after ms      %" : "   wall ms";
 	console.log(`${"pass".padEnd(34)} ${header}`);
 	const names = new Set([...(before?.keys() ?? []), ...passes.keys()]);
@@ -163,15 +168,17 @@ async function benchFile(processor: Processor, info: PostInfo) {
 	console.log(
 		`warm (${iterations} runs) min=${Math.min(...totals).toFixed(2)} median=${median(totals).toFixed(2)} max=${Math.max(...totals).toFixed(2)} ms\n`,
 	);
+	const name = `${info.slug}.${info.locale}`;
 	await printPasses(
+		name,
 		new Map(
-			[...passMs].map(([name, list]) => [
-				name,
+			[...passMs].map(([pass, list]) => [
+				pass,
 				median(list.slice(-iterations)),
 			]),
 		),
 	);
-	await snapshot(`${info.slug}.${info.locale}`, outputs[0]);
+	await snapshot(name, outputs[0]);
 }
 
 async function benchAll(processor: Processor) {
@@ -219,7 +226,7 @@ async function benchAll(processor: Processor) {
 		}
 		console.log("\ntime per pass, summed over all posts");
 	}
-	await printPasses(perPass);
+	await printPasses("all", perPass);
 }
 
 const processor: Processor = unified();
@@ -248,7 +255,7 @@ if (args.mode === "compare") {
 		);
 		changed.push(...onlyBaseline);
 	}
-	report(changed, checkedNames.size, "posts");
+	report(changed, checkedNames.size + onlyBaseline.length, "posts");
 	if (changed.length && !args.full)
 		console.log("rerun with --full to see them");
 }

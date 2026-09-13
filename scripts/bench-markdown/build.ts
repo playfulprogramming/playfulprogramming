@@ -129,7 +129,10 @@ async function run(
 	});
 
 	const nodeArgs = options.profile
-		? ["--cpu-prof", `--cpu-prof-dir=${path.join(tmpDir, "profiles", mode)}`]
+		? [
+				"--cpu-prof",
+				`--cpu-prof-dir=${path.join(tmpDir, "profiles", path.basename(root))}`,
+			]
 		: [];
 	const child = spawnSync(process.execPath, [...nodeArgs, bundlePath], {
 		cwd: root,
