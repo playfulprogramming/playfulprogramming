@@ -1,0 +1,41 @@
+{
+	"$schema": "./node_modules/nx/schemas/nx-schema.json",
+	"neverConnectToCloud": true,
+	"analytics": false,
+	"targetDefaults": {
+		"paraglide:compile": {
+			"inputs": ["{projectRoot}/project.inlang/settings.json", "{projectRoot}/content/data/i18n/*"],
+			"outputs": ["{projectRoot}/src/paraglide/**/*"],
+			"cache": true
+		},
+		"build:*": {
+			"dependsOn": ["paraglide:compile"]
+		},
+		"dev:*": {
+			"dependsOn": ["paraglide:compile"],
+			"continuous": true
+		},
+		"storybook:*": {
+			"dependsOn": ["paraglide:compile"],
+			"continuous": true
+		},
+		"lint": {
+			"dependsOn": ["paraglide:compile"]
+		},
+		"lint:fix": {
+			"dependsOn": ["paraglide:compile"]
+		},
+		"knip": {
+			"dependsOn": ["paraglide:compile"]
+		},
+		"search-index:deploy": {
+			"dependsOn": ["paraglide:compile"]
+		},
+		"tsc": {
+			"dependsOn": ["paraglide:compile"]
+		},
+		"test:*": {
+			"dependsOn": ["paraglide:compile"]
+		}
+	}
+}
