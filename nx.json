@@ -15,6 +15,10 @@
 			"dependsOn": ["paraglide:compile"],
 			"continuous": true
 		},
+		"storybook:*": {
+			"dependsOn": ["paraglide:compile"],
+			"continuous": true
+		},
 		"lint": {
 			"dependsOn": ["paraglide:compile"]
 		},
