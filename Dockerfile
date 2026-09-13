@@ -6,7 +6,7 @@ WORKDIR /var/app
 
 # Prepare pnpm according to the root package.json
 COPY package.json .
-RUN corepack enable
+RUN npm install --global corepack && corepack enable
 RUN corepack install
 
 # Install dependencies with pnpm
