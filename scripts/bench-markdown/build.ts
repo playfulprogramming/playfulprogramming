@@ -31,8 +31,9 @@ pnpm bench:markdown --against <dir>  run in that checkout first, then here: pass
 pnpm compare:dist --against <dir>    build there and here, compare the two dist trees
 pnpm compare:dist <before> <after>   same for two existing dist directories
 
-Exit 1 when any output differs. compare:dist skips pages that shuffle content
-with Math.random (index, about, collections) unless -v is passed.
+Exit 1 when any output differs. compare:dist checks every file except hashed
+_astro assets, and skips pages that shuffle content with Math.random (index,
+about, collections) and epubs unless -v is passed.
 
   --full             print the first difference of each changed post
   --iterations N     timed runs per post (default 15)

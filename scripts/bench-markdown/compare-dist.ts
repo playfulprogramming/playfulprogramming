@@ -58,23 +58,28 @@ const unstable: Array<[RegExp, string]> = [
 	[/"date_modified":"[^"]*"/g, ""],
 ];
 
+const text = /\.(html|json|xml|js|css|svg|txt|md)$|^api\//;
+
 async function read(dir: string, file: string): Promise<string> {
-	const text = await fs.readFile(path.join(dir, file), "utf-8").catch((e) => {
+	const bytes = await fs.readFile(path.join(dir, file)).catch((e) => {
 		if (e instanceof Error && "code" in e && e.code === "ENOENT") return "";
 		throw e;
 	});
+	if (!text.test(file)) return bytes.toString("base64");
 	return unstable.reduce(
 		(s, [re, to]) => s.replace(re, to),
-		text.replaceAll(path.dirname(dir), "<root>"),
+		bytes.toString().replaceAll(path.dirname(dir), "<root>"),
 	);
 }
 
-const patterns = ["**/*.{html,json,xml}", "api/**"];
+const patterns = ["**/*"];
 const files = [
 	...new Set(
 		[before, after].flatMap((dir) =>
 			globSync(patterns, { cwd: dir, withFileTypes: true })
-				.filter((entry) => entry.isFile())
+				.filter(
+					(entry) => entry.isFile() && !entry.parentPath.includes("/_astro"),
+				)
 				.map((entry) =>
 					path.relative(dir, path.join(entry.parentPath, entry.name)),
 				),
@@ -82,7 +87,7 @@ const files = [
 	),
 ].toSorted();
 const random =
-	/^(?:[a-z-]+\/)?(?:about\/)?index\.html$|^collections\/[^/]+\/index\.html$/;
+	/^(?:[a-z-]+\/)?(?:about\/)?index\.html$|^collections\/[^/]+\/index\.html$|\.epub$/;
 const changed: string[] = [];
 let skipped = 0;
 for (const file of files) {
@@ -97,7 +102,7 @@ for (const file of files) {
 }
 if (skipped) {
 	console.log(
-		`skipped ${skipped} pages with baked-in randomness (index, about, collections); pass -v to compare them`,
+		`skipped ${skipped} files with baked-in randomness (index, about, collections, epubs); pass -v to compare them`,
 	);
 }
 const byDir = Map.groupBy(changed, (file) => path.dirname(file).split("/")[0]);
