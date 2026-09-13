@@ -31,7 +31,9 @@ pnpm bench:markdown --against <dir>  run in that checkout first, then here: pass
 pnpm compare:dist --against <dir>    build there and here, compare the two dist trees
 pnpm compare:dist <before> <after>   same for two existing dist directories
 
-Exit 1 when any output differs. compare:dist checks every file except hashed
+bench:markdown covers markdown -> compiled nodes only, with hoof stubbed and
+shiki in-thread; anything in components, layouts or the worker pool needs
+compare:dist. Exit 1 when any output differs. compare:dist checks every file except hashed
 _astro assets, and skips pages that shuffle content with Math.random (index,
 about, collections) and epubs unless -v is passed.
 
