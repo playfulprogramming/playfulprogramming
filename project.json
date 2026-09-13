@@ -75,6 +75,9 @@
             "dependsOn": ["paraglide:compile"],
             "command": "set DEBUG_PRINT_LIMIT=9999999999 && pnpm vitest"
         },
+        "test:e2e": {
+            "command": "pnpm --filter e2e test"
+        },
         "test:stress": {
             "dependsOn": ["paraglide:compile"],
             "command": "./scripts/run-tests-concurrently.sh --run"

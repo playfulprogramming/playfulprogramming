@@ -48,7 +48,7 @@
 		"test:unit:node": "nx run test:unit -- --project node",
 		"test:unit:ui": "nx run test:unit -- --project ui",
 		"test:unit:interactive": "nx run test:unit:interactive",
-		"test:e2e": "pnpm --filter e2e test",
+		"test:e2e": "nx run test:e2e",
 		"test:e2e:update": "pnpm --filter e2e test:update-snapshots",
 		"test:e2e:interactive": "pnpm --filter e2e test:interactive",
 		"test:debug": "nx run test:debug",
@@ -56,7 +56,7 @@
 		"prepare": "husky"
 	},
 	"nx": {
-		"includedScripts": []
+		"includedScripts": ["test:e2e"]
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.10",
