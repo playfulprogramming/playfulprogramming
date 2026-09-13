@@ -82,7 +82,7 @@ The agent reads your entire project context (up to 1M tokens with Gemini 2.5 Pro
 
 Example conversation:
 
-```plaintext
+```text
 You: Add user authentication to this Express app with JWT tokens
 Agent: [reads codebase, creates plan]
 Agent: I'll create:

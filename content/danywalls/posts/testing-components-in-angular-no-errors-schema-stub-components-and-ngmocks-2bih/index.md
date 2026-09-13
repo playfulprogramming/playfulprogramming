@@ -96,7 +96,7 @@ describe('ProductsComponent', () => {
 
 and... tada!!! 😭 I started to get weird errors:
 
-```plaintext
+```text
  NullInjectorError: R3InjectorError(DynamicTestModule)[ProductsService -> HttpClient -> HttpClient]:
 ```
 
