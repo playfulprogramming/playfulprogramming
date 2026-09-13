@@ -6,7 +6,6 @@ import {
 	type PlayfulNode,
 	type PlayfulRoot,
 	isComponentMarkup,
-	isComponentNode,
 } from "./components.ts";
 
 type RehypeComponentsProps = {
@@ -27,9 +26,13 @@ export const rehypeTransformComponents: Plugin<
 		for (let index = 0; index < tree.children.length; index++) {
 			const node = tree.children[index];
 
-			if (isComponentNode(node)) {
-				results.push({ index, node, replacement: [node] });
-				continue;
+			// Components can also live inside ordinary HTML or a component
+			// produced by an earlier plugin. Always transform children first.
+			if ("children" in node) {
+				await transformComponents(
+					{ type: "root", children: node.children },
+					vfile,
+				);
 			}
 
 			if (!isComponentMarkup(node)) continue;
@@ -40,12 +43,6 @@ export const rehypeTransformComponents: Plugin<
 				logError(vfile, node, `Unknown markdown component ${node.component}`);
 				throw new Error();
 			}
-
-			// Transform the child components first!
-			await transformComponents(
-				{ type: "root", children: node.children },
-				vfile,
-			);
 
 			const replacement = component({
 				vfile,

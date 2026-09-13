@@ -7,71 +7,83 @@ import {
 	isHtmlNode,
 } from "./components.ts";
 import { type Options as HtmlOptions, toHtml } from "hast-util-to-html";
-import { isRoot } from "../unist-is-element.ts";
+import { isElement, isRoot } from "../unist-is-element.ts";
 
 interface ComponentsOptions {
 	htmlOptions: HtmlOptions;
+}
+
+function containsPlayfulNode(node: PlayfulRoot["children"][number]): boolean {
+	return (
+		isComponentNode(node) ||
+		isHtmlNode(node) ||
+		isRoot(node) ||
+		(isElement(node) && node.children.some(containsPlayfulNode))
+	);
 }
 
 export function compileToPlayfulNodes(
 	tree: PlayfulRoot,
 	options: ComponentsOptions,
 ): PlayfulNode[] {
-	const results: Array<{
-		index: number;
-		node: PlayfulNode;
-	}> = [];
+	const nodes: PlayfulNode[] = [];
+	let pendingHtml: hast.ElementContent[] = [];
+	function flushHtml() {
+		if (!pendingHtml.length) return;
+		nodes.push({
+			type: "html",
+			innerHtml: toHtml(pendingHtml, options.htmlOptions),
+		});
+		pendingHtml = [];
+	}
 
-	for (let index = 0; index < tree.children.length; index++) {
-		const node = tree.children[index];
-
+	for (const node of tree.children) {
 		if (isComponentNode(node)) {
-			const compiledNode = {
+			flushHtml();
+			nodes.push({
 				...node,
 				children: compileToPlayfulNodes(
 					{ type: "root", children: node.children ?? [] },
 					options,
 				),
-			};
-			results.push({ index, node: compiledNode });
+			});
 		} else if (isHtmlNode(node)) {
-			results.push({ index, node });
+			flushHtml();
+			nodes.push(node);
 		} else if (isRoot(node)) {
+			flushHtml();
 			const children = compileToPlayfulNodes(node, options);
-			results.push({ index, node: { type: "root", children } });
-		}
-	}
-
-	const nodes: PlayfulNode[] = [];
-	for (const [result, index] of results.map((r, i) => [r, i] as const)) {
-		const preStart = (results[index - 1]?.index ?? -1) + 1;
-		const preEnd = result.index - 1;
-		if (preEnd - preStart > 0) {
-			const innerHtml = toHtml(
-				tree.children.slice(preStart, preEnd) as hast.ElementContent[],
-				options.htmlOptions,
+			nodes.push({ type: "root", children });
+		} else if (isElement(node) && containsPlayfulNode(node)) {
+			flushHtml();
+			// Keep enclosing HTML around components without passing custom nodes
+			// to toHtml. Force an explicit closing tag to split the empty shell.
+			const closingTag = `</${node.tagName}>`;
+			const shell = toHtml(
+				{ ...node, children: [] },
+				{
+					...options.htmlOptions,
+					omitOptionalTags: false,
+					closeEmptyElements: false,
+					voids: [],
+				},
 			);
 			nodes.push({
 				type: "html",
-				innerHtml,
+				innerHtml: shell.slice(0, -closingTag.length),
 			});
+			nodes.push(
+				...compileToPlayfulNodes(
+					{ type: "root", children: node.children },
+					options,
+				),
+			);
+			nodes.push({ type: "html", innerHtml: closingTag });
+		} else {
+			pendingHtml.push(node as hast.ElementContent);
 		}
-
-		nodes.push(result.node);
 	}
-
-	if ((results.at(-1)?.index ?? -1) + 1 < tree.children.length) {
-		const postStart = (results.at(-1)?.index ?? -1) + 1;
-		const postEnd = tree.children.length;
-		const innerHtml = toHtml(
-			tree.children.slice(postStart, postEnd) as hast.ElementContent[],
-			options.htmlOptions,
-		);
-		nodes.push({
-			type: "html",
-			innerHtml,
-		});
-	}
+	flushHtml();
 
 	return nodes;
 }

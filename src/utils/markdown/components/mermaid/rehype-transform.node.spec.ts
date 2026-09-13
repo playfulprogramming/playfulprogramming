@@ -18,19 +18,6 @@ vi.mock("../../shiki/shiki-pool.ts", () => ({
 	runShiki: vi.fn(async (node: Element) => node),
 }));
 
-vi.mock("../components.ts", () => ({
-	createComponent: (component: string, props: object) => ({
-		type: "playful-component",
-		component,
-		props,
-		children: [],
-	}),
-	isComponentMarkup: (node: { type?: string }) =>
-		node?.type === "playful-component-markup",
-	isComponentNode: (node: { type?: string }) =>
-		node?.type === "playful-component",
-}));
-
 const fileInfo = {
 	kind: "post" as const,
 	file: "mermaid-test.md",
