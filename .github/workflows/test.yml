@@ -47,25 +47,28 @@ jobs:
           echo "UID=$(id -u)" >> $GITHUB_ENV
           echo "GID=$(id -g)" >> $GITHUB_ENV
 
+      - name: Compile paraglide sources
+        run: pnpm nx paraglide:compile
+
       - name: Test
-        run: pnpm run test:unit
+        run: pnpm nx test:unit
         background: true
 
       - name: Check TypeScript
-        run: pnpm run tsc
+        run: pnpm nx tsc
         background: true
 
       - name: Run Linting
-        run: pnpm run lint
+        run: pnpm nx lint
         background: true
 
       - name: Find unused code
-        run: pnpm run knip
+        run: pnpm nx knip
         background: true
 
       - name: Run Playwright tests (Docker)
         id: playwright
-        run: pnpm --filter e2e test
+        run: pnpm nx test:e2e
         background: true
 
       - wait-all:

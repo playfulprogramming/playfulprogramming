@@ -36,4 +36,4 @@ jobs:
           MODE: production
           TYPESENSE_WRITE_API_KEY: ${{ secrets.TYPESENSE_WRITE_API_KEY }}
           HOOF_AUTH_TOKEN: ${{ secrets.HOOF_AUTH_TOKEN }}
-        run: pnpm run search-index:deploy
+        run: pnpm nx search-index:deploy
