@@ -29,8 +29,22 @@ function findLocalizedEntry<T extends { locale: Locale }>(
 	);
 }
 
+// without cache, date objects are constructed thousands of times, taking several seconds
+const timestamps = new Map<string, number>();
+
+function toTimestamp(date: string): number {
+	const cached = timestamps.get(date);
+	if (cached !== undefined) {
+		return cached;
+	}
+
+	const timestamp = new Date(date).getTime();
+	timestamps.set(date, timestamp);
+	return timestamp;
+}
+
 function compareByDate(date1: string, date2: string): number {
-	return new Date(date1) > new Date(date2) ? -1 : 1;
+	return toTimestamp(date1) > toTimestamp(date2) ? -1 : 1;
 }
 
 function compareByPublished<T extends { published: string }>(
