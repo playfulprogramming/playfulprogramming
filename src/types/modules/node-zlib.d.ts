@@ -3,7 +3,7 @@ declare module "node:zlib" {
 	import type { Readable } from "node:stream";
 
 	export interface ZipEntry {
-		readonly filename: string;
+		readonly name: string;
 	}
 	export const ZipEntry: {
 		create(
