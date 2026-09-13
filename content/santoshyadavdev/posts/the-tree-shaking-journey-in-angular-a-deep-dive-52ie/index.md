@@ -18,7 +18,7 @@ Before we jump into the topic, let's understand tree shaking. The build tools we
 
 Let's take the code below, for example, where we have two methods, `add`  and `sub`.
 
-```Javascript
+```javascript
 export function add(a,b){
 	return a+b;
 }

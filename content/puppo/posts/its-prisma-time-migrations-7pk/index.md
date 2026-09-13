@@ -76,7 +76,7 @@ model AuthorsOnPost {
 
 Once this is done, we can generate our first migration using this command
 
-```cli
+```bash
 npx prisma migrate dev
 ```
 
@@ -86,7 +86,7 @@ If you open this folder, you find a file called `migration.sql`, where you can s
 In this case, in this file, there are 3 CREATE TABLE commands, each for every entity (Author, Post, AuthorsOnPost).
 Prisma allows us to indicate migration's name too by using the `--name` option. Therefore the previous command could be executed in this way
 
-```cli
+```bash
 npx prisma migrate dev --name create_post_and_author_entities
 ```
 
@@ -131,7 +131,7 @@ model Author {
 
 Now it's time to create our second migration using the next command
 
-```cli
+```bash
 npx prisma migrate dev --name add_comment_entity
 ```
 
@@ -169,7 +169,7 @@ model Author {
 After that it's time to create our migration. This time though, we'll use a special option `--create-only`. This option allows us to create the migration script but this time the migration doesn't execute yet.
 Now execute the following command
 
-```cli
+```bash
 npx prisma migrate dev --name rename_author_columns --create-only
 ```
 
@@ -205,7 +205,7 @@ FROM "authors";
 
 Now it's time to do the last step to make this migration real
 
-```cli
+```bash
 npx prisma migrate dev
 ```
 

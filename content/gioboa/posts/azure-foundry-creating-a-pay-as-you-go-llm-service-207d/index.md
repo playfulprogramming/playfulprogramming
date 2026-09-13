@@ -30,7 +30,7 @@ The key to a successful pay-as-you-go model is accurate tracking of LLM usage.
 
 By analysing the LLM's response, specifically the `usage` section of the response, you can determine the cost associated with each API call. So you can define your pricing based on these values.
 
-```JSON
+```json
 {
   [...]
   "usage": {

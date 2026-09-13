@@ -168,7 +168,7 @@ Templates are type checked, according to the template type checking mode as desc
 
 The `ng new` workspace schematic now supports the `--strict` flag which defaults to off (`false`).
 
-```language-bash
+```bash
 ng new my-app --strict
 ```
 
@@ -279,7 +279,7 @@ As part of the Ivy styling rewrite, binding CSS Custom Properties is now support
 
 An example binding looks like this:
 
-```language-html
+```html
 <div [style.--my-var]="myProperty || 'any value'"></div>
 ```
 
