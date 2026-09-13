@@ -10,6 +10,9 @@
 		"pretest:interactive": "docker compose -f ./docker-compose.e2e.yml up fakeserver web --build --wait",
 		"test:interactive": "playwright test --config ./playwright.config.ts --ui"
 	},
+	"nx": {
+		"includedScripts": []
+	},
 	"devDependencies": {
 		"@playwright/test": "1.63.0",
 		"cross-env": "^10.1.0"
