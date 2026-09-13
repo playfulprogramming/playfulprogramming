@@ -51,8 +51,7 @@
         },
         "playwright:install": {
             "inputs": [{ "externalDependencies": ["playwright"] }],
-            "command": "pnpm playwright install $([ -n \"$CI\" ] && echo \"--with-deps\" || true)",
-            "cache": true
+            "command": "pnpm playwright install $([ -n \"$CI\" ] && echo \"--with-deps\" || true)"
         },
         "search-index:deploy": {
             "dependsOn": ["paraglide:compile"],
@@ -67,10 +66,6 @@
             "dependsOn": ["paraglide:compile"],
             "command": "storybook build"
         },
-        "test:unit": {
-            "dependsOn": ["paraglide:compile", "playwright:install"],
-            "command": "vitest run --browser.headless"
-        },
         "test:unit:interactive": {
             "dependsOn": ["paraglide:compile", "playwright:install"],
             "command": "vitest",
@@ -80,15 +75,13 @@
             "dependsOn": ["paraglide:compile"],
             "command": "set DEBUG_PRINT_LIMIT=9999999999 && pnpm vitest"
         },
-        "test:e2e": {
-            "command": "pnpm --filter e2e test"
-        },
         "test:stress": {
             "dependsOn": ["paraglide:compile"],
             "command": "./scripts/run-tests-concurrently.sh --run"
         },
         "test": {
-            "dependsOn": ["test:unit", "test:e2e"]
+            "dependsOn": ["paraglide:compile", "playwright:install"],
+            "command": "vitest run --browser.headless"
         }
     }
 }
