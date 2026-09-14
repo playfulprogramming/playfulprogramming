@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1.7-labs
-FROM node:24-alpine3.24 AS builder
+FROM node:26.8-alpine3.24 AS builder
 
 # Create app directory
 WORKDIR /var/app
 
 # Prepare pnpm according to the root package.json
 COPY package.json .
-RUN corepack enable
+RUN npm install --global corepack && corepack enable
 RUN corepack install
 
 # Install dependencies with pnpm
