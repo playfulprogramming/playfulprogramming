@@ -3,7 +3,7 @@ import { getAllPosts, getPostBySlug } from "#utils/api.ts";
 import path from "path";
 import { contentDirectory } from "#utils/data.ts";
 import fs from "fs/promises";
-import { zip } from "fflate";
+import { createZip } from "#utils/zip.ts";
 import { baseLocale } from "#src/paraglide/runtime.js";
 
 export async function findProjectDir(slug: string): Promise<string> {
@@ -31,18 +31,7 @@ export const GET: APIRoute = async ({ params }) => {
 		}
 	}
 
-	const zipBuffer: Uint8Array = await new Promise((res, rej) => {
-		zip(
-			zipFiles,
-			{ consume: true, level: 9, mtime: new Date("1981-01-01 0:00 UTC") },
-			(err, data) => {
-				if (data) res(data);
-				else rej(err);
-			},
-		);
-	});
-
-	return new Response(Buffer.from(zipBuffer), {
+	return new Response(new Uint8Array(await createZip(zipFiles)), {
 		headers: {
 			"Content-Type": "application/zip",
 		},
