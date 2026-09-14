@@ -39,6 +39,8 @@
 		"build:debug": "astro build --mode debug",
 		"build:local": "astro build --mode localhost",
 		"build:storybook": "storybook build",
+		"bench:markdown": "node scripts/bench-markdown/build.ts",
+		"compare:dist": "node scripts/bench-markdown/compare-dist.ts",
 		"preview": "astro preview",
 		"paraglide:compile": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations --strategy url globalVariable baseLocale",
 		"format": "prettier -w . --cache --plugin-search-dir=.",
