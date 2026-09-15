@@ -1,0 +1,8 @@
+{
+	"$schema": "./node_modules/nx/schemas/nx-schema.json",
+	"defaultBase": "main",
+	"useInferencePlugins": false,
+	"parallel": 5,
+	"neverConnectToCloud": true,
+	"analytics": false
+}

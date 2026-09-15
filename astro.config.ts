@@ -6,7 +6,6 @@ import * as path from "path";
 import * as os from "os";
 import type { AstroUserConfig } from "astro";
 import node from "@astrojs/node";
-import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import projectSettings from "./project.inlang/settings.json" with { type: "json" };
 import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
@@ -93,14 +92,6 @@ export default defineConfig({
 		build: {
 			cssMinify: "lightningcss",
 		},
-		plugins: [
-			paraglideVitePlugin({
-				project: "./project.inlang",
-				outdir: "./src/paraglide",
-				emitTsDeclarations: true,
-				strategy: ["url", "globalVariable", "baseLocale"],
-			}),
-		],
 		server: {
 			allowedHosts: ["localhost", "web"],
 		},

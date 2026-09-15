@@ -17,4 +17,5 @@ allowBuilds:
   "@parcel/watcher": true
   esbuild: true
   msw: true
+  nx: true
   sharp: true

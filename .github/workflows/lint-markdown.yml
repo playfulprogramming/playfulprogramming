@@ -1,4 +1,4 @@
-name: test
+name: Markdown Lint
 
 on:
   pull_request:
@@ -32,7 +32,7 @@ jobs:
         run: pnpm install --ignore-scripts
 
       - name: Run paraglide:compile
-        run: pnpm run paraglide:compile
+        run: pnpm nx paraglide:compile
 
       - name: Get changed files
         id: changed-files
