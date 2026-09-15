@@ -1,6 +1,4 @@
-import type * as hast from "hast";
 import type { Plugin } from "unified";
-import { find } from "unist-util-find";
 import { visit } from "unist-util-visit";
 import { toString } from "hast-util-to-string";
 import type { RehypeFunctionComponent } from "../types.ts";
@@ -10,6 +8,7 @@ import {
 	createComponent,
 } from "../components.ts";
 import { isValidComponentParent } from "../rehype-validate-components.ts";
+import { isElement } from "../../unist-is-element.ts";
 
 export const rehypeDetailsElement: Plugin<[], PlayfulRoot> = () => {
 	return (tree, _) => {
@@ -18,13 +17,16 @@ export const rehypeDetailsElement: Plugin<[], PlayfulRoot> = () => {
 			{ type: "element", tagName: "details" },
 			(node, index, parent) => {
 				if (typeof index === "undefined") return;
-				if (!isValidComponentParent(parent)) return;
+				if (!isValidComponentParent(parent) && !isElement(parent)) return;
 
-				const summary = find<hast.Element>(node, {
-					type: "element",
-					tagName: "summary",
-				});
+				const summary = node.children.find(
+					(child) => isElement(child) && child.tagName === "summary",
+				);
 				if (!summary) return;
+
+				// visit continues through the original node after replacement. Keep
+				// its children array so nested details replacements are retained.
+				node.children.splice(node.children.indexOf(summary), 1);
 
 				const replacement: ComponentMarkupNode = {
 					type: "playful-component-markup",
@@ -33,10 +35,11 @@ export const rehypeDetailsElement: Plugin<[], PlayfulRoot> = () => {
 					attributes: {
 						title: toString(summary),
 					},
-					children: node.children.filter((child) => child !== summary),
+					children: node.children,
 				};
 
-				parent.children.splice(index, 1, replacement);
+				const siblings: PlayfulRoot["children"] = parent.children;
+				siblings.splice(index, 1, replacement);
 			},
 		);
 	};

@@ -10,14 +10,14 @@ interface HintProps {
 
 export function Hint({ title, children }: HintProps) {
 	return (
-		<div class={`${style.hint} markdownCollapsePadding`}>
-			<details class={style.details}>
-				<summary class={`${style.title} text-style-body-medium-bold`}>
+		<div className={`${style.hint} markdownCollapsePadding`}>
+			<details className={style.details}>
+				<summary className={`${style.title} text-style-body-medium-bold`}>
 					<RawSvg aria-hidden icon={ChevronDownIcon} />
 					{title}
 				</summary>
 
-				<div class={style.content}>{children}</div>
+				<div className={style.content}>{children}</div>
 			</details>
 		</div>
 	);

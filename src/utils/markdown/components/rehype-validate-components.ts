@@ -7,7 +7,7 @@ import {
 	isComponentMarkup,
 	isComponentNode,
 } from "./components.ts";
-import { isRoot } from "../unist-is-element.ts";
+import { isElement, isRoot } from "../unist-is-element.ts";
 
 export function isValidComponentParent(node: hast.Node | undefined) {
 	return isRoot(node) || isComponentNode(node) || isComponentMarkup(node);
@@ -16,7 +16,7 @@ export function isValidComponentParent(node: hast.Node | undefined) {
 export const rehypeValidateComponents: Plugin<[], PlayfulRoot> = () => {
 	return (tree, vfile) => {
 		visit(tree, isComponentMarkup, (node, _, parent) => {
-			if (!isValidComponentParent(parent)) {
+			if (!isValidComponentParent(parent) && !isElement(parent)) {
 				logError(
 					vfile,
 					node,
@@ -27,7 +27,7 @@ export const rehypeValidateComponents: Plugin<[], PlayfulRoot> = () => {
 		});
 
 		visit(tree, isComponentNode, (node, _, parent) => {
-			if (!isValidComponentParent(parent)) {
+			if (!isValidComponentParent(parent) && !isElement(parent)) {
 				logError(
 					vfile,
 					node,
