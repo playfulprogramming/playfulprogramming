@@ -17,7 +17,6 @@ import {
 	transformVoid,
 	rehypeParseComponents,
 } from "./components/index.ts";
-import { rehypePostShikiTransform } from "./shiki/rehype-post-shiki-transform.ts";
 import { rehypeRemoveCollectionLinks } from "./rehype-remove-collection-links.ts";
 import { rehypeReferencePage } from "./reference-page/rehype-reference-page.ts";
 import { rehypeRelativePaths } from "./rehype-relative-paths.ts";
@@ -44,7 +43,6 @@ export function createEpubPlugins(unified: Processor) {
 				enableCustomId: true,
 			})
 			.use(rehypeShikiUU)
-			.use(rehypePostShikiTransform)
 			.use(rehypeRemoveCollectionLinks)
 			.use(rehypeReferencePage, { referenceTitle: "References" })
 			.use(rehypeTransformComponents, {

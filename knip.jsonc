@@ -15,7 +15,7 @@
 	"workspaces": {
 		".": {
 			// Referenced dynamically by @storybook-astro/framework's preset.
-			"ignoreDependencies": ["@storybook/builder-vite"],
+			"ignoreDependencies": ["@astrojs/check", "@storybook/builder-vite"],
 			// `content/` contains standalone tutorial projects, not site source. Keep
 			// Knip's source analysis scoped to this workspace's application code.
 			"project": [

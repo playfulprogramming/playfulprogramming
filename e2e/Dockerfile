@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/playwright:v1.63.0-resolute AS e2e
 WORKDIR /work
 
 COPY package.json .
-RUN corepack enable && corepack install
+RUN npm install --global corepack && corepack enable && corepack install
 
 COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json .
 
@@ -17,29 +17,29 @@ COPY --parents e2e/playwright.config.ts .
 WORKDIR /work/e2e
 
 # proxy: Runs the fake e2e backend
-FROM node:24-slim AS fakeserver
+FROM node:26.8-slim AS fakeserver
 
 WORKDIR /work
 
 COPY package.json .
-RUN corepack enable && corepack install
+RUN npm install --global corepack && corepack enable && corepack install
 COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json .
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter e2e
 COPY --parents e2e/src .
 
 # server: Runs the Astro dev server
-FROM node:24-slim AS server
+FROM node:26.8-slim AS server
 
 WORKDIR /work
 
 COPY package.json .
-RUN corepack enable && corepack install
+RUN npm install --global corepack && corepack enable && corepack install
 
 COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json .
 
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter "!e2e"
 
-COPY --parents content public src project.inlang astro.config.ts tsconfig.json .
+COPY --parents content public src project.inlang project.json astro.config.ts tsconfig.json .
 
 ENV MODE=e2e BUILD_OUTPUT=server
 RUN pnpm build --mode $MODE

@@ -52,8 +52,8 @@
 
 .closeButton {
 	position: absolute;
-	top: var(--snitip_close-btn_margin);
-	right: var(--snitip_close-btn_margin);
+	top: calc(var(--snitip_border-width) + var(--snitip_close-btn_margin));
+	right: calc(var(--snitip_border-width) + var(--snitip_close-btn_margin));
 	z-index: 1;
 }
 

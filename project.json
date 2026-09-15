@@ -1,0 +1,87 @@
+{
+    "$schema": "./node_modules/nx/schemas/project-schema.json",
+    "root": ".",
+    "targets": {
+        "build": {
+            "dependsOn": ["paraglide:compile"],
+            "command": "astro build"
+        },
+        "check:astro": {
+            "dependsOn": ["paraglide:compile"],
+            "command": "astro check"
+        },
+        "check:typescript": {
+            "dependsOn": ["check:astro"],
+            "command": "tsc --noEmit --project tsconfig.tsc.json"
+        },
+        "check:knip": {
+            "dependsOn": ["check:astro"],
+            "command": "knip"
+        },
+        "check": {
+            "dependsOn": ["check:astro", "check:typescript", "check:knip"]
+        },
+        "dev": {
+            "dependsOn": ["paraglide:compile"],
+            "command": "astro dev",
+            "continuous": true
+        },
+        "lint:eslint": {
+            "inputs": ["{projectRoot}/**/*.{js,ts,tsx,jsx,astro}"],
+            "command": "eslint \"**/*.{js,ts,tsx,jsx,astro}\"",
+            "cache": true
+        },
+        "lint:css": {
+            "inputs": ["{projectRoot}/src/**/*.{scss,astro,css}"],
+            "command": "stylelint \"src/**/*.{scss,astro,css}\"",
+            "cache": true
+        },
+        "lint:fix": {
+            "dependsOn": ["paraglide:compile"],
+            "command": "eslint --cache --fix \"**/*.{js,ts,tsx,jsx,astro}\" && stylelint --fix \"src/**/*.{scss,astro,css}\""
+        },
+        "lint": {
+            "dependsOn": ["lint:eslint", "lint:css"]
+        },
+        "paraglide:compile": {
+            "inputs": ["{projectRoot}/project.inlang/settings.json", "{projectRoot}/content/data/i18n/*"],
+			"outputs": ["{projectRoot}/src/paraglide/**/*"],
+            "command": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide --emit-ts-declarations --strategy url globalVariable baseLocale",
+            "cache": true
+        },
+        "playwright:install": {
+            "inputs": [{ "externalDependencies": ["playwright"] }],
+            "command": "pnpm playwright install $([ -n \"$CI\" ] && echo \"--with-deps\" || true)"
+        },
+        "search-index:deploy": {
+            "dependsOn": ["paraglide:compile"],
+            "command": "node --env-file-if-exists=.env --experimental-strip-types scripts/deploy-search-index.ts"
+        },
+        "storybook": {
+            "dependsOn": ["paraglide:compile"],
+            "command": "storybook dev -p 6006",
+            "continuous": true
+        },
+        "storybook:build": {
+            "dependsOn": ["paraglide:compile"],
+            "command": "storybook build"
+        },
+        "test:unit:interactive": {
+            "dependsOn": ["paraglide:compile", "playwright:install"],
+            "command": "vitest",
+            "continuous": true
+        },
+        "test:debug": {
+            "dependsOn": ["paraglide:compile"],
+            "command": "set DEBUG_PRINT_LIMIT=9999999999 && pnpm vitest"
+        },
+        "test:stress": {
+            "dependsOn": ["paraglide:compile"],
+            "command": "./scripts/run-tests-concurrently.sh --run"
+        },
+        "test": {
+            "dependsOn": ["paraglide:compile", "playwright:install"],
+            "command": "vitest run --browser.headless"
+        }
+    }
+}

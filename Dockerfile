@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1.7-labs
-FROM node:24-alpine3.24 AS builder
+FROM node:26.8-alpine3.24 AS builder
 
 # Create app directory
 WORKDIR /var/app
 
 # Prepare pnpm according to the root package.json
 COPY package.json .
-RUN corepack enable
+RUN npm install --global corepack && corepack enable
 RUN corepack install
 
 # Install dependencies with pnpm
@@ -15,7 +15,7 @@ COPY pnpm-workspace.yaml .
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter "!e2e"
 
 # Copy and build the app
-COPY --parents assets content public src project.inlang astro.config.ts tsconfig.json .env .
+COPY --parents assets content public src project.inlang project.json astro.config.ts tsconfig.json .env .
 
 # Define build arguments
 ARG GIT_COMMIT_REF
