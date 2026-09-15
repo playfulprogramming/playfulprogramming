@@ -136,7 +136,7 @@
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
 		"sass-embedded": "^1.104.0",
-    "satteri": "^0.10.5",
+		"satteri": "^0.10.5",
 		"sharp": "^0.35.4",
 		"shiki": "^4.4.3",
 		"sitemap": "^9.0.1",
