@@ -10,19 +10,13 @@ import * as fs from "fs/promises";
 import path, { join } from "path";
 import { isNotJunk as baseIsNotJunk } from "junk";
 import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { rehypePlayfulElementMap } from "./markdown/rehype-playful-element-map.ts";
 import { getLanguageFromFilename } from "./locales.ts";
 import aboutRaw from "../../content/data/about.json" with { type: "json" };
 import rolesRaw from "../../content/data/roles.json" with { type: "json" };
 import tagsRaw from "../../content/data/tags.json" with { type: "json" };
-import remarkFrontmatter from "remark-frontmatter";
-import {
-	remarkProcessFrontmatter,
-	TYPE_FRONTMATTER,
-} from "./markdown/remark-process-frontmatter.ts";
+import { satteriParse } from "./markdown/satteri-parse.ts";
 import { parseFrontmatter } from "./content/parseFrontmatter.ts";
 import { getMarkdownVFile } from "./markdown/getMarkdownVFile.ts";
 
@@ -39,13 +33,7 @@ const tags = new Map<string, TagInfo>();
 // as we can't import `createRehypePlugins` through an Astro
 // file due to the hastscript JSX
 const minimalParser = unified()
-	.use(remarkParse, { fragment: true } as never)
-	.use(remarkFrontmatter, {
-		type: TYPE_FRONTMATTER,
-		marker: "-",
-	})
-	.use(remarkProcessFrontmatter)
-	.use(remarkToRehype, { allowDangerousHtml: true })
+	.use(satteriParse, { gfm: false, math: false })
 	.use(rehypePlayfulElementMap)
 	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
 
