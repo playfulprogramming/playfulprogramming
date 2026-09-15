@@ -89,17 +89,9 @@ export const snitip = {
 	tagsMeta: new Map(),
 } satisfies SnitipInfo;
 export const entries: FileEntry[] = [
-	{
-		name: "src/main.ts",
-		filetype: "ts",
-		code: 'console.log("Hello, world!");',
-	},
-	{
-		name: "src/styles.css",
-		filetype: "css",
-		code: "body { color: rebeccapurple; }",
-	},
-	{ name: "README.md", filetype: "md", code: "# A small example" },
+	{ name: "src/main.ts", filetype: "ts" },
+	{ name: "src/styles.css", filetype: "css" },
+	{ name: "README.md", filetype: "md" },
 ];
 export const file = {
 	name: "main.ts",
