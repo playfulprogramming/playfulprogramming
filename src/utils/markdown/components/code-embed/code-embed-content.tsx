@@ -2,23 +2,34 @@ import { useEffect, useState } from "preact/hooks";
 import { codeToHtml } from "./code-embed-shiki.ts";
 
 interface CodeEmbedContentProps {
-	code: string;
+	url: string;
 	codeHtml?: string;
 	lang: string;
 }
 
 export function CodeEmbedContent(props: CodeEmbedContentProps) {
-	const [codeHtml, setCodeHtml] = useState<string | undefined>(undefined);
+	const [code, setCode] = useState<string>();
+	const [codeHtml, setCodeHtml] = useState<string>();
 
 	useEffect(() => {
 		// If codeHtml is provided from SSR, do nothing
 		if (props.codeHtml) return;
 
+		let stale = false;
+		setCode(undefined);
 		setCodeHtml(undefined);
-		if (props.code.length < 10_000) {
-			codeToHtml(props.code, props.lang).then((html) => setCodeHtml(html));
-		}
-	}, [props.code, props.lang, props.codeHtml]);
+		fetch(props.url)
+			.then((response) => response.text())
+			.then(async (text) => {
+				if (stale) return;
+				setCode(text);
+				if (text.length < 10_000)
+					setCodeHtml(await codeToHtml(text, props.lang));
+			});
+		return () => {
+			stale = true;
+		};
+	}, [props.url, props.lang, props.codeHtml]);
 
 	const codeHtmlToDisplay = props.codeHtml ?? codeHtml;
 
@@ -28,7 +39,7 @@ export function CodeEmbedContent(props: CodeEmbedContentProps) {
 	return (
 		<div>
 			<pre class="shiki">
-				<code>{props.code}</code>
+				<code>{code}</code>
 			</pre>
 		</div>
 	);
