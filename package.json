@@ -144,7 +144,6 @@
 		"stylelint": "^17.15.0",
 		"stylelint-config-recommended-scss": "^17.0.1",
 		"stylelint-value-no-unknown-custom-properties": "^6.1.1",
-		"symlink-dir": "^10.0.1",
 		"terser": "^5.51.2",
 		"tiny-async-pool": "^2.1.0",
 		"tinypool": "^2.1.2",
