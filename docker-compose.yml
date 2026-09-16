@@ -6,6 +6,7 @@ services:
     build:
       context: .
       args:
+        BUILD_OUTPUT: ${BUILD_OUTPUT:-static}
         SITE_URL: http://localhost:8080
         GIT_COMMIT_REF: main
         PUBLIC_CLOUDINARY_CLOUD_NAME: $PUBLIC_CLOUDINARY_CLOUD_NAME

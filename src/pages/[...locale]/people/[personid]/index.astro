@@ -2,10 +2,9 @@
 import Document from "#components/layouts/document/document.astro";
 import SEO from "#components/seo/seo.astro";
 import PersonPage from "#src/views/person/person-page.astro";
-import NotFoundPage from "#src/views/not-found/not-found-page.astro";
 import * as api from "#utils/api.ts";
 import { isValidLocaleRouteParam } from "#utils/locales.ts";
-import { baseLocale, getLocale } from "#src/paraglide/runtime.js";
+import { baseLocale, getLocale, localizeHref } from "#src/paraglide/runtime.js";
 
 export async function getStaticPaths() {
 	return (await api.getAllPeople()).map((person) => ({
@@ -17,39 +16,31 @@ export async function getStaticPaths() {
 }
 
 const localeParam = Astro.params.locale;
-const isLocaleRoute = isValidLocaleRouteParam(localeParam);
-const locale = getLocale();
-const personId = Astro.params.personid!;
-const person = isLocaleRoute
-	? await api.getPersonById(personId, locale)
-	: undefined;
-const validPerson = person?.locale === locale ? person : undefined;
-
-if (!validPerson) {
-	Astro.response.status = 404;
+if (!isValidLocaleRouteParam(localeParam)) {
+	return Astro.rewrite(localizeHref("/404"));
 }
 
-const posts = validPerson
-	? await api.getPostsByPerson(validPerson.id, locale)
-	: [];
+const locale = getLocale();
+const personId = Astro.params.personid;
+const person = personId ? await api.getPersonById(personId, locale) : undefined;
+
+if (!person || person.locale !== locale) {
+	return Astro.rewrite(localizeHref("/404"));
+}
+
+const posts = await api.getPostsByPerson(person.id, locale);
 ---
 
-{
-	validPerson ? (
-		<Document size="xl">
-			<SEO
-				slot="head"
-				title={validPerson.name}
-				description={validPerson.description}
-				peopleData={[validPerson]}
-				providedLangs={validPerson.locales}
-				type="profile"
-			/>
-			<main class="listViewContent">
-				<PersonPage person={validPerson} posts={posts} />
-			</main>
-		</Document>
-	) : (
-		<NotFoundPage />
-	)
-}
+<Document size="xl">
+	<SEO
+		slot="head"
+		title={person.name}
+		description={person.description}
+		peopleData={[person]}
+		providedLangs={person.locales}
+		type="profile"
+	/>
+	<main class="listViewContent">
+		<PersonPage person={person} posts={posts} />
+	</main>
+</Document>
