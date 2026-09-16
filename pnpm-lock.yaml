@@ -174,9 +174,6 @@ importers:
       typesense:
         specifier: ^3.0.6
         version: 3.0.6(@babel/runtime@8.0.0)(debug@4.4.3(supports-color@7.2.0))(supports-color@10.2.2)
-      uuid:
-        specifier: ^14.0.2
-        version: 14.0.2
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.10

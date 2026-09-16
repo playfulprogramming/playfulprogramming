@@ -7,14 +7,13 @@ import type { MarkdownVFile } from "../types.ts";
 import { logError } from "../logger.ts";
 import { getSnitipById } from "#utils/api.ts";
 import { createComponent, type PlayfulRoot } from "../components/components.ts";
-import { v4 as uuidv4 } from "uuid";
 
 const SNITIP_PROTOCOL = "pfp-snitip:";
 
 export const rehypeSnitipLinks: Plugin<[], PlayfulRoot> = () => {
 	return (tree, vfile) => {
 		delete (vfile as MarkdownVFile).snitipScopeId;
-		const scopeId = uuidv4();
+		const scopeId = crypto.randomUUID();
 		let transformedLinks = 0;
 
 		visit(
