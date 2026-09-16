@@ -76,13 +76,16 @@ async function run(
 	mode: "none" | "write" | "compare",
 	final = true,
 ) {
-	const paraglide = spawnSync("pnpm", ["run", "paraglide:compile"], {
-		cwd: root,
-		stdio: ["ignore", "ignore", "inherit"],
-	});
-	if (paraglide.status !== 0) {
+	const compiled = [
+		["exec", "nx", "run", "paraglide:compile"],
+		["run", "paraglide:compile"],
+	].some(
+		(args) =>
+			spawnSync("pnpm", args, { cwd: root, stdio: "ignore" }).status === 0,
+	);
+	if (!compiled) {
 		console.error(`paraglide:compile failed in ${root}`);
-		process.exit(paraglide.status ?? 1);
+		process.exit(1);
 	}
 	const pkg = Value.Parse(
 		PackageJson,
