@@ -53,7 +53,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/fly-ssr-deploy.yml
+    uses: $/.github/workflows/fly-ssr-deploy.yml
     with:
       app_name: ${{ needs.prepare.outputs.app }}
       environment_name: ${{ needs.prepare.outputs.environment }}
