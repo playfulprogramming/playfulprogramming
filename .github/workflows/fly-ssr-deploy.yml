@@ -22,6 +22,10 @@ permissions: {}
 env:
   # Reuse the public review package so Fly can pull without registry credentials.
   IMAGE_REPOSITORY: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}-review
+  SCRIPT_PREFIX: |
+    function retry_loop() {
+      retries=$1; while ! bash -c "$2"; do ((--retries)) || return; sleep 10; done
+    }
 
 jobs:
   build:
@@ -88,17 +92,23 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@fc53c09e1bc3be6f54706524e3b82c4f462f77be # 1.5
 
       - name: Configure app
-        run: |
-          if ! flyctl status --app "$APP_NAME"; then
-            : "${FLY_ORG:?Set the FLY_PREVIEW_ORG repository variable to the preview organization slug}"
-            flyctl apps create "$APP_NAME" --org "$FLY_ORG" --yes
-          fi
+        run: |   
+          ${{ env.SCRIPT_PREFIX }}
+
+          # Backup the original config file since 'flyctl launch' messes up the [build.args] section
+          cp fly.toml fly.toml.bak
+
+          retry_loop 3 'flyctl status --app "$APP_NAME" || ( cp fly.toml.bak fly.toml; flyctl launch --no-deploy --copy-config --name "$APP_NAME" )'
+
+          # Restore the original config file
+          cp fly.toml.bak fly.toml
 
       - name: Deploy app
         id: deploy
         run: |
-          flyctl deploy --config fly.staging.toml --app "$APP_NAME" \
-            --image "$IMAGE_REPOSITORY@$IMAGE_DIGEST" --ha=false --yes
+          ${{ env.SCRIPT_PREFIX }}
+          retry_loop 3 "flyctl deploy --config fly.staging.toml --app \"$APP_NAME\" \
+            --image \"$IMAGE_REPOSITORY@$IMAGE_DIGEST\" --ha=false --yes"
 
           flyctl status --app "$APP_NAME" --json >status.json
           hostname=$(jq -er .Hostname status.json)
