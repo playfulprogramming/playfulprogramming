@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
 }
 ```
 
-<figcaption>Dashboard: Mixed component model</figcaption>
+> Dashboard: Mixed component model
 
 ## Identify mixed concerns
 
@@ -101,7 +101,7 @@ First of all, it is concerned with presentation. It has an array of heroes which
 <app-hero-search></app-hero-search>
 ```
 
-<figcaption>Dashboard: Mixed component template.</figcaption>
+> Dashboard: Mixed component template.
 
 While presentation is a valid concern of a UI component, this mixed component is also tightly coupled to state management. In an NgRx application, this component could have injected a `Store` and queried for a piece of the application state with a state selector. In Tour of Heroes, it injects a `HeroService` and queries the heroes state through an observable, then slices a subset of the array and stores a reference in its `heroes` property.
 
@@ -153,7 +153,7 @@ export class DashboardComponent implements OnInit {
 }
 ```
 
-<figcaption>Dashboard: Initial mixed component model.</figcaption>
+> Dashboard: Initial mixed component model.
 
 ```ts
 // dashboard.component.ts
@@ -171,7 +171,7 @@ export class DashboardComponent {
 }
 ```
 
-<figcaption>Dashboard: Mixed component model after extracting a container component.</figcaption>
+> Dashboard: Mixed component model after extracting a container component.
 
 After moving the logic to the container component, a few steps remain to turn the mixed component into a presentational component. These steps are explained in detail in an upcoming article and include renaming the tag name and matching the data binding API to the one we expect to use in the container component template.
 
@@ -200,7 +200,7 @@ export class DashboardContainerComponent {
 }
 ```
 
-<figcaption>Dashboard: Container component model.</figcaption>
+> Dashboard: Container component model.
 
 We extract the `HeroService` dependency and create a stream of data that matches the data flow in the mixed dashboard component. This is the `topHeroes$` observable property which adds a pipeline of operations on top of the observable returned by `HeroService#getHeroes`.
 
@@ -219,7 +219,7 @@ The final step in extracting a container component is to connect it to the resul
     title="Top Heroes"></app-dashboard-ui>
 ```
 
-<figcaption>Dashboard: Container component template.</figcaption>
+> Dashboard: Container component template.
 
 `app-dashboard-ui` is the tag name of our dashboard component once it has been turned into a presentational component. We connect our `topHeroes$` observable to its `heroes` input property by using the `async` pipe.
 
@@ -293,7 +293,7 @@ export class HeroesComponent implements OnInit {
 }
 ```
 
-<figcaption>Heroes: Mixed component model.</figcaption>
+> Heroes: Mixed component model.
 
 ## Isolate layer integrations
 
@@ -350,7 +350,7 @@ export class HeroesContainerComponent implements OnInit {
 }
 ```
 
-<figcaption>Heroes: Container component with mutable state.</figcaption>
+> Heroes: Container component with mutable state.
 
 Like in the simple example, we extract the `HeroService` dependency into a container component. We maintain the heroes state in the mutable `heroes` property.
 
@@ -415,7 +415,7 @@ export class HeroesContainerComponent {
 }
 ```
 
-<figcaption>Heroes: Container component model with observable state.</figcaption>
+> Heroes: Container component model with observable state.
 
 In our use case, the initial state is an empty array. When the observable returned by `HeroService#getHeroes` emits an array of heroes, it concatenates them to the current state.
 
@@ -490,7 +490,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Heroes: Mixed component model after extracting a container component.</figcaption>
+> Heroes: Mixed component model after extracting a container component.
 
 ## Connect the presentational component using its data binding API
 
@@ -505,7 +505,7 @@ The final step is to connect the container component to the presentational compo
     (remove)="delete($event)"></app-heroes-ui>
 ```
 
-<figcaption>Heroes: Container component template.</figcaption>
+> Heroes: Container component template.
 
 As in the simple example, we connect the `heroes` input property to our observable property by piping it through `async`. This will pass a fresh array reference to the presentational component, every time the heroes state changes.
 

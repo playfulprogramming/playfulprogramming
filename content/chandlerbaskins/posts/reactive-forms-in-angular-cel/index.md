@@ -11,7 +11,7 @@ socialImg: "social-image.png"
 }
 ---
 
-*Photo by <a href="https://unsplash.com/@simonppt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">SIMON LEE</a> on Unsplash*
+*Photo by [SIMON LEE](https://unsplash.com/@simonppt) on Unsplash*
 
 ## Forms can be complicated
 

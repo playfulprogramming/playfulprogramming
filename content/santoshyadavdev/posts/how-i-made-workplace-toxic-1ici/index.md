@@ -10,7 +10,7 @@ socialImg: "social-image.png"
 }
 ---
 
-Photo by <a href="https://unsplash.com/@kylenieber?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kyle Nieber</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Kyle Nieber](https://unsplash.com/@kylenieber) on [Unsplash](https://unsplash.com/)
 
 It's been six years since I left my job at a startup where I worked for around five years. I have a lot of good memories, bad ones too. But I think about this one thing a lot, how I made that workplace toxic. It was unintentional. So here is the story, and I hope you don't make the same mistake.
 

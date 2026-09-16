@@ -27,6 +27,8 @@ export default defineMain({
 	viteFinal(config) {
 		config.resolve ??= {};
 		config.plugins ??= [];
+		// Storybook copies staticDirs itself; a second Vite copy can race on content.
+		config.build = { ...config.build, copyPublicDir: false };
 		config.plugins.push(astroStoryScripts());
 		config.define = { ...config.define, ...storybookDefines };
 		config.cacheDir = resolve(projectRoot, ".tmp-storybook-cache");

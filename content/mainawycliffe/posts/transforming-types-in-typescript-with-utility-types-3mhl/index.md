@@ -31,7 +31,7 @@ interface Type {
 type Type2 = Partial<Type>;
 ```
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/partial_type.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/partial_type.png)
 
 > **NB:** This only runs one level, meaning keys below one level will not be affected. If you want to mark all keys as optional, regardless the level they are in, check out PartialDeep below.
 
@@ -48,7 +48,7 @@ interface Type {
 type Type2 = Required<Type>;
 ```
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/required_utility_type.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/required_utility_type.png)
 
 ### Omit
 
@@ -64,7 +64,7 @@ interface Type {
 type Type2 = Omit<Type, "field3" | "field1">;
 ```
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/omit_utility_type.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/omit_utility_type.png)
 
 ### Pick
 
@@ -82,7 +82,7 @@ interface Type {
 type Type2 = Pick<Type, "field2" | "field3">;
 ```
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/pick_utility_type.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/pick_utility_type.png)
 
 ### Readonly
 
@@ -98,7 +98,7 @@ interface Type {
 type Type2 = Readonly<Type>;
 ```
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/readonly_utility_types.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/readonly_utility_types.png)
 
 ### Record
 
@@ -115,7 +115,7 @@ type Names = "user1" | "user2";
 type Type2 = Record<Names, Name>;
 ```
 
-<figure class="kg-card kg-image-card">![Record Utility Type](https://cms.mainawycliffe.dev/content/images/2021/05/record_utility_type.png)</figure>
+![Record Utility Type](https://cms.mainawycliffe.dev/content/images/2021/05/record_utility_type.png)
 
 Above are a few built-in utility types that I find very useful, you can find out more about built-in utility types in the official documentation [here](https://www.typescriptlang.org/docs/handbook/utility-types.html).
 
@@ -147,7 +147,7 @@ type Z = Except<X, "d" >
 
 As you can see in the image below, Except throws an error if you provide a Key that doesn't exist.
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-except-example.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-except-example.png)
 
 ### Merge
 
@@ -179,7 +179,7 @@ const x : Z = {
 }
 ```
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-merge-type.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-merge-type.png)
 
 ### PartialDeep
 
@@ -231,7 +231,7 @@ interface X {
 type Y = Mutable<X>;
 ```
 
-<figure class="kg-card kg-image-card">![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-mutable.png)</figure>
+![](https://cms.mainawycliffe.dev/content/images/2021/05/typefest-mutable.png)
 
 ## Conclusion
 

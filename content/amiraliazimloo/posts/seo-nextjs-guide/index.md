@@ -58,7 +58,7 @@ This ensures your pages display correctly in Google search results and on platfo
 
 ## Page-Specific SEO with `<Head>`
 
-For dynamic or page-specific metadata, you can use the next/head component. This allows you to customize <title> and meta tags per page:
+For dynamic or page-specific metadata, you can use the next/head component. This allows you to customize `<title>` and meta tags per page:
 
 ```tsx
 import Head from "next/head";

@@ -3,6 +3,7 @@
 	"extends": "./tsconfig.json",
 	"exclude": [
 		"dist",
+		"storybook-static",
 		"content",
 		// `astro check` validates these first with Astro's language tooling. Bare
 		// `tsc` cannot resolve named type exports from `.astro` modules.

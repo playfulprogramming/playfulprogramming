@@ -40,7 +40,7 @@ To enable the `@nx/dependency-checks` ESLint rule in a buildable or publishable 
 }
 ```
 
-<figcaption>Excerpt of the <code>overrides</code> section of the project-specific <code>.eslintrc.json</code> file.</figcaption>
+> Excerpt of the `overrides` section of the project-specific `.eslintrc.json` file.
 
 This enables the `@nx/dependency-checks` ESLint rule with default options.
 
@@ -72,7 +72,7 @@ To pass the `package.json` and `project.json` files to ESLint, we must add them 
 }
 ```
 
-<figcaption>Excerpt of the <code>targets</code> section of the <code>project.json</code> file.</figcaption>
+> Excerpt of the `targets` section of the `project.json` file.
 
 In addition to the existing lint file patterns, we add one listing the path of the project's `package.json` file and one listing the path of the `project.json` file, for example:
 
@@ -108,7 +108,7 @@ To match the default ESLint rule options, we add the following to the library pr
 }
 ```
 
-<figcaption>Excerpt of the <code>overrides</code> section of the project-specific <code>.eslintrc.json</code> file.</figcaption>
+> Excerpt of the `overrides` section of the project-specific `.eslintrc.json` file.
 
 ### The buildTargets option
 
@@ -141,7 +141,7 @@ libs\ui-design-system\package.json
   4:3  error  The "ui-design-system" uses the package "@angular/cdk", but it is missing from the project's "package.json"  @nx/dependency-checks
 ```
 
-<figcaption>Example lint error output when the <code>checkMissingDependencies</code> option is enabled.</figcaption>
+> Example lint error output when the `checkMissingDependencies` option is enabled.
 
 As long as our library doesnot directly depend on `@angular/cdk`, we can choose to ignore the detected `@angular/cdk` peer dependency as installing the `@angular/material` package should prompt consumers to install `@angular/cdk` as well. See how to ignore a detected dependency in the the section *The ignoredDependencies list*.
 
@@ -156,7 +156,7 @@ libs\ui-design-system\package.json
   7:5  error  The "@angular/common" package is not used by "ui-design-system"  @nx/dependency-checks
 ```
 
-<figcaption>Example lint error output when the <code>checkObsoleteDependencies</code> option is enabled.</figcaption>
+> Example lint error output when the `checkObsoleteDependencies` option is enabled.
 
 On the other hand, we want to keep `tslib` in the `dependencies` section of the Angular library's `package.json` file so we must add it to the ´ignoredDependencies´ list as described in the *The ignoredDependencies list* section.
 
@@ -174,7 +174,7 @@ As an example, our Nx workspace uses Angular with the following version range li
 }
 ```
 
-<figcaption>Excerpt of the <code>dependencies</code> section of the workspace-level <code>package.json</code> file.</figcaption>
+> Excerpt of the `dependencies` section of the workspace-level `package.json` file.
 
 The `package.json` file of our example Angular library has the following version range for `@angular/core`.
 
@@ -186,7 +186,7 @@ The `package.json` file of our example Angular library has the following version
 }
 ```
 
-<figcaption>Excerpt of the <code>peerDependencies</code> section of the project's <code>package.json</code> file.</figcaption>
+> Excerpt of the `peerDependencies` section of the project's `package.json` file.
 
 When we lint the library, we get a lint error like the following.
 
@@ -195,7 +195,7 @@ libs\ui-design-system\package.json
   6:5  error  The version specifier does not contain the installed version of "@angular/core" package: 16.1.3  @nx/dependency-checks
 ```
 
-<figcaption>Example lint error output when the <code>checkVersionMismatches</code> option is enabled.</figcaption>
+> Example lint error output when the `checkVersionMismatches` option is enabled.
 
 ### The ignoredDependencies list
 
@@ -229,7 +229,7 @@ For example, when we generate an Angular library, the Angular-specific classes u
 }
 ```
 
-<figcaption>Excerpt of the <code>overrides</code> section of the project-specific <code>.eslintrc.json</code> file.</figcaption>
+> Excerpt of the `overrides` section of the project-specific `.eslintrc.json` file.
 
 In the section *The checkObsoleteDependencies option*, we said that we want to keep `tslib` in the `dependencies` section of the Angular library's `package.json` file. To do so, we must add it to the `ignoredDependencies` list as seen in the following code snippet.
 
@@ -260,7 +260,7 @@ In the section *The checkObsoleteDependencies option*, we said that we want to k
 }
 ```
 
-<figcaption>Excerpt of the <code>overrides</code> section of the project-specific <code>.eslintrc.json</code> file.</figcaption>
+> Excerpt of the `overrides` section of the project-specific `.eslintrc.json` file.
 
 As described in the section *The checkMissingDependencies option*, we can choose to ignore the `@angular/cdk` peer dependency as well as long as our library has no direct dependency on `@angular/cdk`. Let's add it to the `ignoredDependencies`, keeping in mind that if we add an import statement targeting `@angular/cdk`, we must remove this package from the `ignoredDependencies` list again.
 
@@ -292,7 +292,7 @@ As described in the section *The checkMissingDependencies option*, we can choose
 }
 ```
 
-<figcaption>Excerpt of the <code>overrides</code> section of the project-specific <code>.eslintrc.json</code> file.</figcaption>
+> Excerpt of the `overrides` section of the project-specific `.eslintrc.json` file.
 
 ## @nx/dependency-checks lint fixers
 
@@ -326,7 +326,7 @@ The `@nx/dependency-checks` ESLint rule detects dependencies in files like `test
 }
 ```
 
-<figcaption>Excerpt of the <code>namedInputs</code> section of the <code>nx.json</code> file.</figcaption>
+> Excerpt of the `namedInputs` section of the `nx.json` file.
 
 As you can see in the previous code snippet, `jest.config.js` and `jest.config.ts` are also ignored.
 

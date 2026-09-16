@@ -3,9 +3,8 @@
 	name: "Evelyn Hathaway",
 	firstName: "Evelyn",
 	lastName: "Hathaway",
-	description: "👩‍💻🌈 I'm a student and software developer with a strong passion for frontend and backend JavaScript and web accessibility.",
+	description: "I'm a software engineer specializing in JavaScript and passionate about usability and inclusivity. 👩‍💻🌈",
 	socials: {
-		twitter: "eeveedev",
 		github: "evelynhathaway"
 	},
 	pronouns: "she/her",

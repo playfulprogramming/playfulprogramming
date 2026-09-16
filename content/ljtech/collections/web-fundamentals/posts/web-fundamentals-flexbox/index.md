@@ -223,17 +223,14 @@ This works out perfectly! But what if we wanted to change the contents? For the 
 
 Now the items are no longer distributed properly... But why?
 
-<br>
-
 ### How grow works
 
 This has to do with how `flex-grow` works in tandem with an object's initial size.
 
 In our first example, all of our labels had the same width, and thus, all of our objects had the same size.
-<br>
 
 ![A visual explanation of how element sizes are being calculated with padding.](./flex-grow-bts.svg)
-<br>
+
 This is because the `flex-grow` property *distributes the space* that's available around the elements.
 
 This means that, if the starting size of an element is bigger than another, they will continue to be larger when `flex-grow: 1` is set!
@@ -242,18 +239,16 @@ This means that, if the starting size of an element is bigger than another, they
 
 
 ![The three elements are now bigger thanks to the extra space, evenly distributed among them.](./flex-grow-space-distributed.svg)
-<br>
 
 > **The value used for the property determines the percentage of the available space that a particular item will take.**
 
 We can see this in action by dividing the space unevenly to see how it'll behave:
-<br><br>
+
 ![The three elements all hav different grow values, thus having an uneven distribution.](./flex-grow-uneven.svg)
-<br><br>
+
 And if the growth value does not add up to 1, we can expect there to be empty spaces in our flex layout, as in the following example:
-<br><br>
+
 ![Three grow values that do not add to 1, thus leaving empty space.](./flex-grow-incomplete.svg)
-<br><br>
 
 #### How do we solve our original problem?
 
@@ -277,7 +272,6 @@ Here are different examples of how `flex-basis` works with different values.
 ![An example of an element filling the available space with a flex-basis value of 100%.](./flex-basis-example-one.svg)
 
 ![All three elements now have different flex-basis values. Auto, zero and 320px, respectively.](./flex-basis-example-two.svg)
-<br>
 
 ### Applying our solution
 

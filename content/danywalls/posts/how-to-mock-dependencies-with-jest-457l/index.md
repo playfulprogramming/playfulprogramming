@@ -228,4 +228,4 @@ Jest makes it easy to test our code and external dependencies. I recommend using
 
 If you want to read more about mocking with jest, please read the  [official documentation.](https://jestjs.io/docs/mock-functions)
 
-Photo by <a href="https://unsplash.com/@kc_gertenbach?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Christian Gertenbach</a> on <a href="https://unsplash.com/s/photos/fake?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Christian Gertenbach](https://unsplash.com/@kc_gertenbach) on [Unsplash](https://unsplash.com/s/photos/fake)

@@ -10,6 +10,7 @@ import { toDate } from "#utils/date.ts";
 
 export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 	const locale = getLocale();
+
 	// Helps us get the event with the earliest start time
 	const startSortedEventBlocks = useMemo(
 		() =>
@@ -29,13 +30,18 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 
 	const startsAt = startSortedEventBlocks[0]?.starts_at;
 	const endsAt = endsSortedEventBlocks[0]?.ends_at;
-	const dateFormatter = useMemo(
-		() => new Intl.DateTimeFormat(locale, { month: "long", day: "numeric" }),
-		[locale],
-	);
+	const currentYear = new Date().getFullYear();
+	const formatEventDate = (value: Date) => {
+		const eventDate = toDate(value);
+		return new Intl.DateTimeFormat(locale, {
+			month: "long",
+			day: "numeric",
+			year: eventDate.getFullYear() !== currentYear ? "numeric" : undefined,
+		}).format(eventDate);
+	};
 	const dateRange = m.events_card_date_range({
-		startDate: dateFormatter.format(toDate(startsAt)),
-		endDate: dateFormatter.format(toDate(endsAt)),
+		startDate: formatEventDate(startsAt),
+		endDate: formatEventDate(endsAt),
 	});
 
 	return (
@@ -83,6 +89,40 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 						{event.description}
 					</p>
 				</div>
+				{event?.location_description ? (
+					<div className={style.eventRightContainer}>
+						<h3 className={`text-style-body-medium-bold`}>
+							{m.events_card_event_info()}
+						</h3>
+						<div className={style.nextEventInnerCard}>
+							{event.event_banner_src ? (
+								<img
+									alt=""
+									width={80}
+									crossOrigin="anonymous"
+									src={event.event_banner_src}
+									className={style.topicCardImage}
+								/>
+							) : null}
+							<div className={style.topicCardTextContainer}>
+								<p className={`text-style-body-small-bold ${style.topicLocation}`}>
+									{m.events_card_event_info_location()}
+								</p>
+								<p className={`text-style-body-small-bold ${style.topicDesc}`}>
+									{event.location_description}
+								</p>
+								{event?.location_url ? (
+									<a
+										className={`text-style-body-small ${style.topicLink}`}
+										href={event.location_url}
+									>
+										{event.location_url}
+									</a>
+								) : null}
+							</div>
+						</div>
+					</div>
+				) : null}
 			</div>
 		</li>
 	);

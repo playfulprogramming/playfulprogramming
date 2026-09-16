@@ -33,7 +33,7 @@ npm run generate-project -- library data-access --scope=seatmap --grouping-folde
 yarn generate-project library data-access --scope=seatmap --grouping-folder=shared/seatmap --npm-scope=nrwl-airlines --with-state
 ```
 
-<figcaption>Generate the seatmap data access library.</figcaption>
+> Generate the seatmap data access library.
 
 For now, we'll put the feature store and effects in place by using the `--with-state` parameter of the generate project tool. Note that we use the nested grouping folder `shared/seatmap`.
 
@@ -52,7 +52,7 @@ import * as fromSeatmap from './+state/seatmap.reducer';
 export class SeatmapDataAccessModule {}
 ```
 
-<figcaption>The seatmap data access module.</figcaption>
+> The seatmap data access module.
 
 The seatmap data access Angular module gives us an overview of what's configured in the seatmap data access library. This is a good starting point.
 
@@ -62,7 +62,7 @@ ng run seatmap-data-access:lint
 ng run seatmap-data-access:test --watch=false
 ```
 
-<figcaption>Lint and test the seatmap data access library.</figcaption>
+> Lint and test the seatmap data access library.
 
 Everything looks ready to go!
 
@@ -76,7 +76,7 @@ npm run generate-project -- library feature feature-seat-listing --scope=seatmap
 yarn generate-project library feature feature-seat-listing --scope=seatmap --grouping-folder=shared/seatmap --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate the seatmap seat listing feature library.</figcaption>
+> Generate the seatmap seat listing feature library.
 
 Our tool generates an Angular module and a component for us.
 
@@ -118,7 +118,7 @@ const routes: Routes = [
 export class CheckInFeatureShellModule {}
 ```
 
-<figcaption>Check-in feature shell module with a route to the seat listing.</figcaption>
+> Check-in feature shell module with a route to the seat listing.
 
 As the check-in applications don't have any other features at this moment, we'll use the seatmap as the default route.
 
@@ -197,7 +197,7 @@ const routes: Routes = [
 export class SeatmapFeatureSeatListingModule {}
 ```
 
-<figcaption>Seat listing feature module with default route.</figcaption>
+> Seat listing feature module with default route.
 
 As the final touch, we register the seatmap data access Angular module.
 
@@ -235,7 +235,7 @@ Start the mobile check-in application and make sure there are no errors.
 ng run check-in-mobile:serve
 ```
 
-<figcaption>Start the development server for the mobile check-in web app.</figcaption>
+> Start the development server for the mobile check-in web app.
 
 You should see the title `check-in-mobile` and the message `seat-listing works!`.
 
@@ -251,7 +251,7 @@ npm run generate-project -- library ui ui-buttons --scope=shared --npm-scope=nrw
 yarn generate-project library ui ui-buttons --scope=shared --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate shared buttons UI library.</figcaption>
+> Generate shared buttons UI library.
 
 Let's delete the default component and create a new confirm button component with a [SCAM](https://dev.to/playfulprogramming-angular/emulating-tree-shakable-components-using-single-component-angular-modules-13do).
 
@@ -263,7 +263,7 @@ ng generate module confirm-button --project=shared-ui-buttons
 ng generate component confirm-button --project=shared-ui-buttons --export --display-block
 ```
 
-<figcaption>Delete the default component and create a confirm button component.</figcaption>
+> Delete the default component and create a confirm button component.
 
 In the following listings, we give the confirm button a simple implementation.
 
@@ -274,7 +274,7 @@ In the following listings, we give the confirm button a simple implementation.
 </button>
 ```
 
-<figcaption>The confirm button's template projects content into the button and binds the `click` event to its event handler.</figcaption>
+> The confirm button's template projects content into the button and binds the `click` event to its event handler.
 
 ```ts
 // confirm-button.component.ts
@@ -298,7 +298,7 @@ export class ConfirmButtonComponent {
 }
 ```
 
-<figcaption>The confirm button prompts the user with the `confirm()` dialog that has the message defined by its input property, then emits the user's answer through its output property.</figcaption>
+> The confirm button prompts the user with the `confirm()` dialog that has the message defined by its input property, then emits the user's answer through its output property.
 
 Edit the shared UI buttons module to only export the confirm button SCAM.
 
@@ -329,7 +329,7 @@ export * from './lib/shared-ui-buttons.module';
 export * from './lib/confirm-button/confirm-button.component'; // 👈
 ```
 
-<figcaption>Public API exposing the confirm button component class.</figcaption>
+> Public API exposing the confirm button component class.
 
 Let's use the confirm button in the seat listing component, even though it can be used in the same way in every domain.
 
@@ -374,7 +374,7 @@ Now that it's in the compilation scope of the seat listing component, we can use
 <nrwl-airlines-confirm-button message="Do you confirm checking in at this seat?" (confirmed)="onSeatConfirmed($event)"> Check in </nrwl-airlines-confirm-button>
 ```
 
-<figcaption>The seat listing component template which uses the confirm button.</figcaption>
+> The seat listing component template which uses the confirm button.
 
 ```ts
 // seat-listing.component.ts
@@ -393,7 +393,7 @@ export class SeatListingComponent {
 }
 ```
 
-<figcaption>The seat listing component model which is bound to the confirm button.</figcaption>
+> The seat listing component model which is bound to the confirm button.
 
 In the previous listings we pass a message for the confirmation dialog and listens for the user's response which we log to the browser console.
 
@@ -407,7 +407,7 @@ npm run generate-project -- library util util-formatting --scope=shared --npm-sc
 yarn generate-project library util util-formatting --scope=shared --npm-scope=nrwl-airlines
 ```
 
-<figcaption>Generate the shared formatting utilities library.</figcaption>
+> Generate the shared formatting utilities library.
 
 For now, this library will only expose add a single pure function. Delete the generated Angular module and its test suite.
 
@@ -415,7 +415,7 @@ For now, this library will only expose add a single pure function. Delete the ge
 npx rimraf libs/shared/util-formatting/src/lib/*.module*.ts
 ```
 
-<figcaption>Delete the shared formatting utilities Angular module and its test suite.</figcaption>
+> Delete the shared formatting utilities Angular module and its test suite.
 
 We'll use Luxon as our date-time library.
 
@@ -427,7 +427,7 @@ yarn add luxon
 yarn add --dev @types/luxon
 ```
 
-<figcaption>Install Luxon.</figcaption>
+> Install Luxon.
 
 Create a file called `format-date.ts` in the library's `lib` folder.
 
@@ -440,7 +440,7 @@ export function formatDate(luxonDate: DateTime): string {
 }
 ```
 
-<figcaption>A function to format a date in our preferred display format.</figcaption>
+> A function to format a date in our preferred display format.
 
 Expose it in the library's public API. Remember to remove the export of the Angular module that we deleted.
 
@@ -453,7 +453,7 @@ Expose it in the library's public API. Remember to remove the export of the Angu
 export * from './lib/format-date'; // 👈
 ```
 
-<figcaption>The date formatting function is exposed in the shared formatting utilities library's public API.</figcaption>
+> The date formatting function is exposed in the shared formatting utilities library's public API.
 
 Let's use the formatting function in the seat listing component.
 
@@ -482,7 +482,7 @@ export class SeatListingComponent {
 }
 ```
 
-<figcaption>The seat listing component model uses the `formatDate` function.</figcaption>
+> The seat listing component model uses the `formatDate` function.
 
 Now expose the UI property in the seat listing template.
 
@@ -493,7 +493,7 @@ Now expose the UI property in the seat listing template.
 <nrwl-airlines-confirm-button message="Do you confirm checking in at this seat?" (confirmed)="onSeatConfirmed($event)"> Check in </nrwl-airlines-confirm-button>
 ```
 
-<figcaption>Seat listing component template presenting the `today` UI property.</figcaption>
+> Seat listing component template presenting the `today` UI property.
 
 > Note that it's a terrible practice to get the current date and time directly in a declarable as it makes it non-deterministic and in turn difficult to test. We should have created a separate service for accessing the current date-time. I'll leave that as an exercise for you.
 
@@ -515,7 +515,7 @@ libs/shared/util-formatting
 └── tslint.json
 ```
 
-<figcaption>The final file and folder structure of the shared formatting utilities library.</figcaption>
+> The final file and folder structure of the shared formatting utilities library.
 
 ## Conclusion
 
@@ -523,7 +523,7 @@ Start the desktop check-in application by running the `ng run check-in-desktop:s
 
 ![](./1zhjq45n1px7ohb6spo7.png)
 
-<figcaption>The check-in desktop application with the NgRx Store DevTools open.</figcaption>
+> The check-in desktop application with the NgRx Store DevTools open.
 
 Well done! We now have a full Nrwl Airlines monorepo workspace with multiple applications and workspace libraries as seen in the following figure.
 
@@ -560,7 +560,7 @@ nrwl-airlines
 └── tools
 ```
 
-<figcaption>The final folder structure of our Nrwl Airlines monorepo.</figcaption>
+> The final folder structure of our Nrwl Airlines monorepo.
 
 In the final part of this tutorial, we first generated the seatmap data access library with feature state.
 

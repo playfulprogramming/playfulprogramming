@@ -11,7 +11,7 @@ socialImg: "social-image.png"
 }
 ---
 
-Photo by <a href="https://unsplash.com/@lucabravo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luca Bravo</a> on <a href="https://unsplash.com/s/photos/code-migration?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Luca Bravo](https://unsplash.com/@lucabravo) on [Unsplash](https://unsplash.com/s/photos/code-migration)
 
 **Note**: Due to NDA, we won't mention the client's name.
 

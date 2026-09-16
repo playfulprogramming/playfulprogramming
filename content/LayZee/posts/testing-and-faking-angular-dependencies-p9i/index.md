@@ -58,7 +58,7 @@ export const isInternetExplorer11Token: InjectionToken<boolean> =
   });
 ```
 
-<figcaption>_The user agent token factory provider reads directly from the global navigator object._</figcaption>
+> _The user agent token factory provider reads directly from the global navigator object._
 
 To test the Internet Explorer 11 flag provider in isolation, we can replace the `userAgentToken` with a fake value. We’ll practice that technique later in this article.
 
@@ -90,7 +90,7 @@ export const navigatorToken: InjectionToken<Navigator> =
   });
 ```
 
-<figcaption>_The global navigator object is abstracted into a Navigator API token._</figcaption>
+> _The global navigator object is abstracted into a Navigator API token._
 
 **What** we test and **how** we test it should be part of our testing strategy. In more integrated component tests, we should be able to rely on most of the providers created as part of our dependency injection tokens. We’ll explore this later when testing the Internet Explorer 11 banner component.
 
@@ -133,7 +133,7 @@ describe('Navigator API', () => {
 });
 ```
 
-<figcaption>_Replacing a token dependency in a factory provider for the user agent string._</figcaption>
+> _Replacing a token dependency in a factory provider for the user agent string._
 
 Note that while it’s the user agent token and its provider we’re testing, it’s the navigator token dependency we’re replacing with a fake value.
 
@@ -202,7 +202,7 @@ describe('Location API', () => {
 });
 ```
 
-<figcaption>_Replacing a token dependency in a factory provider for the Location API._</figcaption>
+> _Replacing a token dependency in a factory provider for the Location API._
 
 The factory in the token’s provider is extracted from the `DOCUMENT` token which is available from the `@angular/common` package and abstracts the global `document` object.
 
@@ -236,7 +236,7 @@ export enum FakeUserAgent {
 }
 ```
 
-<figcaption>_User agent strings of common browsers._</figcaption>
+> _User agent strings of common browsers._
 
 In the Internet Explorer 11 detection test suite, we’ll test the `isInternetExplorer11Token` almost in isolation. But the real business logic value lies in its factory provider which depends on the user agent token.
 
@@ -293,7 +293,7 @@ describe('Internet Explorer 11 detection', () => {
 });
 ```
 
-<figcaption>_Internet Explorer 11 detection test suite._</figcaption>
+> _Internet Explorer 11 detection test suite._
 
 Before specifying the test cases, we create a test setup function and reduce an array of the non-Internet Explorer user agent strings from our fake user agent strings.
 
@@ -350,7 +350,7 @@ export class InternetExplorer11BannerComponent {
 }
 ```
 
-<figcaption>_Internet Explorer 11 deprecation banner._</figcaption>
+> _Internet Explorer 11 deprecation banner._
 
 We enable the user to dismiss the banner. It’s displayed if the user agent (the browser) is Internet Explorer 11 and the user hasn’t yet dismissed the banner by clicking the banner button.
 
@@ -416,7 +416,7 @@ describe('Other browsers', () => {
 });
 ```
 
-<figcaption>_Test cases for the Internet Explorer 11 deprecation banner component._</figcaption>
+> _Test cases for the Internet Explorer 11 deprecation banner component._
 
 The test harness is returned by our custom `setup` function. We’ll look at the implementation in a few seconds.
 
@@ -453,7 +453,7 @@ function setup({ userAgent }: { userAgent: string }) {
 }
 ```
 
-<figcaption>_Test harness for the Internet Explorer 11 deprecation banner component._</figcaption>
+> _Test harness for the Internet Explorer 11 deprecation banner component._
 
 If you are familiar with the Angular testing utilities, this should be pretty straightforward.
 
@@ -568,7 +568,7 @@ describe(InternetExplorer11BannerComponent.name, () => {
 });
 ```
 
-<figcaption>_Test suite for the Internet Explorer 11 deprecation banner component._</figcaption>
+> _Test suite for the Internet Explorer 11 deprecation banner component._
 
 Putting it all together, we end up with simple test cases with very explicitly defined setup, exercise, and verification phases.
 

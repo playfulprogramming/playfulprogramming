@@ -43,4 +43,4 @@ import { BeersService, WhiskyService, WineService } from './services';
 
 The code looks clean and easy to ready because all of them comes from the same place.
 
-Photo by <a href="https://unsplash.com/@marcinjozwiak?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Marcin Jozwiak</a> on <a href="https://unsplash.com/s/photos/imports?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Marcin Jozwiak](https://unsplash.com/@marcinjozwiak) on [Unsplash](https://unsplash.com/s/photos/imports)

@@ -160,7 +160,7 @@ You can learn more about husky in the [official docs](https://typicode.github.io
 
 ---
 
-*Husky - Photo by <a href="https://unsplash.com/@nkvitovska?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nataliia Kvitovska</a> on <a href="https://unsplash.com/wallpapers/animals/husky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>*
+*Husky - Photo by [Nataliia Kvitovska](https://unsplash.com/@nkvitovska) on [Unsplash](https://unsplash.com/wallpapers/animals/husky)*
 
 ---
 

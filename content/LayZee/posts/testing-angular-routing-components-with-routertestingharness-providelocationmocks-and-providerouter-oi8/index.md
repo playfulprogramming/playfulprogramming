@@ -19,7 +19,7 @@ It's been three years since [Testing Angular routing components with the RouterT
 
 ![The show hero detail use case](./2nmyzdvl6jlded36ix89.png)
 
-<figcaption>The <em>show hero detail</em> use case.</figcaption>
+> The *show hero detail* use case.
 
 ## providerRouter and provideLocationMocks
 

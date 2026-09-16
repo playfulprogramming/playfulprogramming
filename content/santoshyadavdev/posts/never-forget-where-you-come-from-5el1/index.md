@@ -11,7 +11,7 @@ socialImg: "social-image.png"
 }
 ---
 
-Photo by <a href="https://unsplash.com/@sstoppo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">ROCCO STOPPOLONI</a> on <a href="https://unsplash.com/photos/h6qnnmbkLBU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [ROCCO STOPPOLONI](https://unsplash.com/@sstoppo) on [Unsplash](https://unsplash.com/photos/h6qnnmbkLBU)
 
 Last week, I was traveling to speak at CityJs + HalfStack Conf Belgrade, and suddenly, I realized how lucky I am to live this life.
 

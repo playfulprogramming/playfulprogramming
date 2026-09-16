@@ -1303,7 +1303,11 @@ export default function App() {
 ```
 
 <details>
-<summary>Code for <code>useFetcher</code></summary>
+<summary
+
+Code for `useFetcher`
+
+</summary>
 
 ```jsx
 // This is wildly incomplete; you should use something like TanStack Query for real-world applications

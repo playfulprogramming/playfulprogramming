@@ -18,16 +18,16 @@ Let's have a look at these metrics
 
 ![Metrics](./tvccawv1s13uh2yyvd84.jpg)
 
-here there are a lot of real use cases that prove that performances are really important. <br/>
+here there are a lot of real use cases that prove that performances are really important.
 
 ## Which framework should I use?
 
 Great, now with these requirements I know that I need to build a fast application that gives me also the possibility to be SEO compliant.
-SSR frameworks are so good for these needs and for this particular app I decided to try [Qwik City](https://qwik.builder.io/) because of these awesome features:<br/>
+SSR frameworks are so good for these needs and for this particular app I decided to try [Qwik City](https://qwik.builder.io/) because of these awesome features:
 
 - Resumable technique
 - O(1) framework
-- Amazing [PageSpeed](https://pagespeed.web.dev/) results <br/><br/>
+- Amazing [PageSpeed](https://pagespeed.web.dev/) results
 
 ## Resumable vs. Hydration
 
@@ -66,8 +66,6 @@ A good mental model is that Qwik applications at any point in their lifecycle ca
 Qwik is different because it does not require hydration to resume an application on the client. Not requiring hydration is what makes the Qwik application startup instantaneous.
 
 ---
-
-<br/>
 
 ## Blazing fast application
 

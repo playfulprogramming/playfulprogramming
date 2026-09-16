@@ -278,7 +278,8 @@ Notice that we've entirely replaced the `.then(data => {})` blocks. With `async`
 
 Now let's modify our code so that it populates an entire grid of items! 
 
-> In the following demo, we're now iterating several times over our `fetch` function, and creating an array of items.<br>
+> In the following demo, we're now iterating several times over our `fetch` function, and creating an array of items.
+>
 > After the array is complete, we construct a new card for each item with `appendChild` and then append that card to the grid!
 
 <iframe data-frame-title="Populating grid with data" src="pfp-code:./populating-grid?template=node&embed=1&file=src%2Fscript.js" height="640"></iframe>

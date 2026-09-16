@@ -270,4 +270,4 @@ What you think is better for our user, play with it and get your feeling!
 
 Hopefully, that will give you a bit of help with how and when to use resolver. If you enjoyed this post, share it!
 
-Photo by <a href="https://unsplash.com/@merittthomas?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Meritt Thomas</a> on <a href="https://unsplash.com/s/photos/beers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Meritt Thomas](https://unsplash.com/@merittthomas) on [Unsplash](https://unsplash.com/s/photos/beers)

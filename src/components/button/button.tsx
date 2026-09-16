@@ -27,7 +27,6 @@ type AllowedElements<Tag extends AllowedTags> = Tag extends "a"
 export type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 	{
 		tag?: Tag;
-		class?: string;
 		leftIcon?: JSXNode;
 		rightIcon?: JSXNode;
 		// For when the user is _actually_ focused on another element, like react-aria radio buttons
@@ -38,7 +37,7 @@ export type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 			| "primary"
 			| "secondary"
 			| "text";
-	} & AllowedJSXElements<Tag>
+	} & Omit<AllowedJSXElements<Tag>, "ref">
 >;
 
 const ButtonWrapper = forwardRef<
@@ -47,7 +46,7 @@ const ButtonWrapper = forwardRef<
 >(
 	(
 		{
-			tag = "a" as never,
+			tag = "a",
 			class: className,
 			children,
 			variant = "primary",
@@ -84,7 +83,7 @@ const ButtonWrapper = forwardRef<
 		);
 	},
 ) as <Tag extends AllowedTags = "a">(
-	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+	props: ButtonProps<Tag> & { ref?: Ref<AllowedElements<Tag>> },
 ) => ReactElement;
 
 export const Button = forwardRef<
@@ -95,11 +94,11 @@ export const Button = forwardRef<
 		<ButtonWrapper
 			{...props}
 			class={`text-style-button-regular regular ${className}`}
-			ref={ref as never}
+			ref={ref}
 		/>
 	);
 }) as <Tag extends AllowedTags = "a">(
-	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+	props: ButtonProps<Tag> & { ref?: Ref<AllowedElements<Tag>> },
 ) => ReactElement;
 
 export const LargeButton = forwardRef<
@@ -110,11 +109,11 @@ export const LargeButton = forwardRef<
 		<ButtonWrapper
 			{...props}
 			class={`text-style-button-large large ${className}`}
-			ref={ref as never}
+			ref={ref}
 		/>
 	);
 }) as <Tag extends AllowedTags = "a">(
-	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+	props: ButtonProps<Tag> & { ref?: Ref<AllowedElements<Tag>> },
 ) => ReactElement;
 
 type IconOnlyButtonProps<T extends AllowedTags = "a"> = Omit<
@@ -127,18 +126,14 @@ export const IconOnlyButton = forwardRef<
 	IconOnlyButtonProps<AllowedTags>
 >(({ class: className = "", children, ...props }, ref) => {
 	return (
-		<ButtonWrapper
-			{...props}
-			class={`iconOnly regular ${className}`}
-			ref={ref as never}
-		>
+		<ButtonWrapper {...props} class={`iconOnly regular ${className}`} ref={ref}>
 			<div class="iconOnlyButtonIcon" aria-hidden="true">
 				{children}
 			</div>
 		</ButtonWrapper>
 	);
 }) as <Tag extends AllowedTags = "a">(
-	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+	props: ButtonProps<Tag> & { ref?: Ref<AllowedElements<Tag>> },
 ) => ReactElement;
 
 export const LargeIconOnlyButton = forwardRef<
@@ -146,16 +141,12 @@ export const LargeIconOnlyButton = forwardRef<
 	IconOnlyButtonProps<AllowedTags>
 >(({ class: className = "", children, ...props }, ref) => {
 	return (
-		<ButtonWrapper
-			{...props}
-			class={`iconOnly large ${className}`}
-			ref={ref as never}
-		>
+		<ButtonWrapper {...props} class={`iconOnly large ${className}`} ref={ref}>
 			<div class="iconOnlyButtonIcon" aria-hidden="true">
 				{children}
 			</div>
 		</ButtonWrapper>
 	);
 }) as <Tag extends AllowedTags = "a">(
-	props: ButtonProps<Tag> & { ref?: Ref<Tag> },
+	props: ButtonProps<Tag> & { ref?: Ref<AllowedElements<Tag>> },
 ) => ReactElement;

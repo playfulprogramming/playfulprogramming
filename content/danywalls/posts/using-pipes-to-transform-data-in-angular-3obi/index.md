@@ -204,4 +204,4 @@ In short, Pipes are so powerful that you can read more about them in the officia
 You can play with the final version demo.
 <https://stackblitz.com/edit/angular-ivy-opaevp?file=src%2Fapp%2Fapp.component.html>
 
-Photo by <a href="https://unsplash.com/@realaxer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">T K</a> on <a href="https://unsplash.com/s/photos/pipes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [T K](https://unsplash.com/@realaxer) on [Unsplash](https://unsplash.com/s/photos/pipes)

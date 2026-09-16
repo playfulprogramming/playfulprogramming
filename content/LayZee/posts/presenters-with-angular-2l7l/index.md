@@ -27,7 +27,7 @@ We end up having the control flow illustrated in Figure 1.
 
 ![](./jgpo1kihguoyarfy5jm0.png)
 
-<figcaption>Figure 1. The control flow after extracting a presenter from the presentational heroes component.</figcaption>
+> Figure 1. The control flow after extracting a presenter from the presentational heroes component.
 
 ## Stateful presenters
 
@@ -105,7 +105,7 @@ export class SearchPresenter implements OnDestroy {
 }
 ```
 
-<figcaption>Listing 1. Search presenter.</figcaption>
+> Listing 1. Search presenter.
 
 This is a reusable presenter that can be reused in multiple components which have a search box.
 
@@ -135,7 +135,7 @@ export class SearchPresenter implements OnDestroy {
 }
 ```
 
-<figcaption>Listing 2. Search presenter with debounced, distinct search query.</figcaption>
+> Listing 2. Search presenter with debounced, distinct search query.
 
 As an experiment, let's tie this presenter to a search box component as per Listing 3.
 
@@ -174,7 +174,7 @@ export class SearchBoxComponent implements OnInit {
 }
 ```
 
-<figcaption>Listing 3. Search box component using search presenter.</figcaption>
+> Listing 3. Search box component using search presenter.
 
 We deliberately only have a dataflow going in one direction. The user enters search queries (1) which are intercepted by the component's event handler (2). The queries are then filtered through the presenter (3). Finally, the presenter's search query observable is connected to the component's output property (4), allowing parent components to use event binding to be notified of user searches.
 
@@ -249,7 +249,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 4. Heroes: Presentational component model with form validation and UI behaviour.</figcaption>
+> Listing 4. Heroes: Presentational component model with form validation and UI behaviour.
 
 In Listing 4 we see that there's complex user interaction logic for form validation (1) and UI behaviour (2) in the `addHero` method.
 
@@ -277,7 +277,7 @@ export class HeroesPresenter {
 }
 ```
 
-<figcaption>Listing 5. Heroes: Presenter with extracted form control and related method.</figcaption>
+> Listing 5. Heroes: Presenter with extracted form control and related method.
 
 We extract the `addHero` method (1) to a component-specific presenter called `HeroesPresenter`.
 
@@ -311,7 +311,7 @@ export class HeroesPresenter {
 }
 ```
 
-<figcaption>Listing 6. Heroes: Presenter with subject exposed as observable.</figcaption>
+> Listing 6. Heroes: Presenter with subject exposed as observable.
 
 The presenter now has an exposed observable `add$` property which our presentational component can connect to.
 
@@ -353,7 +353,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 7. Heroes: Presentational component with presenter.</figcaption>
+> Listing 7. Heroes: Presentational component with presenter.
 
 The presenter is added to the `providers` component option which scopes it to the component level, meaning the presenter's lifecycle follows that of the component. It's instantiated right before the presentational component and it's destroyed just before the component is.
 
@@ -400,7 +400,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 8. Heroes: Presentational component delegating UI property and event handler to its presenter.</figcaption>
+> Listing 8. Heroes: Presentational component delegating UI property and event handler to its presenter.
 
 As seen in Listing 8, the heroes component creates a `nameControl` getter that delegates to the presenter. It also forwards control from its `addHero` event handler to the presenter's `addHero` method.[](https://bit.ly/39cqbxa)
 
@@ -451,7 +451,7 @@ export class HeroesComponent implements OnInit {
 }
 ```
 
-<figcaption>Listing 9A. Heroes: Presentational component with its data binding API connected to its presenter.</figcaption>
+> Listing 9A. Heroes: Presentational component with its data binding API connected to its presenter.
 
 In Listing 9A, we subscribe to the presenters `add$` observable and forwards the emitted value to the heroes component's `add` output property.
 
@@ -498,7 +498,7 @@ export class HeroesComponent implements OnInit {
 }
 ```
 
-<figcaption>Listing 9B. Heroes: Presentational component with its data binding API connected to its presenter.</figcaption>
+> Listing 9B. Heroes: Presentational component with its data binding API connected to its presenter.
 
 Alternatively, we could connect the presenter to the output property by subscribing the output property to the observable `add$` property as seen in Listing 9B.
 
@@ -548,7 +548,7 @@ export class HeroesComponent implements OnDestroy, OnInit {
 }
 ```
 
-<figcaption>Listing 10A. Heroes: Component managing subscription using a lifecycle subject.</figcaption>
+> Listing 10A. Heroes: Component managing subscription using a lifecycle subject.
 
 Our first option is to add a private `destroy` subject to the component which is called at the `OnDestroy` lifecycle moment and combine it with the `takeUntil` operator as seen in Listing 10A. You've probably seen this technique before.
 
@@ -583,7 +583,7 @@ export class HeroesComponent implements OnDestroy, OnInit {
 }
 ```
 
-<figcaption>Listing 10B. Heroes: Component managing subscription using a subscription object.</figcaption>
+> Listing 10B. Heroes: Component managing subscription using a subscription object.
 
 A second option is to store the resulting subscription in a private property and unsubscribe it in the component's `OnDestroy` lifecycle hook as seen in Listing 10B. This is the traditional RxJS technique.
 
@@ -618,7 +618,7 @@ export class HeroesPresenter implements OnDestroy {
 }
 ```
 
-<figcaption>Listing 10C. Heroes: Presenter managing subscribers.</figcaption>
+> Listing 10C. Heroes: Presenter managing subscribers.
 
 Listing 10C shows that we added an `ngOnDestroy` lifecycle hook in which we complete the private `add` subject. Completing a subject or any other observable causes all subscribers to trigger their `complete` hooks if they have one and finally unsubscribe.
 
@@ -668,7 +668,7 @@ export class HeroesPresenter {
 }
 ```
 
-<figcaption>Listing 11. Heroes: Presenter with input sanitising and validation in observable pipeline.</figcaption>
+> Listing 11. Heroes: Presenter with input sanitising and validation in observable pipeline.
 
 Listing 11 shows how we can express the sanitising and validation logic using RxJS operators. Reactive Forms has an even less imperative way to create this dataflow, but that's an exercis for another time.
 
@@ -699,7 +699,7 @@ export const heroesPresenterFactoryToken = new InjectionToken(
   });
 ```
 
-<figcaption>Listing 12A. Heroes: Dependency injection token for presenter service factory.</figcaption>
+> Listing 12A. Heroes: Dependency injection token for presenter service factory.
 
 ```ts
 // heroes.presenter.ts
@@ -713,7 +713,7 @@ import { Injectable } from '@angular/core';
 export class HeroesPresenter {}
 ```
 
-<figcaption>Listing 12B. Heroes: Presenter provider guarding direct injection.</figcaption>
+> Listing 12B. Heroes: Presenter provider guarding direct injection.
 
 ```ts
 // heroes.component.ts
@@ -743,7 +743,7 @@ export class HeroesComponent implements OnDestroy {
 }
 ```
 
-<figcaption>Listing 12C. Heroes: Presentational component using presenter service factory.</figcaption>
+> Listing 12C. Heroes: Presentational component using presenter service factory.
 
 Listings 12A, 12B, and 12C shows how to use a service factory to create the heroes presenter. The presenter service provider would throw an error to prevent other declarables from injecting the heroes presenter directly.
 
@@ -769,7 +769,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 13. Heroes: Enforcing presenter injection from own node injector.</figcaption>
+> Listing 13. Heroes: Enforcing presenter injection from own node injector.
 
 When we use the `Self` decorator factory, we instruct Angular to only allow the injection of the heroes presenter through what is provided by the component's own node injector.
 
@@ -809,7 +809,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 14A. Heroes: Presentational component delegating an output property to its presenter using a getter.</figcaption>
+> Listing 14A. Heroes: Presentational component delegating an output property to its presenter using a getter.
 
 ```ts
 // heroes.component.ts
@@ -837,7 +837,7 @@ export class HeroesComponent {
 }
 ```
 
-<figcaption>Listing 14B. Heroes: Presentational component delegating an output property to its presenter using a property reference.</figcaption>
+> Listing 14B. Heroes: Presentational component delegating an output property to its presenter using a property reference.
 
 In both of the alternatives in Listings 13A and 13B we remove the need for managing a subscription ourselves to connect the presenter's observable to the component's event emitter so we have removed the `OnInit` lifecycle hook.
 
@@ -868,7 +868,7 @@ export class HeroesPresenter {
 }
 ```
 
-<figcaption>Listing 15A. Framework-agnostic heroes presenter.</figcaption>
+> Listing 15A. Framework-agnostic heroes presenter.
 
 Listing 15A shows a framework-agnostic heroes presenter. We removed the Angular-specific lifecycle hook, `ngOnDestroy` and replaced it with a method called simply `destroy` (1).
 
@@ -903,7 +903,7 @@ export class AppHeroesPresenter implements OnDestroy {
 }
 ```
 
-<figcaption>Listing 15B. Angular-specific presenter wrapping the framework-agnostic heroes presenter.</figcaption>
+> Listing 15B. Angular-specific presenter wrapping the framework-agnostic heroes presenter.
 
 Listing 15B shows the Angular-specific presenter which wraps the framework-agnostic heroes presenter from Listing 15A. It injects the heroes presenter (1) and calls its `destroy` method in the `ngOnDestroy` lifecycle hook (2).
 

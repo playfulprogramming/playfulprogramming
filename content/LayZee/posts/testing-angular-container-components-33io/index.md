@@ -102,7 +102,7 @@ describe(HeroesContainerComponent.name, () => {
 });
 ```
 
-<figcaption>Heroes: Setting up a HeroService stub for testing the container component.</figcaption>
+> Heroes: Setting up a HeroService stub for testing the container component.
 
 Instead, we will create a hero service stub with only the methods we need, so an object with methods that return data in the shape that we want. By doing this, we avoid testing a service in a unit test suite that is only meant to test the component in isolation.
 
@@ -159,7 +159,7 @@ describe(HeroesContainerComponent.name, () => {
 });
 ```
 
-<figcaption>Heroes: Observing the heroes$ property of the container component.</figcaption>
+> Heroes: Observing the heroes$ property of the container component.
 
 For each test case, we create a container component and subscribe the spy to the `heroes$` property. In the `afterEach` and `afterAll` hooks, we clean up the subscriptions and subject that we created during the tests.
 
@@ -182,7 +182,7 @@ describe('emits all heroes', () => {
 });
 ```
 
-<figcaption>Heroes: Testing initial heroes state.</figcaption>
+> Heroes: Testing initial heroes state.
 
 In the first test case we expect our spy to have observed a single value being emitted, containing the female Marvel heroes we use as fakes. We also make sure that the heroes are emitted exactly once in the second test case.
 
@@ -229,7 +229,7 @@ describe('adds a hero', () => {
 });
 ```
 
-<figcaption>Heroes: Testing addition of a hero.</figcaption>
+> Heroes: Testing addition of a hero.
 
 Our hero service stub is configured to react to the `addHero` command by default.
 
@@ -245,7 +245,7 @@ it(`delegates to ${HeroService.name}`, () => {
 });
 ```
 
-<figcaption>Heroes: Testing addition of a hero.</figcaption>
+> Heroes: Testing addition of a hero.
 
 The container component delegates to the hero service when a hero is added. We verify that a partial hero with the specified name is passed as an argument to the hero service method `addHero` and that it has only been called once.
 
@@ -280,7 +280,7 @@ it('does not emit the specified hero when server fails', fakeAsync(() => {
 }));
 ```
 
-<figcaption>Heroes: Testing addition of a hero.</figcaption>
+> Heroes: Testing addition of a hero.
 
 When working with an observable, it is important to handle errors that it throws. We use the pessimistic update strategy here to only update the persistent state once the server state update has been confirmed.
 
@@ -304,7 +304,7 @@ describe('deletes a hero', () => {
 });
 ```
 
-<figcaption>Heroes: Testing deletion of a hero.</figcaption>
+> Heroes: Testing deletion of a hero.
 
 The optimistic update strategy is used for hero deletion. The hero is removed immediately from the persistent state. We verify this in another test case.
 
@@ -321,7 +321,7 @@ it('emits all other heroes immediately', fakeAsync(() => {
 }));
 ```
 
-<figcaption>Heroes: Testing deletion of a hero.</figcaption>
+> Heroes: Testing deletion of a hero.
 
 We need `fakeAsync` and `tick` to observe the persistent state change. This tells us that it happens asynchronously, which is fine. We are able to check that the specified hero has been filtered out from the heroes state.
 
@@ -343,7 +343,7 @@ it('emits the specified hero when server fails', fakeAsync(() => {
 }));
 ```
 
-<figcaption>Heroes: Testing deletion of a hero.</figcaption>
+> Heroes: Testing deletion of a hero.
 
 In this final test case, we alter the stubbed hero service to emulate a server timeout after the hero is deleted. We verify that all the heroes are back in the heroes state.
 

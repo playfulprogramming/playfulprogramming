@@ -586,11 +586,15 @@ The application also includes [a URL component](https://stackblitz.com/edit/test
 
 ![](./3n5r1jkrmdm77i9lrp9q.png)
 
-<figcaption>When Internet Explorer 11 is faked, the deprecation banner is rendered.</figcaption></figure>
+> When Internet Explorer 11 is faked, the deprecation banner is rendered.
+
+</figure>
 
 ![](./284avb9ihdte1edibogr.png)
 
-<figcaption>When another browser is faked, the deprecation banner is omitted.</figcaption></figure>
+> When another browser is faked, the deprecation banner is omitted.
+
+</figure>
 
 Now, we can fake a browser environment to ease development and manual testing. Of course, we still need to test the deprecation banner in a real Internet Explorer 11 browser to make sure. Find help to do this in the **Resources** section.
 

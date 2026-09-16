@@ -95,69 +95,69 @@ It exposes a JSON with a random number inside.
 Through the *npm run start* command we can test our server locally.
 Here is the local result:
 
-![LocalResponse](./b950cgbneevp3neyy255.png)<br>
+![LocalResponse](./b950cgbneevp3neyy255.png)
 
 ## Steps to deploy on Azure
 
 #### Install Azure App Service extension
 
-![AzureExtension](./luag8qi4j7ddis5dap3l.png)<br>
+![AzureExtension](./luag8qi4j7ddis5dap3l.png)
 
-Once the extension is installed we will have this new icon in VSCode<br>
+Once the extension is installed we will have this new icon in VSCode
 
-![AzureIcon](./i9id466phvaavys9j959.png)<br>
+![AzureIcon](./i9id466phvaavys9j959.png)
 
 #### Login into Azure
 
-![Login](./gqdubzzql72fygtzje5i.png)<br>
+![Login](./gqdubzzql72fygtzje5i.png)
 
 By pressing on the login button, we are taken to the browser to log in with our Azure account.
 
 > You need to have an Azure account, free plan works well for this example.
 
-![LoginBrowser](./0w10yy20lopkv5sef366.png)<br>
+![LoginBrowser](./0w10yy20lopkv5sef366.png)
 
 Once logged in you can go back to VSCode
 
-![Logged](./jmap8l92n68e25143i7w.png)<br>
+![Logged](./jmap8l92n68e25143i7w.png)
 
 #### Creation of a new Web App
 
 We use the following command to create our application on Azure
 
-![WebApp](./nxo1ypo2upfbr7ji3qps.png)<br>
+![WebApp](./nxo1ypo2upfbr7ji3qps.png)
 
 We need to enter the name of our application
 
-![AppName](./ppo56qh5q6ei7z3e4vic.png)<br>
+![AppName](./ppo56qh5q6ei7z3e4vic.png)
 
 We need to select Node 18 LTS
 
-![Node18LTS](./ird6lif05isjgxtez2fu.png)<br>
+![Node18LTS](./ird6lif05isjgxtez2fu.png)
 
 Let's select Free pricing
 
-![Free](./p4iymy7t37zvc7c3plla.png)<br>
+![Free](./p4iymy7t37zvc7c3plla.png)
 
 The application will be created automatically
 
-![Creation](./n6k5cznoiz32p2hz2ebv.png)<br>
+![Creation](./n6k5cznoiz32p2hz2ebv.png)
 
 Once the application has been created, press the **Deploy** button
 
-![AzureDeploy](./axpar7my5637dv1s896c.png)<br>
+![AzureDeploy](./axpar7my5637dv1s896c.png)
 
 Let's select the project folder
 
-![Folder](./f9klzkvpmcz6hksckkfs.png)<br>
+![Folder](./f9klzkvpmcz6hksckkfs.png)
 
-![InDeploy](./9z43u8hoesi215rvzgmg.png)<br>
+![InDeploy](./9z43u8hoesi215rvzgmg.png)
 
 After the deployment let's see our app on Azure
 
-![Success](./yx01qor0w11mcyta6ov7.png)<br>
+![Success](./yx01qor0w11mcyta6ov7.png)
 
-![FinalResult](./951vf0ukod7jsvaw4lnu.png)<br>
+![FinalResult](./951vf0ukod7jsvaw4lnu.png)
 
 ---
 

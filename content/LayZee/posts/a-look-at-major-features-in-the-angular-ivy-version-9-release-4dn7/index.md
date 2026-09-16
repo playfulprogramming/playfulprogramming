@@ -34,7 +34,7 @@ Libraries *can* be AOT-compiled directly to Ivy instructions and metadata, but t
 }
 ```
 
-<figcaption>Listing 1A. TypeScript configuration: Opting out of Ivy to fall back to View Engine.</figcaption>
+> Listing 1A. TypeScript configuration: Opting out of Ivy to fall back to View Engine.
 
 ```ts
 // polyfills.ts
@@ -42,7 +42,7 @@ Libraries *can* be AOT-compiled directly to Ivy instructions and metadata, but t
 // import '@angular/localize/init';
 ```
 
-<figcaption>Listing 1B. Polyfills: Opting out of Ivy to fall back to View Engine.</figcaption>
+> Listing 1B. Polyfills: Opting out of Ivy to fall back to View Engine.
 
 If you experience problems with Ivy in your application or any of the libraries you depend on, you can opt out of Ivy and fall back to View Engine by clearing the `enableIvy` Angular compiler option and disabling `@angular/localize` as seen in Listings 1A and 1B.
 
@@ -104,7 +104,7 @@ loadTranslations({
 });
 ```
 
-<figcaption>Listing 2. Dynamically loading translations.</figcaption>
+> Listing 2. Dynamically loading translations.
 
 As seen in Listing 2, translated texts can also be dynamically loaded at runtime instead of being part of our bundles.
 
@@ -136,7 +136,7 @@ export class AppComponent {
 }
 ```
 
-<figcaption>Listing 3. A translation text placeholder in a component model.</figcaption>
+> Listing 3. A translation text placeholder in a component model.
 
 A new internationalisation feature is that we can also include placeholders for translated texts in our component models as seen in Listing 3. Previously, this was only possible in templates.
 
@@ -187,7 +187,7 @@ When enabled, this parameter adds a few strict TypeScript compiler checks as see
 }
 ```
 
-<figcaption>Listing 4. TypeScript compiler options enabled in a strict Angular workspace.</figcaption>
+> Listing 4. TypeScript compiler options enabled in a strict Angular workspace.
 
 Curiously enough, this doesn’t add the same options as if we would simply set `"strict": true` in the `compilerOptions` object. Let’s compare the Angular workspace strict option to the TypeScript compiler strict option.
 
@@ -226,7 +226,7 @@ Ivy introduces strict template type checking as seen in Listing 5. When this new
 }
 ```
 
-<figcaption>Listing 5. Enable strict template type checking.</figcaption>
+> Listing 5. Enable strict template type checking.
 
 The strict template type checking verifies the types of property bindings and respects the `strictNullChecks` option. It also checks the types of template references to directives and components, including generic types. Template context variables’ types are also checked which is great for `NgFor` loops. The `$event` type is checked for event bindings and animations. Even the type of native DOM elements is verified with strict template type checking.
 

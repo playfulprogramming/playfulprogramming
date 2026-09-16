@@ -1,7 +1,6 @@
 import {
 	type ButtonProps,
 	type CalendarGridProps,
-	type CalendarState,
 	type CalendarCellProps,
 	type CalendarCellRenderProps,
 	ButtonContext,
@@ -18,6 +17,7 @@ import {
 import arrow_left from "#src/assets/icons/arrow_left.svg?raw";
 import arrow_right from "#src/assets/icons/arrow_right.svg?raw";
 import { type ForwardedRef, forwardRef } from "preact/compat";
+import type { ButtonHTMLAttributes } from "preact";
 import {
 	DismissButton,
 	mergeProps,
@@ -31,11 +31,17 @@ import {
 	useOverlayTrigger,
 	usePopover,
 } from "react-aria";
-import { IconOnlyButton } from "#components/button/button.tsx";
+import { Button, IconOnlyButton } from "#components/button/button.tsx";
 import style from "./calendar.module.scss";
 import { useWindowSize } from "../../../../hooks/use-window-size.tsx";
 import { tabletLarge, tabletSmall } from "../../../../constants/breakpoints.ts";
-import { type MutableRef, useContext, useMemo, useRef } from "preact/hooks";
+import {
+	type MutableRef,
+	useContext,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+} from "preact/hooks";
 import {
 	type CalendarDate,
 	fromDate,
@@ -61,6 +67,14 @@ import wifi from "#src/assets/icons/wifi.svg?raw";
 import { getLocale } from "#src/paraglide/runtime.js";
 import { m } from "#src/paraglide/messages.js";
 
+function useCalendarContext() {
+	const state = useContext(CalendarStateContext);
+	if (!state) {
+		throw new Error("Calendar components must be used within a Calendar.");
+	}
+	return state;
+}
+
 const CustomButton = forwardRef(
 	(
 		props: ButtonProps & {
@@ -78,7 +92,7 @@ const CustomButton = forwardRef(
 				{...buttonProps}
 				dangerouslySetInnerHTML={props.dangerouslySetInnerHTML}
 				tag={"button"}
-				ref={ref as never}
+				ref={ref}
 			/>
 		);
 	},
@@ -87,7 +101,7 @@ const CustomButton = forwardRef(
 interface CustomCalendarCellProps extends CalendarCellProps {
 	// It's a long story
 	monthDate: CalendarDate;
-	popupTriggerButtonProps: DOMProps;
+	popupTriggerButtonProps: ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 // This mirrors CalendarCell so popup trigger props can be merged into the interactive element.
@@ -101,7 +115,7 @@ export const CustomCalendarCell = forwardRef(
 		}: CustomCalendarCellProps,
 		ref: ForwardedRef<HTMLTableCellElement>,
 	) => {
-		const state: CalendarState = useContext(CalendarStateContext);
+		const state = useCalendarContext();
 
 		const isOutsideMonth = !isSameMonth(date, monthDate);
 		const istoday = isToday(date, state.timeZone);
@@ -189,7 +203,7 @@ function CalendarDayPopup({
 	overlayProps,
 	date,
 }: CalendarDayPopupProps) {
-	const state: CalendarState = useContext(CalendarStateContext);
+	const state = useCalendarContext();
 	const locale = getLocale();
 
 	/* Setup popover */
@@ -322,7 +336,7 @@ function CustomCalendarCellWrapper({
 
 	const { buttonProps } = useButton(triggerProps, triggerRef);
 
-	const state: CalendarState = useContext(CalendarStateContext);
+	const state = useCalendarContext();
 
 	const eventsForDate = useMemo(() => {
 		return events.filter((event) =>
@@ -373,7 +387,7 @@ type CustomCalendarGridProps = CalendarGridProps & {
 };
 
 function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
-	const state: CalendarState = useContext(CalendarStateContext);
+	const state = useCalendarContext();
 
 	const monthDate = startOfMonth(state.visibleRange.start).add({
 		months: props.offset?.months ?? 0,
@@ -382,7 +396,7 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 	return (
 		<CalendarGrid {...props} className={style.grid}>
 			<CalendarGridHeader>
-				{(day: CalendarDate) => (
+				{(day) => (
 					<CalendarHeaderCell className={`text-style-body-small-bold`}>
 						<div className={`${style.calendarCell}`}>
 							<span className={style.innerCalendarCell}>{day}</span>
@@ -404,7 +418,7 @@ function CustomCalendarGrid({ events, ...props }: CustomCalendarGridProps) {
 }
 
 function CustomHeading() {
-	const state: CalendarState = useContext(CalendarStateContext);
+	const state = useCalendarContext();
 	const locale = getLocale();
 
 	const firstMonthName = useMemo(
@@ -453,11 +467,68 @@ function CustomHeading() {
 	);
 }
 
-interface CalendarProps {
-	events: Event[];
+export interface CalendarVisibleRange {
+	/** Local midnight at the start of the first visible month, in milliseconds. */
+	start: number;
+	/** Local midnight after the last visible month, in milliseconds (exclusive). */
+	end: number;
 }
 
-export function Calendar({ events }: CalendarProps) {
+interface CalendarProps {
+	events: Event[];
+	onVisibleRangeChange: (range: CalendarVisibleRange) => void;
+}
+
+function CalendarNavigation({
+	onVisibleRangeChange,
+}: Pick<CalendarProps, "onVisibleRangeChange">) {
+	const state = useCalendarContext();
+	const currentDate = today(state.timeZone);
+	const start = state.visibleRange.start.toDate(state.timeZone).getTime();
+	const end = state.visibleRange.end
+		.add({ days: 1 })
+		.toDate(state.timeZone)
+		.getTime();
+
+	useLayoutEffect(() => {
+		onVisibleRangeChange({ start, end });
+	}, [start, end, onVisibleRangeChange]);
+
+	return (
+		<div className={style.calendarNavigation}>
+			<header className={style.calendarHeader}>
+				<CustomButton
+					slot="previous"
+					className={style.arrowButton}
+					type="button"
+					dangerouslySetInnerHTML={{ __html: arrow_left }}
+				/>
+				<CustomHeading />
+				<CustomButton
+					slot="next"
+					className={style.arrowButton}
+					type="button"
+					dangerouslySetInnerHTML={{ __html: arrow_right }}
+				/>
+			</header>
+			{!isSameMonth(state.focusedDate, currentDate) && (
+				<Button
+					tag="button"
+					type="button"
+					variant="secondary"
+					onClick={() => {
+						state.setFocusedDate(currentDate);
+						state.setFocused(true);
+					}}
+				>
+					{m.events_calendar_today()}
+				</Button>
+			)}
+		</div>
+	);
+}
+
+export function Calendar({ events, onVisibleRangeChange }: CalendarProps) {
 	const isClient = useIsOnClient();
 	const locale = getLocale();
 
@@ -507,21 +578,7 @@ export function Calendar({ events }: CalendarProps) {
 				defaultFocusedValue={today(getLocalTimeZone())}
 				isReadOnly
 			>
-				<header className={style.calendarHeader}>
-					<CustomButton
-						slot="previous"
-						className={style.arrowButton}
-						type="submit"
-						dangerouslySetInnerHTML={{ __html: arrow_left }}
-					/>
-					<CustomHeading />
-					<CustomButton
-						slot="next"
-						className={style.arrowButton}
-						type="submit"
-						dangerouslySetInnerHTML={{ __html: arrow_right }}
-					/>
-				</header>
+				<CalendarNavigation onVisibleRangeChange={onVisibleRangeChange} />
 				<div className={style.gridContainer}>
 					<CustomCalendarGrid events={events} />
 					{isMobile ? null : (

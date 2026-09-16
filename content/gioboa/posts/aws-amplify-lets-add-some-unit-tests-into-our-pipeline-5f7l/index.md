@@ -25,7 +25,7 @@ Let's complicate the pipeline, we will see how it is possible to customise the b
 
 > You can edit an app's build settings in the Amplify console by choosing App settings, Build settings. The build settings are applied to all the branches in your app, except for the branches that have an amplify.yml file saved in the repository.
 
-Reading the AWS documentation, we can find how to add the test steps in the deployment process and it seems easy.<br>
+Reading the AWS documentation, we can find how to add the test steps in the deployment process and it seems easy.
 
 In the *amplify.yml* file is possible to add the tests section 🎉
 

@@ -95,7 +95,7 @@ export class CartComponent {
 }
 ```
 
-<figcaption>Listing 1. Forms: Cart component.</figcaption>
+> Listing 1. Forms: Cart component.
 
 What’s going on in the cart component in Listing 1? In its UI properties, we see a list of items and a checkout form. The items are initialised from the cart service while the checkout form is initialised using the form builder.
 
@@ -193,7 +193,7 @@ So what happened to that cart component from the Getting Started guide?
 </form>
 ```
 
-<figcaption>Listing 2.1. Cart: Initial mixed component template.</figcaption>
+> Listing 2.1. Cart: Initial mixed component template.
 
 ```ts
 // cart.component.ts
@@ -233,7 +233,7 @@ export class CartComponent {
 }
 ```
 
-<figcaption>Listing 2.2. Cart: Initial mixed component model.</figcaption>
+> Listing 2.2. Cart: Initial mixed component model.
 
 Listings 2.1 and 2.2 are our starting point—a mixed component with concerns spanning many horizontal layers. It also features logic at different abstraction levels.
 
@@ -249,7 +249,7 @@ It also contains non-presentational logic in the categories of state management 
   (checkout)="onCheckout($event)"></app-cart-ui>
 ```
 
-<figcaption>Listing 3.1. Cart: Container component template.</figcaption>
+> Listing 3.1. Cart: Container component template.
 
 ```ts
 // cart.container.ts
@@ -280,7 +280,7 @@ export class CartContainerComponent {
 }
 ```
 
-<figcaption>Listing 3.2. Cart: Container component model.</figcaption>
+> Listing 3.2. Cart: Container component model.
 
 In Listings 3.1 and 3.2, we’ve extracted a container component from the mixed cart component. All state management integration logic is now in this component.
 
@@ -295,7 +295,7 @@ export const routes = {
 };
 ```
 
-<figcaption>Listing 3.3 Root routes after extracting from cart component.</figcaption>
+> Listing 3.3 Root routes after extracting from cart component.
 
 In the initial cart component, the shipping route was hard-coded in the template. Now, we’ve extracted the route path to a separate module as seen in Listing 3.3, making it reusable and easy to change.
 
@@ -325,7 +325,7 @@ The container component creates a full route URL and passes it to the presentati
 <app-checkout (checkout)="checkout.emit($event)"></app-checkout>
 ```
 
-<figcaption>Listing 4.1. Cart: Presentational component template.</figcaption>
+> Listing 4.1. Cart: Presentational component template.
 
 ```ts
 // cart.component.ts
@@ -349,7 +349,7 @@ export class CartComponent {
 }
 ```
 
-<figcaption>Listing 4.2. Cart: Presentational component model.</figcaption>
+> Listing 4.2. Cart: Presentational component model.
 
 In Listings 4.1 and 4.2, we see that there is now minimal logic left in the presentational cart component. The shipping route URL is passed as an input property. This component doesn’t care what the full route URL is or how to access it.
 
@@ -380,7 +380,7 @@ We’ve extracted yet another [presentational component](https://dev.to/playfulp
 </form>
 ```
 
-<figcaption>Listing 5.1. Cart: Checkout component template.</figcaption>
+> Listing 5.1. Cart: Checkout component template.
 
 ```ts
 // checkout.component.ts
@@ -414,7 +414,7 @@ export class CheckoutComponent {
 }
 ```
 
-<figcaption>Listing 5.2. Cart: Checkout component model.</figcaption>
+> Listing 5.2. Cart: Checkout component model.
 
 The checkout component template in Listing 5.1 binds native form controls to reactive Angular form groups and controls.
 
@@ -449,7 +449,7 @@ export class CheckoutPresenter {
 }
 ```
 
-<figcaption>Listing 6. Cart: Checkout presenter.</figcaption>
+> Listing 6. Cart: Checkout presenter.
 
 The low-level logic of building the reactive checkout form group has been encapsulated in the checkout presenter in Listing 6. The form is exposed through a public property
 
@@ -503,13 +503,13 @@ The full refactored solution is available as [a StackBlitz workspace](https://st
 
 ![](./ki86s3jgpqwpf1ynk0h8.png)
 
-<figcaption>Figure 4. Cart: Initial concerns.</figcaption>
+> Figure 4. Cart: Initial concerns.
 
 Initially, many different concerns were located in a single mixed component as seen in Figure 4. The concerns in the lower section are definitely not supposed to be in a [presentational component](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961), that is state management implementation details, high level business logic and low level business logic.
 
 ![](./7i4ho4jo1wnahevwsokt.png)
 
-<figcaption>Figure 5. Cart: Refactored concerns.</figcaption>
+> Figure 5. Cart: Refactored concerns.
 
 After refactoring the cart feature into multiple components and a [presenter](https://dev.to/playfulprogramming-angular/presenters-with-angular-2l7l), concerns are reasonably separated, as seen in Figure 5.
 

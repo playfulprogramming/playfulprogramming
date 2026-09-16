@@ -1,0 +1,35 @@
+{
+    "$schema": "../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "e2e",
+    "projectType": "application",
+    "targets": {
+        "test:build": {
+            "command": "docker compose -f e2e/docker-compose.e2e.yml build"
+        },
+        "update-snapshots": {
+            "dependsOn": ["test:build"],
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "docker compose -f e2e/docker-compose.e2e.yml up --abort-on-container-exit --exit-code-from e2e",
+                "env": {
+                    "PLAYWRIGHT_ARGS": "--update-snapshots"
+                }
+            }
+        },
+        "test": {
+            "dependsOn": ["test:build"],
+            "inputs": [{ "env": "PLAYWRIGHT_ARGS" }],
+            "command": "docker compose -f e2e/docker-compose.e2e.yml up --abort-on-container-exit --exit-code-from e2e"
+        },
+        "test:interactive:start": {
+            "dependsOn": ["test:build"],
+            "command": "docker compose -f e2e/docker-compose.e2e.yml up fakeserver web --build --wait"
+        },
+        "test:interactive": {
+            "dependsOn": ["test:build", "test:interactive:start"],
+            "command": "playwright test --config e2e/playwright.config.ts --ui",
+            "continuous": true
+        }
+    },
+    "implicitDependencies": ["playfulprogramming-site"]
+}

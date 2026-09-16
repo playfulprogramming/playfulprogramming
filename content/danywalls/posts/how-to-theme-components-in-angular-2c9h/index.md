@@ -218,4 +218,4 @@ Feel free to play with the demo https://theme-angular-components.surge.sh/
 
 That's it! Hopefully, that will give you a bit of help on how to set the theme and colorize your components and make it dynamic. If you enjoyed this post, share it!
 
-Photo by <a href="https://unsplash.com/@sigmund?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sigmund</a> on <a href="https://unsplash.com/s/photos/kid-paint?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Sigmund](https://unsplash.com/@sigmund) on [Unsplash](https://unsplash.com/s/photos/kid-paint)

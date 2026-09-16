@@ -3,7 +3,14 @@ import { useCallback, useMemo } from "preact/hooks";
 import { RawSvg } from "#components/image/raw-svg.tsx";
 import style from "./quiz-radio.module.scss";
 import { Button } from "#components/button/button.tsx";
-import { Form, Label, Radio, RadioGroup } from "react-aria-components";
+import {
+	Form,
+	Label,
+	RadioButton,
+	RadioField,
+	RadioGroup,
+	Text,
+} from "react-aria-components";
 import RadioButtonIcon from "#src/assets/icons/radio_button.svg?raw";
 import RadioButtonSelectedIcon from "#src/assets/icons/radio_button_selected.svg?raw";
 import RadioButtonCorrectIcon from "#src/assets/icons/radio_button_correct_filled.svg?raw";
@@ -100,15 +107,15 @@ export function QuizRadio(props: QuizRadioProps) {
 									: RadioButtonIcon;
 
 						return (
-							<Radio
+							<RadioField
 								key={option.id}
 								value={option.id}
 								className={style.option}
 								data-correct={option.isCorrect}
 								data-incorrect={option.isIncorrect}
 							>
-								<span
-									class={`${style.optionInner} text-style-body-medium${isBold ? "-bold" : ""}`}
+								<RadioButton
+									className={`${style.optionInner} text-style-body-medium${isBold ? "-bold" : ""}`}
 								>
 									<RawSvg class={style.icon} icon={icon} aria-hidden />
 									{option.labelHtml ? (
@@ -118,15 +125,17 @@ export function QuizRadio(props: QuizRadioProps) {
 									) : (
 										<span>{option.label}</span>
 									)}
-								</span>
+								</RadioButton>
 								{option.explanation && (
-									<p
-										class={`${style.explanationLabel} text-style-body-small-bold`}
+									<Text
+										slot="description"
+										elementType="p"
+										className={`${style.explanationLabel} text-style-body-small-bold`}
 									>
 										{option.explanation}
-									</p>
+									</Text>
 								)}
-							</Radio>
+							</RadioField>
 						);
 					})}
 				</div>

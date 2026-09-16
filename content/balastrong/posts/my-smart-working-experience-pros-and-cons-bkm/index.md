@@ -18,7 +18,7 @@ Let’s begin with what I don’t like and what I feel I'm missing from when I w
 
 This article is the script of the following video, you can watch it on YouTube:
 
-<YouTube id="LgKQurF2Isk" />
+<iframe src="https://www.youtube.com/watch?v=LgKQurF2Isk"></iframe>
 
 ## Feeling alone 👎
 

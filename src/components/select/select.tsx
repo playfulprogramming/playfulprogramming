@@ -93,8 +93,11 @@ export function SelectWithLabel<T extends object>({
 	const { buttonProps } = useButton(triggerProps, ref);
 
 	// fix: ids passed to aria-labelledby are in the reverse order: https://github.com/playfulprogramming/playfulprogramming/issues/805
-	buttonProps["aria-labelledby"] = buttonProps["aria-labelledby"]
-		.split(" ")
+	const labelledBy = buttonProps["aria-labelledby"];
+	buttonProps["aria-labelledby"] = (
+		typeof labelledBy === "object" ? labelledBy.value : labelledBy
+	)
+		?.split(" ")
 		.reverse()
 		.join(" ");
 

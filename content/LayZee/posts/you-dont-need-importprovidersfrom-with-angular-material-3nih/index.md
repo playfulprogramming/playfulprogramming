@@ -46,7 +46,7 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
-<figcaption><code>app.config.ts</code> example with Angular Material 14.0.</figcaption>
+> `app.config.ts` example with Angular Material 14.0.
 
 ## Classic Angular application
 
@@ -81,7 +81,7 @@ import { appDateFormats } from './app-date-formats';
 export class AppModule {}
 ```
 
-<figcaption><code>app.module.ts</code> example with Angular Material 13.3.</figcaption>
+> `app.module.ts` example with Angular Material 13.3.
 
 ## Standalone Angular Material providers
 
@@ -108,7 +108,7 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
-<figcaption><code>app.config.ts</code> example with Angular Material 17.1.</figcaption>
+> `app.config.ts` example with Angular Material 17.1.
 
 Much cleaner, right?
 
@@ -152,7 +152,7 @@ type Story = StoryObj<MyMaterialComponent>;
 export const Default: Story = {};
 ```
 
-<figcaption><code>my-material.component.stories.ts</code> example with Angular Material 17.1.</figcaption>
+> `my-material.component.stories.ts` example with Angular Material 17.1.
 
 In earlier versions of Angular Material, we had to use [`importProvidersFrom`](https://angular.dev/api/core/importProvidersFrom) or pass the Angular modules to the `imports` option of thte [`moduleMetadata`](https://storybook.js.org/recipes/@angular/material) Storybook decorator.
 
@@ -182,7 +182,7 @@ it('MyMaterialComponent', () => {
 });
 ```
 
-<figcaption><code>my-material.component.spec.ts</code> example with Angular Material 17.1.</figcaption>
+> `my-material.component.spec.ts` example with Angular Material 17.1.
 
 ## Conclusion
 

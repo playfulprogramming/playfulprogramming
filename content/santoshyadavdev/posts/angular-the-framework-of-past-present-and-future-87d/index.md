@@ -11,7 +11,7 @@ socialImg: "social-image.png"
 }
 ---
 
-Photo by <a href="https://unsplash.com/ja/@dbeamer_jpg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Drew Beamer</a> on <a href="https://unsplash.com/photos/xU5Mqq0Chck?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by [Drew Beamer](https://unsplash.com/ja/@dbeamer_jpg) on [Unsplash](https://unsplash.com/photos/xU5Mqq0Chck)
 
 I started using Angular in 2017 when version 4 was released. And I have seen this framework growing since then. In this blog, let's see why Angular is a framework of Past, Present, and Future.
 

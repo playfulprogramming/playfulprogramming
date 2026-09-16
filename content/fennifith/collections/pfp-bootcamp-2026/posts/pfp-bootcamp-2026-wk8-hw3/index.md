@@ -1,6 +1,7 @@
 ---
 {
   title: "Week 8 - Tier 3 Homework",
+  description: "Add a form with controlled inputs to your React flash card app so users can create their own cards.",
   published: "2026-02-24T21:00:00.000Z",
   order: 8,
   authors: ["whatade"],
@@ -22,21 +23,21 @@ Replace the plain `const cards = [...]` with **React state** in `App`:
 
 ```jsx
 const initialCards = [
-  {
-    id: 1,
-    question: "What is React?",
-    answer: "A JavaScript library for building user interfaces.",
-  },
-  {
-    id: 2,
-    question: "What is JSX?",
-    answer: "A syntax that looks like HTML but works inside JavaScript.",
-  },
-  {
-    id: 3,
-    question: "What is useState?",
-    answer: "A React hook that lets you store and update state.",
-  },
+	{
+		id: 1,
+		question: "What is React?",
+		answer: "A JavaScript library for building user interfaces.",
+	},
+	{
+		id: 2,
+		question: "What is JSX?",
+		answer: "A syntax that looks like HTML but works inside JavaScript.",
+	},
+	{
+		id: 3,
+		question: "What is useState?",
+		answer: "A React hook that lets you store and update state.",
+	},
 ];
 
 const [cards, setCards] = useState(initialCards);
@@ -86,6 +87,6 @@ Use a unique `id` for each new card (e.g. `Date.now()` or `cards.length + 1`).
 <details>
 <summary>Full Code</summary>
 
-<iframe data-frame-title="Flash Card App" src="pfp-code:./pfp-wk8-hw3-project?file=src/App.jsx"></iframe> 
+<iframe data-frame-title="Flash Card App" src="pfp-code:./pfp-wk8-hw3-project?file=src/App.jsx"></iframe>
 
 </details>

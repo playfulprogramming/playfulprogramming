@@ -175,7 +175,7 @@ Though for our discussion, let's stick to something more universal.
 
 Let's talk about Slack-style mentions like "@szymon".
 
-At first glance, you might think: just wrap the text in a <span> with a special class. But here's the thing: it's not just styled text. It's a semantic object with meaning and behavior.
+At first glance, you might think: just wrap the text in a `<span>` with a special class. But here's the thing: it's not just styled text. It's a semantic object with meaning and behavior.
 To make mentions work properly, you first need to define them in your editor's schema. Here's what a mention node definition could look like:
 
 ```js

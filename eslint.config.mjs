@@ -2,7 +2,7 @@ import eslint from "@eslint/js";
 import { defineConfig, globalIgnores, includeIgnoreFile } from "eslint/config";
 import tseslint from "typescript-eslint";
 import globals from "globals";
-import astroParser from "astro-eslint-parser";
+import * as astroParser from "astro-eslint-parser";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import eslintPluginAstro from "eslint-plugin-astro";
@@ -27,6 +27,7 @@ export default defineConfig([
 	includeIgnoreFile(fileURLToPath(new URL(".gitignore", import.meta.url))),
 	globalIgnores([
 		"content/**/*",
+		"e2e/.playwright*/**/*",
 		"src/paraglide/**/*",
 		"public/content/**/*",
 		"public/mockServiceWorker.js",

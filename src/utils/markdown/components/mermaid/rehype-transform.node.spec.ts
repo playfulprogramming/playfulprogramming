@@ -7,7 +7,6 @@ import rehypeRaw from "rehype-raw";
 import { VFile } from "vfile";
 import type { MarkdownVFile } from "../../types.ts";
 import { rehypeCodeblockMeta } from "../../shiki/rehype-codeblock-meta.ts";
-import { rehypePostShikiTransform } from "../../shiki/rehype-post-shiki-transform.ts";
 import { rehypeShikiUU } from "../../shiki/rehype-transform.ts";
 import { runShiki } from "../../shiki/shiki-pool.ts";
 import { rehypeParseComponents } from "../rehype-parse-components.ts";
@@ -57,7 +56,6 @@ async function processMarkdown(value: string) {
 		.use(rehypeParseComponents)
 		.use(rehypeCodeblockMeta)
 		.use(rehypeShikiUU)
-		.use(rehypePostShikiTransform)
 		.use(rehypeTransformComponents, {
 			components: { mermaid: transformMermaid },
 		});
