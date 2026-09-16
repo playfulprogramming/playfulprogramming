@@ -1,8 +1,24 @@
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
 import { visit, SKIP, EXIT } from "unist-util-visit";
 import { is } from "unist-util-is";
 import { toString } from "hast-util-to-string";
 import type { Nodes } from "hast";
-import { parseMdast } from "./satteri-parse.ts";
+import remarkFrontmatter from "remark-frontmatter";
+import {
+	remarkProcessFrontmatter,
+	TYPE_FRONTMATTER,
+} from "./remark-process-frontmatter.ts";
+
+const unifiedChain = unified()
+	.use(remarkParse, { fragment: true } as never)
+	.use(remarkFrontmatter, {
+		type: TYPE_FRONTMATTER,
+		marker: "-",
+	})
+	.use(remarkProcessFrontmatter)
+	.use(remarkGfm);
 
 function isTextOrCode(node: unknown): node is Nodes {
 	return (
@@ -25,7 +41,7 @@ export function getExcerpt(
 	markdownContent: string,
 	maxLength: number | undefined,
 ): string {
-	const tree = parseMdast(markdownContent);
+	const tree = unifiedChain.parse(markdownContent);
 
 	const excerptParts: string[] = [];
 	let excerptLength = 0;

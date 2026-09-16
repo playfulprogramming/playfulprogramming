@@ -1,13 +1,15 @@
+import { unified } from "unified";
 import type { Node } from "mdast";
 import type { MarkdownVFile } from "../markdown/types";
+import remarkParse from "remark-parse";
 import { visit } from "unist-util-visit";
+import remarkFrontmatter from "remark-frontmatter";
 import JSON5 from "json5";
-import { parseMdast } from "../markdown/satteri-parse.ts";
 import { logError } from "../markdown/logger.ts";
 import type { Static, TSchema } from "typebox";
 import Value, { ParseError } from "typebox/value";
 
-const TYPE_FRONTMATTER = "yaml";
+const TYPE_FRONTMATTER = "frontmatter";
 
 interface FrontMatterNode {
 	type: typeof TYPE_FRONTMATTER;
@@ -19,11 +21,18 @@ function isFrontMatterNode(node: Node): node is FrontMatterNode {
 	return node.type === TYPE_FRONTMATTER;
 }
 
+const unifiedChain = unified()
+	.use(remarkParse, { fragment: true } as never)
+	.use(remarkFrontmatter, {
+		type: TYPE_FRONTMATTER,
+		marker: "-",
+	} as never);
+
 export async function parseFrontmatter<T extends TSchema>(
 	vfile: MarkdownVFile,
 	schema: T,
 ): Promise<{ frontmatter: Static<T>; frontmatterNode: Node }> {
-	const tree: Node = parseMdast(String(vfile.value));
+	const tree: Node = unifiedChain.parse(vfile);
 
 	let frontmatterNode: FrontMatterNode | undefined;
 	visit(tree, isFrontMatterNode, (node) => {

@@ -1,5 +1,12 @@
+import remarkParse from "remark-parse";
+import remarkFrontmatter from "remark-frontmatter";
+import {
+	TYPE_FRONTMATTER,
+	remarkProcessFrontmatter,
+} from "./remark-process-frontmatter.ts";
+import remarkGfm from "remark-gfm";
 import rehypeUnwrapImages from "rehype-unwrap-images";
-import { satteriParse } from "./satteri-parse.ts";
+import remarkToRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
 import {
@@ -25,7 +32,14 @@ import { rehypeEpubSnitipLinks } from "./snitip-link/rehype-transform-epub.ts";
 export function createEpubPlugins(unified: Processor) {
 	return (
 		unified
-			.use(satteriParse, { math: false })
+			.use(remarkParse, { fragment: true } as never)
+			.use(remarkFrontmatter, {
+				type: TYPE_FRONTMATTER,
+				marker: "-",
+			})
+			.use(remarkProcessFrontmatter)
+			.use(remarkGfm)
+			.use(remarkToRehype, { allowDangerousHtml: true })
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, { passThrough: ["mdxjsEsm"] } as never)
