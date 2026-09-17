@@ -162,7 +162,6 @@
 		"*.{scss,astro,css}": "stylelint"
 	},
 	"dependencies": {
-		"@babel/runtime": "^8.0.0",
 		"@internationalized/date": "^3.12.3",
 		"@nanostores/preact": "^1.1.0",
 		"@plausible-analytics/tracker": "^0.4.6",
