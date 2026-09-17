@@ -100,7 +100,6 @@
 		"eslint-plugin-astro": "^3.1.0",
 		"eslint-plugin-import": "^2.32.0",
 		"feed": "^6.0.0",
-		"git-branch": "^2.0.1",
 		"globals": "^17.11.0",
 		"hast-util-from-html": "^2.0.3",
 		"hast-util-has-property": "^3.0.0",
