@@ -9,6 +9,7 @@ import {
 	isValidLocaleRouteParam,
 } from "#utils/locales.ts";
 import { m } from "#src/paraglide/messages.js";
+import { localizeHref } from "#src/paraglide/runtime.js";
 
 export function getStaticPaths() {
 	return getStaticLocalePaths();
@@ -16,7 +17,7 @@ export function getStaticPaths() {
 
 const localeParam = Astro.params.locale;
 if (!isValidLocaleRouteParam(localeParam)) {
-	return Astro.rewrite("/404");
+	return Astro.rewrite(localizeHref("/404"));
 }
 
 const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);

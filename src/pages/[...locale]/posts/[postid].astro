@@ -6,7 +6,7 @@ import * as api from "#utils/api.ts";
 import { getMarkdownHtml } from "#utils/markdown/index.ts";
 import { isDefined } from "#utils/is-defined.ts";
 import { getPostImages } from "#utils/hoof/index.ts";
-import { baseLocale, getLocale } from "#src/paraglide/runtime.js";
+import { baseLocale, getLocale, localizeHref } from "#src/paraglide/runtime.js";
 import { isValidLocaleRouteParam } from "#utils/locales.ts";
 
 export async function getStaticPaths() {
@@ -28,11 +28,15 @@ const params = Astro.params as {
 };
 
 if (!isValidLocaleRouteParam(params.locale)) {
-	return Astro.rewrite("/404");
+	return Astro.rewrite(localizeHref("/404"));
 }
 
 const locale = getLocale();
-const post = (await api.getPostBySlug(params.postid, locale))!;
+const post = await api.getPostBySlug(params.postid, locale);
+if (!post || post.locale !== locale) {
+	return Astro.rewrite(localizeHref("/404"));
+}
+
 const authors = (
 	await Promise.all(
 		post.authors.map((personId) => api.getPersonById(personId, locale)),

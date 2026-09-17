@@ -146,7 +146,6 @@
 		"stylelint": "^17.15.0",
 		"stylelint-config-recommended-scss": "^17.0.1",
 		"stylelint-value-no-unknown-custom-properties": "^6.1.1",
-		"symlink-dir": "^10.0.1",
 		"terser": "^5.51.2",
 		"tiny-async-pool": "^2.1.0",
 		"tinypool": "^2.1.2",
@@ -165,7 +164,6 @@
 		"*.{scss,astro,css}": "stylelint"
 	},
 	"dependencies": {
-		"@babel/runtime": "^8.0.0",
 		"@internationalized/date": "^3.12.3",
 		"@nanostores/preact": "^1.1.0",
 		"@plausible-analytics/tracker": "^0.4.6",
@@ -183,8 +181,7 @@
 		"react-aria-components": "^1.20.0",
 		"react-stately": "^3.49.0",
 		"typebox": "^1.3.27",
-		"typesense": "^3.0.6",
-		"uuid": "^14.0.2"
+		"typesense": "^3.0.6"
 	},
 	"msw": {
 		"workerDirectory": [

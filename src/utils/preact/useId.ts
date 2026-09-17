@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { useMemo } from "preact/hooks";
 
 /**
@@ -13,10 +12,10 @@ export function useRandomId() {
 }
 
 /**
- * Returns a uuidv4() that is persisted in a useMemo.
+ * Returns a random UUID that is persisted in a useMemo.
  */
 export function useUUID() {
 	return useMemo(() => {
-		return uuidv4();
+		return crypto.randomUUID();
 	}, []);
 }
