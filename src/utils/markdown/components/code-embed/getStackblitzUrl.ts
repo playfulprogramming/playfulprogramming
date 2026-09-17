@@ -10,9 +10,9 @@ let currentBranch = env.GIT_COMMIT_REF;
 if (!currentBranch) {
 	// In local dev, GIT_COMMIT_REF might not be set, so we should default to main.
 	currentBranch = "main";
-	// But only for development, in production we should throw an error to avoid unexpected behavior.
+	// But only for development, in production/preview builds we should throw an error to avoid unexpected behavior.
 	if (env.MODE === "production" || env.MODE === "preview") {
-		throw new Error("Environment variable GITHUB_COMMIT_REF is not set!");
+		throw new Error("Environment variable GIT_COMMIT_REF is not set!");
 	}
 }
 
