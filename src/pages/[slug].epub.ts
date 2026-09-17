@@ -9,7 +9,11 @@ import { baseLocale } from "#src/paraglide/runtime.js";
 
 export const GET: APIRoute = async ({ params }) => {
 	const slug = String(params.slug);
-	const collection = (await getCollectionBySlug(slug, baseLocale))!;
+	const collection = await getCollectionBySlug(slug, baseLocale);
+	if (!collection || collection.noindex) {
+		return new Response("Not found", { status: 404 });
+	}
+
 	const collectionPosts = await getPostsByCollection(slug, baseLocale);
 
 	const epub = await generateCollectionEPub(collection, collectionPosts);

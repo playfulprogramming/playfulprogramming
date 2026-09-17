@@ -1,8 +1,8 @@
 import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import icon from "astro-icon";
-import { symlinkDir } from "symlink-dir";
 import * as path from "path";
+import * as fs from "fs/promises";
 import * as os from "os";
 import type { AstroUserConfig } from "astro";
 import node from "@astrojs/node";
@@ -10,11 +10,14 @@ import projectSettings from "./project.inlang/settings.json" with { type: "json"
 import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
 
-await symlinkDir(path.resolve("content"), path.resolve("public/content"));
+const publicContent = path.resolve("public/content");
+await fs.rm(publicContent, { force: true });
+await fs.symlink(path.resolve("content"), publicContent, "junction");
 
 // Reads the "browserslist" field in package.json.
 const lightningcssTargets = browserslistToTargets(browserslist());
 
+// Temporary migration toggle: manual previews and staging opt into SSR.
 const isServerBuild = process.env.BUILD_OUTPUT === "server";
 
 // Astro warns that high concurrency increases memory use and can
@@ -80,9 +83,6 @@ export default defineConfig({
 		checkOrigin: process.env.CI !== "1",
 	},
 	vite: {
-		define: {
-			__PARAGLIDE_SERVER_OUTPUT__: JSON.stringify(isServerBuild),
-		},
 		css: {
 			transformer: "lightningcss",
 			lightningcss: {
