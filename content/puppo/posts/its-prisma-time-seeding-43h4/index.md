@@ -67,7 +67,7 @@ The configuration is easy and we can instruct prisma in this way
 These three lines of code indicate to Prisma that we want to handle its seed command. When this command is executed the system uses the ts-node tool to build and execute the file `prisma/seed/index.ts`.
 But Prisma doesn't stop its work here. It executes this command after the migrate command too. Thus now we can execute this command
 
-```cli
+```bash
 npx prisma migrate dev
 ```
 
@@ -94,7 +94,7 @@ main();
 
 and after that run the command
 
-```cli
+```bash
 npm run dev
 ```
 

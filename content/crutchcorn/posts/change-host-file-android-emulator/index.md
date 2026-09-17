@@ -96,7 +96,7 @@ Inside the emulator, the IP address `10.0.2.2` refers to the *host* OS. For exam
 
 Knowing these two things, you can change the host file to make `example.com` refer to the host by adding the following to the host file:
 
-```plaintext
+```text
 10.0.2.2 example.com
 ```
 
