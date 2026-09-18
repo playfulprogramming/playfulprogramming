@@ -16,10 +16,10 @@ const trackedConfigs = new WeakSet<CompileContext["config"]>();
 export function commentComponentsFromMarkdown(): Extension {
 	return {
 		enter: {
-			playfulComponent: enterComponent,
-			playfulComponentMarker: enterMarker,
-			playfulComponentClosingMarker: enterMarker,
-			playfulComponentUnexpectedMarker: enterMarker,
+			commentComponent: enterComponent,
+			commentComponentMarker: enterMarker,
+			commentComponentClosingMarker: enterMarker,
+			commentComponentUnexpectedMarker: enterMarker,
 			htmlFlow(token) {
 				trackMarkdownContext(this);
 				this.enter({ type: "html", value: "" }, token);
@@ -27,7 +27,7 @@ export function commentComponentsFromMarkdown(): Extension {
 			},
 		},
 		exit: {
-			playfulComponent: exitComponent,
+			commentComponent: exitComponent,
 			htmlFlow(token) {
 				const value = this.resume();
 				(this.stack.at(-1) as Html).value = value;
@@ -63,7 +63,7 @@ function enterComponent(this: CompileContext, token: Token) {
 	const marker = token._commentComponent!;
 	const parent = this.stack.at(-1);
 	const eligible =
-		(parent?.type === "root" || parent?.type === "playfulComponent") &&
+		(parent?.type === "root" || parent?.type === "commentComponent") &&
 		!htmlStacks.get(parent!)?.length;
 	token._commentComponentSuppressed =
 		!eligible ||
@@ -82,7 +82,7 @@ function enterComponent(this: CompileContext, token: Token) {
 	}
 	if (marker.kind === "end") {
 		const component =
-			parent?.type === "playfulComponent" ? parent.component : undefined;
+			parent?.type === "commentComponent" ? parent.component : undefined;
 		diagnose(
 			this,
 			token,
@@ -104,7 +104,7 @@ function enterComponent(this: CompileContext, token: Token) {
 	}
 	this.enter(
 		{
-			type: "playfulComponent",
+			type: "commentComponent",
 			component: marker.component,
 			attributes: marker.attributes,
 			form: marker.kind,

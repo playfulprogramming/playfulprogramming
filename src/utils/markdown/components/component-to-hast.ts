@@ -1,4 +1,4 @@
-import type { PlayfulComponent } from "mdast-comment-components";
+import type { CommentComponent } from "mdast-comment-components";
 import type { Options } from "remark-rehype";
 import type { ElementContent } from "hast";
 import type { ComponentMarkupNode } from "./components.ts";
@@ -6,7 +6,7 @@ import type { ComponentMarkupNode } from "./components.ts";
 /** Bridge native Markdown syntax into the existing publishing transform contract. */
 export const componentToHast: NonNullable<
 	Options["handlers"]
->["playfulComponent"] = (state, node: PlayfulComponent) => {
+>["commentComponent"] = (state, node: CommentComponent) => {
 	const result: ComponentMarkupNode = {
 		type: "playful-component-markup",
 		component: node.component,

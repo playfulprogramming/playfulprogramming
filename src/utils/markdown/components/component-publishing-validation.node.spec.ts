@@ -54,7 +54,7 @@ function processor() {
 		.use(remarkComponentDiagnostics)
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
-			handlers: { playfulComponent: componentToHast },
+			handlers: { commentComponent: componentToHast },
 		})
 		.use(rehypeRaw, { passThrough: ["playful-component-markup"] });
 }
@@ -202,7 +202,7 @@ describe("native component publishing validation", () => {
 			components: {},
 		});
 		expect(pipeline.parse(vfile).children[0]).toMatchObject({
-			type: "playfulComponent",
+			type: "commentComponent",
 			component: "unknown-component",
 		});
 		await expect(pipeline.run(pipeline.parse(vfile), vfile)).rejects.toThrow();

@@ -45,7 +45,7 @@ describe("comment component serialization", () => {
 	)("round trips the self-contained publishing fixture %s", (file) => {
 		const source = readFileSync(new URL(file, fixtures), "utf8");
 		const tree = processor.parse(source);
-		expect(tree.children.some((node) => node.type === "playfulComponent")).toBe(
+		expect(tree.children.some((node) => node.type === "commentComponent")).toBe(
 			true,
 		);
 		roundTrip(source);
@@ -53,7 +53,7 @@ describe("comment component serialization", () => {
 
 	it("registers all three extensions as an attacher without a transformer", () => {
 		const tree = processor.parse('<!-- ::user id="crutchcorn" -->');
-		expect(tree.children[0].type).toBe("playfulComponent");
+		expect(tree.children[0].type).toBe("commentComponent");
 		expect(processor.stringify(tree)).toBe('<!-- ::user id="crutchcorn" -->\n');
 	});
 

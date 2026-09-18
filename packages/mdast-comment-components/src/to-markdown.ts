@@ -1,11 +1,11 @@
 import type { Parents } from "mdast";
 import type { Info, Options, State } from "mdast-util-to-markdown";
 import { find, html } from "property-information";
-import type { PlayfulComponent } from "./types.ts";
+import type { CommentComponent } from "./types.ts";
 
 declare module "mdast-util-to-markdown" {
 	interface ConstructNameMap {
-		playfulComponent: "playfulComponent";
+		commentComponent: "commentComponent";
 	}
 }
 
@@ -34,12 +34,12 @@ function serializeAttributes(attributes: Record<string, string>): string {
 }
 
 function handleComponent(
-	node: PlayfulComponent,
+	node: CommentComponent,
 	_parent: Parents | undefined,
 	state: State,
 	info: Info,
 ): string {
-	const exit = state.enter("playfulComponent");
+	const exit = state.enter("commentComponent");
 	const tracker = state.createTracker(info);
 	const attributes = serializeAttributes(node.attributes);
 	const prefix = node.form === "ranged" ? "::start:" : "::";
@@ -58,5 +58,5 @@ function handleComponent(
 
 /** An extension for mdast-util-to-markdown (also registered by the Remark plugin). */
 export function commentComponentsToMarkdown(): Options {
-	return { handlers: { playfulComponent: handleComponent } };
+	return { handlers: { commentComponent: handleComponent } };
 }

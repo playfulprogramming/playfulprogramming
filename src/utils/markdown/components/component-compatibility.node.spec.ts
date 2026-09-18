@@ -63,7 +63,7 @@ async function native(source: string): Promise<PlayfulRoot> {
 		.use(remarkCommentComponents)
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
-			handlers: { playfulComponent: componentToHast },
+			handlers: { commentComponent: componentToHast },
 		})
 		.use(rehypeRaw, { passThrough: ["playful-component-markup"] });
 	const parsed = processor.parse(source);

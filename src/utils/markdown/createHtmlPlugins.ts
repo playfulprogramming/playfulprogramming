@@ -73,7 +73,7 @@ export function createHtmlPlugins(unified: Processor) {
 			/* start remark plugins here */
 			.use(remarkToRehype, {
 				allowDangerousHtml: true,
-				handlers: { playfulComponent: componentToHast },
+				handlers: { commentComponent: componentToHast },
 			})
 			// Remove complaining about "div cannot be in p element"
 			.use(rehypeUnwrapImages)

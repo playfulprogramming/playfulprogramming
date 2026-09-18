@@ -1,8 +1,8 @@
 import type { Parent, RootContent } from "mdast";
 import type { Position } from "unist";
 
-export interface PlayfulComponent extends Parent {
-	type: "playfulComponent";
+export interface CommentComponent extends Parent {
+	type: "commentComponent";
 	component: string;
 	attributes: Record<string, string>;
 	form: "ranged" | "standalone";
@@ -22,10 +22,10 @@ export interface CommentComponentDiagnostic {
 
 declare module "mdast" {
 	interface BlockContentMap {
-		playfulComponent: PlayfulComponent;
+		commentComponent: CommentComponent;
 	}
 	interface RootContentMap {
-		playfulComponent: PlayfulComponent;
+		commentComponent: CommentComponent;
 	}
 	interface RootData {
 		commentComponentDiagnostics?: CommentComponentDiagnostic[];

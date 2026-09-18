@@ -20,11 +20,11 @@ export interface Marker {
 
 declare module "micromark-util-types" {
 	interface TokenTypeMap {
-		playfulComponent: "playfulComponent";
-		playfulComponentMarker: "playfulComponentMarker";
-		playfulComponentClosingMarker: "playfulComponentClosingMarker";
-		playfulComponentUnexpectedMarker: "playfulComponentUnexpectedMarker";
-		playfulComponentMarkerData: "playfulComponentMarkerData";
+		commentComponent: "commentComponent";
+		commentComponentMarker: "commentComponentMarker";
+		commentComponentClosingMarker: "commentComponentClosingMarker";
+		commentComponentUnexpectedMarker: "commentComponentUnexpectedMarker";
+		commentComponentMarkerData: "commentComponentMarkerData";
 	}
 	interface Token {
 		_commentComponent?: Marker;
@@ -146,10 +146,10 @@ const tokenize: Tokenizer = function (effects, ok, nok) {
 		// physical root lines (or the document inside a component) are eligible.
 		const adjacent =
 			self.events.findLast(([, token]) => token.type !== "whitespace")?.[1]
-				.type === "playfulComponent";
+				.type === "commentComponent";
 		if (!adjacent && (self.now().column !== indentation + 1 || indentation > 3))
 			return nok(code);
-		container = effects.enter("playfulComponent");
+		container = effects.enter("commentComponent");
 		return effects.attempt(
 			openingMarkerConstruct((token, value) => {
 				opening = token;
@@ -165,7 +165,7 @@ const tokenize: Tokenizer = function (effects, ok, nok) {
 		container._commentComponentOpening = opening;
 		opening._commentComponentOwner = container;
 		if (marker.kind === "end") {
-			opening.type = "playfulComponentUnexpectedMarker";
+			opening.type = "commentComponentUnexpectedMarker";
 			return finish(code);
 		}
 		if (marker.kind === "standalone" || marker.kind === "invalid")
@@ -253,7 +253,7 @@ const tokenize: Tokenizer = function (effects, ok, nok) {
 	}
 
 	function finish(code: Code): State | undefined {
-		effects.exit("playfulComponent");
+		effects.exit("commentComponent");
 		if (code === null || markdownLineEnding(code)) return ok(code);
 		if (markdownSpace(code)) {
 			effects.enter("whitespace");
@@ -289,7 +289,7 @@ const tokenize: Tokenizer = function (effects, ok, nok) {
 					}
 					if (spaces) effects.exit("linePrefix");
 					return effects.attempt(
-						markerConstruct("playfulComponentClosingMarker", (token, value) => {
+						markerConstruct("commentComponentClosingMarker", (token, value) => {
 							closing = token;
 							if (
 								value.kind !== "end" ||
@@ -321,10 +321,10 @@ function openingMarkerConstruct(
 		partial: true,
 		tokenize(effects, ok, nok) {
 			return effects.attempt(
-				markerConstruct("playfulComponentMarker", onMarker),
+				markerConstruct("commentComponentMarker", onMarker),
 				ok,
 				effects.attempt(
-					markerConstruct("playfulComponentMarker", onMarker, true),
+					markerConstruct("commentComponentMarker", onMarker, true),
 					ok,
 					nok,
 				),
@@ -334,7 +334,7 @@ function openingMarkerConstruct(
 }
 
 function markerConstruct(
-	type: "playfulComponentMarker" | "playfulComponentClosingMarker",
+	type: "commentComponentMarker" | "commentComponentClosingMarker",
 	onMarker: (token: Token, marker: Marker) => void,
 	recoverOpeningLine = false,
 ): Construct {
@@ -350,7 +350,7 @@ function markerConstruct(
 			return start;
 			function start(code: Code): State | undefined {
 				token = effects.enter(type);
-				effects.enter("playfulComponentMarkerData");
+				effects.enter("commentComponentMarkerData");
 				return before(code);
 			}
 			function before(code: Code): State | undefined {
@@ -365,7 +365,7 @@ function markerConstruct(
 						end: self.now(),
 					});
 					if (/^<!--\s*::/.test(source)) {
-						effects.exit("playfulComponentMarkerData");
+						effects.exit("commentComponentMarkerData");
 						effects.exit(type);
 						const marker: Marker = {
 							kind: "invalid",
@@ -381,7 +381,7 @@ function markerConstruct(
 				if (code === null) return nok(code);
 				if (code === 62 && dashes >= 2) {
 					effects.consume(code);
-					effects.exit("playfulComponentMarkerData");
+					effects.exit("commentComponentMarkerData");
 					effects.exit(type);
 					const value = self.sliceSerialize(token).slice(4, -3).trim();
 					if (!value.startsWith("::")) return nok;
@@ -405,13 +405,13 @@ function markerConstruct(
 				dashes = code === 45 ? dashes + 1 : 0;
 				effects.consume(code);
 				if (markdownLineEnding(code)) {
-					effects.exit("playfulComponentMarkerData");
+					effects.exit("commentComponentMarkerData");
 					return afterLine;
 				}
 				return inside;
 			}
 			function afterLine(code: Code): State | undefined {
-				effects.enter("playfulComponentMarkerData");
+				effects.enter("commentComponentMarkerData");
 				return inside(code);
 			}
 		},
@@ -492,7 +492,7 @@ function inHtml(document: TokenizeContext): boolean {
 		seen.add(token._tokenizer);
 		let componentDepth = 0;
 		for (const [action, child, context] of token._tokenizer.events) {
-			if (child.type === "playfulComponent")
+			if (child.type === "commentComponent")
 				componentDepth += action === "enter" ? 1 : -1;
 			if (!componentDepth && action === "enter")
 				updateMarkdownContext(stack, child.type);

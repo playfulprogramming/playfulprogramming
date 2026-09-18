@@ -19,14 +19,14 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "user",
 				form: "standalone",
 				attributes: { id: "crutchcorn" },
 				children: [],
 			},
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "tabs",
 				form: "ranged",
 				children: [{ type: "heading", depth: 2 }, { type: "paragraph" }],
@@ -39,16 +39,16 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "tabs",
 				children: [
 					{
-						type: "playfulComponent",
+						type: "commentComponent",
 						component: "tabs",
 						children: [{ type: "paragraph" }],
 					},
 					{
-						type: "playfulComponent",
+						type: "commentComponent",
 						component: "hint",
 						children: [{ type: "paragraph" }],
 					},
@@ -62,7 +62,7 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				children: [{ type: "list" }, { type: "table" }, { type: "math" }],
 			},
 		]);
@@ -73,7 +73,7 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				children: [
 					{ type: "code", value: "<!-- ::end:hint -->\n<!-- ::user -->" },
 					{ type: "paragraph", children: [{ type: "inlineCode" }] },
@@ -111,7 +111,7 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "tabs",
 				children: [{ type: "html" }, { type: "paragraph" }],
 			},
@@ -133,7 +133,7 @@ describe("native comment components", () => {
 			"paragraph",
 			"html",
 			"html",
-			"playfulComponent",
+			"commentComponent",
 		]);
 		expect(tree.data?.commentComponentDiagnostics).toBeUndefined();
 	});
@@ -165,7 +165,7 @@ describe("native comment components", () => {
 			'<!-- ::USER ID="first" id="last" CLASS="one two" disabled data-nozoom title="A &amp; &#34;B&#34;" button-text="Read" button-href="/go" -->',
 		);
 		expect(tree.children[0]).toMatchObject({
-			type: "playfulComponent",
+			type: "commentComponent",
 			component: "user",
 			attributes: {
 				id: "first",
@@ -183,7 +183,7 @@ describe("native comment components", () => {
 		(prefix) => {
 			const tree = parse(`${prefix}\n\n<!-- ::user -->`);
 			expect(tree.children.at(-1)).toMatchObject({
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "user",
 			});
 		},
@@ -194,7 +194,7 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				children: [
 					{
 						type: "list",
@@ -227,7 +227,7 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "no-ebook",
 				children: [{ type: "html" }],
 			},
@@ -240,7 +240,7 @@ describe("native comment components", () => {
 			const tree = parse(`${html}\n<!-- ::user -->`);
 			expect(tree.children).toMatchObject([
 				{ type: "html", value: html },
-				{ type: "playfulComponent", component: "user" },
+				{ type: "commentComponent", component: "user" },
 			]);
 		},
 	);
@@ -249,8 +249,8 @@ describe("native comment components", () => {
 		"<!-- ::user --> <!-- ::user -->",
 	])("supports adjacent markers: %s", (source) => {
 		expect(parse(source).children).toMatchObject([
-			{ type: "playfulComponent" },
-			{ type: "playfulComponent" },
+			{ type: "commentComponent" },
+			{ type: "commentComponent" },
 		]);
 	});
 	it.each(["<!-- ::start: -->", "<!-- :: -->", "<!-- ::end: -->"])(
@@ -272,7 +272,7 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "tabs",
 				children: [
 					{ type: "paragraph" },
@@ -292,7 +292,7 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "hint",
 				children: [{ type: "paragraph" }],
 			},
@@ -309,7 +309,7 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "hint",
 				attributes: { title: "Two words" },
 				children: [{ type: "paragraph" }],
@@ -333,14 +333,14 @@ describe("native comment components", () => {
 		);
 		expect(tree.children).toMatchObject([
 			{
-				type: "playfulComponent",
+				type: "commentComponent",
 				children: [{ type: "html" }, { type: "paragraph" }],
 			},
 		]);
 	});
 	it("retains the legacy unquoted final attribute normalization", () => {
 		expect(parse("<!-- ::custom label=value -->").children).toMatchObject([
-			{ type: "playfulComponent", attributes: { label: "value/" } },
+			{ type: "commentComponent", attributes: { label: "value/" } },
 		]);
 	});
 	it.each(["<svg/>", '<svg width="20" />', "<math/>"])(
@@ -349,7 +349,7 @@ describe("native comment components", () => {
 			const tree = parse(`${html}\n\n<!-- ::user -->`);
 			expect(tree.children).toMatchObject([
 				{ type: "html" },
-				{ type: "playfulComponent", component: "user" },
+				{ type: "commentComponent", component: "user" },
 			]);
 			expect(tree.data).toBeUndefined();
 		},
@@ -379,7 +379,7 @@ describe("native comment components", () => {
 		(block) => {
 			const tree = parse(`<p>Paragraph\n\n${block}\n\n<!-- ::user -->`);
 			expect(tree.children.at(-1)).toMatchObject({
-				type: "playfulComponent",
+				type: "commentComponent",
 				component: "user",
 			});
 			expect(tree.data).toBeUndefined();
@@ -395,7 +395,7 @@ describe("native comment components", () => {
 			`<!-- ::start:hint -->\n\n${body}\n\n<!-- ::end:hint -->`,
 		);
 		expect(tree.children).toMatchObject([
-			{ type: "playfulComponent", component: "hint" },
+			{ type: "commentComponent", component: "hint" },
 		]);
 		expect(tree.data).toBeUndefined();
 	});
@@ -408,7 +408,7 @@ describe("native comment components", () => {
 			{ type: "heading" },
 			{ type: "html" },
 			{ type: "html" },
-			{ type: "playfulComponent" },
+			{ type: "commentComponent" },
 		]);
 	});
 	it.each(["<!-- ::start:tabs", "<!-- ::user", "<!--\n::start:tabs"])(

@@ -29,7 +29,7 @@ point also exports the individual extensions:
 - `commentComponents()` for micromark syntax recognition.
 - `commentComponentsFromMarkdown()` for `mdast-util-from-markdown` compilation.
 - `commentComponentsToMarkdown()` for `mdast-util-to-markdown` serialization.
-- `PlayfulComponent` and `CommentComponentDiagnostic` TypeScript types.
+- `CommentComponent` and `CommentComponentDiagnostic` TypeScript types.
 
 Each extension and the types also have corresponding subpath exports:
 `/micromark-extension`, `/from-markdown`, `/to-markdown`, `/remark-components`, and
@@ -56,7 +56,7 @@ component name is still representable:
 
 ```ts
 {
-	type: "playfulComponent",
+	type: "commentComponent",
 	component: "tabs",
 	attributes: {},
 	form: "ranged",

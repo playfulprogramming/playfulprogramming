@@ -57,7 +57,7 @@ async function processMarkdown(value: string) {
 		.use(remarkComponentDiagnostics)
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
-			handlers: { playfulComponent: componentToHast },
+			handlers: { commentComponent: componentToHast },
 		})
 		.use(rehypeRaw, { passThrough: ["playful-component-markup"] })
 		.use(rehypeCodeblockMeta)

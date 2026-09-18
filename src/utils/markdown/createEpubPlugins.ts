@@ -45,7 +45,7 @@ export function createEpubPlugins(unified: Processor) {
 			.use(remarkComponentDiagnostics)
 			.use(remarkToRehype, {
 				allowDangerousHtml: true,
-				handlers: { playfulComponent: componentToHast },
+				handlers: { commentComponent: componentToHast },
 			})
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
