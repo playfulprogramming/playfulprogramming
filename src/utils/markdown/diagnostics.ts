@@ -4,9 +4,6 @@ import * as path from "path";
 import env from "#src/constants/env/index.ts";
 import type { WarningInfo } from "./types.ts";
 
-// Content reading and rendering can share a file and report at separate boundaries.
-const reportedMessages = new WeakSet<VFile["messages"][number]>();
-
 function messagePath(file: VFile, message: VFile["messages"][number]) {
 	const filePath = message.file || file.path;
 	return filePath
@@ -39,9 +36,6 @@ function escapeAnnotation(value: string) {
 
 function reportMessages(file: VFile, contents: string) {
 	for (const message of file.messages) {
-		if (reportedMessages.has(message)) continue;
-		reportedMessages.add(message);
-
 		const level =
 			message.fatal === true
 				? "error"
