@@ -57,6 +57,8 @@ function reportMessages(file: VFile, contents: string) {
 		const filePath = messagePath(file, message);
 
 		if (env.CI) {
+			// In GitHub Actions, format an error message that can show up in a PR
+			// https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
 			const meta = {
 				file: filePath || undefined,
 				col: message.column,
@@ -75,6 +77,7 @@ function reportMessages(file: VFile, contents: string) {
 				`::${level}${properties ? ` ${properties}` : ""}::${escapeAnnotation(message.reason)}`,
 			);
 		} else {
+			// Otherwise, print something readable to the console
 			const color =
 				level === "error"
 					? kleur.red
