@@ -18,7 +18,7 @@ vi.mock("./components.ts", () => ({
 		children,
 	}),
 	isComponentMarkup: (node: { type?: string }) =>
-		node?.type === "playful-component-markup",
+		node?.type === "commentComponent",
 	isComponentNode: (node: { type?: string }) =>
 		node?.type === "playful-component",
 	isHtmlNode: (node: { type?: string }) => node?.type === "html",
@@ -235,6 +235,29 @@ describe("native component publishing", () => {
 		]);
 	});
 
+	it("preserves content around nested components without synthetic separators", async () => {
+		const actual = await publish(
+			'<!-- ::start:no-ebook -->\n\nBefore **one**.\n\n<!-- ::user id="one" -->\n\nBetween.\n\n<!-- ::user id="two" -->\n\nAfter.\n\n<!-- ::end:no-ebook -->',
+		);
+		expect(actual.result).toMatchObject([
+			{ type: "html", innerHtml: "<p>Before <strong>one</strong>.</p>" },
+			{ component: "User", props: { author: { id: "one" } } },
+			{ type: "html", innerHtml: "<p>Between.</p>" },
+			{ component: "User", props: { author: { id: "two" } } },
+			{ type: "html", innerHtml: "<p>After.</p>" },
+		]);
+	});
+
+	it("preserves nested EPUB bodies and converts their Markdown children", async () => {
+		const actual = await publish(
+			"<!-- ::start:only-ebook -->\n\nBefore **one**.\n\n<!-- ::start:only-ebook -->\n\nInside *two*.\n\n<!-- ::end:only-ebook -->\n\nAfter.\n\n<!-- ::end:only-ebook -->",
+			true,
+		);
+		expect(String(actual)).toBe(
+			"<p>Before <strong>one</strong>.</p><p>Inside <em>two</em>.</p><p>After.</p>",
+		);
+	});
+
 	it("keeps quizzes supported in HTML and unsupported in EPUB", async () => {
 		const source =
 			"<!-- ::start:quiz -->\n\nA quiz body.\n\n<!-- ::end:quiz -->";
@@ -256,6 +279,17 @@ describe("native component publishing", () => {
 			errors.mockRestore();
 			logs.mockRestore();
 		}
+	});
+
+	it("reports an empty ranged filetree even without whitespace children", async () => {
+		vi.spyOn(console, "error").mockImplementation(() => undefined);
+		vi.spyOn(console, "log").mockImplementation(() => undefined);
+		const actual = await publish(
+			"<!-- ::start:filetree -->\n\n<!-- ::end:filetree -->",
+		);
+		expect(actual.data.warnings).toEqual([
+			expect.objectContaining({ message: "No list found in filetree" }),
+		]);
 	});
 
 	it.each([false, true])(

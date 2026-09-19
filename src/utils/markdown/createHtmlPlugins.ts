@@ -1,6 +1,5 @@
 import remarkParse from "remark-parse";
 import { remarkCommentComponents } from "mdast-comment-components";
-import { componentToHast } from "./components/component-to-hast.ts";
 import { remarkComponentDiagnostics } from "./components/remark-component-diagnostics.ts";
 import remarkFrontmatter from "remark-frontmatter";
 import {
@@ -73,13 +72,13 @@ export function createHtmlPlugins(unified: Processor) {
 			/* start remark plugins here */
 			.use(remarkToRehype, {
 				allowDangerousHtml: true,
-				handlers: { commentComponent: componentToHast },
+				passThrough: ["commentComponent"],
 			})
 			// Remove complaining about "div cannot be in p element"
 			.use(rehypeUnwrapImages)
 			// This is required to handle unsafe HTML embedded into Markdown
 			.use(rehypeRaw, {
-				passThrough: ["mdxjsEsm", "playful-component-markup"],
+				passThrough: ["mdxjsEsm", "commentComponent"],
 			})
 			.use(rehypeRelativePaths)
 			// Do not add the tabs before the slug. We rely on some of the heading

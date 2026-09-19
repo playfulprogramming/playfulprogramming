@@ -10,7 +10,6 @@ import type { MarkdownVFile } from "../../types.ts";
 import { rehypeCodeblockMeta } from "../../shiki/rehype-codeblock-meta.ts";
 import { rehypeShikiUU } from "../../shiki/rehype-transform.ts";
 import { runShiki } from "../../shiki/shiki-pool.ts";
-import { componentToHast } from "../component-to-hast.ts";
 import { remarkComponentDiagnostics } from "../remark-component-diagnostics.ts";
 import { rehypeTransformComponents } from "../rehype-transform-components.ts";
 import { transformMermaid } from "./rehype-transform.ts";
@@ -27,7 +26,7 @@ vi.mock("../components.ts", () => ({
 		children: [],
 	}),
 	isComponentMarkup: (node: { type?: string }) =>
-		node?.type === "playful-component-markup",
+		node?.type === "commentComponent",
 	isComponentNode: (node: { type?: string }) =>
 		node?.type === "playful-component",
 }));
@@ -57,9 +56,9 @@ async function processMarkdown(value: string) {
 		.use(remarkComponentDiagnostics)
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
-			handlers: { commentComponent: componentToHast },
+			passThrough: ["commentComponent"],
 		})
-		.use(rehypeRaw, { passThrough: ["playful-component-markup"] })
+		.use(rehypeRaw, { passThrough: ["commentComponent"] })
 		.use(rehypeCodeblockMeta)
 		.use(rehypeShikiUU)
 		.use(rehypeTransformComponents, {

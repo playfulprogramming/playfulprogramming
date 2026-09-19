@@ -27,7 +27,8 @@ export const rehypeDetailsElement: Plugin<[], PlayfulRoot> = () => {
 				if (!summary) return;
 
 				const replacement: ComponentMarkupNode = {
-					type: "playful-component-markup",
+					type: "commentComponent",
+					form: "ranged",
 					position: node.position,
 					component: "hint",
 					attributes: {

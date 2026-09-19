@@ -11,7 +11,6 @@ import remarkToRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import { VFile } from "vfile";
 import type { ComponentMarkupNode, PlayfulRoot } from "./components.ts";
-import { componentToHast } from "./component-to-hast.ts";
 
 async function parseComponents(source: string): Promise<PlayfulRoot> {
 	const processor = unified()
@@ -21,9 +20,9 @@ async function parseComponents(source: string): Promise<PlayfulRoot> {
 		.use(remarkCommentComponents)
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
-			handlers: { commentComponent: componentToHast },
+			passThrough: ["commentComponent"],
 		})
-		.use(rehypeRaw, { passThrough: ["playful-component-markup"] });
+		.use(rehypeRaw, { passThrough: ["commentComponent"] });
 	const parsed = processor.parse(source);
 	expect(parsed.data?.commentComponentDiagnostics ?? []).toEqual([]);
 	return processor.run(parsed, new VFile(source)) as Promise<PlayfulRoot>;
@@ -51,12 +50,11 @@ const corpus = [
 
 function components(tree: PlayfulRoot) {
 	return tree.children.filter(
-		(node): node is ComponentMarkupNode =>
-			node.type === "playful-component-markup",
+		(node): node is ComponentMarkupNode => node.type === "commentComponent",
 	);
 }
 
-describe("component HAST bridge", () => {
+describe("component HAST passthrough", () => {
 	it("captures actual ranged/standalone syntax and different-name nesting", async () => {
 		const source = await readFile(
 			new URL("./__fixtures__/components.md", import.meta.url),
@@ -70,6 +68,15 @@ describe("component HAST bridge", () => {
 			"filetree",
 			"only-ebook",
 		]);
+		expect(nodes[0]).toMatchObject({
+			type: "commentComponent",
+			form: "ranged",
+		});
+		expect(nodes[1]).toMatchObject({
+			type: "commentComponent",
+			form: "standalone",
+			children: [],
+		});
 		expect(
 			components({ type: "root", children: nodes[0].children })[0],
 		).toMatchObject({ component: "no-ebook" });
@@ -111,7 +118,7 @@ describe("component HAST bridge", () => {
 		async (source) => {
 			const tree = await parseComponents(source);
 			expect(components(tree)).toEqual([]);
-			expect(JSON.stringify(tree)).not.toContain("playful-component-markup");
+			expect(JSON.stringify(tree)).not.toContain("commentComponent");
 		},
 	);
 
@@ -145,13 +152,24 @@ describe("component HAST bridge", () => {
 		});
 	});
 
-	it("preserves complete component positions and recursively parses raw HTML", async () => {
+	it("preserves component metadata and converts Markdown and raw HTML children", async () => {
 		const source =
 			"<!-- ::start:tabs -->\n\n# Heading\n\n<div><em>Raw HTML</em></div>\n\n<!-- ::end:tabs -->";
 		const actual = components(await parseComponents(source))[0];
+		expect(actual).toMatchObject({
+			type: "commentComponent",
+			component: "tabs",
+			form: "ranged",
+			attributes: {},
+		});
 		expect(actual.position).toMatchObject({
 			start: { line: 1, column: 1, offset: 0 },
 			end: { offset: source.length },
+		});
+		expect(actual.children[0]).toMatchObject({
+			type: "element",
+			tagName: "h1",
+			children: [{ type: "text", value: "Heading" }],
 		});
 		expect(actual.children).toContainEqual(
 			expect.objectContaining({
@@ -166,7 +184,7 @@ describe("component HAST bridge", () => {
 		const source = await readFile("FEATURES.md", "utf8");
 		const tree = await parseComponents(source);
 		expect(components(tree)).toEqual([]);
-		expect(JSON.stringify(tree)).not.toContain("playful-component-markup");
+		expect(JSON.stringify(tree)).not.toContain("commentComponent");
 	});
 
 	it("canonicalizes trailing marker whitespace only at a block boundary", async () => {

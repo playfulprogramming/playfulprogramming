@@ -9,7 +9,6 @@ import { remarkCommentComponents } from "mdast-comment-components";
 import { VFile } from "vfile";
 import type { MarkdownVFile } from "../types.ts";
 import type { PlayfulRoot } from "./components.ts";
-import { componentToHast } from "./component-to-hast.ts";
 import { remarkComponentDiagnostics } from "./remark-component-diagnostics.ts";
 import { rehypeValidateComponents } from "./rehype-validate-components.ts";
 import { rehypeTransformComponents } from "./rehype-transform-components.ts";
@@ -25,7 +24,7 @@ vi.mock("./components.ts", () => ({
 		children,
 	}),
 	isComponentMarkup: (node: { type?: string }) =>
-		node?.type === "playful-component-markup",
+		node?.type === "commentComponent",
 	isComponentNode: (node: { type?: string }) =>
 		node?.type === "playful-component",
 }));
@@ -54,9 +53,9 @@ function processor() {
 		.use(remarkComponentDiagnostics)
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
-			handlers: { commentComponent: componentToHast },
+			passThrough: ["commentComponent"],
 		})
-		.use(rehypeRaw, { passThrough: ["playful-component-markup"] });
+		.use(rehypeRaw, { passThrough: ["commentComponent"] });
 }
 
 function question(title: string) {
@@ -165,13 +164,10 @@ describe("native component publishing validation", () => {
 			pipeline.parse(vfile),
 			vfile,
 		)) as PlayfulRoot;
-		const tabs = tree.children.find(
-			(node) => node.type === "playful-component-markup",
-		);
-		if (tabs?.type !== "playful-component-markup")
-			throw new Error("Missing tabs");
+		const tabs = tree.children.find((node) => node.type === "commentComponent");
+		if (tabs?.type !== "commentComponent") throw new Error("Missing tabs");
 		expect(
-			tabs.children.find((node) => node.type === "playful-component-markup"),
+			tabs.children.find((node) => node.type === "commentComponent"),
 		).toMatchObject({
 			component: "code-embed",
 			attributes: {

@@ -34,7 +34,8 @@ export const rehypeLinkPreview: Plugin<[], PlayfulRoot> = () => {
 			if (!pictureNode) continue;
 
 			const replacement: ComponentMarkupNode = {
-				type: "playful-component-markup",
+				type: "commentComponent",
+				form: "ranged",
 				position: element.position,
 				component: "link-preview",
 				attributes: {},

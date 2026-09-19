@@ -47,7 +47,8 @@ export const rehypeCodeEmbed: Plugin<[], PlayfulRoot> = () => {
 				const file = srcUrl.searchParams.get("file") ?? "";
 
 				const replacement: ComponentMarkupNode = {
-					type: "playful-component-markup",
+					type: "commentComponent",
+					form: "standalone",
 					position: node.position,
 					component: "code-embed",
 					attributes: {

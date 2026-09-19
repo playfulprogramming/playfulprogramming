@@ -83,6 +83,15 @@ An unquoted final attribute retains HTML parsing's trailing slash:
 the marker is parsed as `<custom label=value/>`. Prefer quoted attributes. The
 serializer always quotes values, so repeated round trips do not add slashes.
 
+## HAST integration
+
+Configure `remark-rehype` with `passThrough: ["commentComponent"]` to preserve
+component metadata while converting its Markdown children to HAST. If the
+pipeline uses `rehype-raw`, configure the same `passThrough` option there so raw
+HTML inside components is parsed without discarding the component nodes.
+No custom MDAST-to-HAST handler is needed. Consumers must render or remove the
+component nodes before serializing HAST to HTML.
+
 ## Placement and recovery
 
 Markers are block syntax at the document root or directly inside a ranged

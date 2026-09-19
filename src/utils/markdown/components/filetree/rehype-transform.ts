@@ -166,8 +166,6 @@ export const transformFileTree: RehypeFunctionComponent = ({
 	node,
 	children,
 }) => {
-	if (children.length === 0) return;
-
 	const items: Array<DirectoryProps | FileProps> = [];
 
 	const list = children.find(

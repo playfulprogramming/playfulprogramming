@@ -45,10 +45,14 @@ export function compileToPlayfulNodes(
 	const nodes: PlayfulNode[] = [];
 	for (const [result, index] of results.map((r, i) => [r, i] as const)) {
 		const preStart = (results[index - 1]?.index ?? -1) + 1;
-		const preEnd = result.index - 1;
-		if (preEnd - preStart > 0) {
+		const preceding = tree.children.slice(preStart, result.index);
+		// Component children need not have whitespace separators. Preserve every
+		// sibling, but avoid emitting HTML chunks containing only block spacing.
+		if (
+			preceding.some((node) => node.type !== "text" || /\S/.test(node.value))
+		) {
 			const innerHtml = toHtml(
-				tree.children.slice(preStart, preEnd) as hast.ElementContent[],
+				preceding as hast.ElementContent[],
 				options.htmlOptions,
 			);
 			nodes.push({

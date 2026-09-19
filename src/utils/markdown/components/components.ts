@@ -1,4 +1,5 @@
 import type * as hast from "hast";
+import type { CommentComponent } from "mdast-comment-components";
 import CodeEmbed from "./code-embed/code-embed.astro";
 import FileList from "./filetree/file-list.astro";
 import InContentAd from "./in-content-ad/in-content-ad.astro";
@@ -27,10 +28,10 @@ export interface HtmlNode extends hast.Node {
 	innerHtml: string;
 }
 
-export interface ComponentMarkupNode extends hast.Node {
-	type: "playful-component-markup";
-	component: string;
-	attributes: Record<string, string>;
+export interface ComponentMarkupNode extends Omit<
+	CommentComponent,
+	"children"
+> {
 	children: (PlayfulNode | hast.ElementContent)[];
 }
 
@@ -42,10 +43,7 @@ export interface ComponentNode<Props = object> extends hast.Node {
 }
 
 export type PlayfulNode =
-	| PlayfulRoot
-	| HtmlNode
-	| ComponentNode
-	| ComponentMarkupNode;
+	PlayfulRoot | HtmlNode | ComponentNode | ComponentMarkupNode;
 
 export function isComponentNode(node: unknown): node is ComponentNode {
 	return !!(
@@ -61,7 +59,7 @@ export function isComponentMarkup(node: unknown): node is ComponentMarkupNode {
 		typeof node === "object" &&
 		node &&
 		"type" in node &&
-		node.type === "playful-component-markup"
+		node.type === "commentComponent"
 	);
 }
 
