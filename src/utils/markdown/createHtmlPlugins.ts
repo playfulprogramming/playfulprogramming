@@ -26,7 +26,6 @@ import {
 	rehypeTooltips,
 	rehypePluginComponents,
 	rehypeTransformComponents,
-	rehypeValidateComponents,
 	transformDetails,
 	transformFileTree,
 	transformInContentAd,
@@ -103,7 +102,6 @@ export function createHtmlPlugins(unified: Processor) {
 				srcReplacements: [],
 			})
 			.use(rehypePlayfulElementMap)
-			.use(rehypeValidateComponents)
 			// Shiki is the last plugin before stringify, to avoid performance issues
 			// with node traversal (shiki creates A LOT of element nodes)
 			.use(rehypeCodeblockMeta)

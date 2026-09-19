@@ -10,7 +10,6 @@ import { VFile } from "vfile";
 import type { MarkdownVFile } from "../types.ts";
 import type { PlayfulRoot } from "./components.ts";
 import { remarkComponentDiagnostics } from "./remark-component-diagnostics.ts";
-import { rehypeValidateComponents } from "./rehype-validate-components.ts";
 import { rehypeTransformComponents } from "./rehype-transform-components.ts";
 import { rehypeQuizIndexes, transformQuiz } from "./quiz/rehype-transform.ts";
 import { transformQuizRadio } from "./quiz/rehype-transform-quiz-radio.ts";
@@ -26,6 +25,10 @@ vi.mock("./components.ts", () => ({
 	isComponentMarkup: (node: { type?: string }) =>
 		node?.type === "commentComponent",
 	isComponentNode: (node: { type?: string }) =>
+		node?.type === "playful-component",
+	isValidComponentParent: (node: { type?: string } | undefined) =>
+		node?.type === "root" ||
+		node?.type === "commentComponent" ||
 		node?.type === "playful-component",
 }));
 vi.mock("#src/constants/env/index.ts", () => ({ default: { CI: false } }));
@@ -74,7 +77,6 @@ describe("native component publishing validation", () => {
 		const pipeline = processor()
 			.use(rehypeSlug)
 			.use(rehypeQuizIndexes)
-			.use(rehypeValidateComponents)
 			.use(rehypeTransformComponents, {
 				components: {
 					quiz: transformQuiz,
@@ -153,40 +155,52 @@ describe("native component publishing validation", () => {
 		expect(vfile.data.warnings).toEqual([]);
 	});
 
-	it("keeps pfp-code iframes as synthetic component producers inside native ranges", async () => {
-		const vfile = file(
-			'<!-- ::start:tabs -->\n\n<iframe data-frame-title="Project" src="pfp-code:./project?file=src%2Findex.ts"></iframe>\n\n<!-- ::end:tabs -->',
-		);
-		const pipeline = processor()
-			.use(rehypeCodeEmbed)
-			.use(rehypeValidateComponents);
-		const tree = (await pipeline.run(
-			pipeline.parse(vfile),
-			vfile,
-		)) as PlayfulRoot;
-		const tabs = tree.children.find((node) => node.type === "commentComponent");
-		if (tabs?.type !== "commentComponent") throw new Error("Missing tabs");
-		expect(
-			tabs.children.find((node) => node.type === "commentComponent"),
-		).toMatchObject({
-			component: "code-embed",
-			attributes: {
-				projectDir: resolve("content/test/posts/component-validation/project"),
-				post: "component-validation",
-				project: "project",
-				title: "Project",
-				file: "src/index.ts",
-			},
-		});
-		expect(vfile.data.warnings).toEqual([]);
-	});
+	it.each(["root", "component"])(
+		"creates code embeds inside a %s",
+		async (parentType) => {
+			const iframe =
+				'<iframe data-frame-title="Project" src="pfp-code:./project?file=src%2Findex.ts"></iframe>';
+			const vfile = file(
+				parentType === "root"
+					? iframe
+					: `<!-- ::start:tabs -->\n\n${iframe}\n\n<!-- ::end:tabs -->`,
+			);
+			const pipeline = processor().use(rehypeCodeEmbed);
+			const tree = (await pipeline.run(
+				pipeline.parse(vfile),
+				vfile,
+			)) as PlayfulRoot;
+			const parent =
+				parentType === "root"
+					? tree
+					: tree.children.find((node) => node.type === "commentComponent");
+			if (parent?.type !== "root" && parent?.type !== "commentComponent")
+				throw new Error("Missing component parent");
+			expect(
+				parent.children.find((node) => node.type === "commentComponent"),
+			).toMatchObject({
+				component: "code-embed",
+				attributes: {
+					projectDir: resolve(
+						"content/test/posts/component-validation/project",
+					),
+					post: "component-validation",
+					project: "project",
+					title: "Project",
+					file: "src/index.ts",
+				},
+			});
+			expect(vfile.data.warnings).toEqual([]);
+		},
+	);
 
-	it("still rejects synthetic components under ordinary HTML elements", async () => {
+	it("rejects code embeds under ordinary HTML before creating a component", async () => {
 		const vfile = file('<div><iframe src="pfp-code:./project"></iframe></div>');
-		const pipeline = processor()
-			.use(rehypeCodeEmbed)
-			.use(rehypeValidateComponents);
-		await expect(pipeline.run(pipeline.parse(vfile), vfile)).rejects.toThrow();
+		const pipeline = processor().use(rehypeCodeEmbed);
+		const tree = pipeline.parse(vfile);
+		await expect(pipeline.run(tree, vfile)).rejects.toThrow(
+			"Component code-embed cannot be placed in element",
+		);
 		expect(vfile.data.warnings[0].message).toContain(
 			"Component code-embed cannot be placed in element",
 		);

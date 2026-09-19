@@ -8,6 +8,7 @@ import {
 	type ComponentMarkupNode,
 	type PlayfulRoot,
 	createComponent,
+	isValidComponentParent,
 } from "../components.ts";
 import { visit } from "unist-util-visit";
 import type { FileEntry } from "#components/code-embed/types.ts";
@@ -34,6 +35,11 @@ export const rehypeCodeEmbed: Plugin<[], PlayfulRoot> = () => {
 
 				const srcUrl = new URL(src);
 				if (srcUrl.protocol !== "pfp-code:") return;
+				if (!isValidComponentParent(parent)) {
+					const message = `Component code-embed cannot be placed in ${parent?.type}!`;
+					logError(vfile, node, message);
+					throw new Error(message);
+				}
 
 				const title = node.properties.dataFrameTitle?.toString() ?? "";
 				const projectDir = path.resolve(

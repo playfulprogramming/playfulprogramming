@@ -21,6 +21,10 @@ vi.mock("./components.ts", () => ({
 		node?.type === "commentComponent",
 	isComponentNode: (node: { type?: string }) =>
 		node?.type === "playful-component",
+	isValidComponentParent: (node: { type?: string } | undefined) =>
+		node?.type === "root" ||
+		node?.type === "commentComponent" ||
+		node?.type === "playful-component",
 	isHtmlNode: (node: { type?: string }) => node?.type === "html",
 }));
 vi.mock("#src/constants/env/index.ts", () => ({

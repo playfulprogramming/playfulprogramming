@@ -1,6 +1,5 @@
 export * from "./rehype-plugin-components.ts";
 export * from "./rehype-transform-components.ts";
-export * from "./rehype-validate-components.ts";
 export * from "./hint/rehype-transform.ts";
 export * from "./filetree/rehype-transform.ts";
 export * from "./in-content-ad/rehype-transform.ts";

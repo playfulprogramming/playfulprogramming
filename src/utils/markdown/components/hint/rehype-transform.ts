@@ -8,8 +8,8 @@ import {
 	type ComponentMarkupNode,
 	type PlayfulRoot,
 	createComponent,
+	isValidComponentParent,
 } from "../components.ts";
-import { isValidComponentParent } from "../rehype-validate-components.ts";
 
 export const rehypeDetailsElement: Plugin<[], PlayfulRoot> = () => {
 	return (tree, _) => {

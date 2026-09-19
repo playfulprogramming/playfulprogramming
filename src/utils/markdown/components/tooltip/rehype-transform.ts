@@ -1,9 +1,12 @@
 import { visit } from "unist-util-visit";
 import type { Plugin } from "unified";
 import { toString } from "hast-util-to-string";
-import { type PlayfulRoot, createComponent } from "../components.ts";
+import {
+	type PlayfulRoot,
+	createComponent,
+	isValidComponentParent,
+} from "../components.ts";
 import { trimElements } from "#utils/markdown/unist-trim-elements.ts";
-import { isValidComponentParent } from "../rehype-validate-components.ts";
 
 /**
  * Plugin to create interactive/styled hint elements from the following structure:
@@ -24,19 +27,17 @@ export const rehypeTooltips: Plugin<[], PlayfulRoot> = () => {
 			if (!isValidComponentParent(parent)) return;
 
 			const firstParagraph = node.children.find((e) => e.type === "element");
-			if (
-				!(firstParagraph?.type === "element" && firstParagraph.tagName === "p")
-			)
+			if (!(
+				firstParagraph?.type === "element" && firstParagraph.tagName === "p"
+			))
 				return;
 
 			const firstText = firstParagraph.children[0];
-			if (
-				!(
-					firstText?.type === "element" &&
-					["strong", "em"].includes(firstText.tagName) &&
-					toString(firstText).endsWith(":")
-				)
-			)
+			if (!(
+				firstText?.type === "element" &&
+				["strong", "em"].includes(firstText.tagName) &&
+				toString(firstText).endsWith(":")
+			))
 				return;
 
 			// remove `firstText` from children nodes

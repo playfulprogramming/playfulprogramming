@@ -63,6 +63,15 @@ export function isComponentMarkup(node: unknown): node is ComponentMarkupNode {
 	);
 }
 
+/** HTML transforms can only create components at these publishing boundaries. */
+export function isValidComponentParent(
+	node: hast.Node | undefined,
+): node is PlayfulRoot | ComponentNode | ComponentMarkupNode {
+	return (
+		node?.type === "root" || isComponentNode(node) || isComponentMarkup(node)
+	);
+}
+
 export function isHtmlNode(node: unknown): node is HtmlNode {
 	return !!(
 		node &&
