@@ -1,0 +1,11 @@
+---
+export interface Props {
+	html: string;
+}
+---
+
+<Fragment set:html={Astro.props.html} />
+
+<script>
+	import "./inline-preview-script.ts";
+</script>
