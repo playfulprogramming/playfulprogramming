@@ -1,5 +1,5 @@
 import { unified } from "unified";
-import { withMarkdownDiagnostics } from "./diagnostics.ts";
+import { createReporter } from "./diagnostics.ts";
 import { getMarkdownVFile } from "./getMarkdownVFile.ts";
 import type { MarkdownFileInfo, MarkdownVFile } from "./types.ts";
 import { createHtmlPlugins } from "./createHtmlPlugins.ts";
@@ -18,11 +18,13 @@ export async function getMarkdownHtml(
 ): Promise<MarkdownHtml> {
 	const vfile = await vfilePromise;
 
-	return withMarkdownDiagnostics(vfile, async () => {
-		const result = await unifiedChain.process(vfile);
-		return {
-			...vfile.data,
-			content: (await result.result) as components.PlayfulNode[],
-		};
-	});
+	const reporter = createReporter(vfile);
+	const result = await unifiedChain
+		.process(vfile)
+		.then(reporter.success)
+		.catch(reporter.failure);
+	return {
+		...vfile.data,
+		content: (await result.result) as components.PlayfulNode[],
+	};
 }

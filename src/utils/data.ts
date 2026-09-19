@@ -24,7 +24,7 @@ import {
 	TYPE_FRONTMATTER,
 } from "./markdown/remark-process-frontmatter.ts";
 import { parseFrontmatter } from "./content/parseFrontmatter.ts";
-import { withMarkdownDiagnostics } from "./markdown/diagnostics.ts";
+import { createReporter } from "./markdown/diagnostics.ts";
 import { getMarkdownVFile } from "./markdown/getMarkdownVFile.ts";
 
 function isNotJunk(name: string): boolean {
@@ -95,7 +95,8 @@ for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
 		kind: "snitip",
 		file: filePath,
 	});
-	await withMarkdownDiagnostics(vfile, async () => {
+	const reporter = createReporter(vfile);
+	try {
 		const { frontmatter } = await parseFrontmatter(vfile, SnitipInfoSchema);
 
 		const snitipHtml = (await minimalParser.process(vfile)).toString();
@@ -119,8 +120,10 @@ for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
 			tagsMeta,
 			content: snitipHtml,
 		};
-		snitips.set(snitipId, snitip);
-	});
+		snitips.set(snitipId, reporter.success(snitip));
+	} catch (error) {
+		reporter.failure(error);
+	}
 }
 
 async function indexPerson(personPath: string): Promise<PersonStub[]> {

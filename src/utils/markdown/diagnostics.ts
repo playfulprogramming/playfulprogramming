@@ -92,15 +92,17 @@ function reportMessages(file: VFile, contents: string) {
 	}
 }
 
-/** Report every plugin's messages, including when processing stops early. */
-export async function withMarkdownDiagnostics<T>(
-	file: VFile,
-	callback: () => T | Promise<T>,
-): Promise<T> {
+/** Capture source text before processing and report its messages on completion. */
+export function createReporter(file: VFile) {
 	const contents = file.toString();
-	try {
-		return await callback();
-	} finally {
-		reportMessages(file, contents);
-	}
+	return {
+		success<T>(result: T): T {
+			reportMessages(file, contents);
+			return result;
+		},
+		failure(error: unknown): never {
+			reportMessages(file, contents);
+			throw error;
+		},
+	};
 }

@@ -1,7 +1,7 @@
 import { join } from "path";
 import { Settings } from "typebox/system";
 import type { MarkdownFileInfo, MarkdownVFile } from "../markdown/types.ts";
-import { withMarkdownDiagnostics } from "../markdown/diagnostics.ts";
+import { createReporter } from "../markdown/diagnostics.ts";
 import { getMarkdownVFile } from "../markdown/getMarkdownVFile.ts";
 import { watch } from "fs/promises";
 import env from "#src/constants/env/index.ts";
@@ -41,14 +41,13 @@ export function cache<Arg1 extends MarkdownFileInfo, Ret>(
 			vfile = await getMarkdownVFile(arg1);
 		}
 
-		const file = vfile;
-		const promise = withMarkdownDiagnostics(file, () => callback(arg1, file));
-		entry.result = promise;
+		const reporter = createReporter(vfile);
 		try {
-			return await promise;
-		} catch (e) {
+			entry.result = callback(arg1, vfile).then(reporter.success);
+			return await entry.result;
+		} catch (error) {
 			entry.result = undefined;
-			throw e;
+			return reporter.failure(error);
 		}
 	};
 }
