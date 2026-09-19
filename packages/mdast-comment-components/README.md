@@ -1,8 +1,9 @@
 # mdast-comment-components
 
 Native Markdown parsing and serialization for HTML-comment components. This
-package contains syntax and MDAST types only; it does not depend on a component
-registry, a renderer, Astro, or the publishing site's environment.
+package contains syntax, MDAST types, and optional diagnostic reporting; it does
+not depend on a component registry, a renderer, Astro, or the publishing site's
+environment.
 
 ## Public API
 
@@ -24,18 +25,20 @@ const markdown = processor.stringify(tree);
 
 The Remark attacher registers `micromarkExtensions`, `fromMarkdownExtensions`, and
 `toMarkdownExtensions`. It does not return a tree transformer. The public entry
-point also exports the individual extensions:
+point also exports:
 
 - `commentComponents()` for micromark syntax recognition.
 - `commentComponentsFromMarkdown()` for `mdast-util-from-markdown` compilation.
 - `commentComponentsToMarkdown()` for `mdast-util-to-markdown` serialization.
+- `remarkComponentDiagnostics` for optional VFile reporting during `run()`.
 - `CommentComponent` and `CommentComponentDiagnostic` TypeScript types.
+- `RemarkComponentDiagnosticsOptions` for reporting policy and callbacks.
 
 Each extension and the types also have corresponding subpath exports:
-`/micromark-extension`, `/from-markdown`, `/to-markdown`, `/remark-components`, and
-`/types`. Exports point to ESM TypeScript source. Consumers need a TypeScript-aware
-runtime or bundler; this initial workspace package does not ship compiled
-JavaScript and is not published to npm.
+`/micromark-extension`, `/from-markdown`, `/to-markdown`, `/remark-components`,
+`/remark-component-diagnostics`, and `/types`. Exports point to ESM TypeScript
+source. Consumers need a TypeScript-aware runtime or bundler; this initial
+workspace package does not ship compiled JavaScript and is not published to npm.
 
 ## Syntax and tree
 
@@ -130,10 +133,43 @@ Malformed input is preserved and reported on
   line remains HTML while following lines are parsed as ordinary Markdown;
   unterminated ordinary HTML comments retain CommonMark's behavior.
 
-Parsing itself does not log, throw, or access a VFile. Consumers choose their
-diagnostic policy. The publishing site's adapter turns these entries into
-positioned VFile messages and rejects publication with a fatal error. Comments
-in unsupported placements do not produce component diagnostics.
+Parsing itself does not log, throw, or access a VFile. Comments in unsupported
+placements do not produce component diagnostics. Consumers choose their
+diagnostic policy by reading the entries directly or adding the optional
+`remarkComponentDiagnostics` plugin:
+
+```ts
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import { VFile } from "vfile";
+import {
+	remarkCommentComponents,
+	remarkComponentDiagnostics,
+} from "mdast-comment-components";
+
+const processor = unified()
+	.use(remarkParse)
+	.use(remarkCommentComponents)
+	.use(remarkComponentDiagnostics, {
+		fatal: true,
+		onDiagnostic(diagnostic, file) {
+			// Optional: forward diagnostics to an application's logger or UI.
+		},
+	});
+const file = new VFile("<!-- ::end:example -->");
+const tree = processor.parse(file); // Recovers without reporting or throwing.
+await processor.run(tree, file); // Reports diagnostics, then throws in fatal mode.
+```
+
+The reporting plugin creates a positioned VFile message for every diagnostic,
+preserving its message and rule ID with `source: "mdast-comment-components"`.
+It then calls `onDiagnostic(diagnostic, file)` synchronously for that entry, if
+provided. By default, reporting is nonfatal and processing continues with the
+recovered tree. With `fatal: true`, it reports every entry and invokes every
+callback before adding a fatal `invalid-components` message and throwing.
+The plugin does not modify the tree or emit console output. Attaching it does
+not change `parse()` behavior; reporting only happens during `run()` or
+`process()`.
 
 ## Serialization guarantees
 
@@ -169,5 +205,5 @@ The root Vitest configuration includes this project once under the name
 `mdast-comment-components`; CI also runs the package's TypeScript check separately.
 Syntax fixtures are stored in this package, including copied fenced examples
 from the site's `FEATURES.md` and the framework field guide's tabs example. They
-do not read files outside the package. Site-local bridge and publishing tests
+do not read files outside the package. Site-local HAST and publishing tests
 cover HAST conversion, HTML/EPUB behavior, and the content corpus.

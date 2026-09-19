@@ -1,6 +1,9 @@
 import remarkParse from "remark-parse";
-import { remarkCommentComponents } from "mdast-comment-components";
-import { remarkComponentDiagnostics } from "./components/remark-component-diagnostics.ts";
+import {
+	remarkCommentComponents,
+	remarkComponentDiagnostics,
+} from "mdast-comment-components";
+import { logCommentComponentDiagnostic } from "./logger.ts";
 import remarkFrontmatter from "remark-frontmatter";
 import {
 	TYPE_FRONTMATTER,
@@ -41,7 +44,10 @@ export function createEpubPlugins(unified: Processor) {
 			.use(remarkProcessFrontmatter)
 			.use(remarkGfm)
 			.use(remarkCommentComponents)
-			.use(remarkComponentDiagnostics)
+			.use(remarkComponentDiagnostics, {
+				fatal: true,
+				onDiagnostic: logCommentComponentDiagnostic,
+			})
 			.use(remarkToRehype, {
 				allowDangerousHtml: true,
 				passThrough: ["commentComponent"],

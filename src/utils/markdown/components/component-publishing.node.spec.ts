@@ -297,6 +297,35 @@ describe("native component publishing", () => {
 	});
 
 	it.each([false, true])(
+		"reports parser diagnostics and rejects malformed publication (EPUB: %s)",
+		async (epub) => {
+			vi.spyOn(console, "error").mockImplementation(() => undefined);
+			vi.spyOn(console, "log").mockImplementation(() => undefined);
+			const factory = epub ? createEpubPlugins : createHtmlPlugins;
+			const file = vfile("<!-- ::start:tabs -->\n\nFollowing content.");
+			await expect(factory(unified()).process(file)).rejects.toThrow(
+				"Malformed Markdown comment components.",
+			);
+			expect(file.messages).toEqual([
+				expect.objectContaining({
+					source: "mdast-comment-components",
+					ruleId: "missing-close",
+					line: 1,
+					column: 1,
+				}),
+				expect.objectContaining({ ruleId: "invalid-components", fatal: true }),
+			]);
+			expect(file.data.warnings).toEqual([
+				expect.objectContaining({
+					message: file.messages[0].reason,
+					line: 1,
+					col: 1,
+				}),
+			]);
+		},
+	);
+
+	it.each([false, true])(
 		"preserves unknown-component publication errors (EPUB: %s)",
 		async (epub) => {
 			const factory = epub ? createEpubPlugins : createHtmlPlugins;

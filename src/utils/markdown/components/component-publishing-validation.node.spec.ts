@@ -5,11 +5,14 @@ import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug-custom-id";
-import { remarkCommentComponents } from "mdast-comment-components";
+import {
+	remarkCommentComponents,
+	remarkComponentDiagnostics,
+} from "mdast-comment-components";
 import { VFile } from "vfile";
 import type { MarkdownVFile } from "../types.ts";
 import type { PlayfulRoot } from "./components.ts";
-import { remarkComponentDiagnostics } from "./remark-component-diagnostics.ts";
+import { logCommentComponentDiagnostic } from "../logger.ts";
 import { rehypeTransformComponents } from "./rehype-transform-components.ts";
 import { rehypeQuizIndexes, transformQuiz } from "./quiz/rehype-transform.ts";
 import { transformQuizRadio } from "./quiz/rehype-transform-quiz-radio.ts";
@@ -53,7 +56,10 @@ function processor() {
 	return unified()
 		.use(remarkParse)
 		.use(remarkCommentComponents)
-		.use(remarkComponentDiagnostics)
+		.use(remarkComponentDiagnostics, {
+			fatal: true,
+			onDiagnostic: logCommentComponentDiagnostic,
+		})
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
 			passThrough: ["commentComponent"],
@@ -240,7 +246,7 @@ describe("native component publishing validation", () => {
 				ruleId,
 			});
 			await expect(pipeline.run(tree, vfile)).rejects.toThrow(
-				"Cannot publish malformed Markdown components",
+				"Malformed Markdown comment components",
 			);
 			expect(vfile.messages).toEqual(
 				expect.arrayContaining([

@@ -67,6 +67,7 @@
 				"src/from-markdown.ts",
 				"src/to-markdown.ts",
 				"src/remark-components.ts",
+				"src/remark-component-diagnostics.ts",
 			],
 			"includeEntryExports": false,
 			"vitest": {

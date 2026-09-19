@@ -2,7 +2,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Element } from "hast";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import { remarkCommentComponents } from "mdast-comment-components";
+import {
+	remarkCommentComponents,
+	remarkComponentDiagnostics,
+} from "mdast-comment-components";
 import remarkToRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import { VFile } from "vfile";
@@ -10,7 +13,7 @@ import type { MarkdownVFile } from "../../types.ts";
 import { rehypeCodeblockMeta } from "../../shiki/rehype-codeblock-meta.ts";
 import { rehypeShikiUU } from "../../shiki/rehype-transform.ts";
 import { runShiki } from "../../shiki/shiki-pool.ts";
-import { remarkComponentDiagnostics } from "../remark-component-diagnostics.ts";
+import { logCommentComponentDiagnostic } from "../../logger.ts";
 import { rehypeTransformComponents } from "../rehype-transform-components.ts";
 import { transformMermaid } from "./rehype-transform.ts";
 
@@ -53,7 +56,10 @@ async function processMarkdown(value: string) {
 	const processor = unified()
 		.use(remarkParse)
 		.use(remarkCommentComponents)
-		.use(remarkComponentDiagnostics)
+		.use(remarkComponentDiagnostics, {
+			fatal: true,
+			onDiagnostic: logCommentComponentDiagnostic,
+		})
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
 			passThrough: ["commentComponent"],

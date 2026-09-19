@@ -26,6 +26,10 @@
 			"types": "./src/remark-components.ts",
 			"import": "./src/remark-components.ts"
 		},
+		"./remark-component-diagnostics": {
+			"types": "./src/remark-component-diagnostics.ts",
+			"import": "./src/remark-component-diagnostics.ts"
+		},
 		"./types": {
 			"types": "./src/types.ts",
 			"import": "./src/types.ts"
@@ -46,7 +50,8 @@
 		"micromark-util-character": "^2.1.1",
 		"micromark-util-types": "^2.0.2",
 		"property-information": "^7.2.0",
-		"unified": "^11.0.5"
+		"unified": "^11.0.5",
+		"vfile": "^6.0.3"
 	},
 	"devDependencies": {
 		"@types/node": "25.9.1",

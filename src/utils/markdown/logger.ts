@@ -1,10 +1,23 @@
 import type * as mdast from "mdast";
 import type * as hast from "hast";
 import type { VFile } from "vfile";
+import type { CommentComponentDiagnostic } from "mdast-comment-components";
 import * as kleur from "kleur/colors";
 import env from "#src/constants/env/index.ts";
 import * as path from "path";
 import { isMarkdownVFile, type WarningInfo } from "./types.ts";
+
+/** Preserve site warnings and CI annotations for the package's diagnostics. */
+export function logCommentComponentDiagnostic(
+	diagnostic: CommentComponentDiagnostic,
+	file: VFile,
+) {
+	logError(
+		file,
+		{ type: "commentComponent", position: diagnostic.position },
+		diagnostic.message,
+	);
+}
 
 /**
  * A utility function for printing readable errors out of the hast/mdast nodes in a markdown file

@@ -1,6 +1,9 @@
 import remarkParse from "remark-parse";
-import { remarkCommentComponents } from "mdast-comment-components";
-import { remarkComponentDiagnostics } from "./components/remark-component-diagnostics.ts";
+import {
+	remarkCommentComponents,
+	remarkComponentDiagnostics,
+} from "mdast-comment-components";
+import { logCommentComponentDiagnostic } from "./logger.ts";
 import remarkFrontmatter from "remark-frontmatter";
 import {
 	TYPE_FRONTMATTER,
@@ -67,7 +70,10 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(remarkGfm)
 			.use(remarkMath)
 			.use(remarkCommentComponents)
-			.use(remarkComponentDiagnostics)
+			.use(remarkComponentDiagnostics, {
+				fatal: true,
+				onDiagnostic: logCommentComponentDiagnostic,
+			})
 			/* start remark plugins here */
 			.use(remarkToRehype, {
 				allowDangerousHtml: true,
