@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Tailwind arbitrary image border demo</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 1rem;
+			}
+
+			img {
+				display: block;
+				box-sizing: border-box;
+				width: 320px;
+				max-width: 100%;
+				height: auto;
+				border-radius: 9999px;
+				border-color: rgb(186 230 253);
+				border-width: 12px;
+				border-style: solid;
+			}
+		</style>
+	</head>
+	<body>
+		<img
+			src="./unicorn.png"
+			width="1024"
+			height="1024"
+			alt="A cartoon unicorn in a bowtie with a light blue rounded border"
+		/>
+	</body>
+</html>

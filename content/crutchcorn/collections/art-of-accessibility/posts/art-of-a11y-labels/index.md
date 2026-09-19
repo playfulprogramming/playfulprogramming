@@ -43,11 +43,7 @@ By default, this will look like the following:
 ----
 
 
-<form>
-    <input name="username" type="text"/>
-    <input name="password" type="password"/>
-    <button type="submit">Login</button>
-</form>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/unlabeled-form.html" data-no-frame></iframe>
 
 
 ----
@@ -73,19 +69,7 @@ Notice that our form doesn't indicate which text input is for which field; neith
 
 ----
 
-<form onsubmit="event.preventDefault()" style="display: flex; gap: 1rem;">
-	<div style="display: flex; flex-direction: column;">
-        <p style="margin: 0;">Username</p>
-        <input name="username" type="text"/>
-	</div>
-	<div style="display: flex; flex-direction: column;">
-        <p style="margin: 0;">Password</p>
-	    <input name="password" type="password"/>
-    </div>
-    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
-        <button type="submit">Login</button>
-    </div>
-</form>	
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/visual-labels.html" data-no-frame></iframe>
 
 
 ---
@@ -129,17 +113,7 @@ Luckily, when dealing with `input`s, there's an easy way to link a text input to
 
 ---
 
-<form onsubmit="event.preventDefault()">
-	<label>
-        Username
-        <input name="username" type="text"/>
-	</label>
-	<label>
-        Password
-	    <input name="password" type="password"/>
-    </label>
-    <button type="submit">Login</button>
-</form>	
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/implicit-labels.html" data-no-frame></iframe>
 
 ---
 
@@ -167,19 +141,7 @@ Don't like the inline styling of the labels? No problem. You can style `<label>`
 
 ----
 
-<form style="display: flex; gap: 1rem;" onsubmit="event.preventDefault()">
-	<label style="display: flex; flex-direction: column;">
-        <span>Username</span>
-        <input name="username" type="text"/>
-	</label>
-	<label style="display: flex; flex-direction: column;">
-        <span>Password</span>
-	    <input name="password" type="password"/>
-    </label>
-    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
-        <button type="submit">Login</button>
-    </div>
-</form>	
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/styled-labels.html" data-no-frame></iframe>
 
 
 ---
@@ -216,11 +178,7 @@ It's a valid question, given that it's been adopted as a broadly utilized patter
 ---
 
 
-<form style="display: flex; gap: 1rem;" aria-hidden="true" onsubmit="event.preventDefault()">
-    <input placeholder="Username" name="username" type="text"/>
-    <input placeholder="password" type="password"/>
-    <button type="submit">Login</button>
-</form>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/placeholders.html" data-no-frame></iframe>
 
 
 ----
@@ -255,22 +213,7 @@ Well, while you're able to place `div`s and other elements inside of a `label` e
 
 ---
 
-<table>
-    <tbody>
-        <tr>
-            <td><label for="username-input">Username</label></td>
-            <td><input id="username-input" type="text"></td>
-        </tr>
-        <tr>
-            <td><label for="password-input">Password</label></td>
-            <td><input id="password-input" type="password"></td>
-        </tr>
-        <tr>
-            <td><label for="confirm-password-input">Confirm Password</label></td>
-            <td><input id="confirm-password-input" type="password"></td>
-        </tr>
-    </tbody>
-</table>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/explicit-labels.html" data-no-frame></iframe>
 
 ----
 
@@ -488,11 +431,7 @@ Our form now works!
 ----
 
 
-<form onsubmit="event.preventDefault()">
-  <label>Email <input /></label>
-  <label>Password <input type="password" /></label>
-  <button type="submit">Login</button>
-</form>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/input-component.html" data-no-frame></iframe>
 
 
 ----
@@ -664,13 +603,7 @@ Now we can see our form with a warning about an invalid email. It looks somethin
 
 ----
 
-<form class="__form_error_example_1" onsubmit="event.preventDefault()"><label for="email" class="label">Email</label><input id="email" aria-invalid="true" aria-errormessage="email-error"><p class="errormessage" id="email-error">Invalid email</p><label for="password" class="label">Password</label><input id="password" type="password" aria-invalid="false" aria-errormessage="password-error"><p class="errormessage" id="password-error"></p><button type="submit">Login</button><style>
-.__form_error_example_1 .label {
-  margin-right: 1rem;
-}
-.__form_error_example_1 .errormessage {
-  color: red;
-}</style></form>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/input-errors.html" data-no-frame></iframe>
 
 
 ---

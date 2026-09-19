@@ -44,27 +44,13 @@ Not only does this help codebase readability, it helps immensely with accessibil
 
 **The `div` soup:**
 
-<div>
-	<div>Add todo item</div>
-	<div class="todos">
-		<div>Play games</div>
-		<div>Eat ice cream</div>
-		<div>Do chores</div>
-	</div>
-</div>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-semantic-markup/div-todos.html" data-no-frame></iframe>
 
 ----
 
 **The correct HTML tags:**
 
-<div>
-	<button>Add todo item</button>
-	<ul class="todos">
-		<li>Play games</li>
-		<li>Eat ice cream</li>
-		<li>Do chores</li>
-	</ul>
-</div>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-semantic-markup/semantic-todos.html" data-no-frame></iframe>
 
 -----
 
@@ -293,7 +279,7 @@ While you could create a partially analogous `button` element using a `div`:
 
 ---
 
-<div tabindex="0" role="button">Save</div>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-semantic-markup/role-button.html" data-no-frame></iframe>
 
 ---
 
