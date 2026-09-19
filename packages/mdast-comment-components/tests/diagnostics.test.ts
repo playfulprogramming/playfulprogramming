@@ -1,45 +1,37 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
+import remarkStringify from "remark-stringify";
 import { VFile } from "vfile";
 import {
 	remarkCommentComponents,
-	remarkComponentDiagnostics,
-	type CommentComponentDiagnostic,
-	type RemarkComponentDiagnosticsOptions,
+	type RemarkCommentComponentsOptions,
 } from "../src/index.ts";
 
-function processor(options?: RemarkComponentDiagnosticsOptions) {
-	return unified()
-		.use(remarkParse)
-		.use(remarkCommentComponents)
-		.use(remarkComponentDiagnostics, options);
+function processor(options?: RemarkCommentComponentsOptions) {
+	return unified().use(remarkParse).use(remarkCommentComponents, options);
 }
 
 describe("comment component diagnostics", () => {
 	it.each(["Ordinary Markdown", "<!-- ::example -->"])(
 		"leaves valid content unchanged without reporting: %s",
 		(source) => {
-			const onDiagnostic = vi.fn();
-			const pipeline = processor({ fatal: true, onDiagnostic });
+			const pipeline = processor({ fatal: true });
 			const file = new VFile(source);
 			const tree = pipeline.parse(file);
 			expect(pipeline.runSync(tree, file)).toBe(tree);
 			expect(file.messages).toEqual([]);
-			expect(onDiagnostic).not.toHaveBeenCalled();
 		},
 	);
 
 	it("keeps parse() quiet even when fatal reporting is enabled", () => {
-		const onDiagnostic = vi.fn();
-		const pipeline = processor({ fatal: true, onDiagnostic });
+		const pipeline = processor({ fatal: true });
 		const file = new VFile("<!-- ::end:example -->");
 		const tree = pipeline.parse(file);
 		expect(tree.data?.commentComponentDiagnostics).toMatchObject([
 			{ ruleId: "unexpected-close" },
 		]);
 		expect(file.messages).toEqual([]);
-		expect(onDiagnostic).not.toHaveBeenCalled();
 	});
 
 	it("reports positioned messages and preserves recovered content by default", () => {
@@ -74,17 +66,8 @@ describe("comment component diagnostics", () => {
 		});
 	});
 
-	it("reports every diagnostic and callback before failing in fatal mode", () => {
-		const onDiagnostic = vi.fn(
-			(diagnostic: CommentComponentDiagnostic, file: VFile) => {
-				expect(file.messages.at(-1)).toMatchObject({
-					reason: diagnostic.message,
-					ruleId: diagnostic.ruleId,
-					fatal: false,
-				});
-			},
-		);
-		const pipeline = processor({ fatal: true, onDiagnostic });
+	it("reports every diagnostic before failing in fatal mode", () => {
+		const pipeline = processor({ fatal: true });
 		const file = new VFile("<!-- ::end:first -->\n\n<!-- ::end:second -->");
 		const tree = pipeline.parse(file);
 		const diagnostics = tree.data!.commentComponentDiagnostics!;
@@ -92,10 +75,13 @@ describe("comment component diagnostics", () => {
 		expect(() => pipeline.runSync(tree, file)).toThrow(
 			"Malformed Markdown comment components.",
 		);
-		expect(onDiagnostic).toHaveBeenCalledTimes(2);
 		for (const [index, diagnostic] of diagnostics.entries()) {
-			expect(onDiagnostic.mock.calls[index][0]).toBe(diagnostic);
-			expect(onDiagnostic.mock.calls[index][1]).toBe(file);
+			expect(file.messages[index]).toMatchObject({
+				reason: diagnostic.message,
+				ruleId: diagnostic.ruleId,
+				place: diagnostic.position,
+				fatal: false,
+			});
 		}
 		expect(file.messages).toHaveLength(3);
 		expect(file.messages.at(-1)).toMatchObject({
@@ -106,16 +92,31 @@ describe("comment component diagnostics", () => {
 		});
 	});
 
-	it("invokes the callback without stopping processing when fatal is false", () => {
-		const onDiagnostic = vi.fn();
-		const pipeline = processor({ fatal: false, onDiagnostic });
+	it("continues processing alongside diagnostics from other plugins", async () => {
+		const pipeline = processor({ fatal: false })
+			.use(() => (_, file) => {
+				file.message("A downstream diagnostic", "other-plugin:example");
+			})
+			.use(remarkStringify);
 		const file = new VFile("<!-- ::end:example -->");
-		const tree = pipeline.parse(file);
-		expect(pipeline.runSync(tree, file)).toBe(tree);
-		expect(onDiagnostic).toHaveBeenCalledExactlyOnceWith(
-			tree.data!.commentComponentDiagnostics![0],
-			file,
+		expect(await pipeline.process(file)).toBe(file);
+		expect(String(file)).toBe("<!-- ::end:example -->\n");
+		expect(file.messages).toMatchObject([
+			{ source: "mdast-comment-components", ruleId: "unexpected-close" },
+			{ source: "other-plugin", ruleId: "example" },
+		]);
+	});
+
+	it("rejects process() in fatal mode after recording all parser diagnostics", async () => {
+		const pipeline = processor({ fatal: true }).use(remarkStringify);
+		const file = new VFile("<!-- ::end:first -->\n\n<!-- ::end:second -->");
+		await expect(pipeline.process(file)).rejects.toThrow(
+			"Malformed Markdown comment components.",
 		);
-		expect(file.messages).toHaveLength(1);
+		expect(file.messages.map((message) => message.ruleId)).toEqual([
+			"unexpected-close",
+			"unexpected-close",
+			"invalid-components",
+		]);
 	});
 });

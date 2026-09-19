@@ -7,7 +7,6 @@ import { resolvePath } from "../url-paths.ts";
 import { getImageSize } from "../get-image-size.ts";
 import type { MarkdownVFile } from "../markdown/types.ts";
 import { parseFrontmatter } from "./parseFrontmatter.ts";
-import { logError } from "../markdown/logger.ts";
 import { cache } from "./common.ts";
 import { posts } from "../data.ts";
 import { isDefined } from "../is-defined.ts";
@@ -25,7 +24,11 @@ export const readPerson = cache(
 			? await getImageSize(frontmatter.profileImg, personPath)
 			: undefined;
 		if (!profileImgSize || !profileImgSize.width || !profileImgSize.height) {
-			logError(vfile, frontmatterNode, "Unable to parse profile image size");
+			vfile.message("Unable to parse profile image size", {
+				place: frontmatterNode.position,
+				source: "read-person",
+				ruleId: "invalid-profile-image",
+			});
 		}
 
 		const totalPostStubs = [...posts.values()]
@@ -72,10 +75,13 @@ export const readPerson = cache(
 			if (person.socials.mastodon)
 				person.socials.mastodon = new URL(person.socials.mastodon).toString();
 		} catch (e) {
-			logError(
-				vfile,
-				frontmatterNode,
+			vfile.message(
 				`socials.mastodon is not a valid URL: '${person.socials.mastodon}'`,
+				{
+					place: frontmatterNode.position,
+					source: "read-person",
+					ruleId: "invalid-mastodon-url",
+				},
 			);
 			delete person.socials.mastodon;
 		}
@@ -85,10 +91,13 @@ export const readPerson = cache(
 			if (person.socials.bluesky)
 				person.socials.bluesky = new URL(person.socials.bluesky).toString();
 		} catch (e) {
-			logError(
-				vfile,
-				frontmatterNode,
-				`socials.bluesky is not a valid URL: '${person.socials.mastodon}'`,
+			vfile.message(
+				`socials.bluesky is not a valid URL: '${person.socials.bluesky}'`,
+				{
+					place: frontmatterNode.position,
+					source: "read-person",
+					ruleId: "invalid-bluesky-url",
+				},
 			);
 			delete person.socials.bluesky;
 		}

@@ -88,7 +88,6 @@ function vfile(source: string, path = fixturePath): MarkdownVFile {
 			headingIds: [],
 			tableOfContents: [],
 			snitips: new Map(),
-			warnings: [],
 		},
 	}) as MarkdownVFile;
 }
@@ -134,7 +133,7 @@ describe("native component publishing", () => {
 			]),
 		);
 		expect(actual.snitipScopeId).toBe("00000000-0000-4000-8000-000000000000");
-		expect(actual.data.warnings).toEqual([]);
+		expect(actual.messages).toEqual([]);
 	});
 
 	it("preserves EPUB gates, paths, details expansion, snitip text and references", async () => {
@@ -149,7 +148,7 @@ describe("native component publishing", () => {
 		expect(output).not.toContain("<details");
 		expect(output).not.toContain("pfp-snitip:");
 		expect(output).not.toContain("playful-component");
-		expect(actual.data.warnings).toEqual([]);
+		expect(actual.messages).toEqual([]);
 	});
 
 	it("publishes components and snitip metadata from the example post", async () => {
@@ -170,9 +169,9 @@ describe("native component publishing", () => {
 		expect([...actual.data.snitips.keys()]).toEqual(["nodejs", "programming"]);
 		// The API test double has no global snitips, so only this external
 		// reference remains unresolved; both local definitions are published.
-		expect(actual.data.warnings).toEqual([
+		expect(actual.messages).toEqual([
 			expect.objectContaining({
-				message:
+				reason:
 					"Could not resolve snitip link to any known snitips: pfp-snitip:#javascript",
 			}),
 		]);
@@ -207,7 +206,7 @@ describe("native component publishing", () => {
 				],
 			},
 		]);
-		expect(actual.data.warnings).toEqual([]);
+		expect(actual.messages).toEqual([]);
 	});
 
 	it("preserves framework field guide EPUB publishing", async () => {
@@ -226,7 +225,7 @@ describe("native component publishing", () => {
 		expect(output).toContain("class HelloWorldComp");
 		expect(output).toContain("Hello.vue");
 		expect(output).not.toContain("playful-component");
-		expect(actual.data.warnings).toEqual([]);
+		expect(actual.messages).toEqual([]);
 	});
 
 	it("preserves compiled HTML for adjacent standalone components", async () => {
@@ -276,9 +275,7 @@ describe("native component publishing", () => {
 			await expect(
 				createEpubPlugins(unified()).process(file),
 			).rejects.toThrow();
-			expect(file.data.warnings[0].message).toBe(
-				"Unknown markdown component quiz",
-			);
+			expect(file.messages[0].reason).toBe("Unknown markdown component quiz");
 		} finally {
 			errors.mockRestore();
 			logs.mockRestore();
@@ -291,8 +288,13 @@ describe("native component publishing", () => {
 		const actual = await publish(
 			"<!-- ::start:filetree -->\n\n<!-- ::end:filetree -->",
 		);
-		expect(actual.data.warnings).toEqual([
-			expect.objectContaining({ message: "No list found in filetree" }),
+		expect(actual.messages).toEqual([
+			expect.objectContaining({
+				reason: "No list found in filetree",
+				source: "rehype-filetree",
+				ruleId: "missing-list",
+				fatal: false,
+			}),
 		]);
 	});
 
@@ -315,13 +317,6 @@ describe("native component publishing", () => {
 				}),
 				expect.objectContaining({ ruleId: "invalid-components", fatal: true }),
 			]);
-			expect(file.data.warnings).toEqual([
-				expect.objectContaining({
-					message: file.messages[0].reason,
-					line: 1,
-					col: 1,
-				}),
-			]);
 		},
 	);
 
@@ -336,7 +331,7 @@ describe("native component publishing", () => {
 			try {
 				const file = vfile("<!-- ::unknown-widget -->");
 				await expect(factory(unified()).process(file)).rejects.toThrow();
-				expect(file.data.warnings[0].message).toBe(
+				expect(file.messages[0].reason).toBe(
 					"Unknown markdown component unknown-widget",
 				);
 			} finally {

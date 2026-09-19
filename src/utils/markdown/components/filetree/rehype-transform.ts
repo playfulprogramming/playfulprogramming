@@ -23,7 +23,6 @@ import type { Element, ElementContent } from "hast";
 import { visit } from "unist-util-visit";
 import JSON5 from "json5";
 import type { RehypeFunctionComponent } from "../types.ts";
-import { logError } from "#utils/markdown/logger.ts";
 import type {
 	DirectoryProps,
 	FileProps,
@@ -173,7 +172,11 @@ export const transformFileTree: RehypeFunctionComponent = ({
 	) as Element;
 
 	if (!list) {
-		logError(vfile, node, "No list found in filetree");
+		vfile.message("No list found in filetree", {
+			place: node.position,
+			source: "rehype-filetree",
+			ruleId: "missing-list",
+		});
 		return;
 	}
 

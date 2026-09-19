@@ -26,10 +26,6 @@
 			"types": "./src/remark-components.ts",
 			"import": "./src/remark-components.ts"
 		},
-		"./remark-component-diagnostics": {
-			"types": "./src/remark-component-diagnostics.ts",
-			"import": "./src/remark-component-diagnostics.ts"
-		},
 		"./types": {
 			"types": "./src/types.ts",
 			"import": "./src/types.ts"

@@ -2,10 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Element } from "hast";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import {
-	remarkCommentComponents,
-	remarkComponentDiagnostics,
-} from "mdast-comment-components";
+import { remarkCommentComponents } from "mdast-comment-components";
 import remarkToRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import { VFile } from "vfile";
@@ -13,7 +10,6 @@ import type { MarkdownVFile } from "../../types.ts";
 import { rehypeCodeblockMeta } from "../../shiki/rehype-codeblock-meta.ts";
 import { rehypeShikiUU } from "../../shiki/rehype-transform.ts";
 import { runShiki } from "../../shiki/shiki-pool.ts";
-import { logCommentComponentDiagnostic } from "../../logger.ts";
 import { rehypeTransformComponents } from "../rehype-transform-components.ts";
 import { transformMermaid } from "./rehype-transform.ts";
 
@@ -46,7 +42,6 @@ function createVFile(value: string) {
 		data: {
 			...fileInfo,
 			headingsWithIds: [],
-			warnings: [],
 		},
 	}) as MarkdownVFile;
 }
@@ -55,11 +50,7 @@ async function processMarkdown(value: string) {
 	const vfile = createVFile(value);
 	const processor = unified()
 		.use(remarkParse)
-		.use(remarkCommentComponents)
-		.use(remarkComponentDiagnostics, {
-			fatal: true,
-			onDiagnostic: logCommentComponentDiagnostic,
-		})
+		.use(remarkCommentComponents, { fatal: true })
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
 			passThrough: ["commentComponent"],
@@ -134,28 +125,23 @@ describe("Mermaid markdown component", () => {
 			"```",
 			"<!-- ::end:mermaid -->",
 		].join("\n");
-		const consoleError = vi
-			.spyOn(console, "error")
-			.mockImplementation(() => undefined);
-		const consoleLog = vi
-			.spyOn(console, "log")
-			.mockImplementation(() => undefined);
+		const { tree, vfile } = await processMarkdown(source);
 
-		try {
-			const { tree, vfile } = await processMarkdown(source);
-
-			expect(runShiki).toHaveBeenCalledOnce();
-			expect(runShiki).toHaveBeenCalledWith(
-				expect.objectContaining({ tagName: "pre" }),
-			);
-			expect(vfile.data.isMermaidUsed).toBeUndefined();
-			expect(findComponent(tree.children, "Mermaid")).toBeUndefined();
-			expect(consoleError.mock.calls.flat().join(" ")).toContain(
-				"Mermaid must use a ```mermaid fenced code block.",
-			);
-		} finally {
-			consoleError.mockRestore();
-			consoleLog.mockRestore();
-		}
+		expect(runShiki).toHaveBeenCalledOnce();
+		expect(runShiki).toHaveBeenCalledWith(
+			expect.objectContaining({ tagName: "pre" }),
+		);
+		expect(vfile.data.isMermaidUsed).toBeUndefined();
+		expect(findComponent(tree.children, "Mermaid")).toBeUndefined();
+		expect(vfile.messages).toEqual([
+			expect.objectContaining({
+				reason: "Mermaid must use a ```mermaid fenced code block.",
+				source: "rehype-mermaid",
+				ruleId: "invalid-language",
+				fatal: false,
+				line: 1,
+				column: 1,
+			}),
+		]);
 	});
 });

@@ -1,18 +1,14 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { resolve } from "node:path";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug-custom-id";
-import {
-	remarkCommentComponents,
-	remarkComponentDiagnostics,
-} from "mdast-comment-components";
+import { remarkCommentComponents } from "mdast-comment-components";
 import { VFile } from "vfile";
 import type { MarkdownVFile } from "../types.ts";
 import type { PlayfulRoot } from "./components.ts";
-import { logCommentComponentDiagnostic } from "../logger.ts";
 import { rehypeTransformComponents } from "./rehype-transform-components.ts";
 import { rehypeQuizIndexes, transformQuiz } from "./quiz/rehype-transform.ts";
 import { transformQuizRadio } from "./quiz/rehype-transform-quiz-radio.ts";
@@ -44,7 +40,6 @@ function file(source: string): MarkdownVFile {
 		data: {
 			kind: "post",
 			file: "index.md",
-			warnings: [],
 			headingIds: [],
 			tableOfContents: [],
 			snitips: new Map(),
@@ -55,11 +50,7 @@ function file(source: string): MarkdownVFile {
 function processor() {
 	return unified()
 		.use(remarkParse)
-		.use(remarkCommentComponents)
-		.use(remarkComponentDiagnostics, {
-			fatal: true,
-			onDiagnostic: logCommentComponentDiagnostic,
-		})
+		.use(remarkCommentComponents, { fatal: true })
 		.use(remarkToRehype, {
 			allowDangerousHtml: true,
 			passThrough: ["commentComponent"],
@@ -72,11 +63,6 @@ function question(title: string) {
 }
 
 describe("native component publishing validation", () => {
-	beforeEach(() => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
-		vi.spyOn(console, "log").mockImplementation(() => {});
-	});
-
 	it("preserves quiz ancestry, heading IDs, option markup and individual submit behavior", async () => {
 		const source = `<!-- ::start:quiz -->\n\n${question("First question")}\n\n${question("Second question")}\n\n<!-- ::end:quiz -->\n\n${question("Individual question")}`;
 		const vfile = file(source);
@@ -158,7 +144,7 @@ describe("native component publishing validation", () => {
 				"individual-question",
 			]),
 		);
-		expect(vfile.data.warnings).toEqual([]);
+		expect(vfile.messages).toEqual([]);
 	});
 
 	it.each(["root", "component"])(
@@ -196,7 +182,7 @@ describe("native component publishing validation", () => {
 					file: "src/index.ts",
 				},
 			});
-			expect(vfile.data.warnings).toEqual([]);
+			expect(vfile.messages).toEqual([]);
 		},
 	);
 
@@ -207,9 +193,16 @@ describe("native component publishing validation", () => {
 		await expect(pipeline.run(tree, vfile)).rejects.toThrow(
 			"Component code-embed cannot be placed in element",
 		);
-		expect(vfile.data.warnings[0].message).toContain(
-			"Component code-embed cannot be placed in element",
-		);
+		expect(vfile.messages).toEqual([
+			expect.objectContaining({
+				reason: "Component code-embed cannot be placed in element!",
+				source: "rehype-code-embed",
+				ruleId: "invalid-parent",
+				fatal: true,
+				line: 1,
+				column: 6,
+			}),
+		]);
 	});
 
 	it("leaves unknown names to the publishing transform map", async () => {
@@ -221,10 +214,19 @@ describe("native component publishing validation", () => {
 			type: "commentComponent",
 			component: "unknown-component",
 		});
-		await expect(pipeline.run(pipeline.parse(vfile), vfile)).rejects.toThrow();
-		expect(vfile.data.warnings[0].message).toBe(
+		await expect(pipeline.run(pipeline.parse(vfile), vfile)).rejects.toThrow(
 			"Unknown markdown component unknown-component",
 		);
+		expect(vfile.messages).toEqual([
+			expect.objectContaining({
+				reason: "Unknown markdown component unknown-component",
+				source: "rehype-components",
+				ruleId: "unknown-component",
+				fatal: true,
+				line: 1,
+				column: 1,
+			}),
+		]);
 	});
 
 	it.each([
@@ -256,8 +258,8 @@ describe("native component publishing validation", () => {
 					}),
 				]),
 			);
-			expect(vfile.data.warnings[0]).toMatchObject({ col: 1 });
-			expect(vfile.data.warnings[0].message).toBe(
+			expect(vfile.messages[0]).toMatchObject({ column: 1 });
+			expect(vfile.messages[0].reason).toBe(
 				tree.data!.commentComponentDiagnostics![0].message,
 			);
 		},

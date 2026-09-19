@@ -1,7 +1,7 @@
 # mdast-comment-components
 
 Native Markdown parsing and serialization for HTML-comment components. This
-package contains syntax, MDAST types, and optional diagnostic reporting; it does
+package contains syntax, MDAST types, and VFile diagnostic reporting; it does
 not depend on a component registry, a renderer, Astro, or the publishing site's
 environment.
 
@@ -24,19 +24,18 @@ const markdown = processor.stringify(tree);
 ```
 
 The Remark attacher registers `micromarkExtensions`, `fromMarkdownExtensions`, and
-`toMarkdownExtensions`. It does not return a tree transformer. The public entry
-point also exports:
+`toMarkdownExtensions`. Its transformer reports parser diagnostics during `run()`
+or `process()` without changing the tree. The public entry point also exports:
 
 - `commentComponents()` for micromark syntax recognition.
 - `commentComponentsFromMarkdown()` for `mdast-util-from-markdown` compilation.
 - `commentComponentsToMarkdown()` for `mdast-util-to-markdown` serialization.
-- `remarkComponentDiagnostics` for optional VFile reporting during `run()`.
 - `CommentComponent` and `CommentComponentDiagnostic` TypeScript types.
-- `RemarkComponentDiagnosticsOptions` for reporting policy and callbacks.
+- `RemarkCommentComponentsOptions` for diagnostic policy.
 
 Each extension and the types also have corresponding subpath exports:
 `/micromark-extension`, `/from-markdown`, `/to-markdown`, `/remark-components`,
-`/remark-component-diagnostics`, and `/types`. Exports point to ESM TypeScript
+and `/types`. Exports point to ESM TypeScript
 source. Consumers need a TypeScript-aware runtime or bundler; this initial
 workspace package does not ship compiled JavaScript and is not published to npm.
 
@@ -134,42 +133,39 @@ Malformed input is preserved and reported on
   unterminated ordinary HTML comments retain CommonMark's behavior.
 
 Parsing itself does not log, throw, or access a VFile. Comments in unsupported
-placements do not produce component diagnostics. Consumers choose their
-diagnostic policy by reading the entries directly or adding the optional
-`remarkComponentDiagnostics` plugin:
+placements do not produce component diagnostics. During `run()` or `process()`,
+`remarkCommentComponents` adds a positioned VFile message for every diagnostic,
+preserving its message and rule ID with `source: "mdast-comment-components"`.
+By default, processing continues with the recovered tree. With `fatal: true`,
+the plugin reports every entry before adding a fatal `invalid-components`
+message and throwing:
 
 ```ts
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import { VFile } from "vfile";
-import {
-	remarkCommentComponents,
-	remarkComponentDiagnostics,
-} from "mdast-comment-components";
+import { remarkCommentComponents } from "mdast-comment-components";
 
 const processor = unified()
 	.use(remarkParse)
-	.use(remarkCommentComponents)
-	.use(remarkComponentDiagnostics, {
-		fatal: true,
-		onDiagnostic(diagnostic, file) {
-			// Optional: forward diagnostics to an application's logger or UI.
-		},
-	});
+	.use(remarkCommentComponents, { fatal: true });
 const file = new VFile("<!-- ::end:example -->");
 const tree = processor.parse(file); // Recovers without reporting or throwing.
-await processor.run(tree, file); // Reports diagnostics, then throws in fatal mode.
+try {
+	await processor.run(tree, file); // Reports diagnostics, then throws in fatal mode.
+} finally {
+	// An application reporter can consume messages from every plugin, even on failure.
+	for (const message of file.messages) {
+		console.error(message.toString());
+	}
+}
 ```
 
-The reporting plugin creates a positioned VFile message for every diagnostic,
-preserving its message and rule ID with `source: "mdast-comment-components"`.
-It then calls `onDiagnostic(diagnostic, file)` synchronously for that entry, if
-provided. By default, reporting is nonfatal and processing continues with the
-recovered tree. With `fatal: true`, it reports every entry and invokes every
-callback before adding a fatal `invalid-components` message and throwing.
-The plugin does not modify the tree or emit console output. Attaching it does
-not change `parse()` behavior; reporting only happens during `run()` or
-`process()`.
+The package does not emit console output or require a logging callback.
+Applications can report `file.messages` alongside diagnostics from any other
+plugin, or read `root.data.commentComponentDiagnostics` directly when using
+only the parser. Attaching `remarkCommentComponents` does not change `parse()`
+recovery behavior; VFile reporting only happens during `run()` or `process()`.
 
 ## Serialization guarantees
 
