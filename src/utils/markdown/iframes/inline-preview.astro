@@ -1,0 +1,22 @@
+---
+export interface Props {
+	html: string;
+}
+---
+
+<Fragment set:html={Astro.props.html} />
+
+<script>
+	import "./inline-preview-script.ts";
+</script>
+
+<style is:global>
+	/* Matching color schemes keeps transparent iframe canvases transparent. */
+	html.light iframe[data-no-frame][src^="/"]:not([src^="//"]) {
+		color-scheme: light;
+	}
+
+	html.dark iframe[data-no-frame][src^="/"]:not([src^="//"]) {
+		color-scheme: dark;
+	}
+</style>

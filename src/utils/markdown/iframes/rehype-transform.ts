@@ -2,6 +2,7 @@ import type { Root, Element } from "hast";
 import type { VFile } from "vfile";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
+import { toHtml } from "hast-util-to-html";
 import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants.ts";
 import {
 	type ComponentMarkupNode,
@@ -14,6 +15,7 @@ import { getUrlMetadata } from "#utils/hoof/index.ts";
 import { rehypeTransformGist } from "./platform-detectors/gist.ts";
 import { rehypeTransformVideo } from "./platform-detectors/video.ts";
 import { rehypeTransformPost } from "./platform-detectors/post.ts";
+import { isInlinePreviewSource } from "./inline-preview.ts";
 
 interface RehypeUnicornIFrameClickToRunProps {
 	srcReplacements?: Array<(val: string, root: VFile) => string>;
@@ -56,6 +58,26 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 				for (const replacement of srcReplacements) {
 					src = replacement(src, file);
+				}
+
+				if (
+					Object.hasOwn(node.properties, "dataNoFrame") &&
+					isInlinePreviewSource(src)
+				) {
+					const index = parent.children.indexOf(node);
+					if (index == -1) return;
+
+					parent.children.splice(
+						index,
+						1,
+						createComponent("InlinePreview", {
+							html: toHtml({
+								...node,
+								properties: { ...node.properties, src },
+							}),
+						}),
+					);
+					return;
 				}
 
 				width = width ?? EMBED_SIZE.w;

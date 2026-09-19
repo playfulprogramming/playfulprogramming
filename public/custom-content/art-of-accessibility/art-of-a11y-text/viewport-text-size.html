@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Text sized relative to the demo viewport</title>
+		<style>
+			:root {
+				color-scheme: light dark;
+				font-family: system-ui, sans-serif;
+				line-height: 1.5;
+			}
+
+			body {
+				/* Keep the vh example's viewport stable while its iframe fits the content. */
+				box-sizing: border-box;
+				min-height: 12.5rem;
+				margin: 0;
+				padding: 1rem;
+				color: CanvasText;
+				background: transparent;
+			}
+		</style>
+	</head>
+	<body>
+		<p style="font-size: 2vw; line-height: 2.5vw">
+			Each character on this line takes up 2% of screen width
+		</p>
+
+		<p style="font-size: 2vh; line-height: 2.5vh">
+			Each character on this line takes up 2% of screen height
+		</p>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Tailwind arbitrary image blur demo</title>
+		<style>
+			:root {
+				color-scheme: light dark;
+			}
+
+			body {
+				background: transparent;
+				margin: 0;
+				padding: 1rem;
+			}
+
+			img {
+				display: block;
+				width: 320px;
+				max-width: 100%;
+				height: auto;
+				filter: blur(4px);
+			}
+		</style>
+	</head>
+	<body>
+		<img
+			src="./unicorn.png"
+			width="1024"
+			height="1024"
+			alt="A blurry cartoon unicorn in a bowtie"
+		/>
+	</body>
+</html>

@@ -35,7 +35,7 @@ Now, take this button:
 </button>
 ```
 
-<button aria-label="A large button with dark blue border, dark green 'buy now' text, and light red text" style="background: #ffabab; border: 2rem solid #082450; color: #213224; font-size: 4rem;" > Buy Now </button>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-preface/harsh-button.html" data-no-frame></iframe>
 
 This button works, and [has good contrast](/posts/intro-to-web-accessibility#contrast), but might confuse some users whether it's a button or not.
 
@@ -60,7 +60,7 @@ Compare this button, with harsh edges and three different colors, against a butt
     </button>
 ```
 
- <button aria-label="A large button with dark a rounded purple background, white 'buy now' text, and a shadow"  style=" height: 9rem; font-size: 4rem; border: medium none; border-radius: 1rem; padding: 0rem 4rem; background: rgb(98, 0, 238); color: rgb(255, 255, 255); box-shadow: 0px 0.75rem 0.25rem -0.5rem rgba(0, 0, 0, 0.2), 0px 0.5rem 0.5rem 0px rgba(0, 0, 0, 0.14), 0px 0.25rem 1.25rem 0px rgba(0, 0, 0, 0.12); " > Buy Now </button>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-preface/material-button.html" data-no-frame></iframe>
 
 This button is more rounded, has a drop shadow, and matches Google's design language.
 
@@ -93,7 +93,7 @@ The answer? Well one way is to use a screen-reader, which reads the contents of 
 
 Consider the following button:
 
-<button>Go home</button>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-preface/native-button.html" data-no-frame></iframe>
 
 This button might be read by a screen-reader as "Button, Go home".
 
