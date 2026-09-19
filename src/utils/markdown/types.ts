@@ -11,14 +11,6 @@ export type MarkdownFileInfo = {
 	slug?: string;
 };
 
-export type WarningInfo = {
-	message: string;
-	path: string;
-	offset?: number;
-	col?: number;
-	line?: number;
-};
-
 export interface MarkdownVFile extends VFile {
 	snitipScopeId?: string;
 	data: {

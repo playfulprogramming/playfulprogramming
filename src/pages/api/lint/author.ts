@@ -17,10 +17,10 @@ export const POST: APIRoute = async ({ request }) => {
 
 	if (!stub) {
 		console.log(`No match for author ${body.author}`);
-		return Response.json({ warnings: [] });
+		return Response.json({ messages: [] });
 	}
 
 	return Response.json({
-		warnings: await lintMarkdown(stub, readPerson),
+		messages: await lintMarkdown(stub, readPerson),
 	});
 };

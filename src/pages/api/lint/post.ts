@@ -19,10 +19,10 @@ export const POST: APIRoute = async ({ request }) => {
 
 	if (!stub) {
 		console.log(`No match for post ${body.post}`);
-		return Response.json({ warnings: [] });
+		return Response.json({ messages: [] });
 	}
 
 	return Response.json({
-		warnings: await lintMarkdown(stub, readPost),
+		messages: await lintMarkdown(stub, readPost),
 	});
 };

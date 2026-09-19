@@ -20,10 +20,10 @@ export const POST: APIRoute = async ({ request }) => {
 
 	if (!stub) {
 		console.log(`No match for collection ${body.collection}`);
-		return Response.json({ warnings: [] });
+		return Response.json({ messages: [] });
 	}
 
 	return Response.json({
-		warnings: await lintMarkdown(stub, readCollection),
+		messages: await lintMarkdown(stub, readCollection),
 	});
 };

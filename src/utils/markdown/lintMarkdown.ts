@@ -1,7 +1,7 @@
 import { VFileMessage } from "vfile-message";
 import { getMarkdownVFile } from "./getMarkdownVFile.ts";
 import { getMarkdownHtml } from "./getMarkdownHtml.ts";
-import { getMarkdownWarnings, createReporter } from "./diagnostics.ts";
+import { createReporter } from "./diagnostics.ts";
 import type { MarkdownFileInfo, MarkdownVFile } from "./types.ts";
 
 export async function lintMarkdown<Stub extends MarkdownFileInfo>(
@@ -23,5 +23,5 @@ export async function lintMarkdown<Stub extends MarkdownFileInfo>(
 			reporter.failure(error);
 		}
 	}
-	return reporter.success(getMarkdownWarnings(file));
+	return reporter.success(file.messages);
 }

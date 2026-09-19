@@ -2,29 +2,12 @@ import type { VFile } from "vfile";
 import * as kleur from "kleur/colors";
 import * as path from "path";
 import env from "#src/constants/env/index.ts";
-import type { WarningInfo } from "./types.ts";
 
 function messagePath(file: VFile, message: VFile["messages"][number]) {
 	const filePath = message.file || file.path;
 	return filePath
 		? path.relative(file.cwd, path.resolve(file.cwd, filePath))
 		: "";
-}
-
-/** Keep the lint API's response shape, with VFile as the only diagnostic store. */
-export function getMarkdownWarnings(file: VFile): WarningInfo[] {
-	return file.messages
-		.filter((message) => message.fatal !== undefined)
-		.map((message) => ({
-			message: message.reason,
-			path: messagePath(file, message),
-			offset:
-				message.place && "start" in message.place
-					? message.place.start.offset
-					: message.place?.offset,
-			col: message.column,
-			line: message.line,
-		}));
 }
 
 function escapeAnnotation(value: string) {
