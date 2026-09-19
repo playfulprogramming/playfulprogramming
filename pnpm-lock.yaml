@@ -457,6 +457,9 @@ importers:
       vfile:
         specifier: ^6.0.3
         version: 6.0.3
+      vfile-message:
+        specifier: ^4.0.3
+        version: 4.0.3
       vitest:
         specifier: ^5.0.0
         version: 5.0.0(@types/node@25.9.1)(@vitest/browser-playwright@5.0.0)(@vitest/ui@5.0.0)(msw@2.15.0(@types/node@25.9.1)(typescript@6.0.3))(vite@8.2.2(@types/node@25.9.1)(esbuild@0.28.2)(jiti@2.7.0)(sass-embedded@1.104.0)(sass@1.104.0)(terser@5.51.2)(yaml@2.9.0))

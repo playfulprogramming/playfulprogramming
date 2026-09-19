@@ -1,3 +1,4 @@
+import { VFileMessage } from "vfile-message";
 import { getMarkdownVFile } from "./getMarkdownVFile.ts";
 import { getMarkdownHtml } from "./getMarkdownHtml.ts";
 import { getMarkdownWarnings, withMarkdownDiagnostics } from "./diagnostics.ts";
@@ -13,9 +14,11 @@ export async function lintMarkdown<Stub extends MarkdownFileInfo>(
 			const post = await read(stub, file);
 			await getMarkdownHtml(post, file);
 		} catch (error) {
-			// A fatal diagnostic is a lint result; unrelated failures still propagate.
+			// Only fatal diagnostics recorded on this file can become lint results.
 			if (
-				!file.messages.some((message) => message === error && message.fatal)
+				!(error instanceof VFileMessage) ||
+				!error.fatal ||
+				!file.messages.includes(error)
 			) {
 				throw error;
 			}
