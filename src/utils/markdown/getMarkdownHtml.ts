@@ -18,7 +18,6 @@ export async function getMarkdownHtml(
 ): Promise<MarkdownHtml> {
 	const vfile = await vfilePromise;
 
-	vfile.data.frontmatter = post;
 	return withMarkdownDiagnostics(vfile, async () => {
 		const result = await unifiedChain.process(vfile);
 		return {
