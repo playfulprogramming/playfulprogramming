@@ -12,8 +12,7 @@ export const componentToHast: NonNullable<
 		component: node.component,
 		attributes: { ...node.attributes },
 		position: node.position,
-		// The old comment wrappers included the line breaks on either side of
-		// their body. Keep those boundaries for the HTML/component compiler.
+		// Preserve line breaks around ranged bodies for the HTML/component compiler.
 		children: node.form === "ranged" ? state.wrap(state.all(node), true) : [],
 	};
 	// This site-specific HAST node is consumed by the component transforms,

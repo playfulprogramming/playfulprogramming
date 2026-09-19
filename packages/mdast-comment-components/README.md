@@ -78,8 +78,8 @@ becomes `dataFoo`, and a present `disabled` becomes `"true"`. Custom hyphenated
 names such as `button-text` and `button-href` remain available. Attribute parsing
 uses HTML parsing rather than splitting on spaces.
 
-For compatibility, an unquoted final attribute retains the legacy HTML parser's
-trailing slash: `<!-- ::custom label=value -->` stores `label: "value/"` because
+An unquoted final attribute retains HTML parsing's trailing slash:
+`<!-- ::custom label=value -->` stores `label: "value/"` because
 the marker is parsed as `<custom label=value/>`. Prefer quoted attributes. The
 serializer always quotes values, so repeated round trips do not add slashes.
 
@@ -100,11 +100,10 @@ such as `<br/>`, does not require a blank line before the component marker.
 
 LF and CRLF are supported, as are multiline attribute lists and surrounding
 whitespace inside comments. Closing markers use the same whitespace trimming
-and HTML name case folding as openers. Accepting `<!--::end:tabs-->` and
-`<!-- ::end:TABS -->` intentionally relaxes the old publisher's exact
-`" ::end:tabs "` comparison. Canonical serialization always uses lowercase names
-and one space around marker contents. Proper same-name nesting is an explicit
-fix to the old publisher's first-matching-sibling pairing.
+and HTML name case folding as openers, so `<!--::end:tabs-->` and
+`<!-- ::end:TABS -->` are accepted. Canonical serialization always uses lowercase
+names and one space around marker contents. Both same-name and different-name
+nesting are supported.
 
 Malformed input is preserved and reported on
 `root.data.commentComponentDiagnostics`. Entries contain `ruleId`, `message`,
@@ -124,9 +123,8 @@ Malformed input is preserved and reported on
 
 Parsing itself does not log, throw, or access a VFile. Consumers choose their
 diagnostic policy. The publishing site's adapter turns these entries into
-positioned VFile messages and rejects publication with a fatal error; this
-replaces the old missing-closer path that could corrupt or repeatedly splice
-content. Comments in unsupported placements do not produce component diagnostics.
+positioned VFile messages and rejects publication with a fatal error. Comments
+in unsupported placements do not produce component diagnostics.
 
 ## Serialization guarantees
 

@@ -2,17 +2,10 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Element } from "hast";
-import { unified, type Processor } from "unified";
-import remarkToRehype from "remark-rehype";
-import rehypeRaw from "rehype-raw";
-import { remarkCommentComponents } from "mdast-comment-components";
+import { unified } from "unified";
 import { VFile } from "vfile";
 import { createHtmlPlugins } from "../createHtmlPlugins.ts";
 import { createEpubPlugins } from "../createEpubPlugins.ts";
-import { rehypeRelativePaths } from "../rehype-relative-paths.ts";
-import { rehypeEpubSnitipLinks } from "../snitip-link/rehype-transform-epub.ts";
-import { remarkComponentDiagnostics } from "./remark-component-diagnostics.ts";
-import { legacyParseComponents } from "./__fixtures__/legacy-parse-components.ts";
 import type { MarkdownVFile } from "../types.ts";
 
 // Keep real pipeline transforms and compilers; isolate external services, Astro
@@ -96,61 +89,16 @@ function vfile(source: string, path = fixturePath): MarkdownVFile {
 	}) as MarkdownVFile;
 }
 
-/** Reuse the current production stages with only the migration boundary swapped. */
-function legacyPipeline(current: Pick<Processor, "attachers">, epub: boolean) {
-	const processor = unified();
-	for (const [plugin, ...options] of current.attachers) {
-		const attacher: unknown = plugin;
-		if (
-			plugin === remarkCommentComponents ||
-			plugin === remarkComponentDiagnostics
-		)
-			continue;
-		if (attacher === remarkToRehype) {
-			processor.use(remarkToRehype, { allowDangerousHtml: true });
-		} else if (attacher === rehypeRaw) {
-			processor.use(rehypeRaw, { passThrough: ["mdxjsEsm"] });
-		} else {
-			processor.use(plugin, ...options);
-		}
-		if (plugin === (epub ? rehypeEpubSnitipLinks : rehypeRelativePaths)) {
-			processor.use(legacyParseComponents);
-		}
-	}
-	return processor;
-}
-
-function semantics(value: unknown): unknown {
-	if (value instanceof Map) return [...value.entries()].map(semantics);
-	if (Array.isArray(value)) return value.map(semantics);
-	if (value && typeof value === "object") {
-		return Object.fromEntries(
-			Object.entries(value)
-				.filter(([key]) => key !== "position")
-				.map(([key, entry]) => [key, semantics(entry)]),
-		);
-	}
-	return value;
-}
-
-async function compare(source: string, epub = false, path = fixturePath) {
+async function publish(source: string, epub = false, path = fixturePath) {
 	const factory = epub ? createEpubPlugins : createHtmlPlugins;
-	const current = factory(unified());
-	const baseline = legacyPipeline(factory(unified()), epub);
-	const actualFile = vfile(source, path);
-	const baselineFile = vfile(source, path);
-	const actual = await current.process(actualFile);
-	const expected = await baseline.process(baselineFile);
-	expect(semantics(actual.result ?? actual.value)).toEqual(
-		semantics(expected.result ?? expected.value),
-	);
-	expect(semantics(actual.data)).toEqual(semantics(expected.data));
-	return actual as MarkdownVFile;
+	return factory(unified()).process(
+		vfile(source, path),
+	) as Promise<MarkdownVFile>;
 }
 
-describe("native component publishing compatibility", () => {
+describe("native component publishing", () => {
 	it("preserves HTML transforms, component compiler output and VFile metadata", async () => {
-		const actual = await compare(await readFile(fixturePath, "utf8"));
+		const actual = await publish(await readFile(fixturePath, "utf8"));
 		const output = JSON.stringify(actual.result);
 		for (const component of [
 			"Tabs",
@@ -165,39 +113,120 @@ describe("native component publishing compatibility", () => {
 		}
 		expect(output).toContain("Web-only information.");
 		expect(output).not.toContain("Ebook-only information.");
+		expect(output).toContain(
+			"/src/utils/markdown/components/__fixtures__/publishing.md",
+		);
 		expect(actual.data.isMermaidUsed).toBe(true);
-		expect(actual.data.snitips?.has("native")).toBe(true);
+		expect([...actual.data.snitips.keys()]).toEqual(["native"]);
+		expect(actual.data.headingIds).toContain("native");
+		expect(actual.data.tableOfContents).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ value: "A nested heading" }),
+			]),
+		);
+		expect(actual.data.tableOfContents).not.toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ value: "Native parsing" }),
+			]),
+		);
+		expect(actual.snitipScopeId).toBe("00000000-0000-4000-8000-000000000000");
 		expect(actual.data.warnings).toEqual([]);
 	});
 
 	it("preserves EPUB gates, paths, details expansion, snitip text and references", async () => {
-		const actual = await compare(await readFile(fixturePath, "utf8"), true);
+		const actual = await publish(await readFile(fixturePath, "utf8"), true);
 		const output = String(actual);
 		expect(output).toContain("Ebook-only information.");
 		expect(output).not.toContain("Web-only information.");
 		expect(output).toContain("hint__container");
 		expect(output).toContain("2_references.xhtml#fixture-collection-1");
 		expect(output).toContain("__fixtures__/image.png");
+		expect(output).toContain("Expanded in EPUB.");
+		expect(output).not.toContain("<details");
 		expect(output).not.toContain("pfp-snitip:");
 		expect(output).not.toContain("playful-component");
 		expect(actual.data.warnings).toEqual([]);
 	});
 
-	it.each([
-		"content/fennifith/posts/example/index.md",
-		"src/views/collection-framework-field-guide/assets/code-block/index.md",
-	])("preserves representative HTML publishing: %s", async (path) => {
-		await compare(await readFile(path, "utf8"), false, resolve(path));
+	it("publishes components and snitip metadata from the example post", async () => {
+		vi.spyOn(console, "error").mockImplementation(() => undefined);
+		vi.spyOn(console, "log").mockImplementation(() => undefined);
+		const path = "content/fennifith/posts/example/index.md";
+		const actual = await publish(
+			await readFile(path, "utf8"),
+			false,
+			resolve(path),
+		);
+		const output = JSON.stringify(actual.result);
+		for (const component of ["LinkPreview", "Mermaid", "SnitipTemplate"]) {
+			expect(output).toContain(`\"component\":\"${component}\"`);
+		}
+		expect(output).toContain("This is regular text.");
+		expect(actual.data.isMermaidUsed).toBe(true);
+		expect([...actual.data.snitips.keys()]).toEqual(["nodejs", "programming"]);
+		// The API test double has no global snitips, so only this external
+		// reference remains unresolved; both local definitions are published.
+		expect(actual.data.warnings).toEqual([
+			expect.objectContaining({
+				message:
+					"Could not resolve snitip link to any known snitips: pfp-snitip:#javascript",
+			}),
+		]);
+	});
+
+	it("publishes framework field guide HTML tabs", async () => {
+		const path =
+			"src/views/collection-framework-field-guide/assets/code-block/index.md";
+		const actual = await publish(
+			await readFile(path, "utf8"),
+			false,
+			resolve(path),
+		);
+		expect(actual.result).toMatchObject([
+			{
+				component: "Tabs",
+				props: {
+					tabs: [
+						{ name: "React", slug: "react" },
+						{ name: "Angular", slug: "angular" },
+						{ name: "Vue", slug: "vue" },
+					],
+				},
+				children: [
+					{ children: [{ innerHtml: expect.stringContaining("const Hello") }] },
+					{
+						children: [
+							{ innerHtml: expect.stringContaining("class HelloWorldComp") },
+						],
+					},
+					{ children: [{ innerHtml: expect.stringContaining("Hello.vue") }] },
+				],
+			},
+		]);
+		expect(actual.data.warnings).toEqual([]);
 	});
 
 	it("preserves framework field guide EPUB publishing", async () => {
 		const path =
 			"src/views/collection-framework-field-guide/assets/code-block/index.md";
-		await compare(await readFile(path, "utf8"), true, resolve(path));
+		const actual = await publish(
+			await readFile(path, "utf8"),
+			true,
+			resolve(path),
+		);
+		const output = String(actual);
+		for (const title of ["React", "Angular", "Vue"]) {
+			expect(output).toContain(`>${title}</`);
+		}
+		expect(output).toContain("const Hello");
+		expect(output).toContain("class HelloWorldComp");
+		expect(output).toContain("Hello.vue");
+		expect(output).not.toContain("playful-component");
+		expect(actual.data.warnings).toEqual([]);
 	});
 
 	it("preserves compiled HTML for adjacent standalone components", async () => {
-		const actual = await compare(
+		const actual = await publish(
 			'<!-- ::user id="one" --><!-- ::user id="two" -->',
 		);
 		expect(actual.result).toMatchObject([
@@ -209,23 +238,20 @@ describe("native component publishing compatibility", () => {
 	it("keeps quizzes supported in HTML and unsupported in EPUB", async () => {
 		const source =
 			"<!-- ::start:quiz -->\n\nA quiz body.\n\n<!-- ::end:quiz -->";
-		const html = await compare(source);
+		const html = await publish(source);
 		expect(JSON.stringify(html.result)).toContain('"component":"QuizResults"');
 		const errors = vi
 			.spyOn(console, "error")
 			.mockImplementation(() => undefined);
 		const logs = vi.spyOn(console, "log").mockImplementation(() => undefined);
 		try {
-			for (const processor of [
-				createEpubPlugins(unified()),
-				legacyPipeline(createEpubPlugins(unified()), true),
-			]) {
-				const file = vfile(source);
-				await expect(processor.process(file)).rejects.toThrow();
-				expect(file.data.warnings[0].message).toBe(
-					"Unknown markdown component quiz",
-				);
-			}
+			const file = vfile(source);
+			await expect(
+				createEpubPlugins(unified()).process(file),
+			).rejects.toThrow();
+			expect(file.data.warnings[0].message).toBe(
+				"Unknown markdown component quiz",
+			);
 		} finally {
 			errors.mockRestore();
 			logs.mockRestore();
@@ -241,16 +267,11 @@ describe("native component publishing compatibility", () => {
 				.mockImplementation(() => undefined);
 			const logs = vi.spyOn(console, "log").mockImplementation(() => undefined);
 			try {
-				for (const processor of [
-					factory(unified()),
-					legacyPipeline(factory(unified()), epub),
-				]) {
-					const file = vfile("<!-- ::unknown-widget -->");
-					await expect(processor.process(file)).rejects.toThrow();
-					expect(file.data.warnings[0].message).toBe(
-						"Unknown markdown component unknown-widget",
-					);
-				}
+				const file = vfile("<!-- ::unknown-widget -->");
+				await expect(factory(unified()).process(file)).rejects.toThrow();
+				expect(file.data.warnings[0].message).toBe(
+					"Unknown markdown component unknown-widget",
+				);
 			} finally {
 				errors.mockRestore();
 				logs.mockRestore();

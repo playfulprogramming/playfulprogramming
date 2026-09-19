@@ -128,7 +128,6 @@
 		"react": "npm:@preact/compat@18.3.2",
 		"react-dom": "npm:@preact/compat@18.3.2",
 		"rehype-katex": "^7.0.1",
-		"rehype-parse": "9.0.1",
 		"rehype-raw": "^7.0.0",
 		"rehype-slug-custom-id": "^2.0.0",
 		"rehype-stringify": "^10.0.1",

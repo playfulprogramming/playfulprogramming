@@ -338,7 +338,7 @@ describe("native comment components", () => {
 			},
 		]);
 	});
-	it("retains the legacy unquoted final attribute normalization", () => {
+	it("normalizes an unquoted final attribute using HTML parsing", () => {
 		expect(parse("<!-- ::custom label=value -->").children).toMatchObject([
 			{ type: "commentComponent", attributes: { label: "value/" } },
 		]);
