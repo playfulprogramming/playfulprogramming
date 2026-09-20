@@ -21,8 +21,10 @@ FROM node:26.8-slim AS fakeserver
 
 WORKDIR /work
 
-COPY package.json .
-RUN npm install --global corepack && corepack enable && corepack install
+COPY --parents package.json pnpm-installer .
+ENV PNPM_HOME=/pnpm PATH="/pnpm/bin:$PATH"
+RUN npm ci --prefix=pnpm-installer && env ENV="$HOME/.shrc" SHELL=/bin/sh node pnpm-installer/node_modules/.bin/get-pnpm
+
 COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json .
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked pnpm install --filter e2e
 COPY --parents e2e/src .
@@ -32,8 +34,9 @@ FROM node:26.8-slim AS server
 
 WORKDIR /work
 
-COPY package.json .
-RUN npm install --global corepack && corepack enable && corepack install
+COPY --parents package.json pnpm-installer .
+ENV PNPM_HOME=/pnpm PATH="/pnpm/bin:$PATH"
+RUN npm ci --prefix=pnpm-installer && env ENV="$HOME/.shrc" SHELL=/bin/sh node pnpm-installer/node_modules/.bin/get-pnpm
 
 COPY --parents pnpm-workspace.yaml pnpm-lock.yaml e2e/package.json .
 
