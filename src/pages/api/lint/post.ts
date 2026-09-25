@@ -1,10 +1,9 @@
 import type { APIRoute } from "astro";
-import { getMarkdownHtml } from "#src/utils/markdown/getMarkdownHtml.ts";
+import { lintMarkdown } from "#src/utils/markdown/lintMarkdown.ts";
 import Type from "typebox";
 import Value from "typebox/value";
 import type { Locale } from "#src/paraglide/runtime.js";
 import { posts } from "#src/utils/data.ts";
-import { getMarkdownVFile } from "#src/utils/markdown/getMarkdownVFile.ts";
 import { readPost } from "#src/utils/content/readPost.ts";
 
 const RequestSchema = Type.Object({
@@ -23,11 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
 		return Response.json({ warnings: [] });
 	}
 
-	const vfile = await getMarkdownVFile(stub);
-	const post = await readPost(stub, vfile);
-	await getMarkdownHtml(post);
-
 	return Response.json({
-		warnings: vfile.data.warnings,
+		warnings: await lintMarkdown(stub, readPost),
 	});
 };
