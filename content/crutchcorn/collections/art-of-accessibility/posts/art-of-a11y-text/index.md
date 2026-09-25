@@ -18,13 +18,13 @@ Given the predominance of text on most sites, it probably won't come as a surpri
 
 Take the following text:
 
-<p style="opacity: 0.2">This is hard to read</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/low-contrast.html" data-no-frame></iframe>
 
 > If you can't see the text, it says "This is hard to read" and is intentionally visually challenging to see due to a low opacity. We'll cover why in a moment.
 
 Can you read it well? How about if you squint? How about from far away?
 
-<p style="opacity: 0.2; filter: blur(2px)">This is hard to read</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/low-contrast-blurred.html" data-no-frame></iframe>
 
 > This text says the same thing but is now also blurred.
 
@@ -34,7 +34,7 @@ The reason you're struggling to see this is because it has _low contrast_. For u
 
 Let's see what that blurred text looks like with proper color contrast:
 
- <p style="filter: blur(2px)">This is hard to read</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/high-contrast-blurred.html" data-no-frame></iframe>
 
 A little easier to see? Good! That's the point. Sufficient contrast can help many users - especially those with color blindness or other visual challenges - see what might otherwise be too difficult to visualize otherwise.
 
@@ -131,19 +131,19 @@ mediaQuery.addEventListener("change", (e) => {
 
 Let's do a similar demo to the one above. Can you read this?
 
-<p style="font-size: 0.5rem">This is very small text</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/small-text.html" data-no-frame></iframe>
 
 > There is text above this that says "This is very small text".
 
 How about this?
 
-<p style="font-size: 0.5rem; filter: blur(2px)">This is very small text</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/small-text-blurred.html" data-no-frame></iframe>
 
 > The same text is now blurred.
 
 Probably not? Alright! Now how about _this_ one?
 
-<p style="font-size: 3rem; filter: blur(2px)">This is large text</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/large-text-blurred.html" data-no-frame></iframe>
 
 > It now says "This is large text"!
 
@@ -207,11 +207,11 @@ Let's do an experiment:
 
 
 
-<p style="font-size: 16px">This text size will always be 16px</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/fixed-text-size.html" data-no-frame></iframe>
 
 -----
 
-<p style="font-size: 1rem">This text size will change based on the user's preferences</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/relative-text-size.html" data-no-frame></iframe>
 
 ----
 
@@ -248,11 +248,11 @@ In some designs, it can be a fun addon to scale a header's visual size with the 
 
 This can be done using the `vw` or even `vh` CSS units.
 
+The examples below use the embedded demo’s viewport. [Open the viewport demo in its own tab](/custom-content/art-of-accessibility/art-of-a11y-text/viewport-text-size.html) to see how both sizes respond when you resize your browser window.
+
 ----
 
-<p style="font-size: 2vw; line-height: 2.5vw">Each character on this line takes up 2% of screen width</p>
-
-<p style="font-size: 2vh; line-height: 2.5vh">Each character on this line takes up 2% of screen height</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/viewport-text-size.html" data-no-frame></iframe>
 
 ----
 
@@ -306,7 +306,7 @@ p {
 
 ----
 
-<p style="font-size: clamp(0.75rem, 2vw, 2.25rem); line-height: clamp(1rem, 2.5vw, 2.5rem)">Each character on this line takes up 2% of screen width but has a min and max <code>rem</code> value</p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/clamped-text-size.html" data-no-frame></iframe>
 
 -----
 
@@ -316,12 +316,7 @@ When talking about text, it's only natural that heading would come into the conv
 
 In HTML, we have 6 levels of headings:
 
-- <p class="text-style-headline-1"><code>h1</code></p>
-- <p class="text-style-headline-2"><code>h2</code></p>
-- <p class="text-style-headline-3"><code>h3</code></p>
-- <p class="text-style-headline-4"><code>h4</code></p>
-- <p class="text-style-headline-5"><code>h5</code></p>
-- <p class="text-style-headline-6"><code>h6</code></p>
+<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/heading-levels.html" data-no-frame></iframe>
 
 Each of these heading levels represents a new segment of the site with information to all users about how to scan and navigate a page's contents.
 

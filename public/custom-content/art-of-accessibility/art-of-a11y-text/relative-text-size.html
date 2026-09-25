@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Text sized relative to browser preferences</title>
+		<style>
+			:root {
+				color-scheme: light dark;
+				font-family: system-ui, sans-serif;
+				line-height: 1.5;
+			}
+
+			body {
+				margin: 0;
+				padding: 1rem;
+				color: CanvasText;
+				background: transparent;
+			}
+
+			p {
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<p style="font-size: 1rem">
+			This text size will change based on the user's preferences
+		</p>
+	</body>
+</html>

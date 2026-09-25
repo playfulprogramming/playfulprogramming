@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Login form without labels</title>
+		<style>
+			:root {
+				color-scheme: light dark;
+				font-family: system-ui, sans-serif;
+				line-height: 1.5;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				background: transparent;
+				margin: 0;
+				padding: 1rem;
+			}
+
+			input {
+				max-width: 100%;
+			}
+
+			form {
+				flex-wrap: wrap;
+			}
+		</style>
+	</head>
+	<body>
+		<form onsubmit="event.preventDefault()">
+			<input name="username" type="text" />
+			<input name="password" type="password" />
+			<button type="submit">Login</button>
+		</form>
+	</body>
+</html>

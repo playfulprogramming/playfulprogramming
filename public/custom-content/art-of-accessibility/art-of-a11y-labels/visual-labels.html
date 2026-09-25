@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Login form with visual labels only</title>
+		<style>
+			:root {
+				color-scheme: light dark;
+				font-family: system-ui, sans-serif;
+				line-height: 1.5;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				background: transparent;
+				margin: 0;
+				padding: 1rem;
+			}
+
+			input {
+				max-width: 100%;
+			}
+
+			form {
+				flex-wrap: wrap;
+			}
+		</style>
+	</head>
+	<body>
+		<form onsubmit="event.preventDefault()" style="display: flex; gap: 1rem">
+			<div style="display: flex; flex-direction: column">
+				<p style="margin: 0">Username</p>
+				<input name="username" type="text" />
+			</div>
+			<div style="display: flex; flex-direction: column">
+				<p style="margin: 0">Password</p>
+				<input name="password" type="password" />
+			</div>
+			<div
+				style="display: flex; flex-direction: column; justify-content: flex-end"
+			>
+				<button type="submit">Login</button>
+			</div>
+		</form>
+	</body>
+</html>
