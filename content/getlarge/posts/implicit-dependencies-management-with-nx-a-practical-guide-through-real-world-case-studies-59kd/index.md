@@ -19,7 +19,7 @@ In the context of a [workspace](https://nx.dev/reference/glossary#workspace), Nx
 
 We can use the following graph extract to understand its composition:
 
-```json
+```jsonc
 {
   "graph": {
     "nodes": {
@@ -134,7 +134,7 @@ The JSON schema definitions organization follows [this good advice](https://json
 
 The logic to bundle the JSON schemas is located outside the `src` folder, in the `internals` folder, to avoid including those scripts and schemas in the build output. To still benefit from Typescript in our IDE, a separate config is created under `tsconfig.editor.json` and referenced in `tsconfig.json` to include the `internals` folder.
 
-```json
+```jsonc
 // libs/schemas/tsconfig.editor.json
 {
   "extends": "./tsconfig.json",
@@ -159,7 +159,7 @@ Now let’s zoom in on the `project.json`
 > **Note**
 > If the cache is hit because the input has not changed, Nx will restore the existing outputs.
 
-```json
+```jsonc
 // libs/schemas/project.json
 {
   "name": "schemas",
@@ -212,7 +212,7 @@ The drawback is that Nx can't detect the dependency between `schemas` and `ts-in
 - The `bundle.inputs` now reference the `internals` named input from the current library
 - The `bundle.outputs` now reference the path (glob) of the generated Typescript interfaces
 
-```json
+```jsonc
 // libs/ts-interfaces/project.json
 {
   "name": "ts-interfaces",
@@ -267,7 +267,7 @@ There are two ways to enable caching of tasks :
 1. on a project basis by setting the `cache` property to `true` and the `inputs` to cache in the target, as shown previously for the `schemas` and `ts-interfaces` libraries
 2. globally, by setting the `bundle` default values in `targetDefaults` and declaring `internals` in `namedInputs` in `nx.json`
 
-```json
+```jsonc
 // nx.json
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
@@ -327,7 +327,7 @@ To dramatically decrease the risk of encountering the abovementioned issues, we 
 - Declare an extra `namedInput` to use the output of the `coffee-dealer:build` task as a cache input for the `coffee-dealer-e2e:e2e` task, using the [`dependentTasksOutputFiles` property](https://nx.dev/reference/inputs#outputs-of-dependent-tasks)
 - Add a dependency on the `build` tasks to create a race condition between the `coffee-dealer:build` tasks that `coffee-dealer:serve` and `coffee-dealer-e2e:e2e` depend on.
 
-```json
+```jsonc
 // apps/coffee-dealer-e2e/project.json
 {
   "name": "coffee-dealer-e2e",
@@ -376,7 +376,7 @@ To dramatically decrease the risk of encountering the abovementioned issues, we 
 
 Finally, ensure that `coffee-dealer-e2e:e2e` and `coffee-dealer:serve` will use the `development` configuration to use the same build output by setting the `defaultConfiguration` to `development` in the `serve` and `build` targets of the `coffee-dealer` project.
 
-```json
+```jsonc
 // apps/coffee-dealer/project.json
 {
   "name": "coffee-dealer",

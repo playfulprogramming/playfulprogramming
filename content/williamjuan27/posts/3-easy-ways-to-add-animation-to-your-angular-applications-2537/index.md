@@ -37,7 +37,7 @@ Adding an expanding animation via the `transition` property would look like this
 
 To use this in our template, we would bind the class `expand` to a property that will conditionally add and remove the class to trigger the animation defined. Let's add a variable `shouldExpand` that will be set to `true` when we want to run the animation. We can use Angular's class binding and set it equal to the variable like this:
 
-```html
+```angular-html
 <div #targetElement [class.expand]="shouldExpand"></div>
 ```
 
@@ -62,7 +62,7 @@ Let's look at the same expand animation example, and transform it from a transit
 
 We can then bind the `expand` class to a variable to conditionally trigger the animation:
 
-```html
+```angular-html
 <div #targetElement [class.expand]="shouldExpand"></div>
 ```
 
@@ -166,7 +166,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 
 We can then use the name of the `trigger` (`fadeSlideInOut` in the snippet above) prefixed with the `@` symbol in our template to run our animation as the element is being added (`:enter` block of the animation) and removed (`:leave` block of the animation) from the DOM.
 
-```html
+```angular-html
 <div *ngIf="show" @fadeSlideInOut>...</div>
 ```
 

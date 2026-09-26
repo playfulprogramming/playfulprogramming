@@ -24,7 +24,7 @@ But see that's not right.
 
 Let's take the following example of a `do-nothing` component:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'do-nothing',
   standalone: true,
@@ -71,7 +71,7 @@ This will render the same markup as typed; no removal of `<do-nothing>` will occ
 
 That's all that's _really_ happening when we add a template to our existing `<do-nothing>` element:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'do-nothing',
   standalone: true,
@@ -98,7 +98,7 @@ While you can add reactive attributes and even event listeners to the host eleme
 
 To do this, we'll just change our `selector` to be an attribute string:
 
-```typescript
+```angular-ts
 @Component({
   // Yes, this is supported by components!
   selector: 'li[sayHi]',
@@ -110,7 +110,7 @@ class SayHiComponent {}
 
 Now we can use this component and bind it like we might otherwise:
 
-````typescript
+````angular-ts
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -52,7 +52,7 @@ export const isInternetExplorer11Token: InjectionToken<boolean> =
   });
 ```
 
-```html
+```angular-html
 <!-- internet-explorer-11-banner.component.html -->
 <aside *ngIf="isBannerVisible">
   Sorry, we will not continue to support Internet Explorer 11.<br />
@@ -294,7 +294,7 @@ The Internet Explorer service now exposes an observable property called `isInter
 
 All we need now is to have the deprecation banner component depend on the observable Internet Explorer 11 detection property instead of the regular property which we replaced.
 
-```html
+```angular-html
 <!-- internet-explorer-11-banner.component.html -->
 <aside *ngIf="isBannerVisible$ | async">
   Sorry, we will not continue to support Internet Explorer 11.<br />
@@ -350,7 +350,7 @@ At this point, the application behaves exactly the way it did before we introduc
 
 For this purpose, we will develop a browser faker component that enables us to fake a browser environment for the rest of the application.
 
-```html
+```angular-html
 <!-- browser-faker.component.html -->
 <label>
   Fake a browser
@@ -499,7 +499,7 @@ export class DevelopmentOnlyDirective implements OnDestroy, OnInit {
 }
 ```
 
-```ts
+```angular-ts
 // development-only.directive.spec.ts
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';

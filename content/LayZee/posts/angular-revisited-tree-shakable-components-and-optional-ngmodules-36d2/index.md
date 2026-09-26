@@ -47,7 +47,7 @@ The components, directives, and pipes are combined with the transitive exported 
 
 Let’s look at an example of a transitive module scope.
 
-```ts
+```angular-ts
 // hero-list.component.ts
 import { Component } from '@angular/core';
 
@@ -64,7 +64,7 @@ export class HeroListComponent {
 }
 ```
 
-```ts
+```angular-ts
 // hero.component.ts
 import { Component } from '@angular/core';
 
@@ -139,7 +139,7 @@ We can’t create standalone components with local component scope yet, but we c
 
 For each component, we create an `NgModule` that imports only the declarables used by that specific component. Likewise, it only declares and exports that single component.
 
-```ts
+```angular-ts
 // cart-button.component.ts
 import { Component } from '@angular/core';
 
@@ -191,7 +191,7 @@ They could even prove useful for using the Bazel build system. Using one Bazel p
 
 In the future, we might combine a component and its SCAM into a standalone component by moving the dependencies imported by the `NgModule` into the `deps` option of the `Component` decorator. We would convert the dependencies from Angular module references into references to the actual declarables we use in our template.
 
-```ts
+```angular-ts
 // cart-button.component.ts
 import { Component } from '@angular/core';
 import { MatButton, MatIcon } from '@angular/material';
@@ -236,7 +236,7 @@ Since Angular version 2, bootstrapping an Angular application has required us to
 
 We are also used to initialising a platform and bootstrapping the `AppModule` in our main file.
 
-```ts
+```angular-ts
 // app.component.ts
 import { Component, OnInit } from '@angular/core';
 
@@ -287,7 +287,7 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 With the Angular Ivy renderer, this approach could become a thing of the past.
 
-```ts
+```angular-ts
 // app.component.ts
 import { Component, OnInit } from '@angular/core';
 

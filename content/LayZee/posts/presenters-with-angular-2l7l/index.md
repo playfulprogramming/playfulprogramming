@@ -139,7 +139,7 @@ export class SearchPresenter implements OnDestroy {
 
 As an experiment, let's tie this presenter to a search box component as per Listing 3.
 
-```ts
+```angular-ts
 // search-box.component.ts
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 

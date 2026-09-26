@@ -43,7 +43,7 @@ Let's start with the first component test.
 
 Create a file called `Icon.spec.tsx` in the folder `src/components/Icon/`, and inside of it, copy this code.
 
-```ts
+```tsx
 import { expect, test } from '@playwright/experimental-ct-react';
 import Icon from './Icon';
 

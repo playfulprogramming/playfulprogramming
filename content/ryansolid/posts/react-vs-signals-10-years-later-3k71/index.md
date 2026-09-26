@@ -73,7 +73,7 @@ function MyCounter() {
 
 I'd call my function and get a button back. If I need another button I'd do it again. This is very much set and forget. I created a DOM element and set up some event listeners. Like the DOM itself, I don't need to call anything for my button to update. It is independent. If I want a more ergonomic way of writing I use JSX.
 
-```js
+```jsx
 function MyCounter() {
   const [count, setCount] = createSignal();
 
@@ -127,7 +127,7 @@ One of the important things I wanted to do with Solid's design was to keep the l
 
 We re-enforce this by recommending when writing props you access the Signal's value rather than pass it down. Have your components expect values rather than Signals. Solid preserves reactivity by wrapping these in getters if it could be reactive.
 
-```js
+```jsx
 <Greeting name={name()} />
 
 // becomes

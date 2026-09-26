@@ -44,7 +44,7 @@ That's all the background we need. Let's explore a [`RouterTestingHarness`](http
 
 ## Integrated routing component test suite
 
-```typescript
+```angular-ts
 import { Location } from '@angular/common';
 import { provideLocationMocks } from '@angular/common/testing';
 import { Component } from '@angular/core';

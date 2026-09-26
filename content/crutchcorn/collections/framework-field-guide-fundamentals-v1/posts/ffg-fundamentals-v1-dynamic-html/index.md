@@ -445,7 +445,7 @@ Let's use conditional rendering to show the type of item displayed based on the 
 
 ## Angular
 
-```html
+```angular-html
 <div>
 	<span *ngIf="isFolder">Type: Folder</span>
 	<span *ngIf="!isFolder">Type: File</span>
@@ -454,7 +454,7 @@ Let's use conditional rendering to show the type of item displayed based on the 
 
 ## Vue
 
-```html
+```vue-html
 <div>
 	<span v-if="isFolder">Type: Folder</span>
 	<span v-if="!isFolder">Type: File</span>
@@ -510,7 +510,7 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 
 ## Angular
 
-```html
+```angular-html
 <span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
 <ng-template #fileDisplay><span>Type: File</span></ng-template>
 ```
@@ -527,7 +527,7 @@ See, an `ng-template` allows you to store multiple tags as children without rend
 
 Take the following code:
 
-```html
+```angular-html
 <ng-template> Hello, <strong>world</strong>! </ng-template>
 ```
 
@@ -544,7 +544,7 @@ Correct! By default, an `ng-template` will not render anything at all.
 
 The point, my dear reader, is that you can assign an in-template variable to `ng-template` and use it elsewhere. These in-template variables are called "template tags" and are created by assigning an octothorpe (`#`) prefixed attribute to the `ng-template`.
 
-```html
+```angular-html
 <ng-template #tag>
 	This template is now assigned to the "tag" template variable.
 </ng-template>
@@ -552,7 +552,7 @@ The point, my dear reader, is that you can assign an in-template variable to `ng
 
 We can then use the template tag as we might expect any other variable to be used; we can pass a template variable to a function of sorts (in the form of a [structural directive](/posts/angular-templates-start-to-source#structural-directives), like `*ngFor` or `*ngIf`) and see its usage reflected.
 
-```html
+```angular-html
 <span *ngIf="false; else trueTag">False</span>
 <ng-template #trueTag>True</ng-template>
 ```
@@ -563,7 +563,7 @@ Here, we're passing the `trueTag` to the `else` value of `ngIf`, which will rend
 
 ## Vue
 
-```html
+```vue-html
 <div>
 	<span v-if="isFolder">Type: Folder</span>
 	<span v-else>Type: File</span>
@@ -602,7 +602,7 @@ While we could move back to a simple `if` statement for each condition:
 
 ### Angular
 
-```html
+```angular-html
 <span *ngIf="isFolder">Type: Folder</span>
 <span *ngIf="!isFolder && isImage">Type: Image</span>
 <span *ngIf="!isFolder && !isImage">Type: File</span>
@@ -610,7 +610,7 @@ While we could move back to a simple `if` statement for each condition:
 
 ### Vue
 
-```html
+```vue-html
 <span v-if="isFolder">Type: Folder</span>
 <span v-if="!isFolder && isImage">Type: Image</span>
 <span v-if="!isFolder && !isImage">Type: File</span>
@@ -663,7 +663,7 @@ Angular does not support `else if` statements in the template like the other fra
 
 Instead, Angular has a mechanism for utilizing [`switch/case` statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch). These switch/case statements work by matching a value from a `case` to the `switch` value. So, if you had:
 
-```html
+```angular-html
 <ng-container [ngSwitch]="'folder'">
 	<span *ngSwitchCase="'folder'">Type: Folder</span>
 	<span *ngSwitchCase="'image'">Type: Image</span>
@@ -681,7 +681,7 @@ Because the `[ngSwitch]` value of `'folder'` matched the `ngSwitchCase` value of
 
 Using this tool, we can simply set the `ngSwitch` value to `true` and add a conditional into the `ngSwitchCase`.
 
-```html
+```angular-html
 <ng-container [ngSwitch]="true">
 	<span *ngSwitchCase="isFolder">Type: Folder</span>
 	<span *ngSwitchCase="isImage">Type: Image</span>
@@ -703,7 +703,7 @@ function getType() {
 
 Using Vue's `v-else-if` attribute:
 
-```html
+```vue-html
 <span v-if="isFolder">Type: Folder</span>
 <span v-else-if="isImage">Type: Image</span>
 <span v-else>Type: File</span>

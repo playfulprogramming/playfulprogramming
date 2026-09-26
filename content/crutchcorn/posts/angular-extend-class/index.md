@@ -269,7 +269,7 @@ Okay, now that we understand class extensions, let's see how we can use them in 
 
 Let's assume that we're writing the following class in Angular, in order to get the window size and display it to the user:
 
-```typescript
+```angular-ts
 @Component({
   template: `
     <p>The window is {{height}}px high and {{width}}px wide</p>
@@ -302,7 +302,7 @@ Luckily, we can do this using a traditional Object-Oriented Programming (OOP) me
 
 Let's try this really quick and create a `BaseComponent` class:
 
-```typescript
+```angular-ts
 class BaseComponent implements OnInit, OnDestroy {
   height = window.innerHeight;
   width = window.innerWidth;
@@ -340,7 +340,7 @@ Error: src/app/app.module.ts:5:7 - error NG2007: Class is using Angular features
 
 To fix this, we simply need to follow the instructions of the TypeScript compiler warning. Because `BaseComponent` could be almost considered to be a component, let's create it as an instance of such:
 
-```typescript
+```angular-ts
 @Component({
   template: '',
   selector: 'base-component'
@@ -379,7 +379,7 @@ This solves the error and now `AppComponent` tracks resizing as-expected!
 
 You'll notice, however, that while `BaseComponent` does have the `implements` keyword, the `AppComponent` does not. While it's seemingly not a _requirement_ to have the `implements` keyword on `AppComponent` in modern versions of Angular, I'd personally still highly suggested.
 
-```typescript
+```angular-ts
 @Component({
   selector: 'app-root',
   template: `
@@ -406,7 +406,7 @@ We wouldn't get a compiler error, but would have a loose bit of code running nee
 
 Fortunately, that's possible, as of Angular 9; simply remove `BaseComponent`'s `@Component` `selector` property and it won't register a new tag.
 
-```typescript
+```angular-ts
 @Component({
   template: ''
 })
@@ -423,7 +423,7 @@ BaseComponent is not declared in any Angular module
 
 To solve this, we can either import `BaseComponent` in an `NgModule` or, alternatively, mark `BaseComponent` as an abstract class:
 
-```typescript
+```angular-ts
 @Component({
   template: ''
 })
@@ -445,7 +445,7 @@ class BaseComponent implements OnInit, OnDestroy {
 
 You might expect there to be some migration of `AppComponent` when you're using `@Injectable` instead of `@Component` for the `BaseComponent`, but alas there is not.
 
-```typescript
+```angular-ts
 @Injectable()
 class BaseComponent implements OnInit {
   ngOnInit() {
@@ -473,7 +473,7 @@ If you recall from our quick overview of what a base class does, you can replace
 
 The same is true for lifecycle methods, since they're just a type of method on the component class instance.
 
-```typescript
+```angular-ts
 @Component({
   template: ''
 })
@@ -500,7 +500,7 @@ The downside here, however, is that `ngOnInit` on `AppComponent` will no longer 
 
 Luckily, we can use the `super` keyword to refer to the base class instance and call the original method inside of the overwritten method:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'app-root',
   template: `
@@ -542,7 +542,7 @@ Because of this, this is the recommended way to get access to the `document` and
 
 Luckily, this works out-of-the-box with extended Angular component classes:
 
-```typescript
+```angular-ts
 import {Component, Inject, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
 
@@ -613,7 +613,7 @@ Uncaught ReferenceError: must call super constructor before using 'this' in deri
 
 Likewise, you need to call `super` when overwriting a class component's `constructor` as well.
 
-```typescript
+```angular-ts
 @Component({
   template: ''
 })
@@ -640,7 +640,7 @@ class AppComponent extends BaseComponent {
 
 This water gets muddied when using dependency injection in a base component that utilizes dependency injection.
 
-```typescript
+```angular-ts
 @Component({
   template: ''
 })
@@ -676,7 +676,7 @@ TS2554: Expected 1 arguments, but got 0.
 
 To solve this, we need to pass `document` from a new instance of `AppComponent`'s dependency injection to `BaseComponent`:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'app-root',
   template: `
@@ -702,7 +702,7 @@ TS4115: This parameter property must have an 'override' modifier because it over
 
 Let's update the code to show what that might look like:
 
-```typescript
+```angular-ts
 @Component({
   template: ''
 })
@@ -736,7 +736,7 @@ TS2415: Class 'AppComponent' incorrectly extends base class 'BaseComponent'.
 
 To solve this, we simply need to make our `BaseComponent`'s `constructor` properties `public` instead of `private`:
 
-```typescript
+```angular-ts
 @Component({
   template: ''
 })
@@ -765,7 +765,7 @@ class AppComponent extends BaseComponent implements OnInit {
 
 Alternatively, we can stop using parmeter properties in `BaseComponent` and just not mark the field as `public` _or_ `private`, like so:
 
-```typescript
+```angular-ts
 @Component({
   template: ''
 })
@@ -878,7 +878,7 @@ A simple way of fixing some of the maintainability problems of using lifecyle me
 
 > Remember, `Injectable`s don't have `ngOnInit`!
 
-```typescript
+```angular-ts
 @Injectable()
 class WindowSizeService implements OnDestroy {
   private window!: Window;
@@ -970,7 +970,7 @@ This is a much more straightforward setup process that's much more Angular-ific!
 
 As an added benifit, we now can utilize an [`AsyncPipe`](https://angular.dev/api/common/AsyncPipe) in order to listen for changes on the `size$` observable:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'app-root',
   template: `

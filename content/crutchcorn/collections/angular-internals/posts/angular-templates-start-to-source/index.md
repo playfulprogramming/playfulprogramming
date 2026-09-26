@@ -51,7 +51,7 @@ Before we dive into the meat of this article, let's do a quick recap of what tem
 
 While Angular templates come in many shapes and sizes, a simple but common use for them might look something like this:
 
-```html
+```angular-html
 <ng-template #falseTemp>
 	<p>False</p>
 </ng-template>
@@ -74,7 +74,7 @@ If you had forgotten to include the `ngIf`, it would never render the `False` el
 
 But there's a ~~simpler~~ ~~much more complex~~ another way show the same template code above!
 
-```html
+```angular-html
 <ng-template #falseTemp>
 	<p>False</p>
 </ng-template>
@@ -98,7 +98,7 @@ This embedded view is located in the DOM, where the `ng-template` that used the 
 
 Knowing that, you can see that the following example would show the user three of the most mythical beasts imaginable:
 
-```html
+```angular-html
 <ng-template #unicorns><button>🦄🦄🦄</button></ng-template>
 <ng-template [ngTemplateOutlet]="unicorns"></ng-template>
 ```
@@ -113,7 +113,7 @@ So, now that we know what they are in broad terms, what do they look like?
 
 While we used the `ngTemplateOutlet` directive before to render a template, we can also pass an input to the directive `ngTemplateOutletContext` to pass a context. A context is just an object with a standard key/value pairing.
 
-```html
+```angular-html
 <ng-template
 	[ngTemplateOutlet]="showMsgToPerson"
 	[ngTemplateOutletContext]="{$implicit: 'Hello World', personName: 'Corbin'}"
@@ -123,7 +123,7 @@ While we used the `ngTemplateOutlet` directive before to render a template, we c
 
 From there, you can use `let` declarations to create template variables in that template based on the values passed by the context like so:
 
-```html
+```angular-html
 <ng-template #showMsgToPerson let-message let-thisPersonsName="personName">
 	<p>{{message}} {{thisPersonsName}}</p>
 </ng-template>
@@ -145,7 +145,7 @@ While template reference variables are very useful for referencing values within
 
 Using [`ViewChild`](https://angular.dev/api/core/ViewChild), you're able to grab a reference to the `ng-template` from the component logic rather than the template code:
 
-```typescript
+```angular-ts
 import { NgTemplateOutlet } from "@angular/common";
 
 @Component({
@@ -174,7 +174,7 @@ _`ViewChild` is a "property decorator" utility for Angular that searches the com
 
 `ViewChild` isn't just for templates, either. You can get references to anything in the view tree:
 
-```typescript
+```angular-ts
 @Component({
 	selector: 'my-app',
 	imports: [MyComponentComponent],
@@ -238,7 +238,7 @@ console.log(myComponent.nativeElement.dataset.getAttribute('data-unrelatedAttr')
 
 `ViewChildren` allows you to get a reference to any items in the view that match your `ViewChildren` query as an array of each item that matches:
 
-```typescript
+```angular-ts
 @Component({
 	selector: 'my-app',
 	imports: [MyComponentComponent],
@@ -264,7 +264,7 @@ While `QueryList` (from `@angular/core`) returns an array-like, and the core tea
 
 A `QueryList` also allows for some nice additions like the `changes` observable property that allows you to listen for changes to this query. For example, if you had some components that were hidden behind a toggle:
 
-```html
+```angular-html
 <!-- This would make up the template of a new component -->
 <input type="checkbox" [(ngModel)]="bool"/>
 <div *ngIf="bool">
@@ -327,7 +327,7 @@ But this is often not the case. _[Angular's `ViewEncapsulation`](https://angular
 
 It's no matter, though. We have the power of `ViewChildren` on our side! Corbin already showed us how to get a reference to an element of a rendered component! Let's spin up an example:
 
-```typescript
+```angular-ts
 @Component({
 	selector: 'action-card',
 	template: `<div></div>`,
@@ -389,7 +389,7 @@ We'll see that the code now runs as expected. The cards are recolored, the `cons
 
 `ContentChild` even works when you're not using `ng-content` but still passing components and elements as children to the component. So, for example, if you wanted to pass a template as a child but wanted to render it in a very specific way, you could do so:
 
-```html
+```angular-html
 <!-- root-template.component.html -->
 <render-template-with-name>
 	<ng-template let-userName>
@@ -398,7 +398,7 @@ We'll see that the code now runs as expected. The cards are recolored, the `cons
 </render-template-with-name>
 ```
 
-```typescript
+```angular-ts
 // render-template-with-name.component.ts
 @Component({
 	selector: 'render-template-with-name',
@@ -478,7 +478,7 @@ Because this tree is used to update the DOM rather than being part of the DOM it
 
 Because of this, despite there being many templates — this code sample does not have any views in it, because they are not being created from any of the templates:
 
-```html
+```angular-html
 <ng-template>I am a view that's defined by a template</ng-template>
 <ng-template>
 	<p>So am I! Just a different one. Everything in THIS template is in the same view</p>
@@ -490,7 +490,7 @@ However, when you create a view from a template, you're able to display them on-
 
 As such, the following code example would create the view hierarchy in the chart below the code sample:
 
-```html
+```angular-html
 <ng-template>
 	<p>I am in a view right now</p>
 	<ng-template #rememberMsg>
@@ -517,7 +517,7 @@ Admittedly, that chart above isn't QUITE right. A more accurate version of the c
 
 Little has changed, yet there's something new! A _view container_ is just what it sounds like: It's a container for views. That is to say, whenever you see a view embedded, you can be sure it's a child of a view container. While our code might not make it apparent, when we're using `ngTemplateOutlet`, Angular creates a view container for us to place the view into. It will create the view container from a template, view, or even from an element.
 
-```html
+```angular-html
 <p>
 	<ng-template #letsRender>
 		Let's render this thing!
@@ -548,7 +548,7 @@ Well, there's a good reason for that: _A component is actually just a directive 
 
 This host view can also be attached to another view by using the `selector` value of that component's.
 
-```typescript
+```angular-ts
 @Component({
 	selector: "child-component",
 	imports: [NgTemplateOutlet],
@@ -587,7 +587,7 @@ export class AppComponent {}
 
 Template input variables are the variables you bind to a template when using context. `<ng-template let-varName>`. _These variables are defined from the context that is applied to the template_. As a result **these templates are able to be accessed by the children views of the templates, but not from a higher level** — as the context is not defined above the template:
 
-```html
+```angular-html
 <!-- ✅ This is perfectly fine -->
 <ng-template let-varName><p>{{varName}}</p></ng-template>
 
@@ -603,7 +603,7 @@ Template reference variables, however, have a much more complex answer in regard
 As a small review of what they are:
 _A template reference variable is a variable assigned to a tag so that other items in the same template are able to reference that tag._
 
-```html
+```angular-html
 <div>
 	Hello There!
 	<ng-template #testingMessage><p>Testing 123</p></ng-template>
@@ -619,7 +619,7 @@ In this example, we're getting a reference to `testingMessage` template to be ab
 
 Straightforward enough example, let’s see a more difficult example:
 
-```html
+```angular-html
 <ng-template #helloThereMsg>
 	<p>Hello There!</p>
 	<ng-template #testingMessage>
@@ -646,7 +646,7 @@ When the view that is trying to render `testMessage` looks for that template ref
 
 In order to fix this behavior, we'd need to move the second `ng-template` into the `helloThereMsg` template view so that the `ngTemplateOutlet` is able to find the matching template reference variable within its view scope.
 
-```html
+```angular-html
 <ng-template #helloThereMsg>
 	Hello There!
 	<ng-template #testingMessage><p>Testing 123</p></ng-template>
@@ -680,7 +680,7 @@ This is because, when we moved the template into the correct view scope, we move
 
 Luckily, we've already covered `@ViewChild`, which is able to get references all the way down the view hierarchy tree and provide the value to the component logic. Because the **component logic variables are accessible from any child view of the component host view**, you can pass the `testingMessage` template reference variable to the top level.
 
-```typescript
+```angular-ts
 @Component({
 	selector: "my-app",
 	imports: [NgTemplateOutlet],
@@ -774,7 +774,7 @@ That said, there might be times where having the value right off the bat from th
 
 Well, that can be controlled via the `static` prop! Before this example, I was defaulting to use `static: false` to avoid running into [the issue we covered in the last section](#change-detection), but you’re able to set this flag to `true` to get access to the template reference from within the `ngOnInit` lifecycle method:
 
-```typescript
+```angular-ts
 @Component({
 	selector: "my-app",
 	imports: [NgTemplateOutlet],
@@ -825,7 +825,7 @@ While we've covered how to insert a component using `ngTemplate`, Angular also a
 
 Let's show an example of how we can render an `ng-template` using TypeScipt component logic:
 
-```typescript
+```angular-ts
 @Component({
 	selector: 'my-app',
 	template: `
@@ -926,7 +926,7 @@ ngOnInit() {
 
 Just as we can use `contextRouterOutlet`, you're able to pass context to a template when rendering it using `createEmbeddedView`. So, let's say that you wanted to have a counting component and want to pass a specific index to start counting from, you could pass a context, [with the same object structure we did before](#template-context), have:
 
-```typescript
+```angular-ts
 import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewChild, TemplateRef , EmbeddedViewRef} from '@angular/core';
 
 @Component({
@@ -958,7 +958,7 @@ There's now a `div` at the start of your list.
 
 To get around this, we can use the `ng-container` tag, which allows us to get a view reference without injecting a DOM element into the fray. _`ng-container` can also be used to group elements without using a DOM element_, similar to how [React Fragments](https://reactjs.org/docs/fragments.html) work in that ecosystem.
 
-```html
+```angular-html
 <ng-container #viewContainerRef></ng-container>
 ```
 
@@ -1016,7 +1016,7 @@ function createEmbeddedView<C>(
 
 Thus far, we've only used components to change and manipulate templates. However, [as we've covered before, directives and components are the same under-the-hood](#components-are-directives). As a result, _we have the ability to manipulate templates in the same way using directives rather than components_. Let's see what that might look like:
 
-```typescript
+```angular-ts
 @Directive({
 	selector: '[renderTheTemplate]'
 })
@@ -1054,7 +1054,7 @@ You'll notice this code is almost exactly the same from some of our previous com
 However, the lack of a template associated with the directive enables some fun stuff, for example, _we can use the same dependency injection trick we've been using to get the view container reference_ to get a reference to the template element that the directive is attached to and render it in the `ngOnInit` method like so:
 
 
-```typescript
+```angular-ts
 @Directive({
 	selector: '[renderTheTemplate]'
 })
@@ -1084,7 +1084,7 @@ export class AppComponent {}
 
 With directives, we can even create an input with the same name, and just pass that input value directly to the template using a context:
 
-```typescript
+```angular-ts
 @Directive({
 	selector: '[renderTheTemplate]'
 })
@@ -1117,7 +1117,7 @@ export class AppComponent {}
 Starting to look a bit more like the `ngTemplateOutlet`, no? Well, why not go even further! Let's lean into that!
 With this syntax, we can add a second input, pass an object as the context to the template we want to render, and then a template reference variable, and be able to recreate Angular's `ngTemplateOutlet`'s API almost to-a-T:
 
-```typescript
+```angular-ts
 @Directive({
 	selector: '[renderTheTemplate]'
 })
@@ -1185,7 +1185,7 @@ The main idea behind structural directives is that **they're directives that wil
 Let's look at a basic sample to start:
 
 
-```typescript
+```angular-ts
 @Directive({
 	selector: '[renderThis]'
 })
@@ -1221,7 +1221,7 @@ From there, the directive can get a reference to that template from the construc
 
 The cool part about structural directives, though? Because they're simply directives, **you can remove the `*` and use it with an `ng-template` directly**. Want to use the `renderThis` without a structural directive? No problem! Replace the template with the following code block and you've got yourself a rendered template:
 
-```html
+```angular-html
 <ng-template renderThis>
 	<p>
 		Rendering from <code>ng-template</code>
@@ -1240,7 +1240,7 @@ But rendering a template without changing it in any way isn't a very useful stru
 So if we added an input with the same name as the directive ([as we did previously](#directive-same-name-input)) to accept a value to check the truthiness of, added an `if` statement to render only if the value is true, we have ourselves the start of an `ngIf` replacement that we've built ourselves!
 
 
-```typescript
+```angular-ts
 @Directive({
 	selector: '[renderThisIf]'
 })
@@ -1387,7 +1387,7 @@ Alright, we've made it thus far! The following section is going to be kinda a do
 
 Just as Angular parses the rest of the template you pass in to be able to convert your custom Angular components into template tags, **Angular also provides a small language-like syntax into its own query system**. This syntax is referred to as a "microsyntax" by the Angular devs. _This syntax is able to let the user create specific APIs that tie into this syntax and call/leverage specific parts of their code_. Sound vague? I think so too, let's look at a fairly minimal example:
 
-```typescript
+```angular-ts
 function translatePigLatin(strr) {
 	// See the code here: https://www.freecodecamp.org/forum/t/freecodecamp-algorithm-challenge-guide-pig-latin/16039/7
 }
@@ -1426,7 +1426,7 @@ The semicolon is the primary differentiator between the two syntaxes in this par
 
 Let's continue exploring how leveraging this tool can be advantageous. What if we wanted to export more than a single value in the context? How would we bind those named values?
 
-```typescript
+```angular-ts
 @Directive({
 	selector: '[makePiglatin]'
 })
@@ -1483,7 +1483,7 @@ export class ConsoleThingDirective {
 
 And then call them with the following template:
 
-```html
+```angular-html
 <ng-template [consoleThing]="'This is a warning from the 👻 of code future, refactor this please'" [warn]="true"></ng-template>
 ```
 
@@ -1491,7 +1491,7 @@ And then call them with the following template:
 
 This can be super useful for both providing concise APIs as well as provide further functionalities to said directive simply. Structural directives offer similar, although it comes with its own syntax and limitations due to the microsyntax API.
 
-```typescript
+```angular-ts
 @Directive({
 	selector: '[makePiglatin]'
 })
@@ -1545,7 +1545,7 @@ The magic in the syntax comes from that input name. I know in previous examples 
 
 Now, I remember when I was learning a lot of the structural directive stuff, I thought "well this syntax is cool, but it might be a bit ambiguous". I decided I was going to change that a bit:
 
-```html
+```angular-html
 <p *makePiglatin="'This is a string'; let msg; let ogMsg = original" [makePiglatinCasing]="'UPPER'">
 	The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
 </p>
@@ -1561,7 +1561,7 @@ This may seem strange upon first glance, but remember: **the structural directiv
 
 This becomes more apparent when you expand the syntax to look something like this:
 
-```html
+```angular-html
 <ng-template makePiglatin="'This is a string'; let msg; let ogMsg = original">
 	<p [makePiglatinCasing]="'UPPER'">
 		The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
@@ -1575,7 +1575,7 @@ But, of course, because structural directives are just normal directives under-t
 
 So if we did want to take the non-functional example above and fix it to not use structural directives, we could do so:
 
-```html
+```angular-html
 <ng-template [makePiglatin]="'This is a string'" [makePiglatinCasing]="'UPPER'" let-msg let-ogMsg="original">
 	<p>The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin</p>
 </ng-template>
@@ -1600,7 +1600,7 @@ Because `original` is being exported by the `makePiglatin` context, you can save
 
 But this example doesn't showcase very much of what makes the `as` keyword as powerful as it is: _You can preserve the initial value passed to an input_. This can be used to significant effect when passing in complex expressions, such as piped values (in this example, the [uppercase pipe](https://angular.dev/api/common/UpperCasePipe)):
 
-```typescript
+```angular-ts
 @Component({
 	selector: 'my-app',
 	imports: [NgIf],
@@ -1810,7 +1810,7 @@ So, what is the API we want to support?
 
 Sounds reasonable enough. Just to make things even easier on us, let's not worry about re-rendering the list if it updates or properly cleaning up if this directive view unrenders. These requirement changes make our code much more simple for demonstration purposes, but inherently makes the resulting code unfit for production.
 
-```typescript
+```angular-ts
 @Directive({ selector: "[uniFor]" })
 export class UniForOf<T> implements AfterViewInit {
 	@Input() uniForOf!: Array<T> | null;

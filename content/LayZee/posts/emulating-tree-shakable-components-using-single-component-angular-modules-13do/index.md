@@ -77,7 +77,7 @@ If we had widget module imports used by the child components such as Angular Mat
 
 Let’s create a SCAM for the zippy component.
 
-```html
+```angular-html
 <!-- zippy.component.html -->
 <button appButton (appClick)="onToggle()">
   {{label}}
@@ -196,7 +196,7 @@ export class AppModule {}
 
 We’ve added the zippy SCAM to the root module’s imports. Let’s look at the component template to see if we have other declarable dependencies.
 
-```ts
+```angular-ts
 // app.component.ts
 import { Component } from '@angular/core';
 

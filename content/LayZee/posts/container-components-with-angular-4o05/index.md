@@ -86,7 +86,7 @@ We see that this component has mixed concerns that span multiple horizontal laye
 
 First of all, it is concerned with presentation. It has an array of heroes which are displayed in its template.
 
-```html
+```angular-html
 <!-- dashboard.component.html -->
 <h3>Top Heroes</h3>
 <div class="grid grid-pad">
@@ -212,7 +212,7 @@ After extracting the application state integration logic, we can — for now —
 
 The final step in extracting a container component is to connect it to the resulting presentational component through *data bindings*, that is property bindings and event bindings in the container component template.
 
-```html
+```angular-html
 <!-- dashboard.container.html -->
 <app-dashboard-ui
     [heroes]="topHeroes$ | async"
@@ -496,7 +496,7 @@ export class HeroesComponent {
 
 The final step is to connect the container component to the presentational component’s data binding API in the container component template.
 
-```html
+```angular-html
 <!-- heroes.container.html -->
 <app-heroes-ui
     [heroes]="heroes$ | async"

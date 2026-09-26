@@ -161,7 +161,7 @@ With concerns separated into very specific software artifacts, each one is easy 
 
 So what happened to that cart component from the Getting Started guide?
 
-```html
+```angular-html
 <!-- cart.component.html -->
 <h3>Cart</h3>
 
@@ -241,7 +241,7 @@ The mixed cart component has logic for presentation, presentation implementation
 
 It also contains non-presentational logic in the categories of state management implementation details, and low level business logic. State management is the first concern that we should extract. Local UI state is the exception which is categorised as a user interaction concern—part of UI behaviour.
 
-```html
+```angular-html
 <!-- cart.container.html -->
 <app-cart-ui
   [items]="items"
@@ -311,7 +311,7 @@ We’re better off storing route paths and URLs in a separate module that we can
 
 The container component creates a full route URL and passes it to the presentational cart component which we’ll examine next.
 
-```html
+```angular-html
 <!-- cart.component.html -->
 <h3>Cart</h3>
 
@@ -359,7 +359,7 @@ I won’t go through the implementation details of the even more simple cart ite
 
 We’ve extracted yet another [presentational component](https://dev.to/playfulprogramming-angular/presentational-components-with-angular-3961), the checkout component.
 
-```html
+```angular-html
 <!-- checkout.component.html -->
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
   <div>

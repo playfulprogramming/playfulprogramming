@@ -63,7 +63,7 @@ One common use case for `ng-container` is to apply a structural directive to mul
 
 In this example, we have two `div` elements with `*ngIf` directives. However, if we wanted to apply the `*ngIf` directive to both elements, we would need to wrap them in an additional HTML tag like this:
 
-```typescript
+```angular-html
 <div *ngIf="activeSession">
   <div *ngIf="hasBalance">
     <p>Your amount is 5000€.</p>
@@ -76,7 +76,7 @@ In this example, we have two `div` elements with `*ngIf` directives. However, if
 
 The extra `div` element is not necessary. Instead, we can use an `ng-container` element to group the `div` elements together without adding a tag:
 
-```typescript
+```angular-html
 <ng-container *ngIf="activeSession">
   <div *ngIf="hasBalance">
     <p>Your amount is 5000€.</p>
@@ -95,7 +95,7 @@ We use the `ng-container` Group the \`div\` elements together without adding an 
 
 One common use case for `ng-content` is to create a reusable component that can accept different content based on usage. For example:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'app-alert',
   template: `

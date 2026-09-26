@@ -63,7 +63,7 @@ With this approach (docker installed locally) you can use VSCode Dev Container f
 
 VSCode will create for you this configuration file `.devcontainer/devcontainer.json`
 
-````json
+````jsonc
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {

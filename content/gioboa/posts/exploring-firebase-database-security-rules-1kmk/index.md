@@ -41,7 +41,7 @@ Go to your Firebase project and navigate to "Realtime Database" in the left-hand
 
 Security rules are defined within a single JSON object, where the `keys represent paths in your database`, and the values are rule definitions for those paths.
 
-```json
+```jsonc
 {
   "rules": {
     // Rules go here, matching your database structure
@@ -97,7 +97,7 @@ Rules provide predefined variables to make context-aware decisions:
 
 Let's start with a basic configuration.
 
-```json
+```jsonc
 {
   "rules": {
     "public_data": {
@@ -128,7 +128,7 @@ Let's start with a basic configuration.
 
 `.read` and `.write` rules cascade downwards. If a rule grants access at a higher level in the database path, it *cannot* be revoked by a more restrictive rule at a deeper level for that same operation type (`.read` or `.write`).
 
-```json
+```jsonc
 {
   "rules": {
     "users": {
@@ -152,7 +152,7 @@ Because `.read: true` is set at `/users`, all data under `/users`, including `/u
 
 The most common pattern is restricting access based on the user's unique ID (`auth.uid`). This is essential for user-owned data.
 
-```json
+```jsonc
 {
   "rules": {
     "users": {
@@ -176,7 +176,7 @@ The `auth.token` object contains the decoded Firebase ID token payload. This inc
 
 > Custom claims are powerful for implementing role-based access control (RBAC).
 
-```json
+```jsonc
 {
   // Example using a custom claim 'isAdmin'
   "rules": {
@@ -198,7 +198,7 @@ The `auth.token` object contains the decoded Firebase ID token payload. This inc
 
 The `data` variable refers to the data at the current rule path before the operation. It's useful for conditional writes or validation based on the current state.
 
-```json
+```jsonc
 {
   "rules": {
     "items": {
@@ -215,7 +215,7 @@ The `data` variable refers to the data at the current rule path before the opera
 
 Wildcard variables, prefixed with `$`, capture dynamic segments of a path. These captured values can then be used within rule expressions.
 
-```json
+```jsonc
 {
   "rules": {
     "posts": {
@@ -235,7 +235,7 @@ Wildcard variables, prefixed with `$`, capture dynamic segments of a path. These
 
 The `root` variable allows you to read data from anywhere in the database as it exists before the operation. This is powerful but use it judiciously, as it can impact performance and complexity. It's often used for checking roles or related data.
 
-```json
+```jsonc
 {
   "rules": {
     // Assume roles are stored at /user_roles/$userId/role
@@ -253,7 +253,7 @@ The `root` variable allows you to read data from anywhere in the database as it 
 
 When you run a query like orderByChild, Firebase can use indexes to quickly find the matching items without downloading the entire list. This dramatically improves query performance.
 
-```json
+```jsonc
 {
   "rules": {
     "items": {

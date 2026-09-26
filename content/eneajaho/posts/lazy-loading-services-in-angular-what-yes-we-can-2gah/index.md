@@ -84,7 +84,7 @@ lazyService(() => import("./my-service")).pipe(
 
 Let’s see an example of how to use it in a component:
 
-```typescript
+```angular-ts
 const DataServiceImport = () => 
   import('./data.service').then((m) => m.DataService);
 

@@ -105,7 +105,7 @@ Angular also let us handle these types of events directly in our template. This 
 
 Let's convert the event listener from the previous approach. Instead of giving the element an id, we'll directly add the event names enclosed in parentheses and bind it to a function that will be called when the event is fired.
 
-```html
+```angular-html
 <!-- src/app/app.component.html -->
 <div
   (animationstart)="onAnimationStart()"

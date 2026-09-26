@@ -20,7 +20,7 @@ It is just one part of the process of *state/prop change > render > diff > commi
 
 Let's look at a basic example to illustrate this.
 
-```js
+```jsx
 function MyComponent() {
   return (
     <div>
@@ -84,7 +84,7 @@ With this mental model in mind, a pattern starts to emerge. When a React app fee
 
 Let's put this idea down in code to demonstrate what it looks like. We will add a new component, see the implementation of `<MyInefficientComponent/>`.
 
-```js
+```jsx
 function MyInefficientComponent() {
   const [text, setText] = useState('');
 

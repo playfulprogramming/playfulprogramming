@@ -43,7 +43,7 @@ Instead, the project snippets are saved inside of the `.vscode` folder in the pr
 
 Apart from this difference between the two choices, after the creation stream VsCode create for file for you with this content
 
-```json
+```jsonc
 {
 	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
 	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 

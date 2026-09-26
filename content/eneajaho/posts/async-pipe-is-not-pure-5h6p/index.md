@@ -26,7 +26,7 @@ Also, we want our pipe to check this points:
 
 And use it like this, ex:
 
-```ts
+```angular-ts
 @Component({
   selector: 'my-app',
   template: `
@@ -189,7 +189,7 @@ Good! Now we need to unsubscribe on **ngOnDestroy**, but not only there 💡. Ho
 
 For example:
 
-```ts
+```angular-ts
 @Component({
   selector: 'my-app',
   template: `

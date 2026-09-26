@@ -182,7 +182,7 @@ Do not treat all public methods of your component as the public API that you can
 
 Example of a component to be tested:
 
-```ts
+```angular-ts
 // app-foo.component.ts
 @Component({
   selector: 'app-foo',

@@ -796,7 +796,7 @@ const Header = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: 'Header',
 	standalone: true,

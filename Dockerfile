@@ -7,9 +7,13 @@ FROM node:26.8-alpine3.24 AS builder
 WORKDIR /var/app
 
 # Prepare pnpm according to the root package.json
-COPY package.json .
-RUN npm install --global corepack && corepack enable
-RUN corepack install
+COPY --parents package.json pnpm-installer .
+ENV PNPM_HOME=/pnpm PATH="/pnpm/bin:$PATH"
+RUN npm ci --prefix=pnpm-installer && env \
+    ENV="$HOME/.shrc" \
+    SHELL=/bin/sh \
+    PNPM_VERSION=$(node -p '/@([^\+]+)\+/.exec(require("./package.json").packageManager)[1]') \
+    node pnpm-installer/node_modules/.bin/get-pnpm
 
 # Install dependencies with pnpm
 COPY pnpm-lock.yaml .

@@ -49,7 +49,7 @@ export const DATA_TOKEN = new InjectionToken<DynamicData>("data");
 
 Now, let's take a look at our dynamic components, `ImageComponent` and `VideoComponent`, and how we can use the injection token to get the data in the dynamic component.
 
-```typescript
+```angular-ts
 @Component({
   template: `
     <img [src]="data.url" />
@@ -75,7 +75,7 @@ Pretty "complex" usecase I know, but this is just for demonstration purposes.
 
 Now, let's take a look at how we can use the `NgComponentOutlet` directive to render the dynamic components.
 
-```typescript
+```angular-ts
 @Component({
   template: `
     <label for="type">Type</label>
@@ -142,7 +142,7 @@ In Angular v16, we can pass data to dynamically created components using the `Ng
 
 First thing we will do is to covert our `ImageComponent` and `VideoComponent` to use the @Input() decorator.
 
-```typescript
+```angular-ts
 @Component({
   template: `
     <img [src]="url" />
@@ -170,7 +170,7 @@ It's pretty simple, right?
 
 Now, let's take a look at how we can use the `inputs` property to pass data to dynamically created components.
 
-```typescript
+```angular-ts
 @Component({
   template: `
     <label for="type">Type</label>
@@ -242,7 +242,7 @@ export class ImageComponent {
 
 Before:
 
-```typescript
+```angular-ts
 @Component({
     template: `
         <ng-container *ngComponentOutlet="item.component; injector: item.injector" />
@@ -271,7 +271,7 @@ export class ParentComponent {
 
 After:
 
-```typescript
+```angular-ts
 @Component({
     template: `
         <ng-container *ngComponentOutlet="item.component; inputs: item.inputs" />

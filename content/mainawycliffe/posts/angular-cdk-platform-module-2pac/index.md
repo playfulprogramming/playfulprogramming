@@ -150,7 +150,7 @@ export class SocialShareComponent implements OnInit {
 
 Our share component above, has a property named `isNativeShareSupported` - which is a `boolean`. We are checking whether the current browser supports native share, and the platform is iOS or Android before setting that property to true. And then we can use this property to show the correct UI, as shown below:
 
-```html
+```angular-html
 <ng-container *ngIf="isNativeShareSupported; else showSocialShareButton">
   <a (click)="nativeShare()" class="space-x-2">
     <span>Share this article</span>

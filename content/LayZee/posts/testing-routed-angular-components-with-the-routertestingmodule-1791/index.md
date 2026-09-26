@@ -47,7 +47,7 @@ The Angular testing guide explains how to implement isolated unit tests around a
 
 You can review the model and template of the component in Listings 1A and 1B.
 
-```html
+```angular-html
 <!-- hero-detail.component.html -->
 <div *ngIf="hero">
   <h2>
@@ -387,7 +387,7 @@ We'll use the `RouterTestingModule` to set up a testing route and replace the `L
 
 In Listing 5A, we see the test utilities required for our routed component test of the `HeroDetailComponent` from the Tour of Heroes tutorial.
 
-```ts
+```angular-ts
 // hero-detail.component.integration.spec.ts
 import { Component } from '@angular/core';
 import { tick } from '@angular/core/testing';
@@ -547,7 +547,7 @@ In this test suite, we also use the real `Router` service to navigate to a hero 
 
 For reference, we the full integrated routed component test suite is shown in Listing 6.
 
-```ts
+```angular-ts
 // hero-detail.component.integration.spec.ts
 import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';

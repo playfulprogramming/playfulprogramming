@@ -27,7 +27,7 @@ Then, SIGNALS 🚦 came! They changed everything! The way we see the templates, 
 
 Who would have thought Angular recommends calling functions in the template?!
 
-```ts
+```angular-ts
 @Component({
     template: `<div>Count: {{ count() }}</div>`
 })
@@ -44,7 +44,7 @@ Signals are great! But we are used to rxjs patterns in Angular, our services are
 
 I have a **GalleryComponent** that retrieves some data from the API and it depends on an id (retrieved from route params) and global form filters.
 
-```ts
+```angular-ts
 @Component({
     template: `
         <div *ngIf="data$ | async as data">

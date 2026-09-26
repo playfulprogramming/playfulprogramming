@@ -35,7 +35,7 @@ So today we look at Signals as they are and what they have to offer.
 
 This is the moment when you first realize that something really different is going on. There is more to it, though. This is not an invitation to litter your app with global state, but rather a way to illustrate state is independent of components.
 
-```js
+```jsx
 function Counter() {
   console.log("I log once");
 
@@ -52,7 +52,7 @@ The truth is this behavior persists throughout the whole component tree. State t
 
 And isn't just about the impact of spreading state changes across components but also multiple states within the same component.
 
-```js
+```jsx
 function MoreRealisticComponent(props) {
   const [selected, setSelected] = createSignal(null);
 

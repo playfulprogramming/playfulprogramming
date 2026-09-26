@@ -93,7 +93,7 @@ export class AiService {
 
 Here is the code to use the AI service.
 
-```html
+```angular-html
 [...]
 <input type="file" (change)="imageRecognition($event)" />
 [...]

@@ -28,7 +28,7 @@ Firebase codebase allows you to organize your Firebase functions collection in a
 
 By default, firebase has a single, default codebase, and your Firebase config file - `firebase.json` - looks like this.
 
-```json
+```jsonc
 {
   // ... other firebase services configurations i.e. hosting etc.
   "functions": [
@@ -55,7 +55,7 @@ We can configure a different codebase for our Firebase functions, for a second c
 
 For instance, in the above example, we can add a second functions collection, with a different codebase, by adding a second config option to the functions property inside our `firebase.json` config file.
 
-```json
+```jsonc
 {
   // ... other firebase services configs
   "functions": [
@@ -91,7 +91,7 @@ For instance, in the above example, we can add a second functions collection, wi
 
 In the case above, our different functions collections exist in the same repository - a mono-repo. We could have our functions collection exist in multiple repositories and in such cases, we would just need the only codebase inside the repository to be configured in our `firebase.json` config file.
 
-```json
+```jsonc
 {
   // ... other firebase services configs
   "functions": [

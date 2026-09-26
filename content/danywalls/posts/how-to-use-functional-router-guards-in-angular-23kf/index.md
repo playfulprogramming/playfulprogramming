@@ -40,7 +40,7 @@ ng g c pages/available --standalone
 
 In the component, add the message, and the final code looks this:
 
-```typescript
+```angular-ts
 import {Component} from '@angular/core';
 
 @Component({

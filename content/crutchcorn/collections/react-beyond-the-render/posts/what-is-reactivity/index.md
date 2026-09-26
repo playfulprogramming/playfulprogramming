@@ -239,7 +239,7 @@ const App = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 @Component({
 	selector: "app-root",
 	standalone: true,

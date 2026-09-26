@@ -23,7 +23,7 @@ Take the following button counter reactivity example in each framework:
 
 # Angular
 
-```typescript
+```angular-ts
 import { Component } from '@angular/core';
 
 @Component({
@@ -101,7 +101,7 @@ This step-by-step explanation will have us explore:
 
 Earlier last year, the Angular team published a blog post titled ["How the Angular Compiler Works"](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549). In it, they demonstrated how the `NGC` compiler takes the following code:
 
-```typescript
+```angular-ts
 import {Component} from '@angular/core';
 
 @Component({
@@ -407,7 +407,7 @@ detectChanges(): void {
 
 Let's use [Angular's `NgZone`'s `runOutsideOfAngular`](https://angular.dev/api/core/NgZone#runOutsideAngular) to run some code outside of Angular's typical [change detection](pfp-snitip:#change-detection):
 
-```typescript
+```angular-ts
 import { ApplicationRef, Component, NgZone } from '@angular/core';
 
 @Component({
@@ -437,7 +437,7 @@ Here, you'll notice that when you press the `<button>` for the first time, it do
 
 This is intentional behavior - after all, we've told our code to execute outside of Angular's typical change detection. To solve this, we can manually run `detectChanges` ourselves:
 
-```typescript
+```angular-ts
 import {
   ChangeDetectorRef,
   Component,
@@ -505,7 +505,7 @@ tick(): void {
 
 This means that we're able to replace our previous `detectChanges` with `ApplicationRef.tick` and it will accomplish the same fix we were able to see before:
 
-```typescript
+```angular-ts
 import { ApplicationRef, Component, NgZone } from '@angular/core';
 
 @Component({
@@ -622,7 +622,7 @@ platformBrowserDynamic()
 
 Now, with Zone.js disabled, we can see that no matter how many times we press our button in the following example, the change detection is never run:
 
-```typescript
+```angular-ts
 // This does not work with a "noop" NgZone
 import { Component } from '@angular/core';
 
@@ -645,7 +645,7 @@ export class AppComponent {
 
 We can either fix this by manually calling change detection (either via `appRef.tick()` or `cd.detectChanges`):
 
-```typescript
+```angular-ts
 // This works with a "noop" NgZone
 import { ApplicationRef, Component } from '@angular/core';
 
@@ -680,7 +680,7 @@ platformBrowserDynamic()
    .catch(err => console.log(err));
 ```
 
-```typescript
+```angular-ts
 // This works again now that we re-enabled Zone.js
 @Component({
   selector: 'my-app',
@@ -764,7 +764,7 @@ Notice how it patches `setTimeout`, `clearTimeout`, `setInterval`, `clearInterva
 
 This means that when we run our Angular component with `setTimeout`:
 
-```typescript
+```angular-ts
 // This does not work with a "noop" NgZone
 import { Component } from '@angular/core';
 
@@ -800,7 +800,7 @@ export class AppComponent {
 
 That's a good point! After all, the following Angular component doesn't use `setTimeout`, and yet it still triggers `ApplicationRef.tick` (so long as you have NgZone enabled):
 
-```typescript
+```angular-ts
 import { ApplicationRef, Component, NgZone } from '@angular/core';
 
 @Component({
@@ -864,7 +864,7 @@ export function patchEventTarget(
 
 This all means that when the user presses the button in the following example:
 
-```typescript
+```angular-ts
 import { ApplicationRef, Component, NgZone } from '@angular/core';
 
 @Component({
@@ -895,7 +895,7 @@ It will:
 
 As a fun aside, it's worth mentioning that even an empty function will trigger change detection (although it will not cause a re-render because no data has changed). We can verify this assumption by simply subscribing to `onMicrotaskEmpty` ourselves:
 
-```typescript
+```angular-ts
 import { Component, NgZone } from '@angular/core';
 
 @Component({
