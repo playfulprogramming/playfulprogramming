@@ -55,7 +55,7 @@ import { Component } from '@angular/core';
 export class BurgerComponent {}
 ```
 
-```html
+```angular-html
 <div class="burger">
   <ng-content></ng-content>
 </div>
@@ -93,7 +93,7 @@ Update the default burger with the following:
 - ng content for the price
 - default ng-content for ingredients without location.
 
-```html
+```angular-html
 <div class="burger">
   <top-bun></top-bun>
   <ng-content select="[top]"></ng-content>

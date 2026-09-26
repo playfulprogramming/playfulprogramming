@@ -33,7 +33,7 @@ And that's it!
 
 This will create a file called `launch.json` inside the `.vscode` folder of your project, similar to this:
 
-```json
+```jsonc
 {
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.

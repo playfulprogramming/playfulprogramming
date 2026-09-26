@@ -126,7 +126,7 @@ If we don’t use localised templates, the `i18n*` Ivy instructions are tree sha
 
 ### Localisable texts in component models and services
 
-```ts
+```angular-ts
 // app.component.ts
 @Component({
   template: '{{ title }}',
@@ -279,7 +279,7 @@ As part of the Ivy styling rewrite, binding CSS Custom Properties is now support
 
 An example binding looks like this:
 
-```html
+```angular-html
 <div [style.--my-var]="myProperty || 'any value'"></div>
 ```
 

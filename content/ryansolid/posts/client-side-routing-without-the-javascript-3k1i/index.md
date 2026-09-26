@@ -37,7 +37,7 @@ Wanting to keep things focused on a release, I agreed but told him to time-box i
 
 Now the demo was rough, but it was impressive. He'd taken one of my Hackernews demos and re-implemented the recursive Islands. What are recursive Islands.. that's when you project Islands in Islands:
 
-```js
+```jsx
 function MyServerComponent(props) {
   return <>{ props.data && 
     <MyClientIsland>
@@ -51,7 +51,7 @@ Why would you want this? It would be nice to wrap server rendered content with i
 
 However, there is a rule with Islands that you cannot import and use Server only components in them. The reason is you don't want the client to be able to pass state to them. Why? Well if the client could pass state to them then they'd need to be able to update and since the idea is to not send this JavaScript to the browser this wouldn't work. Luckily `props.children` enforces this boundary pretty well. (Assuming you disallow passing render functions/render props across Island boundaries).
 
-```js
+```jsx
 function MyClientIsland() {
   const [state, setState] = createSignal();
 
@@ -70,7 +70,7 @@ Each template increments a count and each nested component adds another digit. T
 
 But at a given depth all ids will be assigned in the same order client or server.
 
-```js
+```jsx
 function Component() {
   const anotherDiv = <div data-hk="1" /> 
   return <div data-hk="2">{anotherDiv}</div>

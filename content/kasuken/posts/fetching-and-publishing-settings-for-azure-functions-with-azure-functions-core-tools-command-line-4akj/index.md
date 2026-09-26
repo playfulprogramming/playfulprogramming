@@ -42,7 +42,7 @@ This will download the settings from `my-function-app` and save them in `local.s
 
 You can view the contents of `local.settings.json` using any text editor. The file has the following structure:
 
-```json
+```jsonc
 {
   "IsEncrypted": false,
   "Values": {

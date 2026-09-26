@@ -168,7 +168,7 @@ Here is my minimal example in `app.component.ts`.
 - If you don't have a key pair, click "Generate Key Pair".
   Firebase will create and display your VAPID key.
 
-```typescript
+```angular-ts
 import { Component, OnInit } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
 import { getMessaging, getToken, onMessage } from '@angular/fire/messaging';

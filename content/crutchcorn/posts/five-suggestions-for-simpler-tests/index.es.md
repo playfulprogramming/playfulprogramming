@@ -256,7 +256,7 @@ Al final y al cabo, cuando estas escribiendo tests, una buena regla a seguir es 
 
 Digamos que en un componente queremos incluir alguna lógica para implementar características de plataformas sociales. Vamos a seguir las mejores practicas y tenemos una aplicación bonito que utiliza GraphQL con ApolloGraphQL para que no tengamos que importar un montón de API's. Ahora que estamos empezando a escribir nuestros tests tenemos _un montón_ de redes simuladas. ¿Por qué necesitamos esto para nuestro renderizado?
 
-```javascript
+```tsx
 // ComponenteConectado.spec.tsx
 it("renderizados", async () => {
   const { findByText, getByText } = render(
@@ -275,7 +275,7 @@ Tenemos un `MockProvider` que seria nuestra proveedora simulada, `mocks` que son
 
 Afortunadamente, la respuesta a esa pregunta es sencilla. Mirando por encima nuestro componente podemos ver la capa de datos y un poco de lógica:
 
-```javascript
+```tsx
 // ComponenteConectado.tsx
 export default () => {
   const { data } = userQueryHook();
@@ -290,7 +290,7 @@ Aquí el componente va a montarse dentro del DOM, y luego va a pedir unos datos 
 
 No queremos que nuestros tests hagan eso ya que ahora nuestro componente y su test están directamente relacionados a como esta implementado el componente, y nuestro test ahora esta mas cerca de ser un test de integración que un test de unidad en el miramos que se muestra. En vez de esto, lo que tenemos que hacer es quitar la logica para que el componente pueda simplemente renderizarse. Podemos hacer esto de varias maneras, pero el método mas rápido y sencillo es extraer la logica para recolectar datos y colocarla en una capa mas alta, y simplemente recibir los datos como un prop o argumento.
 
-```javascript
+```tsx
 // RenderComponenteConectado.tsx
 export default ({ Usuario }:{ usuario: TipoUsuario }) => {
   return !usuario
@@ -299,7 +299,7 @@ export default ({ Usuario }:{ usuario: TipoUsuario }) => {
 }
 ```
 
-```javascript
+```tsx
 // ComponenteConectado.tsx
 export default () => {
   const { datos } = userQueryHook();
@@ -312,7 +312,7 @@ export default () => {
 Ahora los tests para el componente se ven mucho mas sencillos:
 
 
-```javascript
+```tsx
 // ComponenteConectado.spec.tsx
 it("se muestra sin datos", async () => {
   const { findByText, getByText } = render(<RenderComponenteConectado />);

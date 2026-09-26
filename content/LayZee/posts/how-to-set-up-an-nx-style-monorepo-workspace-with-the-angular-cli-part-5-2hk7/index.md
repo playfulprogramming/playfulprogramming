@@ -267,7 +267,7 @@ ng generate component confirm-button --project=shared-ui-buttons --export --disp
 
 In the following listings, we give the confirm button a simple implementation.
 
-```html
+```angular-html
 <!-- confirm-button.component.html -->
 <button (click)="onClick()">
   <ng-content></ng-content>
@@ -367,7 +367,7 @@ First add it to the seat listing feature Angular module as seen in the previous 
 
 Now that it's in the compilation scope of the seat listing component, we can use it in its template and bind it to the component model.
 
-```html
+```angular-html
 <!-- seat-listing.component.html -->
 <p>seat-listing works!</p>
 
@@ -486,7 +486,7 @@ export class SeatListingComponent {
 
 Now expose the UI property in the seat listing template.
 
-```html
+```angular-html
 <!-- seat-listing.component.html -->
 <p>Today is {{ today }}<!-- ? --></p>
 

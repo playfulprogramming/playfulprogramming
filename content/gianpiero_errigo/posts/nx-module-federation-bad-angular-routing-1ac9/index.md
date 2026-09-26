@@ -26,7 +26,7 @@ That comes clear issuing `nx serve host_project_name`, where they will be served
 
 To make thing barely functional, our host app consists of a single dumb component with two lines template:
 
-```ts
+```angular-ts
 @Component({
   selector: 'testapp-root',
   template: `
@@ -41,7 +41,7 @@ Just an anchor linking to the remote, and a `router-outlet` under which the chil
 
 Similarly, the remote will be just a visual aid to show our issue
 
-```ts
+```angular-ts
 @Component({
   selector: 'testapp-remote1-entry',
   template: `
@@ -68,7 +68,7 @@ The issue we're talking about arises if we add a `<router-outlet>` element to ou
 This is quite a common situation: many times our microfrontend will have its own internal routing, with child paths and obviously a `router-outlet` under which rendering them.
 This is our modified remote
 
-```ts
+```angular-ts
 @Component({
   selector: 'testapp-remote1-entry',
   template: `

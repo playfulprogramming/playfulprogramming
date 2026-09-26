@@ -397,7 +397,7 @@ Each flag serves a specific purpose:
 
 If you're using Nx (like I do), you can configure the build in your project's configuration file:
 
-```json
+```jsonc
 // project.json
 {
   "build": {
@@ -429,7 +429,7 @@ If you're using Nx (like I do), you can configure the build in your project's co
 
 After struggling with single executables builder tools like PKG, I was glad to discover Node.js's native SEA support. The configuration is refreshingly simple:
 
-```json
+```jsonc
 // sea-config.json
 {
   "main": "dist/apps/node-sea-demo/main.js",
@@ -444,7 +444,7 @@ After struggling with single executables builder tools like PKG, I was glad to d
 
 The executable generation process varies by platform, if you are using Nx, you can make your life easier by using my [plugin](https://github.com/getlarge/nx-node-sea):
 
-```json
+```jsonc
 // nx.json
 {
   //...
@@ -637,7 +637,7 @@ ENTRYPOINT [ "/app/node" ]
 
 Using the `useCodeCache` option offers a dual benefit of better performance and slightly improved code protection.
 
-```json
+```jsonc
 // sea-config.json
 {
   // ...

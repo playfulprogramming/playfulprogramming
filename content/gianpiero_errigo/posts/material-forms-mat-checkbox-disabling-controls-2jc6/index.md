@@ -54,7 +54,7 @@ plainForm = new FormGroup({
 
 and here its template:
 
-```html
+```angular-html
 <div class="container" [formGroup]="plainForm">
     <mat-form-field selectableMat>
         <mat-label>A text control</mat-label>
@@ -308,7 +308,7 @@ range: new FormControl({value: 0, disabled:true}),
 
 or to add a button triggering a programmatically call to its `FormControl.disable()` method
 
-```html
+```angular-html
 <button (click)="disableRange()">Disable</button>
 ```
 

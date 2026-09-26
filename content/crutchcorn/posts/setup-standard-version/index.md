@@ -232,7 +232,7 @@ Regardless of the reason behind needing to change multiple files' package number
 
 You'll want to create a `.versionrc` file and put the following in it:
 
-```json
+```jsonc
 {
   "bumpFiles": [
     {

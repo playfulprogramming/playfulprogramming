@@ -1259,7 +1259,7 @@ You can even create a Jest configuration that extends the base config and is the
 }
 ```
 
-```json
+```jsonc
 {
   "/* apps/customer-portal/tsconfig.jest.json */ ": "...",
   "extends": "@your-org/config/tsconfig.jest.json",
@@ -1390,7 +1390,7 @@ yarn add -W -D @typescript-eslint/parser @typescript-eslint/eslint-plugin @react
 
 And add in the linting scripts to your apps' and packages' `package.json`s:
 
-```json
+```jsonc
 {
 	"scripts": {
 	    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",

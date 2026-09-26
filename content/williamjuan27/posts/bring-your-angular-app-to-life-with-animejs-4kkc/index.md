@@ -65,7 +65,7 @@ Add the following styling:
 
 Add 3 buttons to the template to start a simple animation, a bounce animation, and another button play/pause the animations:
 
-```html
+```angular-html
 <!-- app.component.html -->
 <div class="animation-demo-container">
   <div class="card-container">

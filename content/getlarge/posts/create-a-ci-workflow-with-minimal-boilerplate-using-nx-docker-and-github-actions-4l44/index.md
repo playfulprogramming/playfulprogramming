@@ -546,7 +546,7 @@ This feature relies on Nx's [inferred tasks](https://nx.dev/concepts/inferred-ta
 Since Jest executes the unit and e2e tests, I configured the `@nx/jest` plugin to automatically create one task for the unit tests(`test`) and another for E2E tests (`e2e`).
 The **ciTargetName** option will create distinct targets for each E2E test file, allowing them to run in parallel, have a separate cache, and make [identifying flaky tests](https://nx.dev/ci/features/flaky-tasks) easier.
 
-```json
+```jsonc
 // nx.json
 {
   // ...

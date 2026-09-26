@@ -45,7 +45,7 @@ React doesn't have this capability baked in, so during my early explorations int
 
 While an Angular form might look something like this:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'my-app',
   standalone: true,

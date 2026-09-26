@@ -311,7 +311,7 @@ The final test exercises the browser detection on non-Internet Explorer browsers
 
 Now that we are satisfied with our Internet Explorer 11 browser detection, creating and displaying a deprecation banner is straightforward.
 
-```html
+```angular-html
 <!-- internet-explorer-11-banner.component.html -->
 <aside *ngIf="isBannerVisible">
   Sorry, we will not continue to support Internet Explorer 11.<br />

@@ -1550,13 +1550,13 @@ const labelText = ref(formatReadableDate(new Date()));
 >
 > This means that:
 >
-> ```html
+> ```vue-html
 > <span v-bind:aria-label="labelText">{{dateStr}}</span>
 > ```
 >
 > And:
 >
-> ```html
+> ```vue-html
 > <span :aria-label="labelText">{{dateStr}}</span>
 > ```
 >
@@ -1742,7 +1742,7 @@ import File from "./File.vue";
 >
 > Also, when we talked about attribute binding, we mentioned `:` is shorthand for `v-bind:`. The same applies here too. You could alternatively write:
 >
-> ```html
+> ```vue-html
 > <File v-bind:fileName="'File three'" />
 > ```
 
@@ -2232,13 +2232,13 @@ There's also a shorthand syntax, just like there is one for attribute bindings. 
 
 This means:
 
-```html
+```vue-html
 <button v-on:click="selectFile()"></button>
 ```
 
 Can be rewritten into:
 
-```html
+```vue-html
 <button @click="selectFile()"></button>
 ```
 

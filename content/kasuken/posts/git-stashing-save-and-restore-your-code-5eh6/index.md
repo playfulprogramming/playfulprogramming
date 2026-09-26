@@ -36,7 +36,7 @@ This command stashes your current changes, leaving your working directory clean.
 
 #### **Example**
 
-```sh
+```console
 # Work on a feature but need to switch branches
 $ git stash
 Saved working directory and index state WIP on main: abc1234 Add new feature
@@ -50,7 +50,7 @@ Displays a list of all saved stashes.
 
 #### **Example**
 
-```sh
+```console
 $ git stash list
 stash@{0}: WIP on main: abc1234 Add new feature
 stash@{1}: WIP on dev: def5678 Refactor component
@@ -64,7 +64,7 @@ Shows a summary of what’s inside a stash.
 
 #### **Example**
 
-```sh
+```console
 $ git stash show stash@{0}
  src/main.js | 5 +++--
 ```

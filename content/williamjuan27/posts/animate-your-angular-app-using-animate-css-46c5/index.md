@@ -46,7 +46,7 @@ element.classList.add("animate__animated", "animate__bounce");
 
 The same could be done entirely in the template using class binding in Angular. To animate an element using Animate.css, we would need to add the class that contains the animation (see [here](https://Animate.css/) for a list of available classes) along with any static configurations. We can then bind that class to a property that triggers the animation. For example, if we want to trigger a bounce animation when a `boolean` value of the variable `shouldBounce` is `true`, we would bind the `animate__bounce` class to `shouldBounce`
 
-```html
+```angular-html
 <div class="animate__animated" [class.animate__bounce]="shouldBounce"></div>
 ```
 
@@ -110,7 +110,7 @@ export class AnimateStyleComponent {
 
 We can also animate entrances and exits by simply attaching the class conditionally.
 
-```html
+```angular-html
 <div
   class="animate__animated"
   [class.animate__zoomInDown]="isShowing"
@@ -124,7 +124,7 @@ However, the above approach just animates the element in and out of the view, no
 
 Let me give you an example of what it looks like if we use an `*ngIf` and class binding entirely in the template.
 
-```html
+```angular-html
 <div
   *ngIf="isShowing"
   class="animate__animated"
@@ -145,7 +145,7 @@ To address this issue, we would need to approach it in a slightly different way,
 
 To add and remove the element to and from the DOM, there is some additional setup we need to do. First, we will need to use an `ng-template` to wrap the component that we want to animate so we can add and remove it from the DOM. We'll also set the `opacity` to `0` to prevent the view from flashing before executing the enter animation. More on this later.
 
-```html
+```angular-html
 <div #container></div>
   <ng-template #template>
     <!-- set opacity to 0 to prevent flashing before enter animation starts -->

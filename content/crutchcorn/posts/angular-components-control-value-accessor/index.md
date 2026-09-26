@@ -24,7 +24,7 @@ It'll allow you to type in data, have a header label (as opposed to a floating l
 
 Here's the code:
 
-```typescript
+```angular-ts
 import { Component, Input } from "@angular/core";
 
 @Component({
@@ -213,7 +213,7 @@ registerOnChange(fn: (value: any) => void) {
 
 While this code sample shows you how to store the function, it doesn't outline how to call it once stored. You'll want to make sure to call it with the updated value on every update. For example, if you are expecting an `input` to change, you'd want to add it to `(change)` output of the `input`:
 
-```html
+```angular-html
 <input
        placeholder=""
        [disabled]="disabled"
@@ -236,7 +236,7 @@ registerOnTouched(fn: any) {
 
 You'll want to call this `onTouched` method any time that your user "touches" (or, interacts) with your component. In the case of an `input`, you'll likely want to place it on the `(blur)` output:
 
-```html
+```angular-html
 <input
     placeholder=""
     [disabled]="disabled"
@@ -291,7 +291,7 @@ export class AppComponent  {
 
 Finally, you can pass these options to `ngModel` and `formControl` (or even `formControlName`) and inspect the value directly from the parent itself:
 
-```html
+```angular-html
 <h1>Form Control</h1>
 <app-example-input placeholder="What's your favorite animal?" [formControl]="control"></app-example-input>
 <p>The value of the input is: {{control.value}}</p>
@@ -387,7 +387,7 @@ get errors() {
 
 And then reference it in the template:
 
-```html
+```angular-html
 <span class="inputLabel" [class.redtext]="errors">{{ placeholder }}</span>
 ```
 

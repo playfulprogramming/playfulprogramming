@@ -62,7 +62,7 @@ const [title, setTitle] = createSignal("title");
 
 Svelte Runes has taken another way to accomplish this by compiling their variable accesses to Signal reads. A variable can only be passed by value so there is no fear of it being written outside of the current scope.
 
-```js
+```jsx
 let title = $state("title")
 
 // `SomeComponent` can't change `title` that you see declared in this file
@@ -101,7 +101,7 @@ But picture having to do that everywhere for every prop you use in any component
 
 As the component author you could force only Signals but that isn't ergonomic. Solid uses functions so maybe not a big deal, but picture if you are using Vue or Preact Signals that use `.value`. You wouldn't want to force people to:
 
-```js
+```jsx
 <SomeComponent title={{value: "static title"}} />
 
 // or unnecessary signal
@@ -115,7 +115,7 @@ The way to solve this is to provide the same interface for reactive and non-reac
 
 In the case of Solid reactive props are getters:
 
-```js
+```jsx
 <SomeComponent title={title()} />
 
 // becomes

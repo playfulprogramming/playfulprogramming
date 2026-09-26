@@ -120,7 +120,7 @@ This lint check determines the library's dependencies from its source code and c
 
 As an example, we add the following Button Angular component to a library.
 
-```typescript
+```angular-ts
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 

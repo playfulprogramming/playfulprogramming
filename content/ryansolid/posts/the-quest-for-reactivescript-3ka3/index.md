@@ -290,7 +290,7 @@ This code would end up running both branches of the `if` once the condition chan
 
 What if you could write components like this and have it work with minimal executing fine-grained reactivity.
 
-```js
+```jsx
 function Component({ visible }) {
   let firstName, lastName = "";
   if (!visible) return <p>Hidden</p>;

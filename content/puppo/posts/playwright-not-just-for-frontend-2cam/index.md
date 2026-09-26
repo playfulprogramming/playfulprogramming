@@ -78,7 +78,7 @@ Let's start from the beginning. I created two files for the tests. One file is t
 
 So these two files are in the db folder and appear in this way
 
-```json
+```jsonc
 // db_test.json
 {
   "users": [
@@ -98,7 +98,7 @@ So these two files are in the db folder and appear in this way
 }
 ```
 
-```json
+```jsonc
 // routes_test.json
 {
   "/api/*": "/$1",

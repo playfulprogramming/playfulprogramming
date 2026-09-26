@@ -453,7 +453,7 @@ Let's use conditional rendering to show the type of item displayed based on the 
 
 ## Vue
 
-```html
+```vue-html
 <div>
 	<span v-if="isFolder">Type: Folder</span>
 	<span v-if="!isFolder">Type: File</span>
@@ -525,7 +525,7 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 
 ## Vue
 
-```html
+```vue-html
 <div>
 	<span v-if="isFolder">Type: Folder</span>
 	<span v-else>Type: File</span>
@@ -580,7 +580,7 @@ While we could move back to a simple `if` statement for each condition:
 
 ### Vue
 
-```html
+```vue-html
 <span v-if="isFolder">Type: Folder</span>
 <span v-if="!isFolder && isImage">Type: Image</span>
 <span v-if="!isFolder && !isImage">Type: File</span>
@@ -711,7 +711,7 @@ function getType() {
 
 Using Vue's `v-else-if` attribute:
 
-```html
+```vue-html
 <div>
 	<span v-if="isFolder">Type: Folder</span>
 	<span v-else-if="isImage">Type: Image</span>
