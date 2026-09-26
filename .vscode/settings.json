@@ -1,0 +1,4 @@
+{
+	"vitest.rootConfig": "vitest.config.ts",
+	"vitest.configSearchPatternExclude": "{**/node_modules/**,**/vendor/**,**/.*/**,**/*.d.ts,content/**}"
+}
