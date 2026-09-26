@@ -184,7 +184,7 @@ The next step is to register and configure the email service in the ASP.NET Core
 1. In Solution Explorer, create and open a file called **appsettings.json** in the wwwroot folder.
 2. Add a new section called **EmailSettings** with two properties: **ConnectionString** and **FromAddress**. The ConnectionString property should have the value of the connection string of your Azure Communication Services resource. You can find it in the Azure portal under **Overview > Keys**. The FromAddress property should have the value of your email address that you want to use as the sender of the emails. The file should look like this:
 
-```json
+```jsonc
 {
   "EmailSettings": {
     "ConnectionString": "endpoint=https://<your-resource-name>.communication.azure.com/;accesskey=<your-access-key>",

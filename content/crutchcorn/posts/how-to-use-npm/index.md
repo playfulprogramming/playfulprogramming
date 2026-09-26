@@ -298,7 +298,7 @@ Let's start by explaining what the `package.json` file is.
 
 When you `clone` a project, you might see a file in the root called `package.json`, it might look something like this:
 
-```json
+```jsonc
 {
   "name": "playfulprogramming-site",
   "description": "Learning programming from magically majestic words",

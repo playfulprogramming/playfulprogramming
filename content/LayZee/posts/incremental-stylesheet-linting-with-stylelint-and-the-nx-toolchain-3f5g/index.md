@@ -303,7 +303,7 @@ In this first part, we add Stylelint by following the steps from their [Getting 
 
    Our Nx configuration (`nx.json`) should now have something like these settings:
 
-   ```json
+   ```jsonc
    {
      "tasksRunnerOptions": {
        "default": {
