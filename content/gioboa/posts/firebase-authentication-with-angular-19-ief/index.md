@@ -289,7 +289,7 @@ export const routes: Routes = [
 
 Use the `user$` observable in your components to react to authentication state changes and display user-specific content:
 
-```typescript
+```angular-ts
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from './service/auth.service';
 import { AsyncPipe, CommonModule } from '@angular/common';

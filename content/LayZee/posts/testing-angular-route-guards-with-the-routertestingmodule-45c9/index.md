@@ -601,7 +601,7 @@ As we'll see, we won't have to create partial fakes of the complex data structur
 
 For the integrated test suite, we will start by looking at the test utilities in Listing 5A.
 
-```ts
+```angular-ts
 // auth.guard.integration.spec.ts
 import { Component, Injectable, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -963,7 +963,7 @@ Our AuthGuard adds an auth token and a session ID to the login URL for reasons d
 
 The integrated route guard test suite is shown in full length in Listing 6 for reference.
 
-```ts
+```angular-ts
 import { Location } from '@angular/common';
 import { Component, Injectable, NgModule, NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';

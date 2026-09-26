@@ -48,7 +48,7 @@ Async/Await is said to color the functions that use it. Once you are dealing wit
 
 It also unintentionally can cause waterfalls because it makes our model block.
 
-```ts
+```tsx
 async function ShowSomeUI() {
   const user1 = await fetchUser(1);
   // only start fetching 2 after 1 completes
@@ -63,7 +63,7 @@ async function ShowSomeUI() {
 
 We have ways to parallelize but it is still blocking:
 
-```ts
+```tsx
 async function ShowSomeUI() {
   const [user1, user2] = await Promise.all([fetchUser(1), fetchUser(2)]);
   
@@ -81,7 +81,7 @@ All these reasons make async functions a poor choice for interactive components.
 
 What you want to do is not `await` and pass the promise down to where it is used:
 
-```ts
+```tsx
 function ShowSomeUI() {
   const user1 = fetchUser(1);
   const user2 = fetchUser(2); 
@@ -98,7 +98,7 @@ But this is awkward for 2 reasons.
 
 First, your components expect a Promise as their props. `props.user` is a `Promise<User>` rather than a `User`. So we have a new type of coloration as every downstream prop needs to handle the potential of this being a Promise. This includes derived values:
 
-```ts
+```tsx
 function User(props: {user: Promise<User>}) {
   return <>
     <h3>{props.user.then(u => u.firstName)}'s Profile</h3>
@@ -111,7 +111,7 @@ We could `await` here. It does need to be resolved at some level but are we doin
 
 The second concern is that we aren't only dealing with Promises, but Promise factories. You don't just fetch a user, you fetch a user based on a prop. This prop can change and so must the Promise as it can only resolve once. But you also don't want to fetch when unrelated state changes.
 
-```ts
+```tsx
 function ShowSomeUI(props: {id: number}) {
   const user = fetchUser(props.id); // id can update
   
@@ -197,7 +197,7 @@ On update, it would run mostly the same except it would start from the `id` upda
 
 Let's go back to our example:
 
-```ts
+```tsx
 function ShowSomeUI(props: { id: number }) {
   const user = createAsync(() => fetchUser(props.id));
   
@@ -303,7 +303,7 @@ You can't multiply `undefined` by a number. Even if you added the necessary null
 
 At best you could make this opt-out at the source of the async:
 
-```ts
+```tsx
 const count = createAsync(() => fetchCount());
 
 <Multiplier count={count.latest || 0} />

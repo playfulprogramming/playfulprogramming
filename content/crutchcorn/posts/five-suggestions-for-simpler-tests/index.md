@@ -260,7 +260,7 @@ Ultimately, when writing tests, a good rule to follow is "They should read like 
 
 Let's say in a component we want to include some logic to implement some social features. We'll follow all the best practices and have a wonderful-looking app with GraphQL using Apollo GraphQL as our integration layer, so we don't need to import a bunch of APIs and can hide them behind our server. Now we're writing out tests and we have a _ton_ of mocked network data services and mock providers. Why do we need all of this for our render?
 
-```javascript
+```tsx
 // ConnectedComponent.spec.tsx
 it("renders", async () => {
   const { findByText, getByText } = render(
@@ -279,7 +279,7 @@ We have a `MockedProvider`, `mocks`, extra logic for loading states, and then fi
 
 Thankfully the answer to that is pretty easy. Taking a cursory glance at our component we see a data layer and some logic for the data layer.
 
-```javascript
+```tsx
 // ConnectedComponent.tsx
 export default () => {
   const { data } = userQueryHook();
@@ -294,7 +294,7 @@ Here the component will mount into the DOM and then go and fetch some user data 
 
 We don't want our tests doing that as now our component and the test is directly tied into how the exact component was implemented and is closer to an integration test instead of a unit test in regards to what we render. Instead, we need to remove that logic so that the component can just render. We can do this in several ways, but the easiest and fastest method with a simple component like this one is to extract the data fetch to a layer higher and simply receive the data as a prop.
 
-```javascript
+```tsx
 // ConnectedComponentRender.tsx
 export default ({ user }:{ user: UserType }) => {
   return !user
@@ -303,7 +303,7 @@ export default ({ user }:{ user: UserType }) => {
 }
 ```
 
-```javascript
+```tsx
 // ConnectedComponent.tsx
 export default () => {
   const { data } = userQueryHook();
@@ -315,7 +315,7 @@ export default () => {
 
 Now the tests for the rendered component look much simpler.
 
-```javascript
+```tsx
 // ConnectedComponent.spec.tsx
 it("renders without data", async () => {
   const { findByText, getByText } = render(<ConnectedComponentRender />);

@@ -169,7 +169,7 @@ export class RemoteConfigService {
 
 ## Using Remote Config Values
 
-```typescript
+```angular-ts
 import { Component, inject } from '@angular/core';
 import { RemoteConfigService } from './config.service';
 

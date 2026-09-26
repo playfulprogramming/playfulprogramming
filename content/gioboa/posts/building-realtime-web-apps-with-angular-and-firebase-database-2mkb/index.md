@@ -69,7 +69,7 @@ This code ensures that Firebase is initialized when your Angular application sta
 
 > It's intentionally all in the same file so you can actually copy and paste the snippet and have something working without having to create multiple files. Best practices recommend separating your logic into multiple files.
 
-```typescript
+```angular-ts
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';

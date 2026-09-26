@@ -125,7 +125,7 @@ I have left the login method blank just for visibility purpose, the service may 
 
 - Using it in component
 
-```ts
+```angular-ts
 import { Component }   from '@angular/core';
 import { LoginService } from './login.service';
 

@@ -42,7 +42,7 @@ salaryRanges = [
   ];
 ```
 
-```html
+```angular-html
 <ul>
   <li *ngFor="let profesional of salaryRanges">
     {{ profesional.title }}
@@ -53,7 +53,7 @@ salaryRanges = [
 
 We want to show the currency symbol, for example, $, and decimals, using the pipe currency. Angular, by default, uses USD format.
 
-```html
+```angular-html
 <ul>
   <li *ngFor="let profesional of salaryRanges">
     {{ profesional.title }}
@@ -165,7 +165,7 @@ doctor $1,309.09
 
 We create a select with the list of currencies and the use can pick the conversion.
 
-```html
+```angular-html
 <select (change)="changeTo($any($event.target).value)">
   <option value="USD">USD</option>
   <option value="EURO">EURO</option>
@@ -184,7 +184,7 @@ changeTo(currency) {
 
 Next, use the currentCurrency in the template as a parameter for the Pipe.
 
-```html
+```angular-html
 <li *ngFor="let profesional of salaryRanges">
     {{ profesional.title }}
     {{ profesional.salary | convertToExchange: currentCurrency | currency }}

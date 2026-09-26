@@ -120,7 +120,7 @@ Let's make the test suite for the component drive the API design of our componen
 
 First we want to verify which ocean creature is picked initially. To do that, we need to configure the Angular testing module for a test host component which uses the favourite ocean create component.
 
-```ts
+```angular-ts
 // favorite-ocean-creature.spec.ts
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component } from '@angular/core';
@@ -497,7 +497,7 @@ We also trim the text since HTML often includes additional whitespace around tex
 
 Let's finish by taking a look at the full test suite.
 
-```ts
+```angular-ts
 // favorite-ocean-creature.spec.ts
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component } from '@angular/core';

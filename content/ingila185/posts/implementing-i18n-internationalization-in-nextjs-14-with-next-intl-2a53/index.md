@@ -91,7 +91,7 @@ export const config = {
 
 **app/\[lang]/layout.tsx:** This layout component utilizes the locale parameter dynamically provided by the middleware. This parameter allows us to configure the document language and pass relevant configurations from i18n.ts to client components using NextIntlClientProvider.
 
-```
+```tsx
 import { NextIntlClientProvider } from 'next-intl';
 export default function RootLayout({children, params: {lang}}: 
 {children: React.ReactNode, 

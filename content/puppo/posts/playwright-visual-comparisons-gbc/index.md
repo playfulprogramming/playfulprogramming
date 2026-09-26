@@ -37,7 +37,7 @@ I want to use the Square component for this example, but you have to refactor it
 
 *Square Component*
 
-```ts
+```tsx
 import { TicTacToeValue } from '../../models/TicTacToeValue';
 import { Nullable } from '../../utils/Nullable';
 import Icon from '../Icon/Icon';
@@ -73,7 +73,7 @@ Before moving on to code, you should meet what you have to know to make visual c
 
 First of all, you have to create a new file called `src/components/Square/Square.spec.tsx`, that will contain your tests. As first example, you can create a new test that checks if the Square component shows the X icon if the value is `X`. To do that, you have to make a test like this
 
-```ts
+```tsx
 import { expect, test } from '@playwright/experimental-ct-react';
 import Square from './Square';
 
@@ -124,7 +124,7 @@ And as you can imagine, your test suite failed because the result is not exactly
 
 When we run with visual comparison, as you can imagine, introducing a regression is very easy, a pixel of difference and boom, the suite fails. Playwright knows this problem and permits you to be less strict in these cases. It's important to remember that by default, Playwright is strict and checks every single pixel of difference, but you can configure it with a threshold. The most commons are maxDiffPixelRatio, maxDiffPixels or threshold.Each configuration permits you to be slackers in different cases. For instance, if you choose the maxDiffPixels configuration, you can write the previous test in this way
 
-```ts
+```tsx
 test('should show the X icon without regression', async ({ mount, page }) => {
   await mount(<Square value={'X'} onSelect={() => { }} />);
   await expect(page).toHaveScreenshot({ maxDiffPixels: 500 });

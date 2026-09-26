@@ -333,7 +333,7 @@ export class SearchComponent implements OnInit {
 
 In order to make the `id` and `query` observables, we can use the `BehaviorSubject`:
 
-```ts
+```angular-ts
 @Component({
     template: `
         <div *ngIf="data$ | async as data">
@@ -376,7 +376,7 @@ const routes: Routes = [
 ];
 ```
 
-```ts
+```angular-ts
 @Component({ template: `{{ value }}` })
 export class TestComponent {
   @Input() value?: string;
@@ -396,7 +396,7 @@ If there's no query params, the value input will be undefined!
 
 In my opinion, for this "issue" what we can do is to rename the Input in imports and use it like this: 
 
-```ts
+```angular-ts
 import { Input as RouteInput, Component } from "@angular/core";
 
 @Component({ template: `{{ value }}` })

@@ -54,7 +54,7 @@ export class PlayerListComponent implements OnInit {
 
 The HTML Markup uses the `<app-player>` component.
 
-```html
+```angular-html
   <div *ngFor="let player of players" >
     <app-player [player]="player"></app-player>
   </div>
@@ -288,7 +288,7 @@ Similar to what we did with the service, we can mock the `<app-player>` componen
 
 To mock the component, we declare a new component in the test, with the same selector `app-player` , and the properties required by our test. In the template, add the CSS class `player` to make it easy to find the elements.
 
-```typescript
+```angular-ts
  @Component({
     selector: 'app-player',
     template: `<div class='player'>

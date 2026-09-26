@@ -24,7 +24,7 @@ But how can you use them?
 
 Let's start with the useIsFetching.
 
-```ts
+```tsx
 import { useIsFetching } from '@tanstack/react-query';
 
 export default function Loader() {
@@ -39,7 +39,7 @@ As you can see, the syntax is pretty simple. You can import the hook from the li
 
 Now it's time to move to the useIsMutation hook. This hook is similar to the previous one, the only different concept is that this hook handles the mutation requests. Let's see an example!
 
-```ts
+```tsx
 import { useIsMutating } from '@tanstack/react-query';
 
 export default function Loader() {

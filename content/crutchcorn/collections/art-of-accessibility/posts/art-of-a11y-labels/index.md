@@ -419,7 +419,7 @@ export const App = () => {
 
 ## Angular
 
-```typescript
+```angular-ts
 // TextInput.component.ts
 @Component({
     selector: "text-input",
@@ -437,7 +437,7 @@ class TextInputComponent {
 }
 ```
 
-```typescript
+```angular-ts
 // app.component.ts
 @Component({
   selector: 'my-app',
@@ -562,7 +562,7 @@ export const App = () => {
 
 ### Angular
 
-```typescript
+```angular-ts
 // TextInput.component.ts
 @Component({
 	selector: "text-input",
@@ -598,7 +598,7 @@ export class TextInputComponent {
 }
 ```
 
-```typescript
+```angular-ts
 // app.component.ts
 @Component({
   selector: 'my-app',
@@ -761,7 +761,7 @@ uuidv4();
 
 Let's integrate this package into our Angular component:
 
-```typescript {29}
+```angular-ts {29}
 @Component({
 	selector: "text-input",
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -796,7 +796,7 @@ export class TextInputComponent {
 }
 ```
 
-```typescript
+```angular-ts
 // app.component.ts
 @Component({
 	selector: "app-root",

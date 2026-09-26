@@ -141,7 +141,7 @@ const emit = defineEmits(['update:modelValue'])
 
 Or you can just not support 2-way binding at all. This is easiest managed by providing a separate read/write interface on all your primitives. This is React's approach and the one I took in Solid.
 
-```js
+```jsx
 function App() {
   const [name, setName] = createSignal("world");
 
