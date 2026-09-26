@@ -124,7 +124,7 @@ To utilize them, we first need to import the `ReactiveFormsModule`, which allows
 
 Now, we can create a new instance of a class called `FormControl` to act as a form item that we can then bind to a `[formControl]` in order to have a two-way event and value input sync. 
 
-```angular-ts {0,6,12}
+```angular-ts {1,6,9,15}
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
@@ -183,7 +183,7 @@ export class FormComponent {
 
 While a basic `FormControl` creation is useful for demonstration purposes, it doesn't truly demonstrate the full power of reactive forms. Namely, when there are multiple inputs, your `form` can act as the source of truth through a new `FormGroup` class instance:
 
-```angular-ts {0,5,9,23-26,30}
+```angular-ts {1,5,8,12,18,26-29,33}
 import {ReactiveFormsModule,  FormGroup, FormControl } from '@angular/forms';
 
 @Component({
