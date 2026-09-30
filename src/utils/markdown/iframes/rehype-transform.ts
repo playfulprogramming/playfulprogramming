@@ -9,7 +9,6 @@ import {
 	createComponent,
 	isComponentMarkup,
 } from "../components/index.ts";
-import { logError } from "../logger.ts";
 import { getUrlMetadata } from "#utils/hoof/index.ts";
 import { rehypeTransformGist } from "./platform-detectors/gist.ts";
 import { rehypeTransformVideo } from "./platform-detectors/video.ts";
@@ -34,8 +33,11 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 			(node: Element, _, parent) => {
 				if (!parent) return;
 				if (parent !== tree && !isComponentMarkup(parent)) {
-					logError(file, node, "Cannot process a nested iframe!");
-					throw new Error();
+					return file.fail("Cannot process a nested iframe!", {
+						place: node.position,
+						source: "rehype-iframe-click-to-run",
+						ruleId: "nested-iframe",
+					});
 				}
 
 				iframeNodes.push({ parent, node });
@@ -62,12 +64,20 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				height = height ?? EMBED_SIZE.h;
 
 				const metadata = await getUrlMetadata(src).catch((e) => {
-					logError(file, node, "Could not fetch URL metadata!", e);
+					file.message(["Could not fetch URL metadata!", e].join(" "), {
+						place: node.position,
+						source: "rehype-iframe-click-to-run",
+						ruleId: "metadata-fetch-failed",
+					});
 					return undefined;
 				});
 
 				if (metadata?.error) {
-					logError(file, node, "Partial error fetching URL metadata.");
+					file.message("Partial error fetching URL metadata.", {
+						place: node.position,
+						source: "rehype-iframe-click-to-run",
+						ruleId: "incomplete-metadata",
+					});
 				}
 
 				const [, heightPx] = /^([0-9]+)(px)?$/.exec(`${height}`) || [];
@@ -95,7 +105,11 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 						metadata,
 						embed: metadata.embed,
 					}).catch((e) => {
-						logError(file, node, "Error loading gist data:", e);
+						file.message(["Error loading gist data:", e].join(" "), {
+							place: node.position,
+							source: "rehype-iframe-click-to-run",
+							ruleId: "gist-fetch-failed",
+						});
 						return undefined;
 					});
 				}

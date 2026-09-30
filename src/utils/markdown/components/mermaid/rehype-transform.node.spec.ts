@@ -42,7 +42,6 @@ function createVFile(value: string) {
 		data: {
 			...fileInfo,
 			headingsWithIds: [],
-			warnings: [],
 		},
 	}) as MarkdownVFile;
 }
@@ -123,28 +122,23 @@ describe("Mermaid markdown component", () => {
 			"```",
 			"<!-- ::end:mermaid -->",
 		].join("\n");
-		const consoleError = vi
-			.spyOn(console, "error")
-			.mockImplementation(() => undefined);
-		const consoleLog = vi
-			.spyOn(console, "log")
-			.mockImplementation(() => undefined);
+		const { tree, vfile } = await processMarkdown(source);
 
-		try {
-			const { tree, vfile } = await processMarkdown(source);
-
-			expect(runShiki).toHaveBeenCalledOnce();
-			expect(runShiki).toHaveBeenCalledWith(
-				expect.objectContaining({ tagName: "pre" }),
-			);
-			expect(vfile.data.isMermaidUsed).toBeUndefined();
-			expect(findComponent(tree.children, "Mermaid")).toBeUndefined();
-			expect(consoleError.mock.calls.flat().join(" ")).toContain(
-				"Mermaid must use a ```mermaid fenced code block.",
-			);
-		} finally {
-			consoleError.mockRestore();
-			consoleLog.mockRestore();
-		}
+		expect(runShiki).toHaveBeenCalledOnce();
+		expect(runShiki).toHaveBeenCalledWith(
+			expect.objectContaining({ tagName: "pre" }),
+		);
+		expect(vfile.data.isMermaidUsed).toBeUndefined();
+		expect(findComponent(tree.children, "Mermaid")).toBeUndefined();
+		expect(vfile.messages).toEqual([
+			expect.objectContaining({
+				reason: "Mermaid must use a ```mermaid fenced code block.",
+				source: "rehype-mermaid",
+				ruleId: "invalid-language",
+				fatal: false,
+				line: 1,
+				column: 1,
+			}),
+		]);
 	});
 });

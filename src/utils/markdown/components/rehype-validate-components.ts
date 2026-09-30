@@ -1,6 +1,5 @@
 import type * as hast from "hast";
 import type { Plugin } from "unified";
-import { logError } from "../logger.ts";
 import { visit } from "unist-util-visit";
 import {
 	type PlayfulRoot,
@@ -17,23 +16,27 @@ export const rehypeValidateComponents: Plugin<[], PlayfulRoot> = () => {
 	return (tree, vfile) => {
 		visit(tree, isComponentMarkup, (node, _, parent) => {
 			if (!isValidComponentParent(parent)) {
-				logError(
-					vfile,
-					node,
+				vfile.fail(
 					`Component ${node.component} cannot be placed in ${parent?.type}!`,
+					{
+						place: node.position,
+						source: "rehype-validate-components",
+						ruleId: "invalid-parent",
+					},
 				);
-				throw new Error();
 			}
 		});
 
 		visit(tree, isComponentNode, (node, _, parent) => {
 			if (!isValidComponentParent(parent)) {
-				logError(
-					vfile,
-					node,
+				vfile.fail(
 					`Component ${node.component} cannot be placed in ${parent?.type}!`,
+					{
+						place: node.position,
+						source: "rehype-validate-components",
+						ruleId: "invalid-parent",
+					},
 				);
-				throw new Error();
 			}
 		});
 	};

@@ -5,7 +5,6 @@ import type { RehypeFunctionComponent } from "../types.ts";
 import type { ComponentNode } from "../components.ts";
 import { isElement } from "#utils/markdown/unist-is-element.ts";
 import { isNodeHeading } from "../utils/headings.ts";
-import { logError } from "#utils/markdown/logger.ts";
 import type { SnitipInfo, SnitipLink } from "#types/SnitipInfo.ts";
 import { isMarkdownVFile, type MarkdownVFile } from "#utils/markdown/types.ts";
 import type { TagInfo } from "#types/TagInfo.ts";
@@ -34,7 +33,11 @@ export const transformSnitip: RehypeFunctionComponent = ({
 }) => {
 	const snitipId = attributes["id"];
 	if (!snitipId) {
-		logError(vfile, node, "Snitip must have an id!");
+		vfile.message("Snitip must have an id!", {
+			place: node.position,
+			source: "rehype-snitip",
+			ruleId: "missing-id",
+		});
 		return;
 	}
 
@@ -47,7 +50,11 @@ export const transformSnitip: RehypeFunctionComponent = ({
 	);
 
 	if (headingIndex < 0) {
-		logError(vfile, node, "Snitip must start with a heading!");
+		vfile.message("Snitip must start with a heading!", {
+			place: node.position,
+			source: "rehype-snitip",
+			ruleId: "missing-heading",
+		});
 		return;
 	}
 
@@ -65,21 +72,24 @@ export const transformSnitip: RehypeFunctionComponent = ({
 		const unsupportedNode = contents.find(
 			(node) => !isSerializableHastNode(node),
 		)!;
-		logError(
-			vfile,
-			unsupportedNode,
-			"Snitip content cannot contain nested markdown components!",
-		);
+		vfile.message("Snitip content cannot contain nested markdown components!", {
+			place:
+				"position" in unsupportedNode
+					? unsupportedNode.position
+					: node.position,
+			source: "rehype-snitip",
+			ruleId: "nested-component",
+		});
 		return [];
 	}
 
 	const elementWithId = findElementWithId(serializableContents);
 	if (elementWithId) {
-		logError(
-			vfile,
-			elementWithId,
-			"Snitip content cannot contain element IDs!",
-		);
+		vfile.message("Snitip content cannot contain element IDs!", {
+			place: elementWithId.position,
+			source: "rehype-snitip",
+			ruleId: "nested-id",
+		});
 		return [];
 	}
 
@@ -113,7 +123,11 @@ export const transformSnitip: RehypeFunctionComponent = ({
 			if (!tag) continue;
 			const tagInfo = getTagById(tag);
 			if (!tagInfo) {
-				logError(vfile, node, `Tag '${tag}' does not exist!`);
+				vfile.message(`Tag '${tag}' does not exist!`, {
+					place: node.position,
+					source: "rehype-snitip",
+					ruleId: "unknown-tag",
+				});
 				continue;
 			}
 

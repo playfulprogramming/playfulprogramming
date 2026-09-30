@@ -154,6 +154,7 @@
 		"unist-util-is": "^6.0.1",
 		"unist-util-visit": "^5.1.0",
 		"vfile": "^6.0.3",
+		"vfile-message": "^4.0.3",
 		"vitest": "^5.0.0"
 	},
 	"lint-staged": {

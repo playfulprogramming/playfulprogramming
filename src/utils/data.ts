@@ -24,6 +24,7 @@ import {
 	TYPE_FRONTMATTER,
 } from "./markdown/remark-process-frontmatter.ts";
 import { parseFrontmatter } from "./content/parseFrontmatter.ts";
+import { createReporter } from "./markdown/diagnostics.ts";
 import { getMarkdownVFile } from "./markdown/getMarkdownVFile.ts";
 
 function isNotJunk(name: string): boolean {
@@ -94,27 +95,35 @@ for (const file of (await fs.readdir(snitipsDirectory)).filter(isNotJunk)) {
 		kind: "snitip",
 		file: filePath,
 	});
-	const { frontmatter } = await parseFrontmatter(vfile, SnitipInfoSchema);
+	const reporter = createReporter(vfile);
+	try {
+		const { frontmatter } = await parseFrontmatter(vfile, SnitipInfoSchema);
 
-	const snitipHtml = (await minimalParser.process(vfile)).toString();
-	const tagsMeta = new Map();
-	for (const tag of frontmatter.tags) {
-		const tagMeta = tags.get(tag);
-		if (!tagMeta) {
-			console.error(`${filePath}: Tag '${tag}' does not exist!`);
-			continue;
+		const snitipHtml = (await minimalParser.process(vfile)).toString();
+		const tagsMeta = new Map();
+		for (const tag of frontmatter.tags) {
+			const tagMeta = tags.get(tag);
+			if (!tagMeta) {
+				vfile.message(`Tag '${tag}' does not exist!`, {
+					source: "content-snitip",
+					ruleId: "unknown-tag",
+				});
+				continue;
+			}
+			tagsMeta.set(tag, tagMeta);
 		}
-		tagsMeta.set(tag, tagMeta);
-	}
 
-	const snitip: SnitipInfo = {
-		...frontmatter,
-		id: snitipId,
-		links: frontmatter.links ?? [],
-		tagsMeta,
-		content: snitipHtml,
-	};
-	snitips.set(snitipId, snitip);
+		const snitip: SnitipInfo = {
+			...frontmatter,
+			id: snitipId,
+			links: frontmatter.links ?? [],
+			tagsMeta,
+			content: snitipHtml,
+		};
+		snitips.set(snitipId, reporter.success(snitip));
+	} catch (error) {
+		reporter.failure(error);
+	}
 }
 
 async function indexPerson(personPath: string): Promise<PersonStub[]> {
