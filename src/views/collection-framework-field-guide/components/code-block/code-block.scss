@@ -6,7 +6,8 @@
 	border: none !important;
 }
 
-.ffg-code-block-container code .line::before {
+// TODO(shiki-removal): keep only .l
+.ffg-code-block-container code :is(.line, .l)::before {
 	color: var(--code-block-text_secondary) !important;
 	font-family: "Fira Code", monospace;
 	font-style: normal;

@@ -43,16 +43,46 @@ describe("rehypeShikiUU", () => {
 		expect(result.children[0]).toBe(mermaid);
 	});
 
-	it("continues to highlight other code blocks", async () => {
-		const typescript = createCodeBlock("typescript");
-		const highlighted = createCodeBlock("highlighted-typescript");
+	// TODO(shiki-removal): remove with the shiki fallback
+	it("highlights languages twinkleplop does not support with shiki", async () => {
+		const cpp = createCodeBlock("cpp");
+		const highlighted = createCodeBlock("highlighted-cpp");
 		vi.mocked(runShiki).mockResolvedValueOnce(highlighted);
-		const tree: Root = { type: "root", children: [typescript] };
+		const tree: Root = { type: "root", children: [cpp] };
 
 		const result = await highlight(tree);
 
 		expect(runShiki).toHaveBeenCalledOnce();
-		expect(runShiki).toHaveBeenCalledWith(typescript);
+		expect(runShiki).toHaveBeenCalledWith(cpp);
 		expect(result.children[0]).toBe(highlighted);
 	});
+
+	it.each([
+		["typescript", "", "const a = 1;\nconst b = 2;"],
+		["ts", "{2}", "const a = 1;\nconst b = 2;"],
+		["jsx", "", "const a = <div>{b}</div>;"],
+		["bash", "", "echo hi # [!code highlight]"],
+	])("highlights %s %s with twinkleplop", async (language, meta, text) => {
+		const result = await highlightCode(language, meta, text);
+
+		expect(runShiki).not.toHaveBeenCalled();
+		expect(result.children[0]).toMatchSnapshot();
+	});
+
+	it.each(["{0}", "{3}", "{1-3}"])(
+		"fails on line highlights %s outside the fence",
+		async (meta) => {
+			await expect(
+				highlightCode("ts", meta, "const a = 1;\nconst b = 2;"),
+			).rejects.toThrow();
+		},
+	);
 });
+
+function highlightCode(language: string, meta: string, text: string) {
+	const code = createCodeBlock(language);
+	(code.children[0] as Element).children = [{ type: "text", value: text }];
+	(code.children[0] as Element).data = { meta: meta || undefined } as never;
+	const tree: Root = { type: "root", children: [code] };
+	return unified().use(rehypeShikiUU, { serialize: true }).run(tree);
+}
