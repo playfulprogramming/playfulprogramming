@@ -18,13 +18,13 @@ Given the predominance of text on most sites, it probably won't come as a surpri
 
 Take the following text:
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/low-contrast.html" data-no-frame></iframe>
+<iframe src="./low-contrast.html" data-no-frame></iframe>
 
 > If you can't see the text, it says "This is hard to read" and is intentionally visually challenging to see due to a low opacity. We'll cover why in a moment.
 
 Can you read it well? How about if you squint? How about from far away?
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/low-contrast-blurred.html" data-no-frame></iframe>
+<iframe src="./low-contrast-blurred.html" data-no-frame></iframe>
 
 > This text says the same thing but is now also blurred.
 
@@ -34,7 +34,7 @@ The reason you're struggling to see this is because it has _low contrast_. For u
 
 Let's see what that blurred text looks like with proper color contrast:
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/high-contrast-blurred.html" data-no-frame></iframe>
+<iframe src="./high-contrast-blurred.html" data-no-frame></iframe>
 
 A little easier to see? Good! That's the point. Sufficient contrast can help many users - especially those with color blindness or other visual challenges - see what might otherwise be too difficult to visualize otherwise.
 
@@ -131,19 +131,19 @@ mediaQuery.addEventListener("change", (e) => {
 
 Let's do a similar demo to the one above. Can you read this?
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/small-text.html" data-no-frame></iframe>
+<iframe src="./small-text.html" data-no-frame></iframe>
 
 > There is text above this that says "This is very small text".
 
 How about this?
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/small-text-blurred.html" data-no-frame></iframe>
+<iframe src="./small-text-blurred.html" data-no-frame></iframe>
 
 > The same text is now blurred.
 
 Probably not? Alright! Now how about _this_ one?
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/large-text-blurred.html" data-no-frame></iframe>
+<iframe src="./large-text-blurred.html" data-no-frame></iframe>
 
 > It now says "This is large text"!
 
@@ -207,11 +207,11 @@ Let's do an experiment:
 
 
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/fixed-text-size.html" data-no-frame></iframe>
+<iframe src="./fixed-text-size.html" data-no-frame></iframe>
 
 -----
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/relative-text-size.html" data-no-frame></iframe>
+<iframe src="./relative-text-size.html" data-no-frame></iframe>
 
 ----
 
@@ -248,11 +248,11 @@ In some designs, it can be a fun addon to scale a header's visual size with the 
 
 This can be done using the `vw` or even `vh` CSS units.
 
-The examples below use the embedded demo’s viewport. [Open the viewport demo in its own tab](/custom-content/art-of-accessibility/art-of-a11y-text/viewport-text-size.html) to see how both sizes respond when you resize your browser window.
+The examples below use the embedded demo’s viewport. [Open the viewport demo in its own tab](./viewport-text-size.html) to see how both sizes respond when you resize your browser window.
 
 ----
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/viewport-text-size.html" data-no-frame></iframe>
+<iframe src="./viewport-text-size.html" data-no-frame></iframe>
 
 ----
 
@@ -306,7 +306,7 @@ p {
 
 ----
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/clamped-text-size.html" data-no-frame></iframe>
+<iframe src="./clamped-text-size.html" data-no-frame></iframe>
 
 -----
 
@@ -316,7 +316,7 @@ When talking about text, it's only natural that heading would come into the conv
 
 In HTML, we have 6 levels of headings:
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-text/heading-levels.html" data-no-frame></iframe>
+<iframe src="./heading-levels.html" data-no-frame></iframe>
 
 Each of these heading levels represents a new segment of the site with information to all users about how to scan and navigate a page's contents.
 

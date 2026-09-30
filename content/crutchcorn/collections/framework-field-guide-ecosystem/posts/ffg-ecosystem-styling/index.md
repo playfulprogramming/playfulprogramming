@@ -471,7 +471,7 @@ Say you want to blur an image:
 />
 ```
 
-<iframe src="/custom-content/framework-field-guide-ecosystem/ffg-ecosystem-styling/tailwind-image-blur.html" data-no-frame></iframe>
+<iframe src="./tailwind-image-blur.html" data-no-frame></iframe>
 
 Or maybe you want to have a border width of a specific pixel value:
 
@@ -483,7 +483,7 @@ Or maybe you want to have a border width of a specific pixel value:
 />
 ```
 
-<iframe src="/custom-content/framework-field-guide-ecosystem/ffg-ecosystem-styling/tailwind-image-border.html" data-no-frame></iframe>
+<iframe src="./tailwind-image-border.html" data-no-frame></iframe>
 
 You're able to truly make Tailwind your own.
 
@@ -1408,7 +1408,7 @@ Just like any other language, Sass can do conditional statements. This can be us
 }
 ```
 
-<iframe src="/custom-content/framework-field-guide-ecosystem/ffg-ecosystem-styling/sass-readable-color.html" data-no-frame></iframe>
+<iframe src="./sass-readable-color.html" data-no-frame></iframe>
 
 Likewise, we can even use lists and loops in Sass to generate a collection of items to use later:
 
@@ -1427,7 +1427,7 @@ Likewise, we can even use lists and loops in Sass to generate a collection of it
 }
 ```
 
-<iframe src="/custom-content/framework-field-guide-ecosystem/ffg-ecosystem-styling/sass-gradient.html" data-no-frame></iframe>
+<iframe src="./sass-gradient.html" data-no-frame></iframe>
 
 ## Mixins
 

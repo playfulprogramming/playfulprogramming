@@ -43,7 +43,7 @@ By default, this will look like the following:
 ----
 
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/unlabeled-form.html" data-no-frame></iframe>
+<iframe src="./unlabeled-form.html" data-no-frame></iframe>
 
 
 ----
@@ -69,7 +69,7 @@ Notice that our form doesn't indicate which text input is for which field; neith
 
 ----
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/visual-labels.html" data-no-frame></iframe>
+<iframe src="./visual-labels.html" data-no-frame></iframe>
 
 
 ---
@@ -113,7 +113,7 @@ Luckily, when dealing with `input`s, there's an easy way to link a text input to
 
 ---
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/implicit-labels.html" data-no-frame></iframe>
+<iframe src="./implicit-labels.html" data-no-frame></iframe>
 
 ---
 
@@ -141,7 +141,7 @@ Don't like the inline styling of the labels? No problem. You can style `<label>`
 
 ----
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/styled-labels.html" data-no-frame></iframe>
+<iframe src="./styled-labels.html" data-no-frame></iframe>
 
 
 ---
@@ -178,7 +178,7 @@ It's a valid question, given that it's been adopted as a broadly utilized patter
 ---
 
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/placeholders.html" data-no-frame></iframe>
+<iframe src="./placeholders.html" data-no-frame></iframe>
 
 
 ----
@@ -213,7 +213,7 @@ Well, while you're able to place `div`s and other elements inside of a `label` e
 
 ---
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/explicit-labels.html" data-no-frame></iframe>
+<iframe src="./explicit-labels.html" data-no-frame></iframe>
 
 ----
 
@@ -431,7 +431,7 @@ Our form now works!
 ----
 
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/input-component.html" data-no-frame></iframe>
+<iframe src="./input-component.html" data-no-frame></iframe>
 
 
 ----
@@ -603,7 +603,7 @@ Now we can see our form with a warning about an invalid email. It looks somethin
 
 ----
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-labels/input-errors.html" data-no-frame></iframe>
+<iframe src="./input-errors.html" data-no-frame></iframe>
 
 
 ---

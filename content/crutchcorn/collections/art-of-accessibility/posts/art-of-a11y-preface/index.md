@@ -35,7 +35,7 @@ Now, take this button:
 </button>
 ```
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-preface/harsh-button.html" data-no-frame></iframe>
+<iframe src="./harsh-button.html" data-no-frame></iframe>
 
 This button works, and [has good contrast](/posts/intro-to-web-accessibility#contrast), but might confuse some users whether it's a button or not.
 
@@ -60,7 +60,7 @@ Compare this button, with harsh edges and three different colors, against a butt
     </button>
 ```
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-preface/material-button.html" data-no-frame></iframe>
+<iframe src="./material-button.html" data-no-frame></iframe>
 
 This button is more rounded, has a drop shadow, and matches Google's design language.
 
@@ -93,7 +93,7 @@ The answer? Well one way is to use a screen-reader, which reads the contents of 
 
 Consider the following button:
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-preface/native-button.html" data-no-frame></iframe>
+<iframe src="./native-button.html" data-no-frame></iframe>
 
 This button might be read by a screen-reader as "Button, Go home".
 

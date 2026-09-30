@@ -44,13 +44,13 @@ Not only does this help codebase readability, it helps immensely with accessibil
 
 **The `div` soup:**
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-semantic-markup/div-todos.html" data-no-frame></iframe>
+<iframe src="./div-todos.html" data-no-frame></iframe>
 
 ----
 
 **The correct HTML tags:**
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-semantic-markup/semantic-todos.html" data-no-frame></iframe>
+<iframe src="./semantic-todos.html" data-no-frame></iframe>
 
 -----
 
@@ -279,7 +279,7 @@ While you could create a partially analogous `button` element using a `div`:
 
 ---
 
-<iframe src="/custom-content/art-of-accessibility/art-of-a11y-semantic-markup/role-button.html" data-no-frame></iframe>
+<iframe src="./role-button.html" data-no-frame></iframe>
 
 ---
 
