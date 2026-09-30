@@ -1,5 +1,5 @@
+import * as path from "node:path";
 import type { Root, Element } from "hast";
-import type { VFile } from "vfile";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { toHtml } from "hast-util-to-html";
@@ -16,15 +16,9 @@ import { rehypeTransformGist } from "./platform-detectors/gist.ts";
 import { rehypeTransformVideo } from "./platform-detectors/video.ts";
 import { rehypeTransformPost } from "./platform-detectors/post.ts";
 import { isInlinePreviewSource } from "./inline-preview.ts";
+import { resolvePath } from "../../url-paths.ts";
 
-interface RehypeUnicornIFrameClickToRunProps {
-	srcReplacements?: Array<(val: string, root: VFile) => string>;
-}
-
-export const rehypeUnicornIFrameClickToRun: Plugin<
-	[RehypeUnicornIFrameClickToRunProps | never],
-	Root
-> = ({ srcReplacements = [] }) => {
+export const rehypeUnicornIFrameClickToRun: Plugin = () => {
 	return async (tree, file) => {
 		const iframeNodes: {
 			parent: ComponentMarkupNode | Root;
@@ -55,9 +49,16 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					...propsToPreserve
 				} = node.properties;
 				let src = String(node.properties.src);
-
-				for (const replacement of srcReplacements) {
-					src = replacement(src, file);
+				const resolvedPath = resolvePath(src, path.dirname(file.path));
+				// Is not a remote URL
+				if (resolvedPath) {
+					src = resolvedPath.relativeServerPath;
+					if (import.meta.env.DEV) {
+						// Add `?embed=1` query parameter to the src for development
+						// So that Vite loads the iframe in embed mode during development
+						const embedParam = new URLSearchParams({ embed: "1" });
+						src += `?${embedParam.toString()}`;
+					}
 				}
 
 				if (
