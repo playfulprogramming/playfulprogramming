@@ -1,10 +1,10 @@
 ---
 export interface Props {
-	html: string;
+	src: string;
 }
 ---
 
-<Fragment set:html={Astro.props.html} />
+<iframe src={Astro.props.src} data-no-frame></iframe>
 
 <script>
 	import "./inline-preview-script.ts";

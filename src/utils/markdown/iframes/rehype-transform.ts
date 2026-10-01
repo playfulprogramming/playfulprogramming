@@ -2,7 +2,6 @@ import * as path from "node:path";
 import type { Root, Element } from "hast";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
-import { toHtml } from "hast-util-to-html";
 import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants.ts";
 import {
 	type ComponentMarkupNode,
@@ -73,10 +72,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin = () => {
 						index,
 						1,
 						createComponent("InlinePreview", {
-							html: toHtml({
-								...node,
-								properties: { ...node.properties, src },
-							}),
+							src,
 						}),
 					);
 					return;
