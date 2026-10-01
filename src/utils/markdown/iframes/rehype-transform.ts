@@ -56,8 +56,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin = () => {
 					if (import.meta.env.DEV) {
 						// Add `?embed=1` query parameter to the src for development
 						// So that Vite loads the iframe in embed mode during development
-						const embedParam = new URLSearchParams({ embed: "1" });
-						src += `?${embedParam.toString()}`;
+						const embedUrl = new URL(src, Astro.site);
+						embedUrl.searchParams.set("embed", "1");
+						src = `${embedUrl.pathname}${embedUrl.search}${embedUrl.hash}`;
 					}
 				}
 
