@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <style>
+      .focusable-item:focus {
+        outline: 2px solid blue;
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <ol>
+      <li tabindex="0" class="focusable-item" data-index="1">First item</li>
+      <li tabindex="-1" class="focusable-item" data-index="2">Second item</li>
+      <li tabindex="-1" class="focusable-item" data-index="3">Third item</li>
+    </ol>
+    <script>
+        document.addEventListener('keydown', (event) => {
+          const items = document.querySelectorAll('.focusable-item');
+          const index = parseInt(event.key, 10);
+          if (index >= 1 && index <= items.length) {
+            event.preventDefault();
+            items[index - 1].focus();
+          }
+        });
+    </script>
+  </body>
+</html>
