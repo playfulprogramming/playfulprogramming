@@ -1,0 +1,9 @@
+{
+	"name": "@ffg-ecosystem/uncontrolled-16",
+	"scripts": {
+		"start": "servor --reload src"
+	},
+	"devDependencies": {
+		"servor": "^4.0.2"
+	}
+}
