@@ -89,6 +89,7 @@ A [screen reader](pfp-snitip:#screen-reader) is a form of assistive technology t
 Consider: If you can't see your screen to read your emails, how else could you read them?
 
 The answer? Well one way is to use a screen-reader, which reads the contents of the screen out loud. You could even use a keyboard to navigate through the your emails using keys like <kbd>Tab</kbd>.
+
 ---
 
 Consider the following button:
