@@ -14,7 +14,6 @@ const vfileData: MarkdownVFile["data"] = {
 	file: "",
 	headingIds: [],
 	tableOfContents: [],
-	warnings: [],
 	snitips: new Map(),
 };
 
@@ -22,7 +21,6 @@ const { content } = await getMarkdownHtml(
 	{
 		kind: "page",
 		file: "",
-		warnings: [],
 	},
 	Promise.resolve(
 		new VFile({

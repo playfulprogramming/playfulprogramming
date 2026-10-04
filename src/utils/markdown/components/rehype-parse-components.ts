@@ -2,7 +2,6 @@ import { is } from "unist-util-is";
 import type * as hast from "hast";
 import { type Plugin, unified } from "unified";
 import rehypeParse from "rehype-parse";
-import { logError } from "../logger.ts";
 import type { VFile } from "vfile";
 import type {
 	ComponentMarkupNode,
@@ -55,7 +54,11 @@ export const rehypeParseComponents: Plugin<[], PlayfulRoot> = function () {
 			const componentNode = unifiedRehype.parse(`<${valueContent}/>`)
 				.children[0];
 			if (!isNodeElement(componentNode)) {
-				logError(vfile, node, `Unable to parse component: ${valueContent}`);
+				vfile.message(`Unable to parse component: ${valueContent}`, {
+					place: node.position,
+					source: "rehype-parse-components",
+					ruleId: "invalid-marker",
+				});
 				continue;
 			}
 
@@ -76,10 +79,13 @@ export const rehypeParseComponents: Plugin<[], PlayfulRoot> = function () {
 				}
 
 				if (indexEnd == 0) {
-					logError(
-						vfile,
-						node,
+					vfile.message(
 						`Ranged component with "${START_PREFIX}${componentNode.tagName}" is missing a corresponding "${END_PREFIX}${componentNode.tagName}"!`,
+						{
+							place: node.position,
+							source: "rehype-parse-components",
+							ruleId: "missing-close",
+						},
 					);
 				}
 			}

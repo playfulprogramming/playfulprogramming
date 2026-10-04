@@ -1,5 +1,4 @@
 import { toString } from "hast-util-to-string";
-import { logError } from "#utils/markdown/logger.ts";
 import { isElement } from "#utils/markdown/unist-is-element.ts";
 import type { MarkdownVFile } from "#utils/markdown/types.ts";
 import { createComponent } from "../components.ts";
@@ -17,11 +16,11 @@ export const transformMermaid: RehypeFunctionComponent = ({
 	const pre = content.length === 1 ? content[0] : undefined;
 
 	if (!isElement(pre) || pre.tagName !== "pre") {
-		logError(
-			vfile,
-			node,
-			"Mermaid must contain exactly one fenced code block.",
-		);
+		vfile.message("Mermaid must contain exactly one fenced code block.", {
+			place: node.position,
+			source: "rehype-mermaid",
+			ruleId: "invalid-content",
+		});
 		return [];
 	}
 
@@ -37,13 +36,21 @@ export const transformMermaid: RehypeFunctionComponent = ({
 		code.tagName !== "code" ||
 		!classNames.includes("language-mermaid")
 	) {
-		logError(vfile, node, "Mermaid must use a ```mermaid fenced code block.");
+		vfile.message("Mermaid must use a ```mermaid fenced code block.", {
+			place: node.position,
+			source: "rehype-mermaid",
+			ruleId: "invalid-language",
+		});
 		return [];
 	}
 
 	const graph = toString(code).trim();
 	if (!graph) {
-		logError(vfile, node, "Mermaid diagram source cannot be empty.");
+		vfile.message("Mermaid diagram source cannot be empty.", {
+			place: node.position,
+			source: "rehype-mermaid",
+			ruleId: "empty-diagram",
+		});
 		return [];
 	}
 

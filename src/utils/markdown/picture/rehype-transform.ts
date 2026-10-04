@@ -10,7 +10,6 @@ import { getPicture } from "#utils/get-picture/index.ts";
 import { getImageSize } from "../../get-image-size.ts";
 import { resolvePath } from "../../url-paths.ts";
 import { Picture } from "./picture.tsx";
-import { logError } from "../logger.ts";
 import {
 	IMAGE_MAX_HEIGHT,
 	IMAGE_MAX_WIDTH,
@@ -48,10 +47,13 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				} else {
 					// If the image links to an external URL, do nothing
 					node.properties.src = nodeSrc;
-					logError(
-						file,
-						node,
+					file.message(
 						"Avoid using external images, as they cannot be optimized.",
+						{
+							place: node.position,
+							source: "rehype-astro-image-md",
+							ruleId: "external-image",
+						},
 					);
 					return;
 				}
