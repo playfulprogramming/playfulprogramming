@@ -1,5 +1,5 @@
+import * as path from "node:path";
 import type { Root, Element } from "hast";
-import type { VFile } from "vfile";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants.ts";
@@ -14,15 +14,10 @@ import { getUrlMetadata } from "#utils/hoof/index.ts";
 import { rehypeTransformGist } from "./platform-detectors/gist.ts";
 import { rehypeTransformVideo } from "./platform-detectors/video.ts";
 import { rehypeTransformPost } from "./platform-detectors/post.ts";
+import { isInlinePreviewSource } from "./inline-preview.ts";
+import { resolvePath } from "../../url-paths.ts";
 
-interface RehypeUnicornIFrameClickToRunProps {
-	srcReplacements?: Array<(val: string, root: VFile) => string>;
-}
-
-export const rehypeUnicornIFrameClickToRun: Plugin<
-	[RehypeUnicornIFrameClickToRunProps | never],
-	Root
-> = ({ srcReplacements = [] }) => {
+export const rehypeUnicornIFrameClickToRun: Plugin = () => {
 	return async (tree, file) => {
 		const iframeNodes: {
 			parent: ComponentMarkupNode | Root;
@@ -53,9 +48,34 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					...propsToPreserve
 				} = node.properties;
 				let src = String(node.properties.src);
+				const resolvedPath = resolvePath(src, path.dirname(file.path));
+				// Is not a remote URL
+				if (resolvedPath) {
+					src = resolvedPath.relativeServerPath;
+					if (import.meta.env.DEV) {
+						// Add `?embed=1` query parameter to the src for development
+						// So that Vite loads the iframe in embed mode during development
+						const embedUrl = new URL(src, import.meta.env.SITE);
+						embedUrl.searchParams.set("embed", "1");
+						src = `${embedUrl.pathname}${embedUrl.search}${embedUrl.hash}`;
+					}
+				}
 
-				for (const replacement of srcReplacements) {
-					src = replacement(src, file);
+				if (
+					Object.hasOwn(node.properties, "dataNoFrame") &&
+					isInlinePreviewSource(src)
+				) {
+					const index = parent.children.indexOf(node);
+					if (index == -1) return;
+
+					parent.children.splice(
+						index,
+						1,
+						createComponent("InlinePreview", {
+							src,
+						}),
+					);
+					return;
 				}
 
 				width = width ?? EMBED_SIZE.w;

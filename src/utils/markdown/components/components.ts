@@ -5,6 +5,7 @@ import InContentAd from "./in-content-ad/in-content-ad.astro";
 import LinkPreview from "./link-preview/link-preview.astro";
 import Tabs from "./tabs/tabs.astro";
 import IframePlaceholder from "../iframes/iframe-placeholder.astro";
+import InlinePreview from "../iframes/inline-preview.astro";
 import VideoPlaceholder from "../iframes/video-placeholder.astro";
 import XPlaceholder from "../iframes/x-placeholder.astro";
 import GistPlaceholder from "../iframes/gist-placeholder.astro";
@@ -42,10 +43,7 @@ export interface ComponentNode<Props = object> extends hast.Node {
 }
 
 export type PlayfulNode =
-	| PlayfulRoot
-	| HtmlNode
-	| ComponentNode
-	| ComponentMarkupNode;
+	PlayfulRoot | HtmlNode | ComponentNode | ComponentMarkupNode;
 
 export function isComponentNode(node: unknown): node is ComponentNode {
 	return !!(
@@ -82,6 +80,7 @@ export const components = {
 	Tabs,
 	Tooltip,
 	IframePlaceholder,
+	InlinePreview,
 	VideoPlaceholder,
 	XPlaceholder,
 	GistPlaceholder,
