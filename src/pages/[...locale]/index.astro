@@ -1,6 +1,6 @@
 ---
 import Document from "#components/layouts/document/document.astro";
-import { getCollectionsByLang, getPostsByLang } from "#utils/api.ts";
+import { getHomepageCollections, getHomepagePosts } from "#utils/api.ts";
 import SEO from "#components/seo/seo.astro";
 import Homepage from "#src/views/homepage/homepage.astro";
 import {
@@ -22,15 +22,13 @@ if (!isValidLocaleRouteParam(localeParam)) {
 const locale = getLocale();
 const providedLangs = getStaticLocalePaths().map(({ props }) => props.locale);
 
-const posts = await getPostsByLang(locale);
-const postsToDisplay = posts.slice(0, 4);
-
-const collectionsToDisplay = (await getCollectionsByLang(locale)).slice(0, 4);
+const posts = await getHomepagePosts(locale);
+const collections = await getHomepageCollections(locale);
 ---
 
 <Document>
 	<SEO slot="head" title={m.title_home()} providedLangs={providedLangs} />
 	<main class="container">
-		<Homepage posts={postsToDisplay} collections={collectionsToDisplay} />
+		<Homepage posts={posts} collections={collections} />
 	</main>
 </Document>
