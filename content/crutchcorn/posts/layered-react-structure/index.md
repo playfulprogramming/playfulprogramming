@@ -18,6 +18,8 @@
 
 This article proposes a method of laying out your React project called "**Layered React Structure**", or "**LRS**" for short.
 
+> **Want a hand applying LRS?** The [Layered React Structure repo](https://github.com/crutchcorn/layered-react-structure/) includes an ESLint plugin and an agent skill to help you bring these conventions into your own projects. The plugin checks imports between layers, while the skill guides your AI coding agent when building, refactoring, or reviewing React code. You can use them together or independently as you work through the ideas below.
+
 The gist of LRS is that each layer of your application should be able to live independently and compose together to form your application more cleanly. Ultimately, this code organization will allow you to:
 
 - Know where any individual part of your code lives quickly, regardless of your project's scale
