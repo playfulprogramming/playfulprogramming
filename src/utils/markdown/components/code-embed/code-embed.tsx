@@ -36,6 +36,7 @@ function shortenProcessUrl(url: string): string {
 export interface CodeEmbedProps {
 	projectId: string;
 	projectZipUrl: string;
+	projectUrl: string;
 	title: string;
 	file?: string;
 	fileHtml?: string;
@@ -84,7 +85,7 @@ export function CodeEmbed(props: CodeEmbedProps) {
 	}, []);
 
 	const [selectedFile, setSelectedFile] = useState(props.file);
-	const selectedFileContent = props.files.find(
+	const selectedFileEntry = props.files.find(
 		(file) => file.name == selectedFile,
 	);
 
@@ -98,10 +99,10 @@ export function CodeEmbed(props: CodeEmbedProps) {
 					file={selectedFile}
 					onFileChange={setSelectedFile}
 				>
-					{selectedFileContent ? (
+					{selectedFileEntry ? (
 						<CodeEmbedContent
-							code={selectedFileContent.code}
-							lang={selectedFileContent.filetype}
+							url={`${props.projectUrl}/${selectedFileEntry.name}`}
+							lang={selectedFileEntry.filetype}
 							codeHtml={selectedFile == props.file ? props.fileHtml : undefined}
 						/>
 					) : (

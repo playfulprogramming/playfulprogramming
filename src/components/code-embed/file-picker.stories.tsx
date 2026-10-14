@@ -8,7 +8,7 @@ function Demo(args: ComponentProps<typeof FilePicker>) {
 	return (
 		<div style={{ width: "min(600px, 100%)" }}>
 			<FilePicker {...args} file={file} onFileChange={setFile} />
-			<pre>{args.entries.find((entry) => entry.name === file)?.code}</pre>
+			<pre>{file}</pre>
 		</div>
 	);
 }

@@ -18,7 +18,7 @@ function CodeDemo() {
 	return (
 		<CodeContainer file={file} entries={entries} onFileChange={setFile}>
 			<pre>
-				<code>{entries.find((entry) => entry.name === file)?.code}</code>
+				<code>{file}</code>
 			</pre>
 		</CodeContainer>
 	);
