@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Uncontrolled - Example #16 - FFG Ecosystem</title>
+	</head>
+	<body>
+		<input id="input"/>
+		<button id="button">Change the input to "Hello, World"</button>
+		<script>
+			const buttonEl = document.querySelector("#button");
+			buttonEl.addEventListener("click", () => {
+				document.querySelector("#input").value = "Hello, World";
+			});
+		</script>
+	</body>
+</html>
