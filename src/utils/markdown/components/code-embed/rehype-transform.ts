@@ -2,7 +2,6 @@ import type { RehypeFunctionComponent } from "../types.ts";
 import path from "path";
 import fs from "fs/promises";
 import { getStackblitzUrl } from "./getStackblitzUrl.ts";
-import { logError } from "#utils/markdown/logger.ts";
 import type { Plugin } from "unified";
 import {
 	type ComponentMarkupNode,
@@ -28,7 +27,11 @@ export const rehypeCodeEmbed: Plugin<[], PlayfulRoot> = () => {
 				const src = String(node.properties.src);
 
 				if (!URL.canParse(src)) {
-					logError(vfile, node, `Cannot parse URL '${src}'`);
+					vfile.message(`Cannot parse URL '${src}'`, {
+						place: node.position,
+						source: "rehype-code-embed",
+						ruleId: "invalid-url",
+					});
 					return;
 				}
 
@@ -95,10 +98,13 @@ export const transformCodeEmbed: RehypeFunctionComponent = async (props) => {
 
 	for (const file of selectedFiles) {
 		if (files.every((entry) => entry.name != file)) {
-			logError(
-				props.vfile,
-				props.node,
+			props.vfile.message(
 				`File '${selectedFiles}' does not exist in ${project}!`,
+				{
+					place: props.node.position,
+					source: "rehype-code-embed",
+					ruleId: "missing-file",
+				},
 			);
 		}
 	}

@@ -4,7 +4,6 @@ import type { Plugin } from "unified";
 import { isMarkdownVFile } from "./types.ts";
 import { dirname, join, relative } from "path";
 import fs from "fs/promises";
-import { logError } from "./logger.ts";
 
 /**
  * Transform links to relative files (e.g. [find the slides here](./slides.pptx)) that are placed
@@ -28,7 +27,11 @@ export const rehypeRelativePaths: Plugin<[], Root> = () => {
 			const fileUrl = join(path, href);
 			const fileStat = await fs.stat(fileUrl).catch(() => undefined);
 			if (!fileStat?.isFile) {
-				logError(vfile, node, "Unable to locate relative file:", fileUrl);
+				vfile.message(`Unable to locate relative file: ${fileUrl}`, {
+					place: node.position,
+					source: "rehype-relative-paths",
+					ruleId: "missing-file",
+				});
 				return;
 			}
 

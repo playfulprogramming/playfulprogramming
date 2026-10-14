@@ -5,13 +5,12 @@ import remarkParse from "remark-parse";
 import { visit } from "unist-util-visit";
 import remarkFrontmatter from "remark-frontmatter";
 import JSON5 from "json5";
-import { logError } from "../markdown/logger.ts";
 import type { Static, TSchema } from "typebox";
 import Value, { ParseError } from "typebox/value";
 
 const TYPE_FRONTMATTER = "frontmatter";
 
-interface FrontMatterNode {
+interface FrontMatterNode extends Node {
 	type: typeof TYPE_FRONTMATTER;
 	// JS object stringified into frontmatter data
 	value: string;
@@ -37,25 +36,33 @@ export async function parseFrontmatter<T extends TSchema>(
 	let frontmatterNode: FrontMatterNode | undefined;
 	visit(tree, isFrontMatterNode, (node) => {
 		if (frontmatterNode) {
-			logError(vfile, node, "Duplicate frontmatter element!");
+			vfile.message("Duplicate frontmatter element!", {
+				place: node.position,
+				source: "parse-frontmatter",
+				ruleId: "duplicate-frontmatter",
+			});
 		} else {
 			frontmatterNode = node;
 		}
 	});
 
 	if (!frontmatterNode) {
-		throw new Error(`${vfile.data.file}: Missing frontmatter!`);
+		vfile.fail("Missing frontmatter!", {
+			place: tree.position,
+			source: "parse-frontmatter",
+			ruleId: "missing-frontmatter",
+		});
 	}
 
 	let frontmatterJson: unknown;
 	try {
 		frontmatterJson = JSON5.parse(frontmatterNode.value);
 	} catch (e) {
-		logError(
-			vfile,
-			frontmatterNode,
-			e instanceof Error ? e.message : String(e),
-		);
+		vfile.message(e instanceof Error ? e.message : String(e), {
+			place: frontmatterNode.position,
+			source: "parse-frontmatter",
+			ruleId: "invalid-json",
+		});
 	}
 
 	let frontmatter: Static<T> | undefined;
@@ -67,14 +74,18 @@ export async function parseFrontmatter<T extends TSchema>(
 	} catch (e) {
 		if (e instanceof ParseError) {
 			for (const error of e.cause.errors) {
-				logError(
-					vfile,
-					frontmatterNode,
-					`${error.schemaPath}: ${error.message}`,
-				);
+				vfile.message(`${error.schemaPath}: ${error.message}`, {
+					place: frontmatterNode.position,
+					source: "parse-frontmatter",
+					ruleId: "invalid-schema",
+				});
 			}
 		} else {
-			logError(vfile, frontmatterNode, String(e));
+			vfile.message(String(e), {
+				place: frontmatterNode.position,
+				source: "parse-frontmatter",
+				ruleId: "invalid-schema",
+			});
 		}
 	}
 

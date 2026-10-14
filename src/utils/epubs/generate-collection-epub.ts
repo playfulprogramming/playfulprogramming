@@ -6,6 +6,7 @@ import { unified } from "unified";
 import type { CollectionInfo, PostInfo } from "#types/index.ts";
 import { getPersonById } from "#utils/api.ts";
 import { createEpubPlugins } from "#utils/markdown/createEpubPlugins.ts";
+import { createReporter } from "#utils/markdown/diagnostics.ts";
 import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
 import { getUrlMetadata } from "#utils/hoof/get-url-metadata.ts";
 import type { CollectionLinks } from "#utils/markdown/reference-page/rehype-reference-page.ts";
@@ -125,9 +126,13 @@ async function generateEpubHTML({
 	}
 	vfile.value = contents;
 
-	const result = await unifiedChain.process(vfile);
-	const html = result.toString();
-	return html.replace(emojiRegex, "");
+	const reporter = createReporter(vfile);
+	try {
+		const result = await unifiedChain.process(vfile);
+		return reporter.success(result.toString().replace(emojiRegex, ""));
+	} catch (error) {
+		return reporter.failure(error);
+	}
 }
 
 type EpubOptions = ConstructorParameters<typeof EPub>[0];

@@ -2,16 +2,16 @@ import { json } from "node:stream/consumers";
 import { spawn } from "child_process";
 import { kill } from "process";
 import { setTimeout } from "node:timers/promises";
-import type { WarningInfo } from "#src/utils/markdown/types.ts";
+import type { VFileMessage } from "vfile-message";
 import { getLanguageFromFilename } from "#src/utils/locales.ts";
 
 const baseUrl = "http://localhost:5432";
 
-type LintResponse = { warnings: WarningInfo[] };
+type LintResponse = { messages: VFileMessage[] };
 
 async function processFile(file: string) {
 	const locale = getLanguageFromFilename(file);
-	const warnings: WarningInfo[] = [];
+	const messages: VFileMessage[] = [];
 
 	{
 		const [, author] = /^content\/([^\/]+)\/[^\/]+\.md$/.exec(file) ?? [];
@@ -21,7 +21,7 @@ async function processFile(file: string) {
 				method: "POST",
 				body: JSON.stringify({ author, locale }),
 			}).then((r) => r.json());
-			warnings.push(...res.warnings);
+			messages.push(...res.messages);
 		}
 	}
 
@@ -34,7 +34,7 @@ async function processFile(file: string) {
 				method: "POST",
 				body: JSON.stringify({ author, post, locale }),
 			}).then((r) => r.json());
-			warnings.push(...res.warnings);
+			messages.push(...res.messages);
 		}
 	}
 
@@ -47,7 +47,7 @@ async function processFile(file: string) {
 				method: "POST",
 				body: JSON.stringify({ author, collection, locale }),
 			}).then((r) => r.json());
-			warnings.push(...res.warnings);
+			messages.push(...res.messages);
 		}
 	}
 
@@ -62,13 +62,19 @@ async function processFile(file: string) {
 				method: "POST",
 				body: JSON.stringify({ author, collection, post, locale }),
 			}).then((r) => r.json());
-			warnings.push(...res.warnings);
+			messages.push(...res.messages);
 		}
 	}
 
-	// If any warning is found, the lint check should fail
-	if (warnings.length) {
-		console.log(`[script] ${warnings.length} warnings for ${file}`);
+	if (messages.length) {
+		console.log(`[script] ${messages.length} messages for ${file}`);
+	}
+	// Warnings and errors fail the lint check; informational messages do not.
+	if (
+		messages.some(
+			(message) => message.fatal === false || message.fatal === true,
+		)
+	) {
 		process.exitCode = 1;
 	}
 }

@@ -2,7 +2,6 @@ import type { Root } from "hast";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { isMarkdownVFile } from "./types.ts";
-import { logError } from "./logger.ts";
 
 /**
  * Plugin to validate anchor links to headings and ensure their case matches their target heading IDs.
@@ -19,10 +18,13 @@ export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 			const existingSlug = headingSlugsMap.get(lowerSlug);
 
 			if (existingSlug && existingSlug !== slug) {
-				logError(
-					file,
-					tree,
+				file.message(
 					`[${rehypeValidateHeadingLinks.name}] Multiple headings normalize to "${lowerSlug}" ("${existingSlug}" and "${slug}") in "${file.path}". Using first occurrence.`,
+					{
+						place: tree.position,
+						source: "rehype-validate-heading-links",
+						ruleId: "ambiguous-heading",
+					},
 				);
 				continue;
 			}
@@ -37,19 +39,25 @@ export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 			const targetHeadingSlug = decodeURIComponent(href.slice(1));
 			const headingSlug = headingSlugsMap.get(targetHeadingSlug.toLowerCase());
 			if (!headingSlug) {
-				logError(
-					file,
-					node,
+				file.message(
 					`[${rehypeValidateHeadingLinks.name}] Unknown anchor link to heading "${href}" in "${file.path}".`,
+					{
+						place: node.position,
+						source: "rehype-validate-heading-links",
+						ruleId: "unknown-heading",
+					},
 				);
 				return;
 			}
 
 			if (headingSlug !== targetHeadingSlug) {
-				logError(
-					file,
-					node,
+				file.message(
 					`[${rehypeValidateHeadingLinks.name}] Anchor link to heading "${href}" has wrong case. Replacing with "#${headingSlug}" in "${file.path}".`,
+					{
+						place: node.position,
+						source: "rehype-validate-heading-links",
+						ruleId: "heading-case",
+					},
 				);
 				node.properties["href"] = `#${headingSlug}`;
 			}
