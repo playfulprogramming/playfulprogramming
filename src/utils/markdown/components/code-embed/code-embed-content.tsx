@@ -27,6 +27,7 @@ export function CodeEmbedContent(props: CodeEmbedContentProps) {
 	}
 	return (
 		<div>
+			{/* TODO(shiki-removal): use twinkleplop's class */}
 			<pre class="shiki">
 				<code>{props.code}</code>
 			</pre>

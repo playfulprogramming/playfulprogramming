@@ -10,6 +10,7 @@ import { getMarkdownVFile } from "#utils/markdown/getMarkdownVFile.ts";
 import { getUrlMetadata } from "#utils/hoof/get-url-metadata.ts";
 import type { CollectionLinks } from "#utils/markdown/reference-page/rehype-reference-page.ts";
 import epubCss from "./epub.css?raw";
+import twinkleplopCss from "@twinkleplop/theme-github/light?raw";
 import { tmpdir } from "os";
 import asyncPool from "tiny-async-pool";
 
@@ -180,7 +181,7 @@ export async function generateCollectionEPub(
 			publisher: "Playful Programming",
 			cover: collection.coverImgMeta.absoluteFSPath,
 			allowedAttributes: [...defaultAllowedAttributes, "start", "colSpan"],
-			css: epubCss,
+			css: epubCss + twinkleplopCss,
 			// fonts: ['/path/to/Merriweather.ttf'],
 			lang: collection.locale,
 			content: contents,
