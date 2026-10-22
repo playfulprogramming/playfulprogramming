@@ -12,6 +12,8 @@
 
 This is regular text.
 
+Hello world
+
 # Tooltips
 
 > **Note:**
