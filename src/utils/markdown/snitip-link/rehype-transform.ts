@@ -4,7 +4,6 @@ import type { Plugin } from "unified";
 import { SnitipLink } from "./SnitipLink.tsx";
 import type { SnitipInfo } from "#types/SnitipInfo.ts";
 import type { MarkdownVFile } from "../types.ts";
-import { logError } from "../logger.ts";
 import { getSnitipById } from "#utils/api.ts";
 import { createComponent, type PlayfulRoot } from "../components/components.ts";
 
@@ -32,7 +31,11 @@ export const rehypeSnitipLinks: Plugin<[], PlayfulRoot> = () => {
 				const reference = href.slice(SNITIP_PROTOCOL.length);
 				const snitipId = reference.slice(1);
 				if (!reference.startsWith("#") || !snitipId) {
-					logError(vfile, node, `Invalid snitip link: ${href}`);
+					vfile.message(`Invalid snitip link: ${href}`, {
+						place: node.position,
+						source: "rehype-snitip-links",
+						ruleId: "invalid-link",
+					});
 					return;
 				}
 
@@ -50,10 +53,13 @@ export const rehypeSnitipLinks: Plugin<[], PlayfulRoot> = () => {
 
 				// If the snitip is not found anywhere, error
 				if (!snitip) {
-					logError(
-						vfile,
-						node,
+					vfile.message(
 						`Could not resolve snitip link to any known snitips: ${href}`,
+						{
+							place: node.position,
+							source: "rehype-snitip-links",
+							ruleId: "unknown-snitip",
+						},
 					);
 					return;
 				}

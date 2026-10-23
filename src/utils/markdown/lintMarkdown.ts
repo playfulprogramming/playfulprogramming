@@ -1,0 +1,25 @@
+import { VFileMessage } from "vfile-message";
+import { getMarkdownVFile } from "./getMarkdownVFile.ts";
+import { getMarkdownHtml } from "./getMarkdownHtml.ts";
+import type { MarkdownFileInfo, MarkdownVFile } from "./types.ts";
+
+export async function lintMarkdown<Stub extends MarkdownFileInfo>(
+	stub: Stub,
+	read: (stub: Stub, file: MarkdownVFile) => Promise<MarkdownFileInfo>,
+) {
+	const file = await getMarkdownVFile(stub);
+	try {
+		const post = await read(stub, file);
+		await getMarkdownHtml(post, file);
+	} catch (error) {
+		// Only fail if a non-linting error is encountered
+		if (
+			!(error instanceof VFileMessage) ||
+			!error.fatal ||
+			!file.messages.includes(error)
+		) {
+			throw error;
+		}
+	}
+	return file.messages;
+}

@@ -1,9 +1,9 @@
 import type { Plugin } from "unified";
 import type { RehypeFunctionComponent } from "./types.ts";
-import { logError } from "../logger.ts";
 import type { VFile } from "vfile";
 import {
-	type PlayfulNode,
+	type ComponentMarkupNode,
+	type ComponentNode,
 	type PlayfulRoot,
 	isComponentMarkup,
 	isComponentNode,
@@ -20,7 +20,7 @@ export const rehypeTransformComponents: Plugin<
 	async function transformComponents(tree: PlayfulRoot, vfile: VFile) {
 		const results: Array<{
 			index: number;
-			node: PlayfulNode;
+			node: ComponentMarkupNode | ComponentNode;
 			replacement: ReturnType<RehypeFunctionComponent>;
 		}> = [];
 
@@ -37,8 +37,11 @@ export const rehypeTransformComponents: Plugin<
 			// Find the component matching the given tag
 			const component = components[node.component];
 			if (!component) {
-				logError(vfile, node, `Unknown markdown component ${node.component}`);
-				throw new Error();
+				vfile.fail(`Unknown markdown component ${node.component}`, {
+					place: node.position,
+					source: "rehype-components",
+					ruleId: "unknown-component",
+				});
 			}
 
 			// Transform the child components first!
@@ -61,8 +64,11 @@ export const rehypeTransformComponents: Plugin<
 			const replacementNodes = await result.replacement;
 			const index = tree.children.indexOf(result.node);
 			if (index == -1) {
-				logError(vfile, result.node, `Unable to find node replacement!`);
-				throw new Error();
+				vfile.fail("Unable to find node replacement!", {
+					place: result.node.position,
+					source: "rehype-components",
+					ruleId: "missing-replacement",
+				});
 			}
 
 			tree.children.splice(index, 1, ...(replacementNodes ?? []));

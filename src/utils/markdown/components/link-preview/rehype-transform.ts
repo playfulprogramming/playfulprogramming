@@ -11,7 +11,6 @@ import {
 } from "../components.ts";
 import type { Plugin } from "unified";
 import { type UrlMetadataResponse, getUrlMetadata } from "#utils/hoof/index.ts";
-import { logError } from "#utils/markdown/logger.ts";
 import { siteUrl } from "#src/constants/site-config.ts";
 import * as api from "#utils/api.ts";
 import { baseLocale } from "#src/paraglide/runtime.js";
@@ -87,7 +86,11 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 }) => {
 	const paragraphNode = children.filter(isElement).at(0);
 	if (!paragraphNode) {
-		logError(vfile, node, "Missing link preview contents");
+		vfile.message("Missing link preview contents", {
+			place: node.position,
+			source: "rehype-link-preview",
+			ruleId: "missing-content",
+		});
 		return;
 	}
 	const anchorNode = find<Element>(paragraphNode, {
@@ -95,7 +98,11 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 		tagName: "a",
 	});
 	if (!anchorNode) {
-		logError(vfile, paragraphNode, "Missing a link element");
+		vfile.message("Missing a link element", {
+			place: paragraphNode.position,
+			source: "rehype-link-preview",
+			ruleId: "missing-link",
+		});
 		return;
 	}
 
@@ -103,7 +110,11 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 	try {
 		url = new URL(`${anchorNode.properties.href}`, siteUrl);
 	} catch (e) {
-		logError(vfile, anchorNode, "Malformatted URL");
+		vfile.message("Malformatted URL", {
+			place: anchorNode.position,
+			source: "rehype-link-preview",
+			ruleId: "invalid-url",
+		});
 		return;
 	}
 
@@ -120,7 +131,11 @@ export const transformLinkPreview: RehypeFunctionComponent = async ({
 			? await getPlayfulUrlBanner(url)
 			: (await getUrlMetadata(url.toString()).catch(() => undefined))?.banner;
 	if (!pictureNode && !result) {
-		logError(vfile, anchorNode, "Link preview could not find a banner image.");
+		vfile.message("Link preview could not find a banner image.", {
+			place: anchorNode.position,
+			source: "rehype-link-preview",
+			ruleId: "missing-banner",
+		});
 		return;
 	}
 

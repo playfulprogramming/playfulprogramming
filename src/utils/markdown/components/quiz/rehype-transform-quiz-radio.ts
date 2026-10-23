@@ -11,7 +11,6 @@ import { toString } from "hast-util-to-string";
 import { type PlayfulNode, createComponent } from "../components.ts";
 import { toHtml } from "hast-util-to-html";
 import { isElement } from "#utils/markdown/unist-is-element.ts";
-import { logError } from "#utils/markdown/logger.ts";
 import { visit } from "unist-util-visit";
 
 const ALLOWED_OPTION_TAGS = new Set(["em", "strong", "code"]);
@@ -52,14 +51,22 @@ export const transformQuizRadio: RehypeFunctionComponent = ({
 
 	const titleNode = findTitleNode(children);
 	if (!titleNode) {
-		logError(vfile, node, "Question must contain a title heading.");
+		vfile.message("Question must contain a title heading.", {
+			place: node.position,
+			source: "rehype-quiz-radio",
+			ruleId: "missing-heading",
+		});
 		return [];
 	}
 	const title = toString(titleNode);
 
 	const listNode = findListNode(children);
 	if (!listNode) {
-		logError(vfile, node, "Question must contain a list.");
+		vfile.message("Question must contain a list.", {
+			place: node.position,
+			source: "rehype-quiz-radio",
+			ruleId: "missing-list",
+		});
 		return [];
 	}
 
@@ -77,11 +84,11 @@ export const transformQuizRadio: RehypeFunctionComponent = ({
 		// We want `rawLabel` to start with `( )` or `(x)` to indicate the radio button and it's correctness or not
 		const match = /^\(([x ])\) ([\S\s]*)$/.exec(innerText.value);
 		if (!match) {
-			logError(
-				vfile,
-				option,
-				"Radio options must begin with either `( )` or `(x)`",
-			);
+			vfile.message("Radio options must begin with either `( )` or `(x)`", {
+				place: option.position,
+				source: "rehype-quiz-radio",
+				ruleId: "invalid-option",
+			});
 			return [];
 		}
 		const correct = match[1] === "x";
@@ -94,10 +101,13 @@ export const transformQuizRadio: RehypeFunctionComponent = ({
 		let isAllowedTagError = false;
 		visit(optionContentEl, isElement, (node, _, parent) => {
 			if (parent && !ALLOWED_OPTION_TAGS.has(node.tagName)) {
-				logError(
-					vfile,
-					node,
+				vfile.message(
 					`<${node.tagName}> tags are not permitted in quiz options!`,
+					{
+						place: node.position,
+						source: "rehype-quiz-radio",
+						ruleId: "invalid-option-tag",
+					},
 				);
 				isAllowedTagError = true;
 			}
@@ -109,7 +119,11 @@ export const transformQuizRadio: RehypeFunctionComponent = ({
 	}
 
 	if (options.length === 0) {
-		logError(vfile, node, "Quiz radio must contain a valid list!");
+		vfile.message("Quiz radio must contain a valid list!", {
+			place: node.position,
+			source: "rehype-quiz-radio",
+			ruleId: "empty-list",
+		});
 		return [];
 	}
 
