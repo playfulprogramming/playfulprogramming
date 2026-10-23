@@ -32,7 +32,7 @@ pnpm install @google/genai
 Then, use Google AI in your Angular application.
 This is a ready to copy component to start and play with Angular and AI.
 
-```typescript
+```angular-ts
 import { Component, signal } from '@angular/core';
 import { GeneratedImage, GoogleGenAI } from '@google/genai';
 

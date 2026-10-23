@@ -404,7 +404,7 @@ This means that you'll want to add to this `dedupe` list anytime you add a `reac
 
 Now we can import our shared library into our web portal:
 
-```typescript
+```tsx
 // websites/admin-portal/App.tsx
 
 import {HelloWorld} from "@your-org/shared-elements";

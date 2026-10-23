@@ -53,7 +53,7 @@ export class ProductsComponent {
 
 In the template, there isn't much. It gets the total products from the service and shows the `ProductListComponent`. Perfect.
 
-```html
+```angular-html
 <div class="bg-white">
   <div
     class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"
@@ -246,7 +246,7 @@ We want to replace the real version of `ProductListComponent`. When we create a 
 
 Create a class with the `@Component` decorator and adjust the template. It's like creating a component. The code looks like this:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'app-products-list',
   template: ` <div>my products</div>`,
@@ -258,7 +258,7 @@ export class ProductListStub implements ProductsListComponent {
 
 Next, replace the `ProductsListComponent` with our stub in the declaration section. The final code looks like this:
 
-```typescript
+```angular-ts
 import { Component } from '@angular/core';
 import { Product } from '../services/products/products.service';
 

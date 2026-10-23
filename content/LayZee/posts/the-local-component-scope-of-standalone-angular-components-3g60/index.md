@@ -23,7 +23,7 @@ A standalone Angular component specifies declarable dependencies in the [`Compon
 
 Let's consider a standalone implementation of the hero detail component from [the Tour of Heroes tutorial](https://angular.io/tutorial):
 
-```typescript
+```angular-ts
 import { NgIf, UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -71,7 +71,7 @@ Additionally, the `FormsModule` is added to the [`Component.imports`](https://an
 
 Inspecting the component template, we see the `NgIf` directive in use:
 
-```html
+```angular-html
 <div *ngIf="hero">
   <!-- Conditional content omitted -->
 </div>
@@ -85,7 +85,7 @@ Next, we see the `UppercasePipe` pipe being used in the template:
 
 Finally, the `Hero#name` property is bound to a form control using two-way data binding with the `NgModel` directive:
 
-```html
+```angular-html
 <input
   id="hero-name"
   [(ngModel)]="hero.name"

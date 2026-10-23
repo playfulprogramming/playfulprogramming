@@ -772,7 +772,7 @@ This `v-slot` is similar to how you might pass properties to a component, but in
 
 > You can [object destructure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) the `v-slot` usage to gain access to the property names without having to repeat `props` each time:
 >
-> ```html
+> ```vue-html
 > <template v-slot="{item, i}">
 > 	<li>{{i}} {{item}}</li>
 > </template>

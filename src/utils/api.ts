@@ -118,6 +118,38 @@ export const getPostsByCollection = async (
 	);
 };
 
+export const getHomepagePosts = async (
+	language: Locale,
+): Promise<PostInfo[]> => {
+	const authors: string[] = [];
+	const ret: PostInfo[] = [];
+	for (const post of await getPostsByLang(language)) {
+		if (ret.length === 4) return ret;
+		const hasAuthor = post.authors.every((a) => authors.includes(a));
+		if (!hasAuthor) {
+			ret.push(post);
+			authors.push(...post.authors);
+		}
+	}
+	return ret;
+};
+
+export const getHomepageCollections = async (
+	language: Locale,
+): Promise<CollectionInfo[]> => {
+	const authors: string[] = [];
+	const ret: CollectionInfo[] = [];
+	for (const collection of await getCollectionsByLang(language)) {
+		if (ret.length === 4) return ret;
+		const hasAuthor = collection.authors.every((a) => authors.includes(a));
+		if (!hasAuthor) {
+			ret.push(collection);
+			authors.push(...collection.authors);
+		}
+	}
+	return ret;
+};
+
 export const getPostVersionsBySlug = async (
 	slug: string,
 	language: Locale,

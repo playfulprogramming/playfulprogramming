@@ -39,7 +39,7 @@ Web frameworks such as Astro ([My website](https://mainawycliffe.dev/) is built 
 
 Astro uses the concept of JS opt-in, meaning by default, no Javascript is generated unless you tell Astro to include javascript. You can then either use Vanilla JS to include Javascript - the old fashioned way, as shown below:
 
-```javascript
+```html
 <script>
    document.getElementById("menuToggle").addEventListener("click", () => {
    const collapsibleMenu = document.getElementById("collapsibleMenu");

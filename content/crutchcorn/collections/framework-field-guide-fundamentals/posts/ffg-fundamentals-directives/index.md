@@ -844,7 +844,7 @@ For example, let's say that we want to pass a "name" to a template. We can provi
 
 And then render this data inside a template using:
 
-```html
+```angular-html
 <ng-template let-name="name">
 	<p>{{name}}</p>
 </ng-template>
@@ -881,7 +881,7 @@ class AppComponent {}
 
 We can even choose to use [an `ng-container`](/posts/ffg-fundamentals-transparent-elements) instead of a `div` to avoid having a `div` in our rendered output:
 
-```html
+```angular-html
 <ng-template #templ let-name="name">
 	<p>{{name}}</p>
 </ng-template>
@@ -900,7 +900,7 @@ We can even choose to use [an `ng-container`](/posts/ffg-fundamentals-transparen
 
 Previously, we used a syntax like:
 
-```html
+```angular-html
 <ng-template let-name="name">
 	<p>{{name}}</p>
 </ng-template>
@@ -910,7 +910,7 @@ To bind the `name` variable to the `name` context key. However, for contexts wit
 
 To solve this, we can pass a "default" key called `$implicit` and bind it like so:
 
-```html
+```angular-html
 <ng-template let-name>
 	<p>{{name}}</p>
 </ng-template>
@@ -1272,7 +1272,7 @@ Doing so tells the directive to wrap the element inside an `ng-template` to use 
 
 This:
 
-```html
+```angular-html
 <div>
 	<ng-template someDirective>
 		<p>Hi</p>

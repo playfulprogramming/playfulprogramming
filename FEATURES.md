@@ -135,6 +135,12 @@ We make this iframe lazy-loaded by default and force the user to click to run th
 
 We also lookup the websites favicon and use it as the icon for the iframe.
 
+For small demos in `public/custom-content/`, add `data-no-frame` with a root-relative `src` beginning with a single `/`. This creates an immediate, borderless preview that fills the article width and automatically adjusts its height to the content:
+
+```markdown
+<iframe src="/custom-content/demo.html" data-no-frame></iframe>
+```
+
 #### Code Samples
 
 We support loading full code projects into iframes via [StackBlitz projects](https://stackblitz.com/). This is useful for showing off code samples in a live environment.

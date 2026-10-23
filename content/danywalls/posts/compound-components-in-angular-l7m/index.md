@@ -17,7 +17,7 @@ For example, we need to show the list of the country in one case, the company fl
 
 **Option A** Create a single component with all the logic and use cases. With `ng-container` and *ngIf* directive. It creates a component with a vast amount of logic and interaction in a single component.
 
-```html
+```angular-html
 <hello name="{{ name }}"></hello>
 <select>
     <option>A</option>
@@ -121,7 +121,7 @@ export class CountryComponent  {
 
 Using the async pipe, we subscribe to countries$ observable and the *ngFor* to iterate over the list.
 
-```html
+```angular-html
 <select>
   <option *ngFor="let country of countries$ | async" [value]="country.code">
 ​    {{ country.name }}
@@ -148,7 +148,7 @@ Content projection allows the component to get content by adding the `<ng-conten
 
 Adding the ng-content element, the country component can render and use the content from those nested components.
 
-```html
+```angular-html
 <select>
  <option *ngFor="let country of countries$ | async" [value]="country.code">
   {{ country.name }}
@@ -178,7 +178,7 @@ export class CountryFlagComponent  {
 
 The CountryFlag renders the image using countryflagapi.com when getting the selected value.
 
-```html
+```angular-html
 <div *ngIf="selected">
 ​    <img src="https://countryflagsapi.com/png/{{selected}}"/>
 </div>
@@ -218,7 +218,7 @@ Using the @ContentChild decorator to get a reference for these components.
 
 Create selectedCountry method and the change event for selection to get the country selected.
 
-```html
+```angular-html
 <select #country (change)="selectedCountry(country.value)">
 ```
 
@@ -293,7 +293,7 @@ export class CountryFlagComponent  {
 
 Use the country component state in the template:
 
-```html
+```angular-html
 *ngIf="country.selected$ |async as countryName"
 ```
 

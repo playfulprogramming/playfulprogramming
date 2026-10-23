@@ -74,7 +74,7 @@ The `proxyConfig` is typically a JavaScript or JSON file that resides in the roo
 
 Once you have created your `proxyConfig` file, you need to tell Angular to use it during development. This is done by modifying the `serve` configuration in your `angular.json` file.
 
-```json
+```jsonc
 {
    "projects": {
      "my-app": {
@@ -119,7 +119,7 @@ The basic `proxyConfig` setup is sufficient for many scenarios, but Angular's pr
 
 - Path Rewrite: You can rewrite the URL path before forwarding the request to the backend. This is useful if your backend API expects a different path structure than your Angular application uses.
 
-```json
+```jsonc
 {
   "/api": {
     "target": "http://localhost:8080",

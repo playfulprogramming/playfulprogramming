@@ -37,7 +37,7 @@ data:
 
 To highlight the security issue with this approach, let's decode the data:
 
-```bash
+```console
 $ echo YmFy | base64 -d
 bar
 ```

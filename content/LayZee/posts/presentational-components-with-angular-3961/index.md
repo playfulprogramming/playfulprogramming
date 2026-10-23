@@ -146,7 +146,7 @@ As a small preparation, we'll change the selector to `'app-dashboard-ui'` as see
 
 As seen in Listing 2, the dashboard container component expects two input properties on the presentational dashboard component, `heroes` and `title`.
 
-```html
+```angular-html
 <!-- dashboard.container.html -->
 <app-dashboard-ui
   [heroes]="topHeroes$ | async"
@@ -188,7 +188,7 @@ Now our presentational dashboard component has a data binding API.
 
 We want our presentational components to be lean. Our templates should have minimal logic. Any complex presentational logic is delegated to the component model or better yet a presenter.
 
-```html
+```angular-html
 <!-- dashboard.component.html -->
 <h3>{{title}}</h3>
 <div class="grid grid-pad">
@@ -290,7 +290,7 @@ The container component expects the following data binding API from the presenta
 
 How do we know? From the hero container component's template which can be seen in Listing 7.
 
-```html
+```angular-html
 <!-- heroes.container.html -->
 <app-heroes-ui
   [heroes]="heroes$ | async"
@@ -349,7 +349,7 @@ How weird, the `delete` event handler has no method body. There's absolutely no 
 
 The `delete` event handler is bound to a user interaction by the component template as seen in Listing 9.
 
-```html
+```angular-html
 <!-- heroes.component.html -->
 <h2>
   My Heroes
@@ -384,7 +384,7 @@ The `delete` event handler is bound to a user interaction by the component templ
 
 Let's continue by connecting the component template to the component's data binding API.
 
-```html
+```angular-html
 <!-- heroes.component.html -->
 <h2>
   {{title}}
@@ -477,7 +477,7 @@ Wow, those 4 *-ilities* are all traits worth maximising!
 
 Let's revisit the heroes component template and see whether there's any non-trivial or complex presentational logic left. Look at Listing 12.
 
-```html
+```angular-html
 <!-- heroes.component.html -->
 <h2>
   {{title}}
@@ -545,7 +545,7 @@ It's interesting to note that as soon as we start to add more than basic form va
 
 Let's use reactive forms to extract form validation and UI behaviour logic from the presentational heroes component's template to its component model.
 
-```html
+```angular-html
 <!-- heroes.component.html -->
 <h2>
   {{title}}

@@ -92,9 +92,7 @@ export function createHtmlPlugins(unified: Processor) {
 			.use(rehypeDetailsElement)
 			.use(rehypeQuizIndexes)
 			.use(rehypeCodeEmbed)
-			.use(rehypeUnicornIFrameClickToRun, {
-				srcReplacements: [],
-			})
+			.use(rehypeUnicornIFrameClickToRun)
 			.use(rehypePlayfulElementMap)
 			.use(rehypeValidateComponents)
 			// Shiki is the last plugin before stringify, to avoid performance issues

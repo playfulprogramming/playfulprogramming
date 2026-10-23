@@ -96,7 +96,7 @@ export class BeerService {
 
 It is the home page with 2 links to get access to routes beer-room and resolver-room, using the directive routerLink.
 
-```html
+```angular-html
   <p class="text-center">
     Do you want to join to party and wait for the beers, or when you get in, the
     beers are ready ?
@@ -137,7 +137,7 @@ export class BeerRoomComponent {
 
 Into the template, use the pipe async to wait until the subscription finish.
 
-```html
+```angular-html
     <div *ngIf="beers$ | async as beers">
       <div class="chip" *ngFor="let beer of beers">
         <img [src]="beer?.image_url" class="avatar avatar-sm" />
@@ -180,7 +180,7 @@ export class ResolverRoomComponent implements OnInit {
 
 Similar like the BeerComponent we iterate over the beer array using ngFor directive.
 
-```html
+```angular-html
 <div class="chip" *ngFor="let beer of beerRouterList">
       <img [src]="beer?.image_url" class="avatar avatar-sm" />
       {{ beer.name }}

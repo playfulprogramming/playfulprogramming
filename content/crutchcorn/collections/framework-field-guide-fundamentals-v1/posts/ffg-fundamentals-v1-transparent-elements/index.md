@@ -328,7 +328,7 @@ import { Fragment } from "react";
 
 Angular's version of the `nothing` element is the `ng-container` element.
 
-```html
+```angular-html
 <ul>
 	<ng-container
 		*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
@@ -408,7 +408,7 @@ Here are some code samples that render out the following:
 
 ## Angular
 
-```html
+```angular-html
 <ng-container>
 	<ng-container>
 		<ng-container>

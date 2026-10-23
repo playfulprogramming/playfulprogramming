@@ -37,7 +37,7 @@ export class ProductListComponent implements OnInit {
 
 Update the HTML to render the list of products using the `*ngFor` directive.
 
-```html
+```angular-html
  <li *ngFor="let product of productList">
     {{ product.name }}
   </li>
@@ -58,7 +58,7 @@ export class AppComponent {
 
 Edit the *app.component.html* and use `[productList]` to pass the data to the *list-product component*.
 
-```html
+```angular-html
   <app-product-list
     class="card p-2"
     [productList]="products"
@@ -105,7 +105,7 @@ export class ProductListComponent implements OnInit {
 
 Edit the *product-list.component.html*, listen to the click event, on it call the *onSelectedProduct* method.
 
-```html
+```angular-html
 <li *ngFor="let product of productList" (click)="onSelectedProduct(product)">
     {{ product.name }}
   </li>
@@ -139,7 +139,7 @@ Edit the `app.component.html` and subscribe to listen to the `(onSelected)` even
 
 We show the selected product using a  `*ngIf` for the selectedProduct property.
 
-```html
+```angular-html
   <app-product-list
     class="card p-2"
     [productList]="products"

@@ -96,7 +96,7 @@ This works really well if you have data stored in signals or stores.
 
 The `useResource$` method will let you get async data with the power of `useTask$`, with `track`, `cleanup` and some extra features, such as the `<Resource>` built-in component which allows you to handle the loading and error states.
 
-```js
+```jsx
 <Resource
   value={reposResource}
   onPending={() => <>Loading...</>}

@@ -69,7 +69,7 @@ This is pretty hard to do. Modern declarative frameworks are data-driven. On an 
 
 How does state exist in an event handler if a component never executed to create it? Our modern frameworks are a tangle of functions closing over values.
 
-```js
+```jsx
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -134,7 +134,7 @@ This is non-trivial to implement and it isn't without tradeoff.
 
 Besides heavier compilation, Resumability relies on what it can serialize. And this can be significantly more. Your typical server rendered application stores the initial state of the application in 2 places: hardcoded into JavaScript source code that you write, and as serialized JSON written into the page. The latter is how we get all the dynamic and async data generated at server execution time.
 
-```js
+```jsx
 // in the code
 const [count, setState] = useState(0); 
 
@@ -151,7 +151,7 @@ You might be thinking, "Can't we just pull this information from the HTML?"
 
 We can and we can't. The final output only contains the final formatted data. This can be lossy.
 
-```js
+```jsx
 const [date, setDate] = useState(Date.now());
 const [dateFormat, setDateFormat] = useState("MM/DD/YYYY")
 

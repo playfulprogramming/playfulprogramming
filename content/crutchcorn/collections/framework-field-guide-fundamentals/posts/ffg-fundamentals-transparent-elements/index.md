@@ -438,7 +438,7 @@ Here are some code samples that render out the following:
 
 ## Angular
 
-```html
+```angular-html
 <ng-container>
 	<ng-container>
 		<ng-container>

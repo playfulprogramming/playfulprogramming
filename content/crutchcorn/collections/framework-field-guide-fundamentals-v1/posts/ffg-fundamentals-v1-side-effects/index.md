@@ -757,7 +757,7 @@ We can demonstrate this inside our frameworks.
 
 ### Angular
 
-```html
+```angular-html
 <div (click)="logMessage()">
 	<p>
 		<span style="color: red">Click me</span> or even
@@ -772,7 +772,7 @@ We can demonstrate this inside our frameworks.
 
 ### Vue
 
-```html
+```vue-html
 <div @click="logMessage()">
 	<p>
 		<span style="color: red">Click me</span> or even

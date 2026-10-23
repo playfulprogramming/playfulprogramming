@@ -32,7 +32,7 @@ const firstNameControl = new FormControl({value: 'any init value or null', disab
 
 Now instantiating this class takes three arguments. The first is a seed value which can be a config  object or just an init value, second an array of  or a single synchronous validator(here I'm using a buiilt in validator for requiring), and third an array or single async validator that is a custom validator.  You can also pass in a config object here as well with properties for both kinds of validators.  Now to bind this to a HTML element we need to bridge the gap from the template to the class. We do this with a directive that ReactiveForms provides called `formControl` we'd use it like this
 
-```html
+```angular-html
 <label for="name">First Name: </label>
 <input id="name" type="text" [formControl]="firstNameControl">
 ```
@@ -60,7 +60,7 @@ Honestly AbstractControl could have a whole article written on it, Definitely he
 
 Now to bind to this form group in our template we will use the formGroup directive.
 
-```html
+```angular-html
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div *ngIf="first.invalid"> Name is too short. </div>
 
@@ -105,7 +105,7 @@ registrationForm = new FormGroup({
 
 Here we have a newEmployee method that is just a factory function returning a FormGroup class. I put this in a method because it's nice having a config in one place instead of having it initialized in the registrationForm declaration and then when we add a new employee. Any time we want to add a new employee we simply call this method. I also initialized our Form Group with a new Form Array that call athis method so we have one group for a new employee. I added a getter for convenient access to the Form Array.
 
-```html
+```angular-html
 <form (ngSubmit)="submit()" [formGroup]="registrationForm">
   <section class="employees" formArrayName="employees">
     <ng-container *ngFor="let employee of employees.controls; let i = index;">

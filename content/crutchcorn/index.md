@@ -5,13 +5,9 @@
 	lastName: "Crutchley",
 	description: "Corbin is an engineering leader with a passion for helping others. 💜\nThey're focused on ensuring that learning is open and fun. 🦄\nThey blog, livestream, code, and more to reach those goals to help others! 💅",
 	socials: {
-		twitter: "crutchcorn",
-		bluesky: "https://bsky.app/profile/crutchcorn.dev",
+		website: "https://corbincrutchley.com",
 		github: "crutchcorn",
-		twitch: "crutchcorn",
-		linkedIn: "corbincrutchley",
-		threads: "@crutchcorn",
-		mastodon: "https://mastodon.social/@crutchcorn"
+		linkedIn: "corbincrutchley"
 	},
 	pronouns: "they/them",
 	profileImg: "./crutchcorn.png",

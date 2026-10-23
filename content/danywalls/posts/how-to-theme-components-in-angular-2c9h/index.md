@@ -38,7 +38,7 @@ ng g c contact
 
 Using the **BEM style**, we assign one class to each element class to keep specificity low.
 
-```html
+```angular-html
 <div class="contact">
   <h1 class="contact__firstname">{{contact.first_name}}</h1>
   <p class="contact__lastname">{{contact.last_name}}</p>
@@ -181,14 +181,14 @@ So, the default style is ready to get the values from CSS custom properties or t
 
 Set colors and layout dynamic using the Angular ngClass directive to assign the class to the component.
 
-```html
+```angular-html
 <app-contact [ngClass]="theme" *ngFor="let contact of contacts" [contact]="contact">      
 </app-contact>
 ```
 
 To make it dynamic, we create a theme variable and change it using `changeLayoutColor`, `addColor`, and `reset`
 
-```html
+```angular-html
   <div class="actions">
     <button (click)="changeLayoutColor()">change</button>
     <button (click)="addColor('contact-winter-colors')">Winter</button>

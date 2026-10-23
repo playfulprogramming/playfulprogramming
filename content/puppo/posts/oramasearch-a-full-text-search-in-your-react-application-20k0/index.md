@@ -68,7 +68,7 @@ As you can see, the context of Orama for this application is simple. Two flags t
 
 Now you can move to the OramaProvider inside of the `src/core/useOrama/Provider.tsx` file.
 
-```ts
+```tsx
 import {
   create,
   insertMultiple,
@@ -130,7 +130,7 @@ Then the provider does some little things. First, it initializes two states to s
 If you are familiar with React and Javascript/Typescript, I think everything is simple and clear after one or two views of the code.\
 The last step is to render the Provider in the application. This is in the `src/App.tsx`.
 
-```ts
+```tsx
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { stemmer } from '@orama/orama/stemmer/it';
 

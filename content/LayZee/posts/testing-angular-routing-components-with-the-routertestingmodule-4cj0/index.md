@@ -154,7 +154,7 @@ The Angular testing guide shows us how to create isolated unit tests around a ro
 
 The component model and component template are shown in Listings 2A and 2B.
 
-```html
+```angular-html
 <!-- dashboard.component.html -->
 <h3>Top Heroes</h3>
 
@@ -497,7 +497,7 @@ We'll use the `RouterTestingModule` to set up testing routes and replace the `Lo
 
 ## Integrated routing component test utilities
 
-```ts
+```angular-ts
 // dashboard.component.integration.spec.ts
 import { Component, ViewChild } from '@angular/core';
 import { tick } from '@angular/core/testing';
@@ -700,7 +700,7 @@ The integrated test case in Listing 5C looks surprisingly similar to the shallow
 
 Listing 6 shows the full test suite for reference.
 
-```ts
+```angular-ts
 // dashboard.component.integration.spec.ts
 import { Location } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';

@@ -102,7 +102,7 @@ export const onGet: RequestHandler<{ name: string }> = async () => {
 
 ![UI](./9fjmhnvpym61tufykqdj.png)
 
-```typescript
+```tsx
 import { $, component$, useSignal } from '@builder.io/qwik';
 
 export default component$(() => {

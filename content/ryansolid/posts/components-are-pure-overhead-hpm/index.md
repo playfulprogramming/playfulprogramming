@@ -41,7 +41,7 @@ Of course, as shown above, there are Virtual DOM libraries faster than Svelte, s
 
 Consider this example from the article:
 
-```js
+```jsx
 function MoreRealisticComponent(props) {
   const [selected, setSelected] = useState(null);
 
@@ -89,7 +89,7 @@ When I look at both approaches I see the same problem. The way we structure Comp
 
 When you have too few components you end up duplicating logic. The typical component has state and a view. The more complicated the control flow you have and the more nested state is, the more you will find the need to duplicate that logic in both. When a new requirement arises, as simple as say toggling visibility, you find yourself creating that same conditional in multiple places.
 
-```js
+```jsx
 export function Chart({ data, enabled, headerText }) {
   const el = useRef();
   useEffect(() => {

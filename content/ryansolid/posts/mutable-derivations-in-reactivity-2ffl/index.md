@@ -370,7 +370,7 @@ This is powerful because not only does it retain references in the UI so only gr
 
 While I believe this approach will be a huge win for real-time and local-first systems in the future, we already use Projections today perhaps without realizing it. Consider reactive map functions that include signals for the index:
 
-```js
+```jsx
 <For each={rows()}>
   (row, index) => <div>{index() + 1} {row.text}</div>
 </For>
@@ -380,7 +380,7 @@ The index is projected onto your list of rows that do not contain an index as a 
 
 Another example is Solid's obscure `createSelector` API. It lets you project the selection state onto a list of rows in a performant way so that changing what is selected doesn't update every row. Thanks to a formalized Projection primitive we don't need a special primitive anymore:
 
-```js
+```jsx
 let previous;
 const selected = createProjection(s => {
   const sId = selectedId();

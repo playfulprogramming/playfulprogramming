@@ -77,7 +77,7 @@ For simplicity, we'll create the animations in the default `AppComponent`.
 
 Let's start with creating our template for the dynamic island. Open `app.component.html` and add the following 👇
 
-```html
+```angular-html
 <!-- src/app/app.component.html -->
 
 <ion-content [fullscreen]="true">
@@ -120,7 +120,7 @@ ion-content {
 
 We'll use Popmotion to expand the dynamic island from its default state to its enlarged state. First, we'll need to assign an `id` to our dynamic island element. We'll also add a click event handler on the dynamic island to toggle between its default and opened state. Open `app.component.html` and add the following code 👇
 
-```html
+```angular-html
 <!-- src/app/app.component.html -->
 
 <ion-content [fullscreen]="true">
@@ -322,7 +322,7 @@ export class DynamicIslandPopmotionPage {
 
 Open `app.component.html` and add the following code to create the expanded dynamic island's contents 👇
 
-```html
+```angular-html
 <!-- src/app/app.component.html -->
 <ion-content [fullscreen]="true">
   
@@ -574,7 +574,7 @@ export class DynamicIslandPopmotionPage {
 
 Finally, add the animation trigger (`fadeSlideInOut`) to the target element and add `*ngIf="true"` to its direct children to create a staggering animation effect. Open `app.component.html` and add the following code 👇
 
-```html
+```angular-html
 <!-- src/app/app.component.html -->
 
 <ion-content [fullscreen]="true">

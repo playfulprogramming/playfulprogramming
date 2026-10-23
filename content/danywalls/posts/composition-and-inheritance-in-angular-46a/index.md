@@ -63,7 +63,7 @@ export class NewsletterComponent implements OnInit {
 
 And the template like:
 
-```html
+```angular-html
 <form [formGroup]="newsLetterForm" (ngSubmit)="save()">
   <h1>Newsletter</h1>
   <input type="text" formControlName="email" />
@@ -112,7 +112,7 @@ export class WaitingListComponent  {
 
 ```
 
-```html
+```angular-html
 <form [formGroup]="waitingListForm" (ngSubmit)="save()">
   <h1>Waiting list</h1>
   <input type="text" formControlName="email" />
@@ -178,7 +178,7 @@ export class NewsletterComponent extends BaseForm {
 
 ```
 
-```html
+```angular-html
 <form [formGroup]="myform" (ngSubmit)="save()">
   <h1>Newsletter</h1>
   <input type="text" formControlName="email" />
@@ -206,7 +206,7 @@ export class RecoveryPasswordComponent extends BaseForm {
 }
 ```
 
-```html
+```angular-html
 <form [formGroup]="myform" (ngSubmit)="save()">
   <h1>Recovery password</h1>
   <input type="text" formControlName="email" />

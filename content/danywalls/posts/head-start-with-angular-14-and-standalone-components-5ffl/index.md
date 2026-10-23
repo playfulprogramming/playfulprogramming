@@ -95,7 +95,7 @@ export class ContainerLayoutComponent  { }
 
 Add the following html to provide a layout for the app.
 
-```html
+```angular-html
 <div class="container">
     <ng-content></ng-content>
 </div>
@@ -169,7 +169,7 @@ export class LogoComponent  {
 
 ```
 
-```html
+```angular-html
 <img [src]="logoName">
 ```
 
@@ -194,7 +194,7 @@ export class ContainerLayoutComponent  {
 
 Use the `<app-logo>` component in the layout component template.
 
-```html
+```angular-html
 <app-logo></app-logo>
 <div class="container">
     <ng-content></ng-content>
@@ -245,7 +245,7 @@ export class RegisterComponent  {
 
 Finally, add the `sendForm` method to show the form values in the html. Add the markup HTML to the form linking the ngSubmit with the `sendForm` method.
 
-```html
+```angular-html
 <form [formGroup]="registerForm" (ngSubmit)="sendForm()">
 
   <label for="first-name">Name: </label>
@@ -331,7 +331,7 @@ import {NavigationComponent} from "../navigation/navigation.component";
 export class ContainerLayoutComponent  { }
 ```
 
-```html
+```angular-html
 <app-logo></app-logo>
 <app-navigation></app-navigation>
 <div class="container">

@@ -1,23 +1,18 @@
 import env from "#src/constants/env/index.ts";
 import { siteMetadata } from "#src/constants/site-config.ts";
-import GitBranch from "git-branch";
 
 type StackblitzOpts = {
 	embed?: "1";
 	file?: string;
 };
 
-let currentBranch: string | undefined;
-
-try {
-	currentBranch = env.GIT_COMMIT_REF ?? (await GitBranch());
-} catch (error) {
-	// In a worktree, this will fail, so we default to "main" to avoid breaking the embed functionality.
-	console.error("Error getting current Git branch:", error);
+let currentBranch = env.GIT_COMMIT_REF;
+if (!currentBranch) {
+	// In local dev, GIT_COMMIT_REF might not be set, so we should default to main.
 	currentBranch = "main";
-	// But only for development, in production we should throw an error to avoid unexpected behavior.
-	if (env.MODE === "production") {
-		throw error;
+	// But only for development, in production/preview builds we should throw an error to avoid unexpected behavior.
+	if (env.MODE === "production" || env.MODE === "preview") {
+		throw new Error("Environment variable GIT_COMMIT_REF is not set!");
 	}
 }
 

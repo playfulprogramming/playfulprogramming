@@ -38,7 +38,7 @@ On the left there's our plain form, and on the right what we wanna achieve just 
 ![plain forms before after](./bp422igh6pdalkwakar3.jpg)
 Here we got its template
 
-```html
+```angular-html
 <form [formGroup]="plainForm" (ngSubmit)="showSubmitObject()">
     <label>A text control</label><br>
     <input formControlName="text" selectablePlain><hr>

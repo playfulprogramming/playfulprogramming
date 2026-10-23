@@ -114,7 +114,7 @@ Inside this new component factory, we first create a component instance using th
 
 Earlier in this article, we discussed that component features are not exposed in any public API. If they were, we would be able to apply our username component feature something like demonstrated by the example in Listing 2.
 
-```ts
+```angular-ts
 // profile.component.ts
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -203,7 +203,7 @@ export type ComponentDefFeatures = ReadonlyArray<ComponentDefFeature>;
 
 Going back  to our profile component example, we can use our custom decorator like shown in Listing 5.
 
-```ts
+```angular-ts
 // profile.component.ts
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -260,7 +260,7 @@ export function withUsername(inputName = 'username$'): ComponentDefFeature {
 
 For completeness, Listing 7 demonstrates how to pass an option to a component feature factory.
 
-```ts
+```angular-ts
 // profile.component.ts
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';

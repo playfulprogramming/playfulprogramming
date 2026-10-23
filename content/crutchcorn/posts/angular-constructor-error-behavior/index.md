@@ -10,7 +10,7 @@
 
 Let's build out a small Angular application:
 
-```typescript
+```angular-ts
 import 'zone.js/dist/zone';
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -99,7 +99,7 @@ This error in particular is [a `TypeError` of `crutchcorn is not a function`](ht
 
 Let's replace this with a `throw` type to see more directly what's happening:
 
-```typescript
+```angular-ts
 import 'zone.js/dist/zone';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { Component } from '@angular/core';
@@ -150,7 +150,7 @@ You'll see that neither `Before` nor `After` renders anymore. Why is that?
 
 If we take a step back for a moment and [look at how Angular's compiler works](https://blog.angular.dev/how-the-angular-compiler-works-42111f9d2549), you'll learn that Angular takes a component template like this:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'app-cmp',
   template: '<span>Your name is {{name}}</span>',
@@ -380,7 +380,7 @@ class ErrorBoundary extends React.Component {
 
 Luckily, while `<component-here/>` will not recover from an error, we can manually wrap our internal `createComponent` call in a `try/catch` thanks to [Angular's `ViewContainerRef` API](/posts/angular-templates-start-to-source):
 
-```typescript
+```angular-ts
 import 'zone.js/dist/zone';
 import { NgIf } from '@angular/common';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -452,7 +452,7 @@ bootstrapApplication(AppComponent);
 
 We can even expand our `error-catcher` component to handle and accept inputs and outputs:
 
-```typescript
+```angular-ts
 import { ErrorBoundary } from './error-boundary.component';
 
 @Component({
@@ -536,7 +536,7 @@ If you've been following the Angular developer-experience closely, you'll know t
 
 They look something like this:
 
-```html
+```angular-html
 @if (user.isHuman) {
   <human-profile [data]="user" />
 } @else if (user.isRobot) {
@@ -548,7 +548,7 @@ They look something like this:
 
 This is equivalent to the following:
 
-```html
+```angular-html
 <human-profile *ngIf="user.isHuman; else elseOne" [data]="user" />
 <ng-template #elseOne>
 	<robot-profile *ngIf="user.isRobot; else elseTwo" [data]="user" />
@@ -560,7 +560,7 @@ This is equivalent to the following:
 
 My proposal for the long-term fix is that we add in a new `@try`/`@catch` syntax into the core of Angular's Control Flow primitives:
 
-```html
+```angular-html
 @try {
 	<error-throwing-component/>
 } @catch (e: any) {

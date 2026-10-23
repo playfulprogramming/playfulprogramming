@@ -281,7 +281,7 @@ As we touched on shortly, if we simply try to pass an array to an attribute usin
 
 If we attempted to pass the array ``["test", "another", "hello"]`` from JS to an attribute, the output would look like this:
 
-```javascript
+```html
 <script>
   class MyComponent extends HTMLElement {
       connectedCallback() {

@@ -56,7 +56,7 @@ export class NbaService {
 
 Perfect, we can see the data on the page. We use the Date pipe operator to better format the processed date.
 
-```html
+```angular-html
 <ul *ngIf="players$ | async as players">
   <li *ngFor="let player of players">
     {{ player.fullName }} {{ player.processed | date: 'medium' }}

@@ -15,7 +15,7 @@ For example, did you know about Angular directives?
 
 Directives allow you to bind to an element via an attribute and change the behavior of said element.
 
-```typescript
+```angular-ts
 import { Component, Directive } from '@angular/core';
 
 @Directive({
@@ -39,7 +39,7 @@ class AppComponent {}
 
 Think of them as components without templates. They can use lifecycle methods:
 
-```typescript
+```angular-ts
 @Directive({
   selector: '[alertOnDestroy]',
   standalone: true,
@@ -68,7 +68,7 @@ class AppComponent {
 
 Store state:
 
-```typescript
+```angular-ts
 @Directive({
   selector: '[listenForEvents]',
   standalone: true,
@@ -154,7 +154,7 @@ class LogElDirective {
 
 While this doesn't do anything yet, it logs the element to the `console.log` method. Let's instead change this code to make the attached element have a red background and white text:
 
-```typescript
+```angular-ts
 import { Component, Directive, ElementRef, inject } from '@angular/core';
 
 const injectAndMakeRed = () => {
@@ -188,7 +188,7 @@ class AppComponent {}
 
 While the `inject` method works, there's a better way to bind an element: the `host` property.
 
-```typescript
+```angular-ts
 @Directive({
   selector: '[red]',
   standalone: true,
@@ -217,7 +217,7 @@ Here, `host` refers to the element the directive is attached to. We can use it t
 
 `host` isn't just useful for static attribute bindings either, you can use it with attribute binding and event listening using the same `[]` and `()` syntax you're familiar with:
 
-````typescript
+````angular-ts
 @Directive({
   selector: '[red]',
   standalone: true,
@@ -247,7 +247,7 @@ class AppComponent {}
 
 Because components are [just like directives but with a template, complete with a host element](/posts/angular-templates-dont-work-how-you-think), we can use the same `host` directive on components as well as directives:
 
-```typescript
+```angular-ts
 @Component({
   selector: 'red-div',
   standalone: true,
@@ -278,7 +278,7 @@ class AppComponent {}
 
 This will output to something akin to the following Angular template:
 
-```html
+```angular-html
 <red-div
 	[style]="selected ? 'background-color: red; color: white;' : ''"
   (click)="selected = !selected"

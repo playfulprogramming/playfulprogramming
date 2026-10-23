@@ -26,7 +26,7 @@ Now, in your project, you can use it and get all the info required to debug your
 
 This tool is simple to use. In your application, you must import it and render it where you render the `ReactQueryProvider`.
 
-```ts
+```tsx
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from "react";
