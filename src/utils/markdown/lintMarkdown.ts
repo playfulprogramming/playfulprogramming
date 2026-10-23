@@ -14,7 +14,7 @@ export async function lintMarkdown<Stub extends MarkdownFileInfo>(
 		const post = await read(stub, file);
 		await getMarkdownHtml(post, file);
 	} catch (error) {
-		// Only fatal diagnostics recorded on this file can become lint results.
+		// Only fail if a non-linting error is encountered
 		if (
 			!(error instanceof VFileMessage) ||
 			!error.fatal ||

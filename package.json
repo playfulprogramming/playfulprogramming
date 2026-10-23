@@ -112,7 +112,6 @@
 		"json5": "^2.2.3",
 		"junk": "^4.0.1",
 		"katex": "catalog:",
-		"kleur": "^4.1.5",
 		"knip": "^6.33.0",
 		"lightningcss": "^1.33.0",
 		"lint-staged": "^17.4.1",

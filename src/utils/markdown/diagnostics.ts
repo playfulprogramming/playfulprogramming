@@ -1,7 +1,7 @@
 import type { VFile } from "vfile";
-import * as kleur from "kleur/colors";
 import * as path from "path";
 import env from "#src/constants/env/index.ts";
+import { styleText } from "util";
 
 function messagePath(file: VFile, message: VFile["messages"][number]) {
 	const filePath = message.file || file.path;
@@ -56,18 +56,17 @@ function reportMessages(file: VFile, contents: string) {
 		} else {
 			// Otherwise, print something readable to the console
 			const color =
-				level === "error"
-					? kleur.red
-					: level === "warning"
-						? kleur.yellow
-						: kleur.blue;
-			console.error(color(`[${level.toUpperCase()}] ${message.reason}`));
+				level === "error" ? "red" : level === "warning" ? "yellow" : "blue";
+			console.error(
+				styleText(color, `[${level.toUpperCase()}] ${message.reason}`),
+			);
 			if (start?.offset !== undefined && end?.offset !== undefined) {
 				console.log(`\t${contents.slice(start.offset, end.offset)}`);
 				console.log("\t^");
 			}
 			console.log(
-				kleur.gray(
+				styleText(
+					"gray",
 					`\tin ${filePath || "<markdown>"}${message.line === undefined ? "" : `:${message.line}`}`,
 				),
 			);
