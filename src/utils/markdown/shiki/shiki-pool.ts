@@ -1,3 +1,4 @@
+// TODO(shiki-removal): delete with worker.ts once rehype-transform.ts no longer calls runShiki
 import type { Element } from "hast";
 import fs from "fs/promises";
 import esbuild from "esbuild";

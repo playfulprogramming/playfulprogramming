@@ -1,9 +1,12 @@
 @use "./tokens/index" as *;
+@use "@twinkleplop/theme-github";
 
+// TODO(shiki-removal): rename --shiki_padding, which twinkleplop lines use too
 :root {
 	--shiki_padding: 12px;
 }
 
+// TODO(shiki-removal): remove the .shiki rules and --shiki-dark variables below
 // Prevents the --shiki variables from inheriting
 // (otherwise all nested spans apply the same background as its parent)
 .shiki * {
@@ -56,7 +59,8 @@ pre code {
 	font-family: var(--pfp-font-family-code);
 }
 
-pre code .line::before {
+// TODO(shiki-removal): keep only .l
+pre code :is(.line, .l)::before {
 	content: counter(step);
 	counter-increment: step;
 
@@ -73,10 +77,12 @@ pre code .line::before {
 	white-space: pre;
 }
 
-pre code .line.highlight::before {
+// TODO(shiki-removal): keep only .l
+pre code :is(.line, .l).highlight::before {
 	color: var(--foreground_medium);
 }
 
+// TODO(shiki-removal): remove
 pre.shiki .line {
 	// must be the same value as used for line-height
 	min-height: 1.7em;
@@ -84,24 +90,43 @@ pre.shiki .line {
 	display: block;
 }
 
+// twinkleplop keeps a newline between line spans, so a full-width
+// inline-block lets that newline break the line instead of adding a blank one
+pre.twinkleplop .l {
+	min-height: 1.7em;
+	padding: 0 var(--shiki_padding);
+	display: inline-block;
+	width: 100%;
+	box-sizing: border-box;
+}
+
 /**
  * When [!code highlight] is used, add borders/background to each line
  */
-pre.shiki .line.highlight {
+// TODO(shiki-removal): drop pre.shiki .line.highlight and --shiki-dark-bg
+pre.shiki .line.highlight,
+pre.twinkleplop .l.highlight {
 	font-weight: bold;
 	background-color: var(--tint_primary_none);
 	--shiki-dark-bg: var(--tint_primary_none);
 }
 
+// TODO(shiki-removal): drop the pre.shiki .line selectors
 pre.shiki .line:not(.highlight) + .line.highlight,
-pre.shiki .line:first-child.highlight {
+pre.twinkleplop .l:not(.highlight) + .l.highlight,
+pre.shiki .line:first-child.highlight,
+pre.twinkleplop .l:first-child.highlight {
 	border-top: 2px dashed var(--primary_medium);
 }
 
-pre.shiki .line.highlight + .line:not(.highlight) {
+// TODO(shiki-removal): drop pre.shiki .line
+pre.shiki .line.highlight + .line:not(.highlight),
+pre.twinkleplop .l.highlight + .l:not(.highlight) {
 	border-top: 2px dashed var(--primary_medium);
 }
 
-pre.shiki .line:last-child.highlight {
+// TODO(shiki-removal): drop pre.shiki .line
+pre.shiki .line:last-child.highlight,
+pre.twinkleplop .l:last-child.highlight {
 	border-bottom: 2px dashed var(--primary_medium);
 }

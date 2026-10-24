@@ -6,7 +6,8 @@ code {
 	counter-increment: step 0;
 }
 
-code .line::before {
+// TODO(shiki-removal): keep only .l
+code :is(.line, .l)::before {
 	content: counter(step);
 	counter-increment: step;
 	width: 1rem;
@@ -16,6 +17,7 @@ code .line::before {
 	color: rgba(115, 138, 148, 0.4);
 }
 
+// TODO(shiki-removal): remove
 .dark .shiki,
 .dark .shiki span {
 	color: var(--shiki-dark) !important;

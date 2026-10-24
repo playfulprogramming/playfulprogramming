@@ -9,7 +9,9 @@
 	gap: 8px;
 }
 
-.container > pre:global(.shiki) {
+// TODO(shiki-removal): drop pre.shiki
+.container > pre:global(.shiki),
+.container > pre:global(.twinkleplop) {
 	all: unset;
 	padding: 8px;
 	border-radius: var(--corner-radius_xl);
