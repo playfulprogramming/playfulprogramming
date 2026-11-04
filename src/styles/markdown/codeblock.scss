@@ -20,7 +20,9 @@
 	--code-block_border_width: var(--border-width_l);
 }
 
+// TODO(shiki-removal): drop pre.shiki, the !important and --shiki-dark-bg
 pre.shiki,
+pre.twinkleplop,
 pre:not([class]) {
 	margin: var(--site-spacing) 0;
 	padding: var(--code-block_padding);

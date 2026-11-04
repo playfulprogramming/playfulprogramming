@@ -89,7 +89,9 @@ Tables in Playful Programming are the same as in GitHub Flavored Markdown, but w
 
 ### Code Blocks
 
-We use [Shiki](https://shiki.style/) to highlight code blocks in markdown files. This means that we support over 100 languages and light and dark mode themes.
+<!-- TODO(shiki-removal): drop Shiki from this paragraph -->
+
+We use [twinkleplop](https://twinkleplop.pngwn.at) to highlight code blocks in markdown files, and [Shiki](https://shiki.style/) for languages twinkleplop doesn't support yet. This means that we support over 100 languages and light and dark mode themes.
 
 We also support the following features:
 

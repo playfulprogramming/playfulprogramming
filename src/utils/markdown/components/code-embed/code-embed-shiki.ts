@@ -1,3 +1,4 @@
+// TODO(shiki-removal): highlight code embeds with twinkleplop too
 import { createHighlighterCore } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 import { type BundledLanguage, bundledLanguages } from "shiki/langs";

@@ -13,6 +13,7 @@ import { rehypeParseComponents } from "../rehype-parse-components.ts";
 import { rehypeTransformComponents } from "../rehype-transform-components.ts";
 import { transformMermaid } from "./rehype-transform.ts";
 
+// TODO(shiki-removal): drop this mock with shiki-pool.ts
 vi.mock("../../shiki/shiki-pool.ts", () => ({
 	runShiki: vi.fn(async (node: Element) => node),
 }));

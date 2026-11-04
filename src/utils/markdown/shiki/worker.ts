@@ -1,3 +1,4 @@
+// TODO(shiki-removal): delete with shiki-pool.ts
 import rehypeShiki, { type RehypeShikiOptions } from "@shikijs/rehype";
 import type { Root, Element } from "hast";
 import { find } from "unist-util-find";

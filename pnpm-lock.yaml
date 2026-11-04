@@ -135,6 +135,72 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.102.8
         version: 5.102.8(@preact/compat@18.3.1(preact@10.29.8))
+      '@twinkleplop/annotation':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/bash':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/css':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/diff':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/go':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/html':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/http':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/javascript':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/json':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/jsonc':
+        specifier: ^0.1.2
+        version: 0.1.2
+      '@twinkleplop/markdown':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/markdown-core':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/python':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/rust':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/shellsession':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/sql':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/svelte':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/theme-github':
+        specifier: ^0.2.2
+        version: 0.2.2
+      '@twinkleplop/toml':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/tsx':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/typescript':
+        specifier: ^0.1.5
+        version: 0.1.5
+      '@twinkleplop/yaml':
+        specifier: ^0.1.5
+        version: 0.1.5
       '@webcontainer/api':
         specifier: ^1.6.4
         version: 1.6.4
@@ -2577,6 +2643,75 @@ packages:
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
+
+  '@twinkleplop/annotation@0.1.5':
+    resolution: {integrity: sha512-UyM3PG2MEAS2nco+D7ujVB7U95wVZb+/FXE8fvrD5zIdhRe5xtzjrYag1IueGaaqhKsnhKrIwlN9wPAIcj+lHg==}
+
+  '@twinkleplop/bash@0.1.5':
+    resolution: {integrity: sha512-LAfsYYtjI3N38BMBcfg7ZT2Nxeql2zyezfG+aYtptgNt6D0dmKkysDYGbnGJY2885Woz1i1k9iif4/R6D3bizA==}
+
+  '@twinkleplop/core@0.2.2':
+    resolution: {integrity: sha512-xJpsL0QdgZ0gKDkTW+S1FAzVzyTns+jKPXER52vc/69qCe6gXCpsoclhTjERnFUbkZgTBEA/iVJxaufhY8Oqrw==}
+
+  '@twinkleplop/css@0.1.5':
+    resolution: {integrity: sha512-dL3uPkpsqujMYepE2uzv7jsluvhYiJrV8fhYZsEl0fMm8F0ZimO2uY4r1FsppfmzrUUsYIztQVRfe+qBh9gFPg==}
+
+  '@twinkleplop/diff@0.1.5':
+    resolution: {integrity: sha512-3Knwu8X5NCyBeU5Vn+dNGX09Ya1Ka0PIMcdry4AwplABk4RgzPlShlzVu+L9hqZw/VXlDZ5199lq219qHFVKbw==}
+
+  '@twinkleplop/go@0.1.5':
+    resolution: {integrity: sha512-1/iY7ExHsXEdVqLfzao9chqST+sBX6EQ7gnSMckDMF9aFRntcSXd1+RZx1CI5rvvxG2I8LExkd6ijEsez71UYA==}
+
+  '@twinkleplop/html@0.1.5':
+    resolution: {integrity: sha512-Yqg0G4N5cLwD+FS7DJlB1g+z5qGdb+ww3sxxo5ihzeg0LV065guDckans8YPXGxUT3juj/lEhv5m5ts1ljfNHw==}
+
+  '@twinkleplop/http@0.1.5':
+    resolution: {integrity: sha512-LuHlmKfQl6r/jV1OUNyf7h7e+blBHSpClesi87zbC9tDR6+wTQjkD/Jk7UPg5qau6e1kb9EKpxUinwvj0E5+lA==}
+
+  '@twinkleplop/javascript@0.1.5':
+    resolution: {integrity: sha512-0gynjT75JRAuR9EkD/ljRCSJ+qdWjTNXLYUptmwncsfiyHEulfHbSr0k7uo5GmxkvyOx08bqTxZdFlrBzmJN0w==}
+
+  '@twinkleplop/json@0.1.5':
+    resolution: {integrity: sha512-qXB8HgDThT8dYHT/4+S/EcQK4R8qbi6Ezb/h5bZEUK2yh0G3170W9QXF8iDp1JChQ9upyn8BivIAwQZGgcx28g==}
+
+  '@twinkleplop/jsonc@0.1.2':
+    resolution: {integrity: sha512-8fpuDckwTUEQ92XZfKYOrhtHxFqjP1RQd2U+n22+yWguRmdHgkToLMtSodWVAg/AnSbcolUp7cxRp2QqqDyrng==}
+
+  '@twinkleplop/markdown-core@0.1.5':
+    resolution: {integrity: sha512-znzz7XFyDakQ4FguwOJwCCXFP9EQAhmdTiQKfdqn/hQ68lWLT9fWnUZpmX/dzZEIhSPQXFHrw9mfaczw/Dm17A==}
+
+  '@twinkleplop/markdown@0.1.5':
+    resolution: {integrity: sha512-F46rudO+UJcsHX8glyne0+XQyqbYu7IptJebviL4if4AcTZoQW5LyEuyRrG/GASCXy7fhusbNmH+fhTnpduvcA==}
+
+  '@twinkleplop/python@0.1.5':
+    resolution: {integrity: sha512-kVpoUlerZdiV0yeVPgq02IC6g1rqJYMcp98CWDgRIKRpNM0SkpB09NHW4Jm/8BRLu4SQJdw+HAVGiqfvm8uyLA==}
+
+  '@twinkleplop/rust@0.1.5':
+    resolution: {integrity: sha512-B6BU1OQIcnRfpNy8CMPOK3/qi8hgLsdiaV/Xw4/WmiZORFslv7RQksMy+oBCBgwUckLHnr0PbNwSh1xbglUY0g==}
+
+  '@twinkleplop/shellsession@0.1.5':
+    resolution: {integrity: sha512-L95nEbH4pb0zI7IWLVUMVfczPXBDaH6cDFEuk2bs18OtOrczpL4IbQBhioaGN64V+30dCNtsRW6ikKgMTJB4Rw==}
+
+  '@twinkleplop/sql@0.1.5':
+    resolution: {integrity: sha512-XQo0IquqBhO3KbnFfWYkup95Pc5m8qsJdX+80nJFrtf0iPajPqEEF9kVAsErT2ky6CbOb9LnKNzgkGhBpJ1C/A==}
+
+  '@twinkleplop/svelte@0.1.5':
+    resolution: {integrity: sha512-3iFVdusZBMeG8GRB5AjqcspFQRBCJdN7dt4P5P1l8DZwetSqqsTXHbOQfllHyEp7pr92FWmBtjL5oiZc2bBSEg==}
+
+  '@twinkleplop/theme-github@0.2.2':
+    resolution: {integrity: sha512-dQdR+BdV2WjjoGjZNDg0pq5+DKhuEp0QbOKgvK/q25Qw0/14XIOHi7sHBiIGwqvYiWWgGTODc2lS4pIoP7Q7NQ==}
+
+  '@twinkleplop/toml@0.1.5':
+    resolution: {integrity: sha512-2ugzWapMyQxIvpoRonZwCqMUwQF2Ww158JfqG3IAke+HyO5SyyCrUt8dk3N+ebsa7RBqKTiFe0Am6wYs+J6JuA==}
+
+  '@twinkleplop/tsx@0.1.5':
+    resolution: {integrity: sha512-0rfEU3PZ5+SZAT6dtXxIN/pxgtXk9/sB8nRI50rWcPzG1vuhdbaFfGkTUJuuxnsSWGBeXF5d48Dh5v+C0u6riA==}
+
+  '@twinkleplop/typescript@0.1.5':
+    resolution: {integrity: sha512-OFrw5unMFNQOOy/TvXU7X2kMmzWn/Nn3F9HdB+kkfFyYgmMaYoyXbRIBZQjVebQqp0hy0Jzfv4DtJi3FrBefDg==}
+
+  '@twinkleplop/yaml@0.1.5':
+    resolution: {integrity: sha512-KQaPgBirppuDByTWV2+19ezXiWy7QjpL7Qfcike085Yvo5EQDWt6jzqMPs3fCtIfSnsxJGmfvnlW7jNcKE52wg==}
 
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
@@ -8982,6 +9117,110 @@ snapshots:
   '@testing-library/user-event@14.6.7(@testing-library/dom@10.4.1)':
     dependencies:
       '@testing-library/dom': 10.4.1
+
+  '@twinkleplop/annotation@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/bash@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/core@0.2.2': {}
+
+  '@twinkleplop/css@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/diff@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/go@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/html@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+      '@twinkleplop/css': 0.1.5
+      '@twinkleplop/javascript': 0.1.5
+
+  '@twinkleplop/http@0.1.5':
+    dependencies:
+      '@twinkleplop/bash': 0.1.5
+      '@twinkleplop/core': 0.2.2
+      '@twinkleplop/html': 0.1.5
+      '@twinkleplop/javascript': 0.1.5
+      '@twinkleplop/json': 0.1.5
+
+  '@twinkleplop/javascript@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+      '@twinkleplop/css': 0.1.5
+      '@twinkleplop/html': 0.1.5
+
+  '@twinkleplop/json@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/jsonc@0.1.2':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/markdown-core@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/markdown@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/python@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/rust@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/shellsession@0.1.5':
+    dependencies:
+      '@twinkleplop/bash': 0.1.5
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/sql@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/svelte@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+      '@twinkleplop/css': 0.1.5
+      '@twinkleplop/javascript': 0.1.5
+
+  '@twinkleplop/theme-github@0.2.2':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/toml@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+
+  '@twinkleplop/tsx@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+      '@twinkleplop/javascript': 0.1.5
+      '@twinkleplop/typescript': 0.1.5
+
+  '@twinkleplop/typescript@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
+      '@twinkleplop/javascript': 0.1.5
+
+  '@twinkleplop/yaml@0.1.5':
+    dependencies:
+      '@twinkleplop/core': 0.2.2
 
   '@tybys/wasm-util@0.10.3':
     dependencies:

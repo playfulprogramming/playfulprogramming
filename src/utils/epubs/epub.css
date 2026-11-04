@@ -19,7 +19,8 @@ code {
 	counter-increment: step var(--codeblock-line-start, 0);
 }
 
-code .line::before {
+/* TODO(shiki-removal): keep only .l */
+code :is(.line, .l)::before {
 	content: counter(step);
 	counter-increment: step;
 	width: 4ch;
@@ -37,7 +38,9 @@ pre code {
 	white-space: normal;
 }
 
-pre.shiki span.line {
+/* TODO(shiki-removal): drop pre.shiki span.line */
+pre.shiki span.line,
+pre.twinkleplop span.l {
 	display: block;
 	white-space: pre-wrap;
 }
