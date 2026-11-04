@@ -8,6 +8,10 @@
 }
 ---
 
+> **Using an agent?:**
+> I've [added a skill to my personal skill collection to help fetch and sync data with the server better.](https://github.com/crutchcorn/skills)
+> It follows the outline of this article, but adds more than just this to your agent's capabilities.
+
 Applications regularly find themselves needing to implement a common problem: Provide the user with a default value from the server, but allow them to overwrite the defaults.
 
 The intuitive code sample many picture in their mind often looks something like this:
@@ -167,3 +171,5 @@ function App() {
 ```
 
 In fact, this guidance allows us to remove a `useEffect` in both code samples; in line with [React's official "You Might Not Need an Effect" documentation page](https://react.dev/learn/you-might-not-need-an-effect).
+
+Hopefully, this approach clarifies how to manage client and server state in a more predictable and efficient manner, reducing the need for unnecessary effects and keeping your components simpler and easier to reason about.
