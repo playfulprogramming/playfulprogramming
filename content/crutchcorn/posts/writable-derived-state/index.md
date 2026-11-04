@@ -88,7 +88,7 @@ function App() {
 
 But "oh no!", once we refresh the page it reset the user data; why?
 
-<iframe data-frame-title="Refresh Fail" src="pfp-code:./refresh-fail-1?template=node&embed=1&file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe data-frame-title="Refresh Fail" src="pfp-code:./refresh-fail-1?template=node&embed=1&file=src%2FApp.tsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Well, it's because when we refresh the server data, we have few/no controls to retain the user data. This is the problem with "syncing" client data from the server: We're explicitly saying that the server's state should win all updates.
 
