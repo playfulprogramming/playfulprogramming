@@ -2,7 +2,7 @@
 {
   title: "Writable Derived State: Stop Synchronizing State",
   description: "Stop syncing server data into React state. Learn how writable derived state keeps server defaults current while preserving user edits until they're reset.",
-  published: "2026-11-10T21:52:59.284Z",
+  published: "2026-11-03T21:52:59.284Z",
   tags: ["react", "javascript", "webdev"],
   license: "cc-by-4",
 }
